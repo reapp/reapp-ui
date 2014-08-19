@@ -1,0 +1,27 @@
+.page {
+  position: absolute;
+  z-index: 1;
+  transition: all .5s linear;
+}
+
+.page-enter {
+  right: -100%;
+  z-index: 1;
+  transition: all .5s linear;
+}
+
+.page-enter-active {
+  right: 0%;
+  z-index: 2;
+}
+
+.page-leave {
+  left: -100%;
+  z-index: 1;
+  transition: all .5s linear;
+}
+
+.page-leave-active {
+  left: 0%;
+  z-index: 2;
+}

@@ -1,0 +1,40 @@
+{
+  "author": "Nate Wienert",
+  "name": "reactor",
+  "description": "A React Isomorphic App",
+  "version": "0.3.0",
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "engines": {
+    "node": "~0.10.7"
+  },
+  "main": "./app/server.js",
+  "browser": "./app/client.js",
+  "scripts": {
+    "start": "node-dev --no-deps server.js",
+    "build": "webpack & gulp",
+    "watch": "gulp watch && webpack --watch",
+    "first-run": "npm install && bower install && gulp"
+  },
+  "dependencies": {
+    "envify": "~1.2",
+    "react": "~0.11",
+    "express": "~3.4",
+    "node-jsx": "~0.10",
+    "jsx-loader": "~0.10",
+    "reactor-core": "~0.4",
+    "webpack": "~1.1",
+    "webpack-dev-middleware": "~1.0",
+    "superagent": "~0.18.2",
+    "fibers": "~1.0.1"
+  },
+  "devDependencies": {
+    "bower": "1.2",
+    "mocha": "0.14",
+    "expect.js": "0.1",
+    "node-dev": "~2.3.0"
+  }
+}
