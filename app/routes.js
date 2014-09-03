@@ -1,7 +1,7 @@
 module.exports = {
 
-  '/': require('./pages/home'),
+  '/': require('./components/home'),
 
-  '404': require('./pages/404')
+  '404': require('./components/404')
 
 }

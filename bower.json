@@ -15,7 +15,7 @@
   ],
   "dependencies": {
     "normalize-css": "~2.1.3",
-    "gridism": "*",
+    "gss": "*",
     "scroller": "*"
   }
 }

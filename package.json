@@ -21,20 +21,23 @@
   },
   "dependencies": {
     "envify": "~1.2",
-    "react": "~0.11",
+    "react": "~0.11.1",
     "express": "~3.4",
     "node-jsx": "~0.10",
     "jsx-loader": "~0.10",
-    "reactor-core": "~0.4",
+    "reactor-core": "~0.4.1",
     "webpack": "~1.1",
     "webpack-dev-middleware": "~1.0",
     "superagent": "~0.18.2",
-    "fibers": "~1.0.1"
+    "fibers": "~1.0.1",
+    "gss-engine": "0.0.5",
+    "agave": "~0.4.6"
   },
   "devDependencies": {
     "bower": "1.2",
     "mocha": "0.14",
     "expect.js": "0.1",
-    "node-dev": "~2.3.0"
+    "node-dev": "~2.3.0",
+    "gulp": "~3.8.7"
   }
 }

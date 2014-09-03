@@ -26,7 +26,6 @@ module.exports = React.createClass({
           <script src="/bower/gss/dist/gss.js"></script>
         </head>
         <body onClick={this.props.onClick}>
-          <a href="/">Home</a>
           {this.props.children}
         </body>
       </html>

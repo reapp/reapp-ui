@@ -13,9 +13,11 @@ var ENV       = process.env.NODE_ENV || 'development';
 var PORT      = process.env.NODE_PORT || 3111;
 var ASSET_DIR = '/assets';
 
+var packedApp = webpack(wpConfig[0]);
+
 // Serve JS bundle in dev
 if (ENV == 'development')
-  Server.use(wpMiddleware(webpack(wpConfig), {
+  Server.use(wpMiddleware(packedApp, {
     publicPath: ASSET_DIR + '/js',
     quiet: true
   }));
