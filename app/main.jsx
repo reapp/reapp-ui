@@ -1,10 +1,10 @@
-let React  = require('react');
-let Layout = require('./components/layout');
+var React  = require('react');
+var Layout = require('./components/layout');
 
-let Agave = require('agave');
+var Agave = require('agave');
 Agave.enable('r');
 
-let App = React.createClass({
+var App = React.createClass({
 
   render() {
     return (

@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var React = require('react');
 
 module.exports = React.createClass({
@@ -19,7 +18,7 @@ module.exports = React.createClass({
     divStyle.zIndex = this.props.active ? 1 : 0;
 
     return (
-      <div class="image" style={divStyle}>
+      <div className="image" style={divStyle}>
         <img src={this.props.src} style={this.style.img} />
       </div>
     );

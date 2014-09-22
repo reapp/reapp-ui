@@ -1,6 +1,5 @@
-/** @jsx React.DOM */
-let React = require('react');
-let Image = require('./image_component');
+var React = require('react');
+var Image = require('./image_component');
 
 module.exports = React.createClass({
 
@@ -32,19 +31,19 @@ module.exports = React.createClass({
   },
 
   onMouseMove(e) {
-    let which = Math.round(this.state.numImages * ( e.clientX / this.state.width ) );
+    var which = Math.round(this.state.numImages * ( e.clientX / this.state.width ) );
     this.setState({ activeImage: which });
   },
 
   renderImage(image, index) {
-    let active = index === this.state.activeImage;
+    var active = index === this.state.activeImage;
     return <Image key={index} src={image.image_url} active={active} />;
   },
 
   render() {
     return (
       <div ref="images" id="images" style={this.style} onMouseMove={this.onMouseMove}>
-        {this.props.images.map(renderImage.bind(this))}
+        {this.props.images.map(this.renderImage)}
       </div>
     );
   }
