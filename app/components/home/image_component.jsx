@@ -14,13 +14,9 @@ module.exports = React.createClass({
     }
   },
 
-  layout: {
-  },
-
   render: function() {
     var divStyle = this.style.div;
-    if (this.props.active) divStyle.zIndex = 1;
-    else divStyle.zIndex = 0;
+    divStyle.zIndex = this.props.active ? 1 : 0;
 
     return (
       <div class="image" style={divStyle}>

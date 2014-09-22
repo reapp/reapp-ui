@@ -20,7 +20,7 @@
     "react": "^0.11.1",
     "react-time": "^1.0.0",
     "superagent": "~0.18.2",
-    "webpack": "^1.3.2-beta9",
+    "webpack": "^1.4.1-beta1",
     "css-loader": "^0.7.0",
     "extract-text-webpack-plugin": "^0.2.3",
     "html-loader": "^0.2.2",
@@ -33,7 +33,8 @@
     "stylus-loader": "^0.4.0",
     "webpack-dev-server": "^1.4.7",
     "json-loader": "~0.5.1",
-    "react-router": "git://github.com/rackt/react-router.git#async-props"
+    "react-router": "git://github.com/rackt/react-router.git#async-props",
+    "reqwest": "~1.1.2"
   },
   "devDependencies": {
     "mocha": "0.14",

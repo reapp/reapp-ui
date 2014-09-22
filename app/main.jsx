@@ -1,13 +1,12 @@
-/** @jsx React.DOM */
-var React  = require('react');
-var Layout = require('./components/layout');
+let React  = require('react');
+let Layout = require('./components/layout');
 
-var Agave = require('agave');
+let Agave = require('agave');
 Agave.enable('r');
 
-var App = React.createClass({
+let App = React.createClass({
 
-  render: function() {
+  render() {
     return (
       <Layout title="hello">
         <this.props.activeRouteHandler />
