@@ -1,13 +1,78 @@
+Readme from [react-starter](https://github.com/webpack/react-starter):
+
 ## Installation
 
-    npm run first-run
+Just clone this repo and change the `origin` git remote.
 
-And start it:
+``` text
+npm install
+```
 
-    npm start
 
-And head to [localhost:3111](localhost:3111).
+## Development server
 
-If you get an error regarding EMFILE, this is because browserify is trying to watch too many files for your OS. This is a temporary fix:
+``` text
+npm run dev-server
+http://localhost:2992/
+```
+
+The configuration is `webpack-dev-server.config.js`.
+
+Static HTML is served from `config/dev-server-public`.
+
+It automatically recompiles and refreshes the page when files are changed.
+
+
+## Hot Module Replacement development server
+
+``` text
+npm run hot-dev-server
+http://localhost:2992/
+```
+
+The configuration is `webpack-hot-dev-server.config.js`.
+
+Static HTML is served from `config/dev-server-public`.
+
+It automatically recompiles when files are changed. When a hot-replacement-enabled file is changed (i. e. stylesheets or React components) the module is hot-replaced. If Hot Replacement is not possible the page is refreshed.
+
+Hot Module Replacement has a performance impact on compilation.
+
+If you get an error EMFILE, run this:
 
     ulimit -n 10000; npm start
+
+
+## Production compilation and server
+
+``` text
+npm run build
+npm start
+http://localhost:8080/
+```
+
+The configuration is `webpack-production.config.js`.
+
+The server is at `lib/server.js`
+
+The production setting builds two configurations: one for the client (`build/public`) and one for the serverside prerendering (`build/prerender`).
+
+> WIP: Serverside data fetching and embedding data into served HTML.
+
+
+## Build visualization
+
+After a production build you may want to visualize you modules and chunks tree.
+
+Use the [analyse tool](http://webpack.github.io/analyse/) with the file at `build/stats.json`.
+
+## Loaders and file types
+
+Many file types are preconfigured, but not every loader is installed. If you get an error like `Cannot find module "xxx-loader"`, you'll need to install the loader with `npm install xxx-loader --save` and restart the compilation.
+
+## License
+
+Copyright (c) 2012-2014 Tobias Koppers Gittip donate button
+
+MIT (http://www.opensource.org/licenses/mit-license.php)
+

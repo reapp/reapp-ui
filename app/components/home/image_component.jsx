@@ -1,26 +1,32 @@
 /** @jsx React.DOM */
 var React = require('react');
 
-var ImageBox = React.createClass({
+module.exports = React.createClass({
 
   style: {
-    width: '100%'
+    div: {
+      position: 'absolute',
+      zIndex: 0
+    },
+
+    img: {
+      width: '100%'
+    }
   },
 
   layout: {
   },
 
   render: function() {
-    var image = this.props.image;
+    var divStyle = this.style.div;
+    if (this.props.active) divStyle.zIndex = 1;
+    else divStyle.zIndex = 0;
 
     return (
-      <div class="image">
-        <h1>{image.title}</h1>
-        <img src={"http://localhost:3111/images/home/" + image.image_url} />
+      <div class="image" style={divStyle}>
+        <img src={this.props.src} style={this.style.img} />
       </div>
     );
   }
 
 });
-
-module.exports = ImageBox;

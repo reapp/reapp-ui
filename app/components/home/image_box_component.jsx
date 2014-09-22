@@ -1,30 +1,53 @@
 /** @jsx React.DOM */
-var Reactor = require('react');
+var React = require('react');
 var Image = require('./image_component');
 
-module.exports = Reactor.createClass({
+module.exports = React.createClass({
 
-  style: {
-    '.images': {
-      width: '100%'
-    }
+  propTypes: {
+    images: React.PropTypes.array.isRequired
   },
 
-  layout: {
+  style: {
+    width: '100%'
+  },
+
+  getInitialState: function() {
+    return {
+      activeImage: 0,
+      numImages: this.props.images.length,
+      width: 0
+    };
+  },
+
+  componentDidMount: function() {
+    window.addEventListener('resize', this.handleWindowSize);
+    this.handleWindowSize();
+  },
+
+  handleWindowSize: function() {
+    this.setState({
+      width: this.refs.images.getDOMNode().offsetWidth
+    });
+  },
+
+  onMouseMove: function(e) {
+    var which = Math.round(this.state.numImages * ( e.clientX / this.state.width ) );
+    this.setState({ activeImage: which });
   },
 
   render: function() {
+    var base = "http://localhost:2992/images/home/";
+
     return (
-      <div id="images">
-        {this.props.images.map(function(image) {
+      <div ref="images" id="images" style={this.style} onMouseMove={this.onMouseMove}>
+        {this.props.images.map(function(image, index) {
+          var fullSrc = base + image.image_url;
+          var active = index === this.state.activeImage;
           return (
-            <div class="image">
-              <div>{image.getKeys()}</div>
-              <h1>{image.title}</h1>
-              <img src={"http://localhost:3111/images/home/" + image.image_url} />
-            </div>
+            <Image src={fullSrc} active={active} />
           );
-        })}
+        }.bind(this))}
       </div>
     );
   }

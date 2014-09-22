@@ -1,6 +1,5 @@
 .DS_Store
-bower_components
+web_modules
 node_modules
 public
-build
 npm-debug.log
