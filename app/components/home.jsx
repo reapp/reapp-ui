@@ -7,8 +7,6 @@ var Toolbar = require('./ui/toolbar');
 module.exports = React.createClass({
 
   statics: {
-    title: 'Home',
-
     didTransitionTo(params, query, setProps) {
       new Reqwest({
         url: 'http://localhost:3000/articles.json',
@@ -24,8 +22,6 @@ module.exports = React.createClass({
   },
 
   render() {
-    console.log('props', this.props)
-
     return (
       <div id="HomePage">
         <Toolbar>

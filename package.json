@@ -19,9 +19,8 @@
     "node-jsx": "~0.10",
     "react": "^0.11.1",
     "react-time": "^1.0.0",
-    "webpack": "^1.4.1-beta1",
+    "webpack": "^1.4.3",
     "css-loader": "^0.7.0",
-    "extract-text-webpack-plugin": "^0.2.3",
     "html-loader": "^0.2.2",
     "jsx-loader": "^0.11.0",
     "null-loader": "^0.1.0",
@@ -30,10 +29,13 @@
     "reflux": "^0.1.5",
     "style-loader": "^0.6.4",
     "stylus-loader": "^0.4.0",
-    "webpack-dev-server": "^1.4.7",
+    "webpack-dev-server": "^1.6.5",
     "json-loader": "~0.5.1",
     "react-router": "git://github.com/rackt/react-router.git#async-props",
-    "reqwest": "~1.1.2"
+    "reqwest": "~1.1.2",
+    "react-style": "git+https://github.com/js-next/react-style",
+    "extract-text-webpack-plugin": "~0.3.1",
+    "react-style-webpack-plugin": "git+https://github.com/js-next/react-style-webpack-plugin"
   },
   "devDependencies": {
     "mocha": "0.14",

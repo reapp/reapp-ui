@@ -1,8 +1,9 @@
 var React = require('react');
+var ReactStyle = require('react-style');
 
 module.exports = React.createClass({
 
-  style: {
+  styles: ReactStyle({
     position: 'fixed',
     top: 0,
     left: 0,
@@ -13,11 +14,11 @@ module.exports = React.createClass({
     borderBottom: '1px solid #ccc',
     padding: '12px',
     zIndex: '100'
-  },
+  }),
 
   render() {
     return (
-      <div class="toolbar" style={this.style}>
+      <div class="toolbar" styles={this.styles}>
         {this.props.children}
       </div>
     );
