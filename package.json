@@ -6,8 +6,8 @@
   "main": "./app/app.jsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev-server": "webpack-dev-server --content-base config/dev-server-public --config webpack-dev-server.config.js --progress --colors --port 2992",
-    "hot-dev-server": "webpack-dev-server --content-base config/dev-server-public --config webpack-hot-dev-server.config.js --hot --progress --colors --port 2992",
+    "dev-server": "npm start & webpack-dev-server --content-base config/dev-server-public --config webpack-dev-server.config.js --progress --colors --port 2992",
+    "hot-dev-server": "npm start & webpack-dev-server --content-base config/dev-server-public --config webpack-hot-dev-server.config.js --hot --progress --colors --port 2992",
     "build": "webpack --config webpack-production.config.js --progress --profile --colors",
     "start": "node lib/server"
   },
@@ -19,7 +19,6 @@
     "node-jsx": "~0.10",
     "react": "^0.11.1",
     "react-time": "^1.0.0",
-    "superagent": "~0.18.2",
     "webpack": "^1.4.1-beta1",
     "css-loader": "^0.7.0",
     "extract-text-webpack-plugin": "^0.2.3",

@@ -19,7 +19,7 @@ module.exports = React.createClass({
 
     return (
       <div className="image" style={divStyle}>
-        <img src={this.props.src} style={this.style.img} />
+        <img src={'http://localhost:8080/images/home/' + this.props.src} style={this.style.img} />
       </div>
     );
   }
