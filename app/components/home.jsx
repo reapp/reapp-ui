@@ -2,6 +2,7 @@ var React = require('react');
 var ReactRouter = require('react-router');
 var Reqwest = require('reqwest');
 var ImageBox = require('./home/image_box_component');
+var Toolbar = require('./ui/toolbar');
 
 module.exports = React.createClass({
 
@@ -27,6 +28,9 @@ module.exports = React.createClass({
 
     return (
       <div id="HomePage">
+        <Toolbar>
+          Title
+        </Toolbar>
         <ImageBox images={this.props.articles} />
       </div>
     );
