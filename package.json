@@ -6,8 +6,8 @@
   "main": "./app/app.jsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev-server": "npm start & webpack-dev-server --content-base config/dev-server-public --config webpack-dev-server.config.js --progress --colors --port 2992",
-    "hot-dev-server": "npm start & webpack-dev-server --content-base config/dev-server-public --config webpack-hot-dev-server.config.js --hot --progress --colors --port 2992",
+    "dev-server": "webpack-dev-server --content-base config/dev-server-public --config webpack-dev-server.config.js --progress --colors --port 2992",
+    "hot-dev-server": "webpack-dev-server --content-base config/dev-server-public --config webpack-hot-dev-server.config.js --hot --progress --colors --port 2992",
     "build": "webpack --config webpack-production.config.js --progress --profile --colors",
     "start": "node lib/server"
   },
@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "express": "^4.7.2",
+    "react-hot-loader": "~0.4.5",
     "react-style-webpack-plugin": "git+https://github.com/js-next/react-style-webpack-plugin",
     "extract-text-webpack-plugin": "~0.3.1",
     "webpack": "~1.4.3",
@@ -33,7 +34,6 @@
     "html-loader": "^0.2.2",
     "jsx-loader": "^0.11.0",
     "null-loader": "^0.1.0",
-    "react-hot-loader": "^0.2.0",
     "react-proxy-loader": "^0.2.1",
     "json-loader": "~0.5.1",
     "mocha": "0.14",

@@ -36,7 +36,9 @@ module.exports =
 /******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "/";
-/******/
+/******/ 	if (typeof window !== "undefined") {
+/******/ 	  window.__ReactStyle__ = {};
+/******/ 	}
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
 /******/ })
@@ -45,20 +47,8 @@ module.exports =
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/** @jsx React.DOM *//** @jsx React.DOM */
-
-	var React = __webpack_require__(1);
-	var Application = __webpack_require__(3);
-	var html = __webpack_require__(5);
-
-	module.exports = function(scriptUrl, styleUrl, commonsUrl) {
-	  var application = React.renderComponentToString(Application(null));
-	  return html
-	    .replace("STYLE_URL", styleUrl)
-	    .replace("SCRIPT_URL", scriptUrl)
-	    .replace("COMMONS_URL", commonsUrl)
-	    .replace("CONTENT", application);
-	};
+	__webpack_require__(3);
+	module.exports = __webpack_require__(4);
 
 
 /***/ },
@@ -72,10 +62,36 @@ module.exports =
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/** @jsx React.DOM */var React  = __webpack_require__(1);
-	var Layout = __webpack_require__(4);
+	/** @jsx React.DOM *//** @jsx React.DOM */
 
-	var Agave = __webpack_require__(6);
+	var React = __webpack_require__(1);
+	var Application = __webpack_require__(5);
+	var html = __webpack_require__(7);
+
+	module.exports = function(scriptUrl, styleUrl, commonsUrl) {
+	  var application = React.renderComponentToString(Application(null));
+	  return html
+	    .replace("STYLE_URL", styleUrl)
+	    .replace("SCRIPT_URL", scriptUrl)
+	    .replace("COMMONS_URL", commonsUrl)
+	    .replace("CONTENT", application);
+	};
+
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/** @jsx React.DOM */var React  = __webpack_require__(1);
+	var Layout = __webpack_require__(6);
+
+	var Agave = __webpack_require__(9);
 	Agave.enable('r');
 
 	var App = React.createClass({displayName: 'App',
@@ -93,7 +109,7 @@ module.exports =
 	module.exports = App;
 
 /***/ },
-/* 4 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx React.DOM *//** @jsx React.DOM */
@@ -118,13 +134,14 @@ module.exports =
 	});
 
 /***/ },
-/* 5 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <link rel=\"stylesheet\" href=\"STYLE_URL\">\n</head>\n<body>\n  CONTENT\n  <script src=\"SCRIPT_URL\"></script>\n</body>\n</html>";
 
 /***/ },
-/* 6 */
+/* 8 */,
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Agave.JS

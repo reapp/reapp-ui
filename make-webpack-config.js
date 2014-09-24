@@ -15,7 +15,7 @@ module.exports = function(options) {
 
   var loaders = {
     'coffee': 'coffee-redux-loader',
-    'jsx': options.hotComponents ? ['react-hot-loader!', jsxLoader, reactStyleLoader] : [jsxLoader, reactStyleLoader],
+    'jsx': options.hotComponents ? ['react-hot', jsxLoader, reactStyleLoader] : [reactStyleLoader, jsxLoader],
     'json': 'json-loader',
     'json5': 'json5-loader',
     'txt': 'raw-loader',
@@ -65,15 +65,19 @@ module.exports = function(options) {
 
   var plugins = [
     statsPlugin,
-    new ReactStylePlugin('bundle.css'),
     new webpack.PrefetchPlugin('react'),
-    new webpack.PrefetchPlugin('react/lib/ReactComponentBrowserEnvironment')
+    new webpack.PrefetchPlugin('react/lib/ReactComponentBrowserEnvironment'),
+    new ReactStylePlugin('bundle.css')
   ];
 
   if (options.prerender) {
     aliasLoader['react-proxy$'] = 'react-proxy/unavailable';
     externals.push(/^react(\/.*)?$/, /^reflux(\/.*)?$/);
     plugins.push(new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }));
+  }
+
+  if (options.hotComponents) {
+    plugins.push(new webpack.HotModuleReplacementPlugin());
   }
 
   if (options.commonsChunk) {
@@ -124,7 +128,7 @@ module.exports = function(options) {
   }
 
   var finalConfig = {
-    entry: entry,
+    entry: entry.main,
     output: output,
     target: options.prerender ? 'node' : 'web',
     module: {
