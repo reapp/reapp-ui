@@ -67,7 +67,7 @@ module.exports = function(options) {
     statsPlugin,
     new webpack.PrefetchPlugin('react'),
     new webpack.PrefetchPlugin('react/lib/ReactComponentBrowserEnvironment'),
-    new ReactStylePlugin('bundle.css')
+    // new ReactStylePlugin('bundle.css')
   ];
 
   if (options.prerender) {
