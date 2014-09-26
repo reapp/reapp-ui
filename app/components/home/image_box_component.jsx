@@ -3,10 +3,6 @@ var Image = require('./image_component');
 
 module.exports = React.createClass({
 
-  propTypes: {
-    images: React.PropTypes.array.isRequired
-  },
-
   style: {
     width: '100%'
   },
@@ -37,7 +33,7 @@ module.exports = React.createClass({
 
   renderImage(image, index) {
     var active = index === this.state.activeImage;
-    return <Image key={index} src={image.image_url} active={active} />;
+    return <Image key={index} src={image} active={active} />;
   },
 
   render() {

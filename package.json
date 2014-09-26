@@ -19,7 +19,8 @@
     "reflux": "^0.1.5",
     "reqwest": "~1.1.2",
     "react-router": "git://github.com/rackt/react-router.git#async-props",
-    "react-style": "git+https://github.com/js-next/react-style"
+    "react-style": "git+https://github.com/js-next/react-style",
+    "react-cursor": "~0.9.1"
   },
   "devDependencies": {
     "express": "^4.7.2",
