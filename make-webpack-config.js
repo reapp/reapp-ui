@@ -6,16 +6,16 @@ var loadersByExtension = require('./config/loadersByExtension');
 var joinEntry = require('./config/joinEntry');
 
 module.exports = function(options) {
-  var entry = {
-    main: reactEntry('main')
-  };
+  var entry = reactEntry('main');
 
-  var jsxLoader = 'jsx-loader?harmony&insertPragma=React.DOM';
   var reactStyleLoader = ReactStylePlugin.loader();
+  var jsxLoader = [reactStyleLoader, 'jsx-loader?harmony&insertPragma=React.DOM'];
+
+  if (options.hotComponents) jsxLoader.unshift('react-hot');
 
   var loaders = {
     'coffee': 'coffee-redux-loader',
-    'jsx': options.hotComponents ? ['react-hot', jsxLoader, reactStyleLoader] : [reactStyleLoader, jsxLoader],
+    'jsx': jsxLoader,
     'json': 'json-loader',
     'json5': 'json5-loader',
     'txt': 'raw-loader',
@@ -67,7 +67,7 @@ module.exports = function(options) {
     statsPlugin,
     new webpack.PrefetchPlugin('react'),
     new webpack.PrefetchPlugin('react/lib/ReactComponentBrowserEnvironment'),
-    // new ReactStylePlugin('bundle.css')
+    new ReactStylePlugin('bundle.css')
   ];
 
   if (options.prerender) {
@@ -128,7 +128,7 @@ module.exports = function(options) {
   }
 
   var finalConfig = {
-    entry: entry.main,
+    entry: entry,
     output: output,
     target: options.prerender ? 'node' : 'web',
     module: {

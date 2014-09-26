@@ -19,14 +19,14 @@
     "reflux": "^0.1.5",
     "reqwest": "~1.1.2",
     "react-router": "git://github.com/rackt/react-router.git#async-props",
-    "react-style": "git+https://github.com/js-next/react-style",
+    "react-style": "~0.2.0",
     "react-cursor": "~0.9.1"
   },
   "devDependencies": {
     "express": "^4.7.2",
     "react-hot-loader": "~0.4.5",
     "react-style-webpack-plugin": "git+https://github.com/js-next/react-style-webpack-plugin",
-    "extract-text-webpack-plugin": "~0.3.1",
+    "extract-text-webpack-plugin": "git+https://github.com/webpack/extract-text-webpack-plugin",
     "webpack": "~1.4.3",
     "style-loader": "^0.6.4",
     "stylus-loader": "^0.4.0",
