@@ -7,12 +7,20 @@ var TouchableArea =
 
 var Viewer = React.createClass({
   componentWillMount() {
-    this.scroller = new Scroller(this.handleScroll, {
-      snapping: true
-    });
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'http://localhost:8000/app/assets/js/scroller.js';
+    document.getElementsByTagName('head')[0].appendChild(script);
+
+    script.onload = function() {
+      this.scroller = new Scroller(this.handleScroll, {
+        snapping: true
+      });
+    };
   },
 
   componentDidMount() {
+    console.log('waht')
     this.scroller.setDimensions(
       this.props.width,
       this.props.height,
@@ -31,6 +39,8 @@ var Viewer = React.createClass({
   },
 
   render() {
+    console.log('heloooo')
+
     var images = this.props.images.urls.map(function(url, i) {
       if (this.state.left < (i - 1) * this.props.width || this.state.left > (i + 1) * this.props.width) {
         return null;

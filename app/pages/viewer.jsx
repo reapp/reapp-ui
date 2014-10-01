@@ -1,5 +1,5 @@
 var React = require('react');
-// var Images = require('../data/Images');
+var Images = require('../assets/data/images');
 var Viewer = require('../components/viewer/Viewer');
 
 var EventPluginHub = require('react/lib/EventPluginHub');
@@ -39,7 +39,7 @@ var ViewerPage = React.createClass({
     return (
       <Viewer
         width={this.state.width}
-        height={this.state.height - Layout.TOPBAR_HEIGHT}
+        height={this.state.height}
         images={Images} />
     );
   }
