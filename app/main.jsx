@@ -9,7 +9,7 @@ var Routes = require('./routes');
 
 var App = React.createClass({
   render() {
-    return Layout(null, this.props.activeRouteHandler);
+    return Layout(null, this.props.activeRouteHandler());
   }
 });
 
@@ -33,5 +33,13 @@ AppRoutes.unshift({ name: "app", path: "/", handler: App });
 
 var routes = RRoutes({ location: "history" },
               RRoute.apply(this, AppRoutes));
+
+// This should have built an object like so:
+// <Routes location="history">
+//   <Route name="app" path="/" handler={App}>
+//     <DefaultRoute handler={DefaultHandler} />
+//     <Route name="name" handler={Handler} />
+//   </Route>
+// </Routes>
 
 module.exports = routes;
