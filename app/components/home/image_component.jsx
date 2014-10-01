@@ -14,12 +14,15 @@ module.exports = React.createClass({
   },
 
   render: function() {
+    var { active, src } = this.props;
     var divStyle = this.style.div;
-    divStyle.zIndex = this.props.active ? 1 : 0;
+    var base = 'http://localhost:8080/images/home/';
+
+    divStyle.zIndex = active ? 1 : 0;
 
     return (
-      <div className="image" style={divStyle}>
-        <img src={'http://localhost:8080/images/home/' + this.props.src} style={this.style.img} />
+      <div className='image' style={divStyle}>
+        <img src={base + src} style={this.style.img} />
       </div>
     );
   }

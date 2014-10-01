@@ -1,7 +1,7 @@
 var React = require('react');
-var Routes = require('../app/routes');
+var App = require('../app/main');
 var ReactStyle = require('react-style');
 
 ReactStyle.inject();
 
-React.renderComponent(Routes, document.body);
+React.renderComponent(App, document.body);

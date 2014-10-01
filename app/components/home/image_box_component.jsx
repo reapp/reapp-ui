@@ -38,7 +38,7 @@ module.exports = React.createClass({
 
   render() {
     return (
-      <div ref="images" id="images" style={this.style} onMouseMove={this.onMouseMove}>
+      <div ref='images' id='images' style={this.style} onMouseMove={this.onMouseMove}>
         {this.props.images.map(this.renderImage)}
       </div>
     );

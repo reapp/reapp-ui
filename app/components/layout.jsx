@@ -1,17 +1,11 @@
 /** @jsx React.DOM */
 var React = require('react');
 
-if (typeof window !== 'undefined') {
-  window.GSS_CONFIG = {
-    worker: "/bower/gss/dist/worker.js"
-  };
-}
-
 module.exports = React.createClass({
 
-  render: function() {
+  render() {
     return (
-      <div id="layout">
+      <div id='layout'>
         {this.props.children}
       </div>
     );

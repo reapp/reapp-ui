@@ -4,14 +4,24 @@ var ReactStylePlugin = require('react-style-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var loadersByExtension = require('./config/loadersByExtension');
 var joinEntry = require('./config/joinEntry');
+var Routes = require('./app/routes');
 
 module.exports = function(options) {
-  var entry = reactEntry('main');
+  var entry = {};
+  var main = reactEntry('main');
+
+  Routes.forEach(function(route) {
+    entry[route.name] = main;
+  });
 
   var reactStyleLoader = ReactStylePlugin.loader();
-  var jsxLoader = [reactStyleLoader, 'jsx-loader?harmony&insertPragma=React.DOM'];
+  var jsxLoader = [
+    reactStyleLoader,
+    'jsx-loader?harmony&insertPragma=React.DOM'
+  ];
 
-  if (options.hotComponents) jsxLoader.unshift('react-hot');
+  if (options.hotComponents)
+    jsxLoader.unshift('react-hot');
 
   var loaders = {
     'coffee': 'coffee-redux-loader',
@@ -67,7 +77,7 @@ module.exports = function(options) {
     statsPlugin,
     new webpack.PrefetchPlugin('react'),
     new webpack.PrefetchPlugin('react/lib/ReactComponentBrowserEnvironment'),
-    new ReactStylePlugin('bundle.css')
+    // new ReactStylePlugin('bundle.css')
   ];
 
   if (options.prerender) {

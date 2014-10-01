@@ -18,7 +18,7 @@ module.exports = React.createClass({
 
   render() {
     return (
-      <div class="toolbar" styles={this.styles}>
+      <div class='toolbar' styles={this.styles}>
         {this.props.children}
       </div>
     );
