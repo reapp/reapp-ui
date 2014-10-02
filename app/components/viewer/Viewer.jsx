@@ -50,7 +50,6 @@ var Viewer = React.createClass({
   },
 
   handleScroll(left, top, zoom) {
-    console.log('handle scroll', left, top)
     this.setState({left: left});
   },
 
