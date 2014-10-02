@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactStyle = require('react-style');
+var { Link } = require('react-router');
 
 module.exports = React.createClass({
 
@@ -19,7 +20,9 @@ module.exports = React.createClass({
   render() {
     return (
       <div class='toolbar' styles={this.styles}>
-        {this.props.children}
+        <Link to="app">Home</Link>
+        <Link to="viewer">Gallery</Link>
+        <span>{this.props.children}</span>
       </div>
     );
   }

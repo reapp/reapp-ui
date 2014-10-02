@@ -8,10 +8,17 @@ var Routes = require('./app/routes');
 
 module.exports = function(options) {
   var entry = {};
-  var main = reactEntry('main');
+  var entryPoint = (
+    options.prerender ?
+    './config/prerender' :
+    './config/app'
+  );
 
+  // this is basically a cheat to allow webpack-dev-server
+  // to serve the routes served by react-router
+  // should be for dev mode only
   Routes.forEach(function(route) {
-    entry[route.name] = main;
+    entry[route.name] = entryPoint;
   });
 
   var reactStyleLoader = ReactStylePlugin.loader();
@@ -88,14 +95,11 @@ module.exports = function(options) {
 
   if (options.hotComponents) {
     plugins.push(new webpack.HotModuleReplacementPlugin());
+    plugins.push(new webpack.NoErrorsPlugin());
   }
 
   if (options.commonsChunk) {
     plugins.push(new webpack.optimize.CommonsChunkPlugin('commons', 'commons.js' + (options.longTermCaching && !options.prerender ? '?[chunkhash]' : '')));
-  }
-
-  function reactEntry(name) {
-    return (options.prerender ? './config/prerender?' : './config/app?') + name;
   }
 
   if (options.devServer) {
@@ -113,7 +117,7 @@ module.exports = function(options) {
     if (options.prerender) {
       stylesheetLoaders[ext] = 'null-loader';
     }
-    else if(options.separateStylesheet) {
+    else if (options.separateStylesheet) {
       stylesheetLoaders[ext] = ExtractTextPlugin.extract('style-loader', loaders);
     }
     else {
@@ -159,6 +163,8 @@ module.exports = function(options) {
     },
     plugins: plugins
   };
+
+  // console.log(finalConfig);
 
   return finalConfig;
 };
