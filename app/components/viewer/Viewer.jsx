@@ -1,26 +1,39 @@
 // Implicit require of Scroller from Zynga
 var ImageCardContainer = require('./ImageCardContainer');
 var React = require('react');
-
-var TouchableArea =
-  require('../touch/TouchableArea');
+var ReactStyle = require('react-style');
+var TouchableArea = require('../touch/TouchableArea');
 
 var Viewer = React.createClass({
-  componentWillMount() {
+  styles: ReactStyle({
+    background: 'black',
+    overflow: 'hidden',
+    perspective: '500px',
+    '-webkit-perspective': '500px',
+    '-moz-perspective': '500px'
+  }),
+
+  createScript: function(name, callback) {
+    var head = document.getElementsByTagName('head')[0];
     var script = document.createElement('script');
     script.type = 'text/javascript';
-    script.src = 'http://localhost:8000/app/assets/js/scroller.js';
-    document.getElementsByTagName('head')[0].appendChild(script);
+    script.src = 'http://localhost:8000/app/assets/js/' + name + '.js';
+    if (callback) script.onload = function() { callback.call(this) };
+    head.appendChild(script);
+  },
 
-    script.onload = function() {
-      this.scroller = new Scroller(this.handleScroll, {
-        snapping: true
+  componentWillMount() {
+    var self = this;
+    self.createScript('scroller', function() {
+      self.createScript('animate', function() {
+        self.scroller = new Scroller(self.handleScroll, {
+          snapping: true
+        });
       });
-    };
+    });
   },
 
   componentDidMount() {
-    console.log('waht')
     this.scroller.setDimensions(
       this.props.width,
       this.props.height,
@@ -35,12 +48,11 @@ var Viewer = React.createClass({
   },
 
   handleScroll(left, top, zoom) {
+    console.log('handle scroll', left, top)
     this.setState({left: left});
   },
 
   render() {
-    console.log('heloooo')
-
     var images = this.props.images.urls.map(function(url, i) {
       if (this.state.left < (i - 1) * this.props.width || this.state.left > (i + 1) * this.props.width) {
         return null;
@@ -63,6 +75,7 @@ var Viewer = React.createClass({
       <TouchableArea
         className="Viewer"
         style={{width: this.props.width, height: this.props.height}}
+        styles={this.styles}
         scroller={this.scroller}>
         {images}
       </TouchableArea>

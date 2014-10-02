@@ -117,7 +117,8 @@ var AnimatableContainer = React.createClass({
     return (
       <component
         className={this.props.className}
-        style={this.getStyle(this.props)}>
+        style={this.getStyle(this.props)}
+        styles={this.props.styles || {}}>
         <StaticContainer shouldUpdate={!this.props.blockUpdates || !this.isAnimating}>
           <contentComponent>
             {this.props.children}

@@ -26,8 +26,8 @@ var ViewerPage = React.createClass({
 
   componentDidMount() {
     this.setState({
-      width: document.documentElement.clientWidth,
-      height: document.documentElement.clientHeight
+      width: window.innerWidth,//document.documentElement.clientWidth,
+      height: window.innerHeight//document.documentElement.clientHeight
     });
   },
 

@@ -1,9 +1,19 @@
+var React = require('react');
+var ReactStyle = require('react-style');
 var AnimatableContainer = require('../touch/AnimatableContainer');
 var EasingFunctions = require('../math/EasingFunctions');
 var ImageCard = require('./ImageCard');
-var React = require('react');
 
 var ImageCardContainer = React.createClass({
+  styles: ReactStyle({
+     'backface-visibility': 'hidden',
+     '-webkit-backface-visibility': 'hidden',
+     '-moz-backface-visibility': 'hidden',
+     left: 0,
+     position: 'absolute',
+     top: 0
+  }),
+
   render() {
     var card = this.transferPropsTo(<ImageCard />);
     var pct = (this.props.left - (this.props.index * this.props.width)) / this.props.width;
@@ -15,6 +25,7 @@ var ImageCardContainer = React.createClass({
     return (
       <AnimatableContainer
         className="ImageCardContainer"
+        styles={this.styles}
         opacity={EasingFunctions.easeOutCubic(1 - Math.abs(pct))}
         rotate={{y: yAxis, deg: deg}}
         translate={{x: x, z: z}}>

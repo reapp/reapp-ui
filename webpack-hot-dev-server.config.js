@@ -5,5 +5,5 @@ module.exports = require("./make-webpack-config")({
   hotComponents: true,
   devtool: "source-map",
   debug: true,
-  separateStylesheet: true,
+  separateStylesheet: false
 });

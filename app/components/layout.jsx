@@ -1,8 +1,8 @@
-/** @jsx React.DOM */
 var React = require('react');
 
-module.exports = React.createClass({
+require('./layout.css');
 
+module.exports = React.createClass({
   render() {
     return (
       <div id='layout'>
@@ -10,5 +10,4 @@ module.exports = React.createClass({
       </div>
     );
   }
-
 });
