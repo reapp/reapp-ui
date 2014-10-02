@@ -29,11 +29,13 @@ var Viewer = React.createClass({
         self.scroller = new Scroller(self.handleScroll, {
           snapping: true
         });
+
+        self.scrollerDidMount();
       });
     });
   },
 
-  componentDidMount() {
+  scrollerDidMount() {
     this.scroller.setDimensions(
       this.props.width,
       this.props.height,
