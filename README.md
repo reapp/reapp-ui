@@ -7,13 +7,23 @@ This is an experiment putting together a react app base.  Batteries included.
 - react-style for smart style bundling
 - react-cursor for immutable data
 
-**TODO**
+### Goal
 
-- flux: choose a flux library for handling actions/data sync
+After experimenting here and putting together something that feels nice,
+the goal is to extract everything here into a separate node package that
+will act as a higher layer. Bundle with a CLI and good docs so it's really
+easy to get a full-featured react app going.
+
+### TODO
+
+- flux (fluxxor, fb-flux)
 - gss for layouts with responsive solution
+- data sync solution (swarm or similar)
 - various helper components for building UIs
-- react-form
+- various libraries for doing common react stuff
+- react-forms
 - react-time
+- ...
 
 ## Installation
 
