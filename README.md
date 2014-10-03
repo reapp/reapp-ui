@@ -1,6 +1,23 @@
-Readme from [react-starter](https://github.com/webpack/react-starter):
+## About
+
+This is an experiment putting together a react app base.  Batteries included.
+
+- webpack for bundling and development workflow
+- react-router to enable isomorphic rendering
+- react-style for smart style bundling
+- react-cursor for immutable data
+
+**TODO**
+
+- flux: choose a flux library for handling actions/data sync
+- gss for layouts with responsive solution
+- various helper components for building UIs
+- react-form
+- react-time
 
 ## Installation
+
+This section comes from [react-starter](https://github.com/webpack/react-starter):
 
 Just clone this repo and change the `origin` git remote.
 

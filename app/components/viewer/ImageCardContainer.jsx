@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactStyle = require('react-style');
-var AnimatableContainer = require('../touch/AnimatableContainer');
-var EasingFunctions = require('../math/EasingFunctions');
+var AnimatableContainer = require('../../lib/touch/AnimatableContainer');
+var EasingFunctions = require('../../lib/math/EasingFunctions');
 var ImageCard = require('./ImageCard');
 
 var ImageCardContainer = React.createClass({
