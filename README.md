@@ -25,7 +25,7 @@ Finally, overlay the entire system with an optional and configurable sync
 layer that handles syncing with a backend API (and create a demo for this).
 
 - swarm
--
+- ...
 
 #### UI
 
