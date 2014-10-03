@@ -10,20 +10,47 @@ This is an experiment putting together a react app base.  Batteries included.
 ### Goal
 
 After experimenting here and putting together something that feels nice,
-the goal is to extract everything here into a separate node package that
-will act as a higher layer. Bundle with a CLI and good docs so it's really
-easy to get a full-featured react app going.
+the goal is to extract everything here into packages for ease of use.
 
-### TODO
+#### Data
 
-- flux (fluxxor, fb-flux)
-- gss for layouts with responsive solution
-- data sync solution (swarm or similar)
-- various helper components for building UIs
-- various libraries for doing common react stuff
+Put together libraries and helpers for data management. I want an easy way
+to use Flux that reduces as much boilerplate code as possible. And to tie
+that in with an immutable data library.
+
+- flux (fluxxor)
+- immutable (immutable-js, mori, react-cursor)
+
+Finally, overlay the entire system with an optional and configurable sync
+layer that handles syncing with a backend API (and create a demo for this).
+
+- swarm
+-
+
+#### UI
+
+Build a set of components for building application UI's. They should
+by default have nice animations, touch support, complete granular reactivity.
+
+- react-responsive
+- react-gss
+- rebound
+
+On top of that, build out demos for various common things in apps:
+
 - react-forms
 - react-time
+- autocomplete
 - ...
+
+#### Final State
+
+The final state of this application would probably look like a mobile/tablet
+TodoMVC style application with a UI toolkit thrown in.
+
+Would be able to live sync state across clients, respond to different screen
+sizes and platforms (themeing), and render isomorphically from server.
+
 
 ## Installation
 

@@ -1,6 +1,6 @@
 var React = require('react');
 var Images = require('../assets/data/images');
-var Viewer = require('../components/viewer/Viewer');
+var ViewerRebound = require('../components/viewer_rebound/ViewerRebound');
 
 var NUM_IMAGES = 10;
 var START_INDEX = 5;
@@ -15,8 +15,8 @@ var ViewerPage = React.createClass({
 
   componentDidMount() {
     this.setState({
-      width: window.innerWidth,//document.documentElement.clientWidth,
-      height: window.innerHeight//document.documentElement.clientHeight
+      width: window.innerWidth,
+      height: window.innerHeight
     });
   },
 
@@ -27,7 +27,7 @@ var ViewerPage = React.createClass({
 
     return (
       <div>
-        <Viewer
+        <ViewerRebound
           width={this.state.width}
           height={this.state.height}
           images={Images} />

@@ -13,14 +13,12 @@
   },
   "dependencies": {
     "agave": "~0.4.6",
-    "gss-engine": "0.0.5",
     "react": "^0.11.1",
-    "react-time": "^1.0.0",
-    "reqwest": "~1.1.2",
     "react-router": "git://github.com/rackt/react-router.git#async-props",
     "react-style": "~0.2.0",
     "react-cursor": "~0.9.1",
-    "scroller": "^0.0.2"
+    "scroller": "^0.0.2",
+    "rebound": "0.0.8"
   },
   "devDependencies": {
     "express": "^4.7.2",

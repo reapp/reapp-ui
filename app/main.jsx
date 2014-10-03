@@ -6,6 +6,9 @@ var React  = require('react');
 var Layout = require('./components/layout');
 var Agave = require('agave').enable('r');
 var Routes = require('./routes');
+var TouchEvents = require('./lib/TouchEvents');
+
+TouchEvents.initialize();
 
 window.React = React;
 
@@ -17,7 +20,8 @@ var App = React.createClass({
 
 var pages = {
   'Home': require('./pages/home'),
-  'Viewer': require('./pages/viewer')
+  'Viewer': require('./pages/viewer'),
+  'ViewerRebound': require('./pages/viewerRebound')
 };
 
 var AppRoutes = Routes.map(function(route) {

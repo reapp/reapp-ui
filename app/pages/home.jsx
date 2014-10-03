@@ -1,7 +1,7 @@
 var React = require('react');
 // var Reqwest = require('reqwest');
 var ImageBox = require('../components/home/image_box_component');
-var Toolbar = require('../components/ui/toolbar');
+var Toolbar = require('../ui/toolbar');
 var { Cursor } = require('react-cursor');
 
 module.exports = React.createClass({

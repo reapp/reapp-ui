@@ -6,6 +6,14 @@ var loadersByExtension = require('./config/loadersByExtension');
 var joinEntry = require('./config/joinEntry');
 var Routes = require('./app/routes');
 
+/* TODO:
+   - change package.json dev-server/hot-dev-server to use a wrapper
+   - wrapper uses custom node watcher
+   - watcher watches for changes in routes
+   - route changes then force webpack itself to reload
+   - prevents having to reload this when adding/changing routes
+*/
+
 module.exports = function(options) {
   var entry = {};
   var entryPoint = (
@@ -17,6 +25,7 @@ module.exports = function(options) {
   // this is basically a cheat to allow webpack-dev-server
   // to serve the routes served by react-router
   // should be for dev mode only
+  // TODO: come up with something nicer
   Routes.forEach(function(route) {
     entry[route.name] = entryPoint;
   });
@@ -32,7 +41,7 @@ module.exports = function(options) {
 
   var loaders = {
     'coffee': 'coffee-redux-loader',
-    'jsx': jsxLoader,
+    'jsx|js': jsxLoader,
     'json': 'json-loader',
     'json5': 'json5-loader',
     'txt': 'raw-loader',
@@ -55,7 +64,9 @@ module.exports = function(options) {
   var externals = [];
   var modulesDirectories = ['web_modules', 'node_modules'];
   var extensions = ['', '.web.js', '.js', '.jsx'];
-  var root = path.join(__dirname, 'app');
+  var root = [
+    path.join(__dirname, 'app')
+  ];
 
   var output = {
     path: path.join(__dirname, 'build', options.prerender ? 'prerender' : 'public'),
@@ -84,7 +95,10 @@ module.exports = function(options) {
     statsPlugin,
     new webpack.PrefetchPlugin('react'),
     new webpack.PrefetchPlugin('react/lib/ReactComponentBrowserEnvironment'),
-    // new ReactStylePlugin('bundle.css')
+    // new ReactStylePlugin('bundle.css'),
+    new webpack.ResolverPlugin(
+      new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
+    )
   ];
 
   if (options.prerender) {
@@ -151,7 +165,10 @@ module.exports = function(options) {
     devtool: options.devtool,
     debug: options.debug,
     resolveLoader: {
-      root: path.join(__dirname, 'node_modules'),
+      root: [
+        path.join(__dirname, 'node_modules'),
+        path.join(__dirname, 'web_modules')
+      ],
       alias: aliasLoader
     },
     externals: externals,
