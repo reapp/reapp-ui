@@ -5,7 +5,7 @@ This is an experiment putting together a react app base.  Batteries included.
 - webpack for bundling and development workflow
 - react-router to enable isomorphic rendering
 - react-style for smart style bundling
-- react-cursor for immutable data
+- Experiments with flux/immutable data
 
 ### Goal
 
