@@ -20,7 +20,8 @@
     "reqwest": "~1.1.2",
     "react-router": "git://github.com/rackt/react-router.git#async-props",
     "react-style": "~0.2.0",
-    "react-cursor": "~0.9.1"
+    "react-cursor": "~0.9.1",
+    "scroller": "^0.0.2"
   },
   "devDependencies": {
     "express": "^4.7.2",

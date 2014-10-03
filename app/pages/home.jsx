@@ -28,9 +28,6 @@ module.exports = React.createClass({
 
     return (
       <div id='HomePage'>
-        <Toolbar>
-          Title
-        </Toolbar>
         <ImageBox images={images} />
       </div>
     );

@@ -7,6 +7,8 @@ var Layout = require('./components/layout');
 var Agave = require('agave').enable('r');
 var Routes = require('./routes');
 
+window.React = React;
+
 var App = React.createClass({
   render() {
     return Layout(null, this.props.activeRouteHandler());

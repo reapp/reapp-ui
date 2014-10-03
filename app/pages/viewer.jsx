@@ -1,7 +1,6 @@
 var React = require('react');
 var Images = require('../assets/data/images');
 var Viewer = require('../components/viewer/Viewer');
-var Toolbar = require('../components/ui/toolbar');
 
 var EventPluginHub = require('react/lib/EventPluginHub');
 var ResponderEventPlugin = require('../components/touch/ResponderEventPlugin');
@@ -39,7 +38,6 @@ var ViewerPage = React.createClass({
 
     return (
       <div>
-        <Toolbar>Gallery</Toolbar>
         <Viewer
           width={this.state.width}
           height={this.state.height}

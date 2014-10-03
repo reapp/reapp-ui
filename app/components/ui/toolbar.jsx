@@ -1,8 +1,7 @@
 var React = require('react');
 var ReactStyle = require('react-style');
-var { Link } = require('react-router');
 
-module.exports = React.createClass({
+var Toolbar = React.createClass({
 
   styles: ReactStyle({
     position: 'fixed',
@@ -19,12 +18,12 @@ module.exports = React.createClass({
 
   render() {
     return (
-      <div class='toolbar' styles={this.styles}>
-        <Link to="app">Home</Link>
-        <Link to="viewer">Gallery</Link>
+      <div id={this.props.id || '_toolbar'} class='toolbar' styles={this.styles}>
         <span>{this.props.children}</span>
       </div>
     );
   }
 
 });
+
+module.exports = Toolbar;
