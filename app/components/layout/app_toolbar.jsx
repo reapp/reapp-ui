@@ -13,6 +13,7 @@ var AppToolbar = React.createClass({
         <Menu>
           <Link to="app">Home</Link>
           <Link to="viewer">Gallery</Link>
+          <Link to="viewerRebound">List</Link>
         </Menu>
       </Toolbar>
     );

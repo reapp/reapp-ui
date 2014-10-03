@@ -1,0 +1,10 @@
+.ScrollPage {
+  background: white;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.ScrollPage-content {
+  padding: 10px;
+}

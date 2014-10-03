@@ -1,7 +1,7 @@
 var React = require('react');
 var AnimatableContainer = require('./AnimatableContainer');
 var TouchableArea = require('./TouchableArea');
-var ZyngaScroller = require('./ZyngaScroller');
+var { Scroller } = require('scroller');
 
 var ANIMATABLE_CONTAINER_STYLE = {
   bottom: 0,
@@ -35,6 +35,10 @@ var SimpleScroller = React.createClass({
     }
     this.configured = true;
     var node = this.refs.content.getDOMNode();
+    console.log('setting to ', this.getDOMNode().clientWidth,
+      this.getDOMNode().clientHeight,
+      node.clientWidth,
+      node.clientHeight)
     this.scroller.setDimensions(
       this.getDOMNode().clientWidth,
       this.getDOMNode().clientHeight,

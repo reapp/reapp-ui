@@ -1,59 +1,20 @@
-var ImageCardContainer = require('./ImageCardContainer');
 var React = require('react');
-var ReactStyle = require('react-style');
-var TouchableArea = require('../../lib/touch/TouchableArea');
+var SimpleScroller = require('../../lib/touch/SimpleScroller');
+
+require('./viewerRebound.css');
 
 var ViewerRebound = React.createClass({
-  styles: ReactStyle({
-    background: 'black',
-    overflow: 'hidden',
-    perspective: '500px',
-    '-webkit-perspective': '500px',
-    '-moz-perspective': '500px'
-  }),
-
-  componentWillMount() {
-    // setup scrolling
-  },
-
-  componentDidMount() {
-    // setup any dimensions based on this.props.width/height/images.urls.length
-  },
-
-  getInitialState() {
-    return {left: 0};
-  },
-
-  handleScroll(left, top, zoom) {
-    this.setState({left: left});
-  },
-
   render() {
-    var images = this.props.images.urls.map(function(url, i) {
-      if (this.state.left < (i - 1) * this.props.width ||
-          this.state.left > (i + 1) * this.props.width) {
-        return null;
-      }
+    var content = [];
 
-      return (
-        <ImageCardContainer
-          left={this.state.left}
-          key={i}
-          index={i}
-          url={url}
-          width={this.props.width}
-          height={this.props.height} />
-      );
-    }, this);
+    for (var i = 0; i < 100; i++) {
+      content.push(<li key={i}>Item {i}</li>);
+    }
 
     return (
-      <TouchableArea
-        className="ViewerRebound"
-        style={{width: this.props.width, height: this.props.height}}
-        styles={this.styles}
-        scroller={this.scroller}>
-        {images}
-      </TouchableArea>
+      <SimpleScroller className="ScrollPage" options={{scrollingX: false}}>
+        <ul className="ScrollPage-content">{content}</ul>
+      </SimpleScroller>
     );
   }
 });

@@ -4,7 +4,8 @@ var Image = require('./image_component');
 module.exports = React.createClass({
 
   style: {
-    width: '100%'
+    width: '100%',
+    position: 'relative'
   },
 
   getInitialState() {
@@ -26,9 +27,17 @@ module.exports = React.createClass({
     });
   },
 
+  whichImage(clientX) {
+    return Math.round(this.state.numImages * ( clientX / this.state.width ) );
+  },
+
   onMouseMove(e) {
-    var which = Math.round(this.state.numImages * ( e.clientX / this.state.width ) );
-    this.setState({ activeImage: which });
+    this.setState({ activeImage: this.whichImage(e.clientX) });
+  },
+
+  onTouchEvent(e) {
+    if (!e.touches[0]) return;
+    this.setState({ activeImage: this.whichImage(e.touches[0].clientX) });
   },
 
   renderImage(image, index) {
@@ -38,7 +47,14 @@ module.exports = React.createClass({
 
   render() {
     return (
-      <div ref='images' id='images' style={this.style} onMouseMove={this.onMouseMove}>
+      <div
+        ref='images'
+        id='images'
+        style={this.style}
+        onMouseMove={this.onMouseMove}
+        onTouchStart={this.onTouchEvent}
+        onTouchEnd={this.onTouchEvent}
+        onTouchMove={this.onTouchEvent}>
         {this.props.images.map(this.renderImage)}
       </div>
     );
