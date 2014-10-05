@@ -6,9 +6,9 @@
   "main": "./app/app.jsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev-server": "webpack-dev-server --content-base config/dev-server-public --config webpack/dev-server.config.js --progress --colors --port 2992",
-    "hot-dev-server": "webpack-dev-server --content-base webpack/dev-server-public --config webpack/hot-dev-server.config.js --hot --progress --colors --port 2992",
-    "build": "webpack --config webpack/production.config.js --progress --profile --colors",
+    "dev-server": "webpack-dev-server --config webpack/server-dev.config.js --progress --colors --port 2992",
+    "hot-dev-server": "webpack-dev-server --config webpack/server-hot-dev.config.js --hot --progress --colors --port 2992",
+    "build": "webpack --config webpack/server-production.config.js --progress --profile --colors",
     "start": "node lib/server"
   },
   "dependencies": {

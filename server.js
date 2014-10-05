@@ -9,7 +9,6 @@
 
 var express = require('express');
 var path = require('path');
-var stats = require('../build/stats.json');
 var fs = require('fs');
 var yargs = require('yargs').argv;
 
@@ -31,16 +30,15 @@ if (yargs.dev) {
   ].join("\n");
 
   template = fs
-    .readFileSync(path.join(__dirname, '../app/index.html'))
+    .readFileSync(path.join(__dirname, '/app/index.html'))
     .toString()
-    .replace(/SCRIPTS/g, scripts)
-    .replace(/CONTENT|STYLES/g, '');
+    .replace('<!-- SCRIPTS -->', scripts);
 }
 
 // Production
 else {
-  var prerenderApplication  = require('../build/prerender/main.js');
   var stats = require('../build/stats.json');
+  var prerenderApplication  = require('../build/prerender/main.js');
   var STYLE_URL = 'main.css?' + stats.hash;
   var SCRIPT_URL = [].concat(stats.assetsByChunkName.main)[0];
   var COMMONS_URL = [].concat(stats.assetsByChunkName.commons)[0];

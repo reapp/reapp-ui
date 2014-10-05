@@ -1,4 +1,4 @@
-module.exports = require("../webpack-config")({
+module.exports = require("./make-config")({
   devServer: true,
   devtool: "source-map",
   debug: true,

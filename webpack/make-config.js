@@ -2,12 +2,12 @@ var path = require('path');
 var webpack = require('webpack');
 var ReactStylePlugin = require('react-style-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var loadersByExtension = require('./config/loadersByExtension');
-var joinEntry = require('./config/joinEntry');
+var loadersByExtension = require('./lib/loadersByExtension');
+var joinEntry = require('./lib/joinEntry');
 
 module.exports = function(options) {
   var entry = {
-    main: './config/' + (options.prerender ? 'prerender' : 'app')
+    main: './webpack/app-' + (options.prerender ? 'prod' : 'dev')
   };
 
   var reactStyleLoader = ReactStylePlugin.loader();
@@ -61,7 +61,7 @@ module.exports = function(options) {
   var statsPlugin = function() {
     if (!options.prerender) {
       this.plugin('done', function(stats) {
-        require('fs').writeFileSync(path.join(__dirname, 'build', 'stats.json'), JSON.stringify(stats.toJson({
+        require('fs').writeFileSync(path.join(__dirname, '..', 'build', 'stats.json'), JSON.stringify(stats.toJson({
           chunkModules: true,
           exclude: [
             /node_modules[\\\/]react/

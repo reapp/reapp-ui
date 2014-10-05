@@ -1,12 +1,12 @@
 module.exports = [
-  require("../webpack-config")({
+  require("./make-config")({
     // commonsChunk: true,
     longTermCaching: true,
     separateStylesheet: true,
     minimize: true,
     devtool: "source-map",
   }),
-  require("../webpack-config")({
+  require("./make-config")({
     prerender: true,
   })
 ];
