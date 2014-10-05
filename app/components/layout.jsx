@@ -1,7 +1,7 @@
 var React = require('react');
-var AppToolbar = require('./layout/app_toolbar');
+var AppToolbar = require('./layout/AppToolbar');
 
-require('./layout.css');
+require('./Layout.css');
 
 var Layout = React.createClass({
   render() {

@@ -1,7 +1,6 @@
 var React = require('react');
 
 module.exports = React.createClass({
-
   style: {
     div: {
       position: 'absolute',

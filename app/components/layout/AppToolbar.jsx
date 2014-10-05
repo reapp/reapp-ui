@@ -1,10 +1,10 @@
 var React = require('react');
 var ReactStyle = require('react-style');
-var Toolbar = require('../../ui/toolbar');
-var Menu = require('../../ui/menu');
+var Toolbar = require('../ui/Toolbar');
+var Menu = require('../ui/Menu');
 var { Link } = require('react-router');
 
-require('./app_toolbar.css');
+require('./AppToolbar.css');
 
 var AppToolbar = React.createClass({
   render() {

@@ -1,7 +1,7 @@
 var React = require('react');
-var { Scroller } = require('../../lib/animate/reboundScroller');
+var { Scroller } = require('../../lib/animate/ReboundScroller');
 
-require('./viewerRebound.css');
+require('./ViewerRebound.css');
 
 var ViewerRebound = React.createClass({
   render() {

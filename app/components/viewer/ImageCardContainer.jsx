@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactStyle = require('react-style');
-var AnimatableContainer = require('../../lib/touch/AnimatableContainer');
+var AnimatableContainer = require('../ui/AnimatableContainer');
 var EasingFunctions = require('../../lib/math/EasingFunctions');
 var ImageCard = require('./ImageCard');
 

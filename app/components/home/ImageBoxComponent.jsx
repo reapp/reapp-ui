@@ -1,5 +1,5 @@
 var React = require('react');
-var Image = require('./image_component');
+var Image = require('./ImageComponent');
 
 module.exports = React.createClass({
 

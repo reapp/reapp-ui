@@ -1,7 +1,7 @@
 var { Routes, Route, DefaultRoute } = require('react-router');
-var Home = require('./pages/home');
-var Viewer = require('./pages/viewer');
-var ViewerRebound = require('./pages/viewerRebound');
+var Home = require('./pages/HomePage');
+var Viewer = require('./pages/ViewerPage');
+var ViewerRebound = require('./pages/ViewerReboundPage');
 
 module.exports = {
   init(App) {

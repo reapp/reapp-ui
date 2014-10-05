@@ -1,7 +1,6 @@
 var React = require('react');
 
 module.exports = React.createClass({
-
   statics: {
     didTransitionTo(params, query, setProps) {
       var todos = [];

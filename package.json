@@ -18,7 +18,8 @@
     "react-style": "~0.2.0",
     "react-cursor": "~0.9.1",
     "scroller": "^0.0.2",
-    "rebound": "0.0.8"
+    "rebound": "0.0.8",
+    "react-gss": "~0.2.0"
   },
   "devDependencies": {
     "express": "^4.7.2",
