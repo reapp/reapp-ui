@@ -6,9 +6,9 @@
   "main": "./app/app.jsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev-server": "webpack-dev-server --content-base config/dev-server-public --config webpack-dev-server.config.js --progress --colors --port 2992",
-    "hot-dev-server": "webpack-dev-server --content-base config/dev-server-public --config webpack-hot-dev-server.config.js --hot --progress --colors --port 2992",
-    "build": "webpack --config webpack-production.config.js --progress --profile --colors",
+    "dev-server": "webpack-dev-server --content-base config/dev-server-public --config webpack/dev-server.config.js --progress --colors --port 2992",
+    "hot-dev-server": "webpack-dev-server --content-base webpack/dev-server-public --config webpack/hot-dev-server.config.js --hot --progress --colors --port 2992",
+    "build": "webpack --config webpack/production.config.js --progress --profile --colors",
     "start": "node lib/server"
   },
   "dependencies": {
@@ -36,6 +36,7 @@
     "react-proxy-loader": "^0.2.2",
     "json-loader": "~0.5.1",
     "mocha": "0.14",
-    "expect.js": "0.1"
+    "expect.js": "0.1",
+    "yargs": "~1.3.1"
   }
 }

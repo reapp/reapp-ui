@@ -1,5 +1,5 @@
 var React = require('react');
-var SimpleScroller = require('../../lib/touch/SimpleScroller');
+var { Scroller } = require('../../lib/animate/reboundScroller');
 
 require('./viewerRebound.css');
 
@@ -12,9 +12,9 @@ var ViewerRebound = React.createClass({
     }
 
     return (
-      <SimpleScroller className="ScrollPage" options={{scrollingX: false}}>
+      <ReboundScroller className="ScrollPage" options={{scrollingX: false}}>
         <ul className="ScrollPage-content">{content}</ul>
-      </SimpleScroller>
+      </ReboundScroller>
     );
   }
 });

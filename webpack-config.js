@@ -4,31 +4,11 @@ var ReactStylePlugin = require('react-style-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var loadersByExtension = require('./config/loadersByExtension');
 var joinEntry = require('./config/joinEntry');
-var Routes = require('./app/routes');
-
-/* TODO:
-   - change package.json dev-server/hot-dev-server to use a wrapper
-   - wrapper uses custom node watcher
-   - watcher watches for changes in routes
-   - route changes then force webpack itself to reload
-   - prevents having to reload this when adding/changing routes
-*/
 
 module.exports = function(options) {
-  var entry = {};
-  var entryPoint = (
-    options.prerender ?
-    './config/prerender' :
-    './config/app'
-  );
-
-  // this is basically a cheat to allow webpack-dev-server
-  // to serve the routes served by react-router
-  // should be for dev mode only
-  // TODO: come up with something nicer
-  Routes.forEach(function(route) {
-    entry[route.name] = entryPoint;
-  });
+  var entry = {
+    main: './config/' + (options.prerender ? 'prerender' : 'app')
+  };
 
   var reactStyleLoader = ReactStylePlugin.loader();
   var jsxLoader = [

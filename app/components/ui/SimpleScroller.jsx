@@ -35,10 +35,6 @@ var SimpleScroller = React.createClass({
     }
     this.configured = true;
     var node = this.refs.content.getDOMNode();
-    console.log('setting to ', this.getDOMNode().clientWidth,
-      this.getDOMNode().clientHeight,
-      node.clientWidth,
-      node.clientHeight)
     this.scroller.setDimensions(
       this.getDOMNode().clientWidth,
       this.getDOMNode().clientHeight,

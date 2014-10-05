@@ -1,17 +1,5 @@
 var React = require('react');
 
-var STYLE_LOADING = {
-  color: 'gray',
-  fontFamily: 'sans-serif',
-  fontSize: '12px',
-  left: 0,
-  marginTop: -6,
-  position: 'absolute',
-  right: 0,
-  textAlign: 'center',
-  top: '50%',
-};
-
 var ImageCard = React.createClass({
   render() {
     var imgStyle = {
@@ -34,7 +22,6 @@ var ImageCard = React.createClass({
 
     return (
       <div style={outerStyle}>
-        <div style={STYLE_LOADING}>Loading...</div>
         <div style={imgStyle}></div>
       </div>
     );
