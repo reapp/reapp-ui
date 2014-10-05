@@ -13,7 +13,7 @@ TouchEvents.initialize();
 
 var App = React.createClass({
   render() {
-    return <Layout>{this.props.activeRouteHandler}</Layout>;
+    return <Layout>{this.props.activeRouteHandler()}</Layout>;
   }
 });
 
