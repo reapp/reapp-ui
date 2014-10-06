@@ -136,8 +136,6 @@ module.exports = function(options) {
     );
   }
 
-  console.log('entry:', entry);
-
   var finalConfig = {
     entry: entry,
     output: output,

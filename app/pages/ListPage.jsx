@@ -7,18 +7,12 @@ var _ = require('lodash');
 
 var ListPage = React.createClass({
   render() {
-    var content = [];
-
-    _.range(100).forEach(function(i) {
-      content.push(`List Item ${i}`);
-    });
-
     return (
       <View id="ListPage">
         <AppToolbar />
-        <SimpleScroller>
+        <SimpleScroller options={{scrollingX: false}}>
           <List>
-            {content}
+            {_.range(100).map(i => `List Item ${i}`)}
           </List>
         </SimpleScroller>
       </View>

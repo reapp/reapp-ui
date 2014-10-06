@@ -1,10 +1,15 @@
 /*
-
   Options
   --dev development mode
-    --wport webpack port
   --port server port
 
+  Opts passed to webpack
+  --config [path]
+  --wport webpack port
+  --quiet
+  --colors
+  --progress
+  --hot
 */
 
 var express = require('express');
@@ -14,7 +19,6 @@ var yargs = require('yargs').argv;
 
 var app = express();
 var port = +(yargs.port || process.env.PORT || 8080);
-var webpackPort = +(yargs.wport || process.env.WEBPACKPORT || 2992);
 
 var staticOpts = { maxAge: '200d' };
 app.use(express.static(path.join(__dirname, 'build', 'public'), staticOpts));
@@ -25,9 +29,31 @@ var template;
 
 // Development
 if (yargs.dev) {
+  var WebpackDevServer = require("webpack-dev-server");
+  var webpack = require("webpack");
+  var webpackConfig = require(path.join(__dirname, yargs.config));
+  var wport = +(yargs.wport || process.env.WEBPACKPORT || 2992);
+
+  // Update config to use webpack port
+  webpackConfig.output.publicPath = 'http://localhost:' + wport + '/';
+
+  var compiler = webpack(webpackConfig);
+  var wpOpts = {
+    contentBase: '../',
+    quiet: !!yargs.quiet,
+    hot: !!yargs.hot,
+    progress: !!yargs.progress,
+    colors: !!yargs.colors
+  };
+
+  console.log('Webpack options', wpOpts);
+  var webpackServer = new WebpackDevServer(compiler, wpOpts);
+  console.log('Starting webpack server on', wport);
+  webpackServer.listen(wport, 'localhost');
+
   var scripts = [
-    '<script src="http://localhost:' + webpackPort + '/main.js"></script>',
-    '<script src="http://localhost:' + webpackPort + '/webpack-dev-server.js"></script>'
+    '<script src="http://localhost:' + wport + '/main.js"></script>',
+    '<script src="http://localhost:' + wport + '/webpack-dev-server.js"></script>'
   ].join("\n");
 
   template = fs
@@ -52,5 +78,10 @@ app.get('/*', function(req, res) {
   res.end(template);
 });
 
-console.log('running server on port ', port);
+console.log(
+  'Starting',
+  yargs.dev ? 'dev' : 'prod' ,
+  'server on port',
+  port
+);
 app.listen(port);
