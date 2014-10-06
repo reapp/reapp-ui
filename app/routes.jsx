@@ -2,6 +2,7 @@ var { Routes, Route, DefaultRoute } = require('react-router');
 var Home = require('./pages/HomePage');
 var Viewer = require('./pages/ViewerPage');
 var ViewerRebound = require('./pages/ViewerReboundPage');
+var List = require('./pages/ListPage');
 
 module.exports = {
   init(App) {
@@ -10,6 +11,7 @@ module.exports = {
         <Route name="app" path="/" handler={App}>
           <DefaultRoute handler={Home} />
           <Route name="viewer" handler={Viewer} />
+          <Route name="list" handler={List} />
           <Route name="viewerRebound" handler={ViewerRebound} />
         </Route>
       </Routes>

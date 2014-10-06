@@ -9,6 +9,7 @@ var Toolbar = React.createClass({
     fontSize: '16px',
     borderBottom: '1px solid #ccc',
     padding: '12px',
+    position: 'relative',
     zIndex: '100'
   }),
 
