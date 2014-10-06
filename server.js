@@ -17,8 +17,9 @@ var port = +(yargs.port || process.env.PORT || 8080);
 var webpackPort = +(yargs.wport || process.env.WEBPACKPORT || 2992);
 
 var staticOpts = { maxAge: '200d' };
-app.use(express.static(path.join(__dirname, '..', 'build', 'public'), staticOpts));
-app.use(express.static(path.join(__dirname, '..', 'app', 'assets'), staticOpts));
+app.use(express.static(path.join(__dirname, 'build', 'public'), staticOpts));
+app.use(express.static(path.join(__dirname, 'app', 'assets'), staticOpts));
+app.use(express.static(path.join(__dirname, 'web_modules'), staticOpts));
 
 var template;
 

@@ -1,4 +1,6 @@
 var React = require('react');
 var App = require('../app/main');
 
-React.renderComponent(App, document.body);
+global.GSS.once('afterLoaded', function() {
+  React.renderComponent(App, document.body);
+});

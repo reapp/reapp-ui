@@ -8,11 +8,17 @@ var View = React.createClass({
   }),
 
   render() {
-    return (
-      <AutoLayout>
+    return this.transferPropsTo(
+      <AutoLayout
+        top="window[top]"
+        bottom="window[bottom]"
+        left="window[left]"
+        right="window[right]">
+
         <Box name="view">
           {this.props.children}
         </Box>
+
       </AutoLayout>
     );
   }

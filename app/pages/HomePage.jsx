@@ -1,8 +1,8 @@
 var React = require('react');
-// var Reqwest = require('reqwest');
 var ImageBox = require('../components/home/ImageBoxComponent');
 var Toolbar = require('../components/ui/Toolbar');
 var { Cursor } = require('react-cursor');
+var View = require('../components/ui/View');
 
 module.exports = React.createClass({
   statics: {
@@ -26,9 +26,9 @@ module.exports = React.createClass({
     var images = articles.map(a =>  a.image_url);
 
     return (
-      <div id='HomePage'>
+      <View id='HomePage'>
         <ImageBox images={images} />
-      </div>
+      </View>
     );
   }
 
