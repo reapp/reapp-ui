@@ -1,15 +1,20 @@
 var React = require('react');
-var AppToolbar = require('./layout/AppToolbar');
+var { AutoLayout } = require('react-gss');
 
 require('./Layout.css');
 
 var Layout = React.createClass({
   render() {
     return (
-      <div id='layout'>
-        <AppToolbar />
+      <AutoLayout
+        top="window.top"
+        bottom="window.bottom"
+        left="window.left"
+        right="window.right">
+
         {this.props.children}
-      </div>
+
+      </AutoLayout>
     );
   }
 });

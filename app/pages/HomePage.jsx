@@ -1,7 +1,7 @@
 var React = require('react');
 var ImageBox = require('../components/home/ImageBoxComponent');
-var Toolbar = require('../components/ui/Toolbar');
 var { Cursor } = require('react-cursor');
+var AppToolbar = require('../components/layout/AppToolbar');
 var View = require('../components/ui/View');
 
 module.exports = React.createClass({
@@ -27,6 +27,7 @@ module.exports = React.createClass({
 
     return (
       <View id='HomePage'>
+        <AppToolbar />
         <ImageBox images={images} />
       </View>
     );

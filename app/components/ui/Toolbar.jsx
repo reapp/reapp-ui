@@ -1,13 +1,10 @@
 var React = require('react');
 var ReactStyle = require('react-style');
+var { Box } = require('react-gss');
 
 var Toolbar = React.createClass({
 
   styles: ReactStyle({
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
     background: '#fff',
     textAlign: 'center',
     fontSize: '16px',
@@ -18,9 +15,16 @@ var Toolbar = React.createClass({
 
   render() {
     return (
-      <div id={this.props.id || '_toolbar'} class='toolbar' styles={this.styles}>
-        <span>{this.props.children}</span>
-      </div>
+      <Box
+        top="this.top"
+        left="this.left"
+        right="this.right"
+        height="this.instrinsicHeight"
+      >
+        <div id={this.props.id || '_toolbar'} class='toolbar' styles={this.styles}>
+          <span>{this.props.children}</span>
+        </div>
+      </Box>
     );
   }
 
