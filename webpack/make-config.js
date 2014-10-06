@@ -96,10 +96,11 @@ module.exports = function(options) {
     plugins.push(new webpack.optimize.CommonsChunkPlugin('commons', 'commons.js' + (options.longTermCaching && !options.prerender ? '?[chunkhash]' : '')));
   }
 
+  if (options.hot) {
+    entry = joinEntry('webpack/hot/dev-server', entry);
+  }
+
   if (options.devServer) {
-    if (options.hot) {
-      entry = joinEntry('webpack/hot/dev-server', entry);
-    }
     entry = joinEntry('webpack-dev-server/client?http://localhost:2992', entry);
   }
 
@@ -134,6 +135,8 @@ module.exports = function(options) {
       })
     );
   }
+
+  console.log('entry:', entry);
 
   var finalConfig = {
     entry: entry,
