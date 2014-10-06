@@ -1,7 +1,7 @@
 var React = require('react');
-var View = require('../components/ui/View');
+var View = require('../components/ui/views/View');
 var AppToolbar = require('../components/layout/AppToolbar');
-var List = require('../components/ui/List');
+var List = require('../components/ui/components/List');
 var _ = require('lodash');
 
 var ListPage = React.createClass({

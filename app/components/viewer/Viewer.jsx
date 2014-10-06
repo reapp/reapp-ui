@@ -1,7 +1,7 @@
 var ImageCardContainer = require('./ImageCardContainer');
 var React = require('react');
 var ReactStyle = require('react-style');
-var TouchableArea = require('../ui/TouchableArea');
+var TouchableArea = require('../ui/helpers/TouchableArea');
 var { Scroller } = require('scroller');
 
 var Viewer = React.createClass({

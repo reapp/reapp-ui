@@ -2,7 +2,7 @@ var React = require('react');
 var ImageBox = require('../components/home/ImageBoxComponent');
 var { Cursor } = require('react-cursor');
 var AppToolbar = require('../components/layout/AppToolbar');
-var View = require('../components/ui/View');
+var View = require('../components/ui/views/View');
 
 module.exports = React.createClass({
   statics: {

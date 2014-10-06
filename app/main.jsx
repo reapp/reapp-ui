@@ -2,7 +2,7 @@ var React  = require('react');
 var Layout = require('./components/layout');
 var Agave = require('agave');
 var Routes = require('./routes');
-var TouchEvents = require('./lib/TouchEvents');
+var TouchEvents = require('./components/ui/lib/TouchEvents');
 var ReactStyle = require('react-style');
 
 window.React = React;

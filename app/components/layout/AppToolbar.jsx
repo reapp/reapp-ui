@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactStyle = require('react-style');
-var Toolbar = require('../ui/Toolbar');
-var Menu = require('../ui/Menu');
+var Toolbar = require('../ui/components/Toolbar');
+var Menu = require('../ui/components/Menu');
 var { Link } = require('react-router');
 
 require('./AppToolbar.css');

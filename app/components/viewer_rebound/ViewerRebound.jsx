@@ -1,5 +1,5 @@
 var React = require('react');
-var { ReboundScroller } = require('../../lib/animate/ReboundScroller');
+var { ReboundScroller } = require('../ui/lib/animate/ReboundScroller');
 
 require('./ViewerRebound.css');
 

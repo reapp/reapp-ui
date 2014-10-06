@@ -1,7 +1,7 @@
 var React = require('react');
 var AnimatableContainer = require('./AnimatableContainer');
 var TouchableArea = require('./TouchableArea');
-var { Scroller } = require('../../lib/animate/ReboundScroller');
+var { Scroller } = require('../lib/animate/ReboundScroller');
 
 var ANIMATABLE_CONTAINER_STYLE = {
   bottom: 0,

@@ -2,7 +2,7 @@ var React = require('react');
 var Images = require('../assets/data/images');
 var Viewer = require('../components/viewer/Viewer');
 var AppToolbar = require('../components/layout/AppToolbar');
-var View = require('../components/ui/View');
+var View = require('../components/ui/views/View');
 
 var NUM_IMAGES = 10;
 var START_INDEX = 5;

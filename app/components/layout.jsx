@@ -1,5 +1,4 @@
 var React = require('react');
-var { AutoLayout } = require('react-gss');
 
 require('./Layout.css');
 
