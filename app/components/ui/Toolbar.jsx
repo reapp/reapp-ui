@@ -16,10 +16,11 @@ var Toolbar = React.createClass({
   render() {
     return (
       <Box
+        name="toolbar"
         top="this.top"
         left="this.left"
         right="this.right"
-        height="this.instrinsicHeight"
+        height="inner[intrinsic-height]"
       >
         <div id={this.props.id || '_toolbar'} class='toolbar' styles={this.styles}>
           <span>{this.props.children}</span>
