@@ -26,7 +26,7 @@ module.exports = React.createClass({
     var images = articles.map(a =>  a.image_url);
 
     return (
-      <View id='HomePage'>
+      <View id="HomePage">
         <AppToolbar />
         <ImageBox images={images} />
       </View>

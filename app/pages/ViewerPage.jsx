@@ -1,6 +1,8 @@
 var React = require('react');
 var Images = require('../assets/data/images');
 var Viewer = require('../components/viewer/Viewer');
+var AppToolbar = require('../components/layout/AppToolbar');
+var View = require('../components/ui/View');
 
 var NUM_IMAGES = 10;
 var START_INDEX = 5;
@@ -26,12 +28,13 @@ var ViewerPage = React.createClass({
     }
 
     return (
-      <div>
+      <View id="ViewerPage">
+        <AppToolbar />
         <Viewer
           width={this.state.width}
           height={this.state.height}
           images={Images} />
-      </div>
+      </View>
     );
   }
 });
