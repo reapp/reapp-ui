@@ -4,10 +4,13 @@ var { AutoLayout, Box } = require('react-gss');
 
 var View = React.createClass({
   styles: ReactStyle({
-    background: '#efeff4'
+    background: '#efeff4',
+    height: '100%'
   }),
 
   render() {
+    var self = this;
+
     return (
       <AutoLayout
         top="window.top"
@@ -17,7 +20,7 @@ var View = React.createClass({
 
         <Box name="view">
           {this.transferPropsTo(
-            <div className="pane" styles={this.styles}>
+            <div className="pane" styles={self.styles}>
               {this.props.children}
             </div>
           )}

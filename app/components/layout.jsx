@@ -6,15 +6,9 @@ require('./Layout.css');
 var Layout = React.createClass({
   render() {
     return (
-      <AutoLayout
-        top="window.top"
-        bottom="window.bottom"
-        left="window.left"
-        right="window.right">
-
+      <div id="layout">
         {this.props.children}
-
-      </AutoLayout>
+      </div>
     );
   }
 });

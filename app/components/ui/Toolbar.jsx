@@ -3,7 +3,6 @@ var ReactStyle = require('react-style');
 var { Box } = require('react-gss');
 
 var Toolbar = React.createClass({
-
   styles: ReactStyle({
     background: '#fff',
     textAlign: 'center',
@@ -27,7 +26,6 @@ var Toolbar = React.createClass({
       </Box>
     );
   }
-
 });
 
 module.exports = Toolbar;
