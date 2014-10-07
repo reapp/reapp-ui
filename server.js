@@ -37,22 +37,18 @@ if (yargs.dev) {
   // Update config to use webpack port
   webpackConfig.output.publicPath = 'http://localhost:' + wport + '/';
 
-  var compiler = webpack(webpackConfig, function(err, stats) {
-    console.log((err || stats).toString({
-      colors: true
-    }))
-  });
+  var compiler = webpack(webpackConfig);
 
-  var wpOpts = {
+  var wpDevServerOpts = {
     contentBase: '../',
     quiet: !!yargs.quiet,
     hot: !!yargs.hot,
     progress: !!yargs.progress,
-    colors: !!yargs.colors
+    stats: { colors: !!yargs.colors }
   };
 
-  console.log('Webpack options', wpOpts);
-  var webpackServer = new WebpackDevServer(compiler, wpOpts);
+  console.log('Webpack options', wpDevServerOpts);
+  var webpackServer = new WebpackDevServer(compiler, wpDevServerOpts);
   console.log('Starting webpack server on', wport);
   webpackServer.listen(wport, 'localhost');
 
