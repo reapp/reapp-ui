@@ -5,19 +5,27 @@ var SimpleScroller = require('../helpers/SimpleScroller');
 require('./List.css');
 
 var ListItem = React.createClass({
+  styles: {
+    list: ReactStyle`
+      background: #fff;
+      border-bottom: 1px solid #c8c7cc;
+      margin: 0;
+      padding: 0;
+    `
+  },
+
   render() {
     return (
       <SimpleScroller options={{scrollingX: false}}>
         <ul className="list">
-          {this.props.children.map(function(li) {
-            return (
+          {this.props.children.map(li => {(
               <li className="list-item">
                 <div className="list-item-content">
                   {li}
                 </div>
               </li>
-            );
-          })}
+            )}
+          )}
         </ul>
       </SimpleScroller>
     );

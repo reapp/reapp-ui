@@ -5,14 +5,18 @@ var EasingFunctions = require('../ui/lib/math/EasingFunctions');
 var ImageCard = require('./ImageCard');
 
 var ImageCardContainer = React.createClass({
-  styles: ReactStyle({
-     'backface-visibility': 'hidden',
-     '-webkit-backface-visibility': 'hidden',
-     '-moz-backface-visibility': 'hidden',
-     left: 0,
-     position: 'absolute',
-     top: 0
-  }),
+  styles: ReactStyle`
+     backface-visibility: hidden;
+     -webkit-backface-visibility: hidden;
+     -moz-backface-visibility: hidden;
+     position: absolute;
+     left: 0;
+     top: 0;
+  `,
+
+  componentDidMount() {
+    console.log('render')
+  },
 
   render() {
     var card = this.transferPropsTo(<ImageCard />);

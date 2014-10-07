@@ -54,7 +54,7 @@ sizes and platforms (themeing), and render isomorphically from server.
 
 ## Installation
 
-This section comes from [react-starter](https://github.com/webpack/react-starter):
+This section comes partly from [react-starter](https://github.com/webpack/react-starter):
 
 Just clone this repo and change the `origin` git remote.
 
@@ -62,17 +62,14 @@ Just clone this repo and change the `origin` git remote.
 npm install
 ```
 
-
 ## Development server
 
 ``` text
 npm run dev-server
-http://localhost:2992/
+http://localhost:8080/
 ```
 
-The configuration is `webpack-dev-server.config.js`.
-
-Static HTML is served from `config/dev-server-public`.
+The configuration is `webpack/dev-server.config.js`.
 
 It automatically recompiles and refreshes the page when files are changed.
 
@@ -81,12 +78,10 @@ It automatically recompiles and refreshes the page when files are changed.
 
 ``` text
 npm run hot-dev-server
-http://localhost:2992/
+http://localhost:8080/
 ```
 
-The configuration is `webpack-hot-dev-server.config.js`.
-
-Static HTML is served from `config/dev-server-public`.
+The configuration is `webpack/hot-dev-server.config.js`.
 
 It automatically recompiles when files are changed. When a hot-replacement-enabled file is changed (i. e. stylesheets or React components) the module is hot-replaced. If Hot Replacement is not possible the page is refreshed.
 
@@ -105,14 +100,11 @@ npm start
 http://localhost:8080/
 ```
 
-The configuration is `webpack-production.config.js`.
-
-The server is at `lib/server.js`
+The configuration is `webpack/production.config.js`.
 
 The production setting builds two configurations: one for the client (`build/public`) and one for the serverside prerendering (`build/prerender`).
 
 > WIP: Serverside data fetching and embedding data into served HTML.
-
 
 ## Build visualization
 
@@ -129,4 +121,3 @@ Many file types are preconfigured, but not every loader is installed. If you get
 Copyright (c) 2012-2014 Tobias Koppers Gittip donate button
 
 MIT (http://www.opensource.org/licenses/mit-license.php)
-

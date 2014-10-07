@@ -4,15 +4,15 @@ var ReactStylePlugin = require('react-style-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var loadersByExtension = require('./lib/loadersByExtension');
 var joinEntry = require('./lib/joinEntry');
+var transformLoader = require('transform-loader');
 
 module.exports = function(options) {
   var entry = {
     main: './webpack/app-' + (options.prerender ? 'prod' : 'dev')
   };
 
-  var reactStyleLoader = ReactStylePlugin.loader();
   var jsxLoader = [
-    reactStyleLoader,
+    ReactStylePlugin.loader(),
     'jsx-loader?harmony&insertPragma=React.DOM'
   ];
 

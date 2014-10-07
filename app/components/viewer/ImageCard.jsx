@@ -1,28 +1,35 @@
 var React = require('react');
+var ReactStyle = require('react-style');
 
 var ImageCard = React.createClass({
+  styles: {
+    card: function(props) {
+      return ReactStyle({
+        'background-image': `url(${ props.url })`,
+        'background-size': 'cover',
+        'background-repeat': 'no-repeat',
+        'background-position': 'center',
+        height: props.height,
+        width: props.width,
+        position: 'absolute',
+        left: 0,
+        top: 0
+      })
+    },
+
+    img: function(props) {
+      return ReactStyle({
+        position: 'relative',
+        height: props.height,
+        width: props.width
+      })
+    }
+  },
+
   render() {
-    var imgStyle = {
-      backgroundImage: 'url(' + this.props.url + ')',
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center',
-      height: this.props.height,
-      left: 0,
-      position: 'absolute',
-      top: 0,
-      width: this.props.width
-    };
-
-    var outerStyle = {
-      height: this.props.height,
-      position: 'relative',
-      width: this.props.width
-    };
-
     return (
-      <div style={outerStyle}>
-        <div style={imgStyle}></div>
+      <div styles={this.styles.card(this.props)}>
+        <div styles={this.styles.img(this.props)}></div>
       </div>
     );
   }

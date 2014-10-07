@@ -38,9 +38,9 @@ if (yargs.dev) {
   webpackConfig.output.publicPath = 'http://localhost:' + wport + '/';
 
   var compiler = webpack(webpackConfig, function(err, stats) {
-    // console.log(stats.toString({
-    //   colors: true
-    // }))
+    console.log((err || stats).toString({
+      colors: true
+    }))
   });
 
   var wpOpts = {
