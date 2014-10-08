@@ -3,6 +3,7 @@ var ImageBox = require('../components/home/ImageBoxComponent');
 var { Cursor } = require('react-cursor');
 var AppToolbar = require('../components/layout/AppToolbar');
 var View = require('../components/ui/views/View');
+var DocumentTitle = require('react-document-title');
 
 module.exports = React.createClass({
   statics: {
@@ -26,10 +27,12 @@ module.exports = React.createClass({
     var images = articles.map(a =>  a.image_url);
 
     return (
-      <View id="HomePage">
-        <AppToolbar />
-        <ImageBox images={images} />
-      </View>
+      <DocumentTitle title="Home">
+        <View id="HomePage">
+          <AppToolbar />
+          <ImageBox images={images} />
+        </View>
+      </DocumentTitle>
     );
   }
 
