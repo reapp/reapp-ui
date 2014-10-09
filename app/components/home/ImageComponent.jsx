@@ -15,7 +15,7 @@ module.exports = React.createClass({
   render: function() {
     var { active, src } = this.props;
     var divStyle = this.style.div;
-    var url = `http://localhost:8000/app/assets/images/home/${src}`;
+    var url = `/images/home/${src}`;
 
     divStyle.zIndex = active ? 1 : 0;
 
