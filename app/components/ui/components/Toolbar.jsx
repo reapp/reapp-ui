@@ -1,17 +1,17 @@
 var React = require('react');
 var ReactStyle = require('react-style');
-var ReactGSS = require('../../../mixins/GSSMixin');
+var GSSMixin = require('../../../mixins/GSSMixin');
 
 var Toolbar = React.createClass({
-  displayName: 'UIToolbar',
+  mixins: [GSSMixin],
 
   layout(id) {
-    return ReactGSS(
-     `${id}[top] == this[top] + 10;
+    return `
+      ${id}[top] == this[top] + 10;
       ${id}[left] == this[left];
       ${id}[width] == 100;
-      ${id}[height] == heading[instrinsic-height];`
-    );
+      ${id}[height] == heading[instrinsic-height];
+    `;
   },
 
   styles: ReactStyle`
@@ -29,7 +29,10 @@ var Toolbar = React.createClass({
 
   render() {
     return (
-      <div id={this.props.id || '_toolbar'} className='toolbar' styles={this.styles}>
+      <div
+        id={this.props.id || "_toolbar"}
+        className="toolbar"
+        styles={this.styles}>
         <span>{this.props.children}</span>
       </div>
     );

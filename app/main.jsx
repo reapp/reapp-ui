@@ -6,6 +6,7 @@ var ReactStyle = require('react-style');
 var DocumentTitle = require('react-document-title');
 var { Flux } = require('./flux');
 
+window.React = React;
 ReactStyle.inject();
 TouchEvents.initialize();
 
@@ -22,6 +23,16 @@ var App = React.createClass({
   }
 });
 
-window.React = React;
+var RoutedApp = Routes.init(App);
 
-module.exports = Routes.init(App);
+function loadApp(env) {
+  return (env === 'dev') ?
+    React.renderComponent(RoutedApp, document.body) :
+    React.renderComponentToString(RoutedApp());
+}
+
+module.exports = {
+  start(env, opts) {
+    global.GSS.once('afterLoaded', loadApp.bind(this, env));
+  }
+};

@@ -1,11 +1,26 @@
 var Store = require('../stores/GSSStore');
-// var GSS = require('gss')
+var invariant = require('react/lib/invariant');
 
-module.exports = function(constraints) {
+var StyleSheet;
 
+var GSSMixin = {
+  checkGSS() {
+    if (StyleSheet) return;
+    invariant(typeof GSS !== 'undefined', 'GSS not set up on the page');
+    var engine = GSS.engines[0];
+    invariant(engine, 'GSS is not ready yet. Did you forget GSS.once(\'afterLoaded\', ...) ?');
+    invariant(!GSS.config.observe, 'You cannot use GSS in observe mode. Did you set observe: false in GSS_CONFIG?');
+    StyleSheet = new GSS.StyleSheet({engine: engine, engineId: engine.id});
+  },
 
-
+  componentWillMount() {
+    this.checkGSS();
+    var constraints = this.layout('GSS' + this._rootNodeID);
+    Store.add(constraints);
+  }
 };
+
+module.exports = GSSMixin;
 
 // function invariant(cond, message) {
 //   if (!cond) {
