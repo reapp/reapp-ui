@@ -7,23 +7,19 @@ var Toolbar = React.createClass({
 
   layout(id) {
     return `
-      ${id}[top] == this[top] + 10;
-      ${id}[left] == this[left];
-      ${id}[width] == 100;
+      ${id}[top] == window[top];
+      ${id}[left] == window[left];
+      ${id}[right] == window[right];
       ${id}[height] == heading[instrinsic-height];
     `;
   },
 
   styles: ReactStyle`
+    font-size: 16px;
     background-color: #fff;
     text-align: center;
-    font-size: 16px;
     border-bottom: 1px solid #ccc;
     padding: 12px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
     z-index: 100;
   `,
 
