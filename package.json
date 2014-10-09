@@ -6,10 +6,10 @@
   "main": "./app/app.jsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev-server": "node server.js --config webpack/server-dev.config.js --progress --colors",
-    "hot-dev-server": "node server.js --config webpack/server-hot-dev.config.js --hot --progress --colors",
+    "dev-server": "node-dev server.js --config webpack/server-dev.config.js --dev --progress --colors",
+    "hot-dev-server": "node-dev server.js --config webpack/server-hot-dev.config.js --dev --hot --progress --colors",
     "build": "webpack --config webpack/server-production.config.js --progress --profile --colors",
-    "start": "node lib/server"
+    "start": "node-dev lib/server"
   },
   "dependencies": {
     "react": "^0.11.1",

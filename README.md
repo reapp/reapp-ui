@@ -59,6 +59,7 @@ This section comes partly from [react-starter](https://github.com/webpack/react-
 Just clone this repo and change the `origin` git remote.
 
 ``` text
+npm install -g node-dev
 npm install
 ```
 
