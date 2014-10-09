@@ -30,9 +30,7 @@ var SimpleScroller = React.createClass({
   },
 
   configure() {
-    if (this.configured) {
-      return;
-    }
+    if (this.configured) return;
     this.configured = true;
     var node = this.refs.content.getDOMNode();
     this.scroller.setDimensions(
@@ -53,7 +51,7 @@ var SimpleScroller = React.createClass({
 
   render() {
     return this.transferPropsTo(
-      <TouchableArea scroller={this.scroller} style={{overflow: 'hidden'}}>
+      <TouchableArea scroller={this.scroller} style={{overflow: 'hidden', height:'100%'}}>
         <AnimatableContainer
           translate={{x: -1 * this.state.left, y: -1 * this.state.top}}
           style={ANIMATABLE_CONTAINER_STYLE}>

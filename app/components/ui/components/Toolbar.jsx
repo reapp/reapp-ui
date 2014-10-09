@@ -9,7 +9,7 @@ var Toolbar = React.createClass({
     [top] == window[top];
     [left] == window[left];
     [right] == window[right];
-    [height] == heading[instrinsic-height];
+    [height] == .toolbar[instrinsic-height];
   `,
 
   styles: ReactStyle`
@@ -19,6 +19,7 @@ var Toolbar = React.createClass({
     border-bottom: 1px solid #ccc;
     padding: 12px;
     z-index: 100;
+    position: relative;
   `,
 
   render() {
