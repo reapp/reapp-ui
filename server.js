@@ -29,6 +29,14 @@ var template;
 
 // Development
 if (yargs.dev) {
+  // CORS
+  app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+   });
+
+  // Setup webpack
   var WebpackDevServer = require("webpack-dev-server");
   var webpack = require("webpack");
   var webpackConfig = require(path.join(__dirname, yargs.config));
@@ -38,7 +46,6 @@ if (yargs.dev) {
   webpackConfig.output.publicPath = 'http://localhost:' + wport + '/';
 
   var compiler = webpack(webpackConfig);
-
   var wpDevServerOpts = {
     contentBase: '../',
     quiet: !!yargs.quiet,
@@ -47,7 +54,6 @@ if (yargs.dev) {
     stats: { colors: !!yargs.colors }
   };
 
-  console.log('Webpack options', wpDevServerOpts);
   var webpackServer = new WebpackDevServer(compiler, wpDevServerOpts);
   console.log('Starting webpack server on', wport);
   webpackServer.listen(wport, 'localhost');
