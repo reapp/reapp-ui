@@ -14,8 +14,8 @@ var Toolbar = React.createClass({
     );
   },
 
-  styles: ReactStyle(
-   `background-color: #fff;
+  styles: ReactStyle`
+    background-color: #fff;
     text-align: center;
     font-size: 16px;
     border-bottom: 1px solid #ccc;
@@ -24,8 +24,8 @@ var Toolbar = React.createClass({
     top: 0;
     left: 0;
     right: 0;
-    z-index: 100;`
-  ),
+    z-index: 100;
+  `,
 
   render() {
     return (

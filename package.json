@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "react": "^0.11.1",
-    "react-router": "git://github.com/rackt/react-router.git#async-props",
-    "react-style": "~0.2.0",
+    "react-router": "git+https://github.com/rackt/react-router.git#async-props",
+    "react-style": "git+https://github.com/js-next/react-style.git",
     "react-cursor": "~0.9.1",
     "scroller": "^0.0.2",
     "rebound": "0.0.8",
