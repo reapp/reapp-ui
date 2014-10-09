@@ -1,15 +1,11 @@
-var GSSStore = (function() {
+var GSSStore = {
+  add(rule) {
+    console.log('adding', this, rule);
+  },
 
-  return {
-    add(rule) {
-      console.log('adding', this, rule);
-    },
-
-    init() {
-      console.log('compiling', GSSStore);
-    }
+  init() {
+    console.log('compiling', GSSStore);
   }
-
-})();
+};
 
 module.exports = GSSStore;

@@ -1,4 +1,5 @@
 var Store = require('../stores/GSSStore');
+// var GSS = require('gss')
 
 module.exports = function(constraints) {
 

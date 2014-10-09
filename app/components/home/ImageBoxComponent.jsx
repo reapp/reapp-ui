@@ -1,7 +1,10 @@
 var React = require('react');
 var Image = require('./ImageComponent');
+var { FluxChildMixin } = require('../../flux');
+var AutoBind = require('fluxxor-autobind');
 
 module.exports = React.createClass({
+  mixins: [FluxChildMixin, AutoBind.Mixin('theTime')],
 
   style: {
     width: '100%',
@@ -56,6 +59,7 @@ module.exports = React.createClass({
         onTouchEnd={this.onTouchEvent}
         onTouchMove={this.onTouchEvent}>
         {this.props.images.map(this.renderImage)}
+        <p style={{position: 'fixed', bottom:0 }}>{this.state.theTime}</p>
       </div>
     );
   }

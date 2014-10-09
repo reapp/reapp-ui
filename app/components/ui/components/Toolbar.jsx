@@ -10,7 +10,8 @@ var Toolbar = React.createClass({
      `${id}[top] == this[top] + 10;
       ${id}[left] == this[left];
       ${id}[width] == 100;
-      ${id}[height] == heading[instrinsic-height];`);
+      ${id}[height] == heading[instrinsic-height];`
+    );
   },
 
   styles: ReactStyle(

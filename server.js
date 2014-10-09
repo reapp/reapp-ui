@@ -18,7 +18,7 @@ var fs = require('fs');
 var yargs = require('yargs').argv;
 
 var app = express();
-var port = +(yargs.port || process.env.PORT || 8080);
+var port = Number(yargs.port || process.env.PORT || 8080);
 
 var staticOpts = { maxAge: '200d' };
 app.use(express.static(path.join(__dirname, 'build', 'public'), staticOpts));
@@ -32,7 +32,7 @@ if (yargs.dev) {
   var WebpackDevServer = require("webpack-dev-server");
   var webpack = require("webpack");
   var webpackConfig = require(path.join(__dirname, yargs.config));
-  var wport = +(yargs.wport || process.env.WEBPACKPORT || 2992);
+  var wport = Number(yargs.wport || process.env.WEBPACKPORT || 2992);
 
   // Update config to use webpack port
   webpackConfig.output.publicPath = 'http://localhost:' + wport + '/';
