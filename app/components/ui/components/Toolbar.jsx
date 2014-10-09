@@ -5,14 +5,12 @@ var GSSMixin = require('../../../mixins/GSSMixin');
 var Toolbar = React.createClass({
   mixins: [GSSMixin],
 
-  layout(id) {
-    return `
-      ${id}[top] == window[top];
-      ${id}[left] == window[left];
-      ${id}[right] == window[right];
-      ${id}[height] == heading[instrinsic-height];
-    `;
-  },
+  layout: `
+    [top] == window[top];
+    [left] == window[left];
+    [right] == window[right];
+    [height] == heading[instrinsic-height];
+  `,
 
   styles: ReactStyle`
     font-size: 16px;
