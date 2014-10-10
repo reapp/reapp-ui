@@ -1,10 +1,10 @@
 var React = require('react');
 var ImageBox = require('../components/home/ImageBoxComponent');
 var { Cursor } = require('react-cursor');
-var AppToolbar = require('../components/layout/AppToolbar');
 var View = require('../components/ui/views/View');
 var DocumentTitle = require('react-document-title');
 var { FluxMixin } = require('../flux');
+var AppLayout = require('../components/layout/AppLayout');
 
 module.exports = React.createClass({
   mixins: [FluxMixin],
@@ -33,10 +33,11 @@ module.exports = React.createClass({
 
     return (
       <DocumentTitle title={this.title}>
-        <View id="HomePage">
-          <AppToolbar title={this.title} />
-          <ImageBox images={images} />
-        </View>
+        <AppLayout title={this.title}>
+          <View id="HomePage">
+            <ImageBox images={images} />
+          </View>
+        </AppLayout>
       </DocumentTitle>
     );
   }

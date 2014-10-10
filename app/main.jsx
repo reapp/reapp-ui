@@ -15,9 +15,7 @@ var App = React.createClass({
   render() {
     return (
       <DocumentTitle title="React Base">
-        <Layout>
-          {this.props.activeRouteHandler({ flux: Flux })}
-        </Layout>
+        {this.props.activeRouteHandler({ flux: Flux })}
       </DocumentTitle>
     );
   }

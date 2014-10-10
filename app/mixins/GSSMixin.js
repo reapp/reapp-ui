@@ -1,13 +1,12 @@
 var Store = require('../stores/GSSStore');
 var invariant = require('react/lib/invariant');
-var StyleSheet, engine;
+var StyleSheet;
+var rules = [];
 
 invariant(typeof GSS !== 'undefined', 'GSS not set up on the page');
 
-var rules = [];
-
 GSS.once('afterLoaded', function() {
-  engine = GSS.engines[0];
+  var engine = GSS.engines[0];
   StyleSheet = new GSS.StyleSheet({engine: engine, engineId: engine.id});
   addRules(rules);
 });
