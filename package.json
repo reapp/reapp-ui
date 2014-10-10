@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "express": "^4.7.2",
-    "react-hot-loader": "^0.4.5",
+    "react-hot-loader": "^0.5.0",
     "react-style-webpack-plugin": "git+https://github.com/js-next/react-style-webpack-plugin",
     "extract-text-webpack-plugin": "git+https://github.com/webpack/extract-text-webpack-plugin",
     "webpack": "~1.4.3",

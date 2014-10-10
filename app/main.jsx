@@ -25,14 +25,10 @@ var App = React.createClass({
 
 var RoutedApp = Routes.init(App);
 
-function loadApp(env) {
-  return (env === 'dev') ?
-    React.renderComponent(RoutedApp, document.body) :
-    React.renderComponentToString(RoutedApp());
-}
-
 module.exports = {
   start(env, opts) {
-    global.GSS.once('afterLoaded', loadApp.bind(this, env));
+    return (env === 'dev') ?
+      React.renderComponent(RoutedApp, document.body) :
+      React.renderComponentToString(RoutedApp());
   }
 };

@@ -61,6 +61,7 @@ Just clone this repo and change the `origin` git remote.
 ``` text
 npm install -g node-dev
 npm install
+bower install
 ```
 
 ## Development server

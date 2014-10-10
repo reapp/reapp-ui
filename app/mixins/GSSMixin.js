@@ -1,13 +1,29 @@
 var Store = require('../stores/GSSStore');
 var invariant = require('react/lib/invariant');
+var StyleSheet, engine;
 
-// TODO: Logic to detemine whether to update/change constraints
+invariant(typeof GSS !== 'undefined', 'GSS not set up on the page');
 
-var StyleSheet;
+var rules = [];
+
+GSS.once('afterLoaded', function() {
+  engine = GSS.engines[0];
+  StyleSheet = new GSS.StyleSheet({engine: engine, engineId: engine.id});
+  addRules(rules);
+});
+
+function addRules(constraints) {
+  if (typeof constraints == 'array') {
+    constraints.forEach(addRules);
+  }
+  else {
+    if (StyleSheet) StyleSheet.addRules(GSS.compile(constraints));
+    else rules.push(constraints);
+  }
+}
 
 var GSSMixin = {
   componentDidMount() {
-    this.setupGSS();
     var node = this.getDOMNode();
     var id = '#' + (node.id || (node.id = this._rootNodeID));
 
@@ -16,27 +32,12 @@ var GSSMixin = {
       this.layout;
 
     constraints = constraints.replace(/\_\[/g, id + '[');
-    console.log(constraints);
-    StyleSheet.addRules(GSS.compile(constraints));
+    addRules(constraints);
   },
 
   componentWillUnmount() {
     // StyleSheet.destroy();
   },
-
-  setupGSS() {
-    if (StyleSheet) return;
-    var engine = this.getGSSEngine();
-    StyleSheet = new GSS.StyleSheet({engine: engine, engineId: engine.id});
-  },
-
-  getGSSEngine() {
-    invariant(typeof GSS !== 'undefined', 'GSS not set up on the page');
-    var engine = GSS.engines[0];
-    invariant(engine, 'GSS is not ready yet. Did you forget GSS.once(\'afterLoaded\', ...) ?');
-    invariant(!GSS.config.observe, 'You cannot use GSS in observe mode. Did you set observe: false in GSS_CONFIG?');
-    return engine;
-  }
 };
 
 module.exports = GSSMixin;
