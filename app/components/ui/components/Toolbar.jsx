@@ -6,10 +6,10 @@ var Toolbar = React.createClass({
   mixins: [GSSMixin],
 
   layout: `
-    [top] == window[top];
-    [left] == window[left];
-    [right] == window[right];
-    [height] == .toolbar[instrinsic-height];
+    _[top] == window[top];
+    _[left] == window[left];
+    _[right] == window[right];
+    _[height] == _[instrinsic-height];
   `,
 
   styles: ReactStyle`

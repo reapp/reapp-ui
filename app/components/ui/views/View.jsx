@@ -5,14 +5,12 @@ var GSSMixin = require('../../../mixins/GSSMixin');
 var View = React.createClass({
   mixins: [GSSMixin],
 
-  layout() {
-    return `
-      [top] == window[bottom];
-      [left] == window[left];
-      [right] == window[right];
-      [bottom] == window[bottom];
-    `
-  },
+  layout: `
+    _[top] == window[bottom];
+    _[left] == window[left];
+    _[right] == window[right];
+    _[bottom] == window[bottom];
+  `,
 
   styles: ReactStyle`
     background: #efeff4;

@@ -8,6 +8,8 @@ var NUM_IMAGES = 10;
 var START_INDEX = 5;
 
 var ViewerPage = React.createClass({
+  title: 'Gallery',
+
   getInitialState() {
     return {
       width: 0,
@@ -29,7 +31,7 @@ var ViewerPage = React.createClass({
 
     return (
       <View id="ViewerPage">
-        <AppToolbar />
+        <AppToolbar title={this.title} />
         <Viewer
           width={this.state.width}
           height={this.state.height}

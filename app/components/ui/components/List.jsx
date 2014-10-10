@@ -6,34 +6,41 @@ var GSSMixin = require('../../../mixins/GSSMixin');
 require('./List.css');
 
 var ListItem = React.createClass({
-  mixins: [GSSMixin],
-
-  layout: `
-    [top] == parent[top];
-  `,
 
   styles: {
     list: ReactStyle`
+      ignore: me;
       background: #fff;
       border-bottom: 1px solid #c8c7cc;
       margin: 0;
       padding: 0;
+      z-index: 101;
+    `,
+
+    listItem: ReactStyle`
+      list-style: none;
+      padding: 10px;
+      padding-bottom: 0;
+      margin: 0;
+    `,
+
+    listItemContent: ReactStyle`
+      border-bottom: 1px solid #c8c7cc;
+      padding-bottom: 10px;
     `
   },
 
   render() {
     return (
-      <SimpleScroller options={{scrollingX: false}}>
-        <ul className="list">
-          {this.props.children.map(li => (
-            <li className="list-item">
-              <div className="list-item-content">
-                {li}
-              </div>
-            </li>
-          ))}
-        </ul>
-      </SimpleScroller>
+      <ul className={this.props.className || "list"} styles={this.styles.list}>
+        {this.props.children.map(li => (
+          <li className="list-item" styles={this.styles.listItem}>
+            <div className="list-item-content" styles={this.styles.listItemContent}>
+              {li}
+            </div>
+          </li>
+        ))}
+      </ul>
     );
   }
 });
