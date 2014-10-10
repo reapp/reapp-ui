@@ -9,11 +9,10 @@ var Menu = React.createClass({
   mixins: [GSSMixin],
 
   layout: `
-    .menu[top] == 0;
-    .menu[left] == window[left];
-    .menu[bottom] == window[bottom];
-    .menu[width] == 200;
-    .menu[height] == .menu[intrinsic-height];
+    _[top] == ::window[top];
+    _[left] == ::window[left];
+    _[bottom] == ::window[bottom];
+    _[width] == 200;
   `,
 
   styles: ReactStyle`

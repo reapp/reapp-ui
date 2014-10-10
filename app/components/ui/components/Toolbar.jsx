@@ -6,9 +6,9 @@ var Toolbar = React.createClass({
   mixins: [GSSMixin],
 
   layout: `
-    _[top] == window[top];
-    _[left] == window[left];
-    _[right] == window[right];
+    _[top] == ::window[top];
+    _[left] == ::window[left];
+    _[right] == ::window[right];
     _[height] == _[instrinsic-height];
   `,
 
@@ -19,13 +19,13 @@ var Toolbar = React.createClass({
     border-bottom: 1px solid #ccc;
     padding: 12px;
     z-index: 100;
-    position: relative;
+    position: fixed;
   `,
 
   render() {
     return (
       <div
-        id={this.props.id || "_toolbar"}
+        id={this.props.id || void 0}
         className="toolbar"
         styles={this.styles}>
         <span>{this.props.children}</span>
