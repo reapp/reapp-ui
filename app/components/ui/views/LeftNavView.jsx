@@ -80,6 +80,7 @@ var LeftNavView = React.createClass({
   },
 
   render() {
+    console.log(this.state, this.props.sideWidth, this.isNavOpen())
     // props:
     // sideWidth
     // topHeight

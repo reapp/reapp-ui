@@ -1,16 +1,16 @@
 var React = require('react');
 var ReactStyle = require('react-style');
+var Icon = require('./Icon');
 
 var Button = React.createClass({
   styles: ReactStyle`
     ignore: me;
-    background: #000;
-    border: 1px solid #000;
     width: 40px;
     height: 40px;
     display: block;
     color: #fff;
     position: absolute;
+    text-align: center;
     top: 0;
     left: 0;
     z-index: 102;
@@ -18,7 +18,9 @@ var Button = React.createClass({
 
   render() {
     return (
-      <a href="#" styles={this.styles} className={'button-' + this.props.type}></a>
+      <a href="#" styles={this.styles} className={'button-' + this.props.type}>
+        <Icon type={this.props.type} size="2x" />
+      </a>
     );
   }
 });

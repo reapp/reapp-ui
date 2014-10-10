@@ -6,7 +6,7 @@ var Title = require('../ui/components/Title');
 var Button = require('../ui/components/Button');
 var LeftNavView = require('../ui/views/LeftNavView');
 
-var AppMenu = (
+var menu = (
   <Menu>
     <Link to="app">Home</Link>
     <Link to="viewer">Gallery</Link>
@@ -14,24 +14,16 @@ var AppMenu = (
   </Menu>
 );
 
+var button = <Button type="menu" />;
+
 var AppLayout = React.createClass({
   render() {
-    var button = <Button type="hamburger" />;
-
     var toolbar = (
       <Toolbar id="app-toolbar">
         <Title>
           {this.props.title}
         </Title>
       </Toolbar>
-    );
-
-    var menu = (
-      <Menu>
-        <Link to="app">Home</Link>
-        <Link to="viewer">Gallery</Link>
-        <Link to="list">List</Link>
-      </Menu>
     );
 
     return (

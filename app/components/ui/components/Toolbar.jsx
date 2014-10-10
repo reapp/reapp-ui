@@ -9,7 +9,7 @@ var Toolbar = React.createClass({
     _[top] == ::window[top];
     _[left] == ::window[left];
     _[right] == ::window[right];
-    _[height] == _[instrinsic-height];
+    _[height] == 51;
   `,
 
   styles: ReactStyle`

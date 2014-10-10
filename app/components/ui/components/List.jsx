@@ -33,8 +33,8 @@ var ListItem = React.createClass({
   render() {
     return (
       <ul className={this.props.className || "list"} styles={this.styles.list}>
-        {this.props.children.map(li => (
-          <li className="list-item" styles={this.styles.listItem}>
+        {this.props.children.map((li, i) => (
+          <li key={i} className="list-item" styles={this.styles.listItem}>
             <div className="list-item-content" styles={this.styles.listItemContent}>
               {li}
             </div>

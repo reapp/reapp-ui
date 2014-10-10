@@ -1,16 +1,13 @@
 ## About
 
-This is an experiment putting together a react app base.  Batteries included.
+An experiment assembling a sensible React stack.
 
-- webpack for bundling and development workflow
-- react-router to enable isomorphic rendering
-- react-style for smart style bundling
-- Experiments with flux/immutable data
+- Webpack, Flux, GSS, react-router, react-style, UI components...
 
-### Goal
+### TODO
 
-After experimenting here and putting together something that feels nice,
-the goal is to extract everything here into packages for ease of use.
+- Design sample app
+- Extract UI components into package
 
 #### Data
 
@@ -123,3 +120,7 @@ Many file types are preconfigured, but not every loader is installed. If you get
 Copyright (c) 2012-2014 Tobias Koppers Gittip donate button
 
 MIT (http://www.opensource.org/licenses/mit-license.php)
+
+## Credits
+
+- Icons for now from: http://www.pixeden.com/icon-fonts/stroke-7-icon-font-set
