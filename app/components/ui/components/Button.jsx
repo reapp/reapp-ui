@@ -5,6 +5,7 @@ var Icon = require('./Icon');
 var Button = React.createClass({
   styles: ReactStyle`
     ignore: me;
+    padding-top: 8px;
     width: 40px;
     height: 40px;
     display: block;

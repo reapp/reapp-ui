@@ -5,6 +5,7 @@ var TouchEvents = require('./components/ui/lib/TouchEvents');
 var ReactStyle = require('react-style');
 var DocumentTitle = require('react-document-title');
 var { Flux } = require('./flux');
+var GSSMixin = require('./mixins/GSSMixin');
 
 window.React = React;
 ReactStyle.inject();
@@ -12,6 +13,10 @@ TouchEvents.initialize();
 
 // App
 var App = React.createClass({
+  componentDidMount() {
+    GSSMixin._start();
+  },
+
   render() {
     return (
       <DocumentTitle title="React Base">

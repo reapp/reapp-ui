@@ -5,6 +5,7 @@
   "version": "0.3.0",
   "main": "./app/app.jsx",
   "scripts": {
+    "install": "npm install -g node-dev && npm install && bower install && mkdir build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev-server": "node-dev server.js --config webpack/server-dev.config.js --dev --progress --colors",
     "hot-dev-server": "node-dev server.js --config webpack/server-hot-dev.config.js --dev --hot --progress --colors",

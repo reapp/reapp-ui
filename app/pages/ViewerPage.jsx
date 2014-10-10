@@ -1,4 +1,5 @@
 var React = require('react');
+var AppLayout = require('../components/layout/AppLayout');
 var Images = require('../assets/data/images');
 var Viewer = require('../components/viewer/Viewer');
 var AppToolbar = require('../components/layout/AppToolbar');
@@ -30,13 +31,14 @@ var ViewerPage = React.createClass({
     }
 
     return (
-      <View id="ViewerPage">
-        <AppToolbar title={this.title} />
-        <Viewer
-          width={this.state.width}
-          height={this.state.height}
-          images={Images} />
-      </View>
+      <AppLayout title={this.title}>
+        <View id="ViewerPage">
+          <Viewer
+            width={this.state.width}
+            height={this.state.height}
+            images={Images} />
+        </View>
+      </AppLayout>
     );
   }
 });

@@ -1,7 +1,7 @@
 var React = require('react');
 var View = require('../components/ui/views/View');
-var AppToolbar = require('../components/layout/AppToolbar');
 var List = require('../components/ui/components/List');
+var AppLayout = require('../components/layout/AppLayout');
 var _ = require('lodash');
 
 var ListPage = React.createClass({
@@ -9,12 +9,13 @@ var ListPage = React.createClass({
 
   render() {
     return (
-      <View id="ListPage">
-        <AppToolbar title={this.title} />
-        <List>
-          {_.range(100).map(i => `List Item ${i}`)}
-        </List>
-      </View>
+      <AppLayout title={this.title}>
+        <View id="ListPage">
+          <List>
+            {_.range(100).map(i => `List Item ${i}`)}
+          </List>
+        </View>
+      </AppLayout>
     );
   }
 });

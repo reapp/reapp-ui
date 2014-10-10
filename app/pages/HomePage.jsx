@@ -2,7 +2,6 @@ var React = require('react');
 var ImageBox = require('../components/home/ImageBoxComponent');
 var { Cursor } = require('react-cursor');
 var View = require('../components/ui/views/View');
-var DocumentTitle = require('react-document-title');
 var { FluxMixin } = require('../flux');
 var AppLayout = require('../components/layout/AppLayout');
 
@@ -32,13 +31,11 @@ module.exports = React.createClass({
     var images = articles.map(a =>  a.image_url);
 
     return (
-      <DocumentTitle title={this.title}>
-        <AppLayout title={this.title}>
-          <View id="HomePage">
-            <ImageBox images={images} />
-          </View>
-        </AppLayout>
-      </DocumentTitle>
+      <AppLayout title={this.title}>
+        <View id="HomePage">
+          <ImageBox images={images} />
+        </View>
+      </AppLayout>
     );
   }
 

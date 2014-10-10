@@ -25,7 +25,7 @@ var Toolbar = React.createClass({
   render() {
     return (
       <div
-        id={this.props.id || void 0}
+        id={this.props.id || '__toolbar'}
         className="toolbar"
         styles={this.styles}>
         <span>{this.props.children}</span>

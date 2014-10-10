@@ -15,38 +15,30 @@ Put together libraries and helpers for data management. I want an easy way
 to use Flux that reduces as much boilerplate code as possible. And to tie
 that in with an immutable data library.
 
-- flux (fluxxor)
-- immutable (immutable-js, mori, react-cursor)
+- flux (fluxxor), immutable (immutable-js, mori, react-cursor)
 
 Finally, overlay the entire system with an optional and configurable sync
 layer that handles syncing with a backend API (and create a demo for this).
 
-- swarm
-- ...
+- swarm, ...
 
 #### UI
 
 Build a set of components for building application UI's. They should
 by default have nice animations, touch support, complete granular reactivity.
 
-- react-responsive
-- react-gss
-- rebound
+- react-responsive, react-gss, rebound...
 
 On top of that, build out demos for various common things in apps:
 
-- react-forms
-- react-time
-- autocomplete
-- ...
+- react-forms, react-time, autocomplete, ...
 
 #### Final State
 
 The final state of this application would probably look like a mobile/tablet
-TodoMVC style application with a UI toolkit thrown in.
-
-Would be able to live sync state across clients, respond to different screen
-sizes and platforms (themeing), and render isomorphically from server.
+TodoMVC style application with a UI toolkit thrown in. Would be able to live
+sync state across clients, respond to different screen sizes and platforms
+(themeing), and render isomorphically from server.
 
 
 ## Installation
@@ -56,9 +48,7 @@ This section comes partly from [react-starter](https://github.com/webpack/react-
 Just clone this repo and change the `origin` git remote.
 
 ``` text
-npm install -g node-dev
-npm install
-bower install
+npm run install
 ```
 
 ## Development server

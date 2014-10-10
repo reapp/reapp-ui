@@ -13,6 +13,7 @@ var View = React.createClass({
   `,
 
   styles: ReactStyle`
+    ignore: me;
     background: #efeff4;
     height: 100%;
   `,

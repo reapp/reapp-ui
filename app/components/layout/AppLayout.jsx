@@ -1,5 +1,6 @@
 var React = require('react');
 var { Link } = require('react-router');
+var DocumentTitle = require('react-document-title');
 var Menu = require('../ui/components/Menu');
 var Toolbar = require('../ui/components/Toolbar');
 var Title = require('../ui/components/Title');
@@ -8,9 +9,9 @@ var LeftNavView = require('../ui/views/LeftNavView');
 
 var menu = (
   <Menu>
-    <Link to="app">Home</Link>
-    <Link to="viewer">Gallery</Link>
-    <Link to="list">List</Link>
+    <a href="app">Home</a>
+    <a href="viewer">Gallery</a>
+    <a href="list">List</a>
   </Menu>
 );
 
@@ -27,16 +28,18 @@ var AppLayout = React.createClass({
     );
 
     return (
-      <LeftNavView
-        ref="appLeftNavView"
-        button={button}
-        topContent={toolbar}
-        sideContent={menu}
-        topHeight={51}
-        sideWidth={200}>
+      <DocumentTitle title={this.props.title}>
+        <LeftNavView
+          ref="appLeftNavView"
+          button={button}
+          topContent={toolbar}
+          sideContent={menu}
+          topHeight={51}
+          sideWidth={200}>
 
-        {this.props.children}
-      </LeftNavView>
+          {this.props.children}
+        </LeftNavView>
+      </DocumentTitle>
     );
   }
 });
