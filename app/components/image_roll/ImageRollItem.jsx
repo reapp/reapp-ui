@@ -1,6 +1,6 @@
 var React = require('react');
 
-module.exports = React.createClass({
+var ImageRollItem = React.createClass({
   style: {
     div: {
       position: 'absolute',
@@ -27,3 +27,5 @@ module.exports = React.createClass({
   }
 
 });
+
+module.exports = ImageRollItem;

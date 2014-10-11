@@ -4,6 +4,23 @@ var LeftNavBehavior = require('./LeftNavBehavior');
 var TouchableArea = require('../helpers/TouchableArea');
 var { Scroller } = require('scroller');
 
+var contentTouchableAreaStyle = {
+  bottom: 0,
+  left: 0,
+  position: 'absolute',
+  right: 0,
+  top: 0
+};
+
+var wrapperStyle = {
+  overflow: 'hidden',
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  bottom: 0,
+  right: 0
+};
+
 var LeftNavView = React.createClass({
   displayName: 'LeftNavView',
 
@@ -59,11 +76,8 @@ var LeftNavView = React.createClass({
   },
 
   _handleTap() {
-    if (this.isNavOpen()) {
-      this.scroller.scrollTo(this.props.sideWidth, 0, true);
-    } else {
-      this.scroller.scrollTo(0, 0, true);
-    }
+    var scrollTo = this.isNavOpen() ? this.props.sideWidth : 0;
+    this.scroller.scrollTo(scrollTo, 0, true);
   },
 
   _handleContentTouchTap(e) {
@@ -80,27 +94,36 @@ var LeftNavView = React.createClass({
   },
 
   render() {
-    // props:
-    // sideWidth
-    // topHeight
-    // topContent
-    // button
-    // sideContent
-    // children (big content area)
+    // props: sideWidth, topHeight, topContent, button, sideContent
+    var behavior = this.props.behavior;
     var sidebarX = (this.props.sideWidth - this.state.scrollLeft);
-
     var side = null;
-
-    // TODO: we could do this with style calc
     var sideStyle = {
       bottom: 0,
       left: this.props.sideWidth * -1,
       position: 'fixed',
       top: 0,
-      width: this.props.sideWidth
+      width: this.props.sideWidth,
+      zIndex: 1
     };
 
-    var behavior = this.props.behavior;
+    var topStyle = {
+      height: this.props.topHeight,
+      left: 0,
+      position: 'fixed',
+      right: 0,
+      top: 0,
+      zIndex: 100
+    };
+
+    var contentStyle = {
+      top: this.props.topHeight,
+      bottom: 0,
+      left: 0,
+      position: 'absolute',
+      right: 0,
+      zIndex: 99
+    };
 
     if (this.isNavOpen()) {
       side = AnimatableContainer({
@@ -111,32 +134,8 @@ var LeftNavView = React.createClass({
       }, this.props.sideContent);
     }
 
-    var contentTouchableAreaStyle = {
-      bottom: 0,
-      left: 0,
-      position: 'absolute',
-      right: 0,
-      top: 0
-    };
-
-    var topStyle = {
-      height: this.props.topHeight,
-      left: 0,
-      position: 'fixed',
-      right: 0,
-      top: 0
-    };
-
-    var contentStyle = {
-      bottom: 0,
-      left: 0,
-      position: 'absolute',
-      right: 0,
-      top: this.props.topHeight
-    };
-
     return this.transferPropsTo(
-      React.DOM.div(null,
+      React.DOM.div({style: wrapperStyle},
         side,
         AnimatableContainer(
           {style:contentStyle,

@@ -11,7 +11,6 @@ var Menu = React.createClass({
     background: #000;
     border: 10px solid #000;
     position: relative;
-    z-index: 101;
     list-style: none;
     margin: 0;
     padding: 0;

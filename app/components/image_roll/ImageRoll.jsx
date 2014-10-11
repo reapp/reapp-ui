@@ -1,9 +1,9 @@
 var React = require('react');
-var Image = require('./ImageComponent');
+var Image = require('./ImageRollItem');
 var { FluxChildMixin } = require('../../flux');
 var AutoBind = require('fluxxor-autobind');
 
-module.exports = React.createClass({
+var ImageRoll = React.createClass({
   mixins: [FluxChildMixin, AutoBind.Mixin('theTime')],
 
   style: {
@@ -65,3 +65,5 @@ module.exports = React.createClass({
   }
 
 });
+
+module.exports = ImageRoll;

@@ -11,6 +11,11 @@ var button = <Button type="menu" />;
 const TOOLBAR_HEIGHT = 44;
 
 var AppLayout = React.createClass({
+  shouldComponentUpdate(nextProps) {
+    console.log(this.props.children === nextProps.children)
+    return true;
+  },
+
   render() {
     var toolbar = (
       <Toolbar id="app-toolbar" height={TOOLBAR_HEIGHT}>
@@ -23,7 +28,8 @@ var AppLayout = React.createClass({
     var menu = (
       <Menu>
         <Link to="app">Home</Link>
-        <Link to="viewer">Gallery</Link>
+        <Link to="viewer">3D Gallery</Link>
+        <Link to="imageRoll">Image Roll</Link>
         <Link to="list">List</Link>
       </Menu>
     );

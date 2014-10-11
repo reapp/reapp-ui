@@ -16,6 +16,9 @@ var express = require('express');
 var path = require('path');
 var fs = require('fs');
 var yargs = require('yargs').argv;
+var os = require("os");
+
+var hostname = os.hostname() || 'localhost';
 
 var app = express();
 var port = Number(yargs.port || process.env.PORT || 8080);
@@ -43,7 +46,7 @@ if (yargs.dev) {
   var wport = Number(yargs.wport || process.env.WEBPACKPORT || 2992);
 
   // Update config to use webpack port
-  webpackConfig.output.publicPath = 'http://localhost:' + wport + '/';
+  webpackConfig.output.publicPath = 'http://' + hostname + ':' + wport + '/';
 
   var compiler = webpack(webpackConfig);
   var wpDevServerOpts = {
@@ -56,11 +59,11 @@ if (yargs.dev) {
 
   var webpackServer = new WebpackDevServer(compiler, wpDevServerOpts);
   console.log('Starting webpack server on', wport);
-  webpackServer.listen(wport, 'localhost');
+  webpackServer.listen(wport, hostname);
 
   var scripts = [
-    '<script src="http://localhost:' + wport + '/main.js"></script>',
-    '<script src="http://localhost:' + wport + '/webpack-dev-server.js"></script>'
+    '<script src="http://'+ hostname +':' + wport + '/main.js"></script>',
+    '<script src="http://'+ hostname +':' + wport + '/webpack-dev-server.js"></script>'
   ].join("\n");
 
   template = fs
@@ -91,4 +94,6 @@ console.log(
   'server on port',
   port
 );
+
+app.set('10.0.1.99', 'loopback')
 app.listen(port);

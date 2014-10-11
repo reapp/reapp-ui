@@ -16,6 +16,7 @@ var View = React.createClass({
     ignore: me;
     background: #efeff4;
     height: 100%;
+    overflow: scroll;
   `,
 
   render() {
