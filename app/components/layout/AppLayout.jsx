@@ -7,24 +7,25 @@ var Title = require('../ui/components/Title');
 var Button = require('../ui/components/Button');
 var LeftNavView = require('../ui/views/LeftNavView');
 
-var menu = (
-  <Menu>
-    <a href="app">Home</a>
-    <a href="viewer">Gallery</a>
-    <a href="list">List</a>
-  </Menu>
-);
-
 var button = <Button type="menu" />;
+const TOOLBAR_HEIGHT = 44;
 
 var AppLayout = React.createClass({
   render() {
     var toolbar = (
-      <Toolbar id="app-toolbar">
+      <Toolbar id="app-toolbar" height={TOOLBAR_HEIGHT}>
         <Title>
           {this.props.title}
         </Title>
       </Toolbar>
+    );
+
+    var menu = (
+      <Menu>
+        <Link to="app">Home</Link>
+        <Link to="viewer">Gallery</Link>
+        <Link to="list">List</Link>
+      </Menu>
     );
 
     return (
@@ -34,7 +35,7 @@ var AppLayout = React.createClass({
           button={button}
           topContent={toolbar}
           sideContent={menu}
-          topHeight={51}
+          topHeight={TOOLBAR_HEIGHT}
           sideWidth={200}>
 
           {this.props.children}

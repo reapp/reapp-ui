@@ -1,5 +1,6 @@
 var Store = require('../stores/GSSStore');
 var invariant = require('react/lib/invariant');
+var _ = require('lodash');
 var StyleSheet;
 var rules = [];
 var stage = 0;
@@ -12,20 +13,19 @@ function nextStage() {
 
 function startUp() {
   var engine = GSS.engines[0];
-  StyleSheet = new GSS.StyleSheet({engine: engine, engineId: engine.id});
+  StyleSheet = new GSS.StyleSheet({engine: engine, engineId: engine.id} );
   addRules(rules);
 }
 
 invariant(typeof GSS !== 'undefined', 'GSS not set up on the page');
 
 function addRules(constraints) {
-  if (typeof constraints == 'array') {
+  if (_.isArray(constraints)) {
     constraints.forEach(addRules);
   }
   else {
     if (StyleSheet) {
       var compiledConstraints = GSS.compile(constraints);
-      console.log('adding constraints', compiledConstraints);
       StyleSheet.addRules(compiledConstraints);
     }
     else {
@@ -35,11 +35,6 @@ function addRules(constraints) {
 }
 
 var GSSMixin = {
-  _start() {
-    console.log('_start')
-    nextStage();
-  },
-
   componentDidMount() {
     var node = this.getDOMNode();
     var id = '#' + (node.id || (node.id = this._rootNodeID));
@@ -55,6 +50,11 @@ var GSSMixin = {
   componentWillUnmount() {
     // StyleSheet.destroy();
   },
+
+
+  _start() {
+    nextStage();
+  }
 };
 
 module.exports = GSSMixin;

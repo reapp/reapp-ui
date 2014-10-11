@@ -14,10 +14,6 @@ var ImageCardContainer = React.createClass({
      top: 0;
   `,
 
-  componentDidMount() {
-    console.log('render')
-  },
-
   render() {
     var card = this.transferPropsTo(<ImageCard />);
     var pct = (this.props.left - (this.props.index * this.props.width)) / this.props.width;

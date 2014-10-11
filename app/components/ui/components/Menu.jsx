@@ -6,24 +6,16 @@ var List = require('./List');
 require('./Menu.css')
 
 var Menu = React.createClass({
-  mixins: [GSSMixin],
-
-  layout: `
-    _[top] == ::window[top];
-    _[left] == ::window[left];
-    _[bottom] == ::window[bottom];
-    _[width] == 200;
-  `,
-
   styles: ReactStyle`
     ignore: me;
-    background: #fff;
+    background: #000;
     border: 10px solid #000;
     position: relative;
     z-index: 101;
     list-style: none;
     margin: 0;
     padding: 0;
+    height: 100%;
   `,
 
   render() {

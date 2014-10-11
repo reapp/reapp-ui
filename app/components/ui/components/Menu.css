@@ -4,3 +4,9 @@
   padding: 8px;
   margin: 0;
 }
+
+.menu a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+}

@@ -80,7 +80,6 @@ var LeftNavView = React.createClass({
   },
 
   render() {
-    console.log(this.state, this.props.sideWidth, this.isNavOpen())
     // props:
     // sideWidth
     // topHeight
@@ -96,7 +95,7 @@ var LeftNavView = React.createClass({
     var sideStyle = {
       bottom: 0,
       left: this.props.sideWidth * -1,
-      position: 'absolute',
+      position: 'fixed',
       top: 0,
       width: this.props.sideWidth
     };
@@ -123,7 +122,7 @@ var LeftNavView = React.createClass({
     var topStyle = {
       height: this.props.topHeight,
       left: 0,
-      position: 'absolute',
+      position: 'fixed',
       right: 0,
       top: 0
     };

@@ -10,8 +10,6 @@ var ListItem = React.createClass({
   styles: {
     list: ReactStyle`
       ignore: me;
-      background: #fff;
-      border-bottom: 1px solid #c8c7cc;
       margin: 0;
       padding: 0;
       z-index: 101;
@@ -32,7 +30,7 @@ var ListItem = React.createClass({
 
   render() {
     return (
-      <ul className={this.props.className || "list"} styles={this.styles.list}>
+      <ul className={this.props.className || "list"} styles={[this.styles.list, this.props.styles]}>
         {React.Children.map(this.props.children, function(li, i) {
           return (
             <li key={i} className="list-item" styles={this.styles.listItem}>

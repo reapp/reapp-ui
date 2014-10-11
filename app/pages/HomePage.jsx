@@ -1,9 +1,10 @@
 var React = require('react');
-var ImageBox = require('../components/home/ImageBoxComponent');
 var { Cursor } = require('react-cursor');
-var View = require('../components/ui/views/View');
+var { Link } = require('react-router');
 var { FluxMixin } = require('../flux');
+var View = require('../components/ui/views/View');
 var AppLayout = require('../components/layout/AppLayout');
+var ImageBox = require('../components/home/ImageBoxComponent');
 
 module.exports = React.createClass({
   mixins: [FluxMixin],
