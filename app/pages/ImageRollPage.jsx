@@ -3,8 +3,8 @@ var { Cursor } = require('react-cursor');
 var { Link } = require('react-router');
 var { FluxMixin } = require('../flux');
 var View = require('../components/ui/views/View');
-var AppLayout = require('../components/layout/AppLayout');
 var ImageRoll = require('../components/image_roll/ImageRoll');
+var TitleBar = require('../components/TitleBar');
 
 module.exports = React.createClass({
   mixins: [FluxMixin],
@@ -32,11 +32,10 @@ module.exports = React.createClass({
     var images = articles.map(a =>  a.image_url);
 
     return (
-      <AppLayout title={this.title}>
-        <View id="ImageRoll">
-          <ImageRoll images={images} />
-        </View>
-      </AppLayout>
+      <View id="ImageRoll">
+        <TitleBar>{this.title}</TitleBar>
+        <ImageRoll images={images} />
+      </View>
     );
   }
 

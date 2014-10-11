@@ -18,7 +18,7 @@ var fs = require('fs');
 var yargs = require('yargs').argv;
 var os = require("os");
 
-var hostname = os.hostname() || 'localhost';
+var hostname = 'localhost'; //os.hostname() ||
 
 var app = express();
 var port = Number(yargs.port || process.env.PORT || 8080);

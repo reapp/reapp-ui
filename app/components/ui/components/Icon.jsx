@@ -1,4 +1,4 @@
-var React = require('react');
+var React = require('react/addons');
 var ReactStyle = require('react-style');
 
 require('./Icon.css');

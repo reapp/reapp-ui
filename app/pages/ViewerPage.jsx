@@ -1,9 +1,8 @@
 var React = require('react');
-var AppLayout = require('../components/layout/AppLayout');
 var Images = require('../assets/data/images');
 var Viewer = require('../components/viewer/Viewer');
-var AppToolbar = require('../components/layout/AppToolbar');
 var View = require('../components/ui/views/View');
+var TitleBar = require('../components/TitleBar');
 
 var NUM_IMAGES = 10;
 var START_INDEX = 5;
@@ -31,14 +30,13 @@ var ViewerPage = React.createClass({
     }
 
     return (
-      <AppLayout title={this.title}>
-        <View id="ViewerPage">
-          <Viewer
-            width={this.state.width}
-            height={this.state.height}
-            images={Images} />
-        </View>
-      </AppLayout>
+      <View id="ViewerPage">
+        <TitleBar>{this.title}</TitleBar>
+        <Viewer
+          width={this.state.width}
+          height={this.state.height}
+          images={Images} />
+      </View>
     );
   }
 });

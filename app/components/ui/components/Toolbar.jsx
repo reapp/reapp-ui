@@ -30,7 +30,7 @@ var Toolbar = React.createClass({
         id={this.props.id || '__toolbar'}
         className="toolbar"
         styles={this.styles}>
-        <span>{this.props.children}</span>
+        {this.props.children}
       </div>
     );
   }

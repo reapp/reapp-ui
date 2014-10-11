@@ -94,7 +94,7 @@ var LeftNavView = React.createClass({
   },
 
   render() {
-    // props: sideWidth, topHeight, topContent, button, sideContent
+    // props: sideWidth, topHeight, topContent, handle, sideContent
     var behavior = this.props.behavior;
     var sidebarX = (this.props.sideWidth - this.state.scrollLeft);
     var side = null;
@@ -107,17 +107,8 @@ var LeftNavView = React.createClass({
       zIndex: 1
     };
 
-    var topStyle = {
-      height: this.props.topHeight,
-      left: 0,
-      position: 'fixed',
-      right: 0,
-      top: 0,
-      zIndex: 100
-    };
-
     var contentStyle = {
-      top: this.props.topHeight,
+      top: 0,
       bottom: 0,
       left: 0,
       position: 'absolute',
@@ -137,30 +128,29 @@ var LeftNavView = React.createClass({
     return this.transferPropsTo(
       React.DOM.div({style: wrapperStyle},
         side,
-        AnimatableContainer(
-          {style:contentStyle,
-          translate:behavior.content.translate(this.props.sideWidth, this.state.scrollLeft),
-          rotate:behavior.content.rotate(this.props.sideWidth, this.state.scrollLeft),
-          opacity:behavior.content.opacity(this.props.sideWidth, this.state.scrollLeft)},
-          TouchableArea(
-            {style:contentTouchableAreaStyle,
-            scroller:this.scroller,
-            touchable:this.isNavOpen(),
-            onTouchTap:this._handleContentTouchTap},
-            this.props.children
-          )
+        AnimatableContainer({
+          style: contentStyle,
+          translate: behavior.content.translate(this.props.sideWidth, this.state.scrollLeft),
+          rotate: behavior.content.rotate(this.props.sideWidth, this.state.scrollLeft),
+          opacity: behavior.content.opacity(this.props.sideWidth, this.state.scrollLeft)
+        },
+          TouchableArea({
+            style: contentTouchableAreaStyle,
+            scroller: this.scroller,
+            touchable: this.isNavOpen(),
+            onTouchTap: this._handleContentTouchTap
+          }, this.props.children)
         ),
-        AnimatableContainer(
-          {style:topStyle,
-          translate:behavior.top.translate(this.props.sideWidth, this.state.scrollLeft),
-          rotate:behavior.top.rotate(this.props.sideWidth, this.state.scrollLeft),
-          opacity:behavior.top.opacity(this.props.sideWidth, this.state.scrollLeft)},
-          TouchableArea(
-            {onTouchTap:this._handleTap,
-            scroller:this.scroller},
-            this.props.button
-          ),
-          this.props.topContent
+        AnimatableContainer({
+          style: this.props.handleStyle,
+          translate: behavior.top.translate(this.props.sideWidth, this.state.scrollLeft),
+          rotate: behavior.top.rotate(this.props.sideWidth, this.state.scrollLeft),
+          opacity: behavior.top.opacity(this.props.sideWidth, this.state.scrollLeft)
+        },
+          TouchableArea({
+            onTouchTap:this._handleTap,
+            scroller:this.scroller
+          }, this.props.handle)
         )
       )
     );

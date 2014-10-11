@@ -1,7 +1,7 @@
 var React = require('react');
 var { Link } = require('react-router');
 var View = require('../components/ui/views/View');
-var AppLayout = require('../components/layout/AppLayout');
+var TitleBar = require('../components/TitleBar');
 
 module.exports = React.createClass({
   title: 'Home',
@@ -23,11 +23,10 @@ module.exports = React.createClass({
 
   render() {
     return (
-      <AppLayout title={this.title}>
-        <View id="HomePage">
-          hello
-        </View>
-      </AppLayout>
+      <View id="HomePage">
+        <TitleBar>{this.title}</TitleBar>
+        hello
+      </View>
     );
   }
 

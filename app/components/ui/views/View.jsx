@@ -3,15 +3,6 @@ var ReactStyle = require('react-style');
 var GSSMixin = require('../../../mixins/GSSMixin');
 
 var View = React.createClass({
-  mixins: [GSSMixin],
-
-  layout: `
-    _[top] == window[bottom];
-    _[left] == window[left];
-    _[right] == window[right];
-    _[bottom] == window[bottom];
-  `,
-
   styles: ReactStyle`
     ignore: me;
     background: #efeff4;

@@ -1,5 +1,5 @@
 var React  = require('react');
-var Layout = require('./components/layout');
+var Layout = require('./components/Layout');
 var Routes = require('./routes');
 var TouchEvents = require('./components/ui/lib/TouchEvents');
 var ReactStyle = require('react-style');
@@ -13,14 +13,28 @@ TouchEvents.initialize();
 
 // App
 var App = React.createClass({
+  getInitialState() {
+    return {
+      container: null
+    }
+  },
+
   componentDidMount() {
     GSSMixin._start();
   },
 
+  onUpdateContainer(el) {
+    this.setState({ container: el });
+  },
+
   render() {
+    var ActiveRoute = this.props.activeRouteHandler;
+
     return (
       <DocumentTitle title="React Base">
-        {this.props.activeRouteHandler({ flux: Flux })}
+        <Layout>
+          <ActiveRoute flux={Flux} container={this.state.container} />
+        </Layout>
       </DocumentTitle>
     );
   }
