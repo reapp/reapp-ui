@@ -3,7 +3,6 @@ var Layout = require('./components/Layout');
 var Routes = require('./routes');
 var TouchEvents = require('./components/ui/lib/TouchEvents');
 var ReactStyle = require('react-style');
-var DocumentTitle = require('react-document-title');
 var { Flux } = require('./flux');
 var GSSMixin = require('./mixins/GSSMixin');
 
@@ -31,11 +30,9 @@ var App = React.createClass({
     var ActiveRoute = this.props.activeRouteHandler;
 
     return (
-      <DocumentTitle title="React Base">
-        <Layout>
-          <ActiveRoute flux={Flux} container={this.state.container} />
-        </Layout>
-      </DocumentTitle>
+      <Layout>
+        <ActiveRoute flux={Flux} container={this.state.container} />
+      </Layout>
     );
   }
 });

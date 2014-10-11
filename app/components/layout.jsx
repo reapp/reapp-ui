@@ -5,6 +5,7 @@ var Toolbar = require('./ui/components/Toolbar');
 var Title = require('./ui/components/Title');
 var Button = require('./ui/components/Button');
 var LeftNavView = require('./ui/views/LeftNavView');
+var DocumentTitle = require('react-document-title');
 
 require('./Layout.css');
 
@@ -32,15 +33,18 @@ var Layout = React.createClass({
     );
 
     return (
-      <LeftNavView
-        ref="appLeftNavView"
-        handle={this.button}
-        handleStyle={this.buttonStyle}
-        sideContent={menu}
-        topHeight={TOOLBAR_HEIGHT}
-        sideWidth={SIDE_WIDTH}>
-        {this.props.children}
-      </LeftNavView>
+      <DocumentTitle title="React Base">
+        <LeftNavView
+          ref="appLeftNavView"
+          handle={this.button}
+          handleStyle={this.buttonStyle}
+          sideContent={menu}
+          topHeight={TOOLBAR_HEIGHT}
+          sideWidth={SIDE_WIDTH}
+          sideZIndex={101}>
+          {this.props.children}
+        </LeftNavView>
+      </DocumentTitle>
     );
   }
 });

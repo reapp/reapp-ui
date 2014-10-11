@@ -1,4 +1,5 @@
 var React = require('react');
+var Merge = require('react/lib/merge');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
 var LeftNavBehavior = require('./LeftNavBehavior');
 var TouchableArea = require('../helpers/TouchableArea');
@@ -19,6 +20,15 @@ var wrapperStyle = {
   left: 0,
   bottom: 0,
   right: 0
+};
+
+var contentStyle = {
+  top: 0,
+  bottom: 0,
+  left: 0,
+  position: 'absolute',
+  right: 0,
+  zIndex: 99
 };
 
 var LeftNavView = React.createClass({
@@ -71,7 +81,7 @@ var LeftNavView = React.createClass({
 
   getDefaultProps() {
     return {
-      behavior: LeftNavBehavior.PARALLAX_FADE
+      behavior: LeftNavBehavior.ALL_PARALLAX_FADE
     };
   },
 
@@ -99,41 +109,40 @@ var LeftNavView = React.createClass({
     var sidebarX = (this.props.sideWidth - this.state.scrollLeft);
     var side = null;
     var sideStyle = {
-      bottom: 0,
-      left: this.props.sideWidth * -1,
       position: 'fixed',
       top: 0,
+      bottom: 0,
+      left: this.props.sideWidth * -1,
       width: this.props.sideWidth,
-      zIndex: 1
+      zIndex: this.props.sideZIndex || 1
     };
 
-    var contentStyle = {
-      top: 0,
-      bottom: 0,
-      left: 0,
-      position: 'absolute',
-      right: 0,
-      zIndex: 99
+    var sideProps = {
+      translate: behavior.side.translate(this.props.sideWidth, this.state.scrollLeft),
+      rotate: behavior.side.rotate(this.props.sideWidth, this.state.scrollLeft),
+      opacity: behavior.side.opacity(this.props.sideWidth, this.state.scrollLeft)
     };
 
     if (this.isNavOpen()) {
-      side = AnimatableContainer({
-        style: sideStyle,
-        translate: behavior.side.translate(this.props.sideWidth, this.state.scrollLeft),
-        rotate: behavior.side.rotate(this.props.sideWidth, this.state.scrollLeft),
-        opacity: behavior.side.opacity(this.props.sideWidth, this.state.scrollLeft)
-      }, this.props.sideContent);
+      side = AnimatableContainer(
+        Merge(sideProps, { style: sideStyle }), this.props.sideContent
+      );
     }
+
+    var contentProps;
+
+    if (behavior.content) {
+      contentProps = {
+        translate: behavior.content.translate(this.props.sideWidth, this.state.scrollLeft),
+        rotate: behavior.content.rotate(this.props.sideWidth, this.state.scrollLeft),
+        opacity: behavior.content.opacity(this.props.sideWidth, this.state.scrollLeft)
+      };
+    };
 
     return this.transferPropsTo(
       React.DOM.div({style: wrapperStyle},
         side,
-        AnimatableContainer({
-          style: contentStyle,
-          translate: behavior.content.translate(this.props.sideWidth, this.state.scrollLeft),
-          rotate: behavior.content.rotate(this.props.sideWidth, this.state.scrollLeft),
-          opacity: behavior.content.opacity(this.props.sideWidth, this.state.scrollLeft)
-        },
+        AnimatableContainer(Merge(contentProps, {style: contentStyle}),
           TouchableArea({
             style: contentTouchableAreaStyle,
             scroller: this.scroller,
@@ -141,12 +150,7 @@ var LeftNavView = React.createClass({
             onTouchTap: this._handleContentTouchTap
           }, this.props.children)
         ),
-        AnimatableContainer({
-          style: this.props.handleStyle,
-          translate: behavior.top.translate(this.props.sideWidth, this.state.scrollLeft),
-          rotate: behavior.top.rotate(this.props.sideWidth, this.state.scrollLeft),
-          opacity: behavior.top.opacity(this.props.sideWidth, this.state.scrollLeft)
-        },
+        AnimatableContainer(Merge(contentProps || sideProps, {style: this.props.handleStyle}),
           TouchableArea({
             onTouchTap:this._handleTap,
             scroller:this.scroller

@@ -1,5 +1,5 @@
 var LeftNavBehavior = {
-  PARALLAX_FADE: {
+  ALL_PARALLAX_FADE: {
     side: {
       translate: function(sideWidth, scrollLeft) {
         return {
@@ -13,7 +13,7 @@ var LeftNavBehavior = {
         return .5 + .5 * (1 - scrollLeft / sideWidth);
       }
     },
-    top: {
+    content: {
       translate: function(sideWidth, scrollLeft) {
         return {x: sideWidth - scrollLeft};
       },
@@ -23,10 +23,14 @@ var LeftNavBehavior = {
       opacity: function() {
         return null;
       }
-    },
-    content: {
+    }
+  },
+  NORMAL: {
+    side: {
       translate: function(sideWidth, scrollLeft) {
-        return {x: sideWidth - scrollLeft};
+        return {
+          x: sideWidth - scrollLeft
+        };
       },
       rotate: function() {
         return null;
