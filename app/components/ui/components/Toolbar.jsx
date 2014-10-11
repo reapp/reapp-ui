@@ -2,6 +2,8 @@ var React = require('react');
 var ReactStyle = require('react-style');
 var GSSMixin = require('../../../mixins/GSSMixin');
 
+const TOOLBAR_HEIGHT = 44;
+
 var Toolbar = React.createClass({
   mixins: [GSSMixin],
 
@@ -10,7 +12,7 @@ var Toolbar = React.createClass({
       _[top] == ::window[top];
       _[left] == ::window[left];
       _[right] == ::window[right];
-      _[height] == ${this.props.height};
+      _[height] == ${this.props.height || TOOLBAR_HEIGHT};
     `);
   },
 

@@ -40,8 +40,7 @@ var Layout = React.createClass({
           handleStyle={this.buttonStyle}
           sideContent={menu}
           topHeight={TOOLBAR_HEIGHT}
-          sideWidth={SIDE_WIDTH}
-          sideZIndex={101}>
+          sideWidth={SIDE_WIDTH}>
           {this.props.children}
         </LeftNavView>
       </DocumentTitle>
