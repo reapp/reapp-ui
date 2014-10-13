@@ -54,7 +54,10 @@ if (yargs.dev) {
     quiet: !!yargs.quiet,
     hot: !!yargs.hot,
     progress: !!yargs.progress,
-    stats: { colors: !!yargs.colors }
+    stats: {
+      colors: !!yargs.colors,
+      timings: true
+    }
   };
 
   var webpackServer = new WebpackDevServer(compiler, wpDevServerOpts);
