@@ -78,7 +78,8 @@ module.exports = function(options) {
     // new ReactStylePlugin('bundle.css'),
     new webpack.ResolverPlugin(
       new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
-    )
+    ),
+    // new webpack.optimize.DedupePlugin()
   ];
 
   if (options.prerender) {

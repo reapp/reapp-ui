@@ -1,5 +1,5 @@
 var invariant = require('react/lib/invariant');
-var _ = require('lodash');
+var _ = require('lodash-node');
 var StyleSheet;
 var rulesQueue = [];
 var stage = 0;
@@ -25,6 +25,7 @@ function addRules(constraints) {
   else {
     rulesQueue.push(constraints);
     if (StyleSheet) {
+      console.log(constraints);
       StyleSheet.addRules(GSS.compile(constraints));
       this.constraintsAdded = true;
     }

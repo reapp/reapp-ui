@@ -1,15 +1,23 @@
 var React = require('react');
 var { Link } = require('react-router');
-var _ = require('lodash');
+var _ = require('lodash-node');
+var Time = require('react-ago-component');
 var { Flux, FluxMixin } = require('../flux');
+var GSSMixin = require('../mixins/GSSMixin');
 var View = require('../components/ui/views/View');
 var TitleBar = require('../components/TitleBar');
 var List = require('../components/ui/components/List');
 
+require('./HomePage.styl');
+
 module.exports = React.createClass({
-  mixins: [FluxMixin],
+  mixins: [FluxMixin, GSSMixin],
 
   title: 'Home',
+
+  layout: `
+    .time[right] == .article[right];
+  `,
 
   statics: {
     didTransitionTo(params, query, setProps) {
@@ -17,21 +25,20 @@ module.exports = React.createClass({
 
       Flux.actions.loadArticles();
       store.on('change', function() {
-        console.log('change', store.articles)
         setProps({
-          articles: _.values(store.articles)
+          data: _.values(store.articles)
         });
       })
     },
 
     shouldRenderWithProps(props) {
-      return !!props.articles;
+      return !!props.data;
     }
   },
 
   articlesList() {
-    return _.map(this.props.articles, (item) => {
-      var article = item.article;
+    return _.map(this.props.data, (item) => {
+      var article = item.data;
       return (
         <div className="article">
           <h3>
@@ -40,9 +47,9 @@ module.exports = React.createClass({
             </a>
           </h3>
           <ul>
-            <li>{article.score}</li>
+            <li className="score">{article.score}</li>
             <li>{article.by}</li>
-            <li>{article.time}</li>
+            <li className="time"><Time date={new Date(article.time * 1000)} autoUpdate /></li>
           </ul>
         </div>
       );
@@ -50,7 +57,6 @@ module.exports = React.createClass({
   },
 
   render() {
-    console.log(this.props.articles)
     return (
       <View id="HomePage">
         <TitleBar>{this.title}</TitleBar>

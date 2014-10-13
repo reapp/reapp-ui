@@ -1,6 +1,6 @@
 var C = require('./Constants');
 var Client = require('./Client');
-var _ = require('lodash');
+var _ = require('lodash-node');
 
 var Actions = {
   loadArticles() {

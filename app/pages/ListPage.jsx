@@ -1,5 +1,5 @@
 var React = require('react');
-var _ = require('lodash');
+var _ = require('lodash-node');
 var View = require('../components/ui/views/View');
 var List = require('../components/ui/components/List');
 var TitleBar = require('../components/TitleBar');

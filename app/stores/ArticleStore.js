@@ -5,7 +5,7 @@ var ArticleStore = Fluxxor.createStore({
   autoBind: ['articles'],
 
   initialize() {
-    this.loading = true;
+    this.loading = false;
     this.articles = {};
 
     this.bindActions(
@@ -26,7 +26,7 @@ var ArticleStore = Fluxxor.createStore({
 
     this.articles = payload.articles.reduce((acc, article) => {
       var clientId = _.uniqueId();
-      acc[clientId] = { id: clientId, article: article, status: 'OK' };
+      acc[clientId] = { id: clientId, data: article, status: 'OK' };
       return acc;
     }, {});
 
