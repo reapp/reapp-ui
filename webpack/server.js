@@ -1,17 +1,15 @@
 var fs = require('fs');
 var WebpackDevServer = require('webpack-dev-server');
-var webpack = require('webpack');
 
 module.exports = {
 
-  run: function(opts) {
-    var webpackConfig = require(__dirname + '/' + opts.config);
-    var wport = Number(opts.wport || process.env.WEBPACKPORT || 2992);
-    var base = 'http://' + opts.hostname + ':' + wport + '/';
+  run: function(App, opts, conf) {
+    var port = Number(opts.wport || process.env.WEBPACKPORT || 2992);
+    var base = 'http://' + conf.hostname + ':' + port + '/';
 
     webpackConfig.output.publicPath = base;
     var webpackServer = new WebpackDevServer(
-      webpack(webpackConfig),
+      App,
       {
         contentBase: '../',
         quiet: !!opts.quiet,
@@ -24,8 +22,8 @@ module.exports = {
       }
     );
 
-    console.log('Starting webpack server on', wport);
-    webpackServer.listen(wport, opts.hostname);
+    console.log('Starting webpack server on', port);
+    webpackServer.listen(port, conf.hostname);
 
     var scripts = [
       '<script src="' + base + 'main.js"></script>',

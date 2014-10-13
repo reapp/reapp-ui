@@ -1,8 +1,7 @@
 var React = require('react');
-var { Link } = require('react-router');
 var _ = require('lodash-node');
 var Time = require('react-ago-component');
-var { Flux, FluxMixin } = require('../flux');
+var { FluxMixin, GetStores } = require('../flux');
 var GSSMixin = require('../mixins/GSSMixin');
 var View = require('../components/ui/views/View');
 var TitleBar = require('../components/TitleBar');
@@ -11,30 +10,17 @@ var List = require('../components/ui/components/List');
 require('./HomePage.styl');
 
 module.exports = React.createClass({
+  title: 'Home',
+
   mixins: [FluxMixin, GSSMixin],
 
-  title: 'Home',
+  statics: {
+    getRouteProps: () => GetStores('article')
+  },
 
   layout: `
     .time[right] == .article[right];
   `,
-
-  statics: {
-    didTransitionTo(params, query, setProps) {
-      var store = Flux.store('articleStore');
-
-      Flux.actions.loadArticles();
-      store.on('change', function() {
-        setProps({
-          data: _.values(store.articles)
-        });
-      })
-    },
-
-    shouldRenderWithProps(props) {
-      return !!props.data;
-    }
-  },
 
   articlesList() {
     return _.map(this.props.data, (item) => {
@@ -57,6 +43,7 @@ module.exports = React.createClass({
   },
 
   render() {
+    debugger
     return (
       <View id="HomePage">
         <TitleBar>{this.title}</TitleBar>

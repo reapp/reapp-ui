@@ -8,7 +8,7 @@ var transformLoader = require('transform-loader');
 
 module.exports = function(options) {
   var entry = {
-    main: './webpack/app-' + (options.prerender ? 'prod' : 'dev')
+    main: './app/main'
   };
 
   var jsxLoader = [

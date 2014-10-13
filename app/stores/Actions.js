@@ -3,7 +3,7 @@ var Client = require('./Client');
 var _ = require('lodash-node');
 
 var Actions = {
-  loadArticles() {
+  articleLoad() {
     this.dispatch(C.LOAD_ARTICLES);
 
     Client.load(
@@ -23,7 +23,7 @@ var Actions = {
       if (errors.length)
         this.dispatch(C.LOAD_ARTICLES_FAIL, {error: errors});
       else
-        this.dispatch(C.LOAD_ARTICLES_SUCCESS, {articles: payload});
+        this.dispatch(C.LOAD_ARTICLES_SUCCESS, {data: payload});
     });
 
     _.each(articles, (article) => {

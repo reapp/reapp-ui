@@ -1,2 +1,3 @@
 var App = require('../app/main');
-App.start('dev');
+
+React.renderComponent(App, document.body);

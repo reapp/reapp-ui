@@ -2,11 +2,11 @@ var Fluxxor = require('fluxxor');
 var C = require('./Constants');
 
 var ArticleStore = Fluxxor.createStore({
-  autoBind: ['articles'],
+  autoBind: ['data'],
 
   initialize() {
     this.loading = false;
-    this.articles = {};
+    this.data = {};
 
     this.bindActions(
       C.LOAD_ARTICLES, this.onLoadArticles,
@@ -24,7 +24,7 @@ var ArticleStore = Fluxxor.createStore({
     this.loading = false;
     this.error = null;
 
-    this.articles = payload.articles.reduce((acc, article) => {
+    this.data = payload.data.reduce((acc, article) => {
       var clientId = _.uniqueId();
       acc[clientId] = { id: clientId, data: article, status: 'OK' };
       return acc;
