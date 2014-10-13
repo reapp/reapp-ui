@@ -1,31 +1,34 @@
 var React = require('react');
 var { Link } = require('react-router');
+var { Flux, FluxMixin } = require('../flux');
 var View = require('../components/ui/views/View');
 var TitleBar = require('../components/TitleBar');
 
 module.exports = React.createClass({
+  mixins: [FluxMixin],
+
   title: 'Home',
 
   statics: {
     didTransitionTo(params, query, setProps) {
-      var articles = [];
-      setProps({ data: { articles: articles }});
+      var store = Flux.store('articleStore');
+
+      Flux.actions.loadArticles();
+      store.on('change', function() {
+        setProps({ articles: store.articles });
+      })
     },
 
     shouldRenderWithProps(props) {
-      return !!props.data;
+      return !!props.articles;
     }
-  },
-
-  getInitialState() {
-    return this.props.data;
   },
 
   render() {
     return (
       <View id="HomePage">
         <TitleBar>{this.title}</TitleBar>
-        hello
+        {this.props.articles}
       </View>
     );
   }

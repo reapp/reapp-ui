@@ -1,14 +1,11 @@
 var React = require('react');
 var { Cursor } = require('react-cursor');
 var { Link } = require('react-router');
-var { FluxMixin } = require('../flux');
 var View = require('../components/ui/views/View');
 var ImageRoll = require('../components/image_roll/ImageRoll');
 var TitleBar = require('../components/TitleBar');
 
 module.exports = React.createClass({
-  mixins: [FluxMixin],
-
   title: 'Image Roll',
 
   statics: {

@@ -23,7 +23,11 @@
     "transform-loader": "~0.2.1",
     "react-document-title": "~0.1.1",
     "fluxxor-autobind": "~0.2.0",
-    "fluxxor": "~1.4.2"
+    "fluxxor": "~1.4.2",
+    "nuclear-js": "~0.3.3",
+    "immutable": "~2.3.0",
+    "keymirror": "~0.1.0",
+    "superagent": "~0.20.0"
   },
   "devDependencies": {
     "express": "^4.7.2",

@@ -1,8 +1,7 @@
-var Store = require('../stores/GSSStore');
 var invariant = require('react/lib/invariant');
 var _ = require('lodash');
 var StyleSheet;
-var rules = [];
+var rulesQueue = [];
 var stage = 0;
 
 GSS.once('afterLoaded', nextStage);
@@ -14,22 +13,20 @@ function nextStage() {
 function startUp() {
   var engine = GSS.engines[0];
   StyleSheet = new GSS.StyleSheet({engine: engine, engineId: engine.id} );
-  addRules(rules);
+  addRules(rulesQueue);
 }
 
 invariant(typeof GSS !== 'undefined', 'GSS not set up on the page');
 
 function addRules(constraints) {
-  if (_.isArray(constraints)) {
+  if (this.constraintsAdded) return;
+  if (_.isArray(constraints))
     constraints.forEach(addRules);
-  }
   else {
+    rulesQueue.push(constraints);
     if (StyleSheet) {
-      var compiledConstraints = GSS.compile(constraints);
-      StyleSheet.addRules(compiledConstraints);
-    }
-    else {
-      rules.push(constraints);
+      StyleSheet.addRules(GSS.compile(constraints));
+      this.constraintsAdded = true;
     }
   }
 }
@@ -48,9 +45,17 @@ var GSSMixin = {
   },
 
   componentWillUnmount() {
+    // GSS.unobserveElement(this.getDOMNode())
     // StyleSheet.destroy();
   },
 
+  reloadGSS() {
+    // this sucks, for now
+    // GSS.styleSheets[0].destroy();
+    // var engine = GSS.engines[0];
+    // StyleSheet = new GSS.StyleSheet({engine: engine, engineId: engine.id} );
+    // rulesQueue.forEach((rule) => StyleSheet.addRules(GSS.compile(rule)));
+  },
 
   _start() {
     nextStage();

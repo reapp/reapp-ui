@@ -3,15 +3,16 @@ var Fluxxor = require('fluxxor');
 var FluxMixin = Fluxxor.FluxMixin(React);
 var FluxChildMixin = Fluxxor.FluxChildMixin(React);
 var FluxxorAutobind = require('fluxxor-autobind');
+var Actions = require('./stores/Actions');
 
 // Stores
-var TimeStore = require('./stores/TimeStore');
+var ArticleStore = require('./stores/ArticleStore');
 
 var stores = {
-  timeStore: new TimeStore()
+  articleStore: new ArticleStore()
 };
 
-var Flux = new Fluxxor.Flux(stores, {});
+var Flux = new Fluxxor.Flux(stores, Actions);
 FluxxorAutobind.install(Flux);
 
 module.exports = {
