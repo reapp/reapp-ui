@@ -10,11 +10,10 @@ var ListItem = React.createClass({
       'margin': '0',
     }),
 
-    content: ReactStyle(`
-      ignore:me;
-      border-bottom: 1px solid #c8c7cc;
-      padding-bottom: 10px;
-    `)
+    content: ReactStyle({
+      'border-bottom': '1px solid #c8c7cc',
+      'padding-bottom': '10px',
+    })
   },
 
   render() {

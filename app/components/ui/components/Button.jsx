@@ -16,9 +16,13 @@ var Button = React.createClass({
     'z-index': '102',
   }),
 
+  onClickButton(e) {
+    e.preventDefault();
+  },
+
   render() {
     return (
-      <a href="#" styles={this.styles} className={'button-' + this.props.type}>
+      <a href="#" styles={this.styles} className={'button-' + this.props.type} onClick={this.onClickButton}>
         <Icon type={this.props.type} size="2x" />
       </a>
     );

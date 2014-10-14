@@ -1,11 +1,11 @@
-var React = require('react');
+var React = require('react/addons');
 var _ = require('lodash-node');
-var Time = require('react-ago-component');
 var { FluxMixin, GetStores } = require('../flux');
 var GSSMixin = require('../mixins/GSSMixin');
 var View = require('../components/ui/views/View');
 var TitleBar = require('../components/TitleBar');
 var List = require('../components/ui/components/List');
+var ArticleItem = require('../components/home/ArticleItem');
 
 require('./HomePage.styl');
 
@@ -22,34 +22,23 @@ module.exports = React.createClass({
     .time[right] == .article[right];
   `,
 
-  articlesList() {
-    return _.map(this.props.article, (item) => {
-      var article = item.data;
-      return (
-        <div className="article">
-          <h3>
-            <a href={article.url}>
-              {article.title}
-            </a>
-          </h3>
-          <ul>
-            <li className="score">{article.score}</li>
-            <li>{article.by}</li>
-            <li className="time"><Time date={new Date(article.time * 1000)} autoUpdate /></li>
-          </ul>
-        </div>
-      );
-    });
-  },
-
   render() {
-    console.log(this.props)
+    var Transition = React.addons.CSSTransitionGroup;
+    var ArticleView = this.props.activeRouteHandler || function() {
+      return <div></div>;
+    };
+
     return (
       <View id="HomePage">
         <TitleBar>{this.title}</TitleBar>
         <List>
-          {this.articlesList()}
+          {_.map(this.props.article, (article, i) => {
+            return <ArticleItem key={i} article={article.data} />;
+          })}
         </List>
+        <Transition transitionName="drawer">
+          <ArticleView />
+        </Transition>
       </View>
     );
   }

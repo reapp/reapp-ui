@@ -4,12 +4,11 @@ var ListItem = require('./ListItem');
 
 var List = React.createClass({
   styles: {
-    list: ReactStyle`
-      ignore: me;
-      margin: 0;
-      padding: 0;
-      z-index: 101;
-    `,
+    list: ReactStyle({
+      'margin': 0,
+      'padding': 0,
+      'z-index': 101,
+    }),
   },
 
   render() {
