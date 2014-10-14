@@ -3,8 +3,15 @@ var _ = require('lodash-node');
 var StyleSheet;
 var rulesQueue = [];
 var stage = 0;
+var ENV = require('../ENV');
 
-GSS.once('afterLoaded', nextStage);
+GSSLoad();
+
+function GSSLoad() {
+  if (!ENV.CLIENT) return;
+  invariant(typeof GSS !== 'undefined', 'GSS not set up on the page');
+  GSS.once('afterLoaded', nextStage);
+}
 
 function nextStage() {
   if (++stage == 2) startUp();
@@ -15,8 +22,6 @@ function startUp() {
   StyleSheet = new GSS.StyleSheet({engine: engine, engineId: engine.id} );
   addRules(rulesQueue);
 }
-
-invariant(typeof GSS !== 'undefined', 'GSS not set up on the page');
 
 function addRules(constraints) {
   if (this.constraintsAdded) return;
@@ -34,6 +39,8 @@ function addRules(constraints) {
 
 var GSSMixin = {
   componentDidMount() {
+    if (ENV.SERVER) return;
+
     var node = this.getDOMNode();
     var id = '#' + (node.id || (node.id = this._rootNodeID));
 

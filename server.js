@@ -1,26 +1,20 @@
-/*
-  Options
-  --dev development mode
-  --port server port
-  (for webpack)
-  --config [path]
-  --wport webpack port
-  --quiet --colors --progress --hot
-*/
+/*  opts: --dev --port [#]
+      --config [path] --wport [#] --quiet --colors --progress --hot */
 
 var mach = require('mach');
 var path = require('path');
 var yargs = require('yargs').argv;
-var os = require('os');
 var fs = require('fs');
+var Promise = require('when').Promise;
+var Router = require('react-router');
 var webpack = require('webpack');
 var webpackConfig = require(__dirname + '/webpack/' + yargs.config);
+var HTML = fs.readFileSync(__dirname + '/app/index.html').toString();
 
-console.log(webpackConfig)
-
-var stack = mach.stack();
-var hostname = 'localhost'; //os.hostname() ||
+var stack = mach.stack({ quiet: true });
 var port = Number(yargs.port || process.env.PORT || 8080);
+
+console.log('Starting', yargs.dev ? 'dev' : 'prod' , 'server...');
 
 var staticPaths = [
   path.join(__dirname, 'build', 'public'),
@@ -37,37 +31,58 @@ stack.use(addHeader, 'Access-Control-Allow-Origin', '*');
 stack.use(addHeader, 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
 stack.run();
 
-// if (yargs.dev) {
-//   var webpackServer = require('./webpack/server');
-//   var devTemplate = webpackServer.run(App, yargs, { hostname: hostname })
-// }
-// else {
-var prodApp = require('./webpack/app-prod');
-// }
+if (yargs.dev)
+  runDevelopmentServer();
+else
+  runProductionServer();
 
-var App;
+function runDevelopmentServer() {
+  var webpackServer = require('./webpack/server');
+  var hostname = 'localhost'; //os.hostname()
+  yargs.hostname = hostname;
 
-webpack(webpackConfig, function(err, stats) {
-  console.log('ERR', err, stats);
+  webpackServer.run(webpackConfig, yargs, function(template) {
+    stack.get('/*', function() { return template });
+  });
 
-  if (!err) {
-    App = fs.readFileSync(webpackConfig[0].output.path + '/main.js');
-    console.log('APP IS', App.toString());
-  }
-});
+  runMach();
+}
 
-stack.get('/*', function(req) {
-  // if (yargs.dev)
-    // return devTemplate;
-  // else
-    return prodApp(App, req.path);
-});
+function runProductionServer() {
+  webpack(webpackConfig, function(err, stats) {
+    if (err) console.log(err, stats);
+    else {
+      var appFilePath = webpackConfig[1].output.path + '/main.js';
+      var App = require(appFilePath);
 
-console.log('Starting', yargs.dev ? 'dev' : 'prod' , 'server');
-mach.serve(stack, port);
+      stack.get('/*', function(req) {
+        return renderProductionApp(App, req.path);
+      });
+
+      runMach();
+    }
+  });
+}
+
+function runMach() {
+  mach.serve(stack, port);
+}
+
+function renderProductionApp(App, path) {
+  return new Promise(function(resolve, reject) {
+    Router.renderRoutesToString(App, path, function(err, ar, html, data) {
+      console.log(HTML, '////', html, '////', data, '////');
+      var output = HTML
+        .replace('<!-- CONTENT -->', html)
+        .replace('<!-- DATA -->', '<script>window.ROUTER_PROPS = ' + JSON.stringify(data) + ';</script>');
+
+      resolve(output);
+    });
+  });
+};
 
 function addHeader(app, headerName, headerValue) {
-  return function (request) {
+  return function(request) {
     return request.call(app).then(function (response) {
       response.headers[headerName] = headerValue;
       return response;

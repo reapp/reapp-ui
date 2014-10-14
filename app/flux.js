@@ -6,6 +6,8 @@ var FluxxorAutobind = require('fluxxor-autobind');
 var Actions = require('./stores/Actions');
 var invariant = require('react/lib/invariant');
 
+require('./ENV');
+
 var FluxMixin = Fluxxor.FluxMixin(React);
 var FluxChildMixin = Fluxxor.FluxChildMixin(React);
 
@@ -20,8 +22,8 @@ var Flux = new Fluxxor.Flux(stores, Actions);
 FluxxorAutobind.install(Flux);
 
 var GetStores = function() {
-  invariant(ENV.CLIENT,
-    'Must have ENV.CLIENT global set to detect client load.');
+  invariant(ENV,
+    'Must have ENV global set to detect CLIENT/SERVER.');
 
   if (ENV.CLIENT)
     return window.ROUTER_PROPS.app;

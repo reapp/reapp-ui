@@ -1,15 +1,18 @@
 var fs = require('fs');
 var WebpackDevServer = require('webpack-dev-server');
+var webpack = require('webpack');
 
 module.exports = {
 
-  run: function(App, opts, conf) {
+  run: function(config, opts, callback) {
+    var hostname = opts.hostname || 'localhost';
     var port = Number(opts.wport || process.env.WEBPACKPORT || 2992);
-    var base = 'http://' + conf.hostname + ':' + port + '/';
+    var base = 'http://' + hostname + ':' + port + '/';
 
-    webpackConfig.output.publicPath = base;
+    config.output.publicPath = base;
+
     var webpackServer = new WebpackDevServer(
-      App,
+      webpack(config),
       {
         contentBase: '../',
         quiet: !!opts.quiet,
@@ -23,18 +26,19 @@ module.exports = {
     );
 
     console.log('Starting webpack server on', port);
-    webpackServer.listen(port, conf.hostname);
+    webpackServer.listen(port, hostname);
 
     var scripts = [
       '<script src="' + base + 'main.js"></script>',
       '<script src="' + base + 'webpack-dev-server.js"></script>'
     ].join("\n");
 
-    return fs
+    var template = fs
       .readFileSync(__dirname + '/../app/index.html')
       .toString()
       .replace('<!-- SCRIPTS -->', scripts);
 
+    callback.call(this, template);
   }
 
 };

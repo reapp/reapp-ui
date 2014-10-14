@@ -7,7 +7,7 @@ var Button = require('./ui/components/Button');
 var LeftNavView = require('./ui/views/LeftNavView');
 var DocumentTitle = require('react-document-title');
 
-require('./Layout.css');
+// require('./Layout.css');
 
 const TOOLBAR_HEIGHT = 44;
 const SIDE_WIDTH = 200;

@@ -1,12 +1,12 @@
-var Superagent = require('superagent');
+var superagent = require('superagent');
 
 var Client = {
   load(url, success, error) {
-    Superagent
+    superagent
       .get(url)
-      .end((err, res) => {
+      .end(function(err, response) {
         if (err) error();
-        else success(res.body);
+        else success(response.body);
       });
   }
 };

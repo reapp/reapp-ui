@@ -44,12 +44,10 @@ module.exports = function(options) {
   var externals = [];
   var modulesDirectories = ['web_modules', 'node_modules'];
   var extensions = ['', '.web.js', '.js', '.jsx'];
-  var root = [
-    path.join(__dirname, 'app')
-  ];
+  var root = [path.join(__dirname, 'app')];
 
   var output = {
-    path: path.join(__dirname, 'build', options.prerender ? 'prerender' : 'public'),
+    path: path.join(__dirname, '..', 'build', options.prerender ? 'prerender' : 'public'),
     publicPath: '/',
     filename: '[name].js' + (options.longTermCaching && !options.prerender ? '?[chunkhash]' : ''),
     chunkFilename: (options.devServer ? '[id].js' : '[name].js') + (options.longTermCaching && !options.prerender ? '?[chunkhash]' : ''),
@@ -78,8 +76,7 @@ module.exports = function(options) {
     // new ReactStylePlugin('bundle.css'),
     new webpack.ResolverPlugin(
       new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
-    ),
-    // new webpack.optimize.DedupePlugin()
+    )
   ];
 
   if (options.prerender) {

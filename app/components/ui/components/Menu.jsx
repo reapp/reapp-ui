@@ -3,7 +3,7 @@ var ReactStyle = require('react-style');
 var GSSMixin = require('../../../mixins/GSSMixin');
 var List = require('./List');
 
-require('./Menu.css')
+// require('./Menu.css')
 
 var Menu = React.createClass({
   styles: ReactStyle`

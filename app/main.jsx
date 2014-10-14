@@ -8,7 +8,9 @@ var GSSMixin = require('./mixins/GSSMixin');
 
 require('./ENV');
 
-window.React = React;
+if (ENV.CLIENT)
+  window.React = React;
+
 ReactStyle.inject();
 TouchEvents.initialize();
 
