@@ -3,19 +3,18 @@ var ReactStyle = require('react-style');
 
 var ListItem = React.createClass({
   styles: {
-    li: ReactStyle`
-      ignore:me;
-      list-style: none;
-      padding: 10px;
-      padding-bottom: 0;
-      margin: 0;
-    `,
+    li: ReactStyle({
+      'list-style': 'none',
+      'padding': '10px',
+      'padding-bottom': '0',
+      'margin': '0',
+    }),
 
-    content: ReactStyle`
+    content: ReactStyle(`
       ignore:me;
       border-bottom: 1px solid #c8c7cc;
       padding-bottom: 10px;
-    `
+    `)
   },
 
   render() {

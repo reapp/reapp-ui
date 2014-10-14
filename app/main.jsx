@@ -20,7 +20,6 @@ var App = React.createClass({
   },
 
   render() {
-    console.log(this.props.activeRouteHandler)
     var ActiveRoute = this.props.activeRouteHandler;
 
     return (

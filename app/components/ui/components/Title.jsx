@@ -2,10 +2,10 @@ var React = require('react');
 var ReactStyle = require('react-style');
 
 var Title = React.createClass({
-  styles: ReactStyle`
-    text-align: center;
-    font-weight: bold;
-  `,
+  styles: ReactStyle({
+    'text-align': 'center',
+    'font-weight': 'bold',
+  }),
 
   render() {
     return (

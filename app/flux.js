@@ -45,7 +45,7 @@ function storePromise(store) {
   return new Promise(function(res, rej) {
     store.on('change', () => {
       if (_.size(store.data))
-        res({ data: _.values(store.data) })
+        res(_.values(store.data))
     });
   })
 }

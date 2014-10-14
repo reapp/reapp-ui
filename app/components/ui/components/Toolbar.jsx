@@ -16,15 +16,15 @@ var Toolbar = React.createClass({
     `);
   },
 
-  styles: ReactStyle`
-    font-size: 16px;
-    background-color: #fff;
-    text-align: center;
-    border-bottom: 1px solid #ccc;
-    padding: 12px;
-    z-index: 100;
-    position: fixed;
-  `,
+  styles: ReactStyle({
+    'font-size': '16px',
+    'background-color': '#fff',
+    'text-align': 'center',
+    'border-bottom': '1px solid #ccc',
+    'padding': '12px',
+    'z-index': '100',
+    'position': 'fixed',
+  }),
 
   render() {
     return (

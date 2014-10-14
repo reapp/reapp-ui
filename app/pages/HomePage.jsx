@@ -7,7 +7,7 @@ var View = require('../components/ui/views/View');
 var TitleBar = require('../components/TitleBar');
 var List = require('../components/ui/components/List');
 
-// require('./HomePage.styl');
+require('./HomePage.styl');
 
 module.exports = React.createClass({
   title: 'Home',
@@ -23,7 +23,7 @@ module.exports = React.createClass({
   `,
 
   articlesList() {
-    return _.map(this.props.data, (item) => {
+    return _.map(this.props.article, (item) => {
       var article = item.data;
       return (
         <div className="article">
@@ -43,7 +43,7 @@ module.exports = React.createClass({
   },
 
   render() {
-    debugger
+    console.log(this.props)
     return (
       <View id="HomePage">
         <TitleBar>{this.title}</TitleBar>

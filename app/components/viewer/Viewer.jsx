@@ -5,13 +5,13 @@ var TouchableArea = require('../ui/helpers/TouchableArea');
 var { Scroller } = require('scroller');
 
 var Viewer = React.createClass({
-  styles: ReactStyle`
-    background: black;
-    overflow: hidden;
-    perspective: 500px;
-    -webkit-perspective: 500px;
-    -moz-perspective: 500px;
-  `,
+  styles: ReactStyle({
+    'background': 'black',
+    'overflow': 'hidden',
+    'perspective': '500px',
+    '-webkit-perspective': '500px',
+    '-moz-perspective': '500px',
+  }),
 
   componentWillMount() {
     this.scroller = new Scroller(this.handleScroll, {
