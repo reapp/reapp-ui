@@ -1,5 +1,5 @@
 module.exports = require("./make-config")({
-  devServer: true,
+  dev: true,
   devtool: "source-map",
   debug: true,
   separateStylesheet: false

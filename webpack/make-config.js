@@ -50,7 +50,7 @@ module.exports = function(options) {
     path: path.join(__dirname, '..', 'build', options.prerender ? 'prerender' : 'public'),
     publicPath: '/',
     filename: '[name].js' + (options.longTermCaching && !options.prerender ? '?[chunkhash]' : ''),
-    chunkFilename: (options.devServer ? '[id].js' : '[name].js') + (options.longTermCaching && !options.prerender ? '?[chunkhash]' : ''),
+    chunkFilename: (options.dev ? '[id].js' : '[name].js') + (options.longTermCaching && !options.prerender ? '?[chunkhash]' : ''),
     sourceMapFilename: 'debugging/[file].map',
     libraryTarget: options.prerender ? 'commonjs2' : undefined,
     pathinfo: options.debug,
@@ -98,7 +98,7 @@ module.exports = function(options) {
     entry = joinEntry('webpack/hot/dev-server', entry);
   }
 
-  if (options.devServer) {
+  if (options.dev) {
     entry = joinEntry('webpack-dev-server/client?http://localhost:2992', entry);
   }
 

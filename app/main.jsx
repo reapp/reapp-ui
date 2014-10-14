@@ -5,8 +5,7 @@ var TouchEvents = require('./components/ui/lib/TouchEvents');
 var ReactStyle = require('react-style');
 var { Flux } = require('./flux');
 var GSSMixin = require('./mixins/GSSMixin');
-
-require('./ENV');
+var ENV = require('./ENV');
 
 if (ENV.CLIENT)
   window.React = React;
@@ -21,6 +20,7 @@ var App = React.createClass({
   },
 
   render() {
+    console.log(this.props.activeRouteHandler)
     var ActiveRoute = this.props.activeRouteHandler;
 
     return (
@@ -31,4 +31,8 @@ var App = React.createClass({
   }
 });
 
-module.exports = Routes.init(App);
+var RoutedApp = Routes.init(App);
+
+React.renderComponent(RoutedApp, document.getElementById('app'), function() {
+  console.log('after clinet rendered');
+});

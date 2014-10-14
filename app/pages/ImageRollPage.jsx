@@ -1,5 +1,4 @@
 var React = require('react');
-var { Cursor } = require('react-cursor');
 var { Link } = require('react-router');
 var View = require('../components/ui/views/View');
 var ImageRoll = require('../components/image_roll/ImageRoll');
@@ -24,9 +23,7 @@ module.exports = React.createClass({
   },
 
   render() {
-    var cursor = Cursor.build(this);
-    var articles = cursor.refine('articles').value;
-    var images = articles.map(a =>  a.image_url);
+    var images = this.props.articles.map(a =>  a.image_url);
 
     return (
       <View id="ImageRoll">

@@ -5,8 +5,7 @@ var _ = require('lodash-node');
 var FluxxorAutobind = require('fluxxor-autobind');
 var Actions = require('./stores/Actions');
 var invariant = require('react/lib/invariant');
-
-require('./ENV');
+var ENV = require('./ENV');
 
 var FluxMixin = Fluxxor.FluxMixin(React);
 var FluxChildMixin = Fluxxor.FluxChildMixin(React);
@@ -25,7 +24,7 @@ var GetStores = function() {
   invariant(ENV,
     'Must have ENV global set to detect CLIENT/SERVER.');
 
-  if (ENV.CLIENT)
+  if (ENV.CLIENT && window.ROUTER_PROPS)
     return window.ROUTER_PROPS.app;
 
   var storeNames = Array.prototype.slice.call(arguments, 0);
