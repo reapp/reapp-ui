@@ -110,6 +110,14 @@ var LeftNavView = React.createClass({
       zIndex: this.props.sideZIndex || 1
     };
 
+    var sideContainerStyle = {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0
+    };
+
     var sideProps = {
       translate: behavior.side.translate(this.props.sideWidth, this.state.scrollLeft),
       rotate: behavior.side.rotate(this.props.sideWidth, this.state.scrollLeft),
@@ -117,9 +125,9 @@ var LeftNavView = React.createClass({
     };
 
     if (isNavOpen) {
-      side = AnimatableContainer(
-        Merge(sideProps, { style: sideStyle }), this.props.sideContent
-      );
+      side = AnimatableContainer(Merge(sideProps, { style: sideStyle }),
+        React.DOM.div({style:sideContainerStyle, onClick:this._handleContentTouchTap},
+          this.props.sideContent));
     }
 
     var contentProps;
