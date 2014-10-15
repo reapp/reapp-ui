@@ -1,12 +1,13 @@
 module.exports = [
-  require("./make-config")({
+  require("./make")({
     // commonsChunk: true,
     // longTermCaching: true,
     separateStylesheet: true,
     // minimize: true,
-    // devtool: "source-map",
+    // devtool: "source-map"
   })
-  , require("./make-config")({
-    prerender: true,
+  ,
+  require("./make")({
+    prerender: true
   })
 ];

@@ -1,4 +1,4 @@
-module.exports = require("./make-config")({
+module.exports = require("./make")({
   dev: true,
   devtool: "source-map",
   debug: true,

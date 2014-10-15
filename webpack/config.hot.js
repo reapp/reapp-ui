@@ -1,4 +1,4 @@
-module.exports = require("./make-config")({
+module.exports = require("./make")({
   hot: true,
   dev: true,
   hotComponents: true,

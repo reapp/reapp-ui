@@ -1,5 +1,4 @@
-/*  opts: --dev --port [#]
-      --config [path] --wport [#] --quiet --colors --progress --hot */
+/* --dev --port [#] --config [path] --wport [#] --quiet --colors --progress --hot */
 
 var mach = require('mach');
 var path = require('path');
@@ -56,11 +55,13 @@ function runProductionServer() {
   webpack(webpackConfig, function(err, stats) {
     if (err) console.log(err, stats);
     else {
-      var appFilePath = config.output.path + '/main.js';
-      var App = require(appFilePath);
+      var outputPath = config.output.path;
+      var app = require(outputPath + '/main.js');
+      var stats = require(outputPath + '/../stats.json');
+      var STYLE_URL = 'main.css?' + stats.hash;
 
       stack.get('/*', function(req) {
-        return renderProductionApp(App, req.path);
+        return renderProductionApp(app, STYLE_URL, req.path);
       });
 
       runMach();
@@ -72,14 +73,13 @@ function runMach() {
   mach.serve(stack, port);
 }
 
-function renderProductionApp(App, path) {
+function renderProductionApp(app, styleUrl, path) {
   return new Promise(function(resolve, reject) {
-    console.log(App)
-    Router.renderRoutesToString(App, path, function(err, ar, html, data) {
-      console.log(HTML, '////', html, '////', data, '////');
+    Router.renderRoutesToString(app, path, function(err, ar, html, data) {
       var output = HTML
         .replace('<!-- CONTENT -->', html)
-        .replace('<!-- DATA -->', '<script>window.ROUTER_PROPS = ' + JSON.stringify(data) + ';</script>');
+        .replace('<!-- DATA -->', '<script>window.ROUTER_PROPS = ' + JSON.stringify(data) + ';</script>')
+        .replace('<!-- STYLES -->', '<link rel="stylesheet" type="text/css" href="/' + styleUrl + '" />');
 
       resolve(output);
     });

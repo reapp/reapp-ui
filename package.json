@@ -7,10 +7,11 @@
   "scripts": {
     "install": "npm install -g node-dev && npm install && bower install && mkdir build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev-server": "node-dev server.js --config dev.config.js --dev --progress --colors",
-    "hot-dev-server": "node-dev server.js --config hot-dev.config.js --dev --hot --progress --colors",
-    "build": "webpack --config webpack/production.config.js --progress --profile --colors --debug --display-error-details --verbose --display-modules",
-    "start": "node-dev server.js --config production.config.js --debug"
+    "dev-server": "node-dev server.js --config config.dev.js --dev --progress --colors",
+    "hot-server": "node-dev server.js --config config.hot.js --dev --hot --progress --colors",
+    "iso-server": "node-dev server.js --config config.production.js --debug",
+    "build": "webpack --config webpack/config.production.js --progress --profile --colors --debug --display-error-details --verbose --display-modules",
+    "start": "node server.js --config config.production.js"
   },
   "dependencies": {
     "react": "^0.11.2",
