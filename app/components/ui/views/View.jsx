@@ -6,17 +6,19 @@ var Cx = React.addons.classSet;
 var View = React.createClass({
   styles(top) {
     return ReactStyle({
-      'background': '#efeff4',
-      'height': '100%',
-      'overflow': 'scroll',
-      'padding-top': top
+      background: '#efeff4',
+      overflow: 'scroll',
+      paddingTop: top,
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      bottom: 0,
+      right: 0
     });
   },
 
   render() {
-    var firstChildType = this.props.children[0].type;
-    var hasTitleBar = firstChildType && firstChildType.displayName.match(/^Title/);
-    var styles = this.styles(hasTitleBar ? 44 : 0);
+    var styles = this.styles(44);
     var classes = { 'pane': true };
     if (this.props.className)
       classes[this.props.className] = true;

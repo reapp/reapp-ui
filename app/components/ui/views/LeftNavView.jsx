@@ -5,24 +5,6 @@ var LeftNavBehavior = require('./LeftNavBehavior');
 var TouchableArea = require('../helpers/TouchableArea');
 var { Scroller } = require('scroller');
 
-var wrapperStyle = {
-  overflow: 'hidden',
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  bottom: 0,
-  right: 0
-};
-
-var contentStyle = {
-  top: 0,
-  bottom: 0,
-  left: 0,
-  position: 'absolute',
-  right: 0,
-  zIndex: 99
-};
-
 var LeftNavView = React.createClass({
   displayName: 'LeftNavView',
 
@@ -101,6 +83,16 @@ var LeftNavView = React.createClass({
     var behavior = this.props.behavior;
     var sidebarX = (this.props.sideWidth - this.state.scrollLeft);
     var side = null;
+
+    var wrapperStyle = {
+      overflowX: 'hidden',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      bottom: 0,
+      right: 0
+    };
+
     var sideStyle = {
       position: 'fixed',
       top: 0,
@@ -138,6 +130,15 @@ var LeftNavView = React.createClass({
         rotate: behavior.content.rotate(this.props.sideWidth, this.state.scrollLeft),
         opacity: behavior.content.opacity(this.props.sideWidth, this.state.scrollLeft)
       };
+    };
+
+    var contentStyle = {
+      top: 0,
+      bottom: 0,
+      left: 0,
+      position: 'fixed',
+      right: 0,
+      zIndex: 99
     };
 
     var contentTouchableAreaStyle = {

@@ -5,9 +5,9 @@ var ListItem = require('./ListItem');
 var List = React.createClass({
   styles: {
     list: ReactStyle({
-      'margin': 0,
-      'padding': 10,
-      'z-index': 101,
+      margin: 0,
+      padding: 10,
+      zIndex: 101,
     }),
   },
 

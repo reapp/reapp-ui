@@ -18,17 +18,17 @@ var Toolbar = React.createClass({
 
   styles(height) {
     return ReactStyle({
-      'font-size': '16px',
-      'background-color': '#fff',
-      'text-align': 'center',
-      'border-bottom': '1px solid #ccc',
-      'padding': '12px',
-      'z-index': '100',
-      'position': 'fixed',
-      'top': '0',
-      'left': '0',
-      'right': '0',
-      'height': height
+      fontSize: '16px',
+      backgroundColor: '#fff',
+      textAlign: 'center',
+      borderBottom: '1px solid #ccc',
+      padding: '12px',
+      zIndex: 100,
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      height: height
     })
   },
 

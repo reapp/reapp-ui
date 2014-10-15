@@ -5,6 +5,7 @@ var GSSMixin = require('../mixins/GSSMixin');
 var View = require('../components/ui/views/View');
 var TitleBar = require('../components/TitleBar');
 var List = require('../components/ui/components/List');
+var Scrollable = require('../components/ui/views/Scrollable');
 var ArticleItem = require('../components/home/ArticleItem');
 
 require('./HomePage.styl');
@@ -27,14 +28,16 @@ module.exports = React.createClass({
     return (
       <View id="HomePage">
         <TitleBar>{this.title}</TitleBar>
-        <List>
-          {_.map(this.props.article, (article, i) => {
-            return <ArticleItem key={i} article={article.data} />;
-          })}
-        </List>
-        <Transition transitionName="drawer">
-          <ArticleView />
-        </Transition>
+        <Scrollable>
+          <List>
+            {_.map(this.props.article, (article, i) => {
+              return <ArticleItem key={i} article={article.data} />;
+            })}
+          </List>
+          <Transition transitionName="drawer">
+            <ArticleView />
+          </Transition>
+        </Scrollable>
       </View>
     );
   }
