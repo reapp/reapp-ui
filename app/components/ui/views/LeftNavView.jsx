@@ -152,7 +152,7 @@ var LeftNavView = React.createClass({
     // from left of screen
     if (!isNavOpen) {
       contentTouchableAreaStyle.right = 'auto';
-      contentTouchableAreaStyle.width = 20;
+      contentTouchableAreaStyle.width = 10;
     }
 
     return this.transferPropsTo(
