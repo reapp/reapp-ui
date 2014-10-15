@@ -9,31 +9,31 @@ var ArticleStore = Fluxxor.createStore({
     this.data = {};
 
     this.bindActions(
-      C.LOAD_ARTICLES, this.onLoadArticles,
-      C.LOAD_ARTICLES_SUCCESS, this.onLoadArticlesSuccess,
-      C.LOAD_ARTICLES_FAIL, this.onLoadArticlesFail
+      C.LOAD_ARTICLES, this.onLoading,
+      C.LOAD_ARTICLES_SUCCESS, this.onLoadingSuccess,
+      C.LOAD_ARTICLES_FAIL, this.onLoadingFail
     );
   },
 
-  onLoadArticles() {
+  onLoading() {
     this.loading = true;
     this.emit('change');
   },
 
-  onLoadArticlesSuccess(payload) {
+  onLoadingSuccess(payload) {
     this.loading = false;
     this.error = null;
 
-    this.data = payload.data.reduce((acc, article) => {
+    this.data = payload.data.reduce((acc, item) => {
       var clientId = _.uniqueId();
-      acc[clientId] = { id: clientId, data: article, status: 'OK' };
+      acc[clientId] = { id: clientId, data: item, status: 'OK' };
       return acc;
     }, {});
 
     this.emit('change');
   },
 
-  onLoadArticlesFail(payload) {
+  onLoadingFail(payload) {
     this.loading = false;
     this.error = payload.error;
     this.emit('change');

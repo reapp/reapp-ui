@@ -4,7 +4,7 @@ var ImageRoll = require('./pages/ImageRollPage');
 var Viewer = require('./pages/ViewerPage');
 var ViewerRebound = require('./pages/ViewerReboundPage');
 var List = require('./pages/ListPage');
-var Article = require('./components/home/Article');
+var ArticleView = require('./components/home/ArticleView');
 
 module.exports = {
   init(App) {
@@ -14,7 +14,7 @@ module.exports = {
           <DefaultRoute handler={Home} />
 
           <Route name="article" handler={Home}>
-            <Route name="articleView" path=":id" handler={Article} addHandlerKey={true} />
+            <Route name="articleView" path=":id" handler={ArticleView} addHandlerKey={true} />
           </Route>
 
           <Route name="viewer" handler={Viewer} />

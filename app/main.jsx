@@ -33,7 +33,9 @@ if (ENV.CLIENT) {
   window.React = React;
 
   React.renderComponent(RoutedApp, document.getElementById('app'), function() {
-    console.log('after client rendered');
+    // clear out data handed by server, or getRouteProps will
+    // find it even though getRouteProps may have different params
+    window.ROUTER_PROPS = void 0;
   });
 }
 else {

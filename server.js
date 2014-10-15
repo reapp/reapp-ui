@@ -77,6 +77,10 @@ function runMach() {
 function renderProductionApp(app, path, styleUrl, scriptUrl) {
   return new Promise(function(resolve, reject) {
     Router.renderRoutesToString(app, path, function(err, ar, html, data) {
+      if (ar) {
+        reject({ redirect: true, to: '/' + ar.to + '/' + ar.params.id,  }); // todo finish
+      }
+
       var output = HTML
         .replace('<!-- CONTENT -->', html)
         .replace('<!-- DATA -->', '<script>window.ROUTER_PROPS = ' + JSON.stringify(data) + ';</script>')

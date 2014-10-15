@@ -24,12 +24,6 @@ var GetStores = function() {
   invariant(ENV,
     'Must have ENV global set to detect CLIENT/SERVER.');
 
-  if (ENV.CLIENT && window.ROUTER_PROPS) {
-    var props = window.ROUTER_PROPS.app;
-    delete window.ROUTER_PROPS;
-    return window.ROUTER_PROPS.app;
-  }
-
   var storeNames = Array.prototype.slice.call(arguments, 0);
   var result = {};
 
@@ -39,6 +33,7 @@ var GetStores = function() {
     Flux.actions[name + 'Load']();
   });
 
+  console.log('returning', result);
   return result;
 }
 

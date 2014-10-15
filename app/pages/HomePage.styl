@@ -28,24 +28,25 @@
 .drawer {
   position: fixed !important;
   top: 0;
-  left: 0;
   width: 100%;
+  z-index: 200;
+  transition-duration: .3s;
+  transition-property: transform;
+  transition-timing-function: ease-out;
 }
 
 .drawer-enter {
-  opacity: 0.01;
-  transition: opacity .5s ease-in;
+  transform: translate3d(100%,0,0);
 }
 
 .drawer-enter.drawer-enter-active {
-  opacity: 1;
+  transform: translate3d(0,0,0);
 }
 
 .drawer-leave {
-  opacity: 1;
-  transition: opacity .5s ease-in;
+  transform: translate3d(0,0,0);
 }
 
 .drawer-leave.drawer-leave-active {
-  opacity: 0.01;
+  transform: translate3d(100%,0,0);
 }
