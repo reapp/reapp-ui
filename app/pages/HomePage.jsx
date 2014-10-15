@@ -1,6 +1,6 @@
 var React = require('react/addons');
 var _ = require('lodash-node');
-var { FluxMixin, GetStores } = require('../flux');
+var { FluxMixin, GetStores } = require('../flux/bootstrap');
 var GSSMixin = require('../mixins/GSSMixin');
 var View = require('../components/ui/views/View');
 var TitleBar = require('../components/TitleBar');

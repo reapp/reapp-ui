@@ -3,7 +3,7 @@ var Layout = require('./components/Layout');
 var Routes = require('./routes');
 var TouchEvents = require('./components/ui/lib/TouchEvents');
 var ReactStyle = require('react-style');
-var { Flux } = require('./flux');
+var { Flux } = require('./flux/bootstrap');
 var GSSMixin = require('./mixins/GSSMixin');
 var ENV = require('./ENV');
 

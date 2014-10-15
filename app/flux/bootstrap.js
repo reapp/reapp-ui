@@ -1,11 +1,11 @@
 var React = require('react');
+var invariant = require('react/lib/invariant');
 var Fluxxor = require('fluxxor');
 var Promise = require('when').Promise;
 var _ = require('lodash-node');
 var FluxxorAutobind = require('fluxxor-autobind');
-var Actions = require('./stores/Actions');
-var invariant = require('react/lib/invariant');
-var ENV = require('./ENV');
+var Actions = require('./actions/Actions');
+var ENV = require('../ENV');
 
 var FluxMixin = Fluxxor.FluxMixin(React);
 var FluxChildMixin = Fluxxor.FluxChildMixin(React);
@@ -33,7 +33,6 @@ var GetStores = function() {
     Flux.actions[name + 'Load']();
   });
 
-  console.log('returning', result);
   return result;
 }
 

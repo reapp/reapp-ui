@@ -9,7 +9,6 @@ var Promise = require('when').Promise;
 var Router = require('react-router');
 var webpack = require('webpack');
 var webpackConfig = require(__dirname + '/webpack/' + yargs.config);
-var HTML = fs.readFileSync(__dirname + '/app/index.html').toString();
 
 var stack = mach.stack({ quiet: true });
 var port = Number(yargs.port || process.env.PORT || 8080);
@@ -81,6 +80,7 @@ function renderProductionApp(app, path, styleUrl, scriptUrl) {
         reject({ redirect: true, to: '/' + ar.to + '/' + ar.params.id,  }); // todo finish
       }
 
+      var HTML = fs.readFileSync(__dirname + '/app/index.html').toString();
       var output = HTML
         .replace('<!-- CONTENT -->', html)
         .replace('<!-- DATA -->', '<script>window.ROUTER_PROPS = ' + JSON.stringify(data) + ';</script>')

@@ -11,7 +11,12 @@ var StaticContainer = React.createClass({
   },
 
   render() {
-    return this.props.children;
+    var numChildren = React.Children.count(this.props.children);
+
+    if (numChildren > 1)
+      return <div>{this.props.children}</div>;
+    else
+      return this.props.children;
   }
 });
 

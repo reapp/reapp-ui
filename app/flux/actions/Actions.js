@@ -1,7 +1,7 @@
-var C = require('./Constants');
-var Client = require('./Client');
 var _ = require('lodash-node');
-var ENV = require('../ENV');
+var C = require('../constants');
+var Client = require('../client');
+var ENV = require('../../ENV');
 
 var preloaded;
 var cache;

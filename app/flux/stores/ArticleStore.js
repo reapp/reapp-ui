@@ -1,5 +1,5 @@
 var Fluxxor = require('fluxxor');
-var C = require('./Constants');
+var C = require('../constants');
 
 var ArticleStore = Fluxxor.createStore({
   autoBind: ['data'],
