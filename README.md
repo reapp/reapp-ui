@@ -42,7 +42,7 @@ If you get an EMFILE error:
     ulimit -n 10000; npm run hot-server
 
 
-## Production Server
+### Production Server
 
 Production builds two configurations, one for the client (`build/public`) and one for the server (`build/prerender`).
 Renders isomorphically. Configuration at `webpack/config.production.js`.
