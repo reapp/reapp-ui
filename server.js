@@ -59,9 +59,10 @@ function runProductionServer() {
       var app = require(outputPath + '/main.js');
       var stats = require(outputPath + '/../stats.json');
       var STYLE_URL = 'main.css?' + stats.hash;
+      var SCRIPT_URL = [].concat(stats.assetsByChunkName.main)[0] + '?' + stats.hash;
 
       stack.get('/*', function(req) {
-        return renderProductionApp(app, STYLE_URL, req.path);
+        return renderProductionApp(app, req.path, STYLE_URL, SCRIPT_URL);
       });
 
       runMach();
@@ -73,13 +74,14 @@ function runMach() {
   mach.serve(stack, port);
 }
 
-function renderProductionApp(app, styleUrl, path) {
+function renderProductionApp(app, path, styleUrl, scriptUrl) {
   return new Promise(function(resolve, reject) {
     Router.renderRoutesToString(app, path, function(err, ar, html, data) {
       var output = HTML
         .replace('<!-- CONTENT -->', html)
         .replace('<!-- DATA -->', '<script>window.ROUTER_PROPS = ' + JSON.stringify(data) + ';</script>')
-        .replace('<!-- STYLES -->', '<link rel="stylesheet" type="text/css" href="/' + styleUrl + '" />');
+        .replace('<!-- STYLES -->', '<link rel="stylesheet" type="text/css" href="/' + styleUrl + '" />')
+        .replace('<!-- SCRIPTS -->', '<script src="/' + scriptUrl + '"></script>');
 
       resolve(output);
     });
