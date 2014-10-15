@@ -1,47 +1,41 @@
-## About
-
 An experiment assembling an isomorphic React stack for all platforms.
 
 - Webpack, Flux, GSS, react-router, react-style, UI components...
 
-### TODO
+#### Todo
 
 - Finish sample HN app and other samples, refactor extensively
 - Extract UI components into package
 - Extract data management into package
 - Extract wrapper app for automating building these styles of apps
 
-## Installation
+### Installation
 
 ``` text
 npm run install
 ```
 
-## Development server
+### Development server
 
-Configuration at: `webpack/dev.config.js`
+Auto-reloads pages after save and outputs build stats.
+Configuration at: `webpack/dev.config.js`.
 
 ``` text
 npm run dev-server
 http://localhost:8080/
 ```
 
-Auto-reloads pages after save and outputs build stats.
 
+### Hot Module Dev Server
 
-## Hot Module Dev Server
-
-Configuration at: `webpack/config.hot.js`
+Automatically recompiles files changed. When a hot-replacement-enabled file
+is changed the module is hot replaced. If hot replacement not possible, page is refreshed.
+Configuration at: `webpack/config.hot.js`.
 
 ``` text
 npm run hot-server
 http://localhost:8080/
 ```
-
-Automatically recompiles files changed. When a hot-replacement-enabled file
-is changed the module is hot replaced. If hot replacement not possible, page is refreshed.
-
-Has a performance impact on compilation.
 
 If you get an EMFILE error:
 
@@ -50,17 +44,13 @@ If you get an EMFILE error:
 
 ## Production Server
 
-Configuration at `webpack/config.production.js`
+Production builds two configurations, one for the client (`build/public`) and one for the server (`build/prerender`).
+Renders isomorphically. Configuration at `webpack/config.production.js`.
 
 ``` text
 npm start
 http://localhost:8080/
 ```
-
-Production builds two configurations:
-
-- One for the client (`build/public`)
-- One for the server (`build/prerender`)
 
 ## Notes
 
