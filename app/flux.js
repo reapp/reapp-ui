@@ -36,8 +36,6 @@ var GetStores = function() {
     Flux.actions[name + 'Load']();
   });
 
-  console.log(result)
-
   return result;
 }
 

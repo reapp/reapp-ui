@@ -1,13 +1,10 @@
-var superagent = require('superagent');
+var Request = require('then-request');
 
 var Client = {
   load(url, success, error) {
-    superagent
-      .get(url)
-      .end(function(err, response) {
-        if (err) error();
-        else success(response.body);
-      });
+    Request('GET', url).done(function(res, err) {
+      success(JSON.parse(res.body));
+    });
   }
 };
 

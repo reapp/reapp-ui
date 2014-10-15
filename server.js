@@ -5,6 +5,7 @@ var mach = require('mach');
 var path = require('path');
 var yargs = require('yargs').argv;
 var fs = require('fs');
+var util = require('util');
 var Promise = require('when').Promise;
 var Router = require('react-router');
 var webpack = require('webpack');
@@ -49,10 +50,13 @@ function runDevelopmentServer() {
 }
 
 function runProductionServer() {
+  var config = webpackConfig[1];
+  debug('Webpack Config', "\n", config);
+
   webpack(webpackConfig, function(err, stats) {
     if (err) console.log(err, stats);
     else {
-      var appFilePath = webpackConfig[1].output.path + '/main.js';
+      var appFilePath = config.output.path + '/main.js';
       var App = require(appFilePath);
 
       stack.get('/*', function(req) {
@@ -70,6 +74,7 @@ function runMach() {
 
 function renderProductionApp(App, path) {
   return new Promise(function(resolve, reject) {
+    console.log(App)
     Router.renderRoutesToString(App, path, function(err, ar, html, data) {
       console.log(HTML, '////', html, '////', data, '////');
       var output = HTML
@@ -88,4 +93,11 @@ function addHeader(app, headerName, headerValue) {
       return response;
     });
   };
+}
+
+function debug() {
+  (yargs.debug) ?
+    console.log(require('util').inspect(
+      Array.prototype.slice.call(arguments, 0), true, 4)) :
+    void 0;
 }

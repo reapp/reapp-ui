@@ -7,9 +7,6 @@ var { Flux } = require('./flux');
 var GSSMixin = require('./mixins/GSSMixin');
 var ENV = require('./ENV');
 
-if (ENV.CLIENT)
-  window.React = React;
-
 ReactStyle.inject();
 TouchEvents.initialize();
 
@@ -32,6 +29,13 @@ var App = React.createClass({
 
 var RoutedApp = Routes.init(App);
 
-React.renderComponent(RoutedApp, document.getElementById('app'), function() {
-  console.log('after clinet rendered');
-});
+if (ENV.CLIENT) {
+  window.React = React;
+
+  React.renderComponent(RoutedApp, document.getElementById('app'), function() {
+    console.log('after client rendered');
+  });
+}
+else {
+  module.exports = RoutedApp;
+}

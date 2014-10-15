@@ -53,7 +53,7 @@ module.exports = function(options) {
     chunkFilename: (options.dev ? '[id].js' : '[name].js') + (options.longTermCaching && !options.prerender ? '?[chunkhash]' : ''),
     sourceMapFilename: 'debugging/[file].map',
     libraryTarget: options.prerender ? 'commonjs2' : undefined,
-    pathinfo: options.debug,
+    pathinfo: options.debug
   };
 
   var statsPlugin = function() {
@@ -81,7 +81,7 @@ module.exports = function(options) {
 
   if (options.prerender) {
     aliasLoader['react-proxy$'] = 'react-proxy/unavailable';
-    externals.push(/^react(\/.*)?$/, /^reflux(\/.*)?$/);
+    externals.push(/^react(\/.*)?$/);
     plugins.push(new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }));
   }
 
@@ -159,8 +159,6 @@ module.exports = function(options) {
     },
     plugins: plugins
   };
-
-  // console.log(finalConfig);
 
   return finalConfig;
 };

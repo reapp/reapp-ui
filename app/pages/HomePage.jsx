@@ -12,15 +12,11 @@ require('./HomePage.styl');
 module.exports = React.createClass({
   title: 'Home',
 
-  mixins: [FluxMixin, GSSMixin],
+  mixins: [FluxMixin],
 
   statics: {
     getRouteProps: () => GetStores('article')
   },
-
-  layout: `
-    .time[right] == .article[right];
-  `,
 
   render() {
     var Transition = React.addons.CSSTransitionGroup;
