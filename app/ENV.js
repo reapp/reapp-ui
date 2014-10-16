@@ -3,9 +3,7 @@ ENV = module.exports = {
   SERVER: typeof window === 'undefined'
 };
 
-var debug = require('debug');
-
 if (ENV.CLIENT) {
   window.ENV = ENV;
-  window.debug = debug;
+  window.debug = require('debug');
 }

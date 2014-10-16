@@ -9,9 +9,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev-server": "node-dev server.js --config config.dev.js --dev --progress --colors",
     "hot-server": "node-dev server.js --config config.hot.js --dev --hot --progress --colors",
-    "iso-server": "node-dev server.js --config config.production.js --debug",
+    "iso-server": "node-dev server.js --debug",
     "build": "webpack --config webpack/config.production.js --progress --profile --colors --debug --display-error-details --verbose --display-modules",
-    "start": "node server.js --config config.production.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "react": "^0.11.2",
@@ -55,6 +55,8 @@
     "mach": "~0.12.0",
     "exports-loader": "~0.6.2",
     "prepend-file": "~0.1.2",
-    "bundle-loader": "~0.5.1"
+    "bundle-loader": "~0.5.1",
+    "postcss-loader": "~0.1.0",
+    "autoprefixer-core": "~3.1.2"
   }
 }

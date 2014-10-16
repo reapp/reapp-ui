@@ -7,6 +7,7 @@ var TitleBar = require('../components/TitleBar');
 var List = require('../components/ui/components/List');
 var TitleView = require('../components/ui/views/TitleView');
 var ArticleItem = require('../components/home/ArticleItem');
+var debug = require('debug')('g:articlesPage');
 
 require('./HomePage.styl');
 
@@ -24,8 +25,9 @@ module.exports = React.createClass({
   },
 
   render() {
+    debug('props %s', this.props.articles);
     var Transition = React.addons.CSSTransitionGroup;
-    var ArticleView = this.props.activeRouteHandler || function() {
+    var Article = this.props.activeRouteHandler || function() {
       return <div></div>;
     };
 
@@ -39,7 +41,7 @@ module.exports = React.createClass({
             })}
           </List>
           <Transition transitionName="drawer">
-            <ArticleView />
+            <Article />
           </Transition>
         </TitleView>
       </View>

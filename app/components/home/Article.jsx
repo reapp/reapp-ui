@@ -3,8 +3,7 @@ var View = require('../ui/views/View');
 var { GetStores } = require('../../flux/bootstrap');
 var ArticleItem = require('./ArticleItem');
 
-var ArticleView = React.createClass({
-
+var Article = React.createClass({
   statics: {
     getAsyncProps: (params) => GetStores(params, ['article'])
   },
@@ -24,7 +23,6 @@ var ArticleView = React.createClass({
       </View>
     );
   }
-
 });
 
-module.exports = ArticleView;
+module.exports = Article;

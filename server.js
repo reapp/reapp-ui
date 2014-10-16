@@ -8,10 +8,11 @@ var util = require('util');
 var Promise = require('when').Promise;
 var Router = require('react-router');
 var webpack = require('webpack');
-var webpackConfig = require(__dirname + '/webpack/' + yargs.config);
+var webpackConfig = require(path.join(
+    __dirname, '/webpack/', (yargs.config || 'config.production.js')));
 
 var stack = mach.stack();
-var port = Number(yargs.port || process.env.PORT || 8080);
+var port = Number(yargs.port || process.env.PORT || 5283);
 
 console.log('Starting', yargs.dev ? 'dev' : 'prod' , 'server...');
 
@@ -80,6 +81,7 @@ function runMach() {
 function renderProductionApp(app, path, styleUrl, scriptUrl) {
   return new Promise(function(resolve, reject) {
     Router.renderRoutesToString(app, path, function(err, ar, html, data) {
+      console.log(path, ar);
       if (ar) {
         reject({ redirect: true, to: '/' + ar.to + '/' + ar.params.id,  }); // todo finish
       }

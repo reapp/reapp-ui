@@ -5,6 +5,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var loadersByExtension = require('./lib/loadersByExtension');
 var joinEntry = require('./lib/joinEntry');
 var transformLoader = require('transform-loader');
+var autoprefixer = require('autoprefixer-core');
 
 module.exports = function(options) {
   var entry = {
@@ -34,7 +35,7 @@ module.exports = function(options) {
   };
 
   var stylesheetLoaders = {
-    'css': 'css-loader',
+    'css': 'css-loader!postcss-loader',
     'styl': 'css-loader!stylus-loader',
     'sass': 'css-loader!sass-loader',
   }
@@ -157,7 +158,8 @@ module.exports = function(options) {
       extensions: extensions,
       alias: alias,
     },
-    plugins: plugins
+    plugins: plugins,
+    postcss: [ autoprefixer({ browsers: ['last 2 version'] }) ]
   };
 
   return finalConfig;

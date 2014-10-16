@@ -6,7 +6,7 @@ var _ = require('lodash-node');
 var FluxxorAutobind = require('fluxxor-autobind');
 var Actions = require('./actions/Actions');
 var ENV = require('../ENV');
-var debug = require('debug')('bootstrap');
+var debug = require('debug')('g:bootstrap');
 
 var FluxMixin = Fluxxor.FluxMixin(React);
 var FluxChildMixin = Fluxxor.FluxChildMixin(React);
@@ -36,6 +36,7 @@ var GetStores = function(params, names) {
     var store = Flux.store(name + 'Store');
     result[name] = storePromise(name, store);
     Flux.actions[name + 'Load'](params);
+    debug('promise for %s GetStores: %s', name, result[name]);
   });
 
   return result;
@@ -45,12 +46,14 @@ function storePromise(name, store) {
   var listener = storeListeners[name];
 
   if (!listener) {
+    debug('creating promise for %s', name);
     listener = storeListeners[name] = new Promise(function(res, rej) {
       store.on('change', () => {
         debug('change (isloading %s) (size %s)', store.loading, _.size(store.data));
         if (!store.loading && _.size(store.data)) {
-          debug('true, values:', _.values(store.data))
-          res(_.values(store.data))
+          var response = _.values(store.data);
+          debug('resolving promise with %s', response);
+          res(response);
         }
       });
     });

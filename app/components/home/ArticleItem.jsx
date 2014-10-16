@@ -9,7 +9,7 @@ var ArticleItem = React.createClass({
     return (
       <div className="article" style={this.props.style}>
         <h3>
-          <Link to="articleView" params={{id: article.id}}>
+          <Link to="article" params={{id: article.id}}>
             {article.title}
           </Link>
         </h3>
