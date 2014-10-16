@@ -1,14 +1,14 @@
 var Fluxxor = require('fluxxor');
 
-var ArticleStore = Fluxxor.createStore({
+var ArticlesStore = Fluxxor.createStore({
   initialize() {
     this.loading = false;
     this.data = {};
 
     this.bindActions(
-      'LOAD_ARTICLE', this.onLoading,
-      'LOAD_ARTICLE_SUCCESS', this.onLoadingSuccess,
-      'LOAD_ARTICLE_FAIL', this.onLoadingFail
+      'LOAD_ARTICLES', this.onLoading,
+      'LOAD_ARTICLES_SUCCESS', this.onLoadingSuccess,
+      'LOAD_ARTICLES_FAIL', this.onLoadingFail
     );
   },
 
@@ -21,7 +21,7 @@ var ArticleStore = Fluxxor.createStore({
     this.loading = false;
     this.error = null;
 
-    this.data = [payload.data].reduce((acc, item) => {
+    this.data = payload.data.reduce((acc, item) => {
       var clientId = _.uniqueId();
       acc[clientId] = { id: clientId, data: item, status: 'OK' };
       return acc;
@@ -37,4 +37,4 @@ var ArticleStore = Fluxxor.createStore({
   }
 });
 
-module.exports = ArticleStore;
+module.exports = ArticlesStore;

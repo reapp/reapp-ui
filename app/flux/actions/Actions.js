@@ -1,64 +1,89 @@
 var _ = require('lodash-node');
-var C = require('../constants');
 var Client = require('../client');
 var ENV = require('../../ENV');
 var debug = require('debug')('actions');
 
 var preloaded;
-var cache;
+var cache = {};
 
 if (ENV.CLIENT) {
   // we may not be running isomorphically in dev
-  preloaded = window.ROUTER_PROPS;
+  preloaded = window.ROUTER_PROPS || {};
 }
 
-var Actions = {
-  articleLoad() {
-    if (ENV.CLIENT && preloaded) {
-      debug('loading with preload');
-      Actions.dispatchSuccess.call(this, preloaded);
+var util = {
+  createDispatcher(key, loadCallback) {
+    var success = util._dispatchSuccess.bind(this, key);
+    var fail = util._dispatchFail.bind(this, key);
+
+    if (ENV.CLIENT && preloaded[key]) {
+      debug('loading %s with preload', key);
+      success(preloaded[key]);
     }
-    else if (cache) {
-      debug('loading with cache');
-      Actions.dispatchSuccess.call(this, cache);
+    else if (cache[key]) {
+      debug('loading %s with cache', key);
+      success(cache[key]);
     }
     else {
-      debug('loading with request');;
-      this.dispatch(C.LOAD_ARTICLES);
-
-      Client.load(
-        'https://hacker-news.firebaseio.com/v0/topstories.json',
-        (articles) => Actions.getArticlesAndLoad.call(this, articles),
-        (error) => this.dispatch(C.LOAD_ARTICLES_FAIL, {error: error})
-      );
+      debug('loading %s with request', key);;
+      util._dispatchLoad.call(this, key);
+      loadCallback(success, fail);
     }
   },
 
-  getArticlesAndLoad(res) {
-    var total = 10;
-    var errors = [];
-    var payload = [];
-    var articles = _.first(res, total);
+  _dispatchSuccess(key, res) {
+    debug('success %s %s', key, res);
+    this.dispatch(`LOAD_${key}_SUCCESS`, {data: res});
+    cache[key] = res;
+  },
 
-    var done = _.after(total, () => {
-      errors.length ?
-        this.dispatch(C.LOAD_ARTICLES_FAIL, {error: errors}) :
-        Actions.dispatchSuccess.call(this, {data: payload});
-    });
+  _dispatchFail(key, res) {
+    this.dispatch(`LOAD_${key}_FAIL`, {error: res});
+    cache[key] = res;
+  },
 
-    _.each(articles, (article) => {
+  _dispatchLoad(key) {
+    this.dispatch(`LOAD_${key}`);
+  }
+};
+
+var Actions = {
+  articlesLoad() {
+    util.createDispatcher.call(this, 'ARTICLES', function(success, fail) {
       Client.load(
-        `https://hacker-news.firebaseio.com/v0/item/${article}.json`,
-        (article) => payload.push(article) && done(),
-        (error) => errors.push(error) && done()
-      )
+        'https://hacker-news.firebaseio.com/v0/topstories.json',
+        (articles) => getArticlesAndLoad(articles, success, fail),
+        (error) => fail(error)
+      );
+
+      function getArticlesAndLoad(articles, success, fail) {
+        var total = 10;
+        var errors = [];
+        var payload = [];
+
+        var done = _.after(total, () => {
+          errors.length ? fail(errors) : success(payload);
+        });
+
+        _.each(_.first(articles, total), (article) => {
+          Client.load(
+            `https://hacker-news.firebaseio.com/v0/item/${article}.json`,
+            (article) => payload.push(article) && done(),
+            (error) => errors.push(error) && done()
+          )
+        });
+      }
     });
   },
 
-  dispatchSuccess(response) {
-    debug(response);
-    this.dispatch(C.LOAD_ARTICLES_SUCCESS, response);
-    cache = response;
+  articleLoad(params) {
+    util.createDispatcher.call(this, 'ARTICLE', function(success, fail) {
+      Client.load(
+        `https://hacker-news.firebaseio.com/v0/item/${params.id}.json`,
+        (article) => success(article),
+        (error) => fail(error)
+      );
+    });
   }
 };
 

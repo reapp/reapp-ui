@@ -16,12 +16,11 @@ module.exports = React.createClass({
   mixins: [FluxMixin],
 
   statics: {
-    getAsyncProps: () => GetStores('article')
+    getAsyncProps: () => GetStores(null, ['articles'])
   },
 
   shouldComponentUpdate(nextProps) {
-    console.log('shouldUpdate asyncProps nextProps:', !!nextProps.article)
-    return true;//!!nextProps.article;
+    return this.props.articles !== nextProps.articles;
   },
 
   render() {
@@ -30,14 +29,12 @@ module.exports = React.createClass({
       return <div></div>;
     };
 
-    // console.log('ARTICLE', this.props.article)
-
     return (
       <View id="HomePage">
         <TitleBar>{this.title}</TitleBar>
         <TitleView>
           <List>
-            {_.map(this.props.article, (article, i) => {
+            {_.map(this.props.articles, (article, i) => {
               return <ArticleItem key={i} article={article.data} />;
             })}
           </List>

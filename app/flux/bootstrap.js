@@ -6,14 +6,17 @@ var _ = require('lodash-node');
 var FluxxorAutobind = require('fluxxor-autobind');
 var Actions = require('./actions/Actions');
 var ENV = require('../ENV');
+var debug = require('debug')('bootstrap');
 
 var FluxMixin = Fluxxor.FluxMixin(React);
 var FluxChildMixin = Fluxxor.FluxChildMixin(React);
 
 // Stores
+var ArticlesStore = require('./stores/ArticlesStore');
 var ArticleStore = require('./stores/ArticleStore');
 
 var stores = {
+  articlesStore: new ArticlesStore(),
   articleStore: new ArticleStore()
 };
 
@@ -22,17 +25,17 @@ var storeListeners = {};
 var Flux = new Fluxxor.Flux(stores, Actions);
 FluxxorAutobind.install(Flux);
 
-var GetStores = function() {
+var GetStores = function(params, names) {
   invariant(ENV,
     'Must have ENV global set to detect CLIENT/SERVER.');
 
-  var storeNames = Array.prototype.slice.call(arguments, 0);
+  var storeNames = names;
   var result = {};
 
   storeNames.forEach(function(name) {
     var store = Flux.store(name + 'Store');
     result[name] = storePromise(name, store);
-    Flux.actions[name + 'Load']();
+    Flux.actions[name + 'Load'](params);
   });
 
   return result;
@@ -44,8 +47,11 @@ function storePromise(name, store) {
   if (!listener) {
     listener = storeListeners[name] = new Promise(function(res, rej) {
       store.on('change', () => {
-        if (!store.loading && _.size(store.data))
+        debug('change (isloading %s) (size %s)', store.loading, _.size(store.data));
+        if (!store.loading && _.size(store.data)) {
+          debug('true, values:', _.values(store.data))
           res(_.values(store.data))
+        }
       });
     });
   }
