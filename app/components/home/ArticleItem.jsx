@@ -3,6 +3,10 @@ var Time = require('react-ago-component');
 var { Link } = require('react-router');
 
 var ArticleItem = React.createClass({
+  shouldComponentUpdate(nextProps) {
+    // console.log('articleItem', this.props.article !== nextProps.article)
+    return this.props.article !== nextProps.article;
+  },
 
   render() {
     var article = this.props.article;

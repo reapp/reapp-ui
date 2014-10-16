@@ -5,7 +5,7 @@ var GSSMixin = require('../mixins/GSSMixin');
 var View = require('../components/ui/views/View');
 var TitleBar = require('../components/TitleBar');
 var List = require('../components/ui/components/List');
-var Scrollable = require('../components/ui/views/Scrollable');
+var TitleView = require('../components/ui/views/TitleView');
 var ArticleItem = require('../components/home/ArticleItem');
 
 require('./HomePage.styl');
@@ -16,7 +16,12 @@ module.exports = React.createClass({
   mixins: [FluxMixin],
 
   statics: {
-    getRouteProps: () => GetStores('article')
+    getAsyncProps: () => GetStores('article')
+  },
+
+  shouldComponentUpdate(nextProps) {
+    console.log('shouldUpdate asyncProps nextProps:', !!nextProps.article)
+    return true;//!!nextProps.article;
   },
 
   render() {
@@ -25,10 +30,12 @@ module.exports = React.createClass({
       return <div></div>;
     };
 
+    // console.log('ARTICLE', this.props.article)
+
     return (
       <View id="HomePage">
         <TitleBar>{this.title}</TitleBar>
-        <Scrollable>
+        <TitleView>
           <List>
             {_.map(this.props.article, (article, i) => {
               return <ArticleItem key={i} article={article.data} />;
@@ -37,7 +44,7 @@ module.exports = React.createClass({
           <Transition transitionName="drawer">
             <ArticleView />
           </Transition>
-        </Scrollable>
+        </TitleView>
       </View>
     );
   }

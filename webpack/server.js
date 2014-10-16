@@ -25,7 +25,7 @@ module.exports = {
       }
     );
 
-    console.log('Starting webpack server on', port);
+    console.log('Webpack server running on', port);
     webpackServer.listen(port, hostname);
 
     var scripts = [

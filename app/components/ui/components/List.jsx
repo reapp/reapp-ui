@@ -3,6 +3,11 @@ var ReactStyle = require('react-style');
 var ListItem = require('./ListItem');
 
 var List = React.createClass({
+  shouldComponentUpdate(nextProps) {
+    // console.log('list', this.props.children !== nextProps.children)
+    return this.props.children !== nextProps.children;
+  },
+
   styles: {
     list: ReactStyle({
       margin: 0,

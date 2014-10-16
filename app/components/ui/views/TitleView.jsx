@@ -1,7 +1,7 @@
 var React = require('react/addons');
 var ReactStyle = require('react-style');
 
-var Scrollable = React.createClass({
+var TitleView = React.createClass({
   styles: ReactStyle({
     overflow: 'scroll',
     position: 'absolute',
@@ -20,4 +20,4 @@ var Scrollable = React.createClass({
   }
 });
 
-module.exports = Scrollable;
+module.exports = TitleView;

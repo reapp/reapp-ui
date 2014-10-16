@@ -17,6 +17,8 @@ var stores = {
   articleStore: new ArticleStore()
 };
 
+var storeListeners = {};
+
 var Flux = new Fluxxor.Flux(stores, Actions);
 FluxxorAutobind.install(Flux);
 
@@ -29,20 +31,26 @@ var GetStores = function() {
 
   storeNames.forEach(function(name) {
     var store = Flux.store(name + 'Store');
-    result[name] = storePromise(store);
+    result[name] = storePromise(name, store);
     Flux.actions[name + 'Load']();
   });
 
   return result;
 }
 
-function storePromise(store) {
-  return new Promise(function(res, rej) {
-    store.on('change', () => {
-      if (_.size(store.data))
-        res(_.values(store.data))
+function storePromise(name, store) {
+  var listener = storeListeners[name];
+
+  if (!listener) {
+    listener = storeListeners[name] = new Promise(function(res, rej) {
+      store.on('change', () => {
+        if (!store.loading && _.size(store.data))
+          res(_.values(store.data))
+      });
     });
-  })
+  }
+
+  return listener;
 }
 
 module.exports = {

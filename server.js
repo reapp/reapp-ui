@@ -10,7 +10,7 @@ var Router = require('react-router');
 var webpack = require('webpack');
 var webpackConfig = require(__dirname + '/webpack/' + yargs.config);
 
-var stack = mach.stack({ quiet: true });
+var stack = mach.stack();
 var port = Number(yargs.port || process.env.PORT || 8080);
 
 console.log('Starting', yargs.dev ? 'dev' : 'prod' , 'server...');
@@ -70,7 +70,11 @@ function runProductionServer() {
 }
 
 function runMach() {
-  mach.serve(stack, port);
+  console.log('Mach server running on', port);
+  mach.serve(stack, {
+    port: port,
+    quiet: true
+  });
 }
 
 function renderProductionApp(app, path, styleUrl, scriptUrl) {
