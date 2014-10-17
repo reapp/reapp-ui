@@ -19,42 +19,43 @@ var stores = {
   articleStore: new ArticleStore()
 };
 
-var storeListeners = {};
+var storePromises = {};
 var Flux = new Fluxxor.Flux(stores, Actions);
 
-var GetStores = function(params, names) {
+var GetStores = function(params, storeNames) {
   invariant(ENV,
     'Must have ENV global set to detect CLIENT/SERVER.');
 
-  var storeNames = names;
-  var result = {};
+  var promises = {};
 
   storeNames.forEach(function(name) {
+    var hash = name + _.map(params, (h,k) => ""+h+k);
     var store = Flux.store(name + 'Store');
-    result[name] = storePromise(name, store);
+
+    promises[name] = createStorePromise(hash, store);
     Flux.actions[name + 'Load'](params);
-    debug('promise for %s GetStores: %s', name, result[name]);
   });
 
-  return result;
+  return promises;
 }
 
-function storePromise(name, store) {
-  var listener = storeListeners[name];
+function createStorePromise(hash, store) {
+  var listener = storePromises[hash];
+  if (listener) return listener;
 
-  if (!listener) {
-    debug('creating promise for %s', name);
-    listener = storeListeners[name] = new Promise(function(res, rej) {
-      store.on('change', () => {
-        debug('change (isloading %s) (size %s)', store.loading, _.size(store.data));
-        if (!store.loading && _.size(store.data)) {
-          var response = _.values(store.data);
-          debug('resolving promise with %s', response);
-          res(response);
-        }
-      });
-    });
-  }
+  debug('creating promise for %s', hash);
+
+  listener = storePromises[hash] = new Promise(function(res, rej) {
+    store.on('change', respond);
+
+    function respond() {
+      console.log(store)
+      if (store.loading || !_.size(store.data)) return;
+      var response = _.values(store.data);
+      debug('resolving promise with %s', response);
+      res(response);
+    }
+  });
 
   return listener;
 }

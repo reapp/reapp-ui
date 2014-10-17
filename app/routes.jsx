@@ -13,7 +13,7 @@ module.exports = {
         <Route name="app" path="/" handler={App}>
           <DefaultRoute name="home" handler={Articles} />
 
-          <Route name="articles" handler={Articles} addHandlerKey={true}>
+          <Route name="articles" handler={Articles}>
             <Route name="article" path=":id" handler={Article} addHandlerKey={true} />
           </Route>
 

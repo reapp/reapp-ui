@@ -21,7 +21,7 @@ var ArticlesStore = Fluxxor.createStore({
     this.loading = false;
     this.error = null;
 
-    this.data = payload.data.reduce((acc, item) => {
+    this.data = payload.reduce((acc, item) => {
       var clientId = _.uniqueId();
       acc[clientId] = { id: clientId, data: item, status: 'OK' };
       return acc;

@@ -7,29 +7,26 @@ var ENV = require('../../ENV');
 var preloaded;
 var cache = {};
 
-if (ENV.CLIENT) {
-  // we may not be running isomorphically in dev
-  preloaded = window.ROUTER_PROPS || {};
-}
-
 var Dispatcher = {
-  create(key, params, loader) {
+  create(name, params, loader) {
     if (!loader) loader = params;
 
-    invariant(key && loader && typeof loader == 'function',
-      'Must provide a key and loader function');
+    invariant(name && loader && typeof loader == 'function',
+      'Must provide a name and loader function');
 
-    var actionKey = key.toUpperCase();
-    var loading = Dispatcher.dispatchLoad.bind(this, actionKey);
-    var success = Dispatcher.dispatchSuccess.bind(this, actionKey);
-    var fail = Dispatcher.dispatchFail.bind(this, actionKey);
+    var hash = name + _.map(params, (h,k) => ""+h+k);
+    var NAME = name.toUpperCase();
+    debug('binding dispatchers %s %s', NAME, hash);
+    var loading = Dispatcher.dispatchLoad.bind(this, NAME);
+    var success = Dispatcher.dispatchSuccess.bind(this, hash, NAME);
+    var fail = Dispatcher.dispatchFail.bind(this, hash, NAME);
 
-    debug('loading %s', key);
+    debug('loading %s', name);
 
-    if (cache[actionKey])
-      success(cache[actionKey]);
-    else if (ENV.CLIENT && preloaded[key]) {
-      success(preloaded[key][key]); // hacky, its because key == root, and key == root data
+    if (cache[hash])
+      success(cache[hash]);
+    else if (ENV.CLIENT && preloaded[name]) {
+      success(preloaded[name][name]); // hacky, its because name == root, and name == root data
     }
     else {
       loading();
@@ -37,20 +34,21 @@ var Dispatcher = {
     }
   },
 
-  dispatchSuccess(key, res) {
-    debug('success key: %s, res: %s', key, res);
-    this.dispatch(`LOAD_${key}_SUCCESS`, {data: res});
-    cache[key] = res;
+  dispatchSuccess(hash, name, res) {
+    debug('success: %s, res: %s', name, res);
+    this.dispatch(`LOAD_${name}_SUCCESS`, res);
+    cache[hash] = res;
   },
 
-  dispatchFail(key, res) {
-    debug('fail key: %s, res: %s', key, res);
-    this.dispatch(`LOAD_${key}_FAIL`, {error: res});
-    cache[key] = res;
+  dispatchFail(hash, name, res) {
+    debug('fail: %s, res: %s', name, res);
+    this.dispatch(`LOAD_${name}_FAIL`, {error: res});
+    cache[hash] = res;
   },
 
-  dispatchLoad(key) {
-    this.dispatch(`LOAD_${key}`);
+  dispatchLoad(name) {
+    debug('loading: %s', name);
+    this.dispatch(`LOAD_${name}`);
   }
 };
 
@@ -91,6 +89,15 @@ function getArticlesAndLoad(articles, success, fail) {
       (error) => errors.push(error) && done()
     );
   });
+}
+
+if (ENV.CLIENT) {
+  // we may not be running isomorphically in dev
+  preloaded = window.ROUTER_PROPS || {};
+  window.flux = {
+    cache: cache,
+    actions: Actions
+  };
 }
 
 module.exports = Actions;

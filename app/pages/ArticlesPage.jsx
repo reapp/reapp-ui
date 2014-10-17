@@ -20,12 +20,6 @@ module.exports = React.createClass({
     getAsyncProps: () => GetStores(null, ['articles'])
   },
 
-  shouldComponentUpdate(nextProps) {
-    var shouldUpdate = nextProps.articles !== null && this.props.articles !== nextProps.articles;
-    debug('shouldComponentUpdate %s', shouldUpdate);
-    return shouldUpdate;
-  },
-
   render() {
     debug('props %s', this.props.articles);
     var Transition = React.addons.CSSTransitionGroup;
