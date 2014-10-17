@@ -2,6 +2,7 @@ var React = require('react');
 var View = require('../ui/views/View');
 var { GetStores } = require('../../flux/bootstrap');
 var ArticleItem = require('./ArticleItem');
+var debug = require('debug')('g:article');
 
 var Article = React.createClass({
   statics: {
@@ -9,7 +10,9 @@ var Article = React.createClass({
   },
 
   shouldComponentUpdate(nextProps) {
-    return this.props.article !== nextProps.article;
+    var shouldUpdate = nextProps.article !== null && this.props.article !== nextProps.article;
+    debug('shouldComponentUpdate %s', shouldUpdate);
+    return shouldUpdate;
   },
 
   render() {

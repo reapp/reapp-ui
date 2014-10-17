@@ -4,7 +4,7 @@ var ImageRoll = require('./pages/ImageRollPage');
 var Viewer = require('./pages/ViewerPage');
 var ViewerRebound = require('./pages/ViewerReboundPage');
 var List = require('./pages/ListPage');
-var Article = require('./components/home/Article');
+var Article = require('./components/articles/Article');
 
 module.exports = {
   init(App) {

@@ -3,7 +3,6 @@ var invariant = require('react/lib/invariant');
 var Fluxxor = require('fluxxor');
 var Promise = require('when').Promise;
 var _ = require('lodash-node');
-var FluxxorAutobind = require('fluxxor-autobind');
 var Actions = require('./actions/Actions');
 var ENV = require('../ENV');
 var debug = require('debug')('g:bootstrap');
@@ -21,9 +20,7 @@ var stores = {
 };
 
 var storeListeners = {};
-
 var Flux = new Fluxxor.Flux(stores, Actions);
-FluxxorAutobind.install(Flux);
 
 var GetStores = function(params, names) {
   invariant(ENV,

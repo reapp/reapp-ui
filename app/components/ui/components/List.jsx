@@ -10,7 +10,7 @@ var List = React.createClass({
 
   styles: {
     list: ReactStyle({
-      margin: 0,
+      margin: '-10px 0 0',
       padding: 10,
       zIndex: 101,
     }),

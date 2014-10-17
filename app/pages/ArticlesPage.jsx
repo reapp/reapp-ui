@@ -6,13 +6,13 @@ var View = require('../components/ui/views/View');
 var TitleBar = require('../components/TitleBar');
 var List = require('../components/ui/components/List');
 var TitleView = require('../components/ui/views/TitleView');
-var ArticleItem = require('../components/home/ArticleItem');
+var ArticleItem = require('../components/articles/ArticleItem');
 var debug = require('debug')('g:articlesPage');
 
-require('./HomePage.styl');
+require('./ArticlesPage.styl');
 
 module.exports = React.createClass({
-  title: 'Home',
+  title: 'Article',
 
   mixins: [FluxMixin],
 
@@ -21,7 +21,9 @@ module.exports = React.createClass({
   },
 
   shouldComponentUpdate(nextProps) {
-    return this.props.articles !== nextProps.articles;
+    var shouldUpdate = nextProps.articles !== null && this.props.articles !== nextProps.articles;
+    debug('shouldComponentUpdate %s', shouldUpdate);
+    return shouldUpdate;
   },
 
   render() {
@@ -32,7 +34,7 @@ module.exports = React.createClass({
     };
 
     return (
-      <View id="HomePage">
+      <View id="ArticlePage">
         <TitleBar>{this.title}</TitleBar>
         <TitleView>
           <List>
@@ -40,10 +42,10 @@ module.exports = React.createClass({
               return <ArticleItem key={i} article={article.data} />;
             })}
           </List>
-          <Transition transitionName="drawer">
-            <Article />
-          </Transition>
         </TitleView>
+        <Transition transitionName="drawer">
+          <Article />
+        </Transition>
       </View>
     );
   }
