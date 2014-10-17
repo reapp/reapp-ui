@@ -36,9 +36,7 @@ function getArticlesAndLoad(articles, success, fail) {
 }
 
 function getCommentsAndLoad(article, success, fail) {
-  getAllKids(article).done((res) => {
-    console.log('all kids', res);
-  });
+  getAllKids(article).done((res) => success(res));
 }
 
 function getAllKids(item) {

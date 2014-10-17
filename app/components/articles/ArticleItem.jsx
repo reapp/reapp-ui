@@ -16,9 +16,7 @@ var ArticleItem = React.createClass({
   render() {
     var article = this.props.article;
     var classes = {
-      "article": true,
-      "touched": article.touches == 1,
-      "doubleTouched": article.touches == 2
+      "article": true
     };
 
     return (
