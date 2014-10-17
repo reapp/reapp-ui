@@ -11,12 +11,6 @@ var Article = React.createClass({
     getAsyncProps: (params) => GetStores(params, ['article'])
   },
 
-  shouldComponentUpdate(nextProps) {
-    var shouldUpdate = nextProps.article !== null && this.props.article !== nextProps.article;
-    debug('shouldComponentUpdate %s', shouldUpdate);
-    return true;//shouldUpdate;
-  },
-
   render() {
     if (!this.props.article) {
       return  <View className="drawer"><div /></View>;

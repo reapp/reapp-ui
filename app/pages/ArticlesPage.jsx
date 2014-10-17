@@ -21,7 +21,7 @@ module.exports = React.createClass({
   },
 
   render() {
-    debug('props %s', this.props.articles);
+    debug('props', this.props);
     var Transition = React.addons.CSSTransitionGroup;
     var Article = this.props.activeRouteHandler || function() {
       return <div></div>;
@@ -33,7 +33,7 @@ module.exports = React.createClass({
         <TitleView>
           <List>
             {_.map(this.props.articles, (article) => {
-              return <ArticleItem key={article.id} id={article.id} />;
+              return <ArticleItem key={article.id} article={article.data} />;
             })}
           </List>
         </TitleView>

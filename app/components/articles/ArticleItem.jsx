@@ -1,33 +1,24 @@
 var React = require('react/addons');
 var Time = require('react-ago-component');
 var { Link } = require('react-router');
-var { FluxMixin, StoreWatchMixin } = require('../../flux/bootstrap');
+var { FluxMixin } = require('../../flux/bootstrap');
 var Cx = React.addons.classSet;
 
 require('./ArticleItem');
 
 var ArticleItem = React.createClass({
-  mixins: [FluxMixin, StoreWatchMixin('articles')],
-
-  getStateFromFlux() {
-    var flux = this.getFlux();
-    var id = this.props.id;
-
-    return {
-      article: flux.store('articles').get(id)
-    }
-  },
+  mixins: [FluxMixin],
 
   onTouch() {
     console.log(this.getFlux())
   },
 
   render() {
-    var article = this.state.article;
+    var article = this.props.article;
     var classes = {
       "article": true,
-      "touched": this.state.touches == 1,
-      "doubleTouched": this.state.touches == 2
+      "touched": article.touches == 1,
+      "doubleTouched": article.touches == 2
     };
 
     return (
