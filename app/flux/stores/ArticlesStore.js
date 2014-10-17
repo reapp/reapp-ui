@@ -1,4 +1,5 @@
 var Fluxxor = require('fluxxor');
+var _ = require('lodash-node');
 
 var ArticlesStore = Fluxxor.createStore({
   initialize() {
@@ -23,6 +24,7 @@ var ArticlesStore = Fluxxor.createStore({
 
     this.data = payload.reduce((acc, item) => {
       var clientId = _.uniqueId();
+      item.touches = 0;
       acc[clientId] = { id: clientId, data: item, status: 'OK' };
       return acc;
     }, {});
@@ -34,6 +36,10 @@ var ArticlesStore = Fluxxor.createStore({
     this.loading = false;
     this.error = payload.error;
     this.emit('change');
+  },
+
+  get(id) {
+    return this.data[id].data;
   }
 });
 

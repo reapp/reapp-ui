@@ -5,22 +5,19 @@ var Promise = require('when').Promise;
 var _ = require('lodash-node');
 var Actions = require('./actions/Actions');
 var ENV = require('../ENV');
-var debug = require('debug')('g:bootstrap');
+var debug = require('debug')('g:flux');
 
 var FluxMixin = Fluxxor.FluxMixin(React);
-var FluxChildMixin = Fluxxor.FluxChildMixin(React);
 
 // Stores
 var ArticlesStore = require('./stores/ArticlesStore');
-var ArticleStore = require('./stores/ArticleStore');
 
-var stores = {
-  articlesStore: new ArticlesStore(),
-  articleStore: new ArticleStore()
+var Stores = {
+  articles: new ArticlesStore()
 };
 
 var storePromises = {};
-var Flux = new Fluxxor.Flux(stores, Actions);
+var Flux = new Fluxxor.Flux(Stores, Actions);
 
 var GetStores = function(params, storeNames) {
   invariant(ENV,
@@ -30,7 +27,7 @@ var GetStores = function(params, storeNames) {
 
   storeNames.forEach(function(name) {
     var hash = name + _.map(params, (h,k) => ""+h+k);
-    var store = Flux.store(name + 'Store');
+    var store = Flux.store(name);
 
     promises[name] = createStorePromise(hash, store);
     Flux.actions[name + 'Load'](params);
@@ -60,9 +57,17 @@ function createStorePromise(hash, store) {
   return listener;
 }
 
+if (ENV.CLIENT) {
+  window.stores = Stores;
+
+  Flux.on('dispatch', function(type, payload) {
+    debug("[Dispatch]", type, payload);
+  });
+}
+
 module.exports = {
+  StoreWatchMixin: Fluxxor.StoreWatchMixin,
   FluxMixin: FluxMixin,
-  FluxChildMixin: FluxChildMixin,
   Flux: Flux,
   GetStores: GetStores
 };

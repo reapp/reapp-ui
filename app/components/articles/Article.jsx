@@ -23,7 +23,7 @@ var Article = React.createClass({
     }
     else {
       var article = this.props.article[0];
-      var articleItem = <ArticleItem article={article.data} />;
+      var articleItem = <ArticleItem id={article.id} />;
 
       return (
         <View className="drawer">

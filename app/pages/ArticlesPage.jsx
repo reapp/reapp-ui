@@ -32,8 +32,8 @@ module.exports = React.createClass({
         <TitleBar>{this.title}</TitleBar>
         <TitleView>
           <List>
-            {_.map(this.props.articles, (article, i) => {
-              return <ArticleItem key={i} article={article.data} />;
+            {_.map(this.props.articles, (article) => {
+              return <ArticleItem key={article.id} id={article.id} />;
             })}
           </List>
         </TitleView>

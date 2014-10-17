@@ -146,7 +146,8 @@ var LeftNavView = React.createClass({
       left: 0,
       position: 'absolute',
       right: 0,
-      top: 0
+      top: 0,
+      zIndex: 1000
     };
 
     // when open make touchable area small for dragging

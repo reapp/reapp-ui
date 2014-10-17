@@ -1,13 +1,17 @@
 var Flux = require('bootstrap');
 
 Flux
-  .collectionStore('Articles')
-  .gets('/articles/{id}')
-  .extend({
-    initialize() {
+  .list('Articles')
+  .from('/articles')
+  .does({
+    initialize() {},
+    otherAction() {}
+  });
 
-    },
-    otherAction() {
-
-    }
+Flux
+  .single('Article')
+  .from('/articles/{id}')
+  .does({
+    initialize() {},
+    otherAction() {}
   });
