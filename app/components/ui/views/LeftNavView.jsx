@@ -2,7 +2,9 @@ var React = require('react');
 var Merge = require('react/lib/merge');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
 var LeftNavBehavior = require('./LeftNavBehavior');
+var DraggableViewBehavior = require('./DraggableViewBehavior');
 var TouchableArea = require('../helpers/TouchableArea');
+var DraggableView = require('./DraggableView');
 var { Scroller } = require('scroller');
 
 var LeftNavView = React.createClass({
@@ -65,10 +67,7 @@ var LeftNavView = React.createClass({
   },
 
   _handleContentTouchTap(e) {
-    if (!this.isNavOpen()) {
-      return;
-    }
-
+    if (!this.isNavOpen()) return;
     this.scroller.scrollTo(this.props.sideWidth, 0, true);
     e.preventDefault();
   },
@@ -81,7 +80,6 @@ var LeftNavView = React.createClass({
     // props: sideWidth, topHeight, topContent, handle, sideContent
     var isNavOpen = this.isNavOpen();
     var behavior = this.props.behavior;
-    var sidebarX = (this.props.sideWidth - this.state.scrollLeft);
     var side = null;
 
     var wrapperStyle = {
@@ -122,53 +120,25 @@ var LeftNavView = React.createClass({
           this.props.sideContent));
     }
 
-    var contentProps;
-
-    if (behavior.content) {
-      contentProps = {
-        translate: behavior.content.translate(this.props.sideWidth, this.state.scrollLeft),
-        rotate: behavior.content.rotate(this.props.sideWidth, this.state.scrollLeft),
-        opacity: behavior.content.opacity(this.props.sideWidth, this.state.scrollLeft)
-      };
+    var draggableProps = {
+      containerStyle: { left: 200 },
+      scroller: this.scroller,
+      onTouchTap: this._handleContentTouchTap,
+      translate: DraggableViewBehavior.translate(this.state.scrollLeft)
     };
 
-    var contentStyle = {
-      top: 0,
-      bottom: 0,
-      left: 0,
-      position: 'fixed',
-      right: 0,
-      zIndex: 99
-    };
-
-    var contentTouchableAreaStyle = {
-      bottom: 0,
-      left: 0,
-      position: 'absolute',
-      right: 0,
-      top: 0,
-      zIndex: 1000
-    };
-
-    // when open make touchable area small for dragging
-    // from left of screen
-    if (!isNavOpen) {
-      contentTouchableAreaStyle.right = 'auto';
-      contentTouchableAreaStyle.width = 10;
+    if (this.props.handleStyle) {
+      draggableProps.style = Merge(this.props.handleStyle, draggableProps.containerStyle);
     }
 
     return this.transferPropsTo(
       React.DOM.div({style: wrapperStyle},
+        // side
         side,
-        AnimatableContainer(Merge(contentProps, {style: contentStyle}),
-          TouchableArea({
-            style: contentTouchableAreaStyle,
-            scroller: this.scroller,
-            onTouchTap: this._handleContentTouchTap
-          }),
-          this.props.children
-        ),
-        AnimatableContainer(Merge(contentProps || sideProps, {style: this.props.handleStyle}),
+        // content
+        DraggableView(draggableProps, this.props.children),
+        // handle
+        AnimatableContainer(draggableProps,
           TouchableArea({
             onTouchTap:this._handleTap,
             scroller:this.scroller

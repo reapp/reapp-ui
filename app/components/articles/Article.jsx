@@ -1,5 +1,5 @@
 var React = require('react');
-var View = require('../ui/views/View');
+var DraggableView = require('../ui/views/DraggableView');
 var _ = require('lodash-node');
 var debug = require('debug')('g:article');
 var { GetStores } = require('../../flux/bootstrap');
@@ -18,7 +18,7 @@ var Article = React.createClass({
 
   render() {
     if (!this.props.article) {
-      return  <View className="drawer"><div /></View>;
+      return  <DraggableView className="drawer"><div /></DraggableView>;
     }
     else {
       var article = this.props.article[0].data;
@@ -29,7 +29,7 @@ var Article = React.createClass({
       })
 
       return (
-        <View className="drawer">
+        <DraggableView className="article drawer">
           <TitleBar>{article.title}</TitleBar>
           <TitleView>
             {articleItem}
@@ -38,7 +38,7 @@ var Article = React.createClass({
               {CommentTree || null}
             </div>
           </TitleView>
-        </View>
+        </DraggableView>
       );
     }
   }

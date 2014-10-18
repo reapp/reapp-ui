@@ -7,13 +7,14 @@ var View = React.createClass({
   styles(top) {
     return ReactStyle({
       background: '#efeff4',
-      overflow: 'scroll',
+      overflow: 'hidden',
       paddingTop: top,
       position: 'absolute',
       top: 0,
       left: 0,
       bottom: 0,
-      right: 0
+      right: 0,
+      '-webkit-overflow-scrolling': 'touch'
     });
   },
 
@@ -24,7 +25,7 @@ var View = React.createClass({
       classes[this.props.className] = true;
 
     return (
-      <div className={Cx(classes)} styles={styles}>
+      <div id={this.props.id} className={Cx(classes)} styles={styles}>
         {this.props.children}
       </div>
     );

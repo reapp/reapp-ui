@@ -2,6 +2,8 @@ var React = require('react');
 var ReactStyle = require('react-style');
 var ListItem = require('./ListItem');
 
+require('./List.styl');
+
 var List = React.createClass({
   shouldComponentUpdate(nextProps) {
     // console.log('list', this.props.children !== nextProps.children)

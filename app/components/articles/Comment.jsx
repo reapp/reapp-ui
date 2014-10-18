@@ -8,7 +8,7 @@ var Comment = React.createClass({
       <div className="comment">
         <div className="comment--content">
           <h3>{this.props.data.by}</h3>
-          <p>{this.props.data.text}</p>
+          <p dangerouslySetInnerHTML={{__html: this.props.data.text}}></p>
         </div>
 
         {this.props.children}
