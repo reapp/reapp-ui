@@ -15,9 +15,10 @@ var TreeNode = React.createClass({
     var childNodes;
 
     if (children) {
-      childNodes = _.map(children, (child) => {
+      childNodes = _.map(children, (child, i) => {
         return (
           <TreeNode
+            key={`${level}-${i}`}
             renderComponent={props.renderComponent}
             childKey={props.childKey}
             data={child}

@@ -1,3 +1,6 @@
+- finish fixing views
+- omniscient branch
+
 HN
 - add refresh button
 - add delete article just to test
@@ -11,4 +14,5 @@ LeftNavView
 - Individual article store/actions
 
 Architecture
+- store for UI state (zIndex management)
 - Extract ENV into plugin

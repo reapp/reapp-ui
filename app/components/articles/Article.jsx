@@ -17,30 +17,33 @@ var Article = React.createClass({
   },
 
   render() {
-    if (!this.props.article) {
-      return  <DraggableView className="drawer"><div /></DraggableView>;
-    }
-    else {
-      var article = this.props.article[0].data;
-      var articleItem = <ArticleItem article={article} />;
-      var comments = article.kids;
-      var CommentTree = _.map(comments, (comment) => {
-        return <TreeNode renderComponent={Comment} childKey="kids" data={comment} />
-      })
+    var Drawer = DraggableView.bind(this, {
+      className: "article drawer",
+      layer: 2, // todo integrate into app state to manage index
+      viewProps: {style: {
+        paddingTop: 0
+      }}
+    });
 
-      return (
-        <DraggableView className="article drawer" viewProps={{style: { zIndex: 10000, paddingTop: 0 } }}>
-          <TitleBar>{article.title}</TitleBar>
-          <TitleView>
-            {articleItem}
+    if (!this.props.article)
+      return  <Drawer><div /></Drawer>;
 
-            <div id="comments">
-              {CommentTree || null}
-            </div>
-          </TitleView>
-        </DraggableView>
-      );
-    }
+    var article = this.props.article[0].data;
+    var CommentTree = _.map(article.kids, (comment) => {
+      return <TreeNode renderComponent={Comment} childKey="kids" data={comment} />
+    })
+
+    return (
+      <Drawer>
+        <TitleBar>{article.title}</TitleBar>
+        <TitleView>
+          <ArticleItem article={article} />
+          <div id="comments">
+            {CommentTree || null}
+          </div>
+        </TitleView>
+      </Drawer>
+    );
   }
 });
 

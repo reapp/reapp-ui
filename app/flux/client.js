@@ -8,7 +8,6 @@ var Client = {
   get(url, success, failure) {
     // callback style
     if (success && failure) {
-      debug('callback');
       rest(url).then((res) => {
         return (res.status.code >= 300) ?
           failure(res.status) :
@@ -18,7 +17,6 @@ var Client = {
 
     // promise style
     else {
-      debug('promise');
       return rest(url).then(
         (res) => res.entity,
         (res) => res
