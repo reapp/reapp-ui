@@ -121,15 +121,17 @@ var LeftNavView = React.createClass({
     }
 
     var draggableProps = {
-      containerStyle: { left: 200 },
+      containerProps: {
+        style: { left: 200 },
+        translate: DraggableViewBehavior.translate(this.state.scrollLeft)
+      },
       scroller: this.scroller,
-      onTouchTap: this._handleContentTouchTap,
-      translate: DraggableViewBehavior.translate(this.state.scrollLeft)
+      onTouchTap: this._handleContentTouchTap
     };
 
-    if (this.props.handleStyle) {
-      draggableProps.style = Merge(this.props.handleStyle, draggableProps.containerStyle);
-    }
+    var handleProps = draggableProps.containerProps;
+    if (this.props.handleStyle)
+      handleProps.style = Merge(this.props.handleStyle, handleProps.style);
 
     return this.transferPropsTo(
       React.DOM.div({style: wrapperStyle},
@@ -138,7 +140,7 @@ var LeftNavView = React.createClass({
         // content
         DraggableView(draggableProps, this.props.children),
         // handle
-        AnimatableContainer(draggableProps,
+        AnimatableContainer(handleProps,
           TouchableArea({
             onTouchTap:this._handleTap,
             scroller:this.scroller

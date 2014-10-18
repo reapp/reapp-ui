@@ -55,6 +55,8 @@ var DraggableView = React.createClass({
 
   render() {
     var isOpen = this.isOpen();
+    var containerStyleProps = (this.props.containerProps || {}).style;
+    delete this.props.containerProps.style;
     var containerProps = {
       className: this.props.className,
       style: Merge({
@@ -65,7 +67,7 @@ var DraggableView = React.createClass({
         top: 0,
         width: '100%',
         zIndex: 99
-      }, this.props.containerStyle)
+      }, containerStyleProps)
     };
 
     var touchableProps = Merge({
@@ -81,19 +83,14 @@ var DraggableView = React.createClass({
     });
 
     // let a parent component control it
-    if (this.props.translate) {
-      containerProps = Merge(containerProps, {
-        translate: this.props.translate
-      });
-    }
-    // otherwise control by its own behavior
-    else if (this.props.behavior) {
-      containerProps = Merge(containerProps, {
-        translate: this.props.behavior.translate(this.props.xOffset)
-      });
-    }
+    if (this.props.containerProps)
+      containerProps = Merge(containerProps, this.props.containerProps);
 
-    // console.log('cprops', containerProps);
+    // otherwise control by its own behavior
+    else if (this.props.behavior)
+      containerProps = Merge(containerProps, {
+        translate: this.props.behavior.translate(this.state.xOffset)
+      });
 
     // when open make touchable area small for dragging
     // from left of screen
@@ -102,10 +99,12 @@ var DraggableView = React.createClass({
       touchableProps.style.width = 10;
     }
 
+    console.log(containerProps)
+
     return (
       AnimatableContainer(containerProps,
         TouchableArea(touchableProps),
-        View(null, this.props.children)
+        View(this.props.viewProps || null, this.props.children)
       )
     );
   }

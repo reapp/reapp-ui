@@ -29,7 +29,7 @@ var Article = React.createClass({
       })
 
       return (
-        <DraggableView className="article drawer">
+        <DraggableView className="article drawer" viewProps={{style: { zIndex: 10000, paddingTop: 0 } }}>
           <TitleBar>{article.title}</TitleBar>
           <TitleView>
             {articleItem}
