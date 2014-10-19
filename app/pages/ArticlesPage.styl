@@ -34,6 +34,10 @@
   transition-property: transform;
   transition-timing-function: ease-out;
   box-shadow: 0 0 15px rgba(0,0,0,0.4);
+
+  &.closed {
+    box-shadow: none;
+  }
 }
 
 .drawer-enter {
@@ -41,7 +45,6 @@
 }
 
 .drawer-enter.drawer-enter-active {
-  transform: translate3d(0,0,0) !important;
 }
 
 .drawer-leave {

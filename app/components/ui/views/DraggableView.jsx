@@ -5,8 +5,12 @@ var TouchableArea = require('../helpers/TouchableArea');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
 var DraggableViewBehavior = require('./DraggableViewBehavior');
 var { Scroller } = require('scroller');
+var { NavigationMixin } = require('react-router');
+var Cx = React.addons.classSet;
 
 var DraggableView = React.createClass({
+  mixins: [NavigationMixin],
+
   getDefaultProps() {
     return {
       layer: 1,
@@ -17,8 +21,15 @@ var DraggableView = React.createClass({
   getInitialState() {
     return {
       externalScroller: !!this.props.scroller,
-      xOffset: 0
+      xOffset: 0,
+      isClosed: false
     };
+  },
+
+  componentShouldUpdate(nextProps, nextState) {
+    return this.props.containerProps ?
+      true :
+      this.state.xOffset !== nextState.xOffset;
   },
 
   componentWillMount() {
@@ -48,20 +59,23 @@ var DraggableView = React.createClass({
   },
 
   _handleScroll(left) {
-    console.log('handle scroll', left);
-    this.setState({ xOffset: left });
-  },
-
-  isClosed() {
-    return this.state.xOffset === 0;
+    this.setState({
+      xOffset: left,
+      isClosed: left === 0
+    });
   },
 
   render() {
     var containerStyleProps = (this.props.containerProps || {}).style;
     if (containerStyleProps) delete this.props.containerProps.style;
+    var containerClasses = {
+      closed: this.state.isClosed
+    };
+
+    containerClasses[this.props.className] = true;
 
     var containerProps = {
-      className: this.props.className,
+      className: Cx(containerClasses),
       style: Merge({
         top: 0, right: 0, bottom: 0, left: 0,
         position: 'fixed',
@@ -91,9 +105,8 @@ var DraggableView = React.createClass({
       scroller: this.props.scroller || this.scroller
     };
 
-    if (this.isClosed()) {
+    if (this.state.isClosed)
       touchableProps.style.left = -10;
-    }
 
     return (
       AnimatableContainer(containerProps,
