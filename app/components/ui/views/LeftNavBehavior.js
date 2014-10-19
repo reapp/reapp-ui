@@ -1,21 +1,21 @@
 var LeftNavBehavior = {
   ALL_PARALLAX_FADE: {
-    side: {
-      translate: function(sideWidth, scrollLeft) {
+    parent: {
+      translate: function(parentWidth, scrollLeft) {
         return {
-          x: sideWidth - .5 * scrollLeft
+          x: parentWidth - .5 * scrollLeft
         };
       },
       rotate: function() {
         return null;
       },
-      opacity: function(sideWidth, scrollLeft) {
-        return .5 + .5 * (1 - scrollLeft / sideWidth);
+      opacity: function(parentWidth, scrollLeft) {
+        return .5 + .5 * (1 - scrollLeft / parentWidth);
       }
     },
-    content: {
-      translate: function(sideWidth, scrollLeft) {
-        return {x: sideWidth - scrollLeft};
+    child: {
+      translate: function(parentWidth, scrollLeft) {
+        return {x: parentWidth - scrollLeft};
       },
       rotate: function() {
         return null;
@@ -26,10 +26,10 @@ var LeftNavBehavior = {
     }
   },
   NORMAL: {
-    side: {
-      translate: function(sideWidth, scrollLeft) {
+    parent: {
+      translate: function(parentWidth, scrollLeft) {
         return {
-          x: sideWidth - scrollLeft
+          x: parentWidth - scrollLeft
         };
       },
       rotate: function() {

@@ -107,15 +107,17 @@ var LeftNavView = React.createClass({
     };
 
     var sideProps = {
-      translate: behavior.side.translate(this.props.sideWidth, this.state.scrollLeft),
-      rotate: behavior.side.rotate(this.props.sideWidth, this.state.scrollLeft),
-      opacity: behavior.side.opacity(this.props.sideWidth, this.state.scrollLeft)
+      translate: behavior.parent.translate(this.props.sideWidth, this.state.scrollLeft),
+      rotate: behavior.parent.rotate(this.props.sideWidth, this.state.scrollLeft),
+      opacity: behavior.parent.opacity(this.props.sideWidth, this.state.scrollLeft)
     };
 
     if (isNavOpen) {
       side = AnimatableContainer(Merge(sideProps, { style: sideStyle }),
-        React.DOM.div({style:sideContainerStyle, onClick:this._handleContentTouchTap},
-          this.props.sideContent));
+        React.DOM.div({
+          style: sideContainerStyle,
+          onClick: this._handleContentTouchTap
+        }, this.props.sideContent));
     }
 
     var draggableProps = {

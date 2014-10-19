@@ -1,3 +1,12 @@
+
+1. port ref cursors to omniscient
+2. port app to omniscient cursors
+3. diagram a global pane management solution (ui state cursor)
+4. add ability to view user profile in a pane
+5. test global pane solution using nested panes (home>article>user)
+
+
+
 - finish fixing views
 - omniscient branch
 
