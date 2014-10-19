@@ -10,7 +10,7 @@ var ArticleItem = React.createClass({
   mixins: [FluxMixin],
 
   onTouch() {
-    console.log(this.getFlux())
+    console.log(this.getFlux());
   },
 
   render() {

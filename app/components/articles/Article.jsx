@@ -20,9 +20,9 @@ var Article = React.createClass({
     var Drawer = DraggableView.bind(this, {
       className: "article drawer",
       layer: 2, // todo integrate into app state to manage index
-      viewProps: {style: {
-        paddingTop: 0
-      }}
+      viewProps: {
+        style: { paddingTop: 0 }
+      }
     });
 
     if (!this.props.article)
@@ -30,8 +30,8 @@ var Article = React.createClass({
 
     var article = this.props.article[0].data;
     var CommentTree = _.map(article.kids, (comment) => {
-      return <TreeNode renderComponent={Comment} childKey="kids" data={comment} />
-    })
+      return <TreeNode renderComponent={Comment} childKey="kids" data={comment} />;
+    });
 
     return (
       <Drawer>
