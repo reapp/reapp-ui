@@ -1,10 +1,10 @@
 var { Routes, Route, DefaultRoute } = require('react-router');
 var Articles = require('./pages/ArticlesPage');
+var Article = require('./pages/Articles/Article');
 var ImageRoll = require('./pages/ImageRollPage');
 var Viewer = require('./pages/ViewerPage');
 var ViewerRebound = require('./pages/ViewerReboundPage');
 var List = require('./pages/ListPage');
-var Article = require('./components/articles/Article');
 
 module.exports = {
   init(App) {

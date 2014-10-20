@@ -1,16 +1,11 @@
 var React = require('react/addons');
-var _ = require('lodash-node');
+var Immstruct = require('immstruct');
+var ArticlePageComponent = require('../components/articles/ArticlePageComponent');
 var { FluxMixin, GetStores } = require('../flux/bootstrap');
-var View = require('../components/ui/views/View');
-var TitleBar = require('../components/TitleBar');
-var List = require('../components/ui/components/List');
-var TitleView = require('../components/ui/views/TitleView');
-var ArticleItem = require('../components/articles/ArticleItem');
-var debug = require('debug')('g:articlesPage');
 
 require('./ArticlesPage.styl');
 
-module.exports = React.createClass({
+var ArticlesPage = React.createClass({
   title: 'Article',
 
   mixins: [FluxMixin],
@@ -20,27 +15,14 @@ module.exports = React.createClass({
   },
 
   render() {
-    debug('props', this.props);
-    var Transition = React.addons.CSSTransitionGroup;
-    var Article = this.props.activeRouteHandler || function() {
-      return <div></div>;
-    };
-
-    return (
-      <View id="ArticlePage">
-        <TitleBar>{this.title}</TitleBar>
-        <TitleView>
-          <List>
-            {_.map(this.props.articles, (article) => {
-              return <ArticleItem key={article.id} article={article.data} />;
-            })}
-          </List>
-        </TitleView>
-        <Transition transitionName="drawer">
-          <Article />
-        </Transition>
-      </View>
-    );
+    var structure = Immstruct({
+      articles: this.props.articles,
+      handler: this.props.activeRouteHandler || (() => <div></div>)
+    });
+    window.structure = structure;
+    structure.on('next-animation-frame', this.forceUpdate);
+    return ArticlePageComponent(structure.cursor());
   }
-
 });
+
+module.exports = ArticlesPage;

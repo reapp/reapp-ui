@@ -1,7 +1,7 @@
 var _ = require('lodash-node');
 var debug = require('debug')('g:flux:actions');
 var invariant = require('react/lib/invariant');
-var Promise = require('when').Promise;
+var { Promise } = require('when');
 var Client = require('../client');
 var Dispatcher = require('../lib/Dispatcher');
 

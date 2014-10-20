@@ -26,7 +26,7 @@ var DraggableView = React.createClass({
     };
   },
 
-  componentShouldUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, nextState) {
     return this.props.containerProps ?
       true :
       this.state.xOffset !== nextState.xOffset;
