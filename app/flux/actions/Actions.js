@@ -24,6 +24,16 @@ var Actions = {
         (error) => fail(error)
       );
     });
+  },
+
+  userLoad(params) {
+    var url = `https://hacker-news.firebaseio.com/v0/user/${params.id}.json`;
+    Dispatcher.create.call(this, 'user', params, (success, fail) => {
+      Client.get(url,
+        (user) => success(user),
+        (error) => fail(error)
+      );
+    });
   }
 };
 

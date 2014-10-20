@@ -1,6 +1,6 @@
 var invariant = require('react/lib/invariant');
 var _ = require('lodash-node');
-var Promise = require('when').Promise;
+var { Promise } = require('when');
 var debug = require('debug')('g:flux:GetStores');
 var ENV = require('../../ENV');
 
@@ -22,7 +22,7 @@ var GetStores = function(params, storeNames) {
   });
 
   return promises;
-}
+};
 
 function createStorePromise(hash, store) {
   var listener = storePromises[hash];
@@ -34,10 +34,8 @@ function createStorePromise(hash, store) {
     store.on('change', respond);
 
     function respond() {
-      console.log(store)
       if (store.loading || !_.size(store.data)) return;
       var response = _.values(store.data);
-      debug('resolving promise with %s', response);
       res(response);
     }
   });

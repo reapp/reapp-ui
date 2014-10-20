@@ -9,10 +9,12 @@ var GetStores = require('./lib/GetStores');
 // Stores
 var ArticlesStore = require('./stores/ArticlesStore');
 var ArticleStore = require('./stores/ArticleStore');
+var UserStore = require('./stores/UserStore');
 
 var Stores = {
   articles: new ArticlesStore(),
-  article: new ArticleStore()
+  article: new ArticleStore(),
+  user: new UserStore(),
 };
 
 var Flux = new Fluxxor.Flux(Stores, Actions);

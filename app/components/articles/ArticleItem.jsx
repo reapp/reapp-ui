@@ -26,7 +26,11 @@ module.exports = Component('ArticleItem', mixins, function(cursor, statics) {
       </h3>
       <ul>
         <li className="score">{article.get('score')}</li>
-        <li>{article.get('by')}</li>
+        <li>
+          <Link to="user" params={{id: article.get('by')}}>
+            {article.get('by')}
+          </Link>
+        </li>
         <li className="time">
           <Time date={new Date(article.get('time') * 1000)} autoUpdate />
         </li>

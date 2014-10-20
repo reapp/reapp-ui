@@ -11,7 +11,7 @@ require('./Articles.styl');
 module.exports = Component('Articles', cursor => {
   var Transition = React.addons.CSSTransitionGroup;
   var articles = cursor.get('articles');
-  var Article = cursor.get('handler');
+  var SubView = cursor.get('handler');
 
   if (!articles)
     return <div></div>;
@@ -27,7 +27,7 @@ module.exports = Component('Articles', cursor => {
         </List>
       </TitleView>
       <Transition transitionName="drawer">
-        <Article />
+        <SubView />
       </Transition>
     </View>
   );
