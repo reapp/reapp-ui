@@ -13,16 +13,15 @@ var ImmutableTreeNode = React.createClass({
     var childNodes;
 
     if (children) {
-      childNodes = children.map((child, i) => {
-        return (
-          <ImmutableTreeNode
-            key={`${level}-${i}`}
-            renderComponent={props.renderComponent}
-            childKey={props.childKey}
-            data={child}
-            level={++level} />
-        );
-      }).toArray();
+      var i = 0;
+      childNodes = children.map((child) => (
+        <ImmutableTreeNode
+          key={`${level}-${i++}`}
+          renderComponent={props.renderComponent}
+          childKey={props.childKey}
+          data={child}
+          level={++level} />
+      )).toArray();
     }
 
     return (

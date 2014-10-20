@@ -22,7 +22,7 @@ var Flux = new Fluxxor.Flux(Stores, Actions);
 if (ENV.CLIENT) {
   window.stores = Stores;
   Flux.on('dispatch', function(type, payload) {
-    debug("[Dispatch]", type, payload);
+    debug(type, payload);
   });
 
   window.flux = window.flux || {};

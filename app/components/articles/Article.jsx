@@ -1,5 +1,4 @@
 var Component = require('omniscient');
-var DraggableView = require('../../components/ui/views/DraggableView');
 var ArticleItem = require('./ArticleItem');
 var Comment = require('./Comment');
 var TitleView = require('../ui/views/TitleView');
@@ -10,30 +9,25 @@ require('./Article.styl');
 
 module.exports = Component('Article', cursor => {
   var article = cursor.get('article');
-  var Drawer = DraggableView.bind(this, {
-    className: 'article drawer',
-    layer: 2, // todo integrate into app state to manage index
-    viewProps: { style: { paddingTop: 0 } }
-  });
-
-  if (!article) return <Drawer />;
+  if (!article) return <div />;
 
   var CommentTree = article.get('kids').map(comment => (
     <ImmutableTreeNode
+      key={comment.get('id')}
       renderComponent={Comment}
       childKey="kids"
       data={comment} />
   )).toArray();
 
   return (
-    <Drawer>
+    <div>
       <TitleBar>{article.get('title')}</TitleBar>
       <TitleView>
-        {ArticleItem({article: article})}
+        {ArticleItem(`Article-${article.get('id')}`, {article: article})}
         <div id="comments">
           {CommentTree || null}
         </div>
       </TitleView>
-    </Drawer>
+    </div>
   );
 });

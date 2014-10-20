@@ -1,15 +1,18 @@
 var React = require('react');
 var Immstruct = require('immstruct');
 var ArticleComponent = require('../../components/articles/Article');
-var { GetStores } = require('../../flux/bootstrap');
+var { FluxMixin, GetStores } = require('../../flux/bootstrap');
 
 var Article = React.createClass({
+  mixins: [FluxMixin],
+
   statics: {
     getAsyncProps: (params) => GetStores(params, ['article'])
   },
 
   render() {
-    if (!this.props.article) return null;
+    console.log('articlePage render');
+    if (!this.props.article) return <div />;
 
     var structure = Immstruct({
       article: this.props.article[0].data
@@ -17,7 +20,7 @@ var Article = React.createClass({
 
     window.structure2 = structure;
     structure.on('next-animation-frame', this.forceUpdate);
-    return ArticleComponent(structure.cursor());
+    return ArticleComponent(this.props.article[0].id, structure.cursor());
   }
 });
 

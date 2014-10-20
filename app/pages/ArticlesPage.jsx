@@ -6,14 +6,24 @@ var { FluxMixin, GetStores } = require('../flux/bootstrap');
 var ArticlesPage = React.createClass({
   mixins: [FluxMixin],
 
+  getInitialState() {
+    return { activePage: 0 };
+  },
+
+  componentWillReceiveProps(nextProps) {
+    console.log('nextProps', nextProps);
+  },
+
   statics: {
-    getAsyncProps: () => GetStores(null, ['articles'])
+    getAsyncProps: (params) => GetStores(null, ['articles'])
   },
 
   render() {
+    console.log('articlesPage render');
     var structure = Immstruct({
       articles: this.props.articles,
-      handler: this.props.activeRouteHandler || (() => <div></div>)
+      handlerId: '' + this.state.activePage++,
+      handler: this.props.activeRouteHandler
     });
     window.structure = structure;
     structure.on('next-animation-frame', this.forceUpdate);
