@@ -8,7 +8,7 @@ var ArticleItem = require('./ArticleItem');
 
 require('./Articles.styl');
 
-module.exports = Component('Articles', (cursor) => {
+module.exports = Component('Articles', cursor => {
   var Transition = React.addons.CSSTransitionGroup;
   var articles = cursor.get('articles');
   var Article = cursor.get('handler');
@@ -21,10 +21,8 @@ module.exports = Component('Articles', (cursor) => {
       <TitleBar>Articles</TitleBar>
       <TitleView>
         <List>
-          {articles.map((article) => (
-            <ArticleItem
-              key={article.get('id')}
-              article={article.get('data').toObject()} />
+          {articles.map(article => (
+            ArticleItem({ article: article.get('data') })
           )).toArray()}
         </List>
       </TitleView>

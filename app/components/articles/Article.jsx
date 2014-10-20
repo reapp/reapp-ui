@@ -22,15 +22,14 @@ module.exports = Component('Article', cursor => {
     <ImmutableTreeNode
       renderComponent={Comment}
       childKey="kids"
-      data={comment}
-      dataKey="data" />
+      data={comment} />
   )).toArray();
 
   return (
     <Drawer>
       <TitleBar>{article.get('title')}</TitleBar>
       <TitleView>
-        <ArticleItem article={article.toJS()} />
+        {ArticleItem({article: article})}
         <div id="comments">
           {CommentTree || null}
         </div>

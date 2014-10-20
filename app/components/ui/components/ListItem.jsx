@@ -16,7 +16,7 @@ var ListItem = React.createClass({
   },
 
   render() {
-    var children = React.Children.map(this.props.children, (child) => {
+    var children = React.Children.map(this.props.children, child => {
       return React.addons.cloneWithProps(child, {style: this.styles.content});
     });
 

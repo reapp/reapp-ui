@@ -21,9 +21,9 @@ var List = React.createClass({
   render() {
     return (
       <ul className={this.props.className || "list"} styles={[this.styles.list, this.props.styles]}>
-        {React.Children.map(this.props.children, (li, i) => {
-          return <ListItem key={li.key || i}>{li.content || li}</ListItem>
-        })}
+        {React.Children.map(this.props.children, (li, i) => (
+          <ListItem key={li.key || i}>{li.content || li}</ListItem>
+        ))}
       </ul>
     );
   }
