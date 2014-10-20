@@ -1,13 +1,9 @@
 var React = require('react/addons');
 var Immstruct = require('immstruct');
-var ArticlePageComponent = require('../components/articles/ArticlePageComponent');
+var Articles = require('../components/articles/Articles');
 var { FluxMixin, GetStores } = require('../flux/bootstrap');
 
-require('./ArticlesPage.styl');
-
 var ArticlesPage = React.createClass({
-  title: 'Article',
-
   mixins: [FluxMixin],
 
   statics: {
@@ -21,7 +17,7 @@ var ArticlesPage = React.createClass({
     });
     window.structure = structure;
     structure.on('next-animation-frame', this.forceUpdate);
-    return ArticlePageComponent(structure.cursor());
+    return Articles(structure.cursor());
   }
 });
 

@@ -1,37 +1,37 @@
 var React = require('react');
-var _ = require('lodash-node');
 
-// Build a tree from well structured objects
+// Build a tree from well structured immutable objects
 // Wraps each node with a component
-// <TreeNode renderComponent={Comment} childKey="kids" data={object} />
+// <ImmutableTreeNode renderComponent={Comment} childKey="kids" data={immutableObject} />
 
-var TreeNode = React.createClass({
+var ImmutableTreeNode = React.createClass({
   render() {
     var props = this.props;
     var level = props.level || 0;
-    var children = props.data[props.childKey];
+    var children = props.data.get(props.childKey);
     var Component = props.renderComponent;
     var childNodes;
 
     if (children) {
-      childNodes = _.map(children, (child, i) => {
+      childNodes = children.map((child, i) => {
         return (
-          <TreeNode
+          <ImmutableTreeNode
             key={`${level}-${i}`}
             renderComponent={props.renderComponent}
             childKey={props.childKey}
             data={child}
+            dataKey={props.dataKey}
             level={++level} />
         );
-      });
+      }).toArray();
     }
 
     return (
-      <Component data={props.data}>
+      <Component data={props.data.toJS()}>
         {childNodes}
       </Component>
     );
   }
 });
 
-module.exports = TreeNode;
+module.exports = ImmutableTreeNode;

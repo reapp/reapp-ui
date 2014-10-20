@@ -6,7 +6,9 @@ var List = require('../ui/components/List');
 var TitleView = require('../ui/views/TitleView');
 var ArticleItem = require('./ArticleItem');
 
-module.exports = Component('ArticlePage', (cursor) => {
+require('./Articles.styl');
+
+module.exports = Component('Articles', (cursor) => {
   var Transition = React.addons.CSSTransitionGroup;
   var articles = cursor.get('articles');
   var Article = cursor.get('handler');
@@ -16,7 +18,7 @@ module.exports = Component('ArticlePage', (cursor) => {
 
   return (
     <View id="ArticlePage">
-      <TitleBar>{this.title}</TitleBar>
+      <TitleBar>Articles</TitleBar>
       <TitleView>
         <List>
           {articles.map((article) => (

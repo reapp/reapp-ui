@@ -3,8 +3,6 @@ var Immstruct = require('immstruct');
 var ArticleComponent = require('../../components/articles/Article');
 var { GetStores } = require('../../flux/bootstrap');
 
-require('./Article.styl');
-
 var Article = React.createClass({
   statics: {
     getAsyncProps: (params) => GetStores(params, ['article'])

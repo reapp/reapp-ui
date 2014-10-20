@@ -1,6 +1,6 @@
 var { Routes, Route, DefaultRoute } = require('react-router');
 var Articles = require('./pages/ArticlesPage');
-var Article = require('./pages/Articles/Article');
+var Article = require('./pages/Articles/ArticlePage');
 var ImageRoll = require('./pages/ImageRollPage');
 var Viewer = require('./pages/ViewerPage');
 var ViewerRebound = require('./pages/ViewerReboundPage');
