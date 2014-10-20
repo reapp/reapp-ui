@@ -10,16 +10,14 @@ var mixins = [{
   }
 }];
 
-module.exports = Component('ArticleItem', mixins, cursor => {
+module.exports = Component('ArticleItem', mixins, function(cursor, statics) {
   var article = cursor.article;
   var classes = { 'article': true };
-
-  console.log('CURSOR', cursor);
 
   return (
     <div
       className={React.addons.classSet(classes)}
-      style={cursor.style}
+      style={this.props && this.props.style}
       onClick={this.onTouch}>
       <h3>
         <Link to="article" params={{id: article.get('id')}}>

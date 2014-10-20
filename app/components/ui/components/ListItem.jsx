@@ -16,13 +16,11 @@ var ListItem = React.createClass({
   },
 
   render() {
-    var children = React.Children.map(this.props.children, child => {
-      return React.addons.cloneWithProps(child, {style: this.styles.content});
-    });
-
     return this.transferPropsTo(
       <li className="list-item" styles={this.styles.li}>
-        {children}
+        {React.Children.map(this.props.children, child => (
+          React.addons.cloneWithProps(child, {style: this.styles.content})
+        ))}
       </li>
     );
   }
