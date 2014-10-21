@@ -8,8 +8,7 @@ var Drawer = require('../ui/views/Drawer');
 
 require('./Article.styl');
 
-module.exports = Component('Article', cursor => {
-  var article = cursor.get('article');
+module.exports = Component('Article', article => {
   var CommentTree;
 
   if (!article)
