@@ -1,26 +1,26 @@
-var React = require('react/addons');
+var React = require('react');
 var Immstruct = require('immstruct');
 var UserComponent = require('../components/user/User');
-var { FluxMixin, GetStores } = require('../flux/bootstrap');
+var { GetStores } = require('../flux/bootstrap');
 
-var UserPage = React.createClass({
-  mixins: [FluxMixin],
-
+var User = React.createClass({
   statics: {
     getAsyncProps: (params) => GetStores(params, ['user'])
   },
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps.user && nextProps.user[0];
+  },
+
   render() {
+    var user = this.props.user ? this.props.user[0] : { id: 0 };
     var structure = Immstruct({
-      user: this.props.user && this.props.user.length ?
-        this.props.user[0].data :
-        null
+      user: user.data
     });
 
-    window.structure2 = structure;
     structure.on('next-animation-frame', this.forceUpdate);
-    return UserComponent(structure.cursor());
+    return UserComponent(`UserPage-${user.id}`, structure.cursor());
   }
 });
 
-module.exports = UserPage;
+module.exports = User;

@@ -20,14 +20,14 @@ module.exports = Component('ArticleItem', mixins, function(cursor, statics) {
       style={this.props && this.props.style}
       onClick={this.onTouch}>
       <h3>
-        <Link to="article" params={{id: article.get('id')}}>
+        <Link to="article" params={{id: article.get('id')}} activeClassName="">
           {article.get('title')}
         </Link>
       </h3>
       <ul>
         <li className="score">{article.get('score')}</li>
         <li>
-          <Link to="user" params={{id: article.get('by')}}>
+          <Link to="user" params={{id: article.get('by')}} activeClassName="">
             {article.get('by')}
           </Link>
         </li>

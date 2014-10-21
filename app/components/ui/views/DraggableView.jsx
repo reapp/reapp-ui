@@ -5,12 +5,9 @@ var TouchableArea = require('../helpers/TouchableArea');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
 var DraggableViewBehavior = require('./DraggableViewBehavior');
 var { Scroller } = require('scroller');
-var { NavigationMixin } = require('react-router');
 var Cx = React.addons.classSet;
 
 var DraggableView = React.createClass({
-  mixins: [NavigationMixin],
-
   getDefaultProps() {
     return {
       layer: 1,
@@ -43,7 +40,8 @@ var DraggableView = React.createClass({
   },
 
   componentDidMount() {
-    !this.state.externalScroller && this._measure();
+    if (!this.state.externalScroller)
+      this._measure();
   },
 
   _measure() {
@@ -72,7 +70,8 @@ var DraggableView = React.createClass({
       closed: this.state.isClosed
     };
 
-    containerClasses[this.props.className] = true;
+    if (this.props.className)
+      containerClasses[this.props.className] = true;
 
     var containerProps = {
       className: Cx(containerClasses),
@@ -100,7 +99,7 @@ var DraggableView = React.createClass({
         top: 0, bottom: 0, left: 0,
         position: 'absolute',
         width: 10,
-        zIndex: 1000
+        zIndex: 1000 + this.props.layer
       },
       scroller: this.props.scroller || this.scroller
     };
