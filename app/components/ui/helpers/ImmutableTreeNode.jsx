@@ -9,9 +9,9 @@ var ImmutableTreeNode = React.createClass({
     var props = this.props;
     var level = props.level || 0;
     var children = props.data.get(props.childKey);
-    var Component = props.renderComponent;
-    var childNodes;
+    var Component = props.renderComponent || React.DOM.div;
 
+    var childNodes;
     if (children) {
       var i = 0;
       childNodes = children.map((child) => (

@@ -38,7 +38,7 @@ module.exports = function(options) {
     'css': 'css-loader!postcss-loader',
     'styl': 'css-loader!stylus-loader',
     'sass': 'css-loader!sass-loader',
-  }
+  };
 
   var alias = {};
   var aliasLoader = {};

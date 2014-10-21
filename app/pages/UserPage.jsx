@@ -13,12 +13,14 @@ var User = React.createClass({
   },
 
   render() {
+    if (!this.props.user) return <span />;
+
     var user = this.props.user ? this.props.user[0] : { id: 0 };
     var structure = Immstruct({
       user: user.data
     });
 
-    structure.on('next-animation-frame', this.forceUpdate);
+    // structure.on('next-animation-frame', this.forceUpdate);
     return UserComponent(`UserPage-${user.id}`, structure.cursor());
   }
 });

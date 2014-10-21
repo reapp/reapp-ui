@@ -20,7 +20,7 @@ module.exports = Component('Article', cursor => {
         key={comment.get('id')}
         renderComponent={Comment}
         childKey="kids"
-        data={comment} />
+        data={comment} /> // all open by default
     )).toArray();
 
   return (
