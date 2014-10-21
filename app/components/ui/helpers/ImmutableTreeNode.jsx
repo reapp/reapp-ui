@@ -1,6 +1,6 @@
 var React = require('react');
 
-// Build a tree from well structured immutable objects
+// Build a tree from structured immutable objects
 // Wraps each node with a component
 // <ImmutableTreeNode renderComponent={Comment} childKey="kids" data={immutableObject} />
 

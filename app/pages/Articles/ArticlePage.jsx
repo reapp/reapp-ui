@@ -2,7 +2,6 @@ var React = require('react');
 var Immstruct = require('immstruct');
 var ArticleComponent = require('../../components/articles/Article');
 var { GetStores } = require('../../flux/bootstrap');
-var _ = require('lodash-node');
 
 var ArticlePage = React.createClass({
   statics: {
@@ -23,7 +22,8 @@ var ArticlePage = React.createClass({
   render() {
     if (!this.structure) return <span />;
     var article = window.articleCursor = this.structure.cursor().get('article');
-    return ArticleComponent(`AP-${article.get('id')}-${this.state.version}`, article);
+    var statics = { parent: this.props.parent };
+    return ArticleComponent(`AP-${article.get('id')}-${this.state.version}`, article, statics);
   }
 });
 

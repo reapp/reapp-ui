@@ -8,7 +8,7 @@ var Drawer = require('../ui/views/Drawer');
 
 require('./Article.styl');
 
-module.exports = Component('Article', article => {
+module.exports = Component('Article', (article, statics) => {
   var CommentTree;
 
   if (!article)
@@ -23,7 +23,7 @@ module.exports = Component('Article', article => {
     )).toArray();
 
   return (
-    <Drawer id="Article">
+    <Drawer id="Article" parent={statics.parent}>
       <TitleBar>Comments ()</TitleBar>
       <View>
         {ArticleItem(`ArticleItem-${article.get('id')}`, {article: article})}

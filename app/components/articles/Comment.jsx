@@ -17,7 +17,7 @@ var Comment = Component('Comment', function(cursor) {
   return (
     <div className={cx(classes)} onClick={toggleOpened}>
       <div className="comment--content">
-        <h3>{comment.get('by')} - {comment.get('closed')}</h3>
+        <h3>{comment.get('by')} - {comment.get('closed').toString()}</h3>
         <p dangerouslySetInnerHTML={{__html: comment.get('text')}}></p>
       </div>
       {this.props.statics}

@@ -11,7 +11,8 @@ var DraggableView = React.createClass({
   getDefaultProps() {
     return {
       layer: 1,
-      behavior: DraggableViewBehavior
+      behavior: DraggableViewBehavior,
+      parent: null
     };
   },
 
@@ -42,10 +43,18 @@ var DraggableView = React.createClass({
   componentDidMount() {
     this._measure();
     window.addEventListener('resize', this._measure);
+
+    setTimeout(function(){this.fullyOpened = true;}.bind(this), 250);
   },
 
   componentWillUnmount() {
     window.removeEventListener('resize', this._measure);
+
+    this.fullyOpened = false;
+    if (this.props.parent) {
+      var parent = this.props.parent.getDOMNode();
+      parent.style.transform = 'none';
+    }
   },
 
   _measure() {
@@ -66,6 +75,11 @@ var DraggableView = React.createClass({
       xOffset: left,
       isClosed: left === 0
     });
+
+    if (this.props.parent && this.fullyOpened) {
+      var parent = this.props.parent.getDOMNode();
+      parent.style.transform = 'translate3d(-' + (left / 2) + 'px, 0, 0)';
+    }
   },
 
   render() {

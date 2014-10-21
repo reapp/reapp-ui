@@ -7,10 +7,11 @@ var ViewLeft = React.createClass({
   styles: (styles) => ReactStyle(Merge({
     overflow: 'scroll',
     position: 'absolute',
-    top: 44,
+    top: 0,
     left: 0,
     bottom: 0,
-    right: 0
+    right: 0,
+    paddingTop: 44
   }, styles)),
 
   render() {
@@ -20,7 +21,7 @@ var ViewLeft = React.createClass({
     classes[props.className] = !!props.className;
 
     return (
-      <div className={cx(classes)}>
+      <div className={cx(classes)} styles={this.styles()}>
         {this.props.title}
         <div className="ViewLeftContent" styles={styles}>
           {this.props.children}

@@ -14,14 +14,14 @@ module.exports = Component('Articles', function(cursor) {
   var articles = cursor.get('articles');
   if (!articles) return <div></div>;
 
-  var Handler = cursor.get('handler')();
+  var Handler = cursor.get('handler')({ parent: this.refs.leftView });
   if (Handler) Handler = <div className="drawer-parent">{Handler}</div>;
 
   var LeftTitle = <TitleBar>Articles</TitleBar>;
 
   return (
     <View id="ArticlesPage">
-      <ViewLeft title={LeftTitle}>
+      <ViewLeft ref="leftView" title={LeftTitle}>
         <ul id="subBar">
           <li>Hot</li>
           <li>Top</li>
