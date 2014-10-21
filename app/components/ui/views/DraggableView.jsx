@@ -85,6 +85,9 @@ var DraggableView = React.createClass({
 
     containerProps.style.zIndex = this.props.layer + 5000;
 
+    if (this.props.id)
+      containerProps.id = this.props.id;
+
     if (this.props.containerProps)
       containerProps = Merge(containerProps, this.props.containerProps);
 

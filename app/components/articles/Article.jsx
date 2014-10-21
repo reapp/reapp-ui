@@ -24,8 +24,8 @@ module.exports = Component('Article', cursor => {
     )).toArray();
 
   return (
-    <Drawer>
-      <TitleBar>{article.get('title')}</TitleBar>
+    <Drawer id="Article">
+      <TitleBar>Comments ()</TitleBar>
       <TitleView>
         {ArticleItem(`ArticleItem-${article.get('id')}`, {article: article})}
         <div id="comments">
