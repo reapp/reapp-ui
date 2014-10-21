@@ -20,7 +20,7 @@ var ArticlesPage = React.createClass({
       handler: this.props.activeRouteHandler
     });
 
-    structure.on('next-animation-frame', this.forceUpdate);
+    // structure.on('next-animation-frame', this.forceUpdate);
     return Articles(structure.cursor());
   }
 });

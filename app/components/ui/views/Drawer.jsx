@@ -13,9 +13,7 @@ var Drawer = React.createClass({
     );
 
     return (
-      <div className="drawer-parent">
-        <DraggableDrawer>{this.props.children}</DraggableDrawer>
-      </div>
+      <DraggableDrawer>{this.props.children}</DraggableDrawer>
     );
   }
 });

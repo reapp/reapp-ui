@@ -13,12 +13,14 @@ var Article = React.createClass({
   },
 
   render() {
-    var article = this.props.article ? this.props.article[0] : { id: 0 };
+    if (!this.props.article) return <span />;
+
+    var article = this.props.article[0];
     var structure = Immstruct({
       article: article.data
     });
 
-    structure.on('next-animation-frame', this.forceUpdate);
+    // structure.on('next-animation-frame', this.forceUpdate);
     return ArticleComponent(`ArticlePage-${article.id}`, structure.cursor());
   }
 });

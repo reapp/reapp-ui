@@ -27,7 +27,7 @@ module.exports = Component('Article', cursor => {
     <Drawer>
       <TitleBar>{article.get('title')}</TitleBar>
       <TitleView>
-        {ArticleItem(`Article-${article.get('id')}`, {article: article})}
+        {ArticleItem(`ArticleItem-${article.get('id')}`, {article: article})}
         <div id="comments">
           {CommentTree || null}
         </div>

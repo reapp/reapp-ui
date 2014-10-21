@@ -5,16 +5,16 @@ var TitleBar = require('../TitleBar');
 var List = require('../ui/components/List');
 var TitleView = require('../ui/views/TitleView');
 var ArticleItem = require('./ArticleItem');
+var Transition = React.addons.CSSTransitionGroup;
 
 require('./Articles.styl');
 
 module.exports = Component('Articles', function(cursor) {
-  console.log('articles cursor', cursor);
   var articles = cursor.get('articles');
   if (!articles) return <div></div>;
 
-  var Handler = cursor.get('handler')() || <div />;
-  var Transition = React.addons.CSSTransitionGroup;
+  var Handler = cursor.get('handler')();
+  if (Handler) Handler = <div className="drawer-parent">{Handler}</div>;
 
   return (
     <View id="ArticlesPage">
