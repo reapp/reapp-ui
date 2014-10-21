@@ -1,9 +1,10 @@
 var React = require('react/addons');
 var Component = require('omniscient');
 var View = require('../ui/views/View');
+var ViewLeft = require('../ui/views/ViewLeft');
+var ViewMain = require('../ui/views/ViewMain');
 var TitleBar = require('../TitleBar');
 var List = require('../ui/components/List');
-var TitleView = require('../ui/views/TitleView');
 var ArticleItem = require('./ArticleItem');
 var Transition = React.addons.CSSTransitionGroup;
 
@@ -16,19 +17,28 @@ module.exports = Component('Articles', function(cursor) {
   var Handler = cursor.get('handler')();
   if (Handler) Handler = <div className="drawer-parent">{Handler}</div>;
 
+  var LeftTitle = <TitleBar>Articles</TitleBar>;
+
   return (
     <View id="ArticlesPage">
-      <TitleBar>Articles</TitleBar>
-      <TitleView>
+      <ViewLeft title={LeftTitle}>
+        <ul id="subBar">
+          <li>Hot</li>
+          <li>Top</li>
+          <li>New</li>
+        </ul>
         <List>
           {articles.map(article => (
             ArticleItem(`Articles-${article.get('id')}`, { article: article.get('data') })
           )).toArray()}
         </List>
-      </TitleView>
-      <Transition transitionName="drawer">
-        {Handler}
-      </Transition>
+      </ViewLeft>
+
+      <ViewMain>
+        <Transition transitionName="drawer">
+          {Handler}
+        </Transition>
+      </ViewMain>
     </View>
   );
 });

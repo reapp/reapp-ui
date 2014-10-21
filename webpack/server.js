@@ -6,7 +6,7 @@ module.exports = {
 
   run: function(config, opts, callback) {
     var hostname = opts.hostname || 'localhost';
-    var port = Number(opts.wport || process.env.WEBPACKPORT || 2992);
+    var port = Number(opts.wport || process.env.WEBPACKPORT || 5284);
     var base = 'http://' + hostname + ':' + port + '/';
 
     config.output.publicPath = base;

@@ -16,28 +16,23 @@ var Toolbar = React.createClass({
   //   `);
   // },
 
-  styles(height) {
-    return ReactStyle({
-      fontSize: '16px',
-      backgroundColor: '#fff',
-      textAlign: 'center',
-      borderBottom: '1px solid #ccc',
-      padding: '12px',
-      zIndex: 100,
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      height: height
-    })
-  },
+  styles: (height) => ReactStyle({
+    fontSize: '16px',
+    backgroundColor: '#fff',
+    textAlign: 'center',
+    borderBottom: '1px solid #ccc',
+    padding: '12px',
+    zIndex: 100,
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: height
+  }),
 
   render() {
     return (
-      <div
-        id={this.props.id || '__toolbar'}
-        className="toolbar"
-        styles={this.styles(this.props.height)}>
+      <div className="toolbar" styles={this.styles(this.props.height)}>
         {this.props.children}
       </div>
     );

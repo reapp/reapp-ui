@@ -2,7 +2,7 @@ var React = require('react');
 var StaticContainer = require('./StaticContainer');
 var StyleKeys = require('../lib/touch/StyleKeys');
 
-var POLL_FACTOR = .5;
+const POLL_FACTOR = .5;
 
 var AnimatableContainer = React.createClass({
   getDefaultProps() {
@@ -35,7 +35,7 @@ var AnimatableContainer = React.createClass({
     var style = this.getStyle(nextProps);
 
     this.isAnimating = (
-      style['opacity'] !== prevStyle.opacity ||
+      style.opacity !== prevStyle.opacity ||
       style[StyleKeys.TRANSFORM] !== prevStyle[StyleKeys.TRANSFORM]
     );
 
@@ -71,7 +71,7 @@ var AnimatableContainer = React.createClass({
     var transforms = '';
 
     if (props.opacity !== 1) {
-      style['opacity'] = props.opacity;
+      style.opacity = props.opacity;
     }
 
     if (props.translate) {

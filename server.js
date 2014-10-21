@@ -4,6 +4,7 @@ var mach = require('mach');
 var path = require('path');
 var yargs = require('yargs').argv;
 var fs = require('fs');
+var os = require('os');
 var util = require('util');
 var Promise = require('when').Promise;
 var Router = require('react-router');
@@ -38,11 +39,11 @@ else
 
 function runDevelopmentServer() {
   var webpackServer = require('./webpack/server');
-  var hostname = 'nate.local'; //os.hostname()
+  var hostname = 'localhost';//os.hostname();
   yargs.hostname = hostname;
 
   webpackServer.run(webpackConfig, yargs, function(template) {
-    stack.get('/*', function() { return template });
+    stack.get('/*', function() { return template; });
   });
 
   runMach();
@@ -53,11 +54,10 @@ function runProductionServer() {
   debug('Webpack Config', "\n", config);
 
   webpack(webpackConfig, function(err, stats) {
-    if (err) console.log(err, stats);
+    if (err) console.warn(err, stats);
     else {
       var outputPath = config.output.path;
       var app = require(outputPath + '/main.js');
-      var stats = require(outputPath + '/../stats.json');
       var STYLE_URL = 'main.css?' + stats.hash;
       var SCRIPT_URL = [].concat(stats.assetsByChunkName.main)[0] + '?' + stats.hash;
 
@@ -96,7 +96,7 @@ function renderProductionApp(app, path, styleUrl, scriptUrl) {
       resolve(output);
     });
   });
-};
+}
 
 function addHeader(app, headerName, headerValue) {
   return function(request) {
@@ -107,9 +107,11 @@ function addHeader(app, headerName, headerValue) {
   };
 }
 
+var util;
 function debug() {
-  (yargs.debug) ?
-    console.log(require('util').inspect(
-      Array.prototype.slice.call(arguments, 0), true, 4)) :
-    void 0;
+  if (yargs.debug) {
+    util = util || require('util');
+    console.log(
+      util.inspect(Array.prototype.slice.call(arguments, 0), true, 4));
+  }
 }

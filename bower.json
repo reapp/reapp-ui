@@ -15,8 +15,6 @@
   ],
   "dependencies": {
     "normalize-css": "*",
-    "gss": "*",
-    "scroller": "*",
-    "marka": "*"
+    "gss": "*"
   }
 }

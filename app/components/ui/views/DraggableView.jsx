@@ -5,7 +5,7 @@ var TouchableArea = require('../helpers/TouchableArea');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
 var DraggableViewBehavior = require('./DraggableViewBehavior');
 var { Scroller } = require('scroller');
-var Cx = React.addons.classSet;
+var cx = React.addons.classSet;
 
 var DraggableView = React.createClass({
   getDefaultProps() {
@@ -40,11 +40,16 @@ var DraggableView = React.createClass({
   },
 
   componentDidMount() {
-    if (!this.state.externalScroller)
-      this._measure();
+    this._measure();
+    window.addEventListener('resize', this._measure);
+  },
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._measure);
   },
 
   _measure() {
+    if (this.state.externalScroller) return;
     var node = this.getDOMNode();
     this.scroller.setDimensions(
       node.clientWidth,
@@ -74,7 +79,7 @@ var DraggableView = React.createClass({
       containerClasses[this.props.className] = true;
 
     var containerProps = {
-      className: Cx(containerClasses),
+      className: cx(containerClasses),
       style: Merge({
         top: 0, right: 0, bottom: 0, left: 0,
         position: 'fixed',

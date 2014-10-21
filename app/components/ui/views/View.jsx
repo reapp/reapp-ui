@@ -1,32 +1,28 @@
 var React = require('react/addons');
-var ReactStyle = require('react-style');
 var Merge = require('react/lib/merge');
-var GSSMixin = require('../../../mixins/GSSMixin');
-var Cx = React.addons.classSet;
+var ReactStyle = require('react-style');
+var cx = React.addons.classSet;
 
 var View = React.createClass({
-  styles(propStyles) {
-    return ReactStyle(Merge({
-      background: '#efeff4',
-      overflow: 'hidden',
-      paddingTop: 44,
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      bottom: 0,
-      right: 0,
-      '-webkit-overflow-scrolling': 'touch'
-    }, propStyles));
-  },
+  styles: (styles) => ReactStyle(Merge({
+    background: '#efeff4',
+    overflowY: 'scroll',
+    paddingTop: 44,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    '-webkit-overflow-scrolling': 'touch'
+  }, styles)),
 
   render() {
-    var styles = this.styles(this.props.style || {});
+    var styles = this.styles(this.props.styles);
     var classes = { 'pane': true };
-    if (this.props.className)
-      classes[this.props.className] = true;
+    classes[this.props.className] = !!this.props.className;
 
     return (
-      <div id={this.props.id} className={Cx(classes)} styles={styles}>
+      <div id={this.props.id} className={cx(classes)} styles={styles}>
         {this.props.children}
       </div>
     );

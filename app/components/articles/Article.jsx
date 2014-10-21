@@ -1,7 +1,7 @@
 var Component = require('omniscient');
 var ArticleItem = require('./ArticleItem');
 var Comment = require('./Comment');
-var TitleView = require('../ui/views/TitleView');
+var View = require('../ui/views/View');
 var ImmutableTreeNode = require('../ui/helpers/ImmutableTreeNode');
 var TitleBar = require('../TitleBar');
 var Drawer = require('../ui/views/Drawer');
@@ -26,12 +26,12 @@ module.exports = Component('Article', cursor => {
   return (
     <Drawer id="Article">
       <TitleBar>Comments ()</TitleBar>
-      <TitleView>
+      <View>
         {ArticleItem(`ArticleItem-${article.get('id')}`, {article: article})}
         <div id="comments">
           {CommentTree || null}
         </div>
-      </TitleView>
+      </View>
     </Drawer>
   );
 });

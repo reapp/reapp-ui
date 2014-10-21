@@ -1,12 +1,12 @@
 var React = require('react/addons');
 var cx = React.addons.classSet;
 
+
+//todo: make component
 require('./Comment.styl');
 
 var Comment = React.createClass({
-  getInitialState() {
-    return { open: true };
-  },
+  getInitialState: () => ({ open: true }),
 
   toggleOpened(e) {
     e.stopPropagation();
@@ -27,7 +27,6 @@ var Comment = React.createClass({
           <h3>{this.props.data.by}</h3>
           <p dangerouslySetInnerHTML={{__html: this.props.data.text}}></p>
         </div>
-
         {this.props.children}
       </div>
     );
