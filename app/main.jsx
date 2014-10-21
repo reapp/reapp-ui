@@ -17,11 +17,9 @@ var App = React.createClass({
   },
 
   render() {
-    var ActiveRoute = this.props.activeRouteHandler;
-
     return (
       <Layout>
-        <ActiveRoute flux={Flux} />
+        <this.props.activeRouteHandler flux={Flux} />
       </Layout>
     );
   }

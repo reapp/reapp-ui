@@ -13,8 +13,8 @@ module.exports = Component('Articles', function(cursor) {
   var articles = cursor.get('articles');
   if (!articles) return <div></div>;
 
-  var Handler = cursor.get('handler');
-  var Transition = React.addons.TransitionGroup;
+  var Handler = cursor.get('handler')() || <div />;
+  var Transition = React.addons.CSSTransitionGroup;
 
   return (
     <View id="ArticlesPage">
@@ -27,7 +27,7 @@ module.exports = Component('Articles', function(cursor) {
         </List>
       </TitleView>
       <Transition transitionName="drawer">
-        <Handler />
+        {Handler}
       </Transition>
     </View>
   );
