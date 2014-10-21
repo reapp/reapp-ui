@@ -19,6 +19,8 @@ var Comment = React.createClass({
       closed: !this.state.open
     };
 
+    classes['level-' + this.props.level] = true;
+
     return (
       <div className={cx(classes)} onClick={this.toggleOpened}>
         <div className="comment--content">
