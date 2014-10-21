@@ -8,20 +8,31 @@ var ArticlePage = React.createClass({
     getAsyncProps: (params) => GetStores(params, ['article'])
   },
 
+  getInitialState() {
+    return { version: 0, structure: null };
+  },
+
+  componentWillMount() {
+    this.setState({
+      structure: this.props.article ?
+        Immstruct({ article: this.props.article[0].data }) :
+        null
+    });
+  },
+
   shouldComponentUpdate(nextProps) {
     return nextProps.article && nextProps.article[0];
   },
 
   render() {
-    if (!this.props.article) return <span />;
+    if (!this.state.structure) return <span />;
+    window.articleStruct = this.state.structure;
 
-    var article = this.props.article[0];
-    var structure = Immstruct({
-      article: article.data
+    this.state.structure.on('next-animation-frame', () => {
+      this.setState({ version: ++this.state.version });
     });
 
-    // structure.on('next-animation-frame', this.forceUpdate);
-    return ArticleComponent(`ArticlePage-${article.id}`, structure.cursor());
+    return ArticleComponent(`ArticlePage-${article.id}`, this.state.structure.cursor());
   }
 });
 

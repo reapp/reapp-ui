@@ -49,18 +49,22 @@ function getCommentsAndLoad(article, success, fail) {
 }
 
 function getAllKids(item) {
+  item.closed = false;
+
   if (!item.kids) {
-    return new Promise((res) => res(item));
+    return new Promise(res => res(item));
   }
   else {
-    return Promise.all(item.kids.map((item) => Client
-      .get(`https://hacker-news.firebaseio.com/v0/item/${item}.json`)
-      .then((res) => getAllKids(res))
-    ))
-    .then((res) => {
-      item.kids = res;
-      return item;
-    });
+    return Promise
+      .all(
+        item.kids.map(item => Client
+        .get(`https://hacker-news.firebaseio.com/v0/item/${item}.json`)
+        .then(res => getAllKids(res)))
+      )
+      .then(res => {
+        item.kids = res;
+        return item;
+      });
   }
 }
 

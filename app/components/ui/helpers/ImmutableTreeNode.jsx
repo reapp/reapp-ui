@@ -27,7 +27,7 @@ var ImmutableTreeNode = React.createClass({
     }
 
     return (
-      <Component level={level} data={props.data.toJS()}>
+      <Component level={level} data={props.data}>
         {childNodes}
       </Component>
     );
