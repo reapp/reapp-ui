@@ -13,13 +13,7 @@ const TOOLBAR_HEIGHT = 44;
 const SIDE_WIDTH = 200;
 
 var Layout = React.createClass({
-  button: <Button type="menu" />,
-
-  buttonStyle: {
-    top: 0,
-    position: 'absolute',
-    zIndex: 100000
-  },
+  button: <Button id="hamburger" type="menu" />,
 
   render() {
     var menu = (
@@ -36,7 +30,6 @@ var Layout = React.createClass({
         <LeftNavView
           ref="appLeftNavView"
           handle={this.button}
-          handleStyle={this.buttonStyle}
           sideContent={menu}
           topHeight={TOOLBAR_HEIGHT}
           sideWidth={SIDE_WIDTH}>

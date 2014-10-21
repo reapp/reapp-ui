@@ -8,7 +8,7 @@ var Drawer = React.createClass({
       className: 'drawer',
       layer: 2, // todo integrate into app state to manage index
       viewProps: Merge({ style: { paddingTop: 0 } }, this.props.style),
-      parent: this.props.parent
+      parents: this.props.parents
     };
 
     var props = Merge(defaultProps, this.props);

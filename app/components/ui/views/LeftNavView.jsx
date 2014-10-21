@@ -136,17 +136,12 @@ var LeftNavView = React.createClass({
 
     return this.transferPropsTo(
       React.DOM.div({style: wrapperStyle},
-        // side
         side,
         // content
-        DraggableView(draggableProps, this.props.children),
-        // handle
-        AnimatableContainer(handleProps,
-          TouchableArea({
-            onTouchTap: this._handleTap,
-            scroller: this.scroller
-          }, this.props.handle)
-        )
+        DraggableView(draggableProps,
+          this.props.children,
+          TouchableArea({ onTouchTap: this._handleTap, scroller: this.scroller },
+            this.props.handle))
       )
     );
   }

@@ -21,7 +21,7 @@ var Button = React.createClass({
   },
 
   render() {
-    return (
+    return this.transferPropsTo(
       <a href="#" styles={this.styles} className={'button-' + this.props.type} onClick={this.onClickButton}>
         <Icon type={this.props.type} size="2x" />
       </a>

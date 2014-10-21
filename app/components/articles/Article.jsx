@@ -22,8 +22,10 @@ module.exports = Component('Article', (article, statics) => {
         data={comment} /> // all open by default
     )).toArray();
 
+  var parents = [statics.parent.getDOMNode(), document.getElementById('hamburger')];
+
   return (
-    <Drawer id="Article" parent={statics.parent}>
+    <Drawer id="Article" parents={parents}>
       <TitleBar>Comments ()</TitleBar>
       <View>
         {ArticleItem(`ArticleItem-${article.get('id')}`, {article: article})}
