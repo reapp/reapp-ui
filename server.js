@@ -53,11 +53,12 @@ function runProductionServer() {
   var config = webpackConfig[1];
   debug('Webpack Config', "\n", config);
 
-  webpack(webpackConfig, function(err, stats) {
+  webpack(webpackConfig, function(err) {
     if (err) console.warn(err, stats);
     else {
       var outputPath = config.output.path;
       var app = require(outputPath + '/main.js');
+      var stats = require(outputPath + '/../stats.json');
       var STYLE_URL = 'main.css?' + stats.hash;
       var SCRIPT_URL = [].concat(stats.assetsByChunkName.main)[0] + '?' + stats.hash;
 
