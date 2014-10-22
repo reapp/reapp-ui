@@ -24,12 +24,6 @@ var DraggableView = React.createClass({
     };
   },
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return this.props.containerProps ?
-      true :
-      this.state.xOffset !== nextState.xOffset;
-  },
-
   componentWillMount() {
     if (this.state.externalScroller) return;
     this.scroller = new Scroller(this._handleScroll, {
@@ -84,6 +78,7 @@ var DraggableView = React.createClass({
       });
     }
   },
+
   render() {
     var containerStyleProps = (this.props.containerProps || {}).style;
     if (containerStyleProps) delete this.props.containerProps.style;
@@ -120,16 +115,13 @@ var DraggableView = React.createClass({
 
     var touchableProps = {
       style: {
-        top: 0, bottom: 0, left: 0,
-        position: 'absolute',
-        width: 10,
+        left: this.state.isClosed ? -10 : 0,
+        position: 'fixed',
+        top: 0, bottom: 0, width: 10,
         zIndex: 1000 + this.props.layer
       },
       scroller: this.props.scroller || this.scroller
     };
-
-    if (this.state.isClosed)
-      touchableProps.style.left = -10;
 
     return (
       AnimatableContainer(containerProps,

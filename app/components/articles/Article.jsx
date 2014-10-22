@@ -8,27 +8,30 @@ var Drawer = require('../ui/views/Drawer');
 
 require('./Article.styl');
 
-module.exports = Component('Article', (article, statics) => {
+var Article = Component('Article', article => {
   var CommentTree;
 
   if (!article)
-    article = { get: (p) => 'Loading' };
+    article = { get: () => 'Loading' };
   else
     CommentTree = (article.get('kids') || []).map(comment => (
       <ImmutableTreeNode
-        key={comment.get('id')}
+        idKey="id"
         renderComponent={Comment}
         childKey="kids"
         data={comment} /> // all open by default
     )).toArray();
 
-  var parents = [statics.parent.getDOMNode(), document.getElementById('hamburger')];
+  var parents = [
+    document.getElementById('articlesLeftView'),
+    document.getElementById('hamburger')
+  ];
 
   return (
     <Drawer id="Article" parents={parents}>
       <TitleBar>Comments ()</TitleBar>
       <View>
-        {ArticleItem(`ArticleItem-${article.get('id')}`, {article: article})}
+        {ArticleItem(`ArticlePage-ArticleItem-${article.get('id')}`, article)}
         <div id="comments">
           {CommentTree || null}
         </div>
@@ -36,3 +39,5 @@ module.exports = Component('Article', (article, statics) => {
     </Drawer>
   );
 });
+
+module.exports = Article;

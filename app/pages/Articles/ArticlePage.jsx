@@ -22,8 +22,7 @@ var ArticlePage = React.createClass({
   render() {
     if (!this.structure) return <span />;
     var article = window.articleCursor = this.structure.cursor().get('article');
-    var statics = { parent: this.props.parent };
-    return ArticleComponent(`AP-${article.get('id')}-${this.state.version}`, article, statics);
+    return ArticleComponent(`Article-${article.get('id')}`, article);
   }
 });
 

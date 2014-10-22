@@ -21,7 +21,7 @@ var ViewLeft = React.createClass({
     classes[props.className] = !!props.className;
 
     return (
-      <div className={cx(classes)} styles={this.styles()}>
+      <div id={this.props.id} className={cx(classes)} styles={this.styles()}>
         {this.props.title}
         <div className="ViewLeftContent" styles={styles}>
           {this.props.children}

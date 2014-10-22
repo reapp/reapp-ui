@@ -12,12 +12,21 @@
     list-style: none;
     padding: 0;
     margin: 5px 0 0;
+    flex-flow: row;
   }
 
   li {
-    display: inline-block;
     padding: 0 12px 0 0;
     font-size: 13px;
+    flex-grow: 1;
+  }
+
+  li:nth-child(2) {
+    text-align: center;
+  }
+
+  li:nth-child(3) {
+    text-align: right;
   }
 }
 
@@ -60,16 +69,18 @@
   transform: translate3d(100%,0,0);
 }
 
-.subBar {
+#subBar {
   list-style: none;
   margin: 0;
+  padding: 0;
   text-align: center;
+  flex-flow: row;
+  background: #ccc;
 
   li {
     margin: 0;
-    padding: 0;
-    display: inline-block;
     padding: 10px;
+    flex: 1;
   }
 }
 
@@ -81,23 +92,23 @@
   }
 }
 
-@media (min-width: 700px) {
+@media (min-width: 768px) {
   .ViewLeft {
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
-    right: 75% !important;
+    right: 70% !important;
 
     .toolbar {
-      right: 75% !important;
+      right: 70% !important;
     }
   }
 
   .ViewMain {
     top: 0 !important;
-    left: 25% !important;
-    width: 75% !important;
+    left: 30% !important;
+    width: 70% !important;
 
     .drawer {
 

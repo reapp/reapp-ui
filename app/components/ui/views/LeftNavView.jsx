@@ -8,8 +8,6 @@ var DraggableView = require('./DraggableView');
 var { Scroller } = require('scroller');
 
 var LeftNavView = React.createClass({
-  displayName: 'LeftNavView',
-
   componentWillMount() {
     this.scroller = new Scroller(this._handleScroll, {
       bouncing: false,

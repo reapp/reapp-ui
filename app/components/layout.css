@@ -1,3 +1,18 @@
+body * {
+  display: flex;
+  flex-flow: column;
+  flex-shrink: 0;
+  align-items: stretch;
+  overflow: hidden;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-touch-callout: none;
+}
+
+script, link {
+  display: none;
+}
+
 html,
 body {
   background: white;
@@ -16,7 +31,6 @@ body {
   width: 100%;
   -webkit-text-size-adjust: 100%;
   background: #fff;
-  overflow: hidden;
 }
 
 @media all and (width: 1024px) and (height: 691px) and (orientation: landscape) {
@@ -30,19 +44,6 @@ body {
   body {
     height: 672px;
   }
-}
-
-* {
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  -webkit-touch-callout: none;
 }
 
 a,

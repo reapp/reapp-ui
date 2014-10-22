@@ -10,8 +10,7 @@ var mixins = [{
   }
 }];
 
-module.exports = Component('ArticleItem', mixins, function(cursor, statics) {
-  var article = cursor.article;
+module.exports = Component('ArticleItem', mixins, function(article) {
   var classes = { 'article': true };
 
   return (
@@ -25,7 +24,9 @@ module.exports = Component('ArticleItem', mixins, function(cursor, statics) {
         </Link>
       </h3>
       <ul>
-        <li className="score">{article.get('score')}</li>
+        <li className="score">
+          <span>{article.get('score')}</span>
+        </li>
         <li>
           <Link to="user" params={{id: article.get('by')}} activeClassName="">
             {article.get('by')}

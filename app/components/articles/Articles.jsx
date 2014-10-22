@@ -14,14 +14,14 @@ module.exports = Component('Articles', function(cursor) {
   var articles = cursor.get('articles');
   if (!articles) return <div></div>;
 
-  var Handler = cursor.get('handler')({ parent: this.refs.leftView });
+  var Handler = cursor.get('handler')();
   if (Handler) Handler = <div className="drawer-parent">{Handler}</div>;
 
   var LeftTitle = <TitleBar>Articles</TitleBar>;
 
   return (
     <View id="ArticlesPage">
-      <ViewLeft ref="leftView" title={LeftTitle}>
+      <ViewLeft id="articlesLeftView" title={LeftTitle}>
         <ul id="subBar">
           <li>Hot</li>
           <li>Top</li>
@@ -29,7 +29,7 @@ module.exports = Component('Articles', function(cursor) {
         </ul>
         <List>
           {articles.map(article => (
-            ArticleItem(`Articles-${article.get('id')}`, { article: article.get('data') })
+            ArticleItem(`Articles-ArticleItem-${article.get('id')}`, article.get('data'))
           )).toArray()}
         </List>
       </ViewLeft>

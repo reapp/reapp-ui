@@ -30,6 +30,9 @@ var RoutedApp = Routes.init(App);
 if (ENV.CLIENT) {
   window.React = React;
 
+  // debug omniscient
+  require('omniscient').debug();
+
   React.renderComponent(RoutedApp, document.getElementById('app'), function() {
     // clear out data handed by server, or getRouteProps will
     // find it even though getRouteProps may have different params
