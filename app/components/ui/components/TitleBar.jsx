@@ -1,10 +1,11 @@
 var React = require('react');
 var ReactStyle = require('react-style');
-var GSSMixin = require('../../../mixins/GSSMixin');
+var DocumentTitle = require('react-document-title');
+// var GSSMixin = require('../../../mixins/GSSMixin');
 
 const TOOLBAR_HEIGHT = 44;
 
-var Toolbar = React.createClass({
+var TitleBar = React.createClass({
   // mixins: [GSSMixin],
 
   // layout() {
@@ -32,11 +33,14 @@ var Toolbar = React.createClass({
 
   render() {
     return (
-      <div className="toolbar" styles={this.styles(this.props.height)}>
+      <div className="TitleBar" styles={this.styles(this.props.height)}>
+        <DocumentTitle title={this.props.children} />
+        {this.props.left}
         {this.props.children}
+        {this.props.right}
       </div>
     );
   }
 });
 
-module.exports = Toolbar;
+module.exports = TitleBar;

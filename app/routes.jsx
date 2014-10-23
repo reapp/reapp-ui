@@ -5,7 +5,12 @@ var User = require('./pages/UserPage');
 var ImageRoll = require('./pages/ImageRollPage');
 var Viewer = require('./pages/ViewerPage');
 var ViewerRebound = require('./pages/ViewerReboundPage');
-var List = require('./pages/ListPage');
+var Kitchen = require('./pages/KitchenPage');
+var Modals = require('./pages/Kitchen/ModalsPage');
+var Popover = require('./pages/Kitchen/PopoverPage');
+var Tabs = require('./pages/Kitchen/TabsPage');
+var SidePanels = require('./pages/Kitchen/SidePanelsPage');
+var ListView = require('./pages/Kitchen/ListViewPage');
 
 module.exports = {
   init(App) {
@@ -19,8 +24,15 @@ module.exports = {
             <Route name="user" path="/user/:id" handler={User} addHandlerKey={true} />
           </Route>
 
+          <Route name="kitchen" handler={Kitchen}>
+            <Route name="modals" handler={Modals} />
+            <Route name="popover" handler={Popover} />
+            <Route name="tabs" handler={Tabs} />
+            <Route name="sidePanels" handler={SidePanels} />
+            <Route name="listView" handler={ListView} />
+          </Route>
+
           <Route name="viewer" handler={Viewer} />
-          <Route name="list" handler={List} />
           <Route name="viewerRebound" handler={ViewerRebound} />
           <Route name="imageRoll" handler={ImageRoll} />
         </Route>

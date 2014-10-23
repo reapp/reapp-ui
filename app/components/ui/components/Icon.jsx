@@ -1,22 +1,20 @@
 var React = require('react/addons');
-var ReactStyle = require('react-style');
 
 require('./Icon.css');
 var cx = React.addons.classSet;
 
 var Icon = React.createClass({
-  styles: ReactStyle({
-    'color': '#000',
-  }),
-
   render() {
-    var classes = {};
+    var style = {
+      color: this.props.color || '#000'
+    };
 
+    var classes = {};
     classes['icon-' + this.props.size] = !!this.props.size;
     classes['ios-icon-' + this.props.type] = true;
 
     return (
-      <span className={cx(classes)} styles={this.styles}></span>
+      <span className={cx(classes)} style={style}></span>
     );
   }
 

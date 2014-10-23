@@ -16,7 +16,7 @@ var ViewMain = React.createClass({
     var props = this.props;
     var styles = this.styles(props.styles);
     var classes = { ViewMain: true };
-    classes[props.className] = !!props.className;
+    if (props.className) classes[props.className] = true;
 
     return (
       <div className={cx(classes)} styles={styles}>

@@ -4,8 +4,8 @@ var Articles = require('../components/articles/Articles');
 var { FluxMixin, GetStores } = require('../flux/bootstrap');
 
 var ArticlesPage = React.createClass({
+  displayName: 'ArticlesPage',
   mixins: [FluxMixin],
-
   statics: {
     getAsyncProps: () => GetStores(null, ['articles'])
   },

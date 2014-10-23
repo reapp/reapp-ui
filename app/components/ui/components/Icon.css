@@ -1,3 +1,7 @@
+/* icons from think stroke icons
+    http://themes-pixeden.com/font-demos/7-stroke/
+*/
+
 @font-face {
   font-family: 'ios-icon';
   src:url('/fonts/Pe-icon-7-stroke.eot?-2irksn');
@@ -10,7 +14,6 @@
 }
 
 [class^="ios-icon-"], [class*=" ios-icon-"] {
-  display: inline-block;
   font-family: 'ios-icon';
   speak: none;
   font-style: normal;

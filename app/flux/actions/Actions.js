@@ -39,9 +39,9 @@ var Actions = {
 function getArticlesAndLoad(articles, success, fail) {
   Promise
     .all(_.map(_.first(articles, 10),
-      (article) => Client.get(`https://hacker-news.firebaseio.com/v0/item/${article}.json`)
+      article => Client.get(`https://hacker-news.firebaseio.com/v0/item/${article}.json`)
     ))
-    .then((res) => success(res));
+    .then(res => success(res));
 }
 
 function getCommentsAndLoad(article, success, fail) {

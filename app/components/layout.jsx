@@ -1,7 +1,6 @@
 var React = require('react');
 var { Link } = require('react-router');
 var Menu = require('./ui/components/Menu');
-var Toolbar = require('./ui/components/Toolbar');
 var Title = require('./ui/components/Title');
 var Button = require('./ui/components/Button');
 var LeftNavView = require('./ui/views/LeftNavView');
@@ -19,9 +18,9 @@ var Layout = React.createClass({
     var menu = (
       <Menu>
         <Link to="app">Home</Link>
+        <Link to="kitchen">Kitchen Sink</Link>
         <Link to="viewer">3D Gallery</Link>
         <Link to="imageRoll">Image Roll</Link>
-        <Link to="list">List</Link>
       </Menu>
     );
 

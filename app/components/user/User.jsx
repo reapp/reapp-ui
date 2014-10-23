@@ -1,6 +1,6 @@
 var Component = require('omniscient');
 var ViewLeft = require('../ui/views/ViewLeft');
-var TitleBar = require('../TitleBar');
+var TitleBar = require('../ui/components/TitleBar');
 var Drawer = require('../ui/views/Drawer');
 
 module.exports = Component('User', cursor => {

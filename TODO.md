@@ -5,10 +5,21 @@
 4. add ability to view user profile in a pane
 5. test global pane solution using nested panes (home>article>user)
 
+With immutability you can add in rewind easily... just need to store everything that can be rewound.
 
+What to store: ui + data
 
-- finish fixing views
-- omniscient branch
+UI state
+- routes
+- "active" elements
+- form data
+- alerts/notifications
+- scroll positions
+
+ui: {
+route
+element data (visible/scroll pos/sorts/forms)
+}
 
 HN
 - add refresh button
@@ -18,9 +29,6 @@ HN
 
 LeftNavView
 - Allow all styling to be overridden
-
-/flux
-- Individual article store/actions
 
 Architecture
 - store for UI state (zIndex management)

@@ -31,7 +31,7 @@ if (ENV.CLIENT) {
   window.React = React;
 
   // debug omniscient
-  require('omniscient').debug();
+  // require('omniscient').debug();
 
   React.renderComponent(RoutedApp, document.getElementById('app'), function() {
     // clear out data handed by server, or getRouteProps will
