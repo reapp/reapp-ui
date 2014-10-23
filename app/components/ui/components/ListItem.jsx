@@ -1,5 +1,6 @@
 var React = require('react/addons');
 var ReactStyle = require('react-style');
+var cx = React.addons.classSet;
 
 require('./ListItem.styl');
 
@@ -13,9 +14,12 @@ var ListItem = React.createClass({
   },
 
   render() {
-    return this.transferPropsTo(
+    var contentClasses = { 'list-item__content': true };
+    if (this.props.className) contentClasses[this.props.className] = true;
+
+    return (
       <li className="list-item" styles={this.styles.li}>
-        <div className="list-item__content">
+        <div className={cx(contentClasses)}>
           {this.props.children}
         </div>
       </li>

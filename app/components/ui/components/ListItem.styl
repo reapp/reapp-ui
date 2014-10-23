@@ -12,4 +12,24 @@
 .list-item__content {
   border-top: 1px solid #c8c7cc;
   padding: 12px 0;
+  position: relative
+  flex-flow: row;
+  justify-content: space-between;
+
+  a {
+    align-self: flex-start;
+    order: 1;
+    margin: auto 0;
+  }
+
+  &.ios-icon-angle-right:before {
+    order: 2;
+    font-size: 34px;
+    line-height: 22px;
+    height: 22px;
+    align-self: flex-end;
+    margin: auto 0;
+    color: #aaa;
+    font-weight: bold;
+  }
 }

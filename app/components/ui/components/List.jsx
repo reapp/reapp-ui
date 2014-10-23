@@ -12,7 +12,7 @@ var List = React.createClass({
       borderTop: '1px solid #c8c7cc',
       borderBottom: '1px solid #c8c7cc',
       margin: '-10px 0 0',
-      padding: '5px 12px',
+      padding: '0 10px',
       zIndex: 101,
     }),
   },
@@ -23,9 +23,10 @@ var List = React.createClass({
 
     return (
       <ul className={cx(classes)} styles={[this.styles.list, this.props.styles]}>
-        {React.Children.map(this.props.children, (li, i) => (
-          <ListItem key={li.key || i}>{li.content || li}</ListItem>
-        ))}
+        {React.Children.map(this.props.children, (li, i) => {
+          var classes = li.props.to ? 'ios-icon-angle-right' : '';
+          return <ListItem key={li.key || i} className={classes}>{li.content || li}</ListItem>;
+        })}
       </ul>
     );
   }
