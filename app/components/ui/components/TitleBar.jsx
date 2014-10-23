@@ -3,6 +3,8 @@ var ReactStyle = require('react-style');
 var DocumentTitle = require('react-document-title');
 // var GSSMixin = require('../../../mixins/GSSMixin');
 
+require('./TitleBar.styl');
+
 const TOOLBAR_HEIGHT = 44;
 
 var TitleBar = React.createClass({
@@ -22,22 +24,21 @@ var TitleBar = React.createClass({
     backgroundColor: '#fff',
     textAlign: 'center',
     borderBottom: '1px solid #ccc',
-    padding: '12px',
     zIndex: 100,
     position: 'fixed',
     top: 0,
     left: 0,
     right: 0,
-    height: height
+    height: height || TOOLBAR_HEIGHT
   }),
 
   render() {
     return (
       <div className="TitleBar" styles={this.styles(this.props.height)}>
         <DocumentTitle title={this.props.children} />
-        {this.props.left}
-        {this.props.children}
-        {this.props.right}
+        <div className="TitleBar--left">{this.props.left}</div>
+        <div className="TitleBar--center">{this.props.children}</div>
+        <div className="TitleBar--right">{this.props.right}</div>
       </div>
     );
   }

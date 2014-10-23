@@ -1,6 +1,8 @@
 var React = require('react');
 var Icon = require('./Icon');
 
+require('./Button.styl');
+
 var Button = React.createClass({
   render() {
     var children;
@@ -9,7 +11,7 @@ var Button = React.createClass({
       fontSize: '16px',
       background: 'none',
       border: 'none',
-      paddingTop: 8,
+      padding: 8,
       color: color,
       position: 'absolute',
       top: 0,
@@ -23,7 +25,8 @@ var Button = React.createClass({
       textAlign: 'center',
       cursor: 'pointer',
       '-webkit-user-drag': 'none',
-      '-webkit-user-select': 'none'
+      '-webkit-user-select': 'none',
+      outline: 'none'
     };
 
     var childStyle = {
@@ -32,7 +35,6 @@ var Button = React.createClass({
 
     if (this.props.children) {
       children = <span style={childStyle}>{this.props.children}</span>;
-      styles.width = 100;
     }
 
     return this.transferPropsTo(
