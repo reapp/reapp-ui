@@ -28,7 +28,7 @@
     "debug": "^2.1.0",
     "rest": "^1.2.0",
     "immstruct": "^0.9.0",
-    "omniscient": "^1.2.0"
+    "carpo": "*"
   },
   "devDependencies": {
     "transform-loader": "^0.2.1",

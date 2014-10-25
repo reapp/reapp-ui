@@ -1,5 +1,5 @@
 var React = require('react/addons');
-var Component = require('omniscient');
+var Component = require('carpo');
 var View = require('../ui/views/View');
 var ViewLeft = require('../ui/views/ViewLeft');
 var ViewMain = require('../ui/views/ViewMain');
@@ -10,35 +10,39 @@ var Transition = React.addons.CSSTransitionGroup;
 
 require('./Articles.styl');
 
-module.exports = Component('Articles', function(cursor) {
-  var articles = cursor.get('articles');
-  if (!articles) return <div></div>;
+module.exports = Component({
+  name: 'Articles',
 
-  var Handler = cursor.get('handler')();
-  if (Handler) Handler = <div className="drawer-parent">{Handler}</div>;
+  render(cursor) {
+    var articles = cursor.get('articles');
+    if (!articles) return <div></div>;
 
-  var LeftTitle = <TitleBar>Articles</TitleBar>;
+    var Handler = cursor.get('handler')();
+    if (Handler) Handler = <div className="drawer-parent">{Handler}</div>;
 
-  return (
-    <View id="ArticlesPage">
-      <ViewLeft id="articlesLeftView" title={LeftTitle}>
-        <ul id="subBar">
-          <li>Hot</li>
-          <li>Top</li>
-          <li>New</li>
-        </ul>
-        <List>
-          {articles.map(article => (
-            ArticleItem(`Articles-ArticleItem-${article.get('id')}`, article.get('data'))
-          )).toArray()}
-        </List>
-      </ViewLeft>
+    var LeftTitle = <TitleBar>Articles</TitleBar>;
 
-      <ViewMain>
-        <Transition transitionName="drawer">
-          {Handler}
-        </Transition>
-      </ViewMain>
-    </View>
-  );
+    return (
+      <View id="ArticlesPage">
+        <ViewLeft id="articlesLeftView" title={LeftTitle}>
+          <ul id="subBar">
+            <li>Hot</li>
+            <li>Top</li>
+            <li>New</li>
+          </ul>
+          <List>
+            {articles.map(article => (
+              ArticleItem(`Articles-ArticleItem-${article.get('id')}`, article.get('data'))
+            )).toArray()}
+          </List>
+        </ViewLeft>
+
+        <ViewMain>
+          <Transition transitionName="drawer">
+            {Handler}
+          </Transition>
+        </ViewMain>
+      </View>
+    );
+  }
 });

@@ -26,6 +26,7 @@ var DraggableView = React.createClass({
 
   componentWillMount() {
     if (this.state.externalScroller) return;
+
     this.scroller = new Scroller(this._handleScroll, {
       bouncing: false,
       scrollingX: true,
@@ -73,8 +74,9 @@ var DraggableView = React.createClass({
 
   transformParents(transform) {
     if (this.props.parents) {
+      console.log(this.props.parents);
       [].concat(this.props.parents).map(parent => {
-        parent.style.transform = transform;
+        document.getElementById(parent).style.transform = transform;
       });
     }
   },

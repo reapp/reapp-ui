@@ -1,4 +1,4 @@
-var Component = require('omniscient');
+var Component = require('carpo');
 var { Navigation } = require('react-router');
 var ArticleItem = require('./ArticleItem');
 var Comment = require('./Comment');
@@ -10,41 +10,44 @@ var Button = require('../ui/components/Button');
 
 require('./Article.styl');
 
-var Article = Component('Article', Navigation, article => {
-  article = article || { get: () => 'Loading' };
+var Article = Component({
+  name: 'Article',
 
-  var BackButton = (
-    <Button onClick={this.goBack} type="angle-left">
-      Back
-    </Button>
-  );
+  mixins: [Navigation],
 
-  var CommentTree = (article.get('kids') || [])
-    .map(comment => (
-      <ImmutableTreeNode
-        key={Math.random()}
-        idKey="id"
-        childKey="kids"
-        renderComponent={Comment}
-        data={comment} />
-    )).toArray();
+  render(article) {
+    article = article || { get: () => 'Loading' };
 
-  var parents = [
-    document.getElementById('articlesLeftView'),
-    document.getElementById('hamburger')
-  ];
+    var BackButton = (
+      <Button onClick={this.goBack} type="angle-left">
+        Back
+      </Button>
+    );
 
-  return (
-    <Drawer id="Article" parents={parents}>
-      <TitleBar left={BackButton}>Comments ()</TitleBar>
-      <View>
-        {ArticleItem(`ArticlePage-ArticleItem-${article.get('id')}`, article)}
-        <div id="comments">
-          {CommentTree || null}
-        </div>
-      </View>
-    </Drawer>
-  );
+    var CommentTree = (article.get('kids') || [])
+      .map(comment => (
+        <ImmutableTreeNode
+          key={Math.random()}
+          idKey="id"
+          childKey="kids"
+          renderComponent={Comment}
+          data={comment} />
+      )).toArray();
+
+    var parents = ['articlesLeftView', 'hamburger'];
+
+    return (
+      <Drawer id="Article" parents={parents}>
+        <TitleBar left={BackButton}>Comments ()</TitleBar>
+        <View>
+          {ArticleItem(`ArticlePage-ArticleItem-${article.get('id')}`, article)}
+          <div id="comments">
+            {CommentTree || null}
+          </div>
+        </View>
+      </Drawer>
+    );
+  }
 });
 
 module.exports = Article;
