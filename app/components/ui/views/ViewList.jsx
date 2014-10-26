@@ -5,7 +5,6 @@ var View = require('./View');
 var { Scroller } = require('scroller');
 
 var ViewList = React.createClass({
-
   getInitialState() {
     return { left: 0 };
   },
@@ -44,56 +43,63 @@ var ViewList = React.createClass({
     });
   },
 
-  render() {
-    var titles = { l: [], m: [], r: [] };
-    var contents = [];
+  getTitlesAndContents() {
+    var result = {
+      titles: { l: [], m: [], r: [] },
+      contents: []
+    };
 
     this.props.views.map(view => {
       var title = view.title;
 
       if (Array.isArray(title)) {
-        if (title[0]) titles.l.push(title[0]);
-        if (title[1]) titles.m.push(title[1]);
-        if (title[2]) titles.r.push(title[2]);
+        if (title[0]) result.titles.l.push(title[0]);
+        if (title[1]) result.titles.m.push(title[1]);
+        if (title[2]) result.titles.r.push(title[2]);
       }
       else {
-        titles.m.push(title);
+        result.titles.m.push(title);
       }
 
-      contents.push(view.content);
+      result.contents.push(view.content);
     });
 
-    var TitleBar = (
-      <TitleBar left={titles.l} right={titles.r} step={this.state.step}>{titles.m}</TitleBar>
-    );
+    return result;
+  },
 
-    var views = contents.map(function(content, i) {
-      if (this.state.left < (i - 1) * this.state.width ||
-          this.state.left > (i + 1) * this.state.width) {
+  makeTitleBar(titles) {
+    return TitleBar({
+      left: titles.l,
+      right: titles.r,
+      step: this.state.step
+    }, titles.m);
+  },
+
+  makeViews(contents) {
+    return contents.map((content, i) => {
+      if (this.state.step < i-1 || this.state.step > i+1)
         return null;
-      }
 
-      // Find the highest resolution image
-      return (
-        <View
-          left={this.state.left}
-          key={i}
-          index={i}
-          url={url}
-          width={this.state.width}
-          height={this.state.height} />
-      );
-    }, this);
+      return View({
+        key: i,
+        index: i,
+        left: this.state.left,
+        width: this.state.width,
+        height: this.state.height
+      }, content);
+    });
+  },
 
-    return (
-      <TouchableArea
-        className="Viewer"
-        style={{width: this.state.width, height: this.state.height}}
-        styles={this.styles}
-        scroller={this.scroller}>
-        {images}
-      </TouchableArea>
-    );
+  render() {
+    var { titles, contents } = this.getTitlesAndContents();
+    var TitleBar = this.makeTitleBar(titles);
+    var Views = this.makeViews(contents);
+
+    return TouchableArea({
+      className: 'ViewList',
+      style: { width: this.state.width, height: this.state.height },
+      scroller: this.scroller
+    }, TitleBar, Views);
   }
 });
 
