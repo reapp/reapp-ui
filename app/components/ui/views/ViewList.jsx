@@ -1,79 +1,98 @@
 var React = require('react');
 var TitleBar = require('../components/TitleBar');
+var TouchableArea = require('../helpers/TouchableArea');
+var View = require('./View');
+var { Scroller } = require('scroller');
 
 var ViewList = React.createClass({
-  propTypes: {
-    title: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.array
-    ]),
 
+  getInitialState() {
+    return { left: 0 };
   },
 
-  getDefaultProps() {
-    return {
-      titleAttr: 'title',
-      contentAttr: 'content'
-    };
+  componentWillMount() {
+    this.scroller = new Scroller(this.handleScroll, {
+      snapping: true
+    });
   },
 
-  getClassName(responds) {
+  componentDidMount() {
+    var node = this.getDOMNode();
+    var width = this.props.width || node.clientWidth;
+    var height = this.props.height || node.clientHeight;
 
+    this.setState({
+      width: width,
+      height: height
+    });
+
+    this.scroller.setDimensions(
+      width,
+      height,
+      width * this.props.views.length,
+      height
+    );
+
+    this.scroller.setSnapSize(width, height);
+    this.handleScroll();
+  },
+
+  handleScroll(left) {
+    this.setState({
+      left: left,
+      step: left / this.state.width
+    });
   },
 
   render() {
-    var titles = (
-      <TitleBar>
-        {this.props.titles.map(title => {
-          var left, mid, right;
+    var titles = { l: [], m: [], r: [] };
+    var contents = [];
 
-          if (Array.isArray(title)) {
-            left = title[0];
-            mid = title[1];
-            right = title[2];
-          }
-          else {
-            mid = title;
-          }
+    this.props.views.map(view => {
+      var title = view.title;
 
-          return ([
-            <div class="left">{left}</div>,
-            <div class="mid">{mid}</div>,
-            <div class="right">{right}</div>
-          ]);
-        })}
-      </TitleBar>
+      if (Array.isArray(title)) {
+        if (title[0]) titles.l.push(title[0]);
+        if (title[1]) titles.m.push(title[1]);
+        if (title[2]) titles.r.push(title[2]);
+      }
+      else {
+        titles.m.push(title);
+      }
+
+      contents.push(view.content);
+    });
+
+    var TitleBar = (
+      <TitleBar left={titles.l} right={titles.r} step={this.state.step}>{titles.m}</TitleBar>
     );
 
-    var views = makeViews(views, 0);
+    var views = contents.map(function(content, i) {
+      if (this.state.left < (i - 1) * this.state.width ||
+          this.state.left > (i + 1) * this.state.width) {
+        return null;
+      }
 
-    function makeViews(views, index) {
-      var view = views.get(index);
-      if (!view) return null;
-
-      var nextView = makeViews(views, ++index);
-      var active = !nextView;
-
+      // Find the highest resolution image
       return (
-        <DrawerView
-          id={'View-' + index}
-          parents={['View-' + (index - 1)]}
-          title={view.get('title').toArray()}
-          active={active}>
-
-          <div className="content">{view.get('content')}</div>
-          {nextView};
-        </DrawerView>
+        <View
+          left={this.state.left}
+          key={i}
+          index={i}
+          url={url}
+          width={this.state.width}
+          height={this.state.height} />
       );
-    }
+    }, this);
 
     return (
-      <div className={this.getClassName(responds)}>
-        {titles}
-        {React.children.map(this.props.children, child => (
-          <div>child</div>
-        ))}
-      </div>
+      <TouchableArea
+        className="Viewer"
+        style={{width: this.state.width, height: this.state.height}}
+        styles={this.styles}
+        scroller={this.scroller}>
+        {images}
+      </TouchableArea>
     );
   }
 });
