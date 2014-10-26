@@ -1,24 +1,24 @@
 var React = require('react');
 var TitleBar = require('../components/TitleBar');
 var TouchableArea = require('../helpers/TouchableArea');
-var View = require('./View');
+var AnimatableView = require('./AnimatableView');
 var { Scroller } = require('scroller');
 
 var ViewList = React.createClass({
   getInitialState() {
-    return { left: 0 };
+    return {
+      left: 0,
+      step: 0
+    };
   },
 
   componentWillMount() {
     this.scroller = new Scroller(this.handleScroll, {
       snapping: true
     });
-  },
 
-  componentDidMount() {
-    var node = this.getDOMNode();
-    var width = this.props.width || node.clientWidth;
-    var height = this.props.height || node.clientHeight;
+    var width = this.props.width || window.innerWidth;
+    var height = this.props.height || window.innerHeight;
 
     this.setState({
       width: width,
@@ -33,23 +33,23 @@ var ViewList = React.createClass({
     );
 
     this.scroller.setSnapSize(width, height);
-    this.handleScroll();
   },
 
   handleScroll(left) {
+    console.log('handle scroll', left, this.state.width);
     this.setState({
       left: left,
       step: left / this.state.width
     });
   },
 
-  getTitlesAndContents() {
+  getTitlesAndContents(views) {
     var result = {
       titles: { l: [], m: [], r: [] },
       contents: []
     };
 
-    this.props.views.map(view => {
+    views.map(view => {
       var title = view.title;
 
       if (Array.isArray(title)) {
@@ -76,11 +76,13 @@ var ViewList = React.createClass({
   },
 
   makeViews(contents) {
+    console.log('makeViews');
     return contents.map((content, i) => {
+      console.log('create view', content);
       if (this.state.step < i-1 || this.state.step > i+1)
         return null;
 
-      return View({
+      return AnimatableView({
         key: i,
         index: i,
         left: this.state.left,
@@ -91,15 +93,16 @@ var ViewList = React.createClass({
   },
 
   render() {
-    var { titles, contents } = this.getTitlesAndContents();
+    var { titles, contents } = this.getTitlesAndContents(this.props.views);
     var TitleBar = this.makeTitleBar(titles);
     var Views = this.makeViews(contents);
-
-    return TouchableArea({
+    var TouchableViewList = TouchableArea.bind(this, {
       className: 'ViewList',
       style: { width: this.state.width, height: this.state.height },
       scroller: this.scroller
-    }, TitleBar, Views);
+    });
+
+    return TouchableViewList(TitleBar, Views);
   }
 });
 

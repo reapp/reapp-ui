@@ -74,7 +74,6 @@ var DraggableView = React.createClass({
 
   transformParents(transform) {
     if (this.props.parents) {
-      console.log(this.props.parents);
       [].concat(this.props.parents).map(parent => {
         document.getElementById(parent).style.transform = transform;
       });

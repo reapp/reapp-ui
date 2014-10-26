@@ -27,14 +27,8 @@ var Modals = React.createClass({
       }
     ];
 
-    var responds = {
-      s: 'single',
-      m: 'vertical-split',
-      l: 'grid'
-    };
-
     return (
-      <ViewList views={views} viewContainer={DrawerView} responds={responds} />
+      <ViewList views={views} />
     );
   }
 });

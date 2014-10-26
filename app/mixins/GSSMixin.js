@@ -30,7 +30,6 @@ function addRules(constraints) {
   else {
     rulesQueue.push(constraints);
     if (StyleSheet) {
-      console.log(constraints);
       StyleSheet.addRules(GSS.compile(constraints));
       this.constraintsAdded = true;
     }
