@@ -1,24 +1,13 @@
 var React = require('react');
 var ReactStyle = require('react-style');
 var DocumentTitle = require('react-document-title');
-// var GSSMixin = require('../../../mixins/GSSMixin');
+var AnimatableContainer = require('../helpers/AnimatableContainer');
 
 require('./TitleBar.styl');
 
-const TOOLBAR_HEIGHT = 44;
+var TOOLBAR_HEIGHT = 44;
 
 var TitleBar = React.createClass({
-  // mixins: [GSSMixin],
-
-  // layout() {
-  //   return (`
-  //     _[top] == ::window[top];
-  //     _[left] == ::window[left];
-  //     _[right] == ::window[right];
-  //     _[height] == ${this.props.height || TOOLBAR_HEIGHT};
-  //   `);
-  // },
-
   styles: (height) => ReactStyle({
     fontSize: '16px',
     backgroundColor: '#fff',
@@ -32,13 +21,45 @@ var TitleBar = React.createClass({
     height: height || TOOLBAR_HEIGHT
   }),
 
+  getBarElements(titles) {
+    var result = { left: [], mid: [], right: [] };
+
+    Object.keys(titles).map((id, i) => {
+      var { left, mid, right } = titles[id];
+
+      if (this.props.step < i-1 || this.props.step > i+1)
+        return null;
+
+      var makeBarElement = this.makeBarElement.bind(this, i, id, this.props.step);
+
+      result.left.push(makeBarElement(left));
+      result.mid.push(makeBarElement(mid));
+      result.right.push(makeBarElement(right));
+    });
+
+    return result;
+  },
+
+  makeBarElement(i, id, step, content) {
+    return AnimatableContainer({
+      key: i,
+      index: i,
+      id: `left-${id}`,
+      step: step
+    }, content);
+  },
+
   render() {
+    if (!this.props.titles) return null;
+    var { left, mid, right } = this.getBarElements(this.props.titles);
+
+    // <DocumentTitle title={this.props.children} />
+
     return (
       <div className="TitleBar" styles={this.styles(this.props.height)}>
-        <DocumentTitle title={this.props.children} />
-        <div className="TitleBar--left">{this.props.left}</div>
-        <div className="TitleBar--center">{this.props.children}</div>
-        <div className="TitleBar--right">{this.props.right}</div>
+        <div className="TitleBar--left">{left}</div>
+        <div className="TitleBar--mid">{mid}</div>
+        <div className="TitleBar--right">{right}</div>
       </div>
     );
   }

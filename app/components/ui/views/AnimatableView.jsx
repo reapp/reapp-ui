@@ -30,11 +30,10 @@ module.exports = React.createClass({
   },
 
   render() {
-    var { id, left, width, height, index, step, ...props } = this.props;
+    var { id, width, height, index, step, ...props } = this.props;
     var classes = cx(this.getClasses(this.props));
 
-    var pct = (left - (index * width)) / width;
-    var x = index * width - left;
+    var x = (index - step) * width;
 
     // parallax
     if (index < step) x = x / 2;

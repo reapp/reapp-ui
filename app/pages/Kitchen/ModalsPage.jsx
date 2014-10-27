@@ -21,7 +21,7 @@ var Modals = React.createClass({
       },
       {
         id: 'two',
-        title: [null, 'Two'],
+        title: [null, 'Two', 'right'],
         content: 'This is the first nested drawer'
       },
       {

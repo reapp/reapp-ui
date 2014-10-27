@@ -43,14 +43,14 @@ var ViewList = React.createClass({
   handleScroll(left) {
     this.setState({
       left: left,
-      step: left / this.state.width
+      step: this.state.width ? left / this.state.width : 0
     });
   },
 
   getTitlesAndContents(views) {
     var index = 0;
     var result = {
-      titles: { l: {}, m: {}, r: {} },
+      titles: {},
       contents: {}
     };
 
@@ -58,13 +58,15 @@ var ViewList = React.createClass({
       var title = view.title;
       var id = view.id || ++index;
 
+      result.titles[id] = { left: null, mid: null, right: null };
+
       if (Array.isArray(title)) {
-        if (title[0]) result.titles.l[id] = title[0];
-        if (title[1]) result.titles.m[id] = title[1];
-        if (title[2]) result.titles.r[id] = title[2];
+        if (title[0]) result.titles[id].left = title[0];
+        if (title[1]) result.titles[id].mid = title[1];
+        if (title[2]) result.titles[id].right = title[2];
       }
       else {
-        result.titles.m[id] = title;
+        result.titles[id].mid = title;
       }
 
       result.contents[id] = view.content;
@@ -75,10 +77,9 @@ var ViewList = React.createClass({
 
   makeTitleBar(titles) {
     return TitleBar({
-      left: titles.l,
-      right: titles.r,
+      titles: titles,
       step: this.state.step
-    }, titles.m);
+    });
   },
 
   makeViews(contents) {
@@ -92,9 +93,8 @@ var ViewList = React.createClass({
         key: i,
         index: i,
         id: id,
-        touching: !!this.isTouching,
+        touching: !!this.isBeingTouched,
         step: this.state.step,
-        left: this.state.left,
         width: this.state.width,
         height: this.state.height
       }, [].concat(content));
@@ -110,11 +110,11 @@ var ViewList = React.createClass({
   },
 
   handleTouchStart() {
-    this.isTouching = true;
+    this.isBeingTouched = true;
   },
 
   handleTouchEnd() {
-    this.isTouching = false;
+    this.isBeingTouched = false;
   },
 
   handleClick(e) {
