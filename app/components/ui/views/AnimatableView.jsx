@@ -9,6 +9,7 @@ var cx = React.addons.classSet;
 module.exports = React.createClass({
   styles(propStyles) {
     return ReactStyle(Merge({
+      position: 'absolute',
       top: 0,
       left: 0,
       pointerEvents: 'all',

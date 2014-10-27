@@ -76,9 +76,7 @@ var ViewList = React.createClass({
   },
 
   makeViews(contents) {
-    console.log('makeViews');
     return contents.map((content, i) => {
-      console.log('create view', content);
       if (this.state.step < i-1 || this.state.step > i+1)
         return null;
 
@@ -92,17 +90,24 @@ var ViewList = React.createClass({
     });
   },
 
+  styles(state) {
+    return {
+      width: this.state.width,
+      height: this.state.height,
+      flexFlow: 'row'
+    };
+  },
+
   render() {
     var { titles, contents } = this.getTitlesAndContents(this.props.views);
     var TitleBar = this.makeTitleBar(titles);
     var Views = this.makeViews(contents);
-    var TouchableViewList = TouchableArea.bind(this, {
-      className: 'ViewList',
-      style: { width: this.state.width, height: this.state.height },
-      scroller: this.scroller
-    });
 
-    return TouchableViewList(TitleBar, Views);
+    return TouchableArea({
+      className: 'ViewList',
+      style: this.styles(this.state),
+      scroller: this.scroller
+    }, TitleBar, Views);
   }
 });
 
