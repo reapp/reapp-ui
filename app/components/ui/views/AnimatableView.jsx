@@ -30,17 +30,18 @@ module.exports = React.createClass({
   },
 
   render() {
-    var { left, width, height, index, step, ...props } = this.props;
+    var { id, left, width, height, index, step, ...props } = this.props;
     var classes = cx(this.getClasses(this.props));
 
-    console.log('view', step, index);
     var pct = (left - (index * width)) / width;
     var x = index * width - left;
 
+    // parallax
     if (index < step) x = x / 2;
 
     return (
       <AnimatableContainer
+        id={id}
         className={classes}
         styles={this.styles({ width, height })}
         translate={{x: x}}>

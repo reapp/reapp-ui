@@ -24,8 +24,6 @@ var TouchableArea = React.createClass({
     else {
       this.touchStartActions(e);
     }
-
-    e.preventDefault();
   },
 
   touchStartActions(e) {
@@ -49,7 +47,6 @@ var TouchableArea = React.createClass({
 
     this.props.scroller.doTouchEnd(e.timeStamp);
     if (this.props.onTouchEnd) this.props.onTouchEnd(e);
-    e.preventDefault();
   },
 
   isWithin(bounds, point, cb) {
