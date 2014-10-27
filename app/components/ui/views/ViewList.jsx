@@ -4,6 +4,8 @@ var TouchableArea = require('../helpers/TouchableArea');
 var AnimatableView = require('./AnimatableView');
 var { Scroller } = require('scroller');
 
+require('./ViewList.styl');
+
 var ViewList = React.createClass({
   getInitialState() {
     return {
@@ -83,6 +85,8 @@ var ViewList = React.createClass({
       return AnimatableView({
         key: i,
         index: i,
+        touching: this.isTouching || false,
+        step: this.state.step,
         left: this.state.left,
         width: this.state.width,
         height: this.state.height
@@ -98,6 +102,14 @@ var ViewList = React.createClass({
     };
   },
 
+  onTouchStart() {
+    this.isTouching = true;
+  },
+
+  onTouchEnd() {
+    this.isTouching = false;
+  },
+
   render() {
     var { titles, contents } = this.getTitlesAndContents(this.props.views);
     var TitleBar = this.makeTitleBar(titles);
@@ -109,7 +121,9 @@ var ViewList = React.createClass({
       scroller: this.scroller,
       touchStartBounds: {
         x: [{ from: 0, to: 10 }, { from: this.state.width-10, to: this.state.width }]
-      }
+      },
+      onTouchStart: this.onTouchStart,
+      onTouchEnd: this.onTouchEnd
     }, TitleBar, Views);
   }
 });

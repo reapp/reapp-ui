@@ -2,7 +2,7 @@ var React = require('react');
 var StaticContainer = require('./StaticContainer');
 var StyleKeys = require('../lib/touch/StyleKeys');
 
-const POLL_FACTOR = .5;
+var POLL_FACTOR = 0.5;
 
 var AnimatableContainer = React.createClass({
   getDefaultProps() {
@@ -47,6 +47,7 @@ var AnimatableContainer = React.createClass({
           this.props.timout * POLL_FACTOR
         );
       }
+      this.getDOMNode().classList.add('isAnimating');
     }
   },
 
@@ -55,6 +56,7 @@ var AnimatableContainer = React.createClass({
       window.clearInterval(this.animationInterval);
       this.animationInterval = null;
       this.isAnimating = false;
+      this.getDOMNode().classList.remove('isAnimating');
       this.forceUpdate();
     }
   },

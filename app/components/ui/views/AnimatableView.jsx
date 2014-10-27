@@ -3,7 +3,6 @@ var Merge = require('react/lib/merge');
 var ReactStyle = require('react-style');
 var View = require('./View');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
-var EasingFunctions = require('../lib/math/EasingFunctions');
 var cx = React.addons.classSet;
 
 module.exports = React.createClass({
@@ -16,27 +15,35 @@ module.exports = React.createClass({
       '-webkit-overflow-scrolling': 'touch',
       'backface-visibility': 'hidden',
       '-webkit-backface-visibility': 'hidden',
-      '-moz-backface-visibility': 'hidden',
+      '-moz-backface-visibility': 'hidden'
     }, propStyles));
   },
 
-  render() {
-    var { left, width, height, index, ...props } = this.props;
-    console.log(left, width, height, index, props);
+  getClasses(props) {
+    var classes = {
+      AnimatedView: true,
+      touched: !!props.touching
+    };
 
+    if (props.className) classes[props.className] = true;
+    return classes;
+  },
+
+  render() {
+    var { left, width, height, index, step, ...props } = this.props;
+    var classes = cx(this.getClasses(this.props));
+
+    console.log('view', step, index);
     var pct = (left - (index * width)) / width;
     var x = index * width - left;
-    var z = Math.abs(pct * 200) * -1;
-    var yAxis = left > index * width ? 1 : -1;
-    var deg = Math.abs(pct * 69);
+
+    if (index < step) x = x / 2;
 
     return (
       <AnimatableContainer
-        className="AnimatableViewContainer"
+        className={classes}
         styles={this.styles({ width, height })}
-        opacity={EasingFunctions.easeOutCubic(1 - Math.abs(pct))}
-        rotate={{y: yAxis, deg: deg}}
-        translate={{x: x, z: z}}>
+        translate={{x: x}}>
         {View(props)}
       </AnimatableContainer>
     );

@@ -17,15 +17,20 @@ var TouchableArea = React.createClass({
     if (this.props.touchStartBounds) {
       if (this.props.touchStartBounds.x) {
         this.isWithin(this.props.touchStartBounds.x, e.touches[0].pageX, () => {
-          this.props.scroller.doTouchStart(e.touches, e.timeStamp);
+          this.touchStartActions(e);
         });
       }
     }
     else {
-      this.props.scroller.doTouchStart(e.touches, e.timeStamp);
+      this.touchStartActions(e);
     }
 
     e.preventDefault();
+  },
+
+  touchStartActions(e) {
+    this.props.scroller.doTouchStart(e.touches, e.timeStamp);
+    if (this.props.onTouchStart) this.props.onTouchStart(e);
   },
 
   handleTouchMove(e) {
@@ -43,6 +48,7 @@ var TouchableArea = React.createClass({
     }
 
     this.props.scroller.doTouchEnd(e.timeStamp);
+    if (this.props.onTouchEnd) this.props.onTouchEnd(e);
     e.preventDefault();
   },
 
