@@ -54,6 +54,7 @@ var TitleBar = React.createClass({
     var attrForStep = (attr) => eval(attr) || 0;
 
     this.transforms.forEach(transform => {
+      console.log('1');
       var transforms = '';
 
       if (transform.scale)
