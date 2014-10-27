@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDescriptor = require('react/lib/ReactDescriptor');
 
 var StaticContainer = React.createClass({
   getDefaultProps() {
@@ -11,11 +12,7 @@ var StaticContainer = React.createClass({
   },
 
   render() {
-    var numChildren = React.Children.count(this.props.children);
-
-    return (numChildren > 1) ?
-      <div>{this.props.children}</div> :
-      this.props.children;
+    return <div>{this.props.children}</div>;
   }
 });
 

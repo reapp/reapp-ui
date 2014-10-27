@@ -13,7 +13,7 @@ var Icon = React.createClass({
     classes['icon-' + this.props.size] = !!this.props.size;
     classes['ios-icon-' + this.props.type] = true;
 
-    return (
+    return this.transferPropsTo(
       <span className={cx(classes)} style={style}></span>
     );
   }

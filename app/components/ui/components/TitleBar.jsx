@@ -21,6 +21,62 @@ var TitleBar = React.createClass({
     height: height || TOOLBAR_HEIGHT
   }),
 
+  shouldComponentUpdate(nextProps) {
+    return this.props.titles !== nextProps.titles;
+  },
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.step !== nextProps.step) {
+      this.animate(nextProps.step);
+    }
+  },
+
+  componentDidMount() {
+    var node = this.getDOMNode();
+    if (node) {
+      var els = node.querySelectorAll('[data-transform-translate], [data-transform-rotate], [data-transform-scale], [data-transform-opacity]');
+      this.transforms = Array.prototype.slice.call(els).map(el => ({
+        el: el,
+        translate: el.getAttribute('data-transform-translate'),
+        rotate: el.getAttribute('data-transform-rotate'),
+        scale: el.getAttribute('data-transform-scale'),
+        opacity: el.getAttribute('data-transform-opacity')
+      }));
+    }
+  },
+
+  // data-transform-translate="x: -step * 10, y: step-1, z: step+1"
+  // data-transform-rotate="x: step, y: step, z: step"
+  // data-transform-scale="step*2"
+
+  animate(step) {
+    if (!this.transforms) return;
+    var attrForStep = (attr) => eval(attr) || 0;
+
+    this.transforms.forEach(transform => {
+      var transforms = '';
+
+      if (transform.scale)
+        transforms += `scale(${attrForStep(step)})`;
+
+      if (transform.rotate) {
+        var [ rx, ry, rz ] = transform.rotate.split(',');
+        transforms += `rotate3d(${attrForStep(rx)},${attrForStep(ry)},${attrForStep(rz)})`;
+      }
+
+      if (transform.translate) {
+        var [ tx, ty, tz ] = transform.translate.split(',');
+        transforms += `translate3d(${attrForStep(tx)}px, ${attrForStep(ty)}px, ${attrForStep(tz)}px)`;
+      }
+
+      if (transform.opacity) {
+        transform.el.style.opacity = attrForStep(transform.opacity);
+      }
+
+      transform.el.style.WebkitTransform = transforms;
+    });
+  },
+
   getBarElements(titles) {
     var result = { left: [], mid: [], right: [] };
 
@@ -32,28 +88,21 @@ var TitleBar = React.createClass({
 
       var makeBarElement = this.makeBarElement.bind(this, i, id, this.props.step);
 
-      result.left.push(makeBarElement(left));
-      result.mid.push(makeBarElement(mid));
-      result.right.push(makeBarElement(right));
+      result.left.push(makeBarElement('left', left));
+      result.mid.push(makeBarElement('mid', mid));
+      result.right.push(makeBarElement('right', right));
     });
 
     return result;
   },
 
-  makeBarElement(i, id, step, content) {
-    return AnimatableContainer({
-      key: i,
-      index: i,
-      id: `left-${id}`,
-      step: step
-    }, content);
+  makeBarElement(i, id, step, pos, content) {
+    return !content ? null : React.DOM.div({id: `${pos}-${id}`}, content);
   },
 
   render() {
     if (!this.props.titles) return null;
     var { left, mid, right } = this.getBarElements(this.props.titles);
-
-    // <DocumentTitle title={this.props.children} />
 
     return (
       <div className="TitleBar" styles={this.styles(this.props.height)}>

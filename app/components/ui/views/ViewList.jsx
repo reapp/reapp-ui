@@ -122,7 +122,6 @@ var ViewList = React.createClass({
     if (!hash) return;
 
     var viewIndex = this.props.views.map(v => v.id).indexOf(hash.slice(1));
-    console.log('view index', viewIndex);
 
     if (viewIndex) {
       this.scroller.scrollTo(this.state.width * viewIndex, 0, true);
