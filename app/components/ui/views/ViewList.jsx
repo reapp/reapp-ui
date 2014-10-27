@@ -106,7 +106,10 @@ var ViewList = React.createClass({
     return TouchableArea({
       className: 'ViewList',
       style: this.styles(this.state),
-      scroller: this.scroller
+      scroller: this.scroller,
+      touchStartBounds: {
+        x: [{ from: 0, to: 10 }, { from: this.state.width-10, to: this.state.width }]
+      }
     }, TitleBar, Views);
   }
 });

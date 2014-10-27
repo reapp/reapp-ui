@@ -4,7 +4,8 @@ var TouchableArea = React.createClass({
   getDefaultProps() {
     return {
       component: React.DOM.div,
-      touchable: true
+      touchable: true,
+      touchStartBounds: false
     };
   },
 
@@ -13,7 +14,17 @@ var TouchableArea = React.createClass({
       return;
     }
 
-    this.props.scroller.doTouchStart(e.touches, e.timeStamp);
+    if (this.props.touchStartBounds) {
+      if (this.props.touchStartBounds.x) {
+        this.isWithin(this.props.touchStartBounds.x, e.touches[0].pageX, () => {
+          this.props.scroller.doTouchStart(e.touches, e.timeStamp);
+        });
+      }
+    }
+    else {
+      this.props.scroller.doTouchStart(e.touches, e.timeStamp);
+    }
+
     e.preventDefault();
   },
 
@@ -33,6 +44,10 @@ var TouchableArea = React.createClass({
 
     this.props.scroller.doTouchEnd(e.timeStamp);
     e.preventDefault();
+  },
+
+  isWithin(bounds, point, cb) {
+    bounds.map(bound => (point < bound.to && point > bound.from) && cb());
   },
 
   render() {
