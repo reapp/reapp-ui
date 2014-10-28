@@ -12,7 +12,8 @@ var ViewList = React.createClass({
   getInitialState() {
     return {
       left: 0,
-      step: 0
+      step: 0,
+      prevStep: 0
     };
   },
 
@@ -20,7 +21,7 @@ var ViewList = React.createClass({
     this.getTitlesAndContents(this.props.views);
 
     this.scroller = new Scroller(this.handleScroll, {
-      snapping: true,
+      paging: true,
       bouncing: false
     });
 
