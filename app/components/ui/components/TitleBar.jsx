@@ -31,9 +31,9 @@ var TitleBar = React.createClass({
     var node = this.getDOMNode();
 
     if (node) {
-      this.transforms = [];
-      this.getElementsWithTransforms(this.transforms, node, this.props.index);
-      console.log('transforms', this.transforms);
+      this.transformElements = [];
+      this.getElementsWithTransforms(this.transformElements, node, this.props.index);
+      console.log('transforms', this.transformElements);
     }
   },
 
@@ -56,31 +56,10 @@ var TitleBar = React.createClass({
   // data-transform-scale="step*2"
 
   animate(step) {
-    if (!this.transforms) return;
-    var attrForStep = (attr) => eval(attr) || 0;
-    console.log(step);
-
-    this.transforms.forEach(transform => {
-      var transforms = '';
-
-      if (transform.scale)
-        transforms += `scale(${attrForStep(step)})`;
-
-      if (transform.rotate) {
-        var [ rx, ry, rz ] = transform.rotate.split(',');
-        transforms += `rotate3d(${attrForStep(rx)},${attrForStep(ry)},${attrForStep(rz)})`;
-      }
-
-      if (transform.translate) {
-        var [ tx, ty, tz ] = transform.translate.split(',');
-        transforms += `translate3d(${attrForStep(tx)}px, ${attrForStep(ty)}px, ${attrForStep(tz)}px)`;
-      }
-
-      if (transform.opacity) {
-        transform.el.style.opacity = attrForStep(transform.opacity);
-      }
-
-      transform.el.style.WebkitTransform = transforms;
+    if (!this.transformElements) return;
+    this.transformElements.forEach(transformElement => {
+      var { el, transform, index } = transformElement;
+      Transforms[transform](el, index, step);
     });
   },
 
