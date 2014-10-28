@@ -4,24 +4,16 @@ var DocumentTitle = require('react-document-title');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
 var ReactDescriptor = require('react/lib/ReactDescriptor');
 var Transforms = require('../animations/Transforms');
+var ToolbarStyle = require('../style/Toolbar');
 
 require('./TitleBar.styl');
 
-var TOOLBAR_HEIGHT = 44;
-
 var TitleBar = React.createClass({
-  styles: (height) => ReactStyle({
-    fontSize: '16px',
-    backgroundColor: '#fff',
-    textAlign: 'center',
-    borderBottom: '1px solid #ccc',
-    zIndex: 100,
-    position: 'fixed',
-    top: 0,
-    left: 100,
-    width: '100%',
-    height: height || TOOLBAR_HEIGHT
-  }),
+  getDefaultProps() {
+    return { style: ToolbarStyle(this.props) };
+  },
+
+  styles: (props) => ReactStyle(props),
 
   componentWillReceiveProps(nextProps) {
     this.animate(nextProps.step);
@@ -60,6 +52,7 @@ var TitleBar = React.createClass({
   },
 
   animate(step) {
+    console.log('ANIMATE', step, this.transformElements);
     if (!this.transformElements) return;
     this.transformElements.forEach(transformElement => {
       var { el, transform, index } = transformElement;
@@ -77,7 +70,7 @@ var TitleBar = React.createClass({
     if (!this.props.title) return null;
 
     var [ left, mid, right ] = this.props.title;
-    var styles = this.styles(this.props.height);
+    var styles = this.styles(this.props.style);
 
     // add icon transitions for left and right
     left = this.addIconTransform(left);

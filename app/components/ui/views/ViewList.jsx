@@ -1,5 +1,7 @@
 var React = require('react');
+var Merge = require('react/lib/merge');
 var TitleBar = require('../components/TitleBar');
+var ToolbarStyle = require('../style/Toolbar');
 var TouchableArea = require('../helpers/TouchableArea');
 var AnimatableView = require('./AnimatableView');
 var { Scroller } = require('scroller');
@@ -73,7 +75,8 @@ var ViewList = React.createClass({
       return TitleBar({
         title: title,
         index: i,
-        step: this.state.step
+        step: this.state.step,
+        style: ToolbarStyle({ background: 'transparent', left: 100 })
       });
     });
   },
@@ -139,7 +142,11 @@ var ViewList = React.createClass({
       onTouchStart: this.handleTouchStart,
       onTouchEnd: this.handleTouchEnd,
       onClick: this.handleClick
-    }, Titles, Views);
+    }, (
+      <div style={ToolbarStyle()}>
+        {Titles}
+      </div>
+    ), Views);
   }
 });
 

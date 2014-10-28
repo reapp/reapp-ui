@@ -33,8 +33,8 @@ function transformElement(el, index, step, transform) {
 }
 
 function strengthForStep(index, step) {
-  var strength = 1 - Math.max(0, Math.min(1, (index - step) ));
-  return strength;
+  if (step - index > 1) return 0;
+  return step - index + 1;
 }
 
 function defined(variable) {
@@ -53,7 +53,7 @@ Transforms.FADE_TO_LEFT = function(el, index, step) {
 Transforms.MOVE_TO_RIGHT = function(el, index, step) {
   transformElement(el, index, step, strength => ({
     translate: {
-      x: strength * 100
+      x: (1 - strength) * -100
     }
   }));
 };
