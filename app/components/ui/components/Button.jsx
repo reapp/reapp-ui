@@ -33,7 +33,7 @@ var Button = React.createClass({
       var childStyle = { margin: 'auto' };
       children = <span
         style={childStyle}
-        data-transforms={this.props.textTransforms}>
+        data-transform={this.props.textTransforms}>
         {this.props.children}
         </span>;
     }
@@ -42,7 +42,7 @@ var Button = React.createClass({
       type={this.props.type}
       color={color}
       size="2x"
-      data-transforms={this.props.iconTransforms} />;
+      data-transform={this.props.iconTransforms} />;
 
     return this.transferPropsTo(
       <button style={styles} className={'button-' + this.props.type}>

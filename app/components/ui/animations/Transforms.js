@@ -11,34 +11,40 @@ var Transforms = {};
 // opacity: _
 // scale: _
 
-function transformString(el, index, step, transform) {
+function transformElement(el, index, step, transform) {
   var transforms = '';
   var strength = strengthForStep(index, step);
   var { scale, rotate, translate, opacity } = transform(strength);
 
-  if (scale)
-    transforms += `scale(${scale})`;
+  if (defined(scale))
+    transforms += `scale(${scale}) `;
 
-  if (rotate)
-    transforms += `rotate3d(${rotate.x},${rotate.y},${rotate.z})`;
+  if (defined(rotate))
+    transforms += `rotate3d(${rotate.x || 0},${rotate.y || 0},${rotate.z || 0}) `;
 
-  if (translate)
-    transforms += `translate3d(${translate.x}px, ${translate.y}px, ${translate.z}px)`;
+  if (defined(translate))
+    transforms += `translate3d(${translate.x || 0}px, ${translate.y || 0}px, ${translate.z || 0}px)`;
 
-  if (opacity)
+  if (defined(opacity))
     el.style.opacity = opacity;
 
+  console.log('transforms', index, transforms);
   el.style.WebkitTransform = transforms;
 }
 
 function strengthForStep(index, step) {
-  return Math.max(0, Math.min(1, index - step));
+  var strength = 1 - Math.max(0, Math.min(1, (index - step) ));
+  return strength;
+}
+
+function defined(variable) {
+  return typeof variable !== 'undefined';
 }
 
 Transforms.FADE_TO_LEFT = function(el, index, step) {
   transformElement(el, index, step, strength => ({
     translate: {
-      x: - strength * 10
+      x: - strength * 100
     },
     opacity: strength
   }));
@@ -47,7 +53,9 @@ Transforms.FADE_TO_LEFT = function(el, index, step) {
 Transforms.MOVE_TO_RIGHT = function(el, index, step) {
   transformElement(el, index, step, strength => ({
     translate: {
-      x: strength * 10
+      x: strength * 100
     }
   }));
 };
+
+module.exports = Transforms;

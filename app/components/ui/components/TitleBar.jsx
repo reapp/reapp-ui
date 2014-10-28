@@ -18,8 +18,8 @@ var TitleBar = React.createClass({
     zIndex: 100,
     position: 'fixed',
     top: 0,
-    left: 0,
-    right: 0,
+    left: 100,
+    width: '100%',
     height: height || TOOLBAR_HEIGHT
   }),
 
@@ -31,29 +31,33 @@ var TitleBar = React.createClass({
     var node = this.getDOMNode();
 
     if (node) {
-      this.transformElements = [];
-      this.getElementsWithTransforms(this.transformElements, node, this.props.index);
-      console.log('transforms', this.transformElements);
+      var total = node.querySelectorAll('[data-transform]').length + Number(node.hasAttribute('data-transform'));
+      this.getElementsWithTransforms([], total, node, this.props.index, nodes => {
+        this.transformElements = nodes;
+        this.animate(0);
+      });
     }
   },
 
-  getElementsWithTransforms(nodes, node, index) {
-    if (node.hasAttribute('data-transforms'))
+  getElementsWithTransforms(nodes, total, node, index, cb) {
+    if (node.hasAttribute('data-transform')) {
+      total = total - 1;
       nodes.push({
         el: node,
-        transform: node.getAttribute('data-transforms'),
-        index: node.getAttribute('data-index') || index
+        transform: node.getAttribute('data-transform'),
+        index: node.getAttribute('data-transform-index') || index
       });
+    }
 
-    var children = Array.prototype.slice.call(node.children);
-    children.forEach(child => {
-      this.getElementsWithTransforms(nodes, child, node.getAttribute('data-index') || index);
-    });
+    if (total === 0)
+      cb(nodes);
+    else {
+      var children = Array.prototype.slice.call(node.children);
+      children.forEach(child => {
+        this.getElementsWithTransforms(nodes, total, child, node.getAttribute('data-transform-index') || index, cb);
+      });
+    }
   },
-
-  // data-transform-translate="-step * 10, step-1, step+1"
-  // data-transform-rotate="step, step, step"
-  // data-transform-scale="step*2"
 
   animate(step) {
     if (!this.transformElements) return;
@@ -80,7 +84,7 @@ var TitleBar = React.createClass({
     right = this.addIconTransform(right);
 
     return (
-      <div className="TitleBar" data-transforms="FADE_TO_LEFT" data-transform-index={this.props.index} styles={styles}>
+      <div className="TitleBar" data-transform="FADE_TO_LEFT" data-transform-index={this.props.index} styles={styles}>
         <div className="TitleBar--left">{left}</div>
         <div className="TitleBar--mid">{mid}</div>
         <div className="TitleBar--right">{right}</div>
