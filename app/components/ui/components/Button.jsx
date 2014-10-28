@@ -29,17 +29,24 @@ var Button = React.createClass({
       outline: 'none'
     };
 
-    var childStyle = {
-      margin: 'auto'
-    };
-
     if (this.props.children) {
-      children = <span style={childStyle}>{this.props.children}</span>;
+      var childStyle = { margin: 'auto' };
+      children = <span
+        style={childStyle}
+        data-transforms={this.props.textTransforms}>
+        {this.props.children}
+        </span>;
     }
+
+    var icon = <Icon
+      type={this.props.type}
+      color={color}
+      size="2x"
+      data-transforms={this.props.iconTransforms} />;
 
     return this.transferPropsTo(
       <button style={styles} className={'button-' + this.props.type}>
-        <Icon type={this.props.type} color={color} size="2x" data-transforms="MOVE_TO_RIGHT" />
+        {icon}
         {children}
       </button>
     );

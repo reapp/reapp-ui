@@ -1,7 +1,8 @@
-var React = require('react');
+var React = require('react/addons');
 var ReactStyle = require('react-style');
 var DocumentTitle = require('react-document-title');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
+var ReactDescriptor = require('react/lib/ReactDescriptor');
 
 require('./TitleBar.styl');
 
@@ -72,16 +73,27 @@ var TitleBar = React.createClass({
     });
   },
 
+  addIconTransformIfComponent(component) {
+    return ReactDescriptor.isValidDescriptor(component) ?
+      React.addons.cloneWithProps(component, { iconTransforms: 'MOVE_TO_RIGHT' }) :
+      component;
+  },
+
   render() {
-    var title = this.props.title;
-    if (!title) return null;
+    if (!this.props.title) return null;
+
+    var [ left, mid, right ] = this.props.title;
     var styles = this.styles(this.props.height);
 
+    // add icon transitions for left and right
+    left = this.addIconTransformIfComponent(left);
+    right = this.addIconTransformIfComponent(right);
+
     return (
-      <div className="TitleBar" data-transforms="FADE_TO_LEFT" styles={styles}>
-        <div className="TitleBar--left">{title.left}</div>
-        <div className="TitleBar--mid">{title.mid}</div>
-        <div className="TitleBar--right">{title.right}</div>
+      <div className="TitleBar" data-transforms="FADE_TO_LEFT" data-transform-index={this.props.index} styles={styles}>
+        <div className="TitleBar--left">{left}</div>
+        <div className="TitleBar--mid">{mid}</div>
+        <div className="TitleBar--right">{right}</div>
       </div>
     );
   }

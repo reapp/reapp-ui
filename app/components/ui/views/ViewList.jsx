@@ -58,17 +58,7 @@ var ViewList = React.createClass({
       var title = view.title;
       var id = view.id || ++index;
 
-      if (Array.isArray(title)) {
-        result.titles.push({
-          left: title[0],
-          mid: title[1],
-          right: title[2]
-        });
-      }
-      else {
-        result.titles.push({ left: null, mid: title, right: null });
-      }
-
+      result.titles.push(Array.isArray(title) ? title : [,title,]);
       result.contents[id] = view.content;
     });
 
