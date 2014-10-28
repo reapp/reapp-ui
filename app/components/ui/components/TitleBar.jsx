@@ -52,7 +52,6 @@ var TitleBar = React.createClass({
   },
 
   animate(step) {
-    console.log('ANIMATE', step, this.transformElements);
     if (!this.transformElements) return;
     this.transformElements.forEach(transformElement => {
       var { el, transform, index } = transformElement;

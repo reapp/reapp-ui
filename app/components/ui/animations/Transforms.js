@@ -28,17 +28,24 @@ function transformElement(el, index, step, transform) {
   if (defined(opacity))
     el.style.opacity = opacity;
 
-  console.log('transforms', index, transforms);
   el.style.WebkitTransform = transforms;
 }
 
+// Strength goes from 0 -> 1 (in) -> 2
 function strengthForStep(index, step) {
-  if (step - index > 1) return 0;
-  return step - index + 1;
+  var strength = step - index + 1;
+  console.log('index', index,'step',step,'str',strength);
+  return strength;
 }
 
 function defined(variable) {
   return typeof variable !== 'undefined';
+}
+
+// Ignores strength direction, goes from 0 -> 1 -> 0
+function symmetrical(strength) {
+  if (strength == 2) return 0;
+  return (strength > 1) ? (1 - strength % 1) : strength;
 }
 
 Transforms.FADE_TO_LEFT = function(el, index, step) {
@@ -46,7 +53,7 @@ Transforms.FADE_TO_LEFT = function(el, index, step) {
     translate: {
       x: - strength * 100
     },
-    opacity: strength
+    opacity: symmetrical(strength)
   }));
 };
 
