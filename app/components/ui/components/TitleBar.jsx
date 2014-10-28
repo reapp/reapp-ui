@@ -3,6 +3,7 @@ var ReactStyle = require('react-style');
 var DocumentTitle = require('react-document-title');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
 var ReactDescriptor = require('react/lib/ReactDescriptor');
+var Transforms = require('../animations/Transforms');
 
 require('./TitleBar.styl');
 
@@ -28,16 +29,28 @@ var TitleBar = React.createClass({
 
   componentDidMount() {
     var node = this.getDOMNode();
+
     if (node) {
-      var els = node.querySelectorAll('[data-transform-translate], [data-transform-rotate], [data-transform-scale], [data-transform-opacity]');
-      this.transforms = Array.prototype.slice.call(els).map(el => ({
-        el: el,
-        translate: el.getAttribute('data-transform-translate'),
-        rotate: el.getAttribute('data-transform-rotate'),
-        scale: el.getAttribute('data-transform-scale'),
-        opacity: el.getAttribute('data-transform-opacity')
-      }));
+      this.transforms = [];
+      this.getElementsWithTransforms(this.transforms, node, 0);
+      console.log('transforms', this.transforms);
     }
+  },
+
+  getElementsWithTransforms(nodes, node, index) {
+    if (!node) return;
+    if (node.hasAttribute('data-transform'))
+      nodes.push({
+        el: node,
+        transform: node.getAttribute('data-transform'),
+        index: node.getAttribute('data-index') || index
+      });
+
+    var children = Array.prototype.slice.call(node.children);
+    console.log(node.children, children);
+    children.forEach(child => {
+      this.getElementsWithTransforms(nodes, child, node.getAttribute('data-index') || index);
+    });
   },
 
   // data-transform-translate="-step * 10, step-1, step+1"
@@ -73,7 +86,7 @@ var TitleBar = React.createClass({
     });
   },
 
-  addIconTransformIfComponent(component) {
+  addIconTransform(component) {
     return ReactDescriptor.isValidDescriptor(component) ?
       React.addons.cloneWithProps(component, { iconTransforms: 'MOVE_TO_RIGHT' }) :
       component;
@@ -86,8 +99,8 @@ var TitleBar = React.createClass({
     var styles = this.styles(this.props.height);
 
     // add icon transitions for left and right
-    left = this.addIconTransformIfComponent(left);
-    right = this.addIconTransformIfComponent(right);
+    left = this.addIconTransform(left);
+    right = this.addIconTransform(right);
 
     return (
       <div className="TitleBar" data-transforms="FADE_TO_LEFT" data-transform-index={this.props.index} styles={styles}>
