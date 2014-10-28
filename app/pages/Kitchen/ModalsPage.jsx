@@ -3,6 +3,7 @@ var Immstruct = require('immstruct');
 var ViewList = require('../../components/ui/views/ViewList');
 var DrawerView = require('../../components/ui/views/DrawerView');
 var BackButton = require('../../components/ui/components/buttons/BackButton');
+var Block = require('../../components/ui/components/Block');
 
 require('./Modals.styl');
 
@@ -13,26 +14,38 @@ var Modals = React.createClass({
         id: 'one',
         title: [<BackButton />, 'One', <a href="#two">Two</a>],
         content: (
-          <div>
+          <Block>
             Example of a deeply nested thing
-            <a href="#two">Button</a>
-          </div>
+            <a className="button" href="#two">Button</a>
+          </Block>
         ),
       },
       {
         id: 'two',
         title: [<a href="#one">One</a>, 'Two', <a href="#three">Three</a>],
-        content: 'This is the first nested drawer'
+        content: (
+          <Block>
+            This is the first nested drawer
+          </Block>
+        )
       },
       {
         id: 'three',
         title: [null, 'Three'],
-        content: 'This is the second deeply nested'
+        content: (
+          <Block>
+            This is the second deeply nested
+          </Block>
+        )
       },
       {
         id: 'four',
         title: [null, 'Four'],
-        content: 'Final deeply nested view'
+        content: (
+          <Block>
+            Final deeply nested view
+          </Block>
+        )
       }
     ];
 
