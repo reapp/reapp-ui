@@ -32,22 +32,20 @@ var TitleBar = React.createClass({
 
     if (node) {
       this.transforms = [];
-      this.getElementsWithTransforms(this.transforms, node, 0);
+      this.getElementsWithTransforms(this.transforms, node, this.props.index);
       console.log('transforms', this.transforms);
     }
   },
 
   getElementsWithTransforms(nodes, node, index) {
-    if (!node) return;
-    if (node.hasAttribute('data-transform'))
+    if (node.hasAttribute('data-transforms'))
       nodes.push({
         el: node,
-        transform: node.getAttribute('data-transform'),
+        transform: node.getAttribute('data-transforms'),
         index: node.getAttribute('data-index') || index
       });
 
     var children = Array.prototype.slice.call(node.children);
-    console.log(node.children, children);
     children.forEach(child => {
       this.getElementsWithTransforms(nodes, child, node.getAttribute('data-index') || index);
     });
