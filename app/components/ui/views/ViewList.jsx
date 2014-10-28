@@ -77,7 +77,10 @@ var ViewList = React.createClass({
         title: title,
         index: i,
         step: this.state.step,
-        style: ToolbarStyle({ background: 'transparent', left: 100 })
+        style: ToolbarStyle({
+          background: 'transparent',
+          pointerEvents: i === this.state.step ? 'all' : 'none'
+        })
       });
     });
   },
@@ -123,7 +126,7 @@ var ViewList = React.createClass({
 
     var viewIndex = this.props.views.map(v => v.id).indexOf(hash.slice(1));
 
-    if (viewIndex) {
+    if (viewIndex >= 0) {
       this.scroller.scrollTo(this.state.width * viewIndex, 0, true);
       e.preventDefault();
     }

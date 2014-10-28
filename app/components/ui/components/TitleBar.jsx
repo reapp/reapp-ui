@@ -20,20 +20,27 @@ var TitleBar = React.createClass({
   },
 
   componentDidMount() {
+    if (this.refs.mid) {
+      var mid = this.refs.mid.getDOMNode();
+      var winCenter = window.innerWidth / 2;
+      var midCenter = mid.offsetLeft + (mid.clientWidth / 2);
+      mid.style.left = (winCenter-midCenter) + 'px';
+    }
+
     var node = this.getDOMNode();
 
     if (node) {
-      var total = node.querySelectorAll('[data-transform]').length + Number(node.hasAttribute('data-transform'));
-      this.getElementsWithTransforms([], total, node, this.props.index, nodes => {
+      this.numLeft = node.querySelectorAll('[data-transform]').length + Number(node.hasAttribute('data-transform'));
+      this.getElementsWithTransforms([], node, this.props.index, nodes => {
         this.transformElements = nodes;
         this.animate(0);
       });
     }
   },
 
-  getElementsWithTransforms(nodes, total, node, index, cb) {
+  getElementsWithTransforms(nodes, node, index, cb) {
     if (node.hasAttribute('data-transform')) {
-      total = total - 1;
+      this.numLeft = this.numLeft - 1;
       nodes.push({
         el: node,
         transform: node.getAttribute('data-transform'),
@@ -41,12 +48,12 @@ var TitleBar = React.createClass({
       });
     }
 
-    if (total === 0)
+    if (this.numLeft === 0)
       cb(nodes);
     else {
       var children = Array.prototype.slice.call(node.children);
       children.forEach(child => {
-        this.getElementsWithTransforms(nodes, total, child, node.getAttribute('data-transform-index') || index, cb);
+        this.getElementsWithTransforms(nodes, child, node.getAttribute('data-transform-index') || index, cb);
       });
     }
   },
@@ -76,9 +83,9 @@ var TitleBar = React.createClass({
     right = this.addIconTransform(right);
 
     return (
-      <div className="TitleBar" data-transform="FADE_TO_LEFT" data-transform-index={this.props.index} styles={styles}>
+      <div className="TitleBar" data-transform="FADE_LEFT" data-transform-index={this.props.index} styles={styles}>
         <div className="TitleBar--left">{left}</div>
-        <div className="TitleBar--mid">{mid}</div>
+        <div ref="mid" className="TitleBar--mid">{mid}</div>
         <div className="TitleBar--right">{right}</div>
       </div>
     );

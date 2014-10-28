@@ -3,7 +3,6 @@ body * {
   flex-flow: column;
   flex-shrink: 0;
   align-items: stretch;
-  overflow: hidden;
   box-sizing: border-box;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-touch-callout: none;
@@ -51,6 +50,11 @@ input,
 textarea,
 select {
   outline: 0;
+  color: #307cff;
+}
+
+a:visited, a:active {
+  color: #307cff;
 }
 
 #layout {

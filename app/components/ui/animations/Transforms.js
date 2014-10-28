@@ -1,4 +1,6 @@
 var Transforms = {};
+var WINDOW_WIDTH = window.innerWidth;
+var WINDOW_HEIGHT = window.innerHeight;
 
 // Step is passed to any transform
 // Step is 0.0 to 1.0
@@ -34,7 +36,6 @@ function transformElement(el, index, step, transform) {
 // Strength goes from 0 -> 1 (in) -> 2
 function strengthForStep(index, step) {
   var strength = step - index + 1;
-  console.log('index', index,'step',step,'str',strength);
   return strength;
 }
 
@@ -48,10 +49,10 @@ function symmetrical(strength) {
   return (strength > 1) ? (1 - strength % 1) : strength;
 }
 
-Transforms.FADE_TO_LEFT = function(el, index, step) {
+Transforms.FADE_LEFT = function(el, index, step) {
   transformElement(el, index, step, strength => ({
     translate: {
-      x: - strength * 100
+      x: (1 - strength) * 152
     },
     opacity: symmetrical(strength)
   }));
@@ -60,7 +61,7 @@ Transforms.FADE_TO_LEFT = function(el, index, step) {
 Transforms.MOVE_TO_RIGHT = function(el, index, step) {
   transformElement(el, index, step, strength => ({
     translate: {
-      x: (1 - strength) * -100
+      x: (1 - strength) * - 152
     }
   }));
 };
