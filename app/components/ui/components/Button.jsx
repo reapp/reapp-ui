@@ -34,12 +34,12 @@ var Button = React.createClass({
     };
 
     if (this.props.children) {
-      children = <span data-transform-translate="-step*10,," style={childStyle}>{this.props.children}</span>;
+      children = <span style={childStyle}>{this.props.children}</span>;
     }
 
     return this.transferPropsTo(
       <button style={styles} className={'button-' + this.props.type}>
-        <Icon type={this.props.type} color={color} size="2x" data-transform-opacity="-step" />
+        <Icon type={this.props.type} color={color} size="2x" data-transforms="MOVE_TO_RIGHT" />
         {children}
       </button>
     );

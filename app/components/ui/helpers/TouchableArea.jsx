@@ -18,11 +18,13 @@ var TouchableArea = React.createClass({
       if (this.props.touchStartBounds.x) {
         this.isWithin(this.props.touchStartBounds.x, e.touches[0].pageX, () => {
           this.touchStartActions(e);
+          e.preventDefault();
         });
       }
     }
     else {
       this.touchStartActions(e);
+      e.preventDefault();
     }
   },
 

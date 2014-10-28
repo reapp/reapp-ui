@@ -21,14 +21,8 @@ var TitleBar = React.createClass({
     height: height || TOOLBAR_HEIGHT
   }),
 
-  shouldComponentUpdate(nextProps) {
-    return this.props.titles !== nextProps.titles;
-  },
-
   componentWillReceiveProps(nextProps) {
-    if (this.props.step !== nextProps.step) {
-      this.animate(nextProps.step);
-    }
+    this.animate(nextProps.step);
   },
 
   componentDidMount() {
@@ -45,16 +39,16 @@ var TitleBar = React.createClass({
     }
   },
 
-  // data-transform-translate="x: -step * 10, y: step-1, z: step+1"
-  // data-transform-rotate="x: step, y: step, z: step"
+  // data-transform-translate="-step * 10, step-1, step+1"
+  // data-transform-rotate="step, step, step"
   // data-transform-scale="step*2"
 
   animate(step) {
     if (!this.transforms) return;
     var attrForStep = (attr) => eval(attr) || 0;
+    console.log(step);
 
     this.transforms.forEach(transform => {
-      console.log('1');
       var transforms = '';
 
       if (transform.scale)
@@ -78,38 +72,16 @@ var TitleBar = React.createClass({
     });
   },
 
-  getBarElements(titles) {
-    var result = { left: [], mid: [], right: [] };
-
-    Object.keys(titles).map((id, i) => {
-      var { left, mid, right } = titles[id];
-
-      if (this.props.step < i-1 || this.props.step > i+1)
-        return null;
-
-      var makeBarElement = this.makeBarElement.bind(this, i, id, this.props.step);
-
-      result.left.push(makeBarElement('left', left));
-      result.mid.push(makeBarElement('mid', mid));
-      result.right.push(makeBarElement('right', right));
-    });
-
-    return result;
-  },
-
-  makeBarElement(i, id, step, pos, content) {
-    return !content ? null : React.DOM.div({id: `${pos}-${id}`}, content);
-  },
-
   render() {
-    if (!this.props.titles) return null;
-    var { left, mid, right } = this.getBarElements(this.props.titles);
+    var title = this.props.title;
+    if (!title) return null;
+    var styles = this.styles(this.props.height);
 
     return (
-      <div className="TitleBar" styles={this.styles(this.props.height)}>
-        <div className="TitleBar--left">{left}</div>
-        <div className="TitleBar--mid">{mid}</div>
-        <div className="TitleBar--right">{right}</div>
+      <div className="TitleBar" data-transforms="FADE_TO_LEFT" styles={styles}>
+        <div className="TitleBar--left">{title.left}</div>
+        <div className="TitleBar--mid">{title.mid}</div>
+        <div className="TitleBar--right">{title.right}</div>
       </div>
     );
   }

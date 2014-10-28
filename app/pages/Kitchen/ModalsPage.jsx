@@ -11,7 +11,7 @@ var Modals = React.createClass({
     var views = [
       {
         id: 'one',
-        title: [<BackButton />, 'One'],
+        title: [<BackButton />, 'One', <a href="#two">Two</a>],
         content: (
           <div>
             Example of a deeply nested thing
@@ -21,7 +21,7 @@ var Modals = React.createClass({
       },
       {
         id: 'two',
-        title: [null, 'Two', 'right'],
+        title: [<a href="#one">One</a>, 'Two', <a href="#three">Three</a>],
         content: 'This is the first nested drawer'
       },
       {

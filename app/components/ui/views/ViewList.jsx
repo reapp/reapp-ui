@@ -50,7 +50,7 @@ var ViewList = React.createClass({
   getTitlesAndContents(views) {
     var index = 0;
     var result = {
-      titles: {},
+      titles: [],
       contents: {}
     };
 
@@ -58,15 +58,15 @@ var ViewList = React.createClass({
       var title = view.title;
       var id = view.id || ++index;
 
-      result.titles[id] = { left: null, mid: null, right: null };
-
       if (Array.isArray(title)) {
-        if (title[0]) result.titles[id].left = title[0];
-        if (title[1]) result.titles[id].mid = title[1];
-        if (title[2]) result.titles[id].right = title[2];
+        result.titles.push({
+          left: title[0],
+          mid: title[1],
+          right: title[2]
+        });
       }
       else {
-        result.titles[id].mid = title;
+        result.titles.push({ left: null, mid: title, right: null });
       }
 
       result.contents[id] = view.content;
@@ -75,10 +75,16 @@ var ViewList = React.createClass({
     this.views = result;
   },
 
-  makeTitleBar(titles) {
-    return TitleBar({
-      titles: titles,
-      step: this.state.step
+  makeTitles(titles) {
+    return titles.map((title, i) => {
+      if (this.state.step < i-1 || this.state.step > i+1)
+        return null;
+
+      return TitleBar({
+        title: title,
+        index: i,
+        step: this.state.step
+      });
     });
   },
 
@@ -130,7 +136,7 @@ var ViewList = React.createClass({
   },
 
   render() {
-    var TitleBar = this.makeTitleBar(this.views.titles);
+    var Titles = this.makeTitles(this.views.titles);
     var Views = this.makeViews(this.views.contents);
 
     return TouchableArea({
@@ -143,7 +149,7 @@ var ViewList = React.createClass({
       onTouchStart: this.handleTouchStart,
       onTouchEnd: this.handleTouchEnd,
       onClick: this.handleClick
-    }, TitleBar, Views);
+    }, Titles, Views);
   }
 });
 
