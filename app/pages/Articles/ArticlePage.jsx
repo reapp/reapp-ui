@@ -23,7 +23,8 @@ var ArticlePage = React.createClass({
 
   render() {
     if (!this.structure) return <span />;
-    return ArticleComponent(`Article-${article.get('id')}`, this.structure.cursor());
+    var cursor = this.structure.cursor();
+    return ArticleComponent(`Article-${cursor.get('article', 'id')}`, cursor);
   }
 });
 
