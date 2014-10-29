@@ -7,6 +7,7 @@ var View = React.createClass({
   styles: (styles) => ReactStyle(Merge({
     background: '#efeff4',
     overflowY: 'scroll',
+    overflowX: 'hidden',
     paddingTop: 44,
     position: 'absolute',
     top: 0,
@@ -14,7 +15,7 @@ var View = React.createClass({
     bottom: 0,
     right: 0,
     pointerEvents: 'all',
-    '-webkit-overflow-scrolling': 'touch'
+    '-webkit-overflow-scrolling': 'touch',
   }, styles)),
 
   render() {

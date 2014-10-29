@@ -5,7 +5,6 @@
 
   a {
     text-decoration: none;
-    color: #000;
   }
 }
 
@@ -16,11 +15,15 @@
   flex-flow: row;
   justify-content: space-between;
 
+  * {
+    max-width: 100%;
+  }
+
   a {
     align-self: flex-start;
     order: 1;
     margin: auto 0;
-    flex: 10;
+    flex: 1;
   }
 
   &.ios-icon-angle-right:before {

@@ -5,7 +5,8 @@ var cx = React.addons.classSet;
 
 var ViewLeft = React.createClass({
   styles: (styles) => ReactStyle(Merge({
-    overflow: 'scroll',
+    overflowY: 'scroll',
+    overflowX: 'hidden',
     position: 'absolute',
     top: 0,
     left: 0,
