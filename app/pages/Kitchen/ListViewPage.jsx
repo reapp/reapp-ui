@@ -1,5 +1,5 @@
 var React = require('react');
-var DrawerView = require('../../components/ui/views/DrawerView');
+var DrawerView = require('ui/views/DrawerView');
 
 var ListViewPage = React.createClass({
   render() {

@@ -1,7 +1,7 @@
 var Component = require('omniscient');
-var ViewLeft = require('../ui/views/ViewLeft');
-var TitleBar = require('../ui/components/TitleBar');
-var Drawer = require('../ui/views/Drawer');
+var ViewLeft = require('ui/views/ViewLeft');
+var TitleBar = require('ui/components/TitleBar');
+var Drawer = require('ui/views/Drawer');
 
 module.exports = Component('User', cursor => {
   var user = cursor.get('user') || { get: () => 'Loading' };

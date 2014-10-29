@@ -43,7 +43,7 @@ module.exports = function(options) {
   var alias = {};
   var aliasLoader = {};
   var externals = [];
-  var modulesDirectories = ['web_modules', 'node_modules'];
+  var modulesDirectories = ['web_modules', 'node_modules', 'repo_modules'];
   var extensions = ['', '.web.js', '.js', '.jsx'];
   var root = [path.join(__dirname, 'app')];
 

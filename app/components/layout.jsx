@@ -1,9 +1,9 @@
 var React = require('react');
 var { Link } = require('react-router');
-var Menu = require('./ui/components/Menu');
-var Title = require('./ui/components/Title');
-var Button = require('./ui/components/Button');
-var LeftNavView = require('./ui/views/LeftNavView');
+var Menu = require('ui/components/Menu');
+var Title = require('ui/components/Title');
+var Button = require('ui/components/Button');
+var LeftNavView = require('ui/views/LeftNavView');
 var DocumentTitle = require('react-document-title');
 
 require('./Layout.css');

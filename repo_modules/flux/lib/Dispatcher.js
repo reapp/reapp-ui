@@ -1,7 +1,6 @@
 var _ = require('lodash-node');
 var invariant = require('react/lib/invariant');
 var debug = require('debug')('g:flux:dispatcher');
-var ENV = require('../../ENV');
 
 var preloaded;
 var cache = {};
@@ -46,7 +45,7 @@ var Dispatcher = {
   }
 };
 
-if (ENV.CLIENT) {
+if (typeof window !== 'undefined') {
   // we may not be running isomorphically in dev
   preloaded = window.ROUTER_PROPS || {};
   window.flux = window.flux || {};

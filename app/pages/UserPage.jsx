@@ -1,7 +1,7 @@
 var React = require('react');
 var Immstruct = require('immstruct');
 var UserComponent = require('../components/user/User');
-var { GetStores } = require('../flux/bootstrap');
+var { GetStores } = require('flux/bootstrap');
 
 var User = React.createClass({
   statics: {

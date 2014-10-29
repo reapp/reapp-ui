@@ -3,8 +3,12 @@ var Fluxxor = require('fluxxor');
 var _ = require('lodash-node');
 var debug = require('debug')('g:flux');
 var Actions = require('./actions/Actions');
-var ENV = require('../ENV');
 var GetStores = require('./lib/GetStores');
+
+var ENV = {
+  CLIENT: typeof window !== 'undefined',
+  SERVER: typeof window === 'undefined'
+};
 
 // Stores
 var ArticlesStore = require('./stores/ArticlesStore');

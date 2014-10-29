@@ -1,8 +1,8 @@
 var React = require('react');
 var Images = require('../assets/data/images');
 var Viewer = require('../components/viewer/Viewer');
-var View = require('../components/ui/views/View');
-var TitleBar = require('../components/ui/components/TitleBar');
+var View = require('ui/views/View');
+var TitleBar = require('ui/components/TitleBar');
 var debug = require('debug')('g:viewerPage');
 
 var NUM_IMAGES = 10;

@@ -1,8 +1,8 @@
 var React = require('react');
 var { Link } = require('react-router');
-var View = require('../components/ui/views/View');
 var ImageRoll = require('../components/image_roll/ImageRoll');
-var TitleBar = require('../components/ui/components/TitleBar');
+var View = require('ui/views/View');
+var TitleBar = require('ui/components/TitleBar');
 
 module.exports = React.createClass({
   title: 'Image Roll',

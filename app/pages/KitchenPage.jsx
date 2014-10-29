@@ -1,11 +1,11 @@
 var React = require('react/addons');
 var { Link } = require('react-router');
-var View = require('../components/ui/views/View');
-var ViewMain = require('../components/ui/views/ViewMain');
-var ViewLeft = require('../components/ui/views/ViewLeft');
-var List = require('../components/ui/components/List');
-var ListTitle = require('../components/ui/components/ListTitle');
-var TitleBar = require('../components/ui/components/TitleBar');
+var View = require('ui/views/View');
+var ViewMain = require('ui/views/ViewMain');
+var ViewLeft = require('ui/views/ViewLeft');
+var List = require('ui/components/List');
+var ListTitle = require('ui/components/ListTitle');
+var TitleBar = require('ui/components/TitleBar');
 var Transition = React.addons.CSSTransitionGroup;
 
 var KitchenPage = React.createClass({

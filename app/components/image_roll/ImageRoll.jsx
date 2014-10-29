@@ -1,11 +1,7 @@
 var React = require('react');
 var Image = require('./ImageRollItem');
-var { FluxChildMixin } = require('../../flux/bootstrap');
-var AutoBind = require('fluxxor-autobind');
 
 var ImageRoll = React.createClass({
-  mixins: [FluxChildMixin, AutoBind.Mixin('theTime')],
-
   style: {
     width: '100%',
     position: 'relative'

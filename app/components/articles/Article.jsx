@@ -2,11 +2,11 @@ var Component = require('carpo');
 var { Navigation } = require('react-router');
 var ArticleItem = require('./ArticleItem');
 var Comment = require('./Comment');
-var View = require('../ui/views/View');
-var ImmutableTreeNode = require('../ui/helpers/ImmutableTreeNode');
-var TitleBar = require('../ui/components/TitleBar');
-var Drawer = require('../ui/views/Drawer');
-var Button = require('../ui/components/Button');
+var View = require('ui/views/View');
+var ImmutableTreeNode = require('ui/helpers/ImmutableTreeNode');
+var TitleBar = require('ui/components/TitleBar');
+var Drawer = require('ui/views/Drawer');
+var Button = require('ui/components/Button');
 
 require('./Article.styl');
 

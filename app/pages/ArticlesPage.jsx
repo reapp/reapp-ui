@@ -1,7 +1,7 @@
 var React = require('react/addons');
 var Immstruct = require('immstruct');
 var Articles = require('../components/articles/Articles');
-var { FluxMixin, GetStores } = require('../flux/bootstrap');
+var { FluxMixin, GetStores } = require('flux/bootstrap');
 
 var ArticlesPage = React.createClass({
   displayName: 'ArticlesPage',

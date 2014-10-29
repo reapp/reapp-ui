@@ -4,7 +4,6 @@ var Article = require('./pages/Articles/ArticlePage');
 var User = require('./pages/UserPage');
 var ImageRoll = require('./pages/ImageRollPage');
 var Viewer = require('./pages/ViewerPage');
-var ViewerRebound = require('./pages/ViewerReboundPage');
 var Kitchen = require('./pages/KitchenPage');
 var Modals = require('./pages/Kitchen/ModalsPage');
 var Popover = require('./pages/Kitchen/PopoverPage');
@@ -33,7 +32,6 @@ module.exports = {
           </Route>
 
           <Route name="viewer" handler={Viewer} />
-          <Route name="viewerRebound" handler={ViewerRebound} />
           <Route name="imageRoll" handler={ImageRoll} />
         </Route>
       </Routes>

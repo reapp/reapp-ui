@@ -1,9 +1,9 @@
 var React = require('react');
 var Immstruct = require('immstruct');
-var ParallaxViewList = require('../../components/ui/views/ParallaxViewList');
-var DrawerView = require('../../components/ui/views/DrawerView');
-var BackButton = require('../../components/ui/components/buttons/BackButton');
-var Block = require('../../components/ui/components/Block');
+var ParallaxViewList = require('ui/views/ParallaxViewList');
+var DrawerView = require('ui/views/DrawerView');
+var BackButton = require('ui/components/buttons/BackButton');
+var Block = require('ui/components/Block');
 
 require('./Modals.styl');
 

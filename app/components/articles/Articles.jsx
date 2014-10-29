@@ -1,11 +1,11 @@
 var React = require('react/addons');
 var Component = require('carpo');
-var View = require('../ui/views/View');
-var ViewLeft = require('../ui/views/ViewLeft');
-var ViewMain = require('../ui/views/ViewMain');
-var DottedViewList = require('../ui/views/DottedViewList');
-var TitleBar = require('../ui/components/TitleBar');
-var List = require('../ui/components/List');
+var View = require('ui/views/View');
+var ViewLeft = require('ui/views/ViewLeft');
+var ViewMain = require('ui/views/ViewMain');
+var DottedViewList = require('ui/views/DottedViewList');
+var TitleBar = require('ui/components/TitleBar');
+var List = require('ui/components/List');
 var ArticleItem = require('./ArticleItem');
 var Transition = React.addons.CSSTransitionGroup;
 

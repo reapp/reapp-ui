@@ -1,7 +1,7 @@
 var React = require('react');
 var Immstruct = require('immstruct');
 var ArticleComponent = require('../../components/articles/Article');
-var { GetStores } = require('../../flux/bootstrap');
+var { GetStores } = require('flux/bootstrap');
 
 var ArticlePage = React.createClass({
   displayName: 'ArticlePage',

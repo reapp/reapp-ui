@@ -1,6 +1,5 @@
 var React = require('react');
 var ReactStyle = require('react-style');
-var GSSMixin = require('../../../mixins/GSSMixin');
 var List = require('./List');
 
 require('./Menu.styl');
