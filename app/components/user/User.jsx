@@ -1,4 +1,4 @@
-var Component = require('omniscient');
+var Component = require('carpo');
 var ViewLeft = require('ui/views/ViewLeft');
 var TitleBar = require('ui/components/TitleBar');
 var Drawer = require('ui/views/Drawer');

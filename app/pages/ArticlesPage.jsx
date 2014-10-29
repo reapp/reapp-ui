@@ -10,13 +10,37 @@ var ArticlesPage = React.createClass({
     getAsyncProps: () => GetStores(undefined, ['articles'])
   },
 
-  render() {
-    var structure = Immstruct({
-      articles: this.props.articles,
-      handler: this.props.activeRouteHandler
-    });
+  getInitialState: () => ({ version: 0 }),
 
-    return Articles('ASP', structure.cursor());
+  componentWillReceiveProps(nextProps) {
+    this.structure = this.makeStructure(nextProps);
+    this.structure.on('next-animation-frame', () => {
+      this.setState({ version: ++this.state.version });
+    });
+  },
+
+  makeStructure(props) {
+    return Immstruct({
+      articles: props.articles,
+      handler: props.activeRouteHandler,
+      views: [
+        {
+          id: 'hot',
+          title: 'Hot',
+          content: null
+        },
+        {
+          id: 'top',
+          title: 'Top',
+          content: null
+        }
+      ]
+    });
+  },
+
+  render() {
+    if (!this.structure) return <span />;
+    return Articles('ArticlesPage', this.structure.cursor());
   }
 });
 

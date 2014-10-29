@@ -1,12 +1,10 @@
 var React = require('react/addons');
 var Component = require('carpo');
 var View = require('ui/views/View');
+var List = require('ui/components/List');
 var ViewLeft = require('ui/views/ViewLeft');
 var ViewMain = require('ui/views/ViewMain');
 var DottedViewList = require('ui/views/DottedViewList');
-var TitleBar = require('ui/components/TitleBar');
-var List = require('ui/components/List');
-var ArticleItem = require('./ArticleItem');
 var Transition = React.addons.CSSTransitionGroup;
 
 require('./Articles.styl');
@@ -16,8 +14,11 @@ module.exports = Component({
 
   mixins: [
     {
-      handleViewEnter() {
-        console.log('VIEW ENTER');
+      handleViewEnter(i) {
+        console.log('VIEW ENTER', arguments);
+      },
+      handleViewLeave(i) {
+        console.log('VIEW LEAVE', arguments);
       }
     }
   ],
@@ -30,35 +31,31 @@ module.exports = Component({
     if (content)
       content = <div className="drawer-parent">{content}</div>;
 
-    var views = [
-      {
-        id: 'hot',
-        title: 'Hot',
-        content: (
+    cursor.get('views').forEach((view, i) => {
+      console.log('view', view, i);
+      cursor.updateIn(['views', i, 'content'], content => {
+        console.log('content', content)
+        return (
           <List>
             {articles.map(article => (
               ArticleItem(`Articles-ArticleItem-${article.get('id')}`, article.get('data'))
             )).toArray()}
           </List>
-        )
-      },
-      {
-        id: 'top',
-        title: 'Top',
-        content: (
-          <List>
-            {articles.map(article => (
-              ArticleItem(`Articles-ArticleItem-${article.get('id')}`, article.get('data'))
-            )).toArray()}
-          </List>
-        )
-      }
-    ];
+        );
+      });
+    });
+
+    var views = cursor.get('views').toArray().map(v => v.toJS());
+    console.log(views);
 
     return (
       <div id="ArticlesPage">
         <ViewLeft id="articlesLeftView">
-          <DottedViewList views={views} onViewEnter={this.handleViewEnter} />
+          <DottedViewList
+            views={views}
+            onViewLeave={this.handleViewLeave}
+            onViewEnter={this.handleViewEnter}
+            onTouchStart={this.handleTouchStart} />
         </ViewLeft>
 
         <ViewMain>
