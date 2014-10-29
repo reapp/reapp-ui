@@ -30,9 +30,12 @@ var TitleBar = React.createClass({
   },
 
   render() {
-    if (!this.props.title) return null;
+    if (!this.props.children)
+      return null;
 
-    var [ left, mid, right ] = this.props.title;
+    var left = this.props.left;
+    var mid = this.props.children;
+    var right = this.props.right;
     var styles = this.styles(this.props.style);
 
     // add icon transitions for left and right

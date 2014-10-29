@@ -8,11 +8,17 @@ var DocumentTitle = require('react-document-title');
 
 require('./Layout.css');
 
-const TOOLBAR_HEIGHT = 44;
-const SIDE_WIDTH = 200;
+var TOOLBAR_HEIGHT = 44;
+var SIDE_WIDTH = 200;
 
 var Layout = React.createClass({
-  button: <Button id="hamburger" type="menu" />,
+  // this is a mess, button / draggableview
+  button: <Button id="hamburger" type="menu" style={{
+    position: 'absolute',
+    zIndex: 1001,
+    top: -3,
+    left: 8
+  }} />,
 
   render() {
     var menu = (

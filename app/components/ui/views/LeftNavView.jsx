@@ -119,9 +119,15 @@ var LeftNavView = React.createClass({
     }
 
     var draggableProps = {
+      viewProps: {
+        style: { paddingTop: 0 }
+      },
       containerProps: {
         layer: 1,
-        style: { left: 200, marginLeft: 0 },
+        style: {
+          left: 200,
+          marginLeft: 0
+        },
         translate: DraggableViewBehavior.translate(this.state.scrollLeft)
       },
       scroller: this.scroller,

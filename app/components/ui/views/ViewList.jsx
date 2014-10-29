@@ -73,14 +73,15 @@ var ViewList = React.createClass({
   makeTitles(titles) {
     return titles.map((title, i) => (
       TitleBar({
-        title: title,
+        left: title[0],
+        right: title[2],
         index: i,
         style: ToolbarStyle({
           background: 'transparent',
           pointerEvents: 'all',
           display: this.isOnStage(i) ? 'inherit' : 'none'
         })
-      })
+      }, title[1])
     ));
   },
 

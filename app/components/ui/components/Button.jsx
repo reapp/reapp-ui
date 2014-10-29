@@ -1,29 +1,32 @@
 var React = require('react');
+var ReactStyle = require('react-style');
+var Merge = require('react/lib/merge');
 var Icon = require('./Icon');
 
 require('./Button.styl');
 
 var Button = React.createClass({
+  styles: (styleProps) => Merge({
+    fontSize: '16px',
+    background: 'none',
+    border: 'none',
+    padding: '8px 0',
+    color: '#307cff',
+    flexFlow: 'row',
+    zoom: 1,
+    lineHeight: 'normal',
+    whiteSpace: 'nowrap',
+    verticalAlign: 'baseline',
+    textAlign: 'center',
+    cursor: 'pointer',
+    '-webkit-user-drag': 'none',
+    '-webkit-user-select': 'none',
+    outline: 'none'
+  }, styleProps),
+
   render() {
     var children;
-    var color = this.props.color || '#307cff';
-    var styles = {
-      fontSize: '16px',
-      background: 'none',
-      border: 'none',
-      padding: '8px 0',
-      color: color,
-      flexFlow: 'row',
-      zoom: 1,
-      lineHeight: 'normal',
-      whiteSpace: 'nowrap',
-      verticalAlign: 'baseline',
-      textAlign: 'center',
-      cursor: 'pointer',
-      '-webkit-user-drag': 'none',
-      '-webkit-user-select': 'none',
-      outline: 'none'
-    };
+    var styles = this.styles(this.props.style);
 
     if (this.props.children) {
       var childStyle = { margin: 'auto' };
@@ -36,12 +39,14 @@ var Button = React.createClass({
 
     var icon = <Icon
       type={this.props.type}
-      color={color}
+      color={styles.color}
       size="2x"
       data-transform={this.props.iconTransforms} />;
 
     return this.transferPropsTo(
-      <button style={styles} className={'button-' + this.props.type}>
+      <button
+        style={styles}
+        className={'button-' + this.props.type}>
         {icon}
         {children}
       </button>
