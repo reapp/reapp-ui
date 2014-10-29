@@ -3,18 +3,22 @@ var ViewLeft = require('ui/views/ViewLeft');
 var TitleBar = require('ui/components/TitleBar');
 var Drawer = require('ui/views/Drawer');
 
-module.exports = Component('User', cursor => {
-  var user = cursor.get('user') || { get: () => 'Loading' };
+module.exports = Component({
+  name: 'User',
 
-  return (
-    <Drawer>
-      <TitleBar>{user.get('id')}</TitleBar>
-      <ViewLeft>
-        <p dangerouslySetInnerHTML={{__html: user.get('about')}}></p>
-        <ul>
-          <li>{user.get('karma')}</li>
-        </ul>
-      </ViewLeft>
-    </Drawer>
-  );
+  render(cursor) {
+    var user = cursor.get('user') || { get: () => 'Loading' };
+
+    return (
+      <Drawer>
+        <TitleBar>{user.get('id')}</TitleBar>
+        <ViewLeft>
+          <p dangerouslySetInnerHTML={{__html: user.get('about')}}></p>
+          <ul>
+            <li>{user.get('karma')}</li>
+          </ul>
+        </ViewLeft>
+      </Drawer>
+    );
+  }
 });

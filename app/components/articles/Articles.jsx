@@ -5,6 +5,7 @@ var List = require('ui/components/List');
 var ViewLeft = require('ui/views/ViewLeft');
 var ViewMain = require('ui/views/ViewMain');
 var DottedViewList = require('ui/views/DottedViewList');
+var ArticleItem = require('./ArticleItem');
 var Transition = React.addons.CSSTransitionGroup;
 
 require('./Articles.styl');
@@ -25,28 +26,26 @@ module.exports = Component({
 
   render(cursor) {
     var articles = cursor.get('articles');
-    if (!articles) return <div></div>;
+    if (!articles) return <div />;
 
     var content = cursor.get('handler')();
     if (content)
       content = <div className="drawer-parent">{content}</div>;
 
     cursor.get('views').forEach((view, i) => {
-      console.log('view', view, i);
-      cursor.updateIn(['views', i, 'content'], content => {
-        console.log('content', content)
-        return (
-          <List>
-            {articles.map(article => (
-              ArticleItem(`Articles-ArticleItem-${article.get('id')}`, article.get('data'))
-            )).toArray()}
-          </List>
-        );
-      });
+      if (!view.get('content'))
+        view.update('content', content => {
+          return (
+            <List>
+              {articles.map(article => (
+                ArticleItem(`Articles-ArticleItem-${article.get('id')}`, article.get('data'))
+              )).toArray()}
+            </List>
+          );
+        });
     });
 
     var views = cursor.get('views').toArray().map(v => v.toJS());
-    console.log(views);
 
     return (
       <div id="ArticlesPage">

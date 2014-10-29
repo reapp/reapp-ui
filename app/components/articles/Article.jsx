@@ -15,7 +15,8 @@ var Article = Component({
 
   mixins: [Navigation],
 
-  render(article) {
+  render(cursor) {
+    var article = cursor.get('article');
     article = article || { get: () => 'Loading' };
 
     var BackButton = (

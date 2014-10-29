@@ -37,6 +37,11 @@ var ViewList = React.createClass({
     };
   },
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.views !== nextProps.views)
+      this.getTitlesAndContents(nextProps.views);
+  },
+
   componentWillMount() {
     var width = this.props.width || window.innerWidth;
     var height = this.props.height || window.innerHeight;
