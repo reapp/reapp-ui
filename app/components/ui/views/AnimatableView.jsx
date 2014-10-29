@@ -11,6 +11,8 @@ module.exports = React.createClass({
       position: 'absolute',
       top: 0,
       left: 0,
+      width: propStyles.width,
+      height: propStyles.height,
       pointerEvents: 'all',
       '-webkit-overflow-scrolling': 'touch',
       'backface-visibility': 'hidden',
@@ -33,6 +35,7 @@ module.exports = React.createClass({
     var { id, width, height, index, step, ...props } = this.props;
     var classes = cx(this.getClasses(this.props));
 
+    // todo: move to data-transforms
     var x = (index - step) * width;
 
     // parallax

@@ -3,18 +3,17 @@ var Merge = require('react/lib/merge');
 var TitleBar = require('../components/TitleBar');
 var ToolbarStyle = require('../style/Toolbar');
 var TouchableArea = require('../helpers/TouchableArea');
-var AnimatableView = require('./AnimatableView');
+var Transforms = require('../animations/Transforms');
+var View = require('./View');
 var { Scroller } = require('scroller');
 
 require('./ViewList.styl');
 
 var ViewList = React.createClass({
+  mixins: [Transforms.Mixin],
+
   getInitialState() {
-    return {
-      left: 0,
-      step: 0,
-      prevStep: 0
-    };
+    return { width: 0 };
   },
 
   componentWillMount() {
@@ -44,10 +43,8 @@ var ViewList = React.createClass({
   },
 
   handleScroll(left) {
-    this.setState({
-      left: left,
-      step: this.state.width ? left / this.state.width : 0
-    });
+    var step = this.state.width ? left / this.state.width : 0;
+    this._doTransforms(step);
   },
 
   getTitlesAndContents(views) {
@@ -69,39 +66,29 @@ var ViewList = React.createClass({
   },
 
   makeTitles(titles) {
-    return titles.map((title, i) => {
-      if (this.state.step < i-1 || this.state.step > i+1)
-        return null;
-
-      return TitleBar({
+    return titles.map((title, i) => (
+      TitleBar({
         title: title,
         index: i,
-        step: this.state.step,
         style: ToolbarStyle({
           background: 'transparent',
-          pointerEvents: i === this.state.step ? 'all' : 'none'
+          pointerEvents: 'all'
         })
-      });
-    });
+      })
+    ));
   },
 
   makeViews(contents) {
-    return Object.keys(contents).map((id, i) => {
-      var content = contents[id];
-
-      if (this.state.step < i-1 || this.state.step > i+1)
-        return null;
-
-      return AnimatableView({
+    return Object.keys(contents).map((id, i) => (
+      View({
         key: i,
-        index: i,
         id: id,
         touching: !!this.isBeingTouched,
-        step: this.state.step,
-        width: this.state.width,
-        height: this.state.height
-      }, [].concat(content));
-    });
+        'data-transform': 'PARALLAX_FADE',
+        'data-transform-index': i,
+        'data-width': this.state.width,
+      }, contents[id])
+    ));
   },
 
   styles(state) {
@@ -141,7 +128,10 @@ var ViewList = React.createClass({
       style: this.styles(this.state),
       scroller: this.scroller,
       touchStartBounds: {
-        x: [{ from: 0, to: 10 }, { from: this.state.width-10, to: this.state.width }]
+        x: [
+          { from: 0, to: 10 },
+          { from: this.state.width-10, to: this.state.width }
+        ]
       },
       onTouchStart: this.handleTouchStart,
       onTouchEnd: this.handleTouchEnd,
