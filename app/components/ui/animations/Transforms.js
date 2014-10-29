@@ -52,11 +52,7 @@ Transforms.Mixin = {
 function transformElement(transform, step) {
   var transforms = '';
   var { el, index, name } = transform;
-  var strength = strengthForStep(index, step);
-  var { scale, rotate, translate, opacity } = Transforms[name](strength, transform);
-
-  if (name === 'FADE_LEFT' && index == 2)
-    console.log(name, index, step, strength);
+  var { scale, rotate, translate, opacity } = Transforms[name](index, step, el);
 
   if (defined(scale))
     transforms += `scale(${scale}) `;
@@ -73,45 +69,42 @@ function transformElement(transform, step) {
   el.style.WebkitTransform = transforms;
 }
 
-// Strength goes from 0 -> 1 (in) -> 2
-function strengthForStep(index, step) {
-  var strength = step - index + 1;
-  return strength;
-}
-
 function defined(variable) {
   return typeof variable !== 'undefined';
 }
 
+// Strength goes from 0 -> 1 (in) -> 2
+function strengthForStep(step, index) {
+  var strength = step - index + 1;
+  return strength;
+}
+
 // Ignores strength direction, goes from 0 -> 1 -> 0
-function symmetrical(strength) {
+function symmetrical(step, index) {
+  var strength = strengthForStep(step, index);
   if (strength == 2) return 0;
   return (strength > 1) ? (1 - strength % 1) : strength;
 }
 
-Transforms.PARALLAX_FADE = function(strength, transform) {
+Transforms.PARALLAX_VIEW = function(index, step, el) {
+  var width = el.getAttribute('data-width');
+
   return {
-    translate: {
-      x: (1 - strength) * (WINDOW_WIDTH/2.5)
-    },
-    opacity: symmetrical(strength)
+    translate: { x: (index - step) * width },
+    opacity: symmetrical(step, index)
   };
 };
 
-Transforms.FADE_LEFT = function(strength) {
+Transforms.FADE_LEFT = function(index, step) {
   return {
-    translate: {
-      x: (1 - strength) * (WINDOW_WIDTH/2.5)
-    },
-    opacity: symmetrical(strength)
+    translate: { x: - (step - index) * (WINDOW_WIDTH/2.5) },
+    opacity: symmetrical(step, index)
   };
 };
 
-Transforms.MOVE_TO_RIGHT = function(strength) {
+Transforms.MOVE_TO_RIGHT = function(index, step) {
   return {
-    translate: {
-      x: (1 - strength) * - (WINDOW_WIDTH/2.5)
-    }
+    translate: { x: (step - index) * (WINDOW_WIDTH/2.5) }
   };
 };
 

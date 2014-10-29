@@ -84,7 +84,7 @@ var ViewList = React.createClass({
         key: i,
         id: id,
         touching: !!this.isBeingTouched,
-        'data-transform': 'PARALLAX_FADE',
+        'data-transform': 'PARALLAX_VIEW',
         'data-transform-index': i,
         'data-width': this.state.width,
       }, contents[id])
