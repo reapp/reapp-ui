@@ -18,7 +18,7 @@ var View = React.createClass({
   }, styles)),
 
   render() {
-    var styles = this.styles(this.props.styles);
+    var styles = this.styles(this.props.style);
     var classes = { 'pane': true };
     classes[this.props.className] = !!this.props.className;
 

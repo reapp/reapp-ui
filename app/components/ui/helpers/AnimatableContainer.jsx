@@ -1,6 +1,6 @@
 var React = require('react');
 var StaticContainer = require('./StaticContainer');
-var StyleKeys = require('../lib/touch/StyleKeys');
+var StyleKeys = require('../lib/StyleKeys');
 
 var POLL_FACTOR = 0.5;
 

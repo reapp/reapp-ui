@@ -1,3 +1,5 @@
+var StyleKeys = require('../lib/StyleKeys');
+
 var Transforms = {};
 var WINDOW_WIDTH = window.innerWidth;
 var WINDOW_HEIGHT = window.innerHeight;
@@ -52,7 +54,7 @@ Transforms.Mixin = {
 function transformElement(transform, step) {
   var transforms = '';
   var { el, index, name } = transform;
-  var { scale, rotate, translate, opacity } = Transforms[name](index, step, el);
+  var { scale, rotate, translate, opacity, ...styles } = Transforms[name](index, step, el);
 
   if (defined(scale))
     transforms += `scale(${scale}) `;
@@ -66,32 +68,38 @@ function transformElement(transform, step) {
   if (defined(opacity))
     el.style.opacity = opacity;
 
-  el.style.WebkitTransform = transforms;
+  if (styles)
+    Object.keys(styles).map(style => { el.style[style] = styles[style]; });
+
+  el.style[StyleKeys.TRANSFORM] = transforms;
 }
 
 function defined(variable) {
   return typeof variable !== 'undefined';
 }
 
-// Strength goes from 0 -> 1 (in) -> 2
-function strengthForStep(step, index) {
-  var strength = step - index + 1;
-  return strength;
+// Linear increasing strength
+//  0 -> 1 (in) -> 2
+function linear(step, index) {
+  return step - index + 1;
 }
 
-// Ignores strength direction, goes from 0 -> 1 -> 0
+// Linear increasing then decreasing strength
+//  0 -> 1 (in) -> 0
 function symmetrical(step, index) {
-  var strength = strengthForStep(step, index);
+  var strength = linear(step, index);
   if (strength == 2) return 0;
   return (strength > 1) ? (1 - strength % 1) : strength;
 }
 
 Transforms.PARALLAX_VIEW = function(index, step, el) {
   var width = el.getAttribute('data-width');
+  var translateX = (index - step) * width;
+  if (index < step) translateX = translateX / 2;
 
   return {
-    translate: { x: (index - step) * width },
-    opacity: symmetrical(step, index)
+    translate: { x: translateX },
+    'box-shadow': `0 0 15px rgba(0,0,0,${linear(step,index) / 2})`
   };
 };
 

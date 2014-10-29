@@ -13,7 +13,7 @@ var ViewList = React.createClass({
   mixins: [Transforms.Mixin],
 
   getInitialState() {
-    return { width: 0 };
+    return { width: 0, step: 0 };
   },
 
   componentWillMount() {
@@ -44,6 +44,7 @@ var ViewList = React.createClass({
 
   handleScroll(left) {
     var step = this.state.width ? left / this.state.width : 0;
+    this.setState({ step: step });
     this._doTransforms(step);
   },
 
@@ -65,6 +66,10 @@ var ViewList = React.createClass({
     this.views = result;
   },
 
+  isOnStage(index) {
+    return (this.state.step-1 < index) && (index < this.state.step+1);
+  },
+
   makeTitles(titles) {
     return titles.map((title, i) => (
       TitleBar({
@@ -72,7 +77,8 @@ var ViewList = React.createClass({
         index: i,
         style: ToolbarStyle({
           background: 'transparent',
-          pointerEvents: 'all'
+          pointerEvents: 'all',
+          display: this.isOnStage(i) ? 'inherit' : 'none'
         })
       })
     ));
@@ -87,6 +93,9 @@ var ViewList = React.createClass({
         'data-transform': 'PARALLAX_VIEW',
         'data-transform-index': i,
         'data-width': this.state.width,
+        style: {
+          display: this.isOnStage(i) ? 'inherit' : 'none'
+        }
       }, contents[id])
     ));
   },
