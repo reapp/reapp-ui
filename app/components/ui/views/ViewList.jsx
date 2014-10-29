@@ -12,6 +12,17 @@ require('./ViewList.styl');
 var ViewList = React.createClass({
   mixins: [Transforms.Mixin],
 
+  getDefaultProps() {
+    return {
+      transform: 'VIEW_PARALLAX',
+      touchStartBounds: {
+        x: [
+          { from: 0, to: 10 } // draggable only from left edge
+        ]
+      }
+    };
+  },
+
   getInitialState() {
     return { width: 0, step: 0 };
   },
@@ -71,7 +82,7 @@ var ViewList = React.createClass({
   },
 
   makeTitles(titles) {
-    return titles.map((title, i) => (
+    var titleBars = titles.map((title, i) => (
       TitleBar({
         left: title[0],
         right: title[2],
@@ -83,6 +94,10 @@ var ViewList = React.createClass({
         })
       }, title[1])
     ));
+
+    return titleBars && titleBars.length ?
+      <div style={ToolbarStyle()}>{titleBars}</div> :
+      null;
   },
 
   makeViews(contents) {
@@ -91,7 +106,7 @@ var ViewList = React.createClass({
         key: i,
         id: id,
         touching: !!this.isBeingTouched,
-        'data-transform': 'PARALLAX_VIEW',
+        'data-transform': this.props.transform,
         'data-transform-index': i,
         'data-width': this.state.width,
         style: {
@@ -137,20 +152,11 @@ var ViewList = React.createClass({
       className: 'ViewList',
       style: this.styles(this.state),
       scroller: this.scroller,
-      touchStartBounds: {
-        x: [
-          { from: 0, to: 10 },
-          { from: this.state.width-10, to: this.state.width }
-        ]
-      },
+      touchStartBounds: this.props.touchStartBounds,
       onTouchStart: this.handleTouchStart,
       onTouchEnd: this.handleTouchEnd,
       onClick: this.handleClick
-    }, (
-      <div style={ToolbarStyle()}>
-        {Titles}
-      </div>
-    ), Views);
+    }, Titles, Views);
   }
 });
 

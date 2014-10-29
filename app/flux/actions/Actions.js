@@ -9,7 +9,7 @@ var Actions = {
     var url = 'https://hacker-news.firebaseio.com/v0/topstories.json';
     Dispatcher.create.call(this, 'articles', (success, fail) => {
       Client.get(url,
-        (articles) => getArticlesAndLoad(articles, success, fail),
+        (articles) => callbackFromPromise(getArticles(articles), success, fail),
         (error) => fail(error)
       );
     });
@@ -19,7 +19,7 @@ var Actions = {
     var url = `https://hacker-news.firebaseio.com/v0/item/${params.id}.json`;
     Dispatcher.create.call(this, 'article', params, (success, fail) => {
       Client.get(url,
-        (article) => getCommentsAndLoad(article, success, fail),
+        (article) => callbackFromPromise(getComments(article), success, fail),
         (error) => fail(error)
       );
     });
@@ -36,16 +36,19 @@ var Actions = {
   }
 };
 
-function getArticlesAndLoad(articles, success, fail) {
-  Promise
-    .all(_.map(_.first(articles, 10),
-      article => Client.get(`https://hacker-news.firebaseio.com/v0/item/${article}.json`)
-    ))
-    .then(res => success(res));
+function callbackFromPromise(promise, success, fail) {
+  promise.then(res => success(res));
+  // todo: fail
 }
 
-function getCommentsAndLoad(article, success, fail) {
-  getAllKids(article).done((res) => success(res));
+function getArticles(articles) {
+  return Promise.all(_.map(_.first(articles, 10),
+    article => Client.get(`https://hacker-news.firebaseio.com/v0/item/${article}.json`)
+  ));
+}
+
+function getComments(article) {
+  return getAllKids(article);
 }
 
 function getAllKids(item) {

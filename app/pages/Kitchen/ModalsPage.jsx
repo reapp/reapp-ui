@@ -1,6 +1,6 @@
 var React = require('react');
 var Immstruct = require('immstruct');
-var ViewList = require('../../components/ui/views/ViewList');
+var ParallaxViewList = require('../../components/ui/views/ParallaxViewList');
 var DrawerView = require('../../components/ui/views/DrawerView');
 var BackButton = require('../../components/ui/components/buttons/BackButton');
 var Block = require('../../components/ui/components/Block');
@@ -50,7 +50,7 @@ var Modals = React.createClass({
     ];
 
     return (
-      <ViewList views={views} />
+      <ParallaxViewList views={views} />
     );
   }
 });

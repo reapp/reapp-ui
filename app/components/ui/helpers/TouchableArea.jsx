@@ -18,13 +18,11 @@ var TouchableArea = React.createClass({
       if (this.props.touchStartBounds.x) {
         this.isWithin(this.props.touchStartBounds.x, e.touches[0].pageX, () => {
           this.touchStartActions(e);
-          e.preventDefault();
         });
       }
     }
     else {
       this.touchStartActions(e);
-      e.preventDefault();
     }
   },
 
@@ -52,7 +50,7 @@ var TouchableArea = React.createClass({
   },
 
   isWithin(bounds, point, cb) {
-    bounds.map(bound => (point < bound.to && point > bound.from) && cb());
+    [].concat(bounds).map(bound => (point < bound.to && point > bound.from) && cb());
   },
 
   render() {

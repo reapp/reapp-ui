@@ -7,7 +7,7 @@ var ArticlesPage = React.createClass({
   displayName: 'ArticlesPage',
   mixins: [FluxMixin],
   statics: {
-    getAsyncProps: () => GetStores(null, ['articles'])
+    getAsyncProps: () => GetStores(undefined, ['articles'])
   },
 
   render() {

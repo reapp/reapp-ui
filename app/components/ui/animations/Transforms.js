@@ -95,7 +95,7 @@ function symmetrical(step, index) {
     linearExit(step, index);
 }
 
-Transforms.PARALLAX_VIEW = function(index, step, el) {
+Transforms.VIEW_PARALLAX = function(index, step, el) {
   var width = el.getAttribute('data-width');
   var translateX = (index - step) * width;
   if (index < step) translateX = translateX / 2;
@@ -103,6 +103,15 @@ Transforms.PARALLAX_VIEW = function(index, step, el) {
   return {
     translate: { x: translateX },
     'box-shadow': `0 0 15px rgba(0,0,0,${linearEnter(step,index) / 2})`
+  };
+};
+
+Transforms.VIEW_SIDE_BY_SIDE = function(index, step, el) {
+  var width = el.getAttribute('data-width');
+  var translateX = (index - step) * width;
+
+  return {
+    translate: { x: translateX }
   };
 };
 
