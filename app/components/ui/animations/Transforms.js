@@ -54,7 +54,7 @@ Transforms.Mixin = {
 function transformElement(transform, step) {
   var transforms = '';
   var { el, index, name } = transform;
-  var { scale, rotate, translate, opacity, ...styles } = Transforms[name](index, step, el);
+  var { scale, rotate, translate, ...styles } = Transforms[name](index, step, el);
 
   if (defined(scale))
     transforms += `scale(${scale}) `;
@@ -64,9 +64,6 @@ function transformElement(transform, step) {
 
   if (defined(translate))
     transforms += `translate3d(${translate.x || 0}px, ${translate.y || 0}px, ${translate.z || 0}px)`;
-
-  if (defined(opacity))
-    el.style.opacity = opacity;
 
   if (styles)
     Object.keys(styles).map(style => { el.style[style] = styles[style]; });
@@ -78,18 +75,24 @@ function defined(variable) {
   return typeof variable !== 'undefined';
 }
 
-// Linear increasing strength
-//  0 -> 1 (in) -> 2
-function linear(step, index) {
-  return step - index + 1;
+// Increase strength on enter
+//  0 -> 1 (in) -> 1
+function linearEnter(step, index) {
+  return Math.min(1, step - index + 1);
+}
+
+// Decrease strength on exit
+//  1 -> 1 (in) -> 0
+function linearExit(step, index) {
+  return Math.max(0, 1 - (step - index) );
 }
 
 // Linear increasing then decreasing strength
 //  0 -> 1 (in) -> 0
 function symmetrical(step, index) {
-  var strength = linear(step, index);
-  if (strength == 2) return 0;
-  return (strength > 1) ? (1 - strength % 1) : strength;
+  return (step <= index) ?
+    linearEnter(step, index) :
+    linearExit(step, index);
 }
 
 Transforms.PARALLAX_VIEW = function(index, step, el) {
@@ -99,7 +102,7 @@ Transforms.PARALLAX_VIEW = function(index, step, el) {
 
   return {
     translate: { x: translateX },
-    'box-shadow': `0 0 15px rgba(0,0,0,${linear(step,index) / 2})`
+    'box-shadow': `0 0 15px rgba(0,0,0,${linearEnter(step,index) / 2})`
   };
 };
 
