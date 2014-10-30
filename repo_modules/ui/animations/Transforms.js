@@ -75,6 +75,9 @@ function defined(variable) {
   return typeof variable !== 'undefined';
 }
 
+// todo: put these functions into Transform.prototype.linearEnter...
+// so you can use this.linearEnter()
+
 // Increase strength on enter
 //  0 -> 1 (in) -> 1
 function linearEnter(step, index) {

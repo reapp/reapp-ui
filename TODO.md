@@ -4,6 +4,11 @@ JEWELS
       |-- data
 
 
+data
+  stores: data, ui, actions
+  immutable in stores
+  rewind in stores
+
 UI state
 - routes
 - "active" elements

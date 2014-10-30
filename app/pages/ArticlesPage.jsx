@@ -40,7 +40,7 @@ var ArticlesPage = React.createClass({
 
   render() {
     if (!this.structure) return <span />;
-    return Articles('ArticlesPage', this.structure.cursor());
+    return Articles('Articles', this.structure.cursor());
   }
 });
 

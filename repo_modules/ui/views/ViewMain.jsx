@@ -2,6 +2,7 @@ var React = require('react/addons');
 var Merge = require('react/lib/merge');
 var ReactStyle = require('react-style');
 var cx = React.addons.classSet;
+var Transition = React.addons.CSSTransitionGroup;
 
 var ViewMain = React.createClass({
   styles: (styles) => ReactStyle(Merge({
@@ -20,7 +21,9 @@ var ViewMain = React.createClass({
 
     return (
       <div className={cx(classes)} styles={styles}>
-        {this.props.children}
+        <Transition transitionName="drawer">
+          {this.props.children}
+        </Transition>
       </div>
     );
   }
