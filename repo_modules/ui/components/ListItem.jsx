@@ -19,7 +19,7 @@ var ListItem = React.createClass({
     if (this.props.className) contentClasses[this.props.className] = true;
 
     return (
-      <li className="list-item" styles={this.styles.li}>
+      <li className="ListItem" styles={this.styles.li}>
         <div className={cx(contentClasses)}>
           {this.props.children}
         </div>

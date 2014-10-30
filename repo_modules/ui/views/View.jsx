@@ -20,7 +20,7 @@ var View = React.createClass({
 
   render() {
     var styles = this.styles(this.props.style);
-    var classes = { 'pane': true };
+    var classes = { 'View': true };
     classes[this.props.className] = !!this.props.className;
 
     return this.transferPropsTo(

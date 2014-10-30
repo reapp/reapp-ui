@@ -18,7 +18,7 @@ var List = React.createClass({
   },
 
   render() {
-    var classes = { list: true };
+    var classes = { List: true };
     if (this.props.className) classes[this.props.className] = true;
 
     return (

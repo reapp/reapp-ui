@@ -5,7 +5,9 @@ var TouchableArea = React.createClass({
     return {
       component: React.DOM.div,
       touchable: true,
-      touchStartBounds: false
+      touchStartBounds: false,
+      ignoreY: false,
+      ignoreX: false
     };
   },
 
@@ -13,6 +15,10 @@ var TouchableArea = React.createClass({
     if (!this.props.scroller || !this.props.touchable) {
       return;
     }
+
+    this.ignoringScroll = false;
+    this._initialTouchLeft = this.getTouchLeft(e.touches);
+    this._initialTouchTop = this.getTouchTop(e.touches);
 
     if (this.props.touchStartBounds) {
       if (this.props.touchStartBounds.x) {
@@ -26,14 +32,33 @@ var TouchableArea = React.createClass({
     }
   },
 
+  getTouchTop(touches) {
+    return touches[0].pageY;
+  },
+
+  getTouchLeft(touches) {
+    return touches[0].pageX;
+  },
+
   touchStartActions(e) {
     this.props.scroller.doTouchStart(e.touches, e.timeStamp);
     if (this.props.onTouchStart) this.props.onTouchStart(e);
   },
 
   handleTouchMove(e) {
-    if (!this.props.scroller || !this.props.touchable) {
+    if (!this.props.scroller || !this.props.touchable || this.ignoringScroll) {
       return;
+    }
+
+    if (this.props.ignoreY || this.props.ignoreX) {
+      var distanceY = Math.abs(this._initialTouchTop - this.getTouchTop(e.touches));
+      var distanceX = Math.abs(this._initialTouchLeft - this.getTouchLeft(e.touches));
+
+      if (distanceY > distanceX && this.props.ignoreY ||
+          distanceX > distanceY && this.props.ignoreX) {
+        this.ignoringScroll = true;
+        return;
+      }
     }
 
     this.props.scroller.doTouchMove(e.touches, e.timeStamp, e.scale);

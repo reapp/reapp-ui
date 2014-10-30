@@ -66,7 +66,8 @@ var ViewList = React.createClass({
   setupScroller(width, height) {
     this.scroller = new Scroller(this.handleScroll, {
       paging: true,
-      bouncing: false
+      bouncing: false,
+      scrollingY: false
     });
 
     this.scroller.setSnapSize(width, height);
@@ -208,6 +209,7 @@ var ViewList = React.createClass({
       className: 'ViewList',
       style: this.styles(this.state),
       scroller: this.scroller,
+      ignoreY: true,
       touchStartBounds: this.props.touchStartBounds,
       onTouchStart: this.handleTouchStart,
       onTouchEnd: this.handleTouchEnd,
