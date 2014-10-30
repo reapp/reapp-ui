@@ -43,13 +43,24 @@ var ViewList = React.createClass({
   },
 
   componentWillMount() {
+    this.setupViewEnterStates();
+    this.getTitlesAndContents(this.props.views);
+  },
+
+  componentDidMount() {
+    this.setupDimensions();
+    window.addEventListener('resize', this.setupDimensions);
+  },
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.setupDimensions);
+  },
+
+  setupDimensions() {
     var width = this.props.width || window.innerWidth;
     var height = this.props.height || window.innerHeight;
-
     this.setState({ width, height });
-    this.setupViewEnterStates();
     this.setupScroller(width, height);
-    this.getTitlesAndContents(this.props.views);
   },
 
   setupScroller(width, height) {
@@ -163,8 +174,6 @@ var ViewList = React.createClass({
 
   styles(state) {
     return {
-      width: this.state.width,
-      height: this.state.height,
       flexFlow: 'row'
     };
   },

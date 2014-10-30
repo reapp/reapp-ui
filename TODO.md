@@ -1,3 +1,7 @@
+JEWELS
+      |-- ui
+ - routing
+      |-- data
 
 
 UI state
