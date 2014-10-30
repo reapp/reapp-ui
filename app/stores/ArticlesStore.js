@@ -1,3 +1,2 @@
 var { ListStore } = require('brawndo');
-
-module.exports = new ListStore('articles');
+module.exports = new ListStore('articles').getFlux();

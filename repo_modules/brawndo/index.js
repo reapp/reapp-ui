@@ -5,6 +5,7 @@ var GetStores = require('./lib/GetStores');
 var Client = require('./client');
 var Dispatcher = require('./lib/Dispatcher');
 var ListStore = require('./lib/ListStore');
+var ItemStore = require('./lib/ItemStore');
 
 function init(stores, actions) {
   var Flux = new Fluxxor.Flux(stores, actions);
@@ -16,6 +17,7 @@ function init(stores, actions) {
 var Brawndo = module.exports = {
   init,
   ListStore,
+  ItemStore,
   Client,
   Dispatcher,
   GetStores: GetStores.GetStores,

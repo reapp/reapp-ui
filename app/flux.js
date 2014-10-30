@@ -2,11 +2,9 @@ var Actions = require('./actions/Actions');
 var { ListStore } = require('brawndo');
 
 // Stores
-var ArticlesStore = new ListStore('articles').getFlux();
+var ArticlesStore = require('./stores/ArticlesStore');
 var ArticleStore = require('./stores/ArticleStore');
 var UserStore = require('./stores/UserStore');
-
-console.log(ArticlesStore);
 
 var Stores = {
   articles: new ArticlesStore(),

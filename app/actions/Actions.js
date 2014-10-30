@@ -58,10 +58,10 @@ function getAllKids(item) {
   }
   else {
     return Promise
-      .all(
-        item.kids.map(item => Client
-        .get(`https://hacker-news.firebaseio.com/v0/item/${item}.json`)
-        .then(res => getAllKids(res)))
+      .all(item.kids.map(item =>
+        Client
+          .get(`https://hacker-news.firebaseio.com/v0/item/${item}.json`)
+          .then(res => getAllKids(res)))
       )
       .then(res => {
         item.kids = res;

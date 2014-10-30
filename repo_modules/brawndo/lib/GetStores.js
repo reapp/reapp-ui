@@ -5,12 +5,11 @@ var debug = require('debug')('g:flux:GetStores');
 var Flux;
 var storePromises = {};
 
-var GetStores = function(storeNames) {
+var GetStores = function(storeNames, params) {
   var promises = {};
 
-  [].concat(storeNames).forEach(function(name, params) {
+  [].concat(storeNames).forEach(function(name) {
     var hash = name + _.map(params, (h,k) => ""+h+k);
-    console.log(name, Flux)
     var store = Flux.store(name);
 
     promises[name] = promiseForStore(hash, store);
@@ -21,23 +20,12 @@ var GetStores = function(storeNames) {
 };
 
 function promiseForStore(hash, store) {
-  var listener = storePromises[hash];
-  if (listener) return listener;
-
-  // debug('creating promise for', hash);
-
-  listener = storePromises[hash] = new Promise(function(res, rej) {
-    store.on('change', respond);
-
-    function respond() {
-      if (store.loading || !_.size(store.data)) return;
-      // debug('promise done!', hash);
-      var response = _.values(store.data);
-      res(response);
-    }
+  storePromises[hash] = storePromises[hash] || new Promise((res, rej) => {
+    store.on('change', () => {
+      (!store.loading && _.size(store.data)) && res(_.values(store.data));
+    });
   });
-
-  return listener;
+  return storePromises[hash];
 }
 
 module.exports = {
