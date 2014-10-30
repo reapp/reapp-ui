@@ -3,10 +3,12 @@ var Layout = require('./components/Layout');
 var Routes = require('./routes');
 var TouchEvents = require('ui/lib/TouchEvents');
 var ReactStyle = require('react-style');
-var { Flux } = require('flux/bootstrap');
+var Brawndo = require('brawndo');
+var { Stores, Actions } = require('./flux');
 var GSSMixin = require('./mixins/GSSMixin');
 var ENV = require('./ENV');
 
+Brawndo.init(Stores, Actions);
 ReactStyle.inject();
 TouchEvents.initialize();
 
@@ -19,7 +21,7 @@ var App = React.createClass({
   render() {
     return (
       <Layout>
-        <this.props.activeRouteHandler flux={Flux} />
+        <this.props.activeRouteHandler flux={Brawndo.Flux} />
       </Layout>
     );
   }

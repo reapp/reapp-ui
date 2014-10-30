@@ -1,0 +1,1 @@
+Just a small library for managing fluxxor.

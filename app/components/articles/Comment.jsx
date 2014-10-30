@@ -1,13 +1,11 @@
-var Component = require('carpo');
+var { Component } = require('carpo');
 var React = require('react/addons');
 var cx = React.addons.classSet;
 
 require('./Comment.styl');
 
-module.exports = Component({
-  name: 'Comment',
-
-  render(cursor) {
+module.exports = Component('Comment',
+  function render(cursor) {
     var comment = cursor.data;
     var toggleOpened = (e) => {
       e.stopPropagation();
@@ -27,4 +25,4 @@ module.exports = Component({
       </div>
     );
   }
-});
+);

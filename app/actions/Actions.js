@@ -1,8 +1,7 @@
+var { Client, Dispatcher } = require('brawndo');
 var _ = require('lodash-node');
 var invariant = require('react/lib/invariant');
 var { Promise } = require('when');
-var Client = require('../client');
-var Dispatcher = require('../lib/Dispatcher');
 
 var Actions = {
   articlesLoad() {

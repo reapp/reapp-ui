@@ -1,4 +1,4 @@
-var Component = require('carpo');
+var { Component } = require('carpo');
 var React = require('react/addons');
 var Time = require('react-ago-component');
 var { Link } = require('react-router');
@@ -10,12 +10,8 @@ var mixins = [{
   }
 }];
 
-module.exports = Component({
-  name: 'ArticleItem',
-
-  mixins: mixins,
-
-  render: function(article) {
+module.exports = Component('ArticleItem', mixins,
+  function render(article) {
     var classes = { 'article': true };
 
     return (
@@ -43,6 +39,5 @@ module.exports = Component({
         </ul>
       </div>
     );
-
   }
-});
+);

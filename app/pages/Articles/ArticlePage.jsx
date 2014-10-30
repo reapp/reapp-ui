@@ -1,13 +1,13 @@
 var React = require('react');
 var Immstruct = require('immstruct');
 var ArticleComponent = require('../../components/articles/Article');
-var { GetStores } = require('flux/bootstrap');
+var { GetStores } = require('brawndo');
 
 var ArticlePage = React.createClass({
   displayName: 'ArticlePage',
 
   statics: {
-    getAsyncProps: (params) => GetStores(params, ['article'])
+    getAsyncProps: (params) => GetStores('article', params)
   },
 
   getInitialState: () => ({ version: 0 }),

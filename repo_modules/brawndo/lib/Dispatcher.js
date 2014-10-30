@@ -13,11 +13,10 @@ var Dispatcher = {
       'Must provide a name and loader function');
 
     var hash = name + _.map(params, (h,k) => ""+h+k);
-    var NAME = name.toUpperCase();
-    debug('binding dispatchers %s %s', NAME, hash);
-    var loading = Dispatcher.dispatchLoad.bind(this, NAME);
-    var success = Dispatcher.dispatchSuccess.bind(this, hash, NAME);
-    var fail = Dispatcher.dispatchFail.bind(this, hash, NAME);
+
+    var loading = Dispatcher.dispatchLoad.bind(this, name);
+    var success = Dispatcher.dispatchSuccess.bind(this, hash, name);
+    var fail = Dispatcher.dispatchFail.bind(this, hash, name);
 
     if (cache[hash])
       success(cache[hash]);

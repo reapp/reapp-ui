@@ -1,4 +1,4 @@
-var Component = require('carpo');
+var { Component } = require('carpo');
 var { Navigation } = require('react-router');
 var ArticleItem = require('./ArticleItem');
 var Comment = require('./Comment');
@@ -10,12 +10,8 @@ var Button = require('ui/components/Button');
 
 require('./Article.styl');
 
-var Article = Component({
-  name: 'Article',
-
-  mixins: [Navigation],
-
-  render(cursor) {
+module.exports = Component('Article', [Navigation],
+  function render(cursor) {
     var article = cursor.get('article');
     article = article || { get: () => 'Loading' };
 
@@ -49,6 +45,4 @@ var Article = Component({
       </Drawer>
     );
   }
-});
-
-module.exports = Article;
+);

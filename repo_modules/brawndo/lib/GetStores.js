@@ -1,4 +1,3 @@
-var invariant = require('react/lib/invariant');
 var _ = require('lodash-node');
 var { Promise } = require('when');
 var debug = require('debug')('g:flux:GetStores');
@@ -6,11 +5,12 @@ var debug = require('debug')('g:flux:GetStores');
 var Flux;
 var storePromises = {};
 
-var GetStores = function(params, storeNames) {
+var GetStores = function(storeNames) {
   var promises = {};
 
-  storeNames.forEach(function(name) {
+  [].concat(storeNames).forEach(function(name, params) {
     var hash = name + _.map(params, (h,k) => ""+h+k);
+    console.log(name, Flux)
     var store = Flux.store(name);
 
     promises[name] = promiseForStore(hash, store);
@@ -41,8 +41,6 @@ function promiseForStore(hash, store) {
 }
 
 module.exports = {
-  init(flux) {
-    Flux = flux;
-    return GetStores;
-  }
+  GetStores,
+  init(flux) { Flux = flux; }
 };
