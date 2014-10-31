@@ -1,9 +1,10 @@
 var { Component } = require('carpo');
 var React = require('react/addons');
 var Time = require('react-ago-component');
+var Icon = require('ui/components/Icon');
 var { Link } = require('react-router');
 
-require('./ArticleItem');
+require('./ArticleItem.styl');
 
 var mixins = [{
   onTouch() {
@@ -12,18 +13,13 @@ var mixins = [{
 
 module.exports = Component('ArticleItem', mixins,
   function render(article) {
-    var classes = { 'article': true };
+    var classes = {
+      article: true
+    };
 
-    return (
-      <div
-        className={React.addons.classSet(classes)}
-        style={this.props && this.props.style}
-        onClick={this.onTouch}>
-        <h3>
-          <Link to="article" params={{id: article.get('id')}} activeClassName="">
-            {article.get('title')}
-          </Link>
-        </h3>
+    var articleLeft = (
+      <div className="article--left">
+        <h3>{article.get('title')}</h3>
         <ul>
           <li className="score">
             <span>{article.get('score')}</span>
@@ -37,6 +33,24 @@ module.exports = Component('ArticleItem', mixins,
             <Time date={new Date(article.get('time') * 1000)} autoUpdate />
           </li>
         </ul>
+      </div>
+    );
+
+    var articleRight = (
+      <div className="article--right">
+        <Link to="article" params={{id: article.get('id')}} activeClassName="">
+          <Icon size="lg" type="comment" />
+        </Link>
+      </div>
+    );
+
+    return (
+      <div
+        className={React.addons.classSet(classes)}
+        style={this.props && this.props.style}
+        onClick={this.onTouch}>
+        {articleLeft}
+        {articleRight}
       </div>
     );
   }

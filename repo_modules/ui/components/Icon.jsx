@@ -6,7 +6,7 @@ var cx = React.addons.classSet;
 var Icon = React.createClass({
   render() {
     var style = {
-      color: this.props.color || '#000'
+      color: this.props.color || null
     };
 
     var classes = {};
