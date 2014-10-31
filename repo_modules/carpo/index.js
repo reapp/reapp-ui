@@ -1,7 +1,8 @@
 var Omniscient = require('omniscient');
 var React = require('react/addons');
 var Immstruct = require('immstruct');
-var { FluxMixin, GetStores } = require('brawndo');
+
+// Integrates Omniscinet with react-router
 
 function Component(struct) {
   // react style
@@ -16,25 +17,22 @@ function Component(struct) {
   }
 }
 
-
 function Page(struct) {
+  var { mixins, render, getDefaultProps, ...restOfPage } = struct;
+
   return React.createClass({
-    displayName: struct.name,
-    mixins: [FluxMixin],
+    mixins: [].concat(restOfPage, mixins),
 
     statics: {
-      store(name) {
-        return new GetStores(undefined, ['articles']);
-      },
-
       getAsyncProps(params) {
-        return struct.getProps(params);
+        return getDefaultProps(params);
       }
     },
 
     getInitialState: () => ({ version: 0 }),
 
     componentWillReceiveProps(nextProps) {
+      console.log('receive props', nextProps);
       this.structure = this.makeStructure(nextProps);
       this.structure.on('next-animation-frame', () => {
         this.setState({ version: ++this.state.version });
@@ -47,12 +45,10 @@ function Page(struct) {
 
     render() {
       if (!this.structure) return <span />;
-      return struct.render(this.structure.cursor());
+      var cursor = this.structure.cursor().set('handler', this.props.activeRouteHandler);
+      return render(cursor);
     }
   });
 }
 
-module.exports = {
-  Page: Page,
-  Component: Component
-};
+module.exports = { Page, Component };

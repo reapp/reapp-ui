@@ -6,14 +6,12 @@ var Flux;
 var storePromises = {};
 
 function StoreLoader(name, params) {
-  var promises = {};
   var hash = name + _.map(params, (h,k) => ""+h+k);
   var store = Flux.store(name);
+  var promise = promiseForStore(hash, store);
 
-  promises[name] = promiseForStore(hash, store);
   Flux.actions[name](params);
-
-  return promises;
+  return promise;
 }
 
 function promiseForStore(hash, store) {

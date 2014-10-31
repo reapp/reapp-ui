@@ -21,7 +21,6 @@ var Actions = module.exports = {
 };
 
 function getArticles(articles) {
-  console.log('get articles');
   return Promise.all(_.map(_.first(articles, 10),
     article => API.get(`item/${article}.json`)
   ));

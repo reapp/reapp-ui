@@ -1,7 +1,6 @@
 var Fluxxor = require('fluxxor');
 var debug = require('debug')('g:flux');
 var StoreLoader = require('./lib/StoreLoader');
-var Dispatcher = require('./lib/Dispatcher');
 var ListStore = require('./stores/ListStore');
 var ItemStore = require('./stores/ItemStore');
 var Flux;
