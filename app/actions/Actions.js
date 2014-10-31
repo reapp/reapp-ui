@@ -3,27 +3,27 @@ var { Promise } = require('when');
 var API = require('./API');
 
 var Actions = module.exports = {
-  articles() {
-    API
-      .get('topstories.json')
-      .then(res => getArticles(res), err => err);
-  },
+  articles: () => API
+    .get('topstories.json')
+    .then(
+      res => getArticles(res),
+      err => err
+    ),
 
-  article(params) {
-    API
-      .get(`item/${params.id}.json`)
-      .then(res => getAllKids(res), err => err);
-  },
+  article: params => API
+    .get(`item/${params.id}.json`)
+    .then(
+      res => getAllKids(res),
+      err => err
+    ),
 
-  user(params) {
-    API
-      .get(`user/${params.id}.json`);
-  }
+  user: params => API.get(`user/${params.id}.json`)
 };
 
 function getArticles(articles) {
+  console.log('get articles');
   return Promise.all(_.map(_.first(articles, 10),
-    article => Client.get(`item/${article}.json`)
+    article => API.get(`item/${article}.json`)
   ));
 }
 
@@ -36,7 +36,7 @@ function getAllKids(item) {
   else {
     return Promise
       .all(item.kids.map(item =>
-        Client
+        API
           .get(`item/${item}.json`)
           .then(res => getAllKids(res)))
       )

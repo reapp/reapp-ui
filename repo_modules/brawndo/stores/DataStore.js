@@ -42,7 +42,7 @@ class DataStore extends Store {
 
   onLoadingFail(payload) {
     this.loading = false;
-    this.error = payload.error;
+    this.error = payload;
     this.emit('change');
   }
 }

@@ -23,26 +23,31 @@ var Brawndo = module.exports = {
 
 var loadWithDispatcher = function(name, action) {
   var self = this;
-  var dispatchLoad = () => self.dispatch(`LOAD_${name}`);
-  var dispatchSuccess = () => self.dispatch(`LOAD_${name}_SUCCESS`);
-  var dispatchFail = () => self.dispatch(`LOAD_${name}_FAIL`);
+  var dispatchSuccess = payload => self.dispatch(`LOAD_${name}_SUCCESS`, payload);
+  var dispatchFail = payload => self.dispatch(`LOAD_${name}_FAIL`, payload);
 
-  return dispatchLoad() && Promise(action()).then(dispatchSuccess, dispatchFail);
+  this.dispatch(`LOAD_${name}`);
+  action().done(
+    res => dispatchSuccess(res),
+    res => dispatchFail(res)
+  );
 };
 
 function initActions(stores, actions) {
   Object.keys(actions).map(key => {
     // if name of store == action, set it up as a loader
-    if (stores[key])
+    if (stores[key]) {
+      var action = actions[key];
       actions[key] = function() {
-        loadWithDispatcher.call(this, key, actions[key]);
+        loadWithDispatcher.call(this, key, action);
       };
+    }
   });
 }
 
 function initStores(stores) {
   Object.keys(stores).map(key => {
-    stores[key] = stores[key].getFlux();
+    stores[key] = new (stores[key].getFlux())();
   });
 }
 
