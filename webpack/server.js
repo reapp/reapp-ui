@@ -34,7 +34,7 @@ module.exports = {
     ].join("\n");
 
     var template = fs
-      .readFileSync(__dirname + '/../app/index.html')
+      .readFileSync(__dirname + '/../app/assets/index.html')
       .toString()
       .replace('<!-- SCRIPTS -->', scripts);
 

@@ -2,8 +2,8 @@ var Fluxxor = require('fluxxor');
 var debug = require('debug')('g:flux');
 var StoreLoader = require('./lib/StoreLoader');
 var Dispatcher = require('./lib/Dispatcher');
-var ListStore = require('./lib/ListStore');
-var ItemStore = require('./lib/ItemStore');
+var ListStore = require('./stores/ListStore');
+var ItemStore = require('./stores/ItemStore');
 var Flux;
 
 var Brawndo = module.exports = {
@@ -11,8 +11,8 @@ var Brawndo = module.exports = {
   StoreWatchMixin: Fluxxor.StoreWatchMixin,
 
   init({ React, Actions, Stores }) {
-    Stores = initStores(Stores);
-    Actions = initActions(Actions);
+    initStores(Stores);
+    initActions(Actions);
     Flux = new Fluxxor.Flux(Stores, Actions);
     Brawndo.StoreLoader = StoreLoader.init(Flux);
     Brawndo.FluxMixin = Fluxxor.FluxMixin(React);
@@ -22,10 +22,16 @@ var Brawndo = module.exports = {
 };
 
 function initActions(actions) {
-  return Object.keys(actions).map(key => {
-    return /Load$/.test(key) ?
+  Object.keys(actions).map(key => {
+    actions[key] = /Load$/.test(key) ?
       Dispatcher.create.call(Flux, key, actions[key]) :
       actions[key];
+  });
+}
+
+function initStores(stores) {
+  Object.keys(stores).map(key => {
+    stores[key] = stores[key].getFlux();
   });
 }
 

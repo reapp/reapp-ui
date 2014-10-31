@@ -1,2 +1,2 @@
-var { ItemStore } = require('brawndo');
-module.exports = new ItemStore('user').getFlux();
+var { Stores } = require('brawndo');
+module.exports = new Stores.ItemStore('user');
