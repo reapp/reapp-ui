@@ -22,6 +22,8 @@ element data (visible/scroll pos/sorts/forms)
 }
 
 HN
+- frosted glass headers
+- swipe left to add to "read later"
 - merge stores
 - add refresh button
 - add delete article just to test
