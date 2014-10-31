@@ -23,9 +23,9 @@ var Brawndo = module.exports = {
 
 function initActions(actions) {
   Object.keys(actions).map(key => {
-    actions[key] = /Load$/.test(key) ?
-      Dispatcher.create.call(Flux, key, actions[key]) :
-      actions[key];
+    if (/Load$/.test(key)) {
+      actions[key] = Dispatcher.create.call(this, key, actions[key]);
+    }
   });
 }
 
