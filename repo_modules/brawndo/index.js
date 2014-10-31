@@ -33,7 +33,7 @@ var loadWithDispatcher = function(name, action) {
 function initActions(stores, actions) {
   Object.keys(actions).map(key => {
     // if name of store == action, set it up as a loader
-    if (false && stores[key])
+    if (stores[key])
       actions[key] = function() {
         loadWithDispatcher.call(this, key, actions[key]);
       };

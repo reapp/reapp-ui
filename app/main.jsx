@@ -1,3 +1,4 @@
+require('es-object-assign');
 var React  = require('react');
 var Layout = require('./components/Layout');
 var Routes = require('./routes');
