@@ -1,5 +1,4 @@
 var React = require('react/addons');
-var Merge = require('react/lib/merge');
 var View = require('./View');
 var TouchableArea = require('../helpers/TouchableArea');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
@@ -92,7 +91,7 @@ var DraggableView = React.createClass({
 
     var containerProps = {
       className: cx(containerClasses),
-      style: Merge({
+      style: Object.assign({}, {
         top: 0, right: 0, bottom: 0, left: 0,
         position: 'fixed',
         marginLeft: '100%',
@@ -106,11 +105,11 @@ var DraggableView = React.createClass({
       containerProps.id = this.props.id;
 
     if (this.props.containerProps)
-      containerProps = Merge(containerProps, this.props.containerProps);
+      containerProps = Object.assign({}, containerProps, this.props.containerProps);
 
     // if no behavior passed in, use default
     if (!(this.props.containerProps || {}).translate)
-      containerProps = Merge(containerProps, {
+      containerProps = Object.assign({}, containerProps, {
         translate: this.props.behavior.translate(this.state.xOffset)
       });
 

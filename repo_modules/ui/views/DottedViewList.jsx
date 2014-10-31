@@ -1,5 +1,4 @@
 var React = require('react');
-var Merge = require('react/lib/merge');
 var ViewList = require('./ViewList');
 
 var DottedViewList = React.createClass({
@@ -13,7 +12,7 @@ var DottedViewList = React.createClass({
       }
     };
 
-    var props = Merge(parallaxProps, this.props);
+    var props = Object.assign({}, parallaxProps, this.props);
     return ViewList(props);
   }
 });

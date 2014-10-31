@@ -1,5 +1,4 @@
 var React = require('react/addons');
-var Merge = require('react/lib/merge');
 var ReactStyle = require('react-style');
 var View = require('./View');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
@@ -7,7 +6,7 @@ var cx = React.addons.classSet;
 
 module.exports = React.createClass({
   styles(propStyles) {
-    return ReactStyle(Merge({
+    return ReactStyle(Object.assign({}, {
       position: 'absolute',
       top: 0,
       left: 0,

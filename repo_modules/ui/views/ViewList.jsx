@@ -1,5 +1,4 @@
 var React = require('react');
-var Merge = require('react/lib/merge');
 var TitleBar = require('../components/TitleBar');
 var ToolbarStyle = require('../style/Toolbar');
 var TouchableArea = require('../helpers/TouchableArea');

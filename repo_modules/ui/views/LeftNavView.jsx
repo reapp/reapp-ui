@@ -1,5 +1,4 @@
 var React = require('react');
-var Merge = require('react/lib/merge');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
 var LeftNavBehavior = require('./LeftNavBehavior');
 var DraggableViewBehavior = require('./DraggableViewBehavior');
@@ -111,7 +110,7 @@ var LeftNavView = React.createClass({
     };
 
     if (isNavOpen) {
-      side = AnimatableContainer(Merge(sideProps, { style: sideStyle }),
+      side = AnimatableContainer(Object.assign({}, sideProps, { style: sideStyle }),
         React.DOM.div({
           style: sideContainerStyle,
           onClick: this._handleContentTouchTap
@@ -136,7 +135,7 @@ var LeftNavView = React.createClass({
 
     var handleProps = draggableProps.containerProps;
     if (this.props.handleStyle)
-      handleProps.style = Merge(this.props.handleStyle, handleProps.style);
+      handleProps.style = Object.assign({}, this.props.handleStyle, handleProps.style);
 
     return this.transferPropsTo(
       React.DOM.div({style: wrapperStyle},

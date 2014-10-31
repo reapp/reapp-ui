@@ -1,12 +1,11 @@
 var React = require('react');
 var ReactStyle = require('react-style');
-var Merge = require('react/lib/merge');
 var Icon = require('./Icon');
 
 require('./Button.styl');
 
 var Button = React.createClass({
-  styles: (styleProps) => Merge({
+  styles: (styleProps) => Object.assign({}, {
     fontSize: '16px',
     background: 'none',
     border: 'none',

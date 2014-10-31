@@ -1,7 +1,5 @@
-var Merge = require('react/lib/merge');
-
 module.exports = function(props) {
-  return Merge({
+  return Object.assign({}, {
     fontSize: '16px',
     backgroundColor: '#fff',
     textAlign: 'center',

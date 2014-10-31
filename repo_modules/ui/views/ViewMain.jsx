@@ -1,11 +1,10 @@
 var React = require('react/addons');
-var Merge = require('react/lib/merge');
 var ReactStyle = require('react-style');
 var cx = React.addons.classSet;
 var Transition = React.addons.CSSTransitionGroup;
 
 var ViewMain = React.createClass({
-  styles: (styles) => ReactStyle(Merge({
+  styles: (styles) => ReactStyle(Object.assign({}, {
     position: 'absolute',
     top: 0,
     left: 0,

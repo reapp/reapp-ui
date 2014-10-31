@@ -1,5 +1,4 @@
 var React = require('react');
-var Merge = require('react/lib/merge');
 var ViewList = require('./ViewList');
 
 var ParallaxViewList = React.createClass({
@@ -16,7 +15,7 @@ var ParallaxViewList = React.createClass({
       }
     };
 
-    var props = Merge(parallaxProps, this.props);
+    var props = Object.assign({}, parallaxProps, this.props);
     return ViewList(props);
   }
 });

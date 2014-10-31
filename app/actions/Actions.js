@@ -4,6 +4,7 @@ var { API } = require('./API');
 
 var Actions = module.exports = {
   articles() {
+    this.dispatch('test');
     API
       .get('topstories.json')
       .then(res => getArticles(res), err => err);

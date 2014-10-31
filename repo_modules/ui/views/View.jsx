@@ -1,10 +1,9 @@
 var React = require('react/addons');
-var Merge = require('react/lib/merge');
 var ReactStyle = require('react-style');
 var cx = React.addons.classSet;
 
 var View = React.createClass({
-  styles: (styles) => ReactStyle(Merge({
+  styles: (styles) => ReactStyle(Object.assign({}, {
     background: '#efeff4',
     overflowY: 'scroll',
     overflowX: 'hidden',

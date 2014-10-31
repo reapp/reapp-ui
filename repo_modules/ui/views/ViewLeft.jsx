@@ -1,5 +1,4 @@
 var React = require('react/addons');
-var Merge = require('react/lib/merge');
 var ReactStyle = require('react-style');
 var View = require('./View');
 var cx = React.addons.classSet;
