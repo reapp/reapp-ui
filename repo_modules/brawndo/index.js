@@ -1,29 +1,33 @@
-var React = require('react');
 var Fluxxor = require('fluxxor');
 var debug = require('debug')('g:flux');
-var GetStores = require('./lib/GetStores');
-var Client = require('./client');
+var StoreLoader = require('./lib/StoreLoader');
 var Dispatcher = require('./lib/Dispatcher');
 var ListStore = require('./lib/ListStore');
 var ItemStore = require('./lib/ItemStore');
-
-function init(stores, actions) {
-  var Flux = new Fluxxor.Flux(stores, actions);
-  Brawndo.Flux = Flux;
-  GetStores.init(Flux);
-  exposeFlux(Flux, stores, actions);
-}
+var Flux;
 
 var Brawndo = module.exports = {
-  init,
-  ListStore,
-  ItemStore,
-  Client,
-  Dispatcher,
-  GetStores: GetStores.GetStores,
+  Stores: { ListStore, ItemStore },
   StoreWatchMixin: Fluxxor.StoreWatchMixin,
-  FluxMixin: Fluxxor.FluxMixin(React)
+
+  init({ React, Actions, Stores }) {
+    Stores = initStores(Stores);
+    Actions = initActions(Actions);
+    Flux = new Fluxxor.Flux(Stores, Actions);
+    Brawndo.StoreLoader = StoreLoader.init(Flux);
+    Brawndo.FluxMixin = Fluxxor.FluxMixin(React);
+    exposeFlux(Flux, Stores, Actions);
+    return Flux;
+  }
 };
+
+function initActions(actions) {
+  return Object.keys(actions).map(key => {
+    return /Load$/.test(key) ?
+      Dispatcher.create.call(Flux, key, actions[key]) :
+      actions[key];
+  });
+}
 
 function exposeFlux(Flux, stores, actions) {
   var ENV = {

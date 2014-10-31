@@ -1,13 +1,13 @@
 var React = require('react');
 var Immstruct = require('immstruct');
 var ArticleComponent = require('../../components/articles/Article');
-var { GetStores } = require('brawndo');
+var { StoreLoader } = require('brawndo');
 
 var ArticlePage = React.createClass({
   displayName: 'ArticlePage',
 
   statics: {
-    getAsyncProps: (params) => GetStores('article', params)
+    getAsyncProps: (params) => StoreLoader('article', params)
   },
 
   getInitialState: () => ({ version: 0 }),

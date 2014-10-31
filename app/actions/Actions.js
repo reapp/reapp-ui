@@ -1,53 +1,27 @@
-var { Client, Dispatcher } = require('brawndo');
 var _ = require('lodash-node');
-var invariant = require('react/lib/invariant');
 var { Promise } = require('when');
+var Client = require('client');
 
-var Actions = {
-  articlesLoad() {
-    var url = 'https://hacker-news.firebaseio.com/v0/topstories.json';
-    Dispatcher.create.call(this, 'articles', (success, fail) => {
-      Client.get(url,
-        (articles) => callbackFromPromise(getArticles(articles), success, fail),
-        (error) => fail(error)
-      );
-    });
-  },
+Client.setBase('https://hacker-news.firebaseio.com/v0/');
 
-  articleLoad(params) {
-    var url = `https://hacker-news.firebaseio.com/v0/item/${params.id}.json`;
-    Dispatcher.create.call(this, 'article', params, (success, fail) => {
-      Client.get(url,
-        (article) => callbackFromPromise(getComments(article), success, fail),
-        (error) => fail(error)
-      );
-    });
-  },
+var Actions = module.exports = {
+  articlesLoad: () => Client.get('topstories.json').then(
+    res => getArticles(res),
+    err => err
+  ),
 
-  userLoad(params) {
-    var url = `https://hacker-news.firebaseio.com/v0/user/${params.id}.json`;
-    Dispatcher.create.call(this, 'user', params, (success, fail) => {
-      Client.get(url,
-        (user) => success(user),
-        (error) => fail(error)
-      );
-    });
-  }
+  articleLoad: params => Client.get(`item/${params.id}.json`).then(
+    res => getAllKids(res),
+    err => err
+  ),
+
+  userLoad: params => Client.get(`user/${params.id}.json`)
 };
-
-function callbackFromPromise(promise, success, fail) {
-  promise.then(res => success(res));
-  // todo: fail
-}
 
 function getArticles(articles) {
   return Promise.all(_.map(_.first(articles, 10),
     article => Client.get(`https://hacker-news.firebaseio.com/v0/item/${article}.json`)
   ));
-}
-
-function getComments(article) {
-  return getAllKids(article);
 }
 
 function getAllKids(item) {
@@ -69,5 +43,3 @@ function getAllKids(item) {
       });
   }
 }
-
-module.exports = Actions;

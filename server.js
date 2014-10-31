@@ -87,7 +87,7 @@ function renderProductionApp(app, path, styleUrl, scriptUrl) {
         reject({ redirect: true, to: '/' + ar.to + '/' + ar.params.id,  }); // todo finish
       }
 
-      var HTML = fs.readFileSync(__dirname + '/app/index.html').toString();
+      var HTML = fs.readFileSync(__dirname + '/app/assets/index.html').toString();
       var output = HTML
         .replace('<!-- CONTENT -->', html)
         .replace('<!-- DATA -->', '<script>window.ROUTER_PROPS = ' + JSON.stringify(data) + ';</script>')

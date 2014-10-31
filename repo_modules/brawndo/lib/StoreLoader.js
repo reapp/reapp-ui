@@ -1,23 +1,20 @@
 var _ = require('lodash-node');
 var { Promise } = require('when');
-var debug = require('debug')('g:flux:GetStores');
+var debug = require('debug')('g:flux:StoreLoader');
 
 var Flux;
 var storePromises = {};
 
-var GetStores = function(storeNames, params) {
+function StoreLoader(name, params) {
   var promises = {};
+  var hash = name + _.map(params, (h,k) => ""+h+k);
+  var store = Flux.store(name);
 
-  [].concat(storeNames).forEach(function(name) {
-    var hash = name + _.map(params, (h,k) => ""+h+k);
-    var store = Flux.store(name);
-
-    promises[name] = promiseForStore(hash, store);
-    Flux.actions[name + 'Load'](params);
-  });
+  promises[name] = promiseForStore(hash, store);
+  Flux.actions[name + 'Load'](params);
 
   return promises;
-};
+}
 
 function promiseForStore(hash, store) {
   storePromises[hash] = storePromises[hash] || new Promise((res, rej) => {
@@ -29,6 +26,8 @@ function promiseForStore(hash, store) {
 }
 
 module.exports = {
-  GetStores,
-  init(flux) { Flux = flux; }
+  init(flux) {
+    Flux = flux;
+    return StoreLoader;
+  }
 };
