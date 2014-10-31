@@ -1,13 +1,13 @@
 var React = require('react/addons');
 var Immstruct = require('immstruct');
 var Articles = require('../components/articles/Articles');
-var { FluxMixin, StoreLoader } = require('brawndo');
+var Brawndo = require('brawndo');
 
 var ArticlesPage = React.createClass({
   displayName: 'ArticlesPage',
-  mixins: [FluxMixin],
+  mixins: [Brawndo.FluxMixin],
   statics: {
-    getAsyncProps: () => StoreLoader('articles')
+    getAsyncProps: () => Brawndo.StoreLoader('articles')
   },
 
   getInitialState: () => ({ version: 0 }),

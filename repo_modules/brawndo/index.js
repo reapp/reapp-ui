@@ -12,7 +12,7 @@ var Brawndo = module.exports = {
 
   init({ React, Actions, Stores }) {
     initStores(Stores);
-    initActions(Actions);
+    initActions(Stores, Actions);
     Flux = new Fluxxor.Flux(Stores, Actions);
     Brawndo.StoreLoader = StoreLoader.init(Flux);
     Brawndo.FluxMixin = Fluxxor.FluxMixin(React);
@@ -21,11 +21,22 @@ var Brawndo = module.exports = {
   }
 };
 
-function initActions(actions) {
+var loadWithDispatcher = function(name, action) {
+  var self = this;
+  var dispatchLoad = () => self.dispatch(`LOAD_${name}`);
+  var dispatchSuccess = () => self.dispatch(`LOAD_${name}_SUCCESS`);
+  var dispatchFail = () => self.dispatch(`LOAD_${name}_FAIL`);
+
+  return dispatchLoad() && Promise(action()).then(dispatchSuccess, dispatchFail);
+};
+
+function initActions(stores, actions) {
   Object.keys(actions).map(key => {
-    if (/Load$/.test(key)) {
-      actions[key] = Dispatcher.create.call(this, key, actions[key]);
-    }
+    // if name of store == action, set it up as a loader
+    if (stores[key])
+      actions[key] = function() {
+        loadWithDispatcher.call(this, key, actions[key]);
+      };
   });
 }
 

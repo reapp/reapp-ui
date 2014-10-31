@@ -11,7 +11,7 @@ function StoreLoader(name, params) {
   var store = Flux.store(name);
 
   promises[name] = promiseForStore(hash, store);
-  Flux.actions[name + 'Load'](params);
+  Flux.actions[name](params);
 
   return promises;
 }
