@@ -17,22 +17,23 @@ module.exports = Component('ArticleItem', mixins,
       article: true
     };
 
+    //<Link to="user" params={{id: article.get('by')}} activeClassName="">
     var articleLeft = (
       <div className="article--left">
-        <h3>{article.get('title')}</h3>
-        <ul>
-          <li className="score">
-            <span>{article.get('score')}</span>
-          </li>
-          <li>
-            <Link to="user" params={{id: article.get('by')}} activeClassName="">
-              {article.get('by')}
-            </Link>
-          </li>
-          <li className="time">
-            <Time date={new Date(article.get('time') * 1000)} autoUpdate />
-          </li>
-        </ul>
+        <a className="article--link" href={article.get('url')}>
+          <h3>{article.get('title')}</h3>
+          <ul>
+            <li className="score">
+              <span>{article.get('score')}</span>
+            </li>
+            <li>
+                {article.get('by')}
+            </li>
+            <li className="time">
+              <Time date={new Date(article.get('time') * 1000)} autoUpdate />
+            </li>
+          </ul>
+        </a>
       </div>
     );
 

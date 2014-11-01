@@ -10,11 +10,18 @@ var Icon = React.createClass({
     };
 
     var classes = {};
-    classes['icon-' + this.props.size] = !!this.props.size;
-    classes['ios-icon-' + this.props.type] = true;
+    // classes['icon-' + this.props.size] = !!this.props.size;
+    // classes['ios-icon-' + this.props.type] = true;
 
     return this.transferPropsTo(
-      <span className={cx(classes)} style={style}></span>
+      <span className={cx(classes)} style={style}>
+        <svg
+          style={{width:40, height:40, color:'#000', background:'#ccc'}}
+          dangerouslySetInnerHTML={{__html:
+           '<use xlink:href="/icons/svg/'+ this.props.type +'.svg#Layer_1"></use>'
+         }}>
+        </svg>
+      </span>
     );
   }
 
