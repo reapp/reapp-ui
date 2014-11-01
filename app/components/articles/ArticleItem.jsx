@@ -40,7 +40,7 @@ module.exports = Component('ArticleItem', mixins,
     var articleRight = (
       <div className="article--right">
         <Link to="article" params={{id: article.get('id')}} activeClassName="">
-          <Icon size="lg" type="comment" />
+          <Icon type="speech" color="#999" />
         </Link>
       </div>
     );

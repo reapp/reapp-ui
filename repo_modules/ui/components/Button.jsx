@@ -39,7 +39,6 @@ var Button = React.createClass({
     var icon = <Icon
       type={this.props.type}
       color={styles.color}
-      size="2x"
       data-transform={this.props.iconTransforms} />;
 
     return this.transferPropsTo(

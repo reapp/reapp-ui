@@ -3,23 +3,37 @@ var React = require('react/addons');
 require('./Icon.css');
 var cx = React.addons.classSet;
 
-var Icon = React.createClass({
-  render() {
-    var style = {
-      color: this.props.color || null
-    };
+require('./Icon.styl');
 
-    var classes = {};
-    // classes['icon-' + this.props.size] = !!this.props.size;
-    // classes['ios-icon-' + this.props.type] = true;
+var Icon = React.createClass({
+  getDefaultProps() {
+    return {
+      size: 32,
+      color: '#777'
+    };
+  },
+
+  styles: (size, color) => ({
+    width: size,
+    height: size,
+    overflow: 'hidden',
+    color: color
+  }),
+
+  render() {
+    var { size, color } = this.props;
+    var classes = { icon: true };
+    var scale = size / 64;
 
     return this.transferPropsTo(
-      <span className={cx(classes)} style={style}>
+      <span className={cx(classes)} style={this.styles(size, color)}>
         <svg
-          style={{width:40, height:40, color:'#000', background:'#ccc'}}
-          dangerouslySetInnerHTML={{__html:
-           '<use xlink:href="/icons/svg/'+ this.props.type +'.svg#Layer_1"></use>'
-         }}>
+          viewBox="0 0 64 64"
+          style={{width:size, height:size, shapeRendering: 'crispEdges'}}>
+          <g
+            dangerouslySetInnerHTML={{__html:
+              '<use xlink:href="/icons/svg/'+ this.props.type +'.svg#Layer_1"></use>'
+            }} />
         </svg>
       </span>
     );
