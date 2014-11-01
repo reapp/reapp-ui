@@ -1,6 +1,4 @@
 var React = require('react/addons');
-
-require('./Icon.css');
 var cx = React.addons.classSet;
 
 require('./Icon.styl');

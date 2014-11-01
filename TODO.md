@@ -10,10 +10,12 @@ UI state
 - alerts/notifications
 - scroll positions
 
-ui: {
+ui:
 route
 element data (visible/scroll pos/sorts/forms)
-}
+
+icon - extract into package
+ - allow passing in icon type
 
 HN
 - frosted glass headers
