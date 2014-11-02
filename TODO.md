@@ -3,6 +3,9 @@ JEWELS
  - routing
       |-- data
 
+stores
+- paginatedstore
+
 UI state
 - routes
 - "active" elements
