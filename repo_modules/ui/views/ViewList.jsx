@@ -9,7 +9,7 @@ var { Scroller } = require('scroller');
 require('./ViewList.styl');
 
 var ViewList = React.createClass({
-  mixins: [Transforms.Mixin],
+  mixins: [Transforms.TransformerMixin],
 
   propTypes: {
     onTouchStart: React.PropTypes.func,

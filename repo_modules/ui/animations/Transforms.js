@@ -4,7 +4,11 @@ var Transforms = {};
 var WINDOW_WIDTH = window.innerWidth;
 var WINDOW_HEIGHT = window.innerHeight;
 
-Transforms.Mixin = {
+// This mixin is used with parents
+// Collects children that want transformation
+// Handles step updates
+
+Transforms.BaseMixin = {
   componentDidMount() {
     var node = this.getDOMNode();
     if (!node) return;
@@ -43,33 +47,104 @@ Transforms.Mixin = {
         this._getElementsWithTransforms(nodes, child, node.getAttribute('data-transform-index') || index, cb);
       });
     }
-  },
-
-  _doTransforms(step) {
-    if (!this._transforms) return;
-    this._transforms.forEach(transform => transformElement(transform, step));
   }
 };
 
-function transformElement(transform, step) {
-  var transforms = '';
-  var { el, index, name } = transform;
-  var { scale, rotate, translate, ...styles } = Transforms[name](index, step, el);
+// This is a simple mixin for transforming an element given a transform event
+// Depending on the type of transformer you use can be used by parents
+// or children.
 
-  if (defined(scale))
-    transforms += `scale(${scale}) `;
+Transforms.TransformMixin = {
+  _transformElement(transform, step) {
+    var transforms = '';
+    var { el, index, name } = transform;
+    var { scale, rotate, translate, ...styles } = Transforms[name](index, step, el);
 
-  if (defined(rotate))
-    transforms += `rotate3d(${rotate.x || 0},${rotate.y || 0},${rotate.z || 0}) `;
+    if (defined(scale))
+      transforms += `scale(${scale}) `;
 
-  if (defined(translate))
-    transforms += `translate3d(${translate.x || 0}px, ${translate.y || 0}px, ${translate.z || 0}px)`;
+    if (defined(rotate))
+      transforms += `rotate3d(${rotate.x || 0},${rotate.y || 0},${rotate.z || 0}) `;
 
-  if (styles)
-    Object.keys(styles).map(style => { el.style[style] = styles[style]; });
+    if (defined(translate))
+      transforms += `translate3d(${translate.x || 0}px, ${translate.y || 0}px, ${translate.z || 0}px)`;
 
-  el.style[StyleKeys.TRANSFORM] = transforms;
-}
+    if (styles)
+      Object.keys(styles).map(style => { el.style[style] = styles[style]; });
+
+    el.style[StyleKeys.TRANSFORM] = transforms;
+  }
+};
+
+// Transformers combine all the logic into the parent component
+// This is good for components where the children don't need to
+// react, just be animated, and the parent handles any logic necessary
+// as side effects of the animation (sending events, changing state)
+
+Transforms.TransformerMixin = Object.assign({},
+  Transforms.BaseMixin,
+  Transforms.TransformMixin,
+  {
+    _doTransforms(step) {
+      if (!this._transforms) return;
+      this._transforms.forEach(transform => {
+        this._transformElement(transform, step);
+      });
+    }
+  }
+);
+
+// The TransformEmitter flips the roles, the parent component just emits
+// events with the transform and step, and the child components can run
+// the transforms with the TransformReceiver mixin. This is better if you
+// want the child components to manage their state.
+
+Transforms.TransformEmitterMixin = Object.assign({},
+  Transforms.BaseMixin,
+  {
+    _doTransforms(step) {
+      if (!this._transforms) return;
+      this._transforms.forEach(transform => {
+        this._emitTransformEvent(transform, step);
+      });
+    },
+
+    _emitTransformEvent(transform, step) {
+      var transformEvent = new CustomEvent('transformed', {
+        transform: transform,
+        step: step
+      });
+
+      transform.el.dispatchEvent(transformEvent);
+    }
+  }
+);
+
+
+// Mix this in with children of a TransformEmitter parent
+
+Transforms.TransformReceiverMixin = Object.assign({},
+  Transforms.TransformMixin,
+  {
+    componentDidMount() {
+      this.getDOMNode().addEventListener('transformed', this._handleTransformed);
+    },
+
+    componentWillUnmount() {
+      this.getDOMNode().removeEventListener('transformed');
+    },
+
+    _handleTransformed(e) {
+      this._transformElement(e.transform, e.step);
+
+      // If you want to change state, you can add this code in your child:
+      // if (this.state.step !== e.step)
+      //  this.setState({ step: e.step });
+
+      return false; // stop bubbling
+    }
+  }
+);
 
 function defined(variable) {
   return typeof variable !== 'undefined';
