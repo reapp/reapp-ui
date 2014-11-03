@@ -7,26 +7,28 @@ require('./List.styl');
 
 var List = React.createClass({
   styles: {
-    list: ReactStyle({
-      background: '#fff',
-      borderTop: '1px solid #c8c7cc',
-      borderBottom: '1px solid #c8c7cc',
-      margin: '-10px 0 0',
-      padding: '0 0 0 10px',
-      zIndex: 101,
-    }),
+    background: '#fff',
+    borderTop: '1px solid #c8c7cc',
+    borderBottom: '1px solid #c8c7cc',
+    margin: '-10px 0 0',
+    padding: '0 0 0 10px',
+    zIndex: 101,
   },
 
   render() {
     var classes = { List: true };
-    if (this.props.className) classes[this.props.className] = true;
+    classes[this.props.className] = !!this.props.className;
 
     return (
-      <ul className={cx(classes)} styles={[this.styles.list, this.props.styles]}>
-        {React.Children.map(this.props.children, (li, i) => {
-          var classes = li.props.to ? 'ios-icon-angle-right' : '';
-          return <ListItem key={li.key || i} className={classes}>{li.content || li}</ListItem>;
-        })}
+      <ul className={cx(classes)} styles={[this.styles, this.props.style].map(ReactStyle)}>
+        {React.Children.map(this.props.children, (li, i) => (
+          <ListItem
+            key={li.key || i}
+            isLink={li.props.to ? true : false}
+            style={this.props.liStyle}>
+            {li.content || li}
+          </ListItem>
+        ))}
       </ul>
     );
   }

@@ -1,5 +1,5 @@
-.list-item {
-  &:first-child .list-item__content {
+.ListItem {
+  &:first-child {
     border-top: none;
   }
 
@@ -8,11 +8,16 @@
   }
 }
 
-.list-item__content {
+.ListItem {
   border-top: 1px solid #c8c7cc;
   position: relative
   flex-flow: row;
   justify-content: space-between;
+  padding: 12px 0;
+
+  & > a {
+    padding: 0;
+  }
 
   * {
     max-width: 100%;
@@ -23,6 +28,7 @@
     order: 1;
     margin: auto 0;
     flex: 1;
+    padding: 12px 0;
   }
 
   &.ios-icon-angle-right:before {

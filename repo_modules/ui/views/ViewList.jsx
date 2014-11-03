@@ -141,6 +141,7 @@ var ViewList = React.createClass({
   makeTitles(titles) {
     var titleBars = titles.map((title, i) => (
       TitleBar({
+        key: `title-${i}`,
         left: title[0],
         right: title[2],
         index: i,
@@ -160,7 +161,7 @@ var ViewList = React.createClass({
   makeViews(contents) {
     return Object.keys(contents).map((id, i) => (
       View({
-        key: i,
+        key: `view-${i}`,
         id: id,
         'data-transform': this.props.transform,
         'data-transform-index': i,

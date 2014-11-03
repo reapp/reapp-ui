@@ -6,23 +6,19 @@ require('./ListItem.styl');
 
 var ListItem = React.createClass({
   styles: {
-    li: ReactStyle({
-      listStyle: 'none',
-      margin: 0,
-      padding: 0,
-      overflow: 'hidden'
-    })
+    listStyle: 'none',
+    margin: 0,
+    padding: 0,
+    overflow: 'hidden'
   },
 
   render() {
-    var contentClasses = { 'list-item__content': true };
-    if (this.props.className) contentClasses[this.props.className] = true;
+    var classes = { 'ListItem': true };
+    classes[this.props.className] = !!this.props.className;
 
     return (
-      <li className="ListItem" styles={this.styles.li}>
-        <div className={cx(contentClasses)}>
-          {this.props.children}
-        </div>
+      <li className={cx(classes)} styles={[this.styles, this.props.style].map(ReactStyle)}>
+        {this.props.children}
       </li>
     );
   }

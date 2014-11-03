@@ -32,6 +32,7 @@ module.exports = function(options) {
     'wav|mp3': 'file-loader',
     'html': 'html-loader',
     'md|markdown': ['html-loader', 'markdown-loader'],
+    // /lodash-node/, path.resolve("./replaceWithLodash")
   };
 
   var stylesheetLoaders = {
