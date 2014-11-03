@@ -17,8 +17,8 @@ var PopoversPage = React.createClass({
           Popovers
         </TitleBar>
         <Block>
-          <p>Popovers are <PopoverLink to="popover1">menus</PopoverLink>
-          that will float above an element that triggers them. Apple recommends
+          <p>Popovers are <PopoverLink to="popover1">menus</PopoverLink> that
+          will float above an element that triggers them. Apple recommends
           to use popovers on iPad, not smaller mobile devices. For iPhone, use
           actions and modals.</p>
         </Block>
