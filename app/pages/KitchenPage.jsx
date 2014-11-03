@@ -19,7 +19,7 @@ var KitchenPage = module.exports = React.createClass({
           <ListTitle>Kitchen Sink</ListTitle>
           <List>
             <Link to="modals">Modals</Link>
-            <Link to="popover">Popovers</Link>
+            <Link to="popovers">Popovers</Link>
             <Link to="tabs">Tabs</Link>
             <Link to="sidePanels">Side Panels</Link>
             <Link to="listView">List Views</Link>
@@ -28,7 +28,7 @@ var KitchenPage = module.exports = React.createClass({
           <ListTitle>Kitchen Sink</ListTitle>
           <List>
             <Link to="modals">Modals</Link>
-            <Link to="popover">Popovers</Link>
+            <Link to="popovers">Popovers</Link>
             <Link to="tabs">Tabs</Link>
             <Link to="sidePanels">Side Panels</Link>
             <Link to="listView">List Views</Link>

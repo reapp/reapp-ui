@@ -6,7 +6,7 @@ var ImageRoll = require('./pages/ImageRollPage');
 var Viewer = require('./pages/ViewerPage');
 var Kitchen = require('./pages/KitchenPage');
 var Modals = require('./pages/Kitchen/ModalsPage');
-var Popover = require('./pages/Kitchen/PopoverPage');
+var Popovers = require('./pages/Kitchen/PopoversPage');
 var Tabs = require('./pages/Kitchen/TabsPage');
 var SidePanels = require('./pages/Kitchen/SidePanelsPage');
 var ListView = require('./pages/Kitchen/ListViewPage');
@@ -25,7 +25,7 @@ module.exports = {
 
           <Route name="kitchen" handler={Kitchen}>
             <Route name="modals" handler={Modals} />
-            <Route name="popover" handler={Popover} />
+            <Route name="popovers" handler={Popovers} />
             <Route name="tabs" handler={Tabs} />
             <Route name="sidePanels" handler={SidePanels} />
             <Route name="listView" handler={ListView} />

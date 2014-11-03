@@ -29,7 +29,7 @@ var Button = React.createClass({
 
   render() {
     var children;
-    var { style, transforms, iconProps } = this.props;
+    var { style, transforms, iconProps, ...props } = this.props;
     var styles = this.styles(style);
 
     if (this.props.children) {
@@ -45,8 +45,9 @@ var Button = React.createClass({
     iconProps.style.color = iconProps.style.color || styles.color;
     var icon = <Icon {...iconProps} />;
 
-    return this.transferPropsTo(
+    return (
       <button
+        {...props}
         style={styles}
         className={'button-' + this.props.type}>
         {icon}

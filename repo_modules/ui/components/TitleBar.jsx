@@ -26,7 +26,7 @@ var TitleBar = React.createClass({
   addIconTransform(component) {
     return ReactDescriptor.isValidDescriptor(component) ?
       React.addons.cloneWithProps(component, {
-        iconProps: { transforms: 'MOVE_TO_RIGHT' }
+        iconProps: Object.assign({}, { transforms: 'MOVE_TO_RIGHT' }, component.props.iconProps)
       }) :
       component;
   },
