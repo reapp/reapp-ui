@@ -13,7 +13,7 @@ var SIDE_WIDTH = 200;
 
 var Layout = React.createClass({
   // this is a mess, button / draggableview
-  button: <Button id="hamburger" type="hamburger" style={{
+  button: <Button id="hamburger" iconProps={{type: 'hamburger'}} style={{
     position: 'absolute',
     zIndex: 1001,
     top: -3,

@@ -24,7 +24,6 @@ var List = React.createClass({
         {React.Children.map(this.props.children, (li, i) => (
           <ListItem
             key={li.key || i}
-            isLink={li.props.to ? true : false}
             style={this.props.liStyle}>
             {li.content || li}
           </ListItem>
