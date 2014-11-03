@@ -111,8 +111,10 @@ Transforms.TransformEmitterMixin = Object.assign({},
 
     _emitTransformEvent(transform, step) {
       var transformEvent = new CustomEvent('transformed', {
-        transform: transform,
-        step: step
+        detail: {
+          transform: transform,
+          step: step
+        }
       });
 
       transform.el.dispatchEvent(transformEvent);
@@ -127,7 +129,7 @@ Transforms.TransformReceiverMixin = Object.assign({},
   Transforms.TransformMixin,
   {
     componentDidMount() {
-      this.getDOMNode().addEventListener('transformed', this._handleTransformed);
+      this.getDOMNode().addEventListener('transformed', this._handleTransformed.bind(this));
     },
 
     componentWillUnmount() {
@@ -135,7 +137,7 @@ Transforms.TransformReceiverMixin = Object.assign({},
     },
 
     _handleTransformed(e) {
-      this._transformElement(e.transform, e.step);
+      this._transformElement(e.detail.transform, e.detail.step);
 
       // If you want to change state, you can add this code in your child:
       // if (this.state.step !== e.step)

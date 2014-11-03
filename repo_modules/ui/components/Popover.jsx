@@ -21,7 +21,14 @@ var Popover = React.createClass({
 
   componentDidMount() {
     window.addEventListener(`popover-${this.props.id}`, e => {
-      this.setState({ open: true });
+      var el = e.detail.boundingRect;
+      var list = this.refs.list.getDOMNode();
+
+      this.setState({
+        open: true,
+        left: el.width / 2 + (el.left - window.scrollX) - (list.clientWidth / 2),
+        top: el.height + (el.top - window.scrollY),
+      });
     });
   },
 
@@ -29,14 +36,15 @@ var Popover = React.createClass({
     window.removeEventListener(`popover-${this.props.id}`);
   },
 
-  styles: (STYLE) => ({
+  styles: (STYLE, state) => ({
     bg: {
+      visibility: state.open ? 'visible' : 'hidden',
       position: 'fixed',
       top: 0,
       left: 0,
       right: 0,
       bottom: 0,
-      zIndex: 15000,
+      zIndex: state.open ? 15000 : -1,
       background: STYLE.bg
     },
 
@@ -53,9 +61,11 @@ var Popover = React.createClass({
         transform: 'rotate(45deg)',
       },
 
+      position: 'absolute',
+      top: state.top,
+      left: state.left,
       fontSize: '16px',
       background: STYLE.listBg,
-      margin: 'auto',
       padding: 0,
       borderRadius: 5,
       textAlign: 'center'
@@ -72,9 +82,8 @@ var Popover = React.createClass({
   }),
 
   render() {
-    if (!this.state.open) return null;
     var { className, listStyle, itemStyle, style, styleVars, ...props } = this.props;
-    var styles = this.styles(styleVars);
+    var styles = this.styles(styleVars, this.state);
     var classes = { Popover: true };
 
     classes[className] = !!className;
@@ -82,9 +91,12 @@ var Popover = React.createClass({
     return (
       <div
         {...props}
+        ref="bg"
         styles={[styles.bg, style].map(ReactStyle)}
         className={cx(classes)}>
-        <ul styles={[styles.list, listStyle].map(ReactStyle)}>
+        <ul
+          ref="list"
+          styles={[styles.list, listStyle].map(ReactStyle)}>
           {React.Children.map(this.props.children, (li, i) => (
             <li key={i} styles={[styles.item, itemStyle].map(ReactStyle)}>
               {li}
