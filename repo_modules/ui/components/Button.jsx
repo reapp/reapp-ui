@@ -5,6 +5,10 @@ var Icon = require('./Icon');
 require('./Button.styl');
 
 var Button = React.createClass({
+  getDefaultProps() {
+    return { iconProps: {} };
+  },
+
   styles: (styleProps) => Object.assign({}, {
     fontSize: '16px',
     background: 'none',
@@ -25,21 +29,21 @@ var Button = React.createClass({
 
   render() {
     var children;
-    var styles = this.styles(this.props.style);
+    var { style, transforms, iconProps } = this.props;
+    var styles = this.styles(style);
 
     if (this.props.children) {
       var childStyle = { margin: 'auto' };
       children = <span
         style={childStyle}
-        data-transform={this.props.textTransforms}>
+        data-transform={transforms}>
         {this.props.children}
         </span>;
     }
 
-    var icon = <Icon
-      type={this.props.type}
-      color={styles.color}
-      data-transform={this.props.iconTransforms} />;
+    iconProps.style = iconProps.style || {};
+    iconProps.style.color = iconProps.style.color || styles.color;
+    var icon = <Icon {...iconProps} />;
 
     return this.transferPropsTo(
       <button

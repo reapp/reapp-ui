@@ -4,8 +4,6 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="64px" height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
 <g>
-	<g>
-		<polygon points="45.463,59.579 17.066,31.999 45.463,4.421 46.934,5.935 20.099,31.999 46.934,58.064 		"/>
-	</g>
+	<polygon points="45.463,59.579 17.066,31.999 45.463,4.421 46.934,5.935 20.099,31.999 46.934,58.064 		"/>
 </g>
 </svg>

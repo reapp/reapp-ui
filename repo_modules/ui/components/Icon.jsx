@@ -7,24 +7,32 @@ var Icon = React.createClass({
   getDefaultProps() {
     return {
       size: 32,
-      color: '#777'
+      style: { color: '#777' }
     };
   },
 
-  styles: (size, color) => ({
+  styles: (style, size) => (Object.assign({}, {
     width: size,
     height: size,
-    overflow: 'hidden',
-    color: color
-  }),
+    overflow: 'hidden'
+  }, style)),
 
   render() {
-    var { size, color } = this.props;
+    var { size, ...props } = this.props;
     var classes = { icon: true };
     var scale = size / 64;
 
-    return this.transferPropsTo(
-      <span className={cx(classes)} style={this.styles(size, color)}>
+    // todo:
+    // allow passing in props for svg (to be set as css?)
+    // something like css:
+    //  { 'g:first': { ...svgProps } }
+    //
+    // ex: allow passing these props:
+    // stroke="black" stroke-width="2" stroke-linecap="round" fill="none" stroke-linejoin="round"
+    // to first element in the svg file
+
+    return (
+      <span {...props} className={cx(classes)} style={this.styles(this.props.style, size)}>
         <svg
           viewBox="0 0 64 64"
           style={{width:size, height:size, shapeRendering: 'crispEdges'}}>

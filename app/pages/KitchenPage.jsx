@@ -12,14 +12,13 @@ var KitchenPage = React.createClass({
   title: 'Kitchen Sink',
 
   render() {
-    var KitchenTitle = <TitleBar>{this.title}</TitleBar>;
-
     var Handler = this.props.activeRouteHandler();
     if (Handler) Handler = <div className="drawer-parent">{Handler}</div>;
 
     return (
       <View id="KitchenSink">
-        <ViewLeft id="kitchenSinkLeftView" title={KitchenTitle}>
+        <ViewLeft id="kitchenSinkLeftView">
+          <TitleBar>{this.title}</TitleBar>
           <ListTitle>Kitchen Sink</ListTitle>
           <List>
             <Link to="modals">Modals</Link>
