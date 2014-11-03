@@ -5,6 +5,20 @@ var cx = React.addons.classSet;
 require('./Popover.styl');
 
 var Popover = React.createClass({
+  getInitialState() {
+    return { open: this.props.open || false };
+  },
+
+  componentDidMount() {
+    window.addEventListener(`popover-${this.props.id}`, e => {
+      this.setState({ open: true });
+    });
+  },
+
+  componentWillUnmount() {
+    window.removeEventListener(`popover-${this.props.id}`);
+  },
+
   styles: {
     background: '#fff',
     margin: 0,
@@ -13,6 +27,8 @@ var Popover = React.createClass({
   },
 
   render() {
+    if (!this.state.open) return null;
+
     var classes = { Popover: true };
     classes[this.props.className] = !!this.props.className;
 

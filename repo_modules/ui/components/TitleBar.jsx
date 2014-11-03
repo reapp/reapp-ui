@@ -5,6 +5,8 @@ var AnimatableContainer = require('../helpers/AnimatableContainer');
 var ReactDescriptor = require('react/lib/ReactDescriptor');
 var ToolbarStyle = require('../style/Toolbar');
 
+// todo: auto center buttons in titlebars, calc size
+
 require('./TitleBar.styl');
 
 var TitleBar = React.createClass({
