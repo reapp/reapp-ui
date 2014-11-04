@@ -6,19 +6,52 @@ require('./ListItem.styl');
 
 var ListItem = React.createClass({
   styles: {
-    listStyle: 'none',
-    margin: 0,
-    padding: 0,
-    overflow: 'hidden'
+    item: {
+      listStyle: 'none',
+      margin: 0,
+      padding: 0,
+      overflow: 'hidden',
+      flexFlow: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between'
+    },
+
+    before: {
+      flexShrink: 0,
+      flexWrap: 'nowrap'
+    },
+
+    after: {
+      flexShrink: 0,
+      marginLeft: 5,
+      whiteSpace: 'nowrap'
+    },
+
+    content: {
+      width: '100%'
+    }
+  },
+
+  makeSection(name, content) {
+    return content && (
+      <span
+        styles={[this.styles[name]].map(ReactStyle)}
+        className={`ListItem--${name}`}>
+        {content}
+      </span>
+    );
   },
 
   render() {
-    var classes = { 'ListItem': true };
-    classes[this.props.className] = !!this.props.className;
+    var { className, styles, children, before, after } = this.props;
+    var classes = { ListItem: true };
+    classes[className] = !!className;
 
     return (
-      <li className={cx(classes)} styles={[this.styles, this.props.style].map(ReactStyle)}>
-        {this.props.children}
+      <li className={cx(classes)} styles={[this.styles.item, styles].map(ReactStyle)}>
+        {this.makeSection('before', before)}
+        {this.makeSection('content', children)}
+        {this.makeSection('after', after)}
       </li>
     );
   }

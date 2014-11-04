@@ -19,7 +19,7 @@ var Icon = React.createClass({
 
   render() {
     var { size, ...props } = this.props;
-    var classes = { icon: true };
+    var classes = { Icon: true };
     var scale = size / 64;
 
     // todo:
