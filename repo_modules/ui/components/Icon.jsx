@@ -18,22 +18,24 @@ var Icon = React.createClass({
   }, style)),
 
   render() {
-    var { size, style, type, ...props } = this.props;
+    var { size, style, type, stroke, ...props } = this.props;
     var classes = { Icon: true };
     var scale = size / 64;
 
-    // todo:
-    // allow passing in props for svg (to be set as css?)
-    // something like css:
-    //  { 'g:first': { ...svgProps } }
-    //
-    // ex: allow passing these props:
-    // stroke="black" stroke-width="2" stroke-linecap="round" fill="none" stroke-linejoin="round"
-    // to first element in the svg file
+    var strokeProps;
+    if (stroke) {
+      strokeProps = {
+        stroke: style.color,
+        strokeWidth: stroke,
+        strokeLinecap: 'round'
+      };
+    }
 
     return (
       <span {...props} className={cx(classes)} style={this.styles(style, size)}>
         <svg
+          {...strokeProps}
+          fill={style.color}
           viewBox="0 0 64 64"
           style={{width:size, height:size, shapeRendering: 'crispEdges'}}>
           <g

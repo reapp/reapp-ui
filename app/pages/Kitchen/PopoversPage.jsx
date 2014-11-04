@@ -10,17 +10,14 @@ var { Link } = require('react-router');
 
 var PopoversPage = React.createClass({
   render() {
-    var MenuButton = (
+    var menu = (
       <PopoverLink to="popover1">
         <Button iconProps={{type: 'hamburger'}} />
       </PopoverLink>
     );
 
     return (
-      <DrawerView id="PopoversPage">
-        <TitleBar left={<BackButton />} right={MenuButton}>
-          Popovers
-        </TitleBar>
+      <DrawerView id="PopoversPage" title={[<BackButton />, 'Popovers', menu]}>
         <Block>
           <p>Popovers are <PopoverLink to="popover1">menus</PopoverLink> that
           will float above an element that triggers them. Apple recommends

@@ -8,11 +8,21 @@ var BackButton = module.exports = React.createClass({
   },
 
   render() {
+    var iconProps = {
+      size: 24,
+      type: 'left',
+      stroke: 4,
+      style: {
+        width: 18,
+        margin: '0 4px 0 -4px'
+      }
+    };
+
     return (
       <Button
         {...this.props}
         onClick={this.goBack}
-        iconProps={{size: 24, type: 'left', style: {width: 18, margin: '0 2px 0 -2px'} }}>
+        iconProps={iconProps}>
         Back
       </Button>
     );
