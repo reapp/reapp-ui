@@ -18,7 +18,7 @@ var Icon = React.createClass({
   }, style)),
 
   render() {
-    var { size, ...props } = this.props;
+    var { size, style, type, ...props } = this.props;
     var classes = { Icon: true };
     var scale = size / 64;
 
@@ -32,13 +32,13 @@ var Icon = React.createClass({
     // to first element in the svg file
 
     return (
-      <span {...props} className={cx(classes)} style={this.styles(this.props.style, size)}>
+      <span {...props} className={cx(classes)} style={this.styles(style, size)}>
         <svg
           viewBox="0 0 64 64"
           style={{width:size, height:size, shapeRendering: 'crispEdges'}}>
           <g
             dangerouslySetInnerHTML={{__html:
-              '<use xlink:href="/icons/svg/'+ this.props.type +'.svg#Layer_1"></use>'
+              '<use xlink:href="/icons/svg/'+ type +'.svg#Layer_1"></use>'
             }} />
         </svg>
       </span>

@@ -17,7 +17,7 @@ var Menu = React.createClass({
 
   render() {
     return (
-      <List className="menu" style={this.styles}>
+      <List className="menu" styles={this.styles}>
         {this.props.children}
       </List>
     );

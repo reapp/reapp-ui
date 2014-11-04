@@ -5,6 +5,10 @@ var cx = React.addons.classSet;
 require('./ListItem.styl');
 
 var ListItem = React.createClass({
+  statics: {
+    isListItem: true
+  },
+
   styles: {
     item: {
       listStyle: 'none',
@@ -13,22 +17,25 @@ var ListItem = React.createClass({
       overflow: 'hidden',
       flexFlow: 'row',
       alignItems: 'center',
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
+      minHeight: 44
     },
 
     before: {
       flexShrink: 0,
-      flexWrap: 'nowrap'
+      flexWrap: 'nowrap',
+      margin: '0 12px 0 0'
     },
 
     after: {
+      color: '#999',
       flexShrink: 0,
-      marginLeft: 5,
+      margin: '0 12px',
       whiteSpace: 'nowrap'
     },
 
     content: {
-      width: '100%'
+      flexGrow: 10
     }
   },
 

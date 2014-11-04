@@ -12,7 +12,7 @@ var List = React.createClass({
       borderTop: '1px solid #c8c7cc',
       borderBottom: '1px solid #c8c7cc',
       margin: '-10px 0 0',
-      padding: '0 0 0 10px',
+      padding: '0 0 0 12px',
       zIndex: 101,
       fontSize: '16px'
     },
@@ -32,13 +32,18 @@ var List = React.createClass({
 
     return (
       <ul className={cx(classes)} styles={listStyles.map(ReactStyle)}>
-        {React.Children.map(children, (li, i) => (
-          <ListItem
-            key={li.key || i}
-            style={liStyle}>
-            {li.content || li}
-          </ListItem>
-        ))}
+        {React.Children.map(children, (li, i) => {
+          if (li.type.isListItem)
+            return React.addons.cloneWithProps(li, { key: i });
+
+          return (
+            <ListItem
+              key={li.key || i}
+              style={liStyle}>
+              {li.content || li}
+            </ListItem>
+          );
+        })}
       </ul>
     );
   }

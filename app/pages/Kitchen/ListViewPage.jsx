@@ -12,11 +12,11 @@ var { Link } = require('react-router');
 
 var ListViewPage = React.createClass({
   render() {
-    var icon = <Icon name="contact" />;
+    var icon = <Icon type="contact" size="28" />;
     var badge = <Badge value="5" />;
 
     return (
-      <DrawerView id="ListViewPage" title="ListViewPage">
+      <DrawerView id="ListViewPage">
         <TitleBar left={<BackButton />}>
           Lists
         </TitleBar>
@@ -27,8 +27,8 @@ var ListViewPage = React.createClass({
         <ListTitle>List with Icons</ListTitle>
         <List>
           <ListItem before={icon} after="Whatup">Nate Wienert</ListItem>
-          <ListItem before={icon} after="Whatup">Nate Wienert</ListItem>
-          <ListItem before={icon} after="Whatup">Nate Wienert</ListItem>
+          <ListItem before={icon} after={badge}>Nate Wienert</ListItem>
+          <ListItem before={icon} after={icon}>Nate Wienert</ListItem>
         </List>
 
         <ListTitle>List with Links</ListTitle>

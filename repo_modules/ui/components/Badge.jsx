@@ -1,40 +1,39 @@
 var React = require('react/addons');
+var ReactStyle = require('react-style');
 var cx = React.addons.classSet;
 
 var Badge = React.createClass({
   getDefaultProps() {
     return {
       styles: {
-        background: '#777',
-        color: '#fff',
-        borderRadius: 100,
-        fontWeight: 'bold',
+        badge: {
+          background: '#999',
+          color: '#fff',
+          borderRadius: 100,
+          fontWeight: 'bold',
+        },
 
         text: {
-          margin: 'auto'
+          margin: 'auto 6px',
+          fontSize: '14px',
+          lineHeight: '20px',
+          fontWeight: 'normal'
         }
       }
     };
   },
 
-  style: (size) => ({
-    width: size,
-    height: size,
-  }),
-
   render() {
-    var { className, size, styles, ...props } = this.props;
-    var { text, ...styles } = styles;
+    var { children, value, className, size, styles, ...props } = this.props;
     var classes = { Badge: true };
     classes[className] = !!className;
 
     return (
       <div {...props}
         className={cx(classes)}
-        style={this.style(size)}
-        styles={styles}>
-        <span styles={[text].map(ReactStyle)}>
-          {this.props.children}
+        styles={[styles.badge].map(ReactStyle)}>
+        <span styles={[styles.text].map(ReactStyle)}>
+          {value || children}
         </span>
       </div>
     );
