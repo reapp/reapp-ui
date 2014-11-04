@@ -34,20 +34,32 @@ var TitleBar = React.createClass({
   },
 
   render() {
-    if (!this.props.children)
-      return null;
+    var { children, style, index } = this.props;
+    if (!children) return null;
+    var left, mid, right;
 
-    var left = this.props.left;
-    var mid = this.props.children;
-    var right = this.props.right;
-    var styles = this.styles(this.props.style);
+    if (Array.isArray(children)) {
+      left = children[0];
+      mid = children[1];
+      right = children[2];
+    }
+    else {
+      left = left;
+      mid = children;
+      right = right;
+    }
 
     // add icon transitions for left and right
     left = this.addIconTransform(left);
     right = this.addIconTransform(right);
 
     return (
-      <div ref="titlebar" className="TitleBar" data-transform="FADE_LEFT" data-transform-index={this.props.index} styles={styles}>
+      <div
+        ref="titlebar"
+        className="TitleBar"
+        data-transform="FADE_LEFT"
+        data-transform-index={index}
+        styles={this.styles(style)}>
         <div className="TitleBar--left">{left}</div>
         <div ref="mid" className="TitleBar--mid">{mid}</div>
         <div className="TitleBar--right">{right}</div>

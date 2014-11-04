@@ -28,7 +28,6 @@
     order: 1;
     margin: auto 0;
     flex: 1;
-    padding: 12px 0;
   }
 
   &.ios-icon-angle-right:before {
@@ -40,5 +39,24 @@
     margin: auto 0;
     color: #aaa;
     font-weight: bold;
+  }
+}
+
+.ListItem--content {
+  a {
+    width: 100%;
+    flex-flow: row;
+    justify-content: space-between;
+
+    &:after {
+      content: url(/icons/svg/right.svg);
+      transform: scale(0.3);
+      width: 24px;
+      height: 24px;
+      margin: auto 12px;
+      top: -6px;
+      position: relative;
+      opacity: 0.5;
+    }
   }
 }

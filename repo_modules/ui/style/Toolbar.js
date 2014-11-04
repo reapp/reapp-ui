@@ -4,7 +4,7 @@ module.exports = function(props) {
     backgroundColor: '#fff',
     textAlign: 'center',
     borderBottom: '1px solid #ccc',
-    zIndex: 100,
+    zIndex: 1000,
     position: 'fixed',
     top: 0,
     left: 0,

@@ -14,12 +14,10 @@ var ListViewPage = React.createClass({
   render() {
     var icon = <Icon type="contact" size="28" />;
     var badge = <Badge value="5" />;
+    var title = [<BackButton />, 'Lists'];
 
     return (
-      <DrawerView id="ListViewPage">
-        <TitleBar left={<BackButton />}>
-          Lists
-        </TitleBar>
+      <DrawerView id="ListViewPage" title={title}>
         <Block>
           <p>ListViewPage View</p>
         </Block>

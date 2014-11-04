@@ -1,16 +1,20 @@
 var React = require('react/addons');
 var ReactStyle = require('react-style');
 var View = require('./View');
+var TitleBar = require('../components/TitleBar');
 var cx = React.addons.classSet;
 
 var ViewLeft = React.createClass({
   render() {
-    var props = this.props;
+    var { className, children, title } = this.props;
     var classes = { ViewLeft: true };
-    classes[props.className] = !!props.className;
+    classes[className] = !!className;
 
     return (
-      <View className={cx(classes)}>{this.props.children}</View>
+      <div>
+        {title && TitleBar(null, title)}
+        <View className={cx(classes)}>{children}</View>
+      </div>
     );
   }
 });

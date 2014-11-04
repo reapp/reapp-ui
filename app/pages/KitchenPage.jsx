@@ -14,9 +14,8 @@ var KitchenPage = module.exports = React.createClass({
 
     return (
       <div id="KitchenSink">
-        <ViewLeft id="kitchenSinkLeftView">
-          <TitleBar>{this.title}</TitleBar>
-          <ListTitle>UI Elements</ListTitle>
+        <ViewLeft id="kitchenSinkLeftView" title={this.title}>
+          <ListTitle>Interface</ListTitle>
           <List>
             <Link to="popovers">Buttons &amp; Sliders</Link>
             <Link to="tabs">Tabs</Link>
@@ -24,16 +23,18 @@ var KitchenPage = module.exports = React.createClass({
             <Link to="popovers">Popovers</Link>
             <Link to="listView">Lists</Link>
             <Link to="modals">Forms</Link>
+            <Link to="modals">Grids</Link>
           </List>
 
           <ListTitle>Views</ListTitle>
           <List>
             <Link to="listView">View Lists</Link>
+            <Link to="listView">Drawers &amp; Externals</Link>
             <Link to="tabs">Tabs</Link>
             <Link to="sidePanels">Side Panels</Link>
           </List>
 
-          <ListTitle>Widgets</ListTitle>
+          <ListTitle>Suites</ListTitle>
           <List>
             <Link to="tabs">Graphs</Link>
             <Link to="sidePanels">Maps</Link>
