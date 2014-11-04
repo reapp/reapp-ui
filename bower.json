@@ -15,6 +15,7 @@
   ],
   "dependencies": {
     "normalize-css": "*",
-    "gss": "*"
+    "gss": "*",
+    "desandro/sticky-titles": "*"
   }
 }
