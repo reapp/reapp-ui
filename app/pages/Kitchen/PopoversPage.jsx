@@ -5,6 +5,7 @@ var PopoverLink = require('ui/components/PopoverLink');
 var TitleBar = require('ui/components/TitleBar');
 var Block = require('ui/components/Block');
 var Button = require('ui/components/Button');
+var BackButton = require('ui/components/buttons/BackButton');
 var { Link } = require('react-router');
 
 var PopoversPage = React.createClass({
@@ -15,7 +16,7 @@ var PopoversPage = React.createClass({
 
     return (
       <DrawerView id="PopoversPage">
-        <TitleBar right={MenuButton}>
+        <TitleBar left={<BackButton />} right={MenuButton}>
           Popovers
         </TitleBar>
         <Block>

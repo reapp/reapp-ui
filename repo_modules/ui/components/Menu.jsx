@@ -1,11 +1,10 @@
 var React = require('react');
-var ReactStyle = require('react-style');
 var List = require('./List');
 
 require('./Menu.styl');
 
 var Menu = React.createClass({
-  styles: ReactStyle({
+  styles: {
     background: '#000',
     border: '10px solid #000',
     position: 'absolute',
@@ -14,11 +13,11 @@ var Menu = React.createClass({
     padding: 0,
     width: '100%',
     height: '100%'
-  }),
+  },
 
   render() {
     return (
-      <List className="menu" styles={this.styles}>
+      <List className="menu" style={this.styles}>
         {this.props.children}
       </List>
     );
