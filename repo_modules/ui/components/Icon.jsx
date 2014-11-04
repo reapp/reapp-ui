@@ -26,7 +26,7 @@ var Icon = React.createClass({
     if (stroke) {
       strokeProps = {
         stroke: style.color,
-        strokeWidth: stroke,
+        strokeWidth: stroke * 4, // were scaling down from 64 / 2
         strokeLinecap: 'round'
       };
     }
