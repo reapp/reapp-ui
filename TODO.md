@@ -6,23 +6,20 @@ JEWELS
 stores
 - paginatedstore
 
-UI state
-- routes
-- "active" elements
-- form data
-- alerts/notifications
-- scroll positions
+UI
+- themeing
 
-ui:
-route
-element data (visible/scroll pos/sorts/forms)
+UI state
+- all elements attributes
+- routes
+- scroll positions
 
 icon - extract into package
  - allow passing in icon type
 
 HN
 - frosted glass headers
-- swipe left to add to "read later"
+- swipe right to add to "read later"
 - add refresh button
 
 LeftNavView

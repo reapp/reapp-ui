@@ -46,6 +46,10 @@ var Popover = React.createClass({
     });
   },
 
+  componentWillUnmount() {
+    window.removeEventListener(`popover-${this.props.id}`);
+  },
+
   getLeft(list, target) {
     var targetLeft = target.left - window.scrollX;
     var targetCenter =  targetLeft + target.width / 2;
@@ -70,10 +74,6 @@ var Popover = React.createClass({
     return arrowOnBottom ?
       Math.min(top, window.innerHeight - pad - list.clientHeight) :
       Math.max(top, pad);
-  },
-
-  componentWillUnmount() {
-    window.removeEventListener(`popover-${this.props.id}`);
   },
 
   styles: (STYLE, state) => ({
