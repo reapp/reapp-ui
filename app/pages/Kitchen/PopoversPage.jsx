@@ -9,7 +9,9 @@ var { Link } = require('react-router');
 
 var PopoversPage = React.createClass({
   render() {
-    var MenuButton = <Button iconProps={{type: 'hamburger'}} />;
+    var MenuButton = <PopoverLink to="popover1">
+      <Button iconProps={{type: 'hamburger'}} />
+    </PopoverLink>;
 
     return (
       <DrawerView id="PopoversPage">

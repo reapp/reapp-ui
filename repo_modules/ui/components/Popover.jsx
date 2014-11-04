@@ -7,6 +7,7 @@ require('./Popover.styl');
 var Popover = React.createClass({
   getDefaultProps() {
     return {
+      edgePadding: 10,
       styleVars: {
         bg: 'rgba(0,0,0,0.3)',
         listBg: 'rgba(255,255,255,0.95)',
@@ -16,20 +17,59 @@ var Popover = React.createClass({
   },
 
   getInitialState() {
-    return { open: this.props.open || false };
+    return {
+      open: this.props.open || false
+    };
+  },
+
+  componentWillReceiveProps(nextProps) {
+    var nextState = {};
+
+    if (nextProps.left && nextProps.top)
+      nextState = Object.assign(nextState, { left: nextProps.left, top: nextProps.top });
+    if (nextProps.open)
+      nextState = Object.assign(nextState, { open: nextProps.open });
+
+    this.setState(nextProps);
   },
 
   componentDidMount() {
     window.addEventListener(`popover-${this.props.id}`, e => {
-      var el = e.detail.boundingRect;
+      var target = e.detail.boundingRect;
       var list = this.refs.list.getDOMNode();
 
       this.setState({
         open: true,
-        left: el.width / 2 + (el.left - window.scrollX) - (list.clientWidth / 2),
-        top: el.height + (el.top - window.scrollY),
+        left: this.getLeft(list, target),
+        top: this.getTop(list, target)
       });
     });
+  },
+
+  getLeft(list, target) {
+    var targetLeft = target.left - window.scrollX;
+    var targetCenter =  targetLeft + target.width / 2;
+    var listCenter = list.clientWidth / 2;
+    var left = targetCenter - listCenter;
+    var pad = this.props.edgePadding;
+    return Math.max(
+      pad,
+      Math.min(left, window.innerWidth - pad - list.clientWidth)
+    );
+  },
+
+  getTop(list, target) {
+    var targetTop = target.top - window.scrollY;
+    var targetCenter = targetTop + target.height / 2;
+    var windowCenter = window.innerHeight / 2;
+    var arrowOnBottom = targetCenter > windowCenter;
+    var pad = this.props.edgePadding;
+    var top = arrowOnBottom ?
+      targetTop - list.clientHeight :
+      targetTop + target.height;
+    return arrowOnBottom ?
+      Math.min(top, window.innerHeight - pad - list.clientHeight) :
+      Math.max(top, pad);
   },
 
   componentWillUnmount() {
@@ -81,10 +121,15 @@ var Popover = React.createClass({
     }
   }),
 
+  handleClick(e) {
+    this.setState({ open: false });
+    e.preventDefault();
+  },
+
   render() {
     var { className, listStyle, itemStyle, style, styleVars, ...props } = this.props;
     var styles = this.styles(styleVars, this.state);
-    var classes = { Popover: true };
+    var classes = { Popover: true, open: this.state.open };
 
     classes[className] = !!className;
 
@@ -93,7 +138,8 @@ var Popover = React.createClass({
         {...props}
         ref="bg"
         styles={[styles.bg, style].map(ReactStyle)}
-        className={cx(classes)}>
+        className={cx(classes)}
+        onClick={this.handleClick}>
         <ul
           ref="list"
           styles={[styles.list, listStyle].map(ReactStyle)}>
