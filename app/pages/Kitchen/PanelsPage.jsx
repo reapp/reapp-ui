@@ -4,8 +4,8 @@ var DrawerView = require('ui/views/DrawerView');
 module.exports = React.createClass({
   render() {
     return (
-      <DrawerView title="Modals">
-        Modals view.
+      <DrawerView title="PanelsPage">
+        PanelsPage View
       </DrawerView>
     );
   }

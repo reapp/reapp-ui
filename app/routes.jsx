@@ -5,11 +5,14 @@ var User = require('./pages/UserPage');
 var ImageRoll = require('./pages/ImageRollPage');
 var Viewer = require('./pages/ViewerPage');
 var Kitchen = require('./pages/KitchenPage');
+var ViewLists = require('./pages/Kitchen/ViewListsPage');
 var Modals = require('./pages/Kitchen/ModalsPage');
 var Popovers = require('./pages/Kitchen/PopoversPage');
 var Tabs = require('./pages/Kitchen/TabsPage');
-var SidePanels = require('./pages/Kitchen/SidePanelsPage');
-var ListView = require('./pages/Kitchen/ListViewPage');
+var Panels = require('./pages/Kitchen/PanelsPage');
+var Lists = require('./pages/Kitchen/ListsPage');
+var Controls = require('./pages/Kitchen/ControlsPage');
+var Grids = require('./pages/Kitchen/GridsPage');
 
 module.exports = {
   init(App) {
@@ -24,11 +27,14 @@ module.exports = {
           </Route>
 
           <Route name="kitchen" handler={Kitchen}>
+            <Route name="controls" handler={Controls} />
             <Route name="modals" handler={Modals} />
             <Route name="popovers" handler={Popovers} />
             <Route name="tabs" handler={Tabs} />
-            <Route name="sidePanels" handler={SidePanels} />
-            <Route name="listView" handler={ListView} />
+            <Route name="panels" handler={Panels} />
+            <Route name="lists" handler={Lists} />
+            <Route name="viewLists" handler={ViewLists} />
+            <Route name="grids" handler={Grids} />
           </Route>
 
           <Route name="viewer" handler={Viewer} />

@@ -17,27 +17,25 @@ var KitchenPage = module.exports = React.createClass({
         <ViewLeft id="kitchenSinkLeftView" title={this.title}>
           <ListTitle>Interface</ListTitle>
           <List>
-            <Link to="popovers">Buttons &amp; Sliders</Link>
-            <Link to="tabs">Tabs</Link>
+            <Link to="controls">Controls</Link>
+            <Link to="lists">Lists</Link>
             <Link to="modals">Modals</Link>
             <Link to="popovers">Popovers</Link>
-            <Link to="listView">Lists</Link>
             <Link to="modals">Forms</Link>
             <Link to="modals">Grids</Link>
           </List>
 
           <ListTitle>Views</ListTitle>
           <List>
-            <Link to="listView">View Lists</Link>
-            <Link to="listView">Drawers &amp; Externals</Link>
-            <Link to="tabs">Tabs</Link>
-            <Link to="sidePanels">Side Panels</Link>
+            <Link to="viewLists">View Lists</Link>
+            <Link to="modals">Drawers &amp; Panels</Link>
+            <Link to="modals">Tabs</Link>
           </List>
 
           <ListTitle>Suites</ListTitle>
           <List>
-            <Link to="tabs">Graphs</Link>
-            <Link to="sidePanels">Maps</Link>
+            <Link to="modals">Graphs</Link>
+            <Link to="modals">Maps</Link>
           </List>
         </ViewLeft>
 

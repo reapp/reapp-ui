@@ -8,7 +8,7 @@ var Button = require('ui/components/Button');
 var BackButton = require('ui/components/buttons/BackButton');
 var { Link } = require('react-router');
 
-var PopoversPage = React.createClass({
+module.exports = React.createClass({
   render() {
     var menu = (
       <PopoverLink to="popover1">
@@ -33,5 +33,3 @@ var PopoversPage = React.createClass({
     );
   }
 });
-
-module.exports = PopoversPage;

@@ -10,7 +10,7 @@ var ListTitle = require('ui/components/ListTitle');
 var ListItem = require('ui/components/ListItem');
 var { Link } = require('react-router');
 
-var ListViewPage = React.createClass({
+module.exports = React.createClass({
   render() {
     var icon = <Icon type="contact" size="28" />;
     var badge = <Badge value="5" />;
@@ -52,16 +52,15 @@ var ListViewPage = React.createClass({
           <Link to="modals">Modals</Link>
           <Link to="popovers">Popovers</Link>
           <Link to="tabs">Tabs</Link>
-          <Link to="modals">Modals</Link>
-          <Link to="popovers">Popovers</Link>
-          <Link to="tabs">Tabs</Link>
-          <Link to="modals">Modals</Link>
-          <Link to="popovers">Popovers</Link>
-          <Link to="tabs">Tabs</Link>
+        </List>
+
+        <ListTitle>Media List</ListTitle>
+        <List itemType="media">
+          <ListItem before={icon} title="Media Item">
+            Lorem ipsum dolor sit amet I don't remember any more.
+          </ListItem>
         </List>
       </DrawerView>
     );
   }
 });
-
-module.exports = ListViewPage;
