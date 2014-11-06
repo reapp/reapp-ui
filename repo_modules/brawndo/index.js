@@ -22,10 +22,11 @@ var Brawndo = module.exports = {
 
 var loadWithDispatcher = function(name, action) {
   var self = this;
+  self.dispatch(`LOAD_${name}`);
+
   var dispatchSuccess = payload => self.dispatch(`LOAD_${name}_SUCCESS`, payload);
   var dispatchFail = payload => self.dispatch(`LOAD_${name}_FAIL`, payload);
 
-  this.dispatch(`LOAD_${name}`);
   action().done(
     res => dispatchSuccess(res),
     res => dispatchFail(res)

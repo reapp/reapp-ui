@@ -34,22 +34,23 @@ var Block = React.createClass({
     paddingLeft: '0.5rem'
   }),
 
-  render() {
-    var { width, styles, children } = this.props;
-    var widthStyle;
-
+  getWidthStyle(width) {
     if (typeof width === 'number')
-      widthStyle = ReactStyle({ flex: width });
-    else if (width)
-      widthStyle = ReactStyle({
-        flexBasis: width,
-        maxWidth: width
-      });
-    else
-      widthStyle = ReactStyle({ flex: 1 });
+      return { flex: width };
+
+    if (width)
+      return { flexBasis: width, maxWidth: width };
+
+    return { flex: 1 };
+  },
+
+  render() {
+    var { width, styles, pad, children } = this.props;
+    var widthStyle = this.getWidthStyle(width);
+    var otherStyles = { padding: Number(pad) * 20 };
 
     return (
-      <div styles={[this.style, width]}>
+      <div styles={[this.style].concat([widthStyle, otherStyles].map(ReactStyle))}>
         <div styles={styles}>
           {children}
         </div>

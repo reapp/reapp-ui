@@ -31,9 +31,15 @@ class DataStore extends Store {
     this.loading = false;
     this.error = null;
 
-    this.data = payload.reduce((acc, item) => {
+    this.data = [].concat(payload).reduce((acc, item) => {
       var clientId = _.uniqueId();
-      acc[clientId] = { id: clientId, data: item, status: 'OK' };
+
+      acc[clientId] = {
+        id: clientId,
+        data: item,
+        status: 'OK'
+      };
+
       return acc;
     }, {});
 
