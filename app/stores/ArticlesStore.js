@@ -1,2 +1,5 @@
-var { Stores } = require('brawndo');
-module.exports = new Stores.ListStore('articles');
+var Brawndo = require('brawndo');
+
+module.exports = Brawndo.createListStore({
+  name: 'articles'
+});

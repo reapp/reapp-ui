@@ -1,12 +1,12 @@
 var Fluxxor = require('fluxxor');
 var debug = require('debug')('g:flux');
 var StoreLoader = require('./lib/StoreLoader');
-var ListStore = require('./stores/ListStore');
-var ItemStore = require('./stores/ItemStore');
+var createListStore = require('./stores/createListStore');
 var Flux;
 
 var Brawndo = module.exports = {
-  Stores: { ListStore, ItemStore },
+  createListStore,
+
   StoreWatchMixin: Fluxxor.StoreWatchMixin,
 
   init({ React, Actions, Stores }) {
