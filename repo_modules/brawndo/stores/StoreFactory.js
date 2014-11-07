@@ -1,5 +1,7 @@
 var Fluxxor = require('fluxxor');
 
+window.stores = [];
+
 var Store = {
   name: name,
   emit: function() {},
@@ -16,7 +18,9 @@ function createStoreFactory(storeName, storeMixins, storeActions) {
   return function({ name, mixins, ...actions }) {
     var allMixins = [].concat(storeMixins || [], mixins || []);
     var allActions = [].concat(storeActions || [], actions || []);
-    return createStore(name, allMixins, allActions);
+    var store = createStore(name, allMixins, allActions);
+    window.stores.push(store);
+    return store;
   };
 }
 
@@ -32,6 +36,8 @@ function createStore(name, mixins, actions) {
           actions,
           mixinActions.map(ma => ma.call(this, name))
         );
+
+        console.log(allActions);
 
         this.bindActions(allActions);
       }
