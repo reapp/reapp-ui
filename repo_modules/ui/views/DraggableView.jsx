@@ -123,10 +123,12 @@ var DraggableView = React.createClass({
       scroller: this.props.scroller || this.scroller
     };
 
+    var viewProps = Object.assign({}, this.props.viewProps, {style: this.props.style });
+
     return (
       AnimatableContainer(containerProps,
         TouchableArea(touchableProps),
-        View(this.props.viewProps || null, this.props.children)
+        View(viewProps || null, this.props.children)
       )
     );
   }

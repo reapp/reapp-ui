@@ -22,7 +22,7 @@ var KitchenPage = module.exports = React.createClass({
             <Link to="modals">Modals</Link>
             <Link to="popovers">Popovers</Link>
             <Link to="modals">Forms</Link>
-            <Link to="modals">Grids</Link>
+            <Link to="grids">Grids</Link>
           </List>
 
           <ListTitle>Views</ListTitle>

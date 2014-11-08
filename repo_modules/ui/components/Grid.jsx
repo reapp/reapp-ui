@@ -1,10 +1,21 @@
-var React = require('react');
+var React = require('react/addons');
 var ReactStyle = require('react-style');
+var cx = React.addons.classSet;
 
 // from andreypopp/react-flexgrid
 
+var PAD_STYLE = ReactStyle({
+    padding: '15px',
+  });
+
+require('./Grid.styl');
+
 var Container = React.createClass({
-  style: ReactStyle({
+  getDefaultProps() {
+    return { pad: false };
+  },
+
+  styles: ReactStyle({
     boxSizing: 'border-box',
     display: 'flex',
     flexDirection: 'row',
@@ -14,17 +25,25 @@ var Container = React.createClass({
   }),
 
   render() {
-    var styles = [].concat(this.style, this.props.styles);
+    var { styles, className, children, pad, ...props } = this.props;
+    var styles = [].concat(this.styles, styles);
+    var classes = { 'Container': true };
+    classes[className] = !!className;
+
     return (
-      <div styles={styles}>
-        {this.props.children}
+      <div className={cx(classes)} styles={styles}>
+        {React.Children.map(children, child => React.addons.cloneWithProps(child, { pad: true }))}
       </div>
     );
   }
 });
 
 var Block = React.createClass({
-  style: ReactStyle({
+  getDefaultProps() {
+    return { pad: false };
+  },
+
+  styles: ReactStyle({
     boxSizing: 'border-box',
     display: 'flex',
     flexDirection: 'column',
@@ -35,22 +54,29 @@ var Block = React.createClass({
   }),
 
   getWidthStyle(width) {
+    var styles;
+
     if (typeof width === 'number')
-      return { flex: width };
+      styles = { flex: width };
+    else if (width)
+      styles = { flexBasis: width, maxWidth: width };
+    else
+      styles = { flex: 1 };
 
-    if (width)
-      return { flexBasis: width, maxWidth: width };
-
-    return { flex: 1 };
+    return ReactStyle(styles);
   },
 
   render() {
-    var { width, styles, pad, children } = this.props;
-    var widthStyle = this.getWidthStyle(width);
-    var otherStyles = { padding: Number(pad) * 20 };
+    var { width, styles, pad, children, className, ...props } = this.props;
+    var allStyles = [].concat(styles, this.styles, this.getWidthStyle(width), (pad ? PAD_STYLE : null));
+    var classes = { 'Block': true };
+    classes[className] = !!className;
 
     return (
-      <div styles={[this.style].concat([widthStyle, otherStyles].map(ReactStyle))}>
+      <div
+        {...props}
+        className={cx(classes)}
+        styles={allStyles}>
         <div styles={styles}>
           {children}
         </div>
@@ -59,4 +85,19 @@ var Block = React.createClass({
   }
 });
 
-module.exports = { Container, Block };
+var Pad = React.createClass({
+  render() {
+    var { styles, className, children, ...props } = this.props;
+    var allStyles = [].concat(PAD_STYLE, styles);
+    var classes = { 'Pad': true };
+    classes[className] = !!className;
+
+    return (
+      <div className={cx(classes)} styles={allStyles}>
+        {children}
+      </div>
+    );
+  }
+});
+
+module.exports = { Container, Block, Pad };

@@ -7,12 +7,12 @@ var TitleBar = require('../components/TitleBar');
 
 var DrawerView = React.createClass({
   render() {
-    var { title, ...props } = this.props;
+    var { title, styles, ...props } = this.props;
 
     return (
       <Drawer {...props}>
         {title && TitleBar(null, title)}
-        <View>
+        <View styles={styles}>
           {this.props.children}
         </View>
       </Drawer>

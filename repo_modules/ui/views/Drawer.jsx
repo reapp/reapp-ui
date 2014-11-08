@@ -1,20 +1,22 @@
 var React = require('react');
 var DraggableView = require('./DraggableView');
 
-var Drawer = React.createClass({
-  render() {
-    var defaultProps = {
-      className: 'drawer',
-      layer: 2, // todo integrate into app state to manage index
-      viewProps: Object.assign({}, { style: { paddingTop: 0 } }, this.props.style),
-      parents: this.props.parents
-    };
+/* Binding drawer specific stuff to draggableview */
 
-    var props = Object.assign({}, defaultProps, this.props);
-    var DraggableDrawer = DraggableView.bind(this, props);
+var Drawer = React.createClass({
+  getDefaultProps() {
+    return {
+      className: 'drawer',
+      layer: 2, // todo integrate w/ app state & manage index
+      viewProps: { style: { paddingTop: 0 } }
+    };
+  },
+
+  render() {
+    var { children, ...props } = this.props;
 
     return (
-      <DraggableDrawer>{this.props.children}</DraggableDrawer>
+      <DraggableView {...props}>{children}</DraggableView>
     );
   }
 });
