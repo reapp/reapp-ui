@@ -8,18 +8,19 @@ var Icon = require('ui/components/Icon');
 var Badge = require('ui/components/Badge');
 var ListTitle = require('ui/components/ListTitle');
 var ListItem = require('ui/components/ListItem');
+var ScrollableMixin = require('ui/mixins/Scrollable');
 var { Link } = require('react-router');
 
+var TouchableArea = require('ui/helpers/TouchableArea');
 var AnimatableContainer = require('ui/helpers/AnimatableContainer');
 var FrostedGlassContainer = require('ui/helpers/FrostedGlassContainer');
 var HEADER_HEIGHT = 44;
 
 module.exports = React.createClass({
-  getInitialState() {
-    return { scrollTop: 0 };
-  },
+  mixins: [ScrollableMixin({ scrollY: true })],
 
   render() {
+    var titleBarStyle = { background: 'rgba(255,255,255,0.8)', height:44 };
     var icon = <Icon type="contact" size="28" />;
     var badge = <Badge value="5" />;
     var title = [<BackButton />, 'Lists'];
@@ -36,7 +37,7 @@ module.exports = React.createClass({
         width: '100%',
         height: HEADER_HEIGHT,
         style: {borderBottom: '1px solid rgba(10, 10, 10, 0.1)'},
-        children: <TitleBar>Frosted glass overlay</TitleBar>
+        children: <TitleBar style={titleBarStyle}>Frosted glass overlay</TitleBar>
       }
     };
 
@@ -97,15 +98,17 @@ module.exports = React.createClass({
 
     return (
       <DrawerView id="ListViewPage">
-        <FrostedGlassContainer
-          className="GlassPage-container"
-          style={{height: maxHeight}}
-          overlays={overlays}
-          content={contentBox}>
-          <AnimatableContainer translate={{y: -this.state.scrollTop}} ref="content">
-            {content}
-          </AnimatableContainer>
-        </FrostedGlassContainer>
+        <TouchableArea scroller={this.scroller}>
+          <FrostedGlassContainer
+            className="GlassPage-container"
+            style={{height: maxHeight}}
+            overlays={overlays}
+            content={contentBox}>
+            <AnimatableContainer translate={{y: -this.state.scrollY}} ref="content">
+              {content}
+            </AnimatableContainer>
+          </FrostedGlassContainer>
+        </TouchableArea>
       </DrawerView>
     );
   }

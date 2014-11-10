@@ -1,59 +1,76 @@
-// Assumes you have a Scroller available
+var { Scroller } = require('scroller');
 
-var ScrollableMixin = {
-  getDefaultProps() {
-    return {
-      scrollBounce: true,
-      scrollX: true,
-      scrollY: true,
-      scrollSnap: false
-    };
-  },
+// this.props.contentWidth
+// this.props.contentHeight
 
-  getInitialState() {
-    return {
-      scrollXOffset: 0,
-      scrollYOffset: 0,
-      isClosed: false
-    };
-  },
+var Scrollable = function(props) {
+  return {
+    getDefaultProps() {
+      return Object.assign({}, {
+        scrollBounce: true,
+        scrollX: false,
+        scrollY: false,
+        scrollSnap: false
+      }, props);
+    },
 
-  componentWillMount() {
-    this.scroller = new Scroller(this._handleScroll, {
-      bouncing: this.props.scrollBounce,
-      scrollingX: this.props.scrollX,
-      scrollingY: this.props.scrollY,
-      snapping: this.props.scrollSnap
-    });
-  },
+    getInitialState() {
+      return {
+        scrollX: 0,
+        scrollY: 0,
+        isClosed: false
+      };
+    },
 
-  componentDidMount() {
-    this._measureScroll();
-    window.addEventListener('resize', this._measureScroll);
-  },
+    componentWillMount() {
+      this.scroller = new Scroller(this._handleScroll, {
+        bouncing: this.props.scrollBounce,
+        scrollingX: this.props.scrollX,
+        scrollingY: this.props.scrollY,
+        snapping: this.props.scrollSnap
+      });
+    },
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this._measureScroll);
-  },
+    componentDidMount() {
+      this._measureScroll();
+      window.addEventListener('resize', this._measureScroll);
+    },
 
-  _measureScroll() {
-    var node = this.getDOMNode();
-    this.scroller.setDimensions(
-      node.clientWidth,
-      node.clientHeight,
-      node.clientWidth * 2,
-      node.clientHeight
-    );
-    this.scroller.setSnapSize(node.clientWidth, node.clientHeight);
-    this.scroller.scrollTo(node.clientWidth, 0);
-  },
+    componentWillUnmount() {
+      window.removeEventListener('resize', this._measureScroll);
+    },
 
-  _handleScroll(x, y, z) {
-    this.setState({
-      scrollXOffset: x,
-      scrollYOffset: y
-    });
-  }
+    _measureScroll() {
+      var node = this.getDOMNode();
+      var content = this.refs.content;
+      var contentWidth, contentHeight;
+
+      if (content = content.getDOMNode()) {
+        contentWidth = content.clientWidth;
+        contentHeight = content.clientHeight;
+      }
+
+      this.scroller.setDimensions(
+        node.clientWidth,
+        node.clientHeight,
+        this.props.contentWidth || contentWidth || node.clientWidth,
+        this.props.contentHeight || contentHeight || node.clientHeight
+      );
+
+      if (this.props.scrollSnap)
+        this.scroller.setSnapSize(node.clientWidth, node.clientHeight);
+
+      this.scroller.scrollTo(node.clientWidth, 0);
+    },
+
+    _handleScroll(x, y, z) {
+      console.log('handle scroll', x, y)
+      this.setState({
+        scrollX: x,
+        scrollY: y
+      });
+    }
+  };
 };
 
-module.exports = ScrollableMixin;
+module.exports = Scrollable;
