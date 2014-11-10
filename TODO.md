@@ -1,10 +1,6 @@
-JEWELS
-      |-- ui
- - routing
-      |-- data
-
-stores
-- paginatedstore
+roadmap
+- strategy for managing styles
+- stores
 
 UI
 - themeing
