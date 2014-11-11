@@ -1,11 +1,15 @@
 var Fluxxor = require('fluxxor');
 var debug = require('debug')('g:flux');
 var StoreLoader = require('./lib/StoreLoader');
+
 var Flux;
+var _actions = {};
+var _stores = {};
 
 var Brawndo = module.exports = {
-  Actions: {},
-  Stores: {},
+  addStore,
+  getStore,
+  addActions,
 
   Mixins: {
     Loadable: require('./mixins/Loadable'),
@@ -14,25 +18,33 @@ var Brawndo = module.exports = {
 
   createStore: require('./lib/createStore'),
   createMixin: require('./lib/createMixin'),
-  addActions,
 
   StoreWatchMixin: Fluxxor.StoreWatchMixin,
 
   init(React) {
     initActions();
-    Flux = new Fluxxor.Flux(Brawndo.Stores, Brawndo.Actions);
+    Flux = new Fluxxor.Flux(_stores, _actions);
     Brawndo.StoreLoader = StoreLoader.init(Flux);
     Brawndo.FluxMixin = Fluxxor.FluxMixin(React);
-    exposeFlux(Flux);
+    exposeToBrowser(Flux);
     return Flux;
   }
 };
 
-function addActions(actions) {
-  Object.assign(Brawndo.Actions, actions);
+function addStore(name, store) {
+  _stores[name] = store;
+  console.log('added store', name, _stores);
 }
 
-// binds with Loadable stores
+function getStore(name) {
+  return _stores[name];
+}
+
+function addActions(actions) {
+  Object.assign(_actions, actions);
+}
+
+// works with Loadable stores
 var loadWithDispatcher = function(name, action) {
   var self = this;
   self.dispatch(`${name}:load`);
@@ -47,31 +59,26 @@ var loadWithDispatcher = function(name, action) {
 };
 
 function initActions() {
-  Object.keys(Brawndo.Actions).map(key => {
+  Object.keys(_actions).map(key => {
     // if name of store == action, set it up as a loader
-    if (Brawndo.Stores[key]) {
-      var action = Brawndo.Actions[key];
-      Brawndo.Actions[key] = function() {
+    if (_stores[key]) {
+      var action = _actions[key];
+      _actions[key] = function() {
         loadWithDispatcher.call(this, key, action);
       };
     }
   });
 }
 
-function exposeFlux(Flux) {
-  var ENV = {
-    CLIENT: typeof window !== 'undefined',
-    SERVER: typeof window === 'undefined'
-  };
-
-  if (ENV.CLIENT) {
-    window.stores = Brawndo.Stores;
-
+function exposeToBrowser(Flux) {
+  if (typeof window !== 'undefined') {
     Flux.on('dispatch', function(type, payload) {
       debug(type, payload);
     });
 
-    window.flux = window.flux || {};
-    window.flux.actions = Brawndo.Actions;
+    window.brawndo = {
+      stores: _stores,
+      actions: _actions,
+    };
   }
 }

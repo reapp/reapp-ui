@@ -1,5 +1,4 @@
 var Fluxxor = require('fluxxor');
-var { Promise } = require('when');
 var invariant = require('react/lib/invariant');
 
 module.exports = function({ name, mixins, actions, state, ...spec }) {
@@ -74,9 +73,9 @@ module.exports = function({ name, mixins, actions, state, ...spec }) {
 
   Store.setState = newState => {
     fluxxor.state = Object.assign({}, fluxxor.state, newState);
-    return this.Stores[name];
+    return this.getStore(name);
   };
 
   var FluxxorStore = Fluxxor.createStore(Store);
-  this.Stores[name] = new FluxxorStore();
+  this.addStore(name, new FluxxorStore());
 };
