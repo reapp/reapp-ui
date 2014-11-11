@@ -1,66 +1,62 @@
-var Fluxxor = require('fluxxor');
+var Brawndo = require('brawndo');
 var _ = require('lodash-node');
 
 var name = 'articles';
 
-var Store = Fluxxor.createStore({
+var Loadable = {
+  name: 'Loadable',
+  properties: {
+    loadState: undefined,
+  },
+  actions: {
+    onLoad: function(payload, next) {
+      this.loadState = 'loading';
+      next();
+    },
+    onLoadSuccess: function(payload, next) {
+      this.loadState = 'succeeded';
+      next(payload);
+    },
+    onLoadFail: function(payload, next) {
+      this.loadState = 'failed';
+      next(payload);
+    }
+  }
+};
+
+var Store = Brawndo.createStore({
   name: name,
 
-  initialize() {
-    this.loading = false;
-    this.data = {};
+  mixins: [Loadable],
 
-    var storeActions = {};
-    storeActions[`LOAD_${name}`] = this.onLoading;
-    storeActions[`LOAD_${name}_SUCCESS`] = this.onLoadingSuccess;
-    storeActions[`LOAD_${name}_FAIL`] = this.onLoadingFail;
-
-    this.bindActions(storeActions);
+  actions: {
+    test: function() {}
   },
 
+  data: {},
+
   reducePayload(payload) {
-    return payload.reduce((acc, item) => {
+    return [].concat(payload).reduce((acc, item) => {
       var clientId = _.uniqueId();
       acc[clientId] = { id: clientId, data: item, status: 'OK' };
       return acc;
     }, {});
   },
 
-  onLoading() {
-    this.loading = true;
-    this.emit('change');
-  },
+  onLoadable(action, payload) {
+    switch(action) {
+      case 'onLoadingSuccess':
+        this.data = reducePayload(payload);
+        break;
 
-  onLoadingSuccess(payload) {
-    this.loading = false;
-    this.error = null;
-
-    this.data = [].concat(payload).reduce((acc, item) => {
-      var clientId = _.uniqueId();
-
-      acc[clientId] = {
-        id: clientId,
-        data: item,
-        status: 'OK'
-      };
-
-      return acc;
-    }, {});
+      case 'onLoadingFail':
+        this.data = undefined;
+        this.error = payload;
+    }
 
     this.emit('change');
-  },
-
-  onLoadingFail(payload) {
-    this.loading = false;
-    this.error = payload;
-    this.emit('change');
-  },
-
-  getFlux() {
-    return this.flux;
   }
 });
-
 
 module.exports = {
   getFlux() {

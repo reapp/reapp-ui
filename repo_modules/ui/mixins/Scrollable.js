@@ -64,7 +64,6 @@ var Scrollable = function(props) {
     },
 
     _handleScroll(x, y, z) {
-      console.log('handle scroll', x, y)
       this.setState({
         scrollX: x,
         scrollY: y

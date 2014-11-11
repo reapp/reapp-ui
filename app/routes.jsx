@@ -13,6 +13,7 @@ var Panels = require('./pages/Kitchen/PanelsPage');
 var Lists = require('./pages/Kitchen/ListsPage');
 var Controls = require('./pages/Kitchen/ControlsPage');
 var Grids = require('./pages/Kitchen/GridsPage');
+var Forms = require('./pages/Kitchen/FormsPage');
 
 module.exports = {
   init(App) {
@@ -35,6 +36,7 @@ module.exports = {
             <Route name="lists" handler={Lists} />
             <Route name="viewLists" handler={ViewLists} />
             <Route name="grids" handler={Grids} />
+            <Route name="forms" handler={Forms} />
           </Route>
 
           <Route name="viewer" handler={Viewer} />
