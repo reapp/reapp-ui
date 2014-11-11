@@ -36,6 +36,7 @@ module.exports = function({ name, mixins, actions, ...spec }) {
 
   Object.keys(actionPromises).forEach(key => {
     fluxxorActions[`${name}:${key}`] = function(payload) {
+      console.log('running action', name, key, payload);
       Store.payload = payload;
 
       actionPromises.forEach(actionPromise => {

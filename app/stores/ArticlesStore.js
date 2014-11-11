@@ -1,8 +1,6 @@
 var Brawndo = require('brawndo');
 var _ = require('lodash-node');
 
-// promise based demo, all promises must run before change is emitted
-
 var Loadable = Brawndo.createMixin({
   name: 'Loadable',
   state: {
