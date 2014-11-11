@@ -7,7 +7,7 @@ var ArticlePage = React.createClass({
   displayName: 'ArticlePage',
 
   statics: {
-    getAsyncProps: (params) => StoreLoader('article', params)
+    getAsyncProps: (params) => StoreLoader('Article', params)
   },
 
   getInitialState: () => ({ version: 0 }),

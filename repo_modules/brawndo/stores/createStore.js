@@ -1,35 +1,57 @@
 var Fluxxor = require('fluxxor');
-var _ = require('lodash-node');
+var { Promise } = require('when');
+var invariant = require('react/lib/invariant');
 
-module.exports = function({ mixins, actions, ...spec }) {
-  var mergedSpec;
+module.exports = function({ name, mixins, actions, ...spec }) {
+  invariant(name && name.length, 'Must define a name');
 
-  if (Array.isArray(mixins))
-    mergedSpec = _.reduce(mixins, (acc, mixin) => {
-      var {
-        name: mixinName,
-        actions: mixinActions,
-        properties
-      } = mixin;
+  var Store = Object.assign({}, spec);
+  Store.state = Store.state || {};
 
-      var actionCb = actions['on' + mixinName];
+  var actionPromises = {};
 
-      Object.keys(mixinActions).forEach(key => {
-        actions[key] = function(payload) {
-          mixinActions[key](payload, function(nextPayload) {
-            // next('onmixinAction', payload);
-            if (actionCb) actionCb(key, nextPayload);
-          });
-        };
+  if (mixins)
+    mixins.forEach(mixin => {
+      addActionPromises(mixin.storeActions);
+      addActionPromises(mixin.actions);
+    });
+
+  addActionPromises(actions);
+
+  function addActionPromises(obj) {
+    Object.keys(obj).forEach(key => {
+      actionPromises[key] = actionPromises[key] || [];
+      actionPromises[key].push(obj[key]);
+    });
+  }
+
+  console.log('actions', actionPromises);
+
+  Store.setState = function(newState) {
+    Store.state = Object.assign({}, Store.state, newState);
+    return Store;
+  };
+
+  var fluxxorActions = {};
+
+  Object.keys(actionPromises).forEach(key => {
+    fluxxorActions[`${name}:${key}`] = function(payload) {
+      Store.payload = payload;
+
+      actionPromises.forEach(actionPromise => {
+        actionPromise(Store);
       });
 
-      Object.keys(properties).forEach(key => {
-        if (acc[key]) throw Error('Merging duplicate key!');
-        acc[key] = properties[key];
-      });
+      this.emit('change');
+    };
+  });
 
-    }, {});
+  console.log('fluxxor actions', fluxxorActions);
 
-  return Fluxxor.createStore(mergedSpec || spec);
+  // setup spec without mixins
+  Store.initialize = function() {
+    this.bindActions(fluxxorActions);
+  };
 
+  this.Stores[name] = Fluxxor.createStore(Store);
 };

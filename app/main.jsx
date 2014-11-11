@@ -9,9 +9,9 @@ var GSSMixin = require('./mixins/GSSMixin');
 var ENV = require('./ENV');
 
 // Flux
-var Actions = require('./Actions/Actions');
-var Stores = require('./Stores/Stores');
-var Flux = Brawndo.init({ React, Actions, Stores });
+require('./stores/Stores');
+require('./actions/Actions');
+var Flux = Brawndo.init(React);
 
 ReactStyle.inject();
 TouchEvents.initialize();

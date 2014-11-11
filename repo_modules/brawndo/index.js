@@ -2,30 +2,41 @@ var Fluxxor = require('fluxxor');
 var debug = require('debug')('g:flux');
 var StoreLoader = require('./lib/StoreLoader');
 var createStore = require('./stores/createStore');
+var createMixin = require('./stores/createMixin');
 var Flux;
 
 var Brawndo = module.exports = {
+  Actions: {},
+  Stores: {},
+
+  addActions,
   createStore,
+  createMixin,
 
   StoreWatchMixin: Fluxxor.StoreWatchMixin,
 
-  init({ React, Actions, Stores }) {
-    initStores(Stores);
-    initActions(Stores, Actions);
-    Flux = new Fluxxor.Flux(Stores, Actions);
+  init(React) {
+    console.log('SSS', this.Stores, this.Actions);
+    initActions();
+    Flux = new Fluxxor.Flux(Brawndo.Stores, Brawndo.Actions);
     Brawndo.StoreLoader = StoreLoader.init(Flux);
     Brawndo.FluxMixin = Fluxxor.FluxMixin(React);
-    exposeFlux(Flux, Stores, Actions);
+    exposeFlux(Flux);
     return Flux;
   }
 };
 
+function addActions(actions) {
+  Object.assign(Brawndo.Actions, actions);
+}
+
+// binds with Loadable stores
 var loadWithDispatcher = function(name, action) {
   var self = this;
-  self.dispatch(`LOAD_${name}`);
+  self.dispatch(`${name}:load`);
 
-  var dispatchSuccess = payload => self.dispatch(`LOAD_${name}_SUCCESS`, payload);
-  var dispatchFail = payload => self.dispatch(`LOAD_${name}_FAIL`, payload);
+  var dispatchSuccess = payload => self.dispatch(`${name}:loadSuccess`, payload);
+  var dispatchFail = payload => self.dispatch(`${name}:loadFail`, payload);
 
   action().done(
     res => dispatchSuccess(res),
@@ -33,38 +44,32 @@ var loadWithDispatcher = function(name, action) {
   );
 };
 
-function initActions(stores, actions) {
-  Object.keys(actions).map(key => {
+function initActions() {
+  Object.keys(Brawndo.Actions).map(key => {
     // if name of store == action, set it up as a loader
-    if (stores[key]) {
-      var action = actions[key];
-      actions[key] = function() {
+    if (Brawndo.Stores[key]) {
+      var action = Brawndo.Actions[key];
+      Brawndo.Actions[key] = function() {
         loadWithDispatcher.call(this, key, action);
       };
     }
   });
 }
 
-function initStores(stores) {
-  Object.keys(stores).map(key => {
-    stores[key] = new (stores[key].getFlux())();
-  });
-}
-
-function exposeFlux(Flux, stores, actions) {
+function exposeFlux(Flux) {
   var ENV = {
     CLIENT: typeof window !== 'undefined',
     SERVER: typeof window === 'undefined'
   };
 
   if (ENV.CLIENT) {
-    window.stores = stores;
+    window.stores = Brawndo.Stores;
 
     Flux.on('dispatch', function(type, payload) {
       debug(type, payload);
     });
 
     window.flux = window.flux || {};
-    window.flux.actions = actions;
+    window.flux.actions = Brawndo.Actions;
   }
 }

@@ -7,7 +7,7 @@ module.exports = Page({
   mixins: [Brawndo.FluxMixin],
 
   getDefaultProps: params => ({
-    articles: Brawndo.StoreLoader('articles'),
+    articles: Brawndo.StoreLoader('Articles'),
     views: [
       {
         id: 'hot',

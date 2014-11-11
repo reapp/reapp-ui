@@ -1,4 +1,11 @@
 var Brawndo = require('brawndo');
-module.exports = Brawndo.createListStore({
-  name: 'user'
+
+var UserStore = Brawndo.createStore({
+  name: 'User',
+  state: {
+    data: {}
+  },
+  actions: {},
 });
+
+module.exports = UserStore;
