@@ -6,10 +6,11 @@ module.exports = function({ name, mixins, actions, state, ...spec }) {
   invariant(name && name.length, 'Must define a name');
 
   var Store = Object.assign({}, spec);
-  state = state || {};
-
   var combinedActions = {};
 
+  state = state || {};
+
+  // add mixins
   if (mixins)
     mixins.forEach(mixin => {
       addActions(mixin.storeActions);
@@ -18,6 +19,7 @@ module.exports = function({ name, mixins, actions, state, ...spec }) {
       addMixinExpose(mixin);
     });
 
+  // store actions come after mixin actions
   addActions(actions);
 
   function addActions(obj) {
@@ -50,7 +52,7 @@ module.exports = function({ name, mixins, actions, state, ...spec }) {
     var combinedAction = combinedActions[key];
 
     fluxxorActions[`${name}:${key}`] = function(payload) {
-      console.log('running action', name, key, payload);
+      // console.log('running action', name, key, payload);
       Store.payload = payload;
 
       combinedAction.forEach(action => {
@@ -61,11 +63,10 @@ module.exports = function({ name, mixins, actions, state, ...spec }) {
     };
   });
 
-  // setup spec without mixins
   var fluxxor;
 
   Store.initialize = function() {
-    console.log('initializing with actions', fluxxorActions);
+    // console.log('initializing with actions', fluxxorActions);
     fluxxor = this;
     this.state = state;
     this.bindActions(fluxxorActions);
