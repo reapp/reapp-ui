@@ -46,9 +46,9 @@ function setViewContents(cursor) {
 function contentForViews(articles) {
   return (
     <List liStyle={{ padding: 0 }}>
-      {articles.map(article => (
-        ArticleItem(`Articles-ArticleItem-${article.get('id')}`, article.get('data'))
-      )).toArray()}
+      {articles.map(article => {
+        return ArticleItem(`Articles-ArticleItem-${article.get('id')}`, article.get('data'))
+      }).toArray()}
     </List>
   );
 }

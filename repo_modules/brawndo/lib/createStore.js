@@ -6,6 +6,7 @@ module.exports = function({ name, mixins, actions, state, ...spec }) {
 
   var Store = Object.assign({}, spec);
   var combinedActions = {};
+  var getStore = this.getStore;
 
   state = state || {};
 
@@ -51,12 +52,11 @@ module.exports = function({ name, mixins, actions, state, ...spec }) {
     var combinedAction = combinedActions[key];
 
     fluxxorActions[`${name}:${key}`] = function(payload) {
-      // console.log('running action', name, key, payload);
-      Store.payload = payload;
+      var store = getStore(name);
 
-      combinedAction.forEach(action => {
-        action(Store);
-      });
+      store.payload = payload;
+      combinedAction.forEach(action => action(store));
+      store.payload = null;
 
       this.emit('change');
     };
@@ -73,7 +73,13 @@ module.exports = function({ name, mixins, actions, state, ...spec }) {
 
   Store.setState = newState => {
     fluxxor.state = Object.assign({}, fluxxor.state, newState);
-    return this.getStore(name);
+    return getStore(name);
+  };
+
+  Store.setPayload = newPayload => {
+    var store = getStore(name);
+    store.payload = newPayload;
+    return store;
   };
 
   var FluxxorStore = Fluxxor.createStore(Store);

@@ -9,12 +9,12 @@ function uniqueId() {
 var Reducable = module.exports = createMixin({
   name: 'Reducable',
   expose: {
-    reducePayload: res => res.setState({
-      data: [].concat(res.payload).reduce((acc, item) => {
+    reducePayload: res => res.setPayload(
+      [].concat(res.payload).reduce((acc, item) => {
         var clientId = uniqueId();
         acc[clientId] = { id: clientId, data: item, status: 'OK' };
         return acc;
       }, {})
-    })
+    )
   }
 });

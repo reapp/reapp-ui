@@ -32,7 +32,6 @@ function Page(struct) {
     getInitialState: () => ({ version: 0 }),
 
     componentWillReceiveProps(nextProps) {
-      console.log('receive props', nextProps);
       this.structure = this.makeStructure(nextProps);
       this.structure.on('next-animation-frame', () => {
         this.setState({ version: ++this.state.version });
