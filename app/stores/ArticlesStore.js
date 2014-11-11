@@ -15,18 +15,14 @@ var Loadable = Brawndo.createMixin({
 
 var Reducable = Brawndo.createMixin({
   name: 'Reducable',
-  state: {
-    data: {},
-  },
-  actions: {
+  expose: {
     reducePayload: res => res.setState({
-      data: [].concat(res.payload).reduce(this.reducer, {})
+      data: [].concat(res.payload).reduce((acc, item) => {
+        var clientId = _.uniqueId();
+        acc[clientId] = { id: clientId, data: item, status: 'OK' };
+        return acc;
+      }, {})
     })
-  },
-  reducer: (acc, item) => {
-    var clientId = _.uniqueId();
-    acc[clientId] = { id: clientId, data: item, status: 'OK' };
-    return acc;
   }
 });
 
@@ -41,11 +37,11 @@ var Store = Brawndo.createStore({
   },
   mixins: [
     // actions attached here run *before* the mixins
-    Loadable({
-      loadFail: res => res.setState({data:undefined, error:res.error})
-    }),
     Reducable({
       loadSuccess: res => res.reducePayload(res)
+    }),
+    Loadable({
+      loadFail: res => res.setState({data:undefined, error:res.error})
     })
   ],
   actions: {

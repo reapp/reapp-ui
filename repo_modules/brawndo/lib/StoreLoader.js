@@ -17,7 +17,7 @@ function StoreLoader(name, params) {
 function promiseForStore(hash, store) {
   storePromises[hash] = storePromises[hash] || new Promise((res, rej) => {
     store.on('change', () => {
-      return (!store.loading && _.size(store.data)) && res(_.values(store.data));
+      return store.state.loading == 'loaded' && res(_.values(store.state.data));
     });
   });
   return storePromises[hash];

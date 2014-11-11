@@ -1,3 +1,3 @@
-module.exports = function({ name, state, actions }) {
-  return storeActions => ({ name, state, actions, storeActions });
+module.exports = function({ name, state, actions, expose }) {
+  return storeActions => ({ name, state, actions, expose, storeActions });
 };

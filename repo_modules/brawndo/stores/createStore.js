@@ -2,57 +2,76 @@ var Fluxxor = require('fluxxor');
 var { Promise } = require('when');
 var invariant = require('react/lib/invariant');
 
-module.exports = function({ name, mixins, actions, ...spec }) {
+module.exports = function({ name, mixins, actions, state, ...spec }) {
   invariant(name && name.length, 'Must define a name');
 
   var Store = Object.assign({}, spec);
-  Store.state = Store.state || {};
+  state = state || {};
 
-  var actionPromises = {};
+  var combinedActions = {};
 
   if (mixins)
     mixins.forEach(mixin => {
-      addActionPromises(mixin.storeActions);
-      addActionPromises(mixin.actions);
+      addActions(mixin.storeActions);
+      addActions(mixin.actions);
+      addExposedMethods(mixin);
     });
 
-  addActionPromises(actions);
+  addActions(actions);
 
-  function addActionPromises(obj) {
+  function addActions(obj) {
+    if (!obj) return;
     Object.keys(obj).forEach(key => {
-      actionPromises[key] = actionPromises[key] || [];
-      actionPromises[key].push(obj[key]);
+      combinedActions[key] = combinedActions[key] || [];
+      combinedActions[key].push(obj[key]);
     });
   }
 
-  console.log('actions', actionPromises);
+  function addExposedMethods(mixin) {
+    if (!mixin.expose) return;
+    Object.keys(mixin.expose).forEach(key => {
+      invariant(!Store[key], `Store already has key ${key} from mixin ${mixin.name}`);
+      Store[key] = mixin.expose[key];
+    });
+  }
 
-  Store.setState = function(newState) {
-    Store.state = Object.assign({}, Store.state, newState);
-    return Store;
-  };
+  console.log('all actions', combinedActions);
 
   var fluxxorActions = {};
 
-  Object.keys(actionPromises).forEach(key => {
+  Object.keys(combinedActions).forEach(key => {
+    var combinedAction = combinedActions[key];
+
     fluxxorActions[`${name}:${key}`] = function(payload) {
       console.log('running action', name, key, payload);
       Store.payload = payload;
 
-      actionPromises.forEach(actionPromise => {
-        actionPromise(Store);
+      combinedAction.forEach(action => {
+        action(Store);
       });
 
+      console.log('emitting change');
       this.emit('change');
     };
   });
 
-  console.log('fluxxor actions', fluxxorActions);
+  console.log('setup store')
 
   // setup spec without mixins
+  var fluxxor;
+
   Store.initialize = function() {
+    console.log('initializing with actions', fluxxorActions);
+    fluxxor = this;
+    this.state = state;
     this.bindActions(fluxxorActions);
   };
 
-  this.Stores[name] = Fluxxor.createStore(Store);
+  Store.setState = newState => {
+    fluxxor.state = Object.assign({}, fluxxor.state, newState);
+    return this.Stores[name];
+  };
+
+  var FluxxorStore = Fluxxor.createStore(Store);
+  this.Stores[name] = new FluxxorStore();
 };
