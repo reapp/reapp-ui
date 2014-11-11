@@ -14,7 +14,8 @@ module.exports = function({ name, mixins, actions, state, ...spec }) {
     mixins.forEach(mixin => {
       addActions(mixin.storeActions);
       addActions(mixin.actions);
-      addExposedMethods(mixin);
+      addMixinState(mixin);
+      addMixinExpose(mixin);
     });
 
   addActions(actions);
@@ -27,15 +28,21 @@ module.exports = function({ name, mixins, actions, state, ...spec }) {
     });
   }
 
-  function addExposedMethods(mixin) {
+  function addMixinExpose(mixin) {
     if (!mixin.expose) return;
     Object.keys(mixin.expose).forEach(key => {
-      invariant(!Store[key], `Store already has key ${key} from mixin ${mixin.name}`);
+      invariant(!Store[key], `Store already has method ${key} (adding key from mixin ${mixin.name})`);
       Store[key] = mixin.expose[key];
     });
   }
 
-  console.log('all actions', combinedActions);
+  function addMixinState(mixin) {
+    if (!mixin.state) return;
+    Object.keys(mixin.state).forEach(key => {
+      invariant(!state[key], `Store already has state ${key} (adding key from mixin ${mixin.name})`);
+      state[key] = mixin.state[key];
+    });
+  }
 
   var fluxxorActions = {};
 
@@ -50,12 +57,9 @@ module.exports = function({ name, mixins, actions, state, ...spec }) {
         action(Store);
       });
 
-      console.log('emitting change');
       this.emit('change');
     };
   });
-
-  console.log('setup store')
 
   // setup spec without mixins
   var fluxxor;
