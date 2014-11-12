@@ -72,10 +72,24 @@ var LeftNavView = React.createClass({
   },
 
   render() {
-    // props: sideWidth, topHeight, topContent, handle, sideContent
+    var {
+      behavior,
+      sideWidth,
+      sideZIndex,
+      topHeight,
+      topContent,
+      handle,
+      handleStyle,
+      sideContent,
+      children,
+      ...props } = this.props;
+
     var isNavOpen = this.isNavOpen();
-    var behavior = this.props.behavior;
     var side = null;
+
+    if (isNavOpen) {
+      var navProps = Object.assign({}, sideProps, { style: sideStyle });
+    }
 
     var wrapperStyle = {
       overflowX: 'hidden',
@@ -90,9 +104,9 @@ var LeftNavView = React.createClass({
       position: 'fixed',
       top: 0,
       bottom: 0,
-      left: this.props.sideWidth * -1,
-      width: this.props.sideWidth,
-      zIndex: this.props.sideZIndex || 1
+      left: sideWidth * -1,
+      width: sideWidth,
+      zIndex: sideZIndex || 1
     };
 
     var sideContainerStyle = {
@@ -104,18 +118,10 @@ var LeftNavView = React.createClass({
     };
 
     var sideProps = {
-      translate: behavior.parent.translate(this.props.sideWidth, this.state.scrollLeft),
-      rotate: behavior.parent.rotate(this.props.sideWidth, this.state.scrollLeft),
-      opacity: behavior.parent.opacity(this.props.sideWidth, this.state.scrollLeft)
+      translate: behavior.parent.translate(sideWidth, this.state.scrollLeft),
+      rotate: behavior.parent.rotate(sideWidth, this.state.scrollLeft),
+      opacity: behavior.parent.opacity(sideWidth, this.state.scrollLeft)
     };
-
-    if (isNavOpen) {
-      side = AnimatableContainer(Object.assign({}, sideProps, { style: sideStyle }),
-        React.DOM.div({
-          style: sideContainerStyle,
-          onClick: this._handleContentTouchTap
-        }, this.props.sideContent));
-    }
 
     var draggableProps = {
       viewProps: {
@@ -134,18 +140,25 @@ var LeftNavView = React.createClass({
     };
 
     var handleProps = draggableProps.containerProps;
-    if (this.props.handleStyle)
-      handleProps.style = Object.assign({}, this.props.handleStyle, handleProps.style);
+    if (handleStyle)
+      handleProps.style = Object.assign({}, handleStyle, handleProps.style);
 
-    return this.transferPropsTo(
-      React.DOM.div({style: wrapperStyle},
-        side,
-        // content
-        DraggableView(draggableProps,
-          this.props.children,
-          TouchableArea({ onTouchTap: this._handleTap, scroller: this.scroller },
-            this.props.handle))
-      )
+    return (
+      <div style={wrapperStyle}>
+        {isNavOpen && (
+          <AnimatableContainer {...navProps}>
+            <div style={sideContainerStyle} onClick={this._handleContentTouchTap}>
+              {sideContent}
+            </div>
+          </AnimatableContainer>
+        )}
+        <DraggableView {...draggableProps}>
+          {children}
+          <TouchableArea onTouchTap={this._handleTap} scroller={this.scroller}>
+            {handle}
+          </TouchableArea>
+        </DraggableView>
+      </div>
     );
   }
 });

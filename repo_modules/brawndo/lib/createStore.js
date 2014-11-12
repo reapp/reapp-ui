@@ -7,6 +7,7 @@ module.exports = function({ name, mixins, actions, state, ...spec }) {
   var Store = Object.assign({}, spec);
   var combinedActions = {};
   var getStore = this.getStore;
+  var mixinInitializers = [];
 
   state = state || {};
 
@@ -17,6 +18,7 @@ module.exports = function({ name, mixins, actions, state, ...spec }) {
       addActions(mixin.actions);
       addMixinState(mixin);
       addMixinExpose(mixin);
+      addMixinInitialize(mixin);
     });
 
   // store actions come after mixin actions
@@ -30,6 +32,14 @@ module.exports = function({ name, mixins, actions, state, ...spec }) {
     });
   }
 
+  function addMixinState(mixin) {
+    if (!mixin.state) return;
+    Object.keys(mixin.state).forEach(key => {
+      invariant(!state[key], `Store already has state ${key} (adding key from mixin ${mixin.name})`);
+      state[key] = mixin.state[key];
+    });
+  }
+
   function addMixinExpose(mixin) {
     if (!mixin.expose) return;
     Object.keys(mixin.expose).forEach(key => {
@@ -38,12 +48,9 @@ module.exports = function({ name, mixins, actions, state, ...spec }) {
     });
   }
 
-  function addMixinState(mixin) {
-    if (!mixin.state) return;
-    Object.keys(mixin.state).forEach(key => {
-      invariant(!state[key], `Store already has state ${key} (adding key from mixin ${mixin.name})`);
-      state[key] = mixin.state[key];
-    });
+  function addMixinInitialize(mixin) {
+    if (!mixin.initialize) return;
+    mixinInitializers.push(mixin.initialize);
   }
 
   var fluxxorActions = {};
@@ -55,7 +62,7 @@ module.exports = function({ name, mixins, actions, state, ...spec }) {
       var store = getStore(name);
 
       store.payload = payload;
-      combinedAction.forEach(action => action(store));
+      combinedAction.forEach(action => action.call(this));
       store.payload = null;
 
       this.emit('change');
@@ -65,26 +72,26 @@ module.exports = function({ name, mixins, actions, state, ...spec }) {
   var fluxxor;
 
   Store.initialize = function() {
-    // console.log('initializing with actions', fluxxorActions);
     fluxxor = this;
     this.state = state;
+
+    this.setState = newState => {
+      this.state = Object.assign({}, this.state, newState);
+      return this;
+    };
+
+    this.replaceState = newState => {
+      this.state = newState;
+      return this;
+    };
+
+    this.setPayload = newPayload => {
+      this.payload = newPayload;
+      return this;
+    };
+
+    mixinInitializers.forEach(initializer => initializer.call(this));
     this.bindActions(fluxxorActions);
-  };
-
-  Store.setState = newState => {
-    fluxxor.state = Object.assign({}, fluxxor.state, newState);
-    return getStore(name);
-  };
-
-  Store.replaceState = newState => {
-    fluxxor.state = newState;
-    return getStore(name);
-  };
-
-  Store.setPayload = newPayload => {
-    var store = getStore(name);
-    store.payload = newPayload;
-    return store;
   };
 
   var FluxxorStore = Fluxxor.createStore(Store);

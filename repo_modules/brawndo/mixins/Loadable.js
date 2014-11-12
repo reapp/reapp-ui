@@ -6,8 +6,16 @@ var Loadable = module.exports = createMixin({
     loading: undefined,
   },
   actions: {
-    load: res => res.setState({loading: 'loading'}),
-    loadSuccess: res => res.setState({loading: 'loaded'}),
-    loadFail: res => res.setState({loading: 'failed'})
+    load() {
+      return this.setState({loading: 'loading'});
+    },
+
+    loadSuccess() {
+      return this.setState({loading: 'loaded'});
+    },
+
+    loadFail() {
+      return this.setState({loading: 'failed'});
+    }
   }
 });

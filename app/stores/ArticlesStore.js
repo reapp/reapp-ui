@@ -12,23 +12,26 @@ Brawndo.createStore({
     data: {}
   },
 
+  // actions attached here run *before* the mixins
   mixins: [
-    // actions attached here run *before* the mixins
-    Brawndo.Mixins.Reducable({
-      loadSuccess: res => res.reducePayload(res)
-    }),
-
-    Immutable({
-      loadSuccess: res => res.setState({ data: res.immute({ articles: res.payload }) })
-    }),
-
+    Immutable(),
     Brawndo.Mixins.Loadable({
-      loadFail: res => res.setState({ data: undefined, error: res.error })
-    })
+      loadSuccess() {
+        this.state.data.set('articles', this.immute(this.payload));
+      },
+
+      loadFail(error) {
+        this.setState({ data: undefined, error: error });
+      }
+    }),
+
+    // Offlinable,
+    // Swarmable
   ],
 
   actions: {
     // actions here will run *after* the mixins
-    loadFail: res => res.setState({ something: 'else' })
+    loadFail: res => res.setState({ something: 'else' }),
+    loadArticle: res => res.cursor()
   }
 });

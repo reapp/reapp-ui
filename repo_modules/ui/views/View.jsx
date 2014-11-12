@@ -14,17 +14,18 @@ var View = React.createClass({
     bottom: 0,
     right: 0,
     pointerEvents: 'all',
-    '-webkit-overflow-scrolling': 'touch',
+    WebkitOverflowScrolling: 'touch',
   }, styles)),
 
   render() {
-    var styles = this.styles(this.props.style);
+    var { style, className, id, children, ...props } = this.props;
+    var styles = this.styles(style);
     var classes = { 'View': true };
-    classes[this.props.className] = !!this.props.className;
+    classes[className] = !!className;
 
-    return this.transferPropsTo(
-      <div id={this.props.id} className={cx(classes)} styles={styles}>
-        {this.props.children}
+    return (
+      <div {...props} id={id} className={cx(classes)} styles={styles}>
+        {children}
       </div>
     );
   }

@@ -1,7 +1,7 @@
 var Omniscient = require('omniscient');
 var React = require('react');
 
-// Integrates Omniscinet with react-router
+// Integrates omniscient with react-router
 
 function Component(struct) {
   // react style
@@ -16,10 +16,12 @@ function Component(struct) {
   }
 }
 
-function Page(struct) {
-  var { mixins, render, getDefaultProps, ...restOfPage } = struct;
+function Page(displayName, mixins, struct) {
+  var { render, getDefaultProps, ...restOfPage } = struct;
 
   return React.createClass({
+    displayName,
+
     mixins: [].concat(restOfPage, mixins),
 
     statics: {
@@ -32,7 +34,8 @@ function Page(struct) {
 
     componentWillReceiveProps(nextProps) {
       if (nextProps.asyncProps.data) {
-        this.structure = nextProps.asyncProps.data;
+        var Immstruct = require('immstruct');
+        this.structure = Immstruct('data', nextProps.asyncProps.data);
 
         // expects immstruct
         this.structure.on('next-animation-frame', () => {

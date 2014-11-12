@@ -1,11 +1,11 @@
 require('es-object-assign');
+
 var React  = require('react');
-var Layout = require('./components/Layout');
-var Routes = require('./routes');
-var TouchEvents = require('ui/lib/TouchEvents');
 var ReactStyle = require('react-style');
+var Router = require('react-router');
 var Brawndo = require('brawndo');
-var GSSMixin = require('./mixins/GSSMixin');
+var WhenKeys = require('when/keys');
+var Routes = require('./routes');
 var ENV = require('./ENV');
 
 // Flux
@@ -14,24 +14,21 @@ require('./actions/Actions');
 var Flux = Brawndo.init(React);
 
 ReactStyle.inject();
-TouchEvents.initialize();
+React.initializeTouchEvents(true);
 
-// App
-var App = React.createClass({
-  componentDidMount() {
-    GSSMixin._start();
-  },
+var fetchData = (matches, params) =>
+  WhenKeys.all(
+    matches
+      .filter(match => match.route.handler.fetchData)
+      .reduce((data, match) => {
+        var {name, handler} = match.route;
+        data[name] = handler.fetchData(params);
+        return data;
+      }, {}));
 
-  render() {
-    return (
-      <Layout>
-        <this.props.activeRouteHandler flux={Flux} />
-      </Layout>
-    );
-  }
-});
-
-var RoutedApp = Routes.init(App);
+var render = (Handler, state) =>
+  fetchData(state.matches, state.activeParams).then(data =>
+    React.render(<Handler data={data} flux={Flux} />, document.getElementById('app')));
 
 if (ENV.CLIENT) {
   window.React = React;
@@ -39,11 +36,7 @@ if (ENV.CLIENT) {
   // debug omniscient
   // require('omniscient').debug();
 
-  React.renderComponent(RoutedApp, document.getElementById('app'), function() {
-    // clear out data handed by server, or getRouteProps will
-    // find it even though getRouteProps may have different params
-    window.ROUTER_PROPS = void 0;
-  });
+  Router.run(Routes, render);
 }
 else {
   module.exports = RoutedApp;

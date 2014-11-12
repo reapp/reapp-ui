@@ -15,23 +15,23 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "react": "^0.11.2",
-    "react-router": "git+https://github.com/rackt/react-router.git#async-props",
-    "react-style": "git+https://github.com/js-next/react-style.git#a6355f3a930ed",
+    "react-router": "git+https://github.com/rackt/react-router.git#new-api",
     "rest": "git+https://github.com/cujojs/rest.git#f40242a43a3db826af",
+    "react": "^0.12",
+    "react-style": "^0.3",
     "scroller": "^0.0.2",
     "rebound": "^0.0.8",
     "lodash-node": "^2.4.1",
     "react-document-title": "^0.1.1",
     "fluxxor": "^1.5.0",
     "react-ago-component": "^0.5.0",
-    "when": "^3.5.0",
+    "when": "^3.6.0",
     "debug": "^2.1.0",
-    "immstruct": "^0.9.0",
-    "omniscient": "^1.3.0",
     "parseurl": "~1.3.0",
     "object-assign": "~1.0.0",
-    "swarm": "~0.3.23"
+    "swarm": "^0.3.23",
+    "immutable": "^3.0.3",
+    "immstruct": "^1.1.0"
   },
   "devDependencies": {
     "transform-loader": "^0.2.1",

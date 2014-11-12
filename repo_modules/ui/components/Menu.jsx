@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactStyle = require('react-style');
 var List = require('./List');
 
 require('./Menu.styl');

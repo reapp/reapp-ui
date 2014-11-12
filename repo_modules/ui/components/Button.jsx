@@ -22,36 +22,26 @@ var Button = React.createClass({
     verticalAlign: 'baseline',
     textAlign: 'center',
     cursor: 'pointer',
-    '-webkit-user-drag': 'none',
-    '-webkit-user-select': 'none',
+    WebkitUserDrag: 'none',
+    WebkitUserSelect: 'none',
     outline: 'none'
   }, styleProps),
 
   render() {
-    var children;
-    var { style, transforms, iconProps, ...props } = this.props;
+    var { style, transforms, iconProps, children, type, ...props } = this.props;
     var styles = this.styles(style);
-
-    if (this.props.children) {
-      var childStyle = { margin: 'auto' };
-      children = <span
-        style={childStyle}
-        data-transform={transforms}>
-        {this.props.children}
-        </span>;
-    }
 
     iconProps.style = iconProps.style || {};
     iconProps.style.color = iconProps.style.color || styles.color;
-    var icon = <Icon {...iconProps} />;
 
     return (
-      <button
-        {...props}
-        style={styles}
-        className={'button-' + this.props.type}>
-        {icon}
-        {children}
+      <button {...props} style={styles} className={`button-${type}`}>
+        <Icon {...iconProps} />
+        {children && (
+          <span style={{ margin: 'auto' }} data-transform={transforms}>
+            {children}
+          </span>
+        )}
       </button>
     );
   }

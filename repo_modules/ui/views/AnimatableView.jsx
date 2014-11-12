@@ -13,10 +13,10 @@ module.exports = React.createClass({
       width: propStyles.width,
       height: propStyles.height,
       pointerEvents: 'all',
-      '-webkit-overflow-scrolling': 'touch',
-      'backface-visibility': 'hidden',
-      '-webkit-backface-visibility': 'hidden',
-      '-moz-backface-visibility': 'hidden'
+      WebkitOverflowScrolling: 'touch',
+      BackfaceVisibility: 'hidden',
+      WebkitBackfaceVisibility: 'hidden',
+      MozBackfaceVisibility: 'hidden'
     }, propStyles));
   },
 
@@ -46,7 +46,7 @@ module.exports = React.createClass({
         className={classes}
         styles={this.styles({ width, height })}
         translate={{x: x}}>
-        {View(props)}
+        <View {...props} />
       </AnimatableContainer>
     );
   }

@@ -1,5 +1,4 @@
 var React = require('react');
-var ReactDescriptor = require('react/lib/ReactDescriptor');
 
 var StaticContainer = React.createClass({
   getDefaultProps() {

@@ -1,4 +1,5 @@
-var { Routes, Route, DefaultRoute } = require('react-router');
+var { Route, DefaultRoute } = require('react-router');
+var Layout = require('./components/Layout');
 var Articles = require('./pages/ArticlesPage');
 var Article = require('./pages/Articles/ArticlePage');
 var User = require('./pages/UserPage');
@@ -15,34 +16,28 @@ var Controls = require('./pages/Kitchen/ControlsPage');
 var Grids = require('./pages/Kitchen/GridsPage');
 var Forms = require('./pages/Kitchen/FormsPage');
 
-module.exports = {
-  init(App) {
-    return (
-      <Routes location="history">
-        <Route name="app" path="/" handler={App}>
-          <DefaultRoute name="home" handler={Articles} />
+module.exports = (
+  <Route name="app" path="/" handler={Layout}>
+    <DefaultRoute name="home" handler={Articles} />
 
-          <Route name="hn" path="/" handler={Articles}>
-            <Route name="article" path="/article/:id" handler={Article} addHandlerKey={true} />
-            <Route name="user" path="/user/:id" handler={User} addHandlerKey={true} />
-          </Route>
+    <Route name="hn" path="/" handler={Articles}>
+      <Route name="article" path="/article/:id" handler={Article} addHandlerKey={true} />
+      <Route name="user" path="/user/:id" handler={User} addHandlerKey={true} />
+    </Route>
 
-          <Route name="kitchen" handler={Kitchen}>
-            <Route name="controls" handler={Controls} />
-            <Route name="modals" handler={Modals} />
-            <Route name="popovers" handler={Popovers} />
-            <Route name="tabs" handler={Tabs} />
-            <Route name="panels" handler={Panels} />
-            <Route name="lists" handler={Lists} />
-            <Route name="viewLists" handler={ViewLists} />
-            <Route name="grids" handler={Grids} />
-            <Route name="forms" handler={Forms} />
-          </Route>
+    <Route name="kitchen" handler={Kitchen}>
+      <Route name="controls" handler={Controls} />
+      <Route name="modals" handler={Modals} />
+      <Route name="popovers" handler={Popovers} />
+      <Route name="tabs" handler={Tabs} />
+      <Route name="panels" handler={Panels} />
+      <Route name="lists" handler={Lists} />
+      <Route name="viewLists" handler={ViewLists} />
+      <Route name="grids" handler={Grids} />
+      <Route name="forms" handler={Forms} />
+    </Route>
 
-          <Route name="viewer" handler={Viewer} />
-          <Route name="imageRoll" handler={ImageRoll} />
-        </Route>
-      </Routes>
-    );
-  }
-};
+    <Route name="viewer" handler={Viewer} />
+    <Route name="imageRoll" handler={ImageRoll} />
+  </Route>
+);

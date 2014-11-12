@@ -4,9 +4,11 @@ require('./Block.styl');
 
 var Block = React.createClass({
   render() {
-    return this.transferPropsTo(
-      <div className="Block">
-        {this.props.children}
+    var { children, ...props } = this.props;
+
+    return (
+      <div {...props} className="Block">
+        {children}
       </div>
     );
   }

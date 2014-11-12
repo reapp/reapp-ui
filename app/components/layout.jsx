@@ -1,5 +1,5 @@
 var React = require('react');
-var { Link } = require('react-router');
+var { Link, ActiveRouteHandler } = require('react-router');
 var Menu = require('ui/components/Menu');
 var Title = require('ui/components/Title');
 var Button = require('ui/components/Button');
@@ -12,15 +12,20 @@ var TOOLBAR_HEIGHT = 44;
 var SIDE_WIDTH = 200;
 
 var Layout = React.createClass({
-  // this is a mess, button / draggableview
-  button: <Button id="hamburger" iconProps={{type: 'hamburger'}} style={{
-    position: 'absolute',
-    zIndex: 1001,
-    top: -3,
-    left: 8
-  }} />,
+  styles: {
+    button: {
+      position: 'absolute',
+      zIndex: 1001,
+      top: -3,
+      left: 8
+    }
+  },
 
   render() {
+    var button = (
+      <Button id="hamburger" iconProps={{type: 'hamburger'}} style={this.styles.button} />
+    );
+
     var menu = (
       <Menu>
         <Link to="app">Home</Link>
@@ -34,11 +39,11 @@ var Layout = React.createClass({
       <DocumentTitle title="React Base">
         <LeftNavView
           ref="appLeftNavView"
-          handle={this.button}
+          handle={button}
           sideContent={menu}
           topHeight={TOOLBAR_HEIGHT}
           sideWidth={SIDE_WIDTH}>
-          {this.props.children}
+          <ActiveRouteHandler {...this.props} />
         </LeftNavView>
       </DocumentTitle>
     );

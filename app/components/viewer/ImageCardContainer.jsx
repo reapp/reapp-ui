@@ -15,11 +15,12 @@ var ImageCardContainer = React.createClass({
   }),
 
   render() {
-    var card = this.transferPropsTo(<ImageCard />);
-    var pct = (this.props.left - (this.props.index * this.props.width)) / this.props.width;
-    var x = this.props.index * this.props.width - this.props.left;
+    var { left, index, width, ...props } = this.props;
+
+    var pct = (left - (index * width)) / width;
+    var x = index * width - left;
     var z = Math.abs(pct * 200) * -1;
-    var yAxis = this.props.left > this.props.index * this.props.width ? 1 : -1;
+    var yAxis = left > index * width ? 1 : -1;
     var deg = Math.abs(pct * 69);
 
     return (
@@ -29,7 +30,7 @@ var ImageCardContainer = React.createClass({
         opacity={EasingFunctions.easeOutCubic(1 - Math.abs(pct))}
         rotate={{y: yAxis, deg: deg}}
         translate={{x: x, z: z}}>
-        {card}
+        <ImageCard {...props} />
       </AnimatableContainer>
     );
   }

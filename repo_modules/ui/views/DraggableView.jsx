@@ -126,10 +126,12 @@ var DraggableView = React.createClass({
     var viewProps = Object.assign({}, this.props.viewProps, {style: this.props.style });
 
     return (
-      AnimatableContainer(containerProps,
-        TouchableArea(touchableProps),
-        View(viewProps || null, this.props.children)
-      )
+      <AnimatableContainer {...containerProps}>
+        <TouchableArea {...touchableProps} />
+        <View {...viewProps}>
+          {this.props.children}
+        </View>
+      </AnimatableContainer>
     );
   }
 });

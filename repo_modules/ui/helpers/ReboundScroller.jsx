@@ -52,12 +52,14 @@ var ReboundScroller = React.createClass({
   },
 
   render() {
-    return this.transferPropsTo(
-      <TouchableArea scroller={this.scroller} style={{overflow: 'hidden'}}>
+    var { children, ...props } = this.props;
+
+    return (
+      <TouchableArea {...props} scroller={this.scroller} style={{overflow: 'hidden'}}>
         <AnimatableContainer
           translate={{x: -1 * this.state.left, y: -1 * this.state.top}}
           style={ANIMATABLE_CONTAINER_STYLE}>
-          <div ref="content">{this.props.children}</div>
+          <div ref="content">{children}</div>
         </AnimatableContainer>
       </TouchableArea>
     );

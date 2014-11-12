@@ -12,9 +12,11 @@ var ListTitle = React.createClass({
   },
 
   render() {
-    return this.transferPropsTo(
-      <h3 className="list-title" style={this.styles}>
-        {this.props.children}
+    var { children, ...props } = this.props;
+
+    return (
+      <h3 {...props} className="list-title" style={this.styles}>
+        {children}
       </h3>
     );
   }

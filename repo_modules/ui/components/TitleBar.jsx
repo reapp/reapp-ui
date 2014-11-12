@@ -2,7 +2,6 @@ var React = require('react/addons');
 var ReactStyle = require('react-style');
 var DocumentTitle = require('react-document-title');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
-var ReactDescriptor = require('react/lib/ReactDescriptor');
 var ToolbarStyle = require('../style/Toolbar');
 
 // todo: auto center buttons in titlebars, calc size
@@ -26,7 +25,7 @@ var TitleBar = React.createClass({
   },
 
   addIconTransform(component) {
-    return ReactDescriptor.isValidDescriptor(component) ?
+    return React.isValidElement(component) ?
       React.addons.cloneWithProps(component, {
         iconProps: Object.assign({}, { transforms: 'MOVE_TO_RIGHT' }, component.props.iconProps)
       }) :

@@ -79,14 +79,15 @@ var TouchableArea = React.createClass({
   },
 
   render() {
-    var component = this.props.component;
-    return this.transferPropsTo(
+    var { children, component, ...props } = this.props;
+
+    return (
       <component
         onTouchStart={this.handleTouchStart}
         onTouchMove={this.handleTouchMove}
         onTouchEnd={this.handleTouchEnd}
         onTouchCancel={this.handleTouchEnd}>
-        {this.props.children}
+        {children}
       </component>
     );
   }

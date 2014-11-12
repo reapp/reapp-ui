@@ -1,16 +1,24 @@
 var Brawndo = require('brawndo');
-var Immstruct = require('immstruct');
+var Immutable = require('immutable');
 
 var StoreMixins = module.exports = {
   Immutable: Brawndo.createMixin({
     name: 'Immutable',
+
+    initialize() {
+      this.setState({ data: this.immute(this.state.data) });
+    },
+
     expose: {
-      immute: data => {
-        return new Immstruct(data);
+      immutable: Immutable,
+      immute: data => Immutable.fromJS(data),
+
+      immutePayload() {
+        return this.setPayload(this.immute(this.payload));
       },
 
-      immutePayload: res => {
-        return res.setPayload(res.immute(res.payload));
+      setImmutableData(data) {
+        return this.setState({ data: this.immute(data) });
       }
     }
   })
