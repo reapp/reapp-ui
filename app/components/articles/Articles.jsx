@@ -11,17 +11,16 @@ require('./Articles.styl');
 module.exports = Component('Articles', [ViewLoaderMixin],
   function render(cursor) {
     var articles = cursor.get('articles');
-    var content = cursor.get('handler')();
-
     if (!articles) return <div />;
 
-    setViewContents(cursor);
+    var content = cursor.get('handler')();
+    var views = makeViews(cursor);
 
     return (
       <div id="ArticlesPage">
         <ViewLeft id="articlesLeftView">
           <DottedViewList
-            views={cursor.get('views').toArray().map(v => v.toJS())}
+            views={views}
             onViewLeave={this.handleViewLeave}
             onViewEnter={this.handleViewEnter}
             onTouchStart={this.handleTouchStart} />
@@ -35,19 +34,27 @@ module.exports = Component('Articles', [ViewLoaderMixin],
   }
 );
 
-function setViewContents(cursor) {
-  if (this.hasSetContents) return;
-  cursor.get('views').forEach(view => {
-    view.update('content', content => contentForViews(cursor.get('articles')));
-  });
+var views = [
+  { id: 'hot', title: 'Hot', content: null },
+  { id: 'top', title: 'Top', content: null }
+];
+
+function makeViews(cursor) {
+  if (this.hasSetContents) return views;
   this.hasSetContents = true;
+
+  views.forEach(view => {
+    view.content = contentForViews(cursor.get('articles'));
+  });
+
+  return views;
 }
 
 function contentForViews(articles) {
   return (
     <List liStyle={{ padding: 0 }}>
       {articles.map(article => {
-        return ArticleItem(`Articles-ArticleItem-${article.get('id')}`, article.get('data'))
+        return ArticleItem(`Articles-ArticleItem-${article.get('id')}`, article.get('data'));
       }).toArray()}
     </List>
   );

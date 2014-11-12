@@ -10,8 +10,7 @@ Brawndo.addActions({
 });
 
 function getArticles() {
-  return API.get('topstories.json')
-    .then(
+  return API.get('topstories.json').then(
       res => getArticlesData(res),
       err => err
     );
@@ -24,8 +23,7 @@ function getArticlesData(articles) {
 }
 
 function getArticle(params) {
-  return API.get(`item/${params.id}.json`)
-    .then(
+  return API.get(`item/${params.id}.json`).then(
       res => getAllKids(res),
       err => err
     );

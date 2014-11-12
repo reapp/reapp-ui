@@ -33,7 +33,6 @@ var Brawndo = module.exports = {
 
 function addStore(name, store) {
   _stores[name] = store;
-  console.log('added store', name, _stores);
 }
 
 function getStore(name) {

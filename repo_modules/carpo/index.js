@@ -1,6 +1,5 @@
 var Omniscient = require('omniscient');
-var React = require('react/addons');
-var Immstruct = require('immstruct');
+var React = require('react');
 
 // Integrates Omniscinet with react-router
 
@@ -25,21 +24,22 @@ function Page(struct) {
 
     statics: {
       getAsyncProps(params) {
-        return getDefaultProps(params);
+        return { asyncProps: getDefaultProps(params) };
       }
     },
 
     getInitialState: () => ({ version: 0 }),
 
     componentWillReceiveProps(nextProps) {
-      this.structure = this.makeStructure(nextProps);
-      this.structure.on('next-animation-frame', () => {
-        this.setState({ version: ++this.state.version });
-      });
-    },
+      if (nextProps.asyncProps.data) {
+        this.structure = nextProps.asyncProps.data;
 
-    makeStructure(props) {
-      return new Immstruct(props);
+        // expects immstruct
+        this.structure.on('next-animation-frame', () => {
+          // todo: forceUpdate instead
+          this.setState({ version: ++this.state.version });
+        });
+      }
     },
 
     render() {

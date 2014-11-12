@@ -76,6 +76,11 @@ module.exports = function({ name, mixins, actions, state, ...spec }) {
     return getStore(name);
   };
 
+  Store.replaceState = newState => {
+    fluxxor.state = newState;
+    return getStore(name);
+  };
+
   Store.setPayload = newPayload => {
     var store = getStore(name);
     store.payload = newPayload;

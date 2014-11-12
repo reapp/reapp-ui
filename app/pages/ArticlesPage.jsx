@@ -5,22 +5,6 @@ var Brawndo = require('brawndo');
 module.exports = Page({
   displayName: 'Articles',
   mixins: [Brawndo.FluxMixin],
-
-  getDefaultProps: params => ({
-    articles: Brawndo.StoreLoader('Articles'),
-    views: [
-      {
-        id: 'hot',
-        title: 'Hot',
-        content: null
-      },
-      {
-        id: 'top',
-        title: 'Top',
-        content: null
-      }
-    ]
-  }),
-
+  getDefaultProps: params => Brawndo.StoreLoader('Articles'),
   render: cursor => Articles('Articles', cursor)
 });
