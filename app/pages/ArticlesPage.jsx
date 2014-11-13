@@ -6,8 +6,8 @@ var ImmstructPropsMixin = require('carpo/ImmstructPropsMixin');
 var Immstructable = ImmstructPropsMixin({
   props: ['articles'],
   onSwap(key, newStruct) {
-    debugger;
-    Brawndo.getStore('Articles').setData('articles', newStruct.cursor());
+    if (key === 'data')
+      Brawndo.getStore('Articles').setData('articles', newStruct.cursor());
   }
 });
 

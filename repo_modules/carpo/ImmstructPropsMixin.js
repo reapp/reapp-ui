@@ -14,7 +14,6 @@ module.exports = function({ props: propKeys, onSwap }) {
     makeStructures(props) {
       propKeys.forEach(key => {
         var data = props.data[key];
-
         if (!data) return;
 
         Object.keys(data).forEach(key => {
