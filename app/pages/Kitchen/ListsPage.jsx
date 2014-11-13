@@ -55,6 +55,19 @@ module.exports = React.createClass({
           <p>ListViewPage View</p>
         </Block>
 
+        <ListTitle>Mail Style Media List</ListTitle>
+        <List>
+          <ListItem
+            title="Facebook"
+            titleAfter="8:45"
+            titleSub="New messages from Jane Doe"
+            wrapper={<a href="http://google.com" />}>
+            Lorem ipsume dolor sit amet, consectetur adipiscing
+            elit. Nulla sagittis tellus ut turpis condimentium,
+            ursula major.
+          </ListItem>
+        </List>
+
         <ListTitle>List with Icons</ListTitle>
         <List>
           <ListItem before={icon} after="Whatup">Nate Wienert</ListItem>

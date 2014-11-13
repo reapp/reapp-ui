@@ -50,15 +50,41 @@ var ListItem = React.createClass({
   },
 
   render() {
-    var { className, styles, children, before, after } = this.props;
+    var {
+      className,
+      styles,
+      children,
+      title,
+      titleAfter,
+      titleSub,
+      before,
+      after,
+      wrapper } = this.props;
+
     var classes = { ListItem: true };
     classes[className] = !!className;
 
+    var content = [
+      this.makeSection('before', before),
+      this.makeSection('content', [
+        <div className="ListItem--titleTop">
+          {this.makeSection('title', title)}
+          {this.makeSection('titleAfter', titleAfter)}
+        </div>,
+        this.makeSection('titleSub', titleSub),
+        this.makeSection('children', children)
+      ]),
+      this.makeSection('after', after)
+    ];
+
+    if (wrapper)
+      content = React.addons.cloneWithProps(wrapper, {
+        children: content
+      });
+
     return (
       <li className={cx(classes)} styles={[this.styles.item, styles].map(ReactStyle)}>
-        {this.makeSection('before', before)}
-        {this.makeSection('content', children)}
-        {this.makeSection('after', after)}
+        {content}
       </li>
     );
   }
