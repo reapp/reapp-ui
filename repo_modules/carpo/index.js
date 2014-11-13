@@ -28,13 +28,12 @@ function Page(name, mixins, { fetchData, statics, onSwap, render, ...restOfStruc
   return React.createClass({
     displayName: name,
     mixins: [].concat(Immstructable, mixins, restOfStruct),
-    statics: { fetchData, ...statics },
+    statics: Object.assign({ fetchData }, statics),
     render() {
       var props = Object.keys(this.structures).reduce((acc, key) => {
         acc[key] = this.structures[key].cursor();
+        return acc;
       }, {});
-
-      console.log('render', this.structures, this.props, props);
 
       return render(props);
     }

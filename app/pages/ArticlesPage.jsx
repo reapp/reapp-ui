@@ -9,7 +9,7 @@ var ArticlesPage = Page('articles', [Brawndo.FluxMixin], {
       { id: 'hot', title: 'Hot', content: null },
       { id: 'top', title: 'Top', content: null }
     ]
-  }),
+  })),
 
   onSwap: (key, newStruct) => (
     key === 'data' &&

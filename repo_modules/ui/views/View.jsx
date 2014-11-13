@@ -7,7 +7,7 @@ var View = React.createClass({
     background: '#efeff4',
     overflowY: 'scroll',
     overflowX: 'hidden',
-    paddingTop: 0,
+    paddingTop: 44,
     position: 'absolute',
     top: 0,
     left: 0,

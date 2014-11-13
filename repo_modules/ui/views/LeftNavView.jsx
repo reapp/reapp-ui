@@ -154,7 +154,7 @@ var LeftNavView = React.createClass({
         )}
         <DraggableView {...draggableProps}>
           {children}
-          <TouchableArea onTouchTap={this._handleTap} scroller={this.scroller}>
+          <TouchableArea onClick={this._handleTap} scroller={this.scroller}>
             {handle}
           </TouchableArea>
         </DraggableView>
