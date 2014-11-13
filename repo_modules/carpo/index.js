@@ -1,5 +1,6 @@
 var Omniscient = require('omniscient');
 var React = require('react');
+var ImmstructPropsMixin = require('./ImmstructPropsMixin');
 
 // Integrates omniscient with react-router
 
@@ -16,39 +17,26 @@ function Component(struct) {
   }
 }
 
-function Page(displayName, mixins, struct) {
-  var { render, getDefaultProps, ...restOfPage } = struct;
+function Page(name, mixins, { fetchData, statics, onSwap, render, ...restOfStruct }) {
+  var Immstructable = ImmstructPropsMixin({
+    props: [name],
+    onSwap(key, newStruct, oldStruct) {
+      onSwap(key, newStruct, oldStruct);
+    }
+  });
 
   return React.createClass({
-    displayName,
-
-    mixins: [].concat(restOfPage, mixins),
-
-    statics: {
-      getAsyncProps(params) {
-        return { asyncProps: getDefaultProps(params) };
-      }
-    },
-
-    getInitialState: () => ({ version: 0 }),
-
-    componentWillReceiveProps(nextProps) {
-      if (nextProps.asyncProps.data) {
-        var Immstruct = require('immstruct');
-        this.structure = Immstruct('data', nextProps.asyncProps.data);
-
-        // expects immstruct
-        this.structure.on('next-animation-frame', () => {
-          // todo: forceUpdate instead
-          this.setState({ version: ++this.state.version });
-        });
-      }
-    },
-
+    displayName: name,
+    mixins: [].concat(Immstructable, mixins, restOfStruct),
+    statics: { fetchData, ...statics },
     render() {
-      if (!this.structure) return <span />;
-      var cursor = this.structure.cursor().set('handler', this.props.activeRouteHandler);
-      return render(cursor);
+      var props = Object.keys(this.structures).reduce((acc, key) => {
+        acc[key] = this.structures[key].cursor();
+      }, {});
+
+      console.log('render', this.structures, this.props, props);
+
+      return render(props);
     }
   });
 }

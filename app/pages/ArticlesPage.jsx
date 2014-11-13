@@ -1,37 +1,22 @@
-var React = require('react');
-var Articles = require('../components/articles/Articles');
+var { Page } = require('carpo');
 var Brawndo = require('brawndo');
-var ImmstructPropsMixin = require('carpo/ImmstructPropsMixin');
+var Articles = require('../components/articles/Articles');
 
-var Immstructable = ImmstructPropsMixin({
-  props: ['articles'],
-  onSwap(key, newStruct) {
-    if (key === 'data')
-      Brawndo.getStore('Articles').setData('articles', newStruct.cursor());
-  }
+var ArticlesPage = Page('articles', [Brawndo.FluxMixin], {
+  fetchData: params => Brawndo.StoreLoader('Articles').then(res => ({
+    data: res.get('articles'),
+    views: [
+      { id: 'hot', title: 'Hot', content: null },
+      { id: 'top', title: 'Top', content: null }
+    ]
+  }),
+
+  onSwap: (key, newStruct) => (
+    key === 'data' &&
+    Brawndo.getStore('Articles').setData('articles', newStruct.cursor())
+  ),
+
+  render: props => Articles('articles', props)
 });
 
-module.exports = React.createClass({
-  mixins: [Immstructable, Brawndo.FluxMixin],
-
-  statics: {
-    fetchData: params => Brawndo.StoreLoader('Articles').then(res => {
-      return {
-        data: res.get('articles'),
-        views: [
-          { id: 'hot', title: 'Hot', content: null },
-          { id: 'top', title: 'Top', content: null }
-        ]
-      }
-    })
-  },
-
-  render() {
-    console.log('render', this.structures, this.props);
-
-    return Articles('Articles', {
-      data: this.structures.data.cursor(),
-      views: this.structures.views.cursor()
-    });
-  }
-});
+  module.exports = ArticlesPage;
