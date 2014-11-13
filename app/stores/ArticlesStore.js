@@ -1,5 +1,5 @@
 var Brawndo = require('brawndo');
-var { Immutable } = require('./StoreMixins');
+var ImmutableMixin = require('./ImmutableMixin');
 
 // all actions done in mixins or 'actions' are automatically prefixed
 // to the name of the store, so actions like load become Articles:load
@@ -14,7 +14,7 @@ Brawndo.createStore({
 
   // actions attached here run *before* the mixins
   mixins: [
-    Immutable(),
+    ImmutableMixin(),
     Brawndo.Mixins.Loadable({
       loadSuccess() {
         this.setData('articles', this.payload);

@@ -11,19 +11,15 @@ require('./Articles.styl');
 
 module.exports = Component('Articles', [ViewLoaderMixin],
   function render(props) {
-    var { cursor } = props;
+    var { data, views } = props;
 
-    var articles = cursor.get('data');
-    if (!articles) return <div />;
-
-    makeViews(cursor);
-    debugger;
+    makeViews(views, data);
 
     return (
       <div id="ArticlesPage">
         <ViewLeft id="articlesLeftView">
           <DottedViewList
-            views={views}
+            views={views.toJS()}
             onViewLeave={this.handleViewLeave}
             onViewEnter={this.handleViewEnter}
             onTouchStart={this.handleTouchStart} />
@@ -44,11 +40,11 @@ module.exports = Component('Articles', [ViewLoaderMixin],
 
 var hasSetContents;
 
-function makeViews(cursor) {
+function makeViews(views, data) {
   if (hasSetContents) return;
 
-  cursor.get('views').forEach(view => {
-    view.update('content', content => contentForViews(cursor.get('data')));
+  views.forEach(view => {
+    view.update('content', content => contentForViews(data));
   });
 
   hasSetContents = true;

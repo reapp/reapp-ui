@@ -1,6 +1,6 @@
 var Immstruct = require('immstruct');
 
-module.exports = function(...dataKeys) {
+module.exports = function({ props: propKeys, onSwap }) {
   return {
     componentWillMount() {
       this.structures = {};
@@ -12,13 +12,22 @@ module.exports = function(...dataKeys) {
     },
 
     makeStructures(props) {
-      debugger;
-      dataKeys.forEach(key => {
-        if (!props.data[key]) return;
+      propKeys.forEach(key => {
+        var data = props.data[key];
 
-        this.structures[key] = Immstruct(key, props.data[key]);
-        this.structures[key].on('next-animation-frame', () => {
-          this.forceUpdate();
+        if (!data) return;
+
+        Object.keys(data).forEach(key => {
+          var curProp = data[key];
+
+          this.structures[key] = (curProp instanceof Immstruct) ?
+            curProp :
+            Immstruct(key, curProp);
+
+          this.structures[key].on('next-animation-frame', (newStruct, oldStruct) => {
+            this.forceUpdate();
+            onSwap(key, newStruct, oldStruct);
+          });
         });
       })
     }
