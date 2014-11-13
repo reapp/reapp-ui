@@ -45,7 +45,8 @@ var Scrollable = function(props) {
       var content = this.refs.content;
       var contentWidth, contentHeight;
 
-      if (content = content.getDOMNode()) {
+      if (content) {
+        content = content.getDOMNode();
         contentWidth = content.clientWidth;
         contentHeight = content.clientHeight;
       }

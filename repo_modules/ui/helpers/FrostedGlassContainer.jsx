@@ -10,16 +10,18 @@ var GlassContainer = React.createClass({
   },
 
   render: function() {
+    var mainViewProps = {
+      key:"content",
+      glassContent:this.props.children,
+      left:this.props.content.left,
+      top:this.props.content.top,
+      width:this.props.content.width,
+      height:this.props.content.height,
+      style:this.props.content.style
+    };
+
     var viewports = [
-      FrostedGlassView(
-        {key:"content",
-        glassContent:this.props.children,
-        left:this.props.content.left,
-        top:this.props.content.top,
-        width:this.props.content.width,
-        height:this.props.content.height,
-        style:this.props.content.style}
-      )
+      <FrostedGlassView {...mainViewProps} />
     ];
 
     for (var key in this.props.overlays) {
@@ -34,17 +36,20 @@ var GlassContainer = React.createClass({
       clonedChildren.props.style = shallowCopy(clonedChildren.props.style || {});
       clonedChildren.props.style[StyleKeys.FILTER] = 'blur(5px)';
 
+      var frostedViewProps = {
+        key:key,
+        glassContent:clonedChildren,
+        left:overlay.left,
+        top:overlay.top,
+        width:overlay.width,
+        height:overlay.height,
+        style:overlay.style
+      };
+
       viewports.push(
-        FrostedGlassView(
-          {key:key,
-          glassContent:clonedChildren,
-          left:overlay.left,
-          top:overlay.top,
-          width:overlay.width,
-          height:overlay.height,
-          style:overlay.style},
-          overlay.children
-        )
+        <FrostedGlassView {...frostedViewProps}>
+          {overlay.children}
+        </FrostedGlassView>
       );
     }
 
@@ -53,7 +58,11 @@ var GlassContainer = React.createClass({
     newProps.style.position = newProps.style.position || 'relative';
     newProps.style.overflow = 'hidden';
 
-    return <div {...newProps}>viewports</div>;
+    return (
+      <div {...newProps}>
+        {viewports}
+      </div>
+    );
   }
 });
 
@@ -70,7 +79,7 @@ function shallowCopy(x) {
 }
 
 function cloneChildren(children) {
-  if (React.isValidComponent(children)) {
+  if (React.isValidElement(children)) {
     return cloneComponent(children);
   } else if (Array.isArray(children)) {
     return children.map(cloneComponent);
