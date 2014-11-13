@@ -18,9 +18,7 @@ var Forms = require('./pages/Kitchen/FormsPage');
 
 module.exports = (
   <Route name="app" path="/" handler={Layout}>
-    <DefaultRoute name="home" handler={Articles} />
-
-    <Route name="hn" path="/" handler={Articles}>
+    <Route name="articles" path="/" handler={Articles}>
       <Route name="article" path="/article/:id" handler={Article} addHandlerKey={true} />
       <Route name="user" path="/user/:id" handler={User} addHandlerKey={true} />
     </Route>

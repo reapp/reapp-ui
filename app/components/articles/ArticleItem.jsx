@@ -12,25 +12,25 @@ var mixins = [{
 }];
 
 module.exports = Component('ArticleItem', mixins,
-  function render(article) {
-    var classes = {
-      article: true
-    };
+  function render(props) {
+    var { cursor } = props;
 
-    //<Link to="user" params={{id: article.get('by')}} activeClassName="">
+    var classes = { Article: true };
+
+    //<Link to="user" params={{id: cursor.get('by')}} activeClassName="">
     var articleLeft = (
       <div className="article--left">
-        <a className="article--link" href={article.get('url')}>
-          <h3>{article.get('title')}</h3>
+        <a className="article--link" href={cursor.get('url')}>
+          <h3>{cursor.get('title')}</h3>
           <ul>
             <li className="score">
-              <span>{article.get('score')}</span>
+              <span>{cursor.get('score')}</span>
             </li>
             <li>
-                {article.get('by')}
+                {cursor.get('by')}
             </li>
             <li className="time">
-              <Time date={new Date(article.get('time') * 1000)} autoUpdate />
+              <Time date={new Date(cursor.get('time') * 1000)} autoUpdate />
             </li>
           </ul>
         </a>
@@ -39,7 +39,7 @@ module.exports = Component('ArticleItem', mixins,
 
     var articleRight = (
       <div className="article--right">
-        <Link to="article" params={{id: article.get('id')}} activeClassName="">
+        <Link to="article" params={{id: cursor.get('id')}} activeClassName="">
           <Icon type="speech" color="#999" />
         </Link>
       </div>

@@ -1,4 +1,5 @@
 var { Component } = require('carpo');
+var { ActiveRouteHandler } = require('react-router');
 var List = require('ui/components/List');
 var ViewLeft = require('ui/views/ViewLeft');
 var ViewMain = require('ui/views/ViewMain');
@@ -9,12 +10,14 @@ var ViewLoaderMixin = require('ViewLoaderMixin');
 require('./Articles.styl');
 
 module.exports = Component('Articles', [ViewLoaderMixin],
-  function render(cursor) {
+  function render(props) {
+    var { cursor } = props;
+
     var articles = cursor.get('articles');
     if (!articles) return <div />;
 
-    var content = cursor.get('handler')();
     var views = makeViews(cursor);
+    console.log(views)
 
     return (
       <div id="ArticlesPage">
@@ -27,12 +30,17 @@ module.exports = Component('Articles', [ViewLoaderMixin],
         </ViewLeft>
 
         <ViewMain>
-          {content && <div className="drawer-parent">{content}</div>}
         </ViewMain>
       </div>
     );
   }
 );
+
+// {ActiveRouteHandler && (
+//   <div className="drawer-parent">
+//     <ActiveRouteHandler {...this.props} />
+//   </div>
+// )}
 
 var views = [
   { id: 'hot', title: 'Hot', content: null },
@@ -53,9 +61,8 @@ function makeViews(cursor) {
 function contentForViews(articles) {
   return (
     <List liStyle={{ padding: 0 }}>
-      {articles.map(article => {
-        return ArticleItem(`Articles-ArticleItem-${article.get('id')}`, article.get('data'));
-      }).toArray()}
+      {articles.map(article =>
+        ArticleItem(`AI-${article.get('id')}`, article)).toArray()}
     </List>
   );
 }

@@ -9,21 +9,31 @@ var FrostedGlassViewport = React.createClass({
   },
 
   render: function() {
+    var {
+      left,
+      top,
+      width,
+      height,
+      glassStyle,
+      glassContent,
+      children,
+      ...props } = this.props;
+
     var style = {
       position: 'absolute',
-      left: this.props.left,
-      top: this.props.top,
-      width: this.props.width,
-      height: this.props.height,
+      left: left,
+      top: top,
+      width: width,
+      height: height,
       overflow: 'hidden'
     };
 
-    var glassStyle = this.props.glassStyle || {};
+    var glassStyle = glassStyle || {};
     glassStyle.position = 'absolute';
     // TODO: this won't animate well. Not sure if compositing will
     // make things better or worse...
-    glassStyle.left = -this.props.left;
-    glassStyle.top = -this.props.top;
+    glassStyle.left = -left;
+    glassStyle.top = -top;
 
     var contentStyle = {
       bottom: 0,
@@ -33,15 +43,15 @@ var FrostedGlassViewport = React.createClass({
       top: 0
     };
 
-    return this.transferPropsTo(
-      TouchableArea( {style:style},
-        React.DOM.div( {style:glassStyle},
-          this.props.glassContent
-        ),
-        React.DOM.div( {style:contentStyle},
-          this.props.children
-        )
-      )
+    return (
+      <TouchableArea {...props} style={style}>
+        <div style={glassStyle}>
+          {glassContent}
+        </div>
+        <div style={contentStyle}>
+          {children}
+        </div>
+      </TouchableArea>
     );
   }
 });

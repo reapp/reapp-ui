@@ -12,7 +12,7 @@ var ViewLeft = React.createClass({
 
     return (
       <div>
-        {title && TitleBar(null, title)}
+        {title && <TitleBar>title</TitleBar>}
         <View className={cx(classes)}>{children}</View>
       </div>
     );

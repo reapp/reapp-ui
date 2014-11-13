@@ -17,7 +17,7 @@ Brawndo.createStore({
     Immutable(),
     Brawndo.Mixins.Loadable({
       loadSuccess() {
-        this.state.data.set('articles', this.immute(this.payload));
+        this.setData('articles', this.payload);
       },
 
       loadFail(error) {

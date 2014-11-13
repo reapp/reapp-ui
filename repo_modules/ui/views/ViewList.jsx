@@ -139,8 +139,8 @@ var ViewList = React.createClass({
   },
 
   makeTitles(titles) {
-    var titleBars = titles.map((title, i) => (
-      TitleBar({
+    var titleBars = titles.map((title, i) => {
+      var titleBarProps = {
         key: `title-${i}`,
         left: title[0],
         right: title[2],
@@ -150,17 +150,23 @@ var ViewList = React.createClass({
           pointerEvents: 'all',
           display: this.isOnStage(i) ? 'inherit' : 'none'
         })
-      }, title[1])
-    ));
+      };
 
-    return titleBars && titleBars.length ?
-      <div style={ToolbarStyle()}>{titleBars}</div> :
-      null;
+      return (
+        <TitleBar {...titleBarProps}>
+          {title[1]}
+        </TitleBar>
+      );
+    });
+
+    return titleBars && titleBars.length && (
+      <div style={ToolbarStyle()}>{titleBars}</div>
+    );
   },
 
   makeViews(contents) {
-    return Object.keys(contents).map((id, i) => (
-      View({
+    return Object.keys(contents).map((id, i) => {
+      var viewProps = {
         key: `view-${i}`,
         id: id,
         'data-transform': this.props.transform,
@@ -169,8 +175,14 @@ var ViewList = React.createClass({
         style: {
           display: this.isOnStage(i) ? 'inherit' : 'none'
         }
-      }, contents[id])
-    ));
+      };
+
+      return (
+        <View {...viewProps}>
+          {contents[id]}
+        </View>
+      );
+    });
   },
 
   styles(state) {
@@ -202,10 +214,10 @@ var ViewList = React.createClass({
   },
 
   render() {
-    var Titles = this.makeTitles(this.views.titles);
-    var Views = this.makeViews(this.views.contents);
+    var titles = this.makeTitles(this.views.titles);
+    var views = this.makeViews(this.views.contents);
 
-    return TouchableArea({
+    var viewListProps = {
       className: 'ViewList',
       style: this.styles(this.state),
       scroller: this.scroller,
@@ -214,7 +226,14 @@ var ViewList = React.createClass({
       onTouchStart: this.handleTouchStart,
       onTouchEnd: this.handleTouchEnd,
       onClick: this.handleClick
-    }, Titles, Views);
+    };
+
+    return (
+      <TouchableArea {...viewListProps}>
+        {titles}
+        {views}
+      </TouchableArea>
+    );
   }
 });
 

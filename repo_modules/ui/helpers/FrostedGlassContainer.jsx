@@ -53,7 +53,7 @@ var GlassContainer = React.createClass({
     newProps.style.position = newProps.style.position || 'relative';
     newProps.style.overflow = 'hidden';
 
-    return React.DOM.div(newProps, viewports);
+    return <div {...newProps}>viewports</div>;
   }
 });
 

@@ -3,7 +3,7 @@ var React = require('react');
 var TouchableArea = React.createClass({
   getDefaultProps() {
     return {
-      component: React.DOM.div,
+      element: 'div',
       touchable: true,
       touchStartBounds: false,
       ignoreY: false,
@@ -79,17 +79,14 @@ var TouchableArea = React.createClass({
   },
 
   render() {
-    var { children, component, ...props } = this.props;
+    var { children, element, ...props } = this.props;
 
-    return (
-      <component
-        onTouchStart={this.handleTouchStart}
-        onTouchMove={this.handleTouchMove}
-        onTouchEnd={this.handleTouchEnd}
-        onTouchCancel={this.handleTouchEnd}>
-        {children}
-      </component>
-    );
+    props.onTouchStart = this.handleTouchStart;
+    props.onTouchMove = this.handleTouchMove;
+    props.onTouchEnd = this.handleTouchEnd;
+    props.onTouchCancel = this.handleTouchEnd;
+
+    return React.createElement(element, props, children);
   }
 });
 

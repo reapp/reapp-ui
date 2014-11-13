@@ -13,7 +13,7 @@ var DottedViewList = React.createClass({
     };
 
     var props = Object.assign({}, parallaxProps, this.props);
-    return ViewList(props);
+    return <ViewList {...props} />;
   }
 });
 
