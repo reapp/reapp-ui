@@ -7,8 +7,13 @@ module.exports = React.createClass({
   mixins: [ImmstructPropsMixin('articles'), Brawndo.FluxMixin],
 
   statics: {
-    fetchData: params =>
-      Brawndo.StoreLoader('Articles').then(res => res.data)
+    fetchData: params => Brawndo.StoreLoader('Articles').then(res => ({
+      data: res.get('articles'),
+      views: [
+        { id: 'hot', title: 'Hot', content: null },
+        { id: 'top', title: 'Top', content: null }
+      ]
+    }))
   },
 
   render() {

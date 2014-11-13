@@ -12,6 +12,7 @@ module.exports = function(...dataKeys) {
     },
 
     makeStructures(props) {
+      debugger;
       dataKeys.forEach(key => {
         if (!props.data[key]) return;
 

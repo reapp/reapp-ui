@@ -13,11 +13,11 @@ module.exports = Component('Articles', [ViewLoaderMixin],
   function render(props) {
     var { cursor } = props;
 
-    var articles = cursor.get('articles');
+    var articles = cursor.get('data');
     if (!articles) return <div />;
 
-    var views = makeViews(cursor);
-    console.log(views)
+    makeViews(cursor);
+    debugger;
 
     return (
       <div id="ArticlesPage">
@@ -42,20 +42,16 @@ module.exports = Component('Articles', [ViewLoaderMixin],
 //   </div>
 // )}
 
-var views = [
-  { id: 'hot', title: 'Hot', content: null },
-  { id: 'top', title: 'Top', content: null }
-];
+var hasSetContents;
 
 function makeViews(cursor) {
-  if (this.hasSetContents) return views;
-  this.hasSetContents = true;
+  if (hasSetContents) return;
 
-  views.forEach(view => {
-    view.content = contentForViews(cursor.get('articles'));
+  cursor.get('views').forEach(view => {
+    view.update('content', content => contentForViews(cursor.get('data')));
   });
 
-  return views;
+  hasSetContents = true;
 }
 
 function contentForViews(articles) {
