@@ -1,5 +1,5 @@
 var React = require('react');
-var DrawerView = require('ui/views/DrawerView');
+var Drawer = require('ui/views/Drawer');
 var TitleBar = require('ui/components/TitleBar');
 var BackButton = require('ui/components/buttons/BackButton');
 var Block = require('ui/components/Block');
@@ -28,7 +28,7 @@ module.exports = React.createClass({
     // TODO: we can make this positioning significantly less lame
     // by measuring the DOM but I'm not sure we want to rely on that
     // staying up-to-date, so for now make it explicit.
-    var maxHeight = document.body.clientHeight - HEADER_HEIGHT;
+    var maxHeight = document.body.clientHeight;
 
     var overlays = {
       header: {
@@ -97,7 +97,7 @@ module.exports = React.createClass({
     );
 
     return (
-      <DrawerView id="ListViewPage">
+      <Drawer id="ListViewPage">
         <TouchableArea scroller={this.scroller}>
           <FrostedGlassContainer
             className="GlassPage-container"
@@ -109,7 +109,7 @@ module.exports = React.createClass({
             </AnimatableContainer>
           </FrostedGlassContainer>
         </TouchableArea>
-      </DrawerView>
+      </Drawer>
     );
   }
 });
