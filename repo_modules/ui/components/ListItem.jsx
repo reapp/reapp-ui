@@ -109,7 +109,8 @@ var ListItem = React.createClass({
 
     if (wrapper)
       content = React.addons.cloneWithProps(wrapper, {
-        children: content
+        children: content,
+        styles: [this.styles.item].map(ReactStyle)
       });
 
     return (

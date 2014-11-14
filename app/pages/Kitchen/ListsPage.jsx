@@ -35,6 +35,19 @@ module.exports = React.createClass({
           </ListItem>
         </List>
 
+        <ListTitle>Simple Media List</ListTitle>
+        <List>
+          <ListItem
+            before={icon}
+            title="Facebook"
+            titleSub="New messages from Jane Doe" />
+          <ListItem
+            before={icon}
+            title="Facebook"
+            titleSub="New messages from Jane Doe"
+            wrapper={<a href="http://google.com" />} />
+        </List>
+
         <ListTitle>List with Icons</ListTitle>
         <List>
           <ListItem before={icon} after="Whatup">Nate Wienert</ListItem>
