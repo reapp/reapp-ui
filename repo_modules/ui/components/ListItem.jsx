@@ -94,6 +94,15 @@ var ListItem = React.createClass({
     var classes = { ListItem: true };
     classes[className] = !!className;
 
+    if (
+      React.isValidElement(children) &&
+      (children.type === 'a' ||
+        children.type && children.type.displayName === 'Link' )
+    ) {
+      wrapper = children;
+      children = wrapper.props.children;
+    }
+
     var content = [
       this.makeSection('before', before),
       this.makeSection('content', [

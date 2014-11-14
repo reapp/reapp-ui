@@ -75,7 +75,7 @@ module.exports = React.createClass({
 
         <ListTitle>Inset</ListTitle>
         <List type="inset">
-          <Link to="modals">Modals</Link>
+          <a href="http://google.com">Google</a>
           <Link to="popovers">Popovers</Link>
           <Link to="tabs">Tabs</Link>
         </List>
