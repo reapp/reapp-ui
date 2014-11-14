@@ -28,6 +28,7 @@ var KitchenPage = module.exports = React.createClass({
           <ListTitle>Views</ListTitle>
           <List>
             <Link to="viewLists">View Lists</Link>
+            <Link to="viewFrosted">Frosted Glass Titlebar</Link>
             <Link to="modals">Drawers &amp; Panels</Link>
             <Link to="modals">Tabs</Link>
           </List>

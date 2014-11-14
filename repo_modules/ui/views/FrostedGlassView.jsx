@@ -1,8 +1,8 @@
 var React = require('react');
 var TouchableArea = require('ui/helpers/TouchableArea');
 
-var FrostedGlassViewport = React.createClass({
-  displayName: 'FrostedGlassViewport',
+var FrostedGlassView = React.createClass({
+  displayName: 'FrostedGlassView',
 
   getDefaultProps: function() {
     return {glassStyle: {}};
@@ -56,4 +56,4 @@ var FrostedGlassViewport = React.createClass({
   }
 });
 
-module.exports = FrostedGlassViewport;
+module.exports = FrostedGlassView;

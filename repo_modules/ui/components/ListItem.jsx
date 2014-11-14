@@ -35,7 +35,37 @@ var ListItem = React.createClass({
     },
 
     content: {
-      flexGrow: 10
+      flexGrow: 10,
+      color: '#000',
+      padding: '10px 10px 10px 0',
+    },
+
+    titleTop: {
+      flexFlow: 'row',
+      justifyContent: 'space-between'
+    },
+
+    title: {
+      fontWeight: '500',
+    },
+
+    titleAfter: {
+      color: '#999',
+      marginRight: 10
+    },
+
+    titleSub: {
+      fontSize: '15px'
+    },
+
+    children: {
+      color: '#999',
+      maxHeight: 42,
+      fontSize: '15px',
+      lineHeight: '21px',
+      overflow: 'hidden',
+      WebkitLineLamp: 2,
+      WebkitBoxOrient: 'vertical',
     }
   },
 
@@ -67,10 +97,10 @@ var ListItem = React.createClass({
     var content = [
       this.makeSection('before', before),
       this.makeSection('content', [
-        <div className="ListItem--titleTop">
-          {this.makeSection('title', title)}
-          {this.makeSection('titleAfter', titleAfter)}
-        </div>,
+        this.makeSection('titleTop', [
+          this.makeSection('title', title),
+          this.makeSection('titleAfter', titleAfter)
+        ]),
         this.makeSection('titleSub', titleSub),
         this.makeSection('children', children)
       ]),

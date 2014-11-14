@@ -7,6 +7,7 @@ var ImageRoll = require('./pages/ImageRollPage');
 var Viewer = require('./pages/ViewerPage');
 var Kitchen = require('./pages/KitchenPage');
 var ViewLists = require('./pages/Kitchen/ViewListsPage');
+var ViewFrosted = require('./pages/Kitchen/ViewFrostedPage');
 var Modals = require('./pages/Kitchen/ModalsPage');
 var Popovers = require('./pages/Kitchen/PopoversPage');
 var Tabs = require('./pages/Kitchen/TabsPage');
@@ -31,6 +32,7 @@ module.exports = (
       <Route name="panels" handler={Panels} />
       <Route name="lists" handler={Lists} />
       <Route name="viewLists" handler={ViewLists} />
+      <Route name="viewFrosted" handler={ViewFrosted} />
       <Route name="grids" handler={Grids} />
       <Route name="forms" handler={Forms} />
     </Route>
