@@ -26,18 +26,24 @@ var fetchData = (matches, params) =>
         return data;
       }, {}));
 
-var render = (Handler, state) =>
-  fetchData(state.matches, state.activeParams).then(data =>
-    React.render(<Handler data={data} flux={Flux} />, document.getElementById('app')));
+var render = (Handler, data) =>
+  React.render(<Handler data={data} flux={Flux} />, document.getElementById('app'))
+
+var renderSync = (Handler, state) =>
+  fetchData(state.matches, state.activeParams).then(data => render(Handler, data));
+
+var renderAsync = (Handler, state) => {
+  render(Handler, null);
+  renderSync(Handler, state);
+}
 
 if (ENV.CLIENT) {
   window.React = React;
+  // require('omniscient').debug(); // debug omniscient
 
-  // debug omniscient
-  // require('omniscient').debug();
-
-  Router.run(Routes, render);
+  Router.run(Routes, renderAsync);
 }
 else {
-  module.exports = RoutedApp;
+  Router.run(Routes, renderSync);
+  // module.exports = RoutedApp;
 }

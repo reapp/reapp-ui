@@ -19,7 +19,7 @@ module.exports = Component('Articles', [ViewLoaderMixin],
       <div id="ArticlesPage">
         <ViewLeft id="articlesLeftView">
           <DottedViewList
-            views={views.toJS()}
+            views={views && views.toJS()}
             onViewLeave={this.handleViewLeave}
             onViewEnter={this.handleViewEnter}
             onTouchStart={this.handleTouchStart} />
@@ -41,7 +41,7 @@ module.exports = Component('Articles', [ViewLoaderMixin],
 var hasSetContents;
 
 function makeViews(views, data) {
-  if (hasSetContents) return;
+  if (hasSetContents || !views) return;
 
   views.forEach(view => {
     view.update('content', content => contentForViews(data));
@@ -53,7 +53,7 @@ function makeViews(views, data) {
 function contentForViews(articles) {
   return (
     <List liStyle={{ padding: 0 }}>
-      {articles.map(article =>
+      {articles && articles.map(article =>
         ArticleItem(`AI-${article.get('id')}`, article)).toArray()}
     </List>
   );

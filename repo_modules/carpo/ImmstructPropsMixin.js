@@ -13,20 +13,16 @@ module.exports = function({ props: propKeys, onSwap }) {
 
     makeStructures(props) {
       propKeys.forEach(key => {
-        var data = props.data[key];
-        if (!data) return;
+        var prop = props[key];
+        if (!prop) return;
 
-        Object.keys(data).forEach(key => {
-          var curProp = data[key];
+        this.structures[key] = (prop instanceof Immstruct) ?
+          prop :
+          Immstruct(key, prop);
 
-          this.structures[key] = (curProp instanceof Immstruct) ?
-            curProp :
-            Immstruct(key, curProp);
-
-          this.structures[key].on('next-animation-frame', (newStruct, oldStruct) => {
-            this.forceUpdate();
-            onSwap(key, newStruct, oldStruct);
-          });
+        this.structures[key].on('next-animation-frame', (newStruct, oldStruct) => {
+          this.forceUpdate();
+          onSwap(key, newStruct, oldStruct);
         });
       })
     }

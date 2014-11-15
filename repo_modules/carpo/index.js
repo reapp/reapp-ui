@@ -17,11 +17,12 @@ function Component(struct) {
   }
 }
 
-function Page(name, mixins, { fetchData, statics, onSwap, render, ...restOfStruct }) {
+function Page(name, mixins, { cursors, fetchData, statics, onDataChange, render, ...restOfStruct }) {
   var Immstructable = ImmstructPropsMixin({
-    props: [name],
+    props: [].concat(cursors),
+
     onSwap(key, newStruct, oldStruct) {
-      onSwap(key, newStruct, oldStruct);
+      onDataChange(key, newStruct, oldStruct);
     }
   });
 
