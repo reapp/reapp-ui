@@ -2,6 +2,7 @@ var { Component } = require('carpo');
 var React = require('react/addons');
 var Time = require('react-ago-component');
 var Icon = require('ui/components/Icon');
+var ListItem = require('ui/components/ListItem');
 var { Link } = require('react-router');
 
 require('./ArticleItem.styl');
@@ -17,23 +18,18 @@ module.exports = Component('ArticleItem', mixins,
     var classes = { Article: true };
 
     //<Link to="user" params={{id: cursor.get('by')}} activeClassName="">
-    var articleLeft = (
-      <div className="article--left">
-        <a className="article--link" href={cursor.get('url')}>
-          <h3>{cursor.get('title')}</h3>
-          <ul>
-            <li className="score">
-              <span>{cursor.get('score')}</span>
-            </li>
-            <li>
-                {cursor.get('by')}
-            </li>
-            <li className="time">
-              <Time date={new Date(cursor.get('time') * 1000)} autoUpdate />
-            </li>
-          </ul>
-        </a>
-      </div>
+    var stats = (
+      <ul>
+        <li className="score">
+          <span>{cursor.get('score')}</span>
+        </li>
+        <li>
+            {cursor.get('by')}
+        </li>
+        <li className="time">
+          <Time date={new Date(cursor.get('time') * 1000)} autoUpdate />
+        </li>
+      </ul>
     );
 
     var articleRight = (
@@ -45,13 +41,14 @@ module.exports = Component('ArticleItem', mixins,
     );
 
     return (
-      <div
+      <ListItem
         className={React.addons.classSet(classes)}
-        style={this.props && this.props.style}
-        onClick={this.onTouch}>
-        {articleLeft}
-        {articleRight}
-      </div>
+        onClick={this.onTouch}
+        wrapper={<a className="article--link" href={cursor.get('url')} />}
+        title={cursor.get('title')}
+        after={articleRight}>
+        {stats}
+      </ListItem>
     );
   }
 );

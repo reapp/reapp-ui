@@ -36,7 +36,7 @@ function Page(name, mixins, { cursors, fetchData, statics, onDataChange, render,
         return acc;
       }, {});
 
-      debugger;
+      // todo this is rendering twice
 
       return render(props);
     }
