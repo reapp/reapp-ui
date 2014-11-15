@@ -36,6 +36,8 @@ function Page(name, mixins, { cursors, fetchData, statics, onDataChange, render,
         return acc;
       }, {});
 
+      debugger;
+
       return render(props);
     }
   });

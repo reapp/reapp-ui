@@ -13,7 +13,7 @@ module.exports = Component('Articles', [ViewLoaderMixin],
   function render(props) {
     var { data, views } = props;
 
-    makeViews(views, data);
+    makeViews(views, data.get('articles'));
 
     return (
       <div id="ArticlesPage">
@@ -41,7 +41,7 @@ module.exports = Component('Articles', [ViewLoaderMixin],
 var hasSetContents;
 
 function makeViews(views, data) {
-  if (hasSetContents || !views) return;
+  if (hasSetContents || !views || !data) return;
 
   views.forEach(view => {
     view.update('content', content => contentForViews(data));

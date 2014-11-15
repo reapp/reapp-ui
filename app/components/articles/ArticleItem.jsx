@@ -14,7 +14,6 @@ var mixins = [{
 module.exports = Component('ArticleItem', mixins,
   function render(props) {
     var { cursor } = props;
-
     var classes = { Article: true };
 
     //<Link to="user" params={{id: cursor.get('by')}} activeClassName="">

@@ -41,7 +41,8 @@ if (ENV.CLIENT) {
   window.React = React;
   // require('omniscient').debug(); // debug omniscient
 
-  Router.run(Routes, renderAsync);
+  // Router.run(Routes, renderAsync);
+  Router.run(Routes, renderSync);
 }
 else {
   Router.run(Routes, renderSync);
