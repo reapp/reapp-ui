@@ -125,6 +125,7 @@ var ListItem = React.createClass({
 
     if (wrapper)
       wrapper = React.addons.cloneWithProps(wrapper, {
+        children: null,
         styles: [this.styles.wrapper].map(ReactStyle)
       });
 
@@ -133,7 +134,7 @@ var ListItem = React.createClass({
       span('before', before),
       span('content', [
         span('wrapper', wrapper),
-        span('titleTop', [
+        (title || titleAfter) && span('titleTop', [
           span('title', title),
           span('titleAfter', titleAfter)
         ]),
