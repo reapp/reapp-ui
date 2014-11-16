@@ -9,12 +9,12 @@ var BackButton = module.exports = React.createClass({
 
   render() {
     var iconProps = {
-      size: 24,
+      size: 18,
       type: 'left',
-      stroke: 1,
+      stroke: 2,
       style: {
-        width: 18,
-        margin: '0 4px 0 -4px'
+        width: 16,
+        margin: '0 2px 0 -4px'
       }
     };
 

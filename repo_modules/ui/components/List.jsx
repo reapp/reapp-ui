@@ -43,7 +43,8 @@ var List = React.createClass({
       type,
       styles,
       liStyle,
-      title
+      title,
+      dontWrap
     } = this.props;
 
     var classes = { List: true };
@@ -55,7 +56,7 @@ var List = React.createClass({
       <ul className={cx(classes)} styles={listStyles.map(ReactStyle)}>
         {title && <li className="List--title">{title}</li>}
         {React.Children.map(children, (li, i) => {
-          if (li.type && li.type.isListItem)
+          if (dontWrap || li.type && li.type.isListItem)
             return React.addons.cloneWithProps(li, { key: i });
 
           return (

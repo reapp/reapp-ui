@@ -1,4 +1,9 @@
 roadmap
+- dont use omniscient, take out pieces of it
+  - direct integration with react, but
+  - pre-mixed in:
+    - cursor shouldComponentUpdate
+    - purerendermixin
 - strategy for managing styles
 - stores
 

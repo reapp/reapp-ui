@@ -21,6 +21,14 @@ var ListItem = React.createClass({
       minHeight: 44
     },
 
+    wrapper: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0
+    },
+
     before: {
       flexShrink: 0,
       flexWrap: 'nowrap',
@@ -30,14 +38,17 @@ var ListItem = React.createClass({
     after: {
       color: '#999',
       flexShrink: 0,
-      margin: '0 12px',
-      whiteSpace: 'nowrap'
+      margin: '0',
+      whiteSpace: 'nowrap',
+      alignSelf: 'stretch'
     },
 
     content: {
+      flexShrink: 1,
       flexGrow: 10,
       color: '#000',
       padding: '10px 10px 10px 0',
+      position: 'relative'
     },
 
     titleTop: {
@@ -59,7 +70,6 @@ var ListItem = React.createClass({
     },
 
     children: {
-      color: '#999',
       maxHeight: 42,
       fontSize: '15px',
       lineHeight: '21px',
@@ -69,14 +79,24 @@ var ListItem = React.createClass({
     }
   },
 
+  getStyle(name) {
+    return [this.styles[name]].map(ReactStyle);
+  },
+
   makeSection(name, content) {
     return content && (
       <span
-        styles={[this.styles[name]].map(ReactStyle)}
+        styles={this.getStyle(name)}
         className={`ListItem--${name}`}>
         {content}
       </span>
     );
+  },
+
+  hasLinkAsChild(children) {
+    return  React.isValidElement(children) &&
+      (children.type === 'a' ||
+        children.type && children.type.displayName === 'Link' );
   },
 
   render() {
@@ -94,33 +114,34 @@ var ListItem = React.createClass({
     var classes = { ListItem: true };
     classes[className] = !!className;
 
-    if (
-      React.isValidElement(children) &&
-      (children.type === 'a' ||
-        children.type && children.type.displayName === 'Link' )
-    ) {
+    // make a top level link into a wrapper so it can take up the whole item
+    if (!wrapper && this.hasLinkAsChild(children)) {
       wrapper = children;
       children = wrapper.props.children;
     }
 
-    var content = [
-      this.makeSection('before', before),
-      this.makeSection('content', [
-        this.makeSection('titleTop', [
-          this.makeSection('title', title),
-          this.makeSection('titleAfter', titleAfter)
-        ]),
-        this.makeSection('titleSub', titleSub),
-        this.makeSection('children', children)
-      ]),
-      this.makeSection('after', after)
-    ];
+    this.styles.children.color = title ?
+      '#999' : '#000';
 
     if (wrapper)
-      content = React.addons.cloneWithProps(wrapper, {
-        children: content,
-        styles: [this.styles.item].map(ReactStyle)
+      wrapper = React.addons.cloneWithProps(wrapper, {
+        styles: [this.styles.wrapper].map(ReactStyle)
       });
+
+    var span = this.makeSection;
+    var content = [
+      span('before', before),
+      span('content', [
+        span('wrapper', wrapper),
+        span('titleTop', [
+          span('title', title),
+          span('titleAfter', titleAfter)
+        ]),
+        span('titleSub', titleSub),
+        span('children', children)
+      ]),
+      span('after', after)
+    ];
 
     return (
       <li className={cx(classes)} styles={[this.styles.item, styles].map(ReactStyle)}>

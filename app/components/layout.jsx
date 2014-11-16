@@ -16,14 +16,21 @@ var Layout = React.createClass({
     button: {
       position: 'absolute',
       zIndex: 1001,
-      top: -3,
+      top: 0,
       left: 8
     }
   },
 
   render() {
     var button = (
-      <Button id="hamburger" iconProps={{type: 'hamburger'}} style={this.styles.button} />
+      <Button
+        id="hamburger"
+        iconProps={{
+          stroke: 1,
+          size: 26,
+          type: 'hamburger'
+        }}
+        style={this.styles.button} />
     );
 
     var menu = (

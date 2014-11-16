@@ -52,7 +52,7 @@ function makeViews(views, data) {
 
 function contentForViews(articles) {
   return (
-    <List liStyle={{ padding: 0 }}>
+    <List dontWrap={true} liStyle={{ padding: 0 }}>
       {articles && articles.map(article =>
         ArticleItem(`AI-${article.get('id')}`, article)).toArray()}
     </List>
