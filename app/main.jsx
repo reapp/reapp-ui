@@ -29,22 +29,25 @@ var fetchData = (matches, params) =>
 var render = (Handler, data) =>
   React.render(<Handler data={data} flux={Flux} />, document.getElementById('app'))
 
-var renderSync = (Handler, state) =>
-  fetchData(state.matches, state.activeParams).then(data => render(Handler, data));
+function renderSync() {
+  Router.run(Routes, (Handler, state) => {
+    fetchData(state.matches, state.activeParams).then(data => render(Handler, data));
+  });
+}
 
-var renderAsync = (Handler, state) => {
-  render(Handler, null);
-  renderSync(Handler, state);
+function renderAsync() {
+  Router.run(Routes, (Handler, state) => {
+    render(Handler, state);
+    renderSync(Handler, state);
+  });
 }
 
 if (ENV.CLIENT) {
-  window.React = React;
   // require('omniscient').debug(); // debug omniscient
-
-  // Router.run(Routes, renderAsync);
-  Router.run(Routes, renderSync);
+  window.React = React;
+  renderAsync();
 }
 else {
-  Router.run(Routes, renderSync);
   // module.exports = RoutedApp;
+  renderSync();
 }

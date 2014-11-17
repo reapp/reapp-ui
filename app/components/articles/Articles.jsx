@@ -12,6 +12,7 @@ require('./Articles.styl');
 module.exports = Component('Articles', [ViewLoaderMixin],
   function render(props) {
     var { data, views } = props;
+    if (!data) return <span />;
 
     makeViews(views, data.get('articles'));
 
