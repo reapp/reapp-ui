@@ -17,8 +17,14 @@ var Menu = React.createClass({
   },
 
   render() {
+    var liProps = {
+      styles: {
+        children: { color: '#fff' }
+      }
+    };
+
     return (
-      <List className="menu" styles={this.styles}>
+      <List className="menu" styles={this.styles} liProps={liProps}>
         {this.props.children}
       </List>
     );

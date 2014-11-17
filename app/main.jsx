@@ -30,7 +30,7 @@ var render = (Handler, data) =>
   React.render(<Handler data={data} flux={Flux} />, document.getElementById('app'))
 
 function renderSync() {
-  Router.run(Routes, (Handler, state) => {
+  Router.run(Routes, Router.HistoryLocation, (Handler, state) => {
     fetchData(state.matches, state.activeParams).then(data => render(Handler, data));
   });
 }
@@ -38,14 +38,15 @@ function renderSync() {
 function renderAsync() {
   Router.run(Routes, (Handler, state) => {
     render(Handler, state);
-    renderSync(Handler, state);
+    renderSync();
   });
 }
 
 if (ENV.CLIENT) {
   // require('omniscient').debug(); // debug omniscient
   window.React = React;
-  renderAsync();
+  // renderAsync();
+  renderSync();
 }
 else {
   // module.exports = RoutedApp;

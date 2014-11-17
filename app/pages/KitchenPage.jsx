@@ -47,3 +47,5 @@ var KitchenPage = module.exports = React.createClass({
     );
   }
 });
+
+// {Handler && <div className="drawer-parent">{Handler}</div>}

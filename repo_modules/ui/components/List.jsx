@@ -42,7 +42,7 @@ var List = React.createClass({
       children,
       type,
       styles,
-      liStyle,
+      liProps,
       title,
       dontWrap
     } = this.props;
@@ -61,8 +61,8 @@ var List = React.createClass({
 
           return (
             <ListItem
-              key={li.key || i}
-              style={liStyle}>
+              {...liProps}
+              key={li.key || i}>
               {li.content || li}
             </ListItem>
           );

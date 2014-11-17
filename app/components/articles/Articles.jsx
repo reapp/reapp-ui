@@ -14,6 +14,7 @@ module.exports = Component('Articles', [ViewLoaderMixin],
     var { data, views } = props;
     if (!data) return <span />;
 
+    var Handler = ActiveRouteHandler(this.props);
     makeViews(views, data.get('articles'));
 
     return (
@@ -33,9 +34,9 @@ module.exports = Component('Articles', [ViewLoaderMixin],
   }
 );
 
-// {ActiveRouteHandler && (
+// {Handler && (
 //   <div className="drawer-parent">
-//     <ActiveRouteHandler {...this.props} />
+//     {Handler}
 //   </div>
 // )}
 

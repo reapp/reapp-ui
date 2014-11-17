@@ -9,6 +9,12 @@ var ListItem = React.createClass({
     isListItem: true
   },
 
+  getDefaultProps() {
+    return {
+      styles: {}
+    };
+  },
+
   styles: {
     item: {
       listStyle: 'none',
@@ -80,7 +86,7 @@ var ListItem = React.createClass({
   },
 
   getStyle(name) {
-    return [this.styles[name]].map(ReactStyle);
+    return [this.styles[name], this.props.styles[name]].map(ReactStyle);
   },
 
   makeSection(name, content) {
@@ -120,8 +126,7 @@ var ListItem = React.createClass({
       children = wrapper.props.children;
     }
 
-    this.styles.children.color = title ?
-      '#999' : '#000';
+    this.styles.children.color =  title ? '#999' : '#000';
 
     if (wrapper)
       wrapper = React.addons.cloneWithProps(wrapper, {

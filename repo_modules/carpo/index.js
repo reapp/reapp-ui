@@ -38,7 +38,7 @@ function Page(name, mixins, { cursors, fetchData, statics, onDataChange, render,
 
       // todo this is rendering twice
 
-      return render(props);
+      return render.call(this, props);
     }
   });
 }
