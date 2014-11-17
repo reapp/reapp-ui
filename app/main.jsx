@@ -6,7 +6,12 @@ var Router = require('react-router');
 var Brawndo = require('brawndo');
 var WhenKeys = require('when/keys');
 var Routes = require('./routes');
+var UI = require('ui');
+var IOSTheme = require('ui/themes/ios');
 var ENV = require('./ENV');
+
+// UI
+UI.setTheme(IOSTheme);
 
 // Flux
 require('./stores/Stores');

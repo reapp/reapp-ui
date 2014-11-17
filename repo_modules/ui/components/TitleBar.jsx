@@ -2,7 +2,6 @@ var React = require('react/addons');
 var ReactStyle = require('react-style');
 var DocumentTitle = require('react-document-title');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
-var ToolbarStyle = require('../style/Toolbar');
 
 // todo: auto center buttons in titlebars, calc size
 
@@ -10,7 +9,7 @@ require('./TitleBar.styl');
 
 var TitleBar = React.createClass({
   getDefaultProps() {
-    return { style: ToolbarStyle(this.props) };
+    return { style: {} };
   },
 
   styles: (props) => ReactStyle(props),

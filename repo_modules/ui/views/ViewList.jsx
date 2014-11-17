@@ -1,6 +1,5 @@
 var React = require('react');
 var TitleBar = require('../components/TitleBar');
-var ToolbarStyle = require('../style/Toolbar');
 var TouchableArea = require('../helpers/TouchableArea');
 var Transforms = require('../animations/Transforms');
 var View = require('./View');
@@ -145,11 +144,11 @@ var ViewList = React.createClass({
         left: title[0],
         right: title[2],
         index: i,
-        style: ToolbarStyle({
-          background: 'transparent',
-          pointerEvents: 'all',
-          display: this.isOnStage(i) ? 'inherit' : 'none'
-        })
+        // style: ToolbarStyle({
+        //   background: 'transparent',
+        //   pointerEvents: 'all',
+        //   display: this.isOnStage(i) ? 'inherit' : 'none'
+        // })
       };
 
       return (

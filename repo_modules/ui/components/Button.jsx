@@ -1,42 +1,30 @@
 var React = require('react');
-var ReactStyle = require('react-style');
+var Styled = require('ui/styled');
 var Icon = require('./Icon');
 
 require('./Button.styl');
 
 var Button = React.createClass({
+  mixins: [Styled('button')],
+
   getDefaultProps() {
     return { iconProps: {} };
   },
 
-  styles: (styleProps) => Object.assign({}, {
-    fontSize: '16px',
-    background: 'none',
-    border: 'none',
-    padding: '8px 0',
-    color: '#307cff',
-    flexFlow: 'row',
-    zoom: 1,
-    lineHeight: 'normal',
-    whiteSpace: 'nowrap',
-    verticalAlign: 'baseline',
-    textAlign: 'center',
-    cursor: 'pointer',
-    WebkitUserDrag: 'none',
-    WebkitUserSelect: 'none',
-    outline: 'none'
-  }, styleProps),
-
   render() {
-    var { style, transforms, iconProps, children, type, ...props } = this.props;
-    var styles = this.styles(style);
+    var { transforms, iconProps, borderless, children, type, ...props } = this.props;
 
-    iconProps.style = iconProps.style || {};
-    iconProps.style.color = iconProps.style.color || styles.color;
+    borderless &&
+      this.assignStyles('button', this.styles.borderless);
+
+    iconProps.styles = iconProps.styles || {};
+    iconProps.styles.color = iconProps.styles.color || this.styles.button.color;
 
     return (
-      <button {...props} style={styles} className={`button-${type}`}>
-        <Icon {...iconProps} />
+      <button {...props}
+        styles={this.getStyles()}
+        className={`button-${type}`}>
+        {iconProps && <Icon {...iconProps} />}
         {children && (
           <span style={{ margin: 'auto' }} data-transform={transforms}>
             {children}

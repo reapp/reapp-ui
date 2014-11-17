@@ -22,7 +22,8 @@ var BackButton = module.exports = React.createClass({
       <Button
         {...this.props}
         onClick={this.goBack}
-        iconProps={iconProps}>
+        iconProps={iconProps}
+        borderless>
         Back
       </Button>
     );
