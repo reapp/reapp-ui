@@ -28,6 +28,6 @@ function getStylesObject() {
   }, styles);
 
   return styles;
-};
+}
 
 module.exports = getStylesObject('button');

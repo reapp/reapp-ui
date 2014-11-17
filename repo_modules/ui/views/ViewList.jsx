@@ -159,7 +159,7 @@ var ViewList = React.createClass({
     });
 
     return titleBars && titleBars.length && (
-      <div style={ToolbarStyle()}>{titleBars}</div>
+      <div>{titleBars}</div> //  style={ToolbarStyle()}
     );
   },
 

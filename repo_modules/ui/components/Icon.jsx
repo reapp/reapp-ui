@@ -11,12 +11,6 @@ var Icon = React.createClass({
     };
   },
 
-  styles: (style, size) => (Object.assign({}, {
-    width: size,
-    height: size,
-    overflow: 'hidden'
-  }, style)),
-
   render() {
     var { size, style, type, stroke, ...props } = this.props;
     var classes = { Icon: true };
@@ -31,8 +25,16 @@ var Icon = React.createClass({
       };
     }
 
+    var styles = Object.assign({
+      width: size,
+      height: size,
+      overflow: 'hidden'
+    }, style);
+
     return (
-      <span {...props} className={cx(classes)} style={this.styles(style, size)}>
+      <span {...props}
+        style={styles}
+        className={cx(classes)}>
         <svg
           {...strokeProps}
           fill={style.color}

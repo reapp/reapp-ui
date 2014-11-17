@@ -43,15 +43,15 @@ function renderSync() {
 function renderAsync() {
   Router.run(Routes, (Handler, state) => {
     render(Handler, state);
-    renderSync();
+    // renderSync();
   });
 }
 
 if (ENV.CLIENT) {
   // require('omniscient').debug(); // debug omniscient
   window.React = React;
-  // renderAsync();
-  renderSync();
+  renderAsync();
+  // renderSync();
 }
 else {
   // module.exports = RoutedApp;
