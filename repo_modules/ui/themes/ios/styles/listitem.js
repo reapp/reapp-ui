@@ -12,12 +12,23 @@ module.exports = {
     position: 'relative'
   },
 
+  firstChild: {
+    border: 'none'
+  },
+
   wrapper: {
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
-    bottom: 0
+    bottom: 0,
+    width: '100%',
+    flexFlow: 'row',
+    justifyContent: 'flex-end'
+  },
+
+  arrow: {
+    margin: 'auto 8px auto 0'
   },
 
   before: {

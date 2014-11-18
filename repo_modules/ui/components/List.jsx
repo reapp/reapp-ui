@@ -48,11 +48,12 @@ var List = React.createClass({
         {title && <li className="List--title">{title}</li>}
         {React.Children.map(children, (li, i) => {
           if (dontWrap || li.type && li.type.isListItem)
-            return React.addons.cloneWithProps(li, { key: i });
+            return React.addons.cloneWithProps(li, { key: i, index: i });
 
           return (
             <ListItem
               {...liProps}
+              index={i}
               key={li.key || i}>
               {li.content || li}
             </ListItem>

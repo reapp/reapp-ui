@@ -1,29 +1,34 @@
 var React = require('react/addons');
+var Styled = require('ui/styled');
 var cx = React.addons.classSet;
 
 var Icon = React.createClass({
+  mixins: [Styled('icon')],
+
   getDefaultProps() {
     return {
       size: 32,
-      style: { color: '#777' }
+      color: '#777',
+      style: {}
     };
   },
 
   render() {
-    var { size, style, type, stroke, ...props } = this.props;
+    var { size, style, type, color, stroke, ...props } = this.props;
     var classes = { Icon: true };
     var scale = size / 64;
 
     var strokeProps;
     if (stroke) {
       strokeProps = {
-        stroke: style.color,
+        stroke: color,
         strokeWidth: stroke * 4, // were scaling down from 64 / 2
         strokeLinecap: 'round'
       };
     }
 
     var styles = Object.assign({
+      color: color,
       width: size,
       height: size,
       overflow: 'hidden'
@@ -31,11 +36,12 @@ var Icon = React.createClass({
 
     return (
       <span {...props}
+        styles={this.getStyles()}
         style={styles}
         className={cx(classes)}>
         <svg
           {...strokeProps}
-          fill={style.color}
+          fill={color}
           viewBox="0 0 64 64"
           style={{width:size, height:size, shapeRendering: 'crispEdges', fill: 'currentColor'}}>
           <g

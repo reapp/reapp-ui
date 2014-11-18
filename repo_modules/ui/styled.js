@@ -8,7 +8,7 @@ module.exports = function(name) {
       var styles = {};
       var propStyles = this.props.styles;
 
-      Object.keys(theme[name]).forEach(key => {
+      Object.keys(theme[name] || {}).forEach(key => {
         styles[key] = [theme[name][key]];
       });
 
@@ -48,7 +48,14 @@ module.exports = function(name) {
 
     getStyles(elName, extras) {
       elName = elName === name ? 'self' : elName || 'self';
-      return (!extras) ? this.styles[elName] : [].concat(this.styles[elName], extras);
+
+      if (this.props.index === 0 && this.styles.firstChild) {
+        extras = (extras || []).concat(this.styles.firstChild);
+      }
+
+      return (!extras) ?
+        this.styles[elName] :
+        [].concat(this.styles[elName], extras);
     },
 
     addStyles(elName, styles) {

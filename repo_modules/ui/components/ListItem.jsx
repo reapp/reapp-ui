@@ -1,5 +1,6 @@
 var React = require('react/addons');
 var Styled = require('ui/styled');
+var Icon = require('./Icon');
 var cx = React.addons.classSet;
 
 require('./ListItem.styl');
@@ -52,11 +53,19 @@ var ListItem = React.createClass({
     if (!this.getStyleVal('children', 'color'))
       this.addStyles('children', { color: title ? '#999' : '#000' });
 
-    if (wrapper)
+    if (wrapper) {
       wrapper = React.addons.cloneWithProps(wrapper, {
-        children: null,
+        children: this.isLink(wrapper) ?
+          <Icon
+            styles={this.getStyles('arrow')}
+            size={16}
+            stroke={1}
+            color="#ccc"
+            type="right" /> :
+          null,
         styles: this.getStyles('wrapper')
       });
+    }
 
     var span = this.makeSection;
     var content = [
