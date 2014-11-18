@@ -32,7 +32,6 @@ var ListItem = React.createClass({
   render() {
     var {
       className,
-      styles,
       children,
       title,
       titleAfter,
@@ -50,7 +49,7 @@ var ListItem = React.createClass({
       children = wrapper.props.children;
     }
 
-    // this.styles.children.color =  title ? '#999' : '#000';
+    this.addStyles('children', { color: title ? '#999' : '#000' });
 
     if (wrapper)
       wrapper = React.addons.cloneWithProps(wrapper, {

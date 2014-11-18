@@ -1,4 +1,5 @@
 var UI = require('./index');
+var ReactStyle = require('react-style');
 
 module.exports = function(name) {
   return {
@@ -27,6 +28,16 @@ module.exports = function(name) {
       this.styles = null;
     },
 
+    makeReactStyle(obj) {
+      return this.isReactStyle(obj) ? obj : ReactStyle(obj);
+    },
+
+    isReactStyle(obj) {
+      // todo: checking for array is dirty,
+      // just used for now because we turn everything into array
+      return Array.isArray(obj) || !!obj.style;
+    },
+
     getStyles(elName, extras) {
       elName = elName === name ? 'self' : elName || 'self';
       return (!extras) ? this.styles[elName] : [].concat(this.styles[elName], extras);
@@ -39,7 +50,11 @@ module.exports = function(name) {
         elName = 'self';
       }
 
-      if (elName === name) elName = 'self';
+      styles = this.makeReactStyle(styles);
+
+      if (elName === name)
+        elName = 'self';
+
       this.styles[elName] = [].concat(this.getStyles(elName), styles);
     },
 
