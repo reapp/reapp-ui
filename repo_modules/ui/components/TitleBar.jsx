@@ -3,8 +3,6 @@ var Styled = require('ui/styled');
 var DocumentTitle = require('react-document-title');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
 
-require('./TitleBar.styl');
-
 var TitleBar = React.createClass({
   mixins: [Styled('titlebar')],
 
@@ -51,9 +49,17 @@ var TitleBar = React.createClass({
         data-transform="FADE_LEFT"
         data-transform-index={index}
         styles={this.getStyles()}>
-        <div className="TitleBar--left">{left}</div>
-        <div ref="mid" className="TitleBar--mid">{mid}</div>
-        <div className="TitleBar--right">{right}</div>
+        <div
+          className="TitleBar--left"
+          styles={this.getStyles('left')}>
+          {left}</div>
+        <div
+          ref="mid"
+          className="TitleBar--mid"
+          styles={this.getStyles('mid')}>{mid}</div>
+        <div
+          className="TitleBar--right"
+          styles={this.getStyles('right')}>{right}</div>
       </div>
     );
   }

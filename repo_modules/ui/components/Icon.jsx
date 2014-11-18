@@ -1,8 +1,6 @@
 var React = require('react/addons');
 var cx = React.addons.classSet;
 
-require('./Icon.styl');
-
 var Icon = React.createClass({
   getDefaultProps() {
     return {
@@ -39,7 +37,7 @@ var Icon = React.createClass({
           {...strokeProps}
           fill={style.color}
           viewBox="0 0 64 64"
-          style={{width:size, height:size, shapeRendering: 'crispEdges'}}>
+          style={{width:size, height:size, shapeRendering: 'crispEdges', fill: 'currentColor'}}>
           <g
             dangerouslySetInnerHTML={{__html:
               '<use xlink:href="/icons/svg/'+ type +'.svg#Layer_1"></use>'

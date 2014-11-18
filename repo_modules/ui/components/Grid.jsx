@@ -5,10 +5,8 @@ var cx = React.addons.classSet;
 // from andreypopp/react-flexgrid
 
 var PAD_STYLE = ReactStyle({
-    padding: '15px',
-  });
-
-require('./Grid.styl');
+  padding: '15px',
+});
 
 var Container = React.createClass({
   getDefaultProps() {

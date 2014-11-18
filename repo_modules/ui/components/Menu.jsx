@@ -2,14 +2,15 @@ var React = require('react');
 var Styled = require('ui/styled');
 var List = require('./List');
 
-require('./Menu.styl');
-
 var Menu = React.createClass({
   mixins: [Styled('menu')],
 
   render() {
+    var listStyles = this.getStyles();
+
     var liProps = {
       styles: {
+        self: { border: 'none' },
         children: { color: '#fff' }
       }
     };
@@ -17,7 +18,7 @@ var Menu = React.createClass({
     return (
       <List
         className="menu"
-        styles={this.getStyles()}
+        styles={listStyles}
         liProps={liProps}>
         {this.props.children}
       </List>

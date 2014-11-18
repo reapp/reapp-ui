@@ -1,7 +1,5 @@
 var React = require('react');
 
-require('./Block.styl');
-
 var Block = React.createClass({
   render() {
     var { children, ...props } = this.props;

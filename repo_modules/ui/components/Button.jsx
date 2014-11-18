@@ -2,8 +2,6 @@ var React = require('react');
 var Styled = require('ui/styled');
 var Icon = require('./Icon');
 
-require('./Button.styl');
-
 var Button = React.createClass({
   mixins: [Styled('button')],
 
@@ -17,7 +15,7 @@ var Button = React.createClass({
     var { transforms, iconProps, borderless, children, type, ...props } = this.props;
     var hasIconProps = !!iconProps;
 
-    borderless &&
+    if (borderless)
       this.addStyles(this.styles.borderless);
 
     iconProps = iconProps || {};

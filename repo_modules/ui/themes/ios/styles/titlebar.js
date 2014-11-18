@@ -9,6 +9,25 @@ module.exports = {
     top: 0,
     left: 0,
     width: '100%',
-    height: 44
+    height: 44,
+    flexFlow: 'row',
+    fontWeight: 500,
+    justifyContent: 'space-between',
+    padding: '0 10px',
+    WebkitBackfaceVisibility: 'hidden',
+    WebkitTransform: 'translateZ(0)'
+  },
+
+  left: {
+    margin: 'auto 0'
+  },
+
+  mid: {
+    margin: 'auto 0',
+    position: 'relative'
+  },
+
+  right: {
+    margin: 'auto 0'
   }
 };
