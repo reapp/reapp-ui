@@ -19,7 +19,7 @@ var Menu = React.createClass({
   render() {
     var liProps = {
       styles: {
-        children: { color: '#fff' }
+        children: ReactStyle({ color: '#fff' })
       }
     };
 

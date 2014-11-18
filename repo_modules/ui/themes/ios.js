@@ -2,17 +2,14 @@ var ReactStyle = require('react-style');
 
 // overrides format example for component "button":
 // button: {
-//   self: {
-//     // ...
-//   },
-//   other: {
-//     // ...
-//   }
+//   self: { // ... },
+//   subEl: { // ... }
 // }
 
 module.exports = getStylesObject(
   'button',
-  'titlebar'
+  'titlebar',
+  'listitem'
 );
 
 function getStyles(name) {
