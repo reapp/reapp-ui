@@ -17,8 +17,8 @@
   "dependencies": {
     "react-router": "git+https://github.com/rackt/react-router.git#new-api",
     "rest": "git+https://github.com/cujojs/rest.git#f40242a43a3db826af",
+    "react-style": "git+https://github.com/js-next/react-style.git#a7584ebf5d0",
     "react": "^0.12",
-    "react-style": "^0.3",
     "scroller": "^0.0.2",
     "rebound": "^0.0.8",
     "lodash-node": "^2.4.1",

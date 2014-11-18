@@ -1,5 +1,5 @@
 var React = require('react');
-var { Link, ActiveRouteHandler } = require('react-router');
+var { Link, RouteHandler } = require('react-router');
 var ViewMain = require('ui/views/ViewMain');
 var ViewLeft = require('ui/views/ViewLeft');
 var List = require('ui/components/List');
@@ -10,7 +10,7 @@ var KitchenPage = module.exports = React.createClass({
   title: 'Kitchen Sink',
 
   render() {
-    var Handler = ActiveRouteHandler(this.props);
+    var Handler = RouteHandler(this.props);
 
     return (
       <div id="KitchenSink">

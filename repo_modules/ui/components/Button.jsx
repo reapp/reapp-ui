@@ -8,15 +8,19 @@ var Button = React.createClass({
   mixins: [Styled('button')],
 
   getDefaultProps() {
-    return { iconProps: {} };
+    return {
+      type: 'std'
+    };
   },
 
   render() {
     var { transforms, iconProps, borderless, children, type, ...props } = this.props;
+    var hasIconProps = !!iconProps;
 
     borderless &&
-      this.addStyles('button', this.styles.borderless);
+      this.addStyles(this.styles.borderless);
 
+    iconProps = iconProps || {};
     iconProps.style = iconProps.style || {};
     iconProps.style.color = iconProps.style.color || this.getStyleVal('color');
 
@@ -24,7 +28,7 @@ var Button = React.createClass({
       <button {...props}
         styles={this.getStyles()}
         className={`button-${type}`}>
-        {iconProps && <Icon {...iconProps} />}
+        {hasIconProps && <Icon {...iconProps} />}
         {children && (
           <span style={{ margin: 'auto' }} data-transform={transforms}>
             {children}

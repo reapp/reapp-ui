@@ -16,12 +16,15 @@ module.exports = function(name) {
           styles[key] = (styles[key] || []).concat(propStyles[key]);
         });
 
-      // we remove the styles from props
-      // to prevent accidental passing down to children
-      // if you want, just use this.styles
+      // remove the styles from props to prevent accidental passing down to children
+      // if you want to access styles in component use this.styles
       delete this.props.styles;
 
       this.styles = styles;
+    },
+
+    componentWillUnmount() {
+      this.styles = null;
     },
 
     getStyles(elName, extras) {
@@ -30,14 +33,21 @@ module.exports = function(name) {
     },
 
     addStyles(elName, styles) {
-      this.styles = [].concat(this.getStyles(elName), styles);
+      // if no elName given, use "self"
+      if (!styles) {
+        styles = elName;
+        elName = 'self';
+      }
+
+      if (elName === name) elName = 'self';
+      this.styles[elName] = [].concat(this.getStyles(elName), styles);
     },
 
     getStyleVal(elName, prop) {
-      // if no elName given, we just grab off the "self" styles
+      // if no elName given, we just use "self"
       if (typeof prop === 'undefined') {
         prop = elName;
-        elName = name;
+        elName = 'self';
       }
 
       var styles = this.getStyles(elName);

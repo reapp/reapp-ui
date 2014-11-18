@@ -1,5 +1,5 @@
 var { Component } = require('carpo');
-var { ActiveRouteHandler } = require('react-router');
+var { RouteHandler } = require('react-router');
 var List = require('ui/components/List');
 var ViewLeft = require('ui/views/ViewLeft');
 var ViewMain = require('ui/views/ViewMain');
@@ -14,7 +14,7 @@ module.exports = Component('Articles', [ViewLoaderMixin],
     var { data, views } = props;
     if (!data) return <span />;
 
-    var Handler = ActiveRouteHandler(this.props);
+    var Handler = RouteHandler(this.props);
     makeViews(views, data.get('articles'));
 
     return (

@@ -1,5 +1,5 @@
 var React = require('react');
-var { Link, ActiveRouteHandler } = require('react-router');
+var { Link, RouteHandler } = require('react-router');
 var Menu = require('ui/components/Menu');
 var Title = require('ui/components/Title');
 var Button = require('ui/components/Button');
@@ -12,7 +12,7 @@ var TOOLBAR_HEIGHT = 44;
 var SIDE_WIDTH = 200;
 
 var Layout = React.createClass({
-  styles: {
+  style: {
     button: {
       position: 'absolute',
       zIndex: 1001,
@@ -24,13 +24,13 @@ var Layout = React.createClass({
   render() {
     var button = (
       <Button
-        id="hamburger"
         iconProps={{
           stroke: 1,
           size: 26,
           type: 'hamburger'
         }}
-        style={this.styles.button} />
+        style={this.style.button}
+        borderless />
     );
 
     var menu = (
@@ -50,7 +50,7 @@ var Layout = React.createClass({
           sideContent={menu}
           topHeight={TOOLBAR_HEIGHT}
           sideWidth={SIDE_WIDTH}>
-          <ActiveRouteHandler {...this.props} />
+          <RouteHandler {...this.props} />
         </LeftNavView>
       </DocumentTitle>
     );
