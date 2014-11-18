@@ -9,7 +9,9 @@ var ReactStyle = require('react-style');
 module.exports = getStylesObject(
   'button',
   'titlebar',
-  'listitem'
+  'list',
+  'listitem',
+  'menu'
 );
 
 function getStyles(name) {

@@ -12,10 +12,18 @@ module.exports = function(name) {
         styles[key] = [theme[name][key]];
       });
 
-      propStyles &&
-        Object.keys(propStyles).forEach(key => {
-          styles[key] = (styles[key] || []).concat(propStyles[key]);
-        });
+      function addStyle(key, style) {
+        styles[key] = (styles[key] || []).concat(style);
+      }
+
+      if (propStyles) {
+        if (this.isReactStyle(propStyles))
+          addStyle('self', propStyles);
+        else
+          Object.keys(propStyles).forEach(key => {
+            addStyle(key, this.makeReactStyle(propStyles[key]));
+          });
+      }
 
       // remove the styles from props to prevent accidental passing down to children
       // if you want to access styles in component use this.styles

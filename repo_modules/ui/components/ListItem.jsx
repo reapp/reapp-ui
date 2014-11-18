@@ -49,7 +49,8 @@ var ListItem = React.createClass({
       children = wrapper.props.children;
     }
 
-    this.addStyles('children', { color: title ? '#999' : '#000' });
+    if (!this.getStyleVal('children', 'color'))
+      this.addStyles('children', { color: title ? '#999' : '#000' });
 
     if (wrapper)
       wrapper = React.addons.cloneWithProps(wrapper, {
