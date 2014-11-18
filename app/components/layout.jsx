@@ -17,7 +17,7 @@ var Layout = React.createClass({
       position: 'absolute',
       zIndex: 1001,
       top: 0,
-      left: 8
+      left: 0
     }
   },
 

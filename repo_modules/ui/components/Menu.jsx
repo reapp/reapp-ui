@@ -6,8 +6,6 @@ var Menu = React.createClass({
   mixins: [Styled('menu')],
 
   render() {
-    var listStyles = this.getStyles();
-
     var liProps = {
       styles: {
         self: { border: 'none' },
@@ -18,7 +16,7 @@ var Menu = React.createClass({
     return (
       <List
         className="menu"
-        styles={listStyles}
+        styles={this.getStyles()}
         liProps={liProps}>
         {this.props.children}
       </List>

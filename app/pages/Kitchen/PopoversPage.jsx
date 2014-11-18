@@ -12,7 +12,7 @@ module.exports = React.createClass({
   render() {
     var menu = (
       <PopoverLink to="popover1">
-        <Button iconProps={{type: 'hamburger'}} />
+        <Button iconProps={{type: 'hamburger'}} borderless />
       </PopoverLink>
     );
 

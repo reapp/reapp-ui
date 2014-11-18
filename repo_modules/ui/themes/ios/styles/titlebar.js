@@ -9,11 +9,11 @@ module.exports = {
     top: 0,
     left: 0,
     width: '100%',
+    padding: 0,
     height: 44,
     flexFlow: 'row',
     fontWeight: 500,
     justifyContent: 'space-between',
-    padding: '0 10px',
     WebkitBackfaceVisibility: 'hidden',
     WebkitTransform: 'translateZ(0)'
   },
