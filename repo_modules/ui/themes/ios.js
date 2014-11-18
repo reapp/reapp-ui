@@ -10,6 +10,11 @@ var ReactStyle = require('react-style');
 //   }
 // }
 
+module.exports = getStylesObject(
+  'button',
+  'titlebar'
+);
+
 function getStyles(name) {
   var styles = Object.assign({}, require('./ios/styles/' + name));
 
@@ -23,11 +28,9 @@ function getStyles(name) {
 function getStylesObject() {
   var styles = {};
 
-  Array.prototype.slice.call(arguments).reduce((acc, arg) => {
-    acc[arg] = getStyles(arg);
-  }, styles);
+  Array.prototype.slice.call(arguments).forEach(name => {
+    styles[name] = getStyles(name);
+  });
 
   return styles;
 }
-
-module.exports = getStylesObject('button');

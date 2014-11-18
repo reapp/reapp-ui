@@ -1,18 +1,12 @@
 var React = require('react/addons');
-var ReactStyle = require('react-style');
+var Styled = require('ui/styled');
 var DocumentTitle = require('react-document-title');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
-
-// todo: auto center buttons in titlebars, calc size
 
 require('./TitleBar.styl');
 
 var TitleBar = React.createClass({
-  getDefaultProps() {
-    return { style: {} };
-  },
-
-  styles: (props) => ReactStyle(props),
+  mixins: [Styled('titlebar')],
 
   componentDidMount() {
     if (this.refs.mid) {
@@ -32,7 +26,7 @@ var TitleBar = React.createClass({
   },
 
   render() {
-    var { children, style, index } = this.props;
+    var { children, index } = this.props;
     if (!children) return null;
 
     if (Array.isArray(children)) {
@@ -56,7 +50,7 @@ var TitleBar = React.createClass({
         className="TitleBar"
         data-transform="FADE_LEFT"
         data-transform-index={index}
-        styles={this.styles(style)}>
+        styles={this.getStyles()}>
         <div className="TitleBar--left">{left}</div>
         <div ref="mid" className="TitleBar--mid">{mid}</div>
         <div className="TitleBar--right">{right}</div>

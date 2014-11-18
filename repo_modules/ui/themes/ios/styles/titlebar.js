@@ -1,5 +1,5 @@
-module.exports = function(props) {
-  return Object.assign({}, {
+module.exports = {
+  self: {
     fontSize: '16px',
     backgroundColor: '#fff',
     textAlign: 'center',
@@ -10,5 +10,5 @@ module.exports = function(props) {
     left: 0,
     width: '100%',
     height: 44
-  }, props);
+  }
 };
