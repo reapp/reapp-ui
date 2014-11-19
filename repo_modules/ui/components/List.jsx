@@ -37,9 +37,6 @@ var List = React.createClass({
     if (type)
       this.addStyles(this.styles[type]);
 
-
-    console.log('LIST', className, this.getStyles(), liProps);
-
     return (
       <ul
         className={cx(classes)}

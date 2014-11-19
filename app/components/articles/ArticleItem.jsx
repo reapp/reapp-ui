@@ -33,11 +33,9 @@ module.exports = Component('ArticleItem', mixins,
     );
 
     var articleRight = (
-      <div className="article--right">
-        <Link to="article" params={{id: cursor.get('id')}} activeClassName="">
-          <Icon type="speech" color="#999" />
-        </Link>
-      </div>
+      <Link to="article" params={{id: cursor.get('id')}} activeClassName="">
+        <Icon type="speech" color="#999" />
+      </Link>
     );
 
     return (
@@ -46,7 +44,8 @@ module.exports = Component('ArticleItem', mixins,
         onClick={this.onTouch}
         wrapper={<a className="article--link" href={cursor.get('url')} />}
         title={cursor.get('title')}
-        after={articleRight}>
+        after={articleRight}
+        noicon>
         {stats}
       </ListItem>
     );

@@ -18,6 +18,7 @@ module.exports = {
 
   wrapper: {
     position: 'absolute',
+    zIndex: 2,
     top: 0,
     left: -10,
     right: 0,
@@ -47,7 +48,7 @@ module.exports = {
 
   content: {
     flexShrink: 1,
-    flexGrow: 10,
+    flexGrow: 800,
     color: '#000',
     padding: '10px 10px 10px 0',
     position: 'relative'
