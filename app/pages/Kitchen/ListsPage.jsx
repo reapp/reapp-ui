@@ -28,7 +28,8 @@ module.exports = React.createClass({
             title="Facebook"
             titleAfter="8:45"
             titleSub="New messages from Jane Doe"
-            wrapper={<a href="http://google.com" />}>
+            wrapper={<a href="http://google.com" />}
+            noicon>
             Lorem ipsume dolor sit amet, consectetur adipiscing
             elit. Nulla sagittis tellus ut turpis condimentium,
             ursula major.
@@ -50,9 +51,22 @@ module.exports = React.createClass({
 
         <ListTitle>List with Icons</ListTitle>
         <List>
-          <ListItem before={icon} after="Whatup">Nate Wienert</ListItem>
-          <ListItem before={icon} after={badge}>Nate Wienert</ListItem>
-          <ListItem before={icon} after={icon}>Nate Wienert</ListItem>
+          <ListItem
+            before={icon}
+            after="Whatup"
+            wrapper={<a href="http://google.com" />}>
+            Nate Wienert
+          </ListItem>
+          <ListItem
+            before={icon}
+            after={badge}>
+            Nate Wienert
+          </ListItem>
+          <ListItem
+            before={icon}
+            after={icon}>
+            Nate Wienert
+          </ListItem>
         </List>
 
         <ListTitle>List with Links</ListTitle>

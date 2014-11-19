@@ -39,7 +39,8 @@ var ListItem = React.createClass({
       titleSub,
       before,
       after,
-      wrapper } = this.props;
+      wrapper,
+      noicon } = this.props;
 
     var classes = { ListItem: true };
     classes[className] = !!className;
@@ -54,24 +55,31 @@ var ListItem = React.createClass({
       this.addStyles('children', { color: title ? '#999' : '#000' });
 
     if (wrapper) {
+      var hasLinkIcon = this.isLink(wrapper) && !noicon;
+
       wrapper = React.addons.cloneWithProps(wrapper, {
-        children: this.isLink(wrapper) ?
+        children: hasLinkIcon ?
           <Icon
             styles={this.getStyles('arrow')}
-            size={16}
-            stroke={1}
+            size={12}
+            stroke={2}
             color="#ccc"
             type="right" /> :
           null,
         styles: this.getStyles('wrapper')
       });
+
+      if (hasLinkIcon) {
+        // pad out right side if wrapper
+        this.addStyles({ paddingRight: 20 });
+      }
     }
 
     var span = this.makeSection;
     var content = [
+      span('wrapper', wrapper),
       span('before', before),
       span('content', [
-        span('wrapper', wrapper),
         (title || titleAfter) && span('titleTop', [
           span('title', title),
           span('titleAfter', titleAfter)

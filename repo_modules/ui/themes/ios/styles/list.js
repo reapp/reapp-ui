@@ -4,13 +4,14 @@ module.exports = {
     borderTop: '1px solid #c8c7cc',
     borderBottom: '1px solid #c8c7cc',
     margin: 0,
-    padding: '0 0 0 12px',
+    padding: '0 0 0 10px',
     zIndex: 101,
     fontSize: '16px'
   },
 
   inset: {
     margin: 20,
-    borderRadius: 10
+    borderRadius: 10,
+    border: 'none'
   }
 };

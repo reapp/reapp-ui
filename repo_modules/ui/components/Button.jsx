@@ -19,8 +19,7 @@ var Button = React.createClass({
       this.addStyles(this.styles.borderless);
 
     iconProps = iconProps || {};
-    iconProps.style = iconProps.style || {};
-    iconProps.style.color = iconProps.style.color || this.getStyleVal('color');
+    iconProps.color = iconProps.color || this.getStyleVal('color');
 
     return (
       <button {...props}

@@ -19,10 +19,10 @@ module.exports = {
   wrapper: {
     position: 'absolute',
     top: 0,
-    left: 0,
+    left: -10,
     right: 0,
     bottom: 0,
-    width: '100%',
+    maxWidth: 'none',
     flexFlow: 'row',
     justifyContent: 'flex-end'
   },
@@ -34,13 +34,13 @@ module.exports = {
   before: {
     flexShrink: 0,
     flexWrap: 'nowrap',
-    margin: '0 12px 0 0'
+    margin: '0 10px 0 0'
   },
 
   after: {
     color: '#999',
     flexShrink: 0,
-    margin: '0',
+    margin: 'auto 10px',
     whiteSpace: 'nowrap',
     alignSelf: 'stretch'
   },
@@ -63,8 +63,7 @@ module.exports = {
   },
 
   titleAfter: {
-    color: '#999',
-    marginRight: 10
+    color: '#999'
   },
 
   titleSub: {
