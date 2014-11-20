@@ -14,26 +14,29 @@ var mixins = [{
 
 module.exports = Component('ArticleItem', mixins,
   function render(props) {
-    var cursor = props.cursor.get('data');
+    var { cursor } = props;
+    if (!cursor) return null;
+
+    var article = cursor.get('data');
     var classes = { Article: true };
 
-    //<Link to="user" params={{id: cursor.get('by')}} activeClassName="">
+    //<Link to="user" params={{id: article.get('by')}} activeClassName="">
     var stats = (
       <ul>
         <li className="score">
-          <span>{cursor.get('score')}</span>
+          <span>{article.get('score')}</span>
         </li>
         <li>
-            {cursor.get('by')}
+            {article.get('by')}
         </li>
         <li className="time">
-          <Time date={new Date(cursor.get('time') * 1000)} autoUpdate />
+          <Time date={new Date(article.get('time') * 1000)} autoUpdate />
         </li>
       </ul>
     );
 
     var articleRight = (
-      <Link to="article" params={{id: cursor.get('id')}} activeClassName="">
+      <Link to="article" params={{id: article.get('id')}} activeClassName="">
         <Icon type="speech" color="#999" />
       </Link>
     );
@@ -42,8 +45,8 @@ module.exports = Component('ArticleItem', mixins,
       <ListItem
         className={React.addons.classSet(classes)}
         onClick={this.onTouch}
-        wrapper={<a className="article--link" href={cursor.get('url')} />}
-        title={cursor.get('title')}
+        wrapper={<a className="article--link" href={article.get('url')} />}
+        title={article.get('title')}
         after={articleRight}
         noicon>
         {stats}

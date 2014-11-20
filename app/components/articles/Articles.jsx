@@ -8,12 +8,27 @@ var ViewMain = require('ui/views/ViewMain');
 var DottedViewList = require('ui/views/DottedViewList');
 var ArticleItem = require('./ArticleItem');
 var ViewLoaderMixin = require('mixins/ViewLoaderMixin');
+var HotArticlesStore = require('stores/HotArticlesStore');
 
 require('./Articles.styl');
 
 function handleLoadMore(e) {
   e.preventDefault();
   Actions.loadMoreHotArticles();
+}
+
+function setViewContents(view, list, articles) {
+  view.content = (
+    <List dontWrap={true} liStyle={{ padding: 0 }}>
+      {list
+        .map(id => ArticleItem(`AI-${view.id}-${id}`, articles.get(id.toString())))
+        .toArray()
+        .concat([
+          <ListItem style={{ textAlign:'center' }} onClick={handleLoadMore}>Load More</ListItem>
+        ])
+      }
+    </List>
+  );
 }
 
 module.exports = Component('Articles', [ViewLoaderMixin],
@@ -26,16 +41,7 @@ module.exports = Component('Articles', [ViewLoaderMixin],
       { id: 'top', title: 'Top', content: null }
     ];
 
-    Object.keys(views).forEach(key => {
-      views[key].content = (
-        <List dontWrap={true} liStyle={{ padding: 0 }}>
-          {cursor && cursor.map(article => ArticleItem(`AI-${article.get('id')}`, article))
-            .toArray().concat([
-              <ListItem style={{ textAlign:'center' }} onClick={handleLoadMore}>Load More</ListItem>
-          ])}
-        </List>
-      );
-    });
+    setViewContents(views[0], HotArticlesStore(), cursor);
 
     return (
       <div id="ArticlesPage">
