@@ -2,13 +2,35 @@ var Actions = require('./Actions');
 var API = require('./API');
 var Reducer = require('./Reducer');
 var ArticlesStore = require('stores/ArticlesStore');
+var HotArticlesStore = require('stores/HotArticlesStore');
 var Immutable = require('immutable');
+
+var page = -1;
+var per = 10;
 
 Actions.loadArticlesHot.listen(
   () => API.get('topstories.json')
-    .then(getArticlesData)
+    .then(res => {
+      HotArticlesStore(res);
+      return res;
+    })
+    .then(getNextArticles)
     .then(Reducer)
-    .then(ArticlesStore, error));
+    .then(ArticlesStore, error)
+);
+
+Actions.loadMoreHotArticles.listen(
+  () =>  API.get('topstories.json')
+    .then(getNextArticles)
+    .then(Reducer)
+    .then(nextArticles => {
+      ArticlesStore().withMutations(articles => {
+        Object.keys(nextArticles).map(key => {
+          articles.set(key, Immutable.fromJS(nextArticles[key]));
+        });
+      });
+    })
+);
 
 Actions.loadArticle.listen(
   id => API.get(`item/${id}.json`)
@@ -18,11 +40,19 @@ Actions.loadArticle.listen(
         ArticlesStore().update(id, article => Immutable.fromJS(Reducer('LOADED', res)[id]));
       },
       error
-    ));
+    )
+);
 
-function getArticlesData(articles) {
+function cacheArticles(list) {
+  articles = list;
+}
+
+function getNextArticles(articles) {
+  page = page + 1;
+  console.log('page', page, articles);
+  var start = page * per;
   return Promise.all(
-    articles.slice(0, 9).map(article => API.get(`item/${article}.json`))
+    articles.slice(start, start + per).map(article => API.get(`item/${article}.json`))
   );
 }
 

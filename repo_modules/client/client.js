@@ -1,6 +1,9 @@
 var Rest = require('rest');
 var Mime = require('rest/interceptor/mime');
 var Parseurl = require('parseurl');
+var When = require('when');
+
+var cache = {};
 
 class Client {
   constructor({ base }) {
@@ -19,10 +22,17 @@ class Client {
   }
 
   get(url, opts) {
-    return this.rest(this.getUrl(url)).then(
-      res => res.entity,
-      res => res
-    );
+    opts = opts || {};
+    if (!opts.nocache && cache[url])
+      return When(cache[url]);
+    else
+      return this.rest(this.getUrl(url)).then(
+        res => {
+          cache[url] = res.entity;
+          return res.entity;
+        },
+        res => res
+      );
   }
 
   dispatcher(dispatcher) {

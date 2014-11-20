@@ -1,35 +1,45 @@
-var Immstruct = require('immstruct');
+var Fynx = require('fynx');
+var Immutable = require('immutable');
 
-module.exports = function(propKeys, onSwap) {
+module.exports = function(propKeys) {
   return {
     componentWillMount() {
-      this.structures = {};
-      this.makeStructures(this.props);
+      this.stores = {};
+      this.makeStores(this.props);
     },
 
     componentWillReceiveProps(nextProps) {
-      this.makeStructures(nextProps);
+      this.makeStores(nextProps);
     },
 
-    makeStructures(props) {
+    componentWillUnmount() {
+      propKeys.forEach(key =>
+        this.stores[key].unlisten(this.forceUpdate));
+    },
+
+    makeStores(props) {
       propKeys.forEach(key => {
         var prop = props[key];
-        if (!prop) return;
+        // allow nested keys
+        if (!prop && (Array.isArray(key) || key.indexOf('.'))) {
+          prop = key.split('.')
+            .reduce((acc, key) => acc[key], Object.assign({}, props));
+        }
 
-        this.structures[key] = (prop instanceof Immstruct) ?
-          prop :
-          Immstruct(key, prop);
-
-        this.structures[key].on('next-animation-frame', (newStruct, oldStruct) => {
-          this.forceUpdate();
-          if (onSwap) onSwap(key, newStruct, oldStruct);
+        if (this.stores[key]) return;
+        this.stores[key] = Fynx.createStore(Immutable.fromJS(prop));
+        this.stores[key].listen(() => {
+          // if (this.isMounted()){
+          //   debugger;
+          //   this.forceUpdate();
+          // }
         });
       });
     },
 
     getImmutableProps() {
-      return Object.keys(this.structures).reduce((acc, key) => {
-        acc[key] = this.structures[key].cursor();
+      return propKeys.reduce((acc, key) => {
+        acc[key] = this.stores[key]();
         return acc;
       }, {});
     }

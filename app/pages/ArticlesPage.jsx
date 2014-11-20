@@ -1,10 +1,20 @@
 var Actions = require('actions/Actions');
 var ArticlesStore = require('stores/ArticlesStore');
 var Articles = require('../components/articles/Articles');
-var ImmutableProps = require('mixins/ImmutableProps');
 
 var ArticlesPage = module.exports = React.createClass({
-  mixins: [ImmutableProps(['data', 'views'])],
+  mixins: [{
+    componentWillMount() {
+      this.forceUpdater = () => {
+        this.forceUpdate();
+      };
+
+      ArticlesStore.listen(this.forceUpdater);
+    },
+    componentWillUnmount() {
+      ArticlesStore.unlisten(this.forceUpdater);
+    }
+  }],
 
   statics: {
     fetchData() {
@@ -22,14 +32,7 @@ var ArticlesPage = module.exports = React.createClass({
     }
   },
 
-  getDefaultProps: () => ({
-    views: [
-      { id: 'hot', title: 'Hot', content: null },
-      { id: 'top', title: 'Top', content: null }
-    ]
-  }),
-
   render() {
-    return Articles('articles', this.getImmutableProps());
+    return Articles('articles', ArticlesStore());
   }
 });

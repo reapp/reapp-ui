@@ -40,7 +40,8 @@ var ListItem = React.createClass({
       before,
       after,
       wrapper,
-      noicon } = this.props;
+      noicon,
+      ...props } = this.props;
 
     var classes = { ListItem: true };
     classes[className] = !!className;
@@ -92,6 +93,7 @@ var ListItem = React.createClass({
 
     return (
       <li
+        {...props}
         className={cx(classes)}
         styles={this.getStyles()}>
         {content}
