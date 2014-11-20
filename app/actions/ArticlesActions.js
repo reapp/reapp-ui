@@ -2,20 +2,23 @@ var Actions = require('./Actions');
 var API = require('./API');
 var Reducer = require('./Reducer');
 var ArticlesStore = require('stores/ArticlesStore');
+var Immutable = require('immutable');
 
-Actions.loadArticlesHot.listen(() => {
-  console.log('loading articles hot');
-  return API.get('topstories.json')
+Actions.loadArticlesHot.listen(
+  () => API.get('topstories.json')
     .then(getArticlesData)
     .then(Reducer)
-    .then(ArticlesStore, error);
-});
+    .then(ArticlesStore, error));
 
-Actions.loadArticle.listen(id => {
-  API.get(`item/${id}.json`)
+Actions.loadArticle.listen(
+  id => API.get(`item/${id}.json`)
     .then(getAllKids)
-    .then(ArticlesStore().set.bind(this, id), error);
-});
+    .then(
+      res => {
+        ArticlesStore().update(id, article => Immutable.fromJS(Reducer('LOADED', res)[id]));
+      },
+      error
+    ));
 
 function getArticlesData(articles) {
   return Promise.all(

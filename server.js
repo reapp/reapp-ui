@@ -6,7 +6,6 @@ var yargs = require('yargs').argv;
 var fs = require('fs');
 var os = require('os');
 var util = require('util');
-var Promise = require('when').Promise;
 var Router = require('react-router');
 var webpack = require('webpack');
 var webpackConfig = require(path.join(

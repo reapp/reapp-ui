@@ -1,12 +1,20 @@
-An experiment assembling an isomorphic React stack for all platforms.
+A series of small react libraries pieced together into a cohesive and well-behaved app.
 
-- Webpack, Flux, GSS, react-router, react-style, UI components...
+Uses webpack + mach to serve.
+
+Immutable for data structures.
+
+Fynx for implementing Flux with immutable data structures.
+
+Omniscient for components that automatically support immutable data.
+
+react-router for routes, react-style for styles.
+
+UI toolkit for app development.
 
 #### Todo
 
 - Finish sample HN app and other samples, refactor extensively
-- Extract UI components into package
-- Extract data management into package
 - Extract wrapper app for automating building these styles of apps
 
 ### Installation

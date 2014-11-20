@@ -28,17 +28,16 @@ module.exports = Component('Articles', [ViewLoaderMixin],
         </ViewLeft>
 
         <ViewMain>
+          {Handler && (
+            <div className="drawer-parent">
+              {Handler}
+            </div>
+          )}
         </ViewMain>
       </div>
     );
   }
 );
-
-// {Handler && (
-//   <div className="drawer-parent">
-//     {Handler}
-//   </div>
-// )}
 
 var hasSetContents;
 

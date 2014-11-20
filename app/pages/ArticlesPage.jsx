@@ -9,7 +9,14 @@ var ArticlesPage = module.exports = React.createClass({
   statics: {
     fetchData() {
       return new Promise((res, rej) => {
-        ArticlesStore.listen(data => data && res(data));
+        var dataListener = data => {
+          if (data.size) {
+            res(data);
+            ArticlesStore.unlisten(dataListener);
+          }
+        };
+
+        ArticlesStore.listen(dataListener);
         Actions.loadArticlesHot();
       });
     }

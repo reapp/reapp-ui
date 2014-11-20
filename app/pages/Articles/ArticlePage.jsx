@@ -4,18 +4,27 @@ var Article = require('components/articles/Article');
 var ImmutableProps = require('mixins/ImmutableProps');
 
 var ArticlePage = module.exports = React.createClass({
-  mixins: [ImmutableProps(['data'])],
+  mixins: [ImmutableProps(['data.article'])],
 
   statics: {
     fetchData(params) {
       return new Promise((res, rej) => {
+        var dataListener = data => {
+          var article = data.get(params.id);
+          if (article.get('status') === 'LOADED') {
+            res(article);
+            ArticlesStore.unlisten(dataListener);
+          }
+        };
+
+        ArticlesStore.listen(dataListener);
         Actions.loadArticle(params.id);
-        ArticlesStore.listen(data => res(data.get(params.id)));
       });
     }
   },
 
-  render(props) {
-    return Article(`Article-${props.data.get('id')}`, this.getImmutableProps());
+  render() {
+    var cursor = this.props.data.get('article');
+    return Article(`Article-${cursor.get('id')}`, cursor);
   }
 });

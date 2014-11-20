@@ -26,8 +26,8 @@ var ListItem = React.createClass({
     return el.type && (el.type === 'a' || el.type.displayName === 'Link');
   },
 
-  hasLinkAsChild(children) {
-    return  React.isValidElement(children) && this.isLink(children);
+  hasLinkAsChild(child) {
+    return  React.isValidElement(child) && this.isLink(child);
   },
 
   render() {

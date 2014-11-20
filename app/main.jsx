@@ -15,22 +15,21 @@ UI.setTheme(IOSTheme);
 ReactStyle.inject();
 React.initializeTouchEvents(true);
 
-var fetchData = (matches, params) =>
-  WhenKeys.all(
-    matches
-      .filter(match => match.route.handler.fetchData)
-      .reduce((data, match) => {
-        var {name, handler} = match.route;
-        data[name] = handler.fetchData(params);
-        return data;
-      }, {}));
+var fetchData = (routes, params) => WhenKeys.all(
+  routes
+    .filter(route => route.handler.fetchData)
+    .reduce((data, route) => {
+      data[route.name] = route.handler.fetchData(params);
+      return data;
+    }, {})
+);
 
 var render = (Handler, data) =>
   React.render(<Handler data={data} />, document.getElementById('app'));
 
 function renderSync() {
   Router.run(Routes, Router.HistoryLocation, (Handler, state) => {
-    fetchData(state.matches, state.activeParams).then(data => render(Handler, data));
+    fetchData(state.routes, state.params).then(data => render(Handler, data));
   });
 }
 
