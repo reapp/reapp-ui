@@ -44,7 +44,13 @@ module.exports = function(options) {
   var alias = {};
   var aliasLoader = {};
   var externals = [];
-  var modulesDirectories = ['web_modules', 'node_modules', 'repo_modules', 'app/mixins'];
+  var modulesDirectories = [
+    'web_modules',
+    'node_modules',
+    'repo_modules',
+    'app'
+  ];
+
   var extensions = ['', '.web.js', '.js', '.jsx'];
   var root = [path.join(__dirname, 'app')];
 

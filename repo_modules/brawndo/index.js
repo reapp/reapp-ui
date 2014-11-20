@@ -7,8 +7,10 @@ var _actions = {};
 var _stores = {};
 
 var Brawndo = module.exports = {
+  actions: _actions,
+  stores: _stores,
+
   addStore,
-  getStore,
   addActions,
 
   Mixins: {

@@ -1,4 +1,4 @@
-var { Component } = require('carpo');
+var Component = require('omniscient');
 var React = require('react/addons');
 var Time = require('react-ago-component');
 var Icon = require('ui/components/Icon');
@@ -14,7 +14,7 @@ var mixins = [{
 
 module.exports = Component('ArticleItem', mixins,
   function render(props) {
-    var { cursor } = props;
+    var cursor = props.cursor.get('data');
     var classes = { Article: true };
 
     //<Link to="user" params={{id: cursor.get('by')}} activeClassName="">

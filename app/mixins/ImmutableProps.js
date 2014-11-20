@@ -1,6 +1,6 @@
 var Immstruct = require('immstruct');
 
-module.exports = function({ props: propKeys, onSwap }) {
+module.exports = function(propKeys, onSwap) {
   return {
     componentWillMount() {
       this.structures = {};
@@ -22,9 +22,16 @@ module.exports = function({ props: propKeys, onSwap }) {
 
         this.structures[key].on('next-animation-frame', (newStruct, oldStruct) => {
           this.forceUpdate();
-          onSwap(key, newStruct, oldStruct);
+          if (onSwap) onSwap(key, newStruct, oldStruct);
         });
-      })
+      });
+    },
+
+    getImmutableProps() {
+      return Object.keys(this.structures).reduce((acc, key) => {
+        acc[key] = this.structures[key].cursor();
+        return acc;
+      }, {});
     }
   };
-}
+};

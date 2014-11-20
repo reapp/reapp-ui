@@ -1,10 +1,9 @@
 var Fluxxor = require('fluxxor');
 var invariant = require('react/lib/invariant');
 
-module.exports = function({ name, mixins, actions, state, ...spec }) {
-  invariant(name && name.length, 'Must define a name');
+module.exports = function(name, data, ...mixins) {
+  invariant(name && data, 'Must define a name and data source');
 
-  var Store = Object.assign({}, spec);
   var combinedActions = {};
   var getStore = this.getStore;
   var mixinInitializers = [];
@@ -58,7 +57,7 @@ module.exports = function({ name, mixins, actions, state, ...spec }) {
   Object.keys(combinedActions).forEach(key => {
     var combinedAction = combinedActions[key];
 
-    fluxxorActions[`${name}:${key}`] = function(payload) {
+    fluxxorActions[key] = function(payload) {
       var store = getStore(name);
 
       store.payload = payload;

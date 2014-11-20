@@ -1,31 +1,21 @@
-var React = require('react');
-var Immstruct = require('immstruct');
-var ArticleComponent = require('../../components/articles/Article');
-var { StoreLoader } = require('brawndo');
+var ArticlesStore = require('stores/ArticlesStore');
+var Actions = require('actions/Actions');
+var Article = require('components/articles/Article');
+var ImmutableProps = require('mixins/ImmutableProps');
 
-var ArticlePage = React.createClass({
-  displayName: 'ArticlePage',
+var ArticlePage = module.exports = React.createClass({
+  mixins: [ImmutableProps(['data'])],
 
   statics: {
-    getAsyncProps: (params) => StoreLoader('Article', params)
-  },
-
-  getInitialState: () => ({ version: 0 }),
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.article) {
-      this.structure = Immstruct({ article: nextProps.article[0].data });
-      this.structure.on('next-animation-frame', () => {
-        this.setState({ version: ++this.state.version });
+    fetchData(params) {
+      return new Promise((res, rej) => {
+        Actions.loadArticle(params.id);
+        ArticlesStore.listen(data => res(data.get(params.id)));
       });
     }
   },
 
-  render() {
-    if (!this.structure) return <span />;
-    var cursor = this.structure.cursor();
-    return ArticleComponent(`Article-${cursor.get('article', 'id')}`, cursor);
+  render(props) {
+    return Article(`Article-${props.data.get('id')}`, this.getImmutableProps());
   }
 });
-
-module.exports = ArticlePage;

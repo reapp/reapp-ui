@@ -1,11 +1,11 @@
-var { Component } = require('carpo');
+var Component = require('omniscient');
 var { RouteHandler } = require('react-router');
 var List = require('ui/components/List');
 var ViewLeft = require('ui/views/ViewLeft');
 var ViewMain = require('ui/views/ViewMain');
 var DottedViewList = require('ui/views/DottedViewList');
 var ArticleItem = require('./ArticleItem');
-var ViewLoaderMixin = require('ViewLoaderMixin');
+var ViewLoaderMixin = require('mixins/ViewLoaderMixin');
 
 require('./Articles.styl');
 

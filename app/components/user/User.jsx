@@ -1,12 +1,10 @@
-var { Component } = require('carpo');
+var Component = require('omniscient');
 var ViewLeft = require('ui/views/ViewLeft');
 var TitleBar = require('ui/components/TitleBar');
 var Drawer = require('ui/views/Drawer');
 
-module.exports = Component({
-  name: 'User',
-
-  render(cursor) {
+module.exports = Component('User',
+  function render(cursor) {
     var user = cursor.get('user') || { get: () => 'Loading' };
 
     return (
@@ -21,4 +19,4 @@ module.exports = Component({
       </Drawer>
     );
   }
-});
+);

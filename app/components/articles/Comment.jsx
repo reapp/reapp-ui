@@ -1,4 +1,4 @@
-var { Component } = require('carpo');
+var Component = require('omniscient');
 var React = require('react/addons');
 var cx = React.addons.classSet;
 

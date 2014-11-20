@@ -1,4 +1,4 @@
-var { Component } = require('carpo');
+var Component = require('omniscient');
 var { Navigation } = require('react-router');
 var ArticleItem = require('./ArticleItem');
 var Comment = require('./Comment');

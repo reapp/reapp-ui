@@ -3,7 +3,6 @@ require('es-object-assign');
 var React  = require('react');
 var ReactStyle = require('react-style');
 var Router = require('react-router');
-var Brawndo = require('brawndo');
 var WhenKeys = require('when/keys');
 var Routes = require('./routes');
 var UI = require('ui');
@@ -12,11 +11,6 @@ var ENV = require('./ENV');
 
 // UI
 UI.setTheme(IOSTheme);
-
-// Flux
-require('./stores/Stores');
-require('./actions/Actions');
-var Flux = Brawndo.init(React);
 
 ReactStyle.inject();
 React.initializeTouchEvents(true);
@@ -32,7 +26,7 @@ var fetchData = (matches, params) =>
       }, {}));
 
 var render = (Handler, data) =>
-  React.render(<Handler data={data} flux={Flux} />, document.getElementById('app'));
+  React.render(<Handler data={data} />, document.getElementById('app'));
 
 function renderSync() {
   Router.run(Routes, Router.HistoryLocation, (Handler, state) => {

@@ -1,12 +1,19 @@
-var { Page } = require('carpo');
-var Brawndo = require('brawndo');
+var Actions = require('actions/Actions');
+var ArticlesStore = require('stores/ArticlesStore');
 var Articles = require('../components/articles/Articles');
+var ImmutableProps = require('mixins/ImmutableProps');
 
-var ArticlesPage = Page('articles', [Brawndo.FluxMixin], {
-  cursors: ['data', 'views'],
+var ArticlesPage = module.exports = React.createClass({
+  mixins: [ImmutableProps(['data', 'views'])],
 
-  fetchData: params =>
-    Brawndo.StoreLoader('Articles').then(res => res.get('articles')),
+  statics: {
+    fetchData() {
+      return new Promise((res, rej) => {
+        ArticlesStore.listen(data => data && res(data));
+        Actions.loadArticlesHot();
+      });
+    }
+  },
 
   getDefaultProps: () => ({
     views: [
@@ -15,12 +22,7 @@ var ArticlesPage = Page('articles', [Brawndo.FluxMixin], {
     ]
   }),
 
-  onDataChange: (key, newStruct) => (
-    key === 'data' &&
-    Brawndo.getStore('Articles').setData('articles', newStruct.cursor())
-  ),
-
-  render: props => Articles('articles', props)
+  render() {
+    return Articles('articles', this.getImmutableProps());
+  }
 });
-
-  module.exports = ArticlesPage;
