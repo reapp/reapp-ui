@@ -11,7 +11,9 @@ module.exports = getStylesObject(
   'titlebar',
   'list',
   'listitem',
-  'menu'
+  'menu',
+  'viewmain',
+  'viewleft'
 );
 
 function getStyles(name) {

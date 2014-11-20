@@ -24,6 +24,7 @@ var Layout = React.createClass({
   render() {
     var button = (
       <Button
+        id="hamburger"
         iconProps={{
           stroke: 1,
           size: 26,
