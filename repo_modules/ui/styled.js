@@ -3,10 +3,22 @@ var ReactStyle = require('react-style');
 
 module.exports = function(name) {
   return {
+    componentWillUpdate(nextProps) {
+      this.makeStyles(nextProps);
+    },
+
     componentWillMount() {
+      this.makeStyles(this.props);
+    },
+
+    componentWillUnmount() {
+      this.styles = null;
+    },
+
+    makeStyles(props) {
       var theme = UI.getTheme();
       var styles = {};
-      var propStyles = this.props.styles;
+      var propStyles = props.styles;
 
       Object.keys(theme[name] || {}).forEach(key => {
         styles[key] = [theme[name][key]];
@@ -25,15 +37,7 @@ module.exports = function(name) {
           });
       }
 
-      // remove the styles from props to prevent accidental passing down to children
-      // if you want to access styles in component use this.styles
-      delete this.props.styles;
-
       this.styles = styles;
-    },
-
-    componentWillUnmount() {
-      this.styles = null;
     },
 
     makeReactStyle(obj) {

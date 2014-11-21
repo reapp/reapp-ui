@@ -78,9 +78,12 @@ var Popover = Component('popover', {
   render() {
     var { listStyle, itemStyle, styleVars, ...props } = this.props;
 
-    if (this.state.open)
+    if (this.state.open) {
       this.addClass('open');
+      this.addStyles({ visibility: 'visible', zIndex: 15000 });
+    }
 
+    this.addStyles('list', { top: this.state.top, left: this.state.left });
     this.addStyles('list', listStyle);
     this.addStyles('item', itemStyle);
 

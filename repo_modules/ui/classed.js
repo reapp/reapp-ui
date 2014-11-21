@@ -8,18 +8,24 @@ function capitalize(str) {
 module.exports = function(name) {
   return {
     componentWillMount() {
-      var className = capitalize(name);
-      var classes = {};
-      classes[className] = true;
-      classes[this.props.className] = !!this.props.className;
-      this.classes = classes;
+      this.setClasses(this.props);
+    },
+
+    componentWillReceiveProps(nextProps) {
+      this.setClasses(nextProps);
     },
 
     componentWillUnmount() {
       this.classes = null;
     },
 
-    getClassSet() {
+    setClasses() {
+      this.classes = {};
+      this.classes[capitalize(name)] = true;
+      this.classes[this.props.className] = !!this.props.className;
+    },
+
+    getClasses() {
       return cx(this.classes);
     },
 

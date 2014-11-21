@@ -10,7 +10,7 @@ module.exports = function(name, spec) {
       // combine styles and classes into one thing
       this.componentProps = () => ({
         styles: this.getStyles(),
-        className: this.getClassSet()
+        className: this.getClasses()
       });
     }
   });

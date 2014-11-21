@@ -1,12 +1,12 @@
 module.exports = {
   self: {
-    visibility: state.open ? 'visible' : 'hidden',
     position: 'fixed',
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    zIndex: state.open ? 15000 : -1,
+    visibility: 'hidden',
+    zIndex: -1,
     background: 'rgba(0,0,0,0.3)'
   },
 
@@ -24,8 +24,6 @@ module.exports = {
     },
 
     position: 'absolute',
-    top: state.top,
-    left: state.left,
     fontSize: '16px',
     background: 'rgba(255,255,255,0.95)',
     padding: 0,

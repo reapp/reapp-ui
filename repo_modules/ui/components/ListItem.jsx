@@ -89,10 +89,7 @@ var ListItem = Component('listitem', {
     ];
 
     return (
-      <li
-        {...props}
-        className={cx(classes)}
-        styles={this.getStyles()}>
+      <li {...props} {...this.componentProps()}>
         {content}
       </li>
     );

@@ -1,5 +1,5 @@
 var React = require('react/addons');
-var Styled = require('ui/component');
+var Component = require('ui/component');
 var ListItem = require('./ListItem');
 var StickyTitles = require('sticky-titles');
 
