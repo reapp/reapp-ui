@@ -7,6 +7,7 @@ var Menu = React.createClass({
 
   render() {
     var liProps = {
+      noicon: true,
       styles: {
         self: { border: 'none' },
         children: { color: '#fff' }

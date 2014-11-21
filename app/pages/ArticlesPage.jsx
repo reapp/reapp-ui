@@ -33,6 +33,12 @@ var ArticlesPage = module.exports = React.createClass({
   },
 
   render() {
-    return Articles('articles', ArticlesStore());
+    return Articles('articles', {
+      cursor: ArticlesStore(),
+      views: [
+        { id: 'hot', title: 'Hot', content: null },
+        { id: 'top', title: 'Top', content: null }
+      ]
+    });
   }
 });

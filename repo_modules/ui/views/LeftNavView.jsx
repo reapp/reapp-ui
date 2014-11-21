@@ -88,10 +88,6 @@ var LeftNavView = React.createClass({
     var isNavOpen = this.isNavOpen();
     var side = null;
 
-    if (isNavOpen) {
-      var navProps = Object.assign({}, sideProps, { style: sideStyle });
-    }
-
     var wrapperStyle = {
       overflowX: 'hidden',
       position: 'absolute',
@@ -110,18 +106,19 @@ var LeftNavView = React.createClass({
       zIndex: sideZIndex || 1
     };
 
+    var navProps = {
+      translate: behavior.parent.translate(sideWidth, this.state.scrollLeft),
+      rotate: behavior.parent.rotate(sideWidth, this.state.scrollLeft),
+      opacity: behavior.parent.opacity(sideWidth, this.state.scrollLeft),
+      style: isNavOpen ? sideStyle : null
+    };
+
     var sideContainerStyle = {
       position: 'absolute',
       top: 0,
       left: 0,
       right: 0,
       bottom: 0
-    };
-
-    var sideProps = {
-      translate: behavior.parent.translate(sideWidth, this.state.scrollLeft),
-      rotate: behavior.parent.rotate(sideWidth, this.state.scrollLeft),
-      opacity: behavior.parent.opacity(sideWidth, this.state.scrollLeft)
     };
 
     var draggableProps = {

@@ -7,10 +7,20 @@ var ViewLeft = require('ui/views/ViewLeft');
 var ViewMain = require('ui/views/ViewMain');
 var DottedViewList = require('ui/views/DottedViewList');
 var ArticleItem = require('./ArticleItem');
-var ViewLoaderMixin = require('mixins/ViewLoaderMixin');
 var HotArticlesStore = require('stores/HotArticlesStore');
 
 require('./Articles.styl');
+
+var ViewLoaderMixin = {
+  // todo have this push "loading...", then have it "undo" once entered
+  handleViewEnter(index) {
+    this.props.views[index].content = 'Loading...';
+  },
+
+  handleViewLeave(i) {
+    console.log('VIEW LEAVE', arguments);
+  }
+};
 
 function handleLoadMore(e) {
   e.preventDefault();
@@ -33,13 +43,8 @@ function setViewContents(view, list, articles) {
 
 module.exports = Component('Articles', [ViewLoaderMixin],
   function render(props) {
-    var { cursor } = props;
+    var { cursor, views } = props;
     var Handler = RouteHandler(this.props);
-
-    var views = [
-      { id: 'hot', title: 'Hot', content: null },
-      { id: 'top', title: 'Top', content: null }
-    ];
 
     setViewContents(views[0], HotArticlesStore(), cursor);
 
