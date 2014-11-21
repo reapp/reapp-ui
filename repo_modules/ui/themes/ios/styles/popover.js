@@ -7,13 +7,13 @@ module.exports = {
     right: 0,
     bottom: 0,
     zIndex: state.open ? 15000 : -1,
-    background: STYLE.bg
+    background: 'rgba(0,0,0,0.3)'
   },
 
   list: {
     ':before': {
       content: ' ',
-      background: STYLE.listBg,
+      background: 'rgba(255,255,255,0.95)',
       width: 26,
       height: 26,
       position: 'absolute',
@@ -27,7 +27,7 @@ module.exports = {
     top: state.top,
     left: state.left,
     fontSize: '16px',
-    background: STYLE.listBg,
+    background: 'rgba(255,255,255,0.95)',
     padding: 0,
     borderRadius: 5,
     textAlign: 'center'
@@ -39,6 +39,6 @@ module.exports = {
     },
 
     minWidth: 120,
-    borderTop: `1px solid ${STYLE.borderColor}`,
+    borderTop: '1px solid #ccc',
   }
 };

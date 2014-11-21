@@ -6,12 +6,7 @@ require('./Popover.styl');
 var Popover = Component('popover', {
   getDefaultProps() {
     return {
-      edgePadding: 10,
-      styleVars: {
-        bg: 'rgba(0,0,0,0.3)',
-        listBg: 'rgba(255,255,255,0.95)',
-        borderColor: '#ccc'
-      }
+      edgePadding: 10
     };
   },
 
@@ -81,8 +76,7 @@ var Popover = Component('popover', {
   },
 
   render() {
-    var { listStyle, itemStyle, style, styleVars, ...props } = this.props;
-    var styles = this.styles(styleVars, this.state);
+    var { listStyle, itemStyle, styleVars, ...props } = this.props;
 
     if (this.state.open)
       this.addClass('open');
