@@ -37,9 +37,9 @@ Actions.loadArticle.listen(
     .then(getAllKids)
     .then(
       res => {
-        ArticlesStore(
-          ArticlesStore().set(id, Immutable.fromJS(Reducer('LOADED', res)[id]))
-        );
+        ArticlesStore().withMutations(articles => {
+          articles.set(id, Immutable.fromJS(Reducer('LOADED', res)[id]));
+        });
       },
       error
     )
