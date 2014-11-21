@@ -1,21 +1,11 @@
-var React = require('react/addons');
-var ReactStyle = require('react-style');
+var Component = require('ui/component');
 
-var ListTitle = React.createClass({
-  styles: {
-    fontSize: '13px',
-    textTransform: 'uppercase',
-    color: '#888',
-    padding: '10px 0 2px 12px',
-    margin: '15px 0 5px',
-    fontWeight: 'normal'
-  },
-
+var ListTitle = Component('listtitle', {
   render() {
     var { children, ...props } = this.props;
 
     return (
-      <h3 {...props} className="list-title" style={this.styles}>
+      <h3 {...props} {...this.componentProps()}>
         {children}
       </h3>
     );

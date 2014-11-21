@@ -1,13 +1,10 @@
-var React = require('react/addons');
-var Styled = require('ui/styled');
+var React = require('react');
+var Component = require('ui/component');
 var Icon = require('./Icon');
-var cx = React.addons.classSet;
 
 require('./ListItem.styl');
 
-var ListItem = React.createClass({
-  mixins: [Styled('listitem')],
-
+var ListItem = Component('listitem', {
   statics: {
     isListItem: true
   },

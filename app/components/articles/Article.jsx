@@ -35,7 +35,7 @@ module.exports = Component('Article', [Navigation],
         <View>
           {ArticleItem(`ArticlePage-ArticleItem-${article.get('id')}`, cursor)}
           <div id="comments">
-            {CommentTree || null}
+            {CommentTree}
           </div>
         </View>
       </Drawer>

@@ -1,55 +1,34 @@
 var React = require('react/addons');
-var ReactStyle = require('react-style');
-var cx = React.addons.classSet;
+var Component = require('ui/component');
 
-// from andreypopp/react-flexgrid
-
-var PAD_STYLE = ReactStyle({
-  padding: '15px',
-});
-
-var Container = React.createClass({
+var Container = Component('container', {
   getDefaultProps() {
     return { pad: false };
   },
 
-  styles: ReactStyle({
-    boxSizing: 'border-box',
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginRight: '-0.5rem',
-    marginLeft: '-0.5rem'
-  }),
-
   render() {
-    var { styles, className, children, pad, ...props } = this.props;
-    var styles = [].concat(this.styles, styles);
-    var classes = { 'Container': true };
-    classes[className] = !!className;
+    var { children, pad, ...props } = this.props;
 
     return (
-      <div className={cx(classes)} styles={styles}>
-        {React.Children.map(children, child => React.addons.cloneWithProps(child, { pad: true }))}
+      <div {...this.componentProps()}>
+        {React.Children.map(children, child => {
+          return child.type.isBlock ?
+            React.addons.cloneWithProps(child, { pad: pad }) :
+            <Block pad={pad}>{child}</Block>;
+        })}
       </div>
     );
   }
 });
 
-var Block = React.createClass({
+var Block = Component('block', {
+  statics: {
+    isBlock: true
+  },
+
   getDefaultProps() {
     return { pad: false };
   },
-
-  styles: ReactStyle({
-    boxSizing: 'border-box',
-    display: 'flex',
-    flexDirection: 'column',
-    flexGrow: 0,
-    flexShrink: 0,
-    paddingRight: '0.5rem',
-    paddingLeft: '0.5rem'
-  }),
 
   getWidthStyle(width) {
     var styles;
@@ -61,37 +40,31 @@ var Block = React.createClass({
     else
       styles = { flex: 1 };
 
-    return ReactStyle(styles);
+    return styles;
   },
 
   render() {
-    var { width, styles, pad, children, className, ...props } = this.props;
-    var allStyles = [].concat(styles, this.styles, this.getWidthStyle(width), (pad ? PAD_STYLE : null));
-    var classes = { 'Block': true };
-    classes[className] = !!className;
+    var { width, pad, children, ...props } = this.props;
+
+    if (pad) this.addStyles(this.styles.padded);
+    this.addStyles(this.getWidthStyle(width));
 
     return (
       <div
         {...props}
-        className={cx(classes)}
-        styles={allStyles}>
-        <div styles={styles}>
-          {children}
-        </div>
+        {...this.componentProps()}>
+        {children}
       </div>
     );
   }
 });
 
-var Pad = React.createClass({
+var Pad = Component('pad', {
   render() {
-    var { styles, className, children, ...props } = this.props;
-    var allStyles = [].concat(PAD_STYLE, styles);
-    var classes = { 'Pad': true };
-    classes[className] = !!className;
+    var { children, ...props } = this.props;
 
     return (
-      <div className={cx(classes)} styles={allStyles}>
+      <div {...this.componentProps()}>
         {children}
       </div>
     );

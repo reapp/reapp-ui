@@ -1,10 +1,7 @@
-var React = require('react');
-var Styled = require('ui/styled');
+var Component = require('ui/component');
 var Icon = require('./Icon');
 
-var Button = React.createClass({
-  mixins: [Styled('button')],
-
+var Button = Component('button', {
   getDefaultProps() {
     return {
       type: 'std'
@@ -21,10 +18,10 @@ var Button = React.createClass({
     iconProps = iconProps || {};
     iconProps.color = iconProps.color || this.getStyleVal('color');
 
+    this.addClass(`button-${type}`);
+
     return (
-      <button {...props}
-        styles={this.getStyles()}
-        className={`button-${type}`}>
+      <button {...props} {...this.componentProps()}>
         {hasIconProps && <Icon {...iconProps} />}
         {children && (
           <span style={{ margin: 'auto' }} data-transform={transforms}>

@@ -1,10 +1,9 @@
-var React = require('react/addons');
-var ReactStyle = require('react-style');
-var cx = React.addons.classSet;
+var React = require('react');
+var Component = require('ui/component');
 
 require('./Popover.styl');
 
-var Popover = React.createClass({
+var Popover = Component('popover', {
   getDefaultProps() {
     return {
       edgePadding: 10,
@@ -76,75 +75,30 @@ var Popover = React.createClass({
       Math.max(top, pad);
   },
 
-  styles: (STYLE, state) => ({
-    bg: {
-      visibility: state.open ? 'visible' : 'hidden',
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      zIndex: state.open ? 15000 : -1,
-      background: STYLE.bg
-    },
-
-    list: {
-      ':before': {
-        content: ' ',
-        background: STYLE.listBg,
-        width: 26,
-        height: 26,
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        borderRadius: 3,
-        transform: 'rotate(45deg)',
-      },
-
-      position: 'absolute',
-      top: state.top,
-      left: state.left,
-      fontSize: '16px',
-      background: STYLE.listBg,
-      padding: 0,
-      borderRadius: 5,
-      textAlign: 'center'
-    },
-
-    item: {
-      ':first': {
-        borderTop: 'none'
-      },
-
-      minWidth: 120,
-      borderTop: `1px solid ${STYLE.borderColor}`,
-    }
-  }),
-
   handleClick(e) {
     this.setState({ open: false });
     e.preventDefault();
   },
 
   render() {
-    var { className, listStyle, itemStyle, style, styleVars, ...props } = this.props;
+    var { listStyle, itemStyle, style, styleVars, ...props } = this.props;
     var styles = this.styles(styleVars, this.state);
-    var classes = { Popover: true, open: this.state.open };
 
-    classes[className] = !!className;
+    if (this.state.open)
+      this.addClass('open');
+
+    this.addStyles('list', listStyle);
+    this.addStyles('item', itemStyle);
 
     return (
-      <div
-        {...props}
+      <div {...props} {...this.componentProps()}
         ref="bg"
-        styles={[styles.bg, style].map(ReactStyle)}
-        className={cx(classes)}
         onClick={this.handleClick}>
         <ul
           ref="list"
-          styles={[styles.list, listStyle].map(ReactStyle)}>
+          styles={this.getStyles('list')}>
           {React.Children.map(this.props.children, (li, i) => (
-            <li key={i} styles={[styles.item, itemStyle].map(ReactStyle)}>
+            <li key={i} styles={this.getStyles('item')}>
               {li}
             </li>
           ))}

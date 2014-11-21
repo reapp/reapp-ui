@@ -7,11 +7,16 @@ var ReactStyle = require('react-style');
 // }
 
 module.exports = getStylesObject(
+  'block',
   'button',
+  'container',
   'titlebar',
   'list',
   'listitem',
+  'listtitle',
   'menu',
+  'pad',
+  'popover',
   'viewmain',
   'viewleft'
 );

@@ -1,14 +1,11 @@
 var React = require('react/addons');
-var Styled = require('ui/styled');
+var Styled = require('ui/component');
 var ListItem = require('./ListItem');
 var StickyTitles = require('sticky-titles');
-var cx = React.addons.classSet;
 
 require('./List.styl');
 
-var List = React.createClass({
-  mixins: [Styled('list')],
-
+var List = Component('list', {
   componentDidMount() {
     // todo: expect StickyTItles
     var titles = this.getDOMNode().querySelectorAll('.List--title');
@@ -23,7 +20,6 @@ var List = React.createClass({
 
   render() {
     var {
-      className,
       children,
       type,
       liProps,
@@ -31,17 +27,11 @@ var List = React.createClass({
       dontWrap
     } = this.props;
 
-    var classes = { List: true };
-    classes[className] = !!className;
-
     if (type)
       this.addStyles(this.styles[type]);
 
     return (
-      <ul
-        className={cx(classes)}
-        styles={this.getStyles()}>
-
+      <ul {...this.componentProps()}>
         {title && <li className="List--title">{title}</li>}
         {React.Children.map(children, (li, i) => {
           if (dontWrap || li.type && li.type.isListItem)

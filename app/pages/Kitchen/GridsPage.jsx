@@ -1,26 +1,26 @@
 var React = require('react');
-var ReactStyle = require('react-style');
 var DrawerView = require('ui/views/DrawerView');
+var BackButton = require('ui/components/buttons/BackButton');
 var { Container, Block } = require('ui/components/Grid');
-var Button = require('ui/components/Button');
 
 require('./GridsPage.styl');
 
 module.exports = React.createClass({
-  styles: ReactStyle({
+  styles: {
     textAlign: 'center',
-  }),
+  },
 
   render() {
     var containerProps = {
-      pad: true
+      pad: true,
+      styles: { textAlign: 'center' }
     };
 
     return (
       <DrawerView
         id="GridsPage"
         styles={this.styles}
-        title="Grid System">
+        title={[<BackButton />, "Grid System"]}>
 
         <Container {...containerProps}>
           <Block>1</Block>

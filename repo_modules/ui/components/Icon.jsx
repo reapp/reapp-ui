@@ -1,10 +1,6 @@
-var React = require('react/addons');
-var Styled = require('ui/styled');
-var cx = React.addons.classSet;
+var Component = require('ui/component');
 
-var Icon = React.createClass({
-  mixins: [Styled('icon')],
-
+var Icon = Component('icon', {
   getDefaultProps() {
     return {
       size: 32,
@@ -15,7 +11,6 @@ var Icon = React.createClass({
 
   render() {
     var { size, style, type, color, stroke, ...props } = this.props;
-    var classes = { Icon: true };
     var scale = size / 64;
 
     var strokeProps;
@@ -35,10 +30,8 @@ var Icon = React.createClass({
     }, style);
 
     return (
-      <span {...props}
-        styles={this.getStyles()}
-        style={styles}
-        className={cx(classes)}>
+      <span {...props} {...this.componentProps()}
+        style={styles}>
         <svg
           {...strokeProps}
           fill={color}
