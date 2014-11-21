@@ -9,15 +9,13 @@ var ArticlePage = module.exports = React.createClass({
   statics: {
     fetchData(params) {
       return new Promise((res, rej) => {
-        var dataListener = data => {
+        var unlisten = ArticlesStore.listen(data => {
           var article = data.get(params.id);
-          if (article.get('status') === 'LOADED') {
+          if (article && article.get('status') === 'LOADED') {
+            unlisten();
             res(article);
-            ArticlesStore.unlisten(dataListener);
           }
-        };
-
-        ArticlesStore.listen(dataListener);
+        });
         Actions.loadArticle(params.id);
       });
     }

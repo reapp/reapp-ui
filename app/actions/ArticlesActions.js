@@ -37,7 +37,9 @@ Actions.loadArticle.listen(
     .then(getAllKids)
     .then(
       res => {
-        ArticlesStore().update(id, article => Immutable.fromJS(Reducer('LOADED', res)[id]));
+        ArticlesStore(
+          ArticlesStore().set(id, Immutable.fromJS(Reducer('LOADED', res)[id]))
+        );
       },
       error
     )

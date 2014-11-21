@@ -15,15 +15,17 @@ module.exports = Component('Article', [Navigation],
     var { cursor } = props;
     var article = cursor && cursor.get('data') || { get: () => 'Loading' };
 
-    var CommentTree = (article.get('kids') || [])
-      .map(comment => {
-        return typeof comment !== 'number' && <ImmutableTreeNode
+    var comments = article.get('kids');
+    var CommentTree = comments && comments.map(comment => {
+      return (
+        <ImmutableTreeNode
           key={Math.random()}
           idKey="id"
           childKey="kids"
           renderComponent={Comment}
           data={comment} />
-      }).toArray();
+      );
+    }).toArray();
 
     var parents = ['articlesLeftView', 'hamburger'];
 

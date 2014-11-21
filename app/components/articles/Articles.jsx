@@ -44,7 +44,8 @@ function setViewContents(view, list, articles) {
 module.exports = Component('Articles', [ViewLoaderMixin, State],
   function render(props) {
     var { cursor, views } = props;
-    var subRouteName = this.getRoutes().reverse()[0].name;
+    var subRouteKey = this.getRoutes().reverse()[0].name + this.getParams().id;
+    console.log('KEY', subRouteKey);
 
     setViewContents(views[0], HotArticlesStore(), cursor);
 
@@ -61,7 +62,7 @@ module.exports = Component('Articles', [ViewLoaderMixin, State],
         <ViewMain>
           {this.getRoutes().length === 3 && (
             <div className="drawer-parent">
-              <RouteHandler key={subRouteName} />
+              <RouteHandler key={subRouteKey} />
             </div>
           )}
         </ViewMain>

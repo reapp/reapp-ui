@@ -19,14 +19,12 @@ var ArticlesPage = module.exports = React.createClass({
   statics: {
     fetchData() {
       return new Promise((res, rej) => {
-        var dataListener = data => {
+        var unlisten = ArticlesStore.listen(data => {
           if (data.size) {
+            unlisten();
             res(data);
-            ArticlesStore.unlisten(dataListener);
           }
-        };
-
-        ArticlesStore.listen(dataListener);
+        });
         Actions.loadArticlesHot();
       });
     }
