@@ -8,6 +8,7 @@ function capitalize(str) {
 module.exports = function(name) {
   return {
     componentWillMount() {
+      this.classes = {};
       this.setClasses(this.props);
     },
 
@@ -15,22 +16,33 @@ module.exports = function(name) {
       this.setClasses(nextProps);
     },
 
-    componentWillUnmount() {
-      this.classes = null;
-    },
+    className: capitalize(name),
 
     setClasses() {
-      this.classes = {};
-      this.classes[capitalize(name)] = true;
-      this.classes[this.props.className] = !!this.props.className;
+      this.classes[name] = {};
+      this.classes[name][this.className] = true;
+      this.classes[name][this.props.className] = !!this.props.className;
     },
 
-    getClasses() {
-      return cx(this.classes);
+    getClasses(key) {
+      var classSet = this.classes[key || name];
+
+      if (key) {
+        classSet = classSet || {};
+        classSet[`${this.className}--${key}`] = true;
+      }
+
+      return cx(classSet);
     },
 
-    addClass(name) {
-      this.classes[name] = true;
+    addClass(key, val) {
+      // allow shorthand
+      if (!val) {
+        val = key;
+        key = name;
+      }
+
+      this.classes[val] = true;
     }
   };
 };

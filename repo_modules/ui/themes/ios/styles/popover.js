@@ -7,7 +7,15 @@ module.exports = {
     bottom: 0,
     visibility: 'hidden',
     zIndex: -1,
-    background: 'rgba(0,0,0,0.3)'
+    background: 'rgba(0,0,0,0.3)',
+    opacity: 0,
+    transition: 'opacity 300ms ease-in'
+  },
+
+  open: {
+    opacity: 1,
+    visibility: 'visible',
+    zIndex: 15000
   },
 
   list: {

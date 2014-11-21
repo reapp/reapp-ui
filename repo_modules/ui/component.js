@@ -6,12 +6,12 @@ var UI = require('./index');
 
 module.exports = function(name, spec) {
   var mixins = [].concat(spec.mixins || [], Styled(name), Classed(name), {
-    componentWillMount() {
-      // combine styles and classes into one thing
-      this.componentProps = () => ({
-        styles: this.getStyles(),
-        className: this.getClasses()
-      });
+    componentProps(name) {
+      return {
+        styles: this.getStyles(name),
+        className: this.getClasses(name),
+        ref: name
+      };
     }
   });
 

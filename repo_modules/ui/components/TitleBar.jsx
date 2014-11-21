@@ -1,11 +1,9 @@
 var React = require('react/addons');
-var Styled = require('ui/styled');
+var Component = require('ui/component');
 var DocumentTitle = require('react-document-title');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
 
-var TitleBar = React.createClass({
-  mixins: [Styled('titlebar')],
-
+var TitleBar = Component('titlebar', {
   componentDidMount() {
     if (this.refs.mid) {
       var mid = this.refs.mid.getDOMNode();
@@ -24,7 +22,7 @@ var TitleBar = React.createClass({
   },
 
   render() {
-    var { children, index } = this.props;
+    var { children, index, ...props } = this.props;
     if (!children) return null;
 
     if (Array.isArray(children)) {
@@ -43,12 +41,10 @@ var TitleBar = React.createClass({
     right = this.addIconTransform(right);
 
     return (
-      <div
+      <div {...props} {...this.componentProps()}
         ref="titlebar"
-        className="TitleBar"
         data-transform="FADE_LEFT"
-        data-transform-index={index}
-        styles={this.getStyles()}>
+        data-transform-index={index}>
         <div
           className="TitleBar--left"
           styles={this.getStyles('left')}>

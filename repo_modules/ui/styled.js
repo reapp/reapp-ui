@@ -11,10 +11,6 @@ module.exports = function(name) {
       this.makeStyles(this.props);
     },
 
-    componentWillUnmount() {
-      this.styles = null;
-    },
-
     makeStyles(props) {
       var theme = UI.getTheme();
       var styles = {};

@@ -76,11 +76,11 @@ var Popover = Component('popover', {
   },
 
   render() {
-    var { listStyle, itemStyle, styleVars, ...props } = this.props;
+    var { listStyle, itemStyle, children, ...props } = this.props;
 
     if (this.state.open) {
       this.addClass('open');
-      this.addStyles({ visibility: 'visible', zIndex: 15000 });
+      this.addStyles(this.styles.open);
     }
 
     this.addStyles('list', { top: this.state.top, left: this.state.left });
@@ -94,7 +94,7 @@ var Popover = Component('popover', {
         <ul
           ref="list"
           styles={this.getStyles('list')}>
-          {React.Children.map(this.props.children, (li, i) => (
+          {React.Children.map(children, (li, i) => (
             <li key={i} styles={this.getStyles('item')}>
               {li}
             </li>

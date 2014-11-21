@@ -15,6 +15,7 @@ module.exports = getStylesObject(
   'listitem',
   'listtitle',
   'menu',
+  'modal',
   'pad',
   'popover',
   'viewmain',

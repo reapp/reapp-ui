@@ -12,7 +12,7 @@ var Container = Component('container', {
     return (
       <div {...this.componentProps()}>
         {React.Children.map(children, child => {
-          return child.type.isBlock ?
+          return child.type && child.type.isBlock ?
             React.addons.cloneWithProps(child, { pad: pad }) :
             <Block pad={pad}>{child}</Block>;
         })}
