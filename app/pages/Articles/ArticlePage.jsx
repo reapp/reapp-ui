@@ -1,10 +1,10 @@
+var { State } = require('react-router');
 var ArticlesStore = require('stores/ArticlesStore');
 var Actions = require('actions/Actions');
 var Article = require('components/articles/Article');
-var ImmutableProps = require('mixins/ImmutableProps');
 
 var ArticlePage = module.exports = React.createClass({
-  mixins: [ImmutableProps(['data.article'])],
+  mixins: [State],
 
   statics: {
     fetchData(params) {
@@ -24,7 +24,8 @@ var ArticlePage = module.exports = React.createClass({
   },
 
   render() {
-    var cursor = this.props.data.get('article');
-    return Article(`Article-${cursor.get('id')}`, cursor);
+    console.log(this.getParams())
+    var cursor = ArticlesStore().get(this.getParams().id);
+    return cursor ? Article(`Article-${cursor.get('id')}`, cursor) : <div />;
   }
 });

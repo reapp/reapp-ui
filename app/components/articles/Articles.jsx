@@ -1,5 +1,5 @@
 var Component = require('omniscient');
-var { RouteHandler } = require('react-router');
+var { RouteHandler, State } = require('react-router');
 var Actions = require('actions/Actions');
 var List = require('ui/components/List');
 var ListItem = require('ui/components/ListItem');
@@ -41,10 +41,10 @@ function setViewContents(view, list, articles) {
   );
 }
 
-module.exports = Component('Articles', [ViewLoaderMixin],
+module.exports = Component('Articles', [ViewLoaderMixin, State],
   function render(props) {
     var { cursor, views } = props;
-    var Handler = RouteHandler(this.props);
+    var subRouteName = this.getRoutes().reverse()[0].name;
 
     setViewContents(views[0], HotArticlesStore(), cursor);
 
@@ -59,9 +59,9 @@ module.exports = Component('Articles', [ViewLoaderMixin],
         </ViewLeft>
 
         <ViewMain>
-          {Handler && (
+          {this.getRoutes().length === 3 && (
             <div className="drawer-parent">
-              {Handler}
+              <RouteHandler key={subRouteName} />
             </div>
           )}
         </ViewMain>
