@@ -1,10 +1,11 @@
 var React = require('react');
+var Component = require('ui/component');
 var StaticContainer = require('./StaticContainer');
 var StyleKeys = require('../lib/StyleKeys');
 
 var POLL_FACTOR = 0.5;
 
-var AnimatableContainer = React.createClass({
+var AnimatableContainer = Component('animatablecontainer', {
   getDefaultProps() {
     return {
       blockUpdates: true,
@@ -112,17 +113,11 @@ var AnimatableContainer = React.createClass({
   },
 
   render() {
-    var { component, className, children, styles, id, ...props } = this.props;
-
-    var componentProps = {
-      id,
-      className,
-      style: this.getStyle(props),
-      styles: styles || null
-    };
+    var { component, children, ...props } = this.props;
 
     return (
-      <component {...componentProps}>
+      <component {...props} {...this.componentProps()}
+        style={this.getStyle(props)}>
         <StaticContainer shouldUpdate={!this.props.blockUpdates || !this.isAnimating}>
           {this.props.children}
         </StaticContainer>
