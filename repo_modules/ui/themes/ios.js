@@ -6,6 +6,8 @@ var ReactStyle = require('react-style');
 //   subEl: { // ... }
 // }
 
+
+// todo: make this a function that allows people to override or add styles
 module.exports = getStylesObject(
   'block',
   'button',
