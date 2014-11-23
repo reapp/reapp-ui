@@ -1,5 +1,4 @@
 var React = require('react');
-var Immstruct = require('immstruct');
 var ParallaxViewList = require('ui/views/ParallaxViewList');
 var DrawerView = require('ui/views/DrawerView');
 var BackButton = require('ui/components/buttons/BackButton');

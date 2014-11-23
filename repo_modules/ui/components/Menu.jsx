@@ -12,8 +12,7 @@ var Menu = Component('menu', {
     };
 
     return (
-      <List {...this.componentProps()}
-        liProps={liProps}>
+      <List {...this.componentProps()} liProps={liProps}>
         {this.props.children}
       </List>
     );

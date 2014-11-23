@@ -107,7 +107,7 @@ module.exports = function(options) {
   }
 
   if (options.dev) {
-    entry = joinEntry('webpack-dev-server/client?http://localhost:2992', entry);
+    entry = joinEntry('webpack-dev-server/client?http://localhost:5284', entry);
   }
 
   Object.keys(stylesheetLoaders).forEach(function(ext) {

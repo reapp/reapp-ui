@@ -10,37 +10,40 @@ var Icon = Component('icon', {
   },
 
   render() {
-    var { size, style, type, color, stroke, ...props } = this.props;
-    var scale = size / 64;
+    var { size, type, color, stroke, ...props } = this.props;
 
-    var strokeProps;
+    var svgProps = {
+      style: {
+        width: size,
+        height: size,
+        shapeRendering: 'crispEdges',
+        fill: 'currentColor'
+      },
+      viewBox: '0 0 64 64',
+      fill: color
+    };
+
     if (stroke) {
-      strokeProps = {
+      Object.assign(svgProps, {
         stroke: color,
         strokeWidth: stroke * 4, // were scaling down from 64 / 2
         strokeLinecap: 'round'
-      };
+      });
     }
 
-    var styles = Object.assign({
+    Object.assign(props.style, {
       color: color,
       width: size,
       height: size,
       overflow: 'hidden'
-    }, style);
+    }, props.style);
 
     return (
-      <span {...props} {...this.componentProps()}
-        style={styles}>
-        <svg
-          {...strokeProps}
-          fill={color}
-          viewBox="0 0 64 64"
-          style={{width:size, height:size, shapeRendering: 'crispEdges', fill: 'currentColor'}}>
-          <g
-            dangerouslySetInnerHTML={{__html:
-              '<use xlink:href="/icons/svg/'+ type +'.svg#Layer_1"></use>'
-            }} />
+      <span {...props} {...this.componentProps()}>
+        <svg {...svgProps}>
+          <g dangerouslySetInnerHTML={{__html:
+            '<use xlink:href="/icons/svg/'+ type +'.svg#Layer_1"></use>'
+          }} />
         </svg>
       </span>
     );

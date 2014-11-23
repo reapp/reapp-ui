@@ -40,7 +40,7 @@ module.exports = {
   },
 
   item: {
-    ':first': {
+    firstChild: {
       borderTop: 'none'
     },
 

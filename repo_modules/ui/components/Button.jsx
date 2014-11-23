@@ -3,9 +3,7 @@ var Icon = require('./Icon');
 
 var Button = Component('button', {
   getDefaultProps() {
-    return {
-      type: 'std'
-    };
+    return { type: 'std' };
   },
 
   render() {

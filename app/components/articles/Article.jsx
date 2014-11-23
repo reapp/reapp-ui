@@ -33,7 +33,7 @@ module.exports = Component('Article', [Navigation],
       <Drawer id="Article" parents={parents}>
         <TitleBar left={<BackButton />}>Comments ()</TitleBar>
         <View>
-          {ArticleItem(`ArticlePage-ArticleItem-${article.get('id')}`, cursor)}
+
           <div id="comments">
             {CommentTree}
           </div>

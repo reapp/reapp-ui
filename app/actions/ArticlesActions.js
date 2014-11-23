@@ -51,7 +51,6 @@ function cacheArticles(list) {
 
 function getNextArticles(articles) {
   page = page + 1;
-  console.log('page', page, articles);
   var start = page * per;
   return Promise.all(
     articles.slice(start, start + per).map(article => API.get(`item/${article}.json`))

@@ -38,8 +38,7 @@ var List = Component('list', {
             return React.addons.cloneWithProps(li, { key: i, index: i });
 
           return (
-            <ListItem
-              {...liProps}
+            <ListItem {...liProps}
               index={i}
               key={li.key || i}>
               {li.content || li}
