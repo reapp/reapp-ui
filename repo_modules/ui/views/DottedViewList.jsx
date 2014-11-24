@@ -6,7 +6,13 @@ var DottedViewList = React.createClass({
     var width = this.props.width || window.innerWidth;
     var dottedViewProps = Object.assign({
       titleBarProps: {
-        height: 60
+        height: 48,
+        styles: {
+          mid: {
+            position: 'relative',
+            top: -4
+          }
+        }
       },
       width: width,
       transform: 'VIEW_SIDE_BY_SIDE',
