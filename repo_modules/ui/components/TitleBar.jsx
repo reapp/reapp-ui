@@ -3,7 +3,7 @@ var Component = require('ui/component');
 var DocumentTitle = require('react-document-title');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
 
-var TitleBar = Component('titleBar', {
+module.exports = Component('TitleBar', {
   componentDidMount() {
     this.centerMiddleTitle();
   },
@@ -11,7 +11,7 @@ var TitleBar = Component('titleBar', {
   centerMiddleTitle() {
     if (this.refs.mid) {
       var mid = this.refs.mid.getDOMNode();
-      var winCenter = this.refs.titleBar.getDOMNode().clientWidth / 2;
+      var winCenter = this.refs.TitleBar.getDOMNode().clientWidth / 2;
       var midCenter = mid.offsetLeft + (mid.clientWidth / 2);
       mid.style.left = (winCenter-midCenter) + 'px';
     }
@@ -58,5 +58,3 @@ var TitleBar = Component('titleBar', {
     );
   }
 });
-
-module.exports = TitleBar;

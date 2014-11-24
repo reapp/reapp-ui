@@ -1,7 +1,12 @@
 var React = require('react');
 var ViewList = require('./ViewList');
+var Dots = require('../components/Dots');
 
 var DottedViewList = React.createClass({
+  getInitialState() {
+    return { activeViewIndex: 0 };
+  },
+
   render() {
     var width = this.props.width || window.innerWidth;
     var dottedViewProps = Object.assign({
@@ -24,7 +29,19 @@ var DottedViewList = React.createClass({
       }
     }, this.props);
 
-    return <ViewList {...dottedViewProps} />;
+    dottedViewProps.handleViewEnter = function(index) {
+      if (dottedViewProps.handleViewEnter)
+        dottedViewProps.handleViewEnter(index);
+
+      this.setState({ activeViewIndex: index });
+    };
+
+    return (
+      <div className="DottedViewList">
+        <ViewList {...dottedViewProps} />
+        <Dots total={this.props.views.length} active={this.state.activeViewIndex} />
+      </div>
+    );
   }
 });
 

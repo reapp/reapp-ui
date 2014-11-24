@@ -1,7 +1,7 @@
 var React = require('react/addons');
 var Component = require('ui/component');
 
-var Container = Component('container', {
+var Container = Component('Container', {
   getDefaultProps() {
     return { pad: false };
   },
@@ -21,7 +21,7 @@ var Container = Component('container', {
   }
 });
 
-var Block = Component('block', {
+var Block = Component('Block', {
   statics: {
     isBlock: true
   },
@@ -59,7 +59,7 @@ var Block = Component('block', {
   }
 });
 
-var Pad = Component('pad', {
+var Pad = Component('Pad', {
   render() {
     var { children, ...props } = this.props;
 

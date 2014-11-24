@@ -3,7 +3,7 @@ var Component = require('ui/component');
 
 require('./Popover.styl');
 
-var Popover = Component('popover', {
+module.exports = Component('popover', {
   getDefaultProps() {
     return {
       edgePadding: 10
@@ -104,5 +104,3 @@ var Popover = Component('popover', {
     );
   }
 });
-
-module.exports = Popover;

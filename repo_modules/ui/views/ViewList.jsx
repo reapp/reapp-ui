@@ -161,7 +161,7 @@ var ViewList = Component('viewList', {
       );
     });
 
-    var titleBarContainerStyles = [this.getStylesForComponent('titleBar')]
+    var titleBarContainerStyles = [this.getStylesForComponent('TitleBar')]
       .concat(titleBarProps.height ?
         this.makeReactStyle({ height: titleBarProps.height }) :
         null);

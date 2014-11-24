@@ -1,6 +1,6 @@
 var Component = require('ui/component');
 
-var Icon = Component('icon', {
+module.exports = Component('Icon', {
   getDefaultProps() {
     return {
       size: 32,
@@ -50,5 +50,3 @@ var Icon = Component('icon', {
   }
 
 });
-
-module.exports = Icon;

@@ -2,7 +2,7 @@ var React = require('react');
 var Component = require('ui/component');
 var Button = require('./Button');
 
-var Modal = Component('modal', {
+module.exports = Component('Modal', {
   propTypes: {
     type: React.PropTypes.string
   },
@@ -75,5 +75,3 @@ var Modal = Component('modal', {
     );
   }
 });
-
-module.exports = Modal;

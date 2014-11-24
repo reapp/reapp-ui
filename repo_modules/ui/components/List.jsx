@@ -5,7 +5,7 @@ var StickyTitles = require('sticky-titles');
 
 require('./List.styl');
 
-var List = Component('list', {
+module.exports = Component('List', {
   componentDidMount() {
     // todo: expect StickyTItles
     var titles = this.getDOMNode().querySelectorAll('.List--title');
@@ -26,7 +26,11 @@ var List = Component('list', {
 
     return (
       <ul {...this.componentProps()}>
-        {title && <li className="List--title">{title}</li>}
+        {title && (
+          <li {...this.componentProps('title')}>
+            {title}
+          </li>
+        )}
         {React.Children.map(children, (li, i) => {
           if (dontWrap || li.type && li.type.isListItem)
             return React.addons.cloneWithProps(li, { key: i, index: i });
@@ -43,5 +47,3 @@ var List = Component('list', {
     );
   }
 });
-
-module.exports = List;

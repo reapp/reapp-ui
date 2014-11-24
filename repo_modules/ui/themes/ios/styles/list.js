@@ -13,5 +13,13 @@ module.exports = {
     margin: 20,
     borderRadius: 10,
     border: 'none'
+  },
+
+  title: {
+    background: '#f7f7f7',
+    padding: '4px 0 4px 10px',
+    margin: '0 0 -1px -10px',
+    color: '#8e8e93',
+    zIndex: 100
   }
 };

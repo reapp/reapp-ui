@@ -1,12 +1,10 @@
 var React = require('react/addons');
 var cx = React.addons.classSet;
 
-function capitalize(str) {
-  return str.substring(0,1).toUpperCase() + str.substring(1,str.length);
-}
-
 module.exports = function(name) {
   return {
+    className: name,
+
     componentWillMount() {
       this.classes = {};
       this.setClasses(this.props);
@@ -15,8 +13,6 @@ module.exports = function(name) {
     componentWillReceiveProps(nextProps) {
       this.setClasses(nextProps);
     },
-
-    className: capitalize(name),
 
     setClasses() {
       this.classes[name] = {};

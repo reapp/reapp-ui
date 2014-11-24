@@ -4,7 +4,7 @@ var Icon = require('./Icon');
 
 require('./ListItem.styl');
 
-var ListItem = Component('listItem', {
+module.exports = Component('ListItem', {
   statics: {
     isListItem: true
   },
@@ -95,5 +95,3 @@ var ListItem = Component('listItem', {
     );
   }
 });
-
-module.exports = ListItem;

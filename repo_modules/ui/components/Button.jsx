@@ -1,7 +1,7 @@
 var Component = require('ui/component');
 var Icon = require('./Icon');
 
-var Button = Component('button', {
+module.exports = Component('Button', {
   getDefaultProps() {
     return { type: 'std' };
   },
@@ -30,5 +30,3 @@ var Button = Component('button', {
     );
   }
 });
-
-module.exports = Button;

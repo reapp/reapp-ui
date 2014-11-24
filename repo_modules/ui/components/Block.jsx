@@ -1,6 +1,6 @@
 var React = require('react');
 
-var Block = React.createClass({
+module.exports = React.createClass({
   render() {
     var { children, ...props } = this.props;
 
@@ -10,7 +10,4 @@ var Block = React.createClass({
       </div>
     );
   }
-
 });
-
-module.exports = Block;
