@@ -5,14 +5,14 @@ var EasingFunctions = require('ui/lib/math/EasingFunctions');
 var ImageCard = require('./ImageCard');
 
 var ImageCardContainer = React.createClass({
-  styles: ReactStyle({
-     'backface-visibility': 'hidden',
-     '-webkit-backface-visibility': 'hidden',
-     '-moz-backface-visibility': 'hidden',
-     'position': 'absolute',
-     'left': '0',
-     'top': '0',
-  }),
+  styles: {
+     backfaceVisibility: 'hidden',
+     WebkitBackfaceVisibility: 'hidden',
+     MozBackfaceVisibility: 'hidden',
+     position: 'absolute',
+     left: 0,
+     top: 0,
+  },
 
   render() {
     var { left, index, width, ...props } = this.props;
@@ -23,10 +23,12 @@ var ImageCardContainer = React.createClass({
     var yAxis = left > index * width ? 1 : -1;
     var deg = Math.abs(pct * 69);
 
+    var animatableStyles = Object.assign(this.styles, { width });
+
     return (
       <AnimatableContainer
         className="ImageCardContainer"
-        styles={this.styles}
+        style={animatableStyles}
         opacity={EasingFunctions.easeOutCubic(1 - Math.abs(pct))}
         rotate={{y: yAxis, deg: deg}}
         translate={{x: x, z: z}}>

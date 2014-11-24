@@ -5,7 +5,7 @@ var StyleKeys = require('../lib/StyleKeys');
 
 var POLL_FACTOR = 0.5;
 
-var AnimatableContainer = Component('animatablecontainer', {
+var AnimatableContainer = Component('AnimatableContainer', {
   getDefaultProps() {
     return {
       blockUpdates: true,
@@ -63,14 +63,7 @@ var AnimatableContainer = Component('animatablecontainer', {
   },
 
   getStyle(props) {
-    var style = {};
-
-    if (this.props.style) {
-      for (var key in this.props.style) {
-        style[key] = this.props.style[key];
-      }
-    }
-
+    var style = Object.assign({}, this.props.style);
     var transforms = '';
 
     if (props.opacity !== 1) {
@@ -116,7 +109,8 @@ var AnimatableContainer = Component('animatablecontainer', {
     var { component, children, ...props } = this.props;
 
     return (
-      <component {...props} {...this.componentProps()}
+      <component {...props}
+        className={this.getClasses()}
         style={this.getStyle(props)}>
         <StaticContainer shouldUpdate={!this.props.blockUpdates || !this.isAnimating}>
           {this.props.children}
