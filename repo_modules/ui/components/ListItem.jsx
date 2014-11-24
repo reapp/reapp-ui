@@ -4,7 +4,7 @@ var Icon = require('./Icon');
 
 require('./ListItem.styl');
 
-var ListItem = Component('listitem', {
+var ListItem = Component('listItem', {
   statics: {
     isListItem: true
   },

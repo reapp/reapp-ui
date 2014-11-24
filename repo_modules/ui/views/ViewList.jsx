@@ -6,7 +6,7 @@ var TouchableArea = require('../helpers/TouchableArea');
 var Transforms = require('../animations/Transforms');
 var View = require('./View');
 
-var ViewList = Component('viewlist', {
+var ViewList = Component('viewList', {
   mixins: [Transforms.TransformerMixin],
 
   propTypes: {
@@ -160,7 +160,7 @@ var ViewList = Component('viewlist', {
     });
 
     return titleBars && titleBars.length && (
-      <div styles={this.getStylesForComponent('titlebar')} style={titleBarProps.style}>{titleBars}</div>
+      <div styles={this.getStylesForComponent('titleBar')} style={titleBarProps.style}>{titleBars}</div>
     );
   },
 

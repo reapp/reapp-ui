@@ -12,16 +12,16 @@ module.exports = getStylesObject(
   'block',
   'button',
   'container',
-  'titlebar',
+  'titleBar',
   'list',
-  'listitem',
-  'listtitle',
+  'listItem',
+  'listTitle',
   'menu',
   'modal',
   'pad',
   'popover',
-  'viewmain',
-  'viewleft'
+  'viewMain',
+  'viewLeft'
 );
 
 function getStyles(name) {

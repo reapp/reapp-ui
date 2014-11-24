@@ -1,6 +1,6 @@
 var Component = require('ui/component');
 
-var ListTitle = Component('listtitle', {
+var ListTitle = Component('listTitle', {
   render() {
     var { children, ...props } = this.props;
 

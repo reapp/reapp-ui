@@ -6,11 +6,11 @@ var UI = require('./index');
 
 module.exports = function(name, spec) {
   var mixins = [].concat(spec.mixins || [], Styled(name), Classed(name), {
-    componentProps(name) {
+    componentProps(componentName) {
       return {
-        ref: name,
-        className: this.getClasses(name),
-        styles: this.getStyles(name)
+        ref: componentName || name,
+        className: this.getClasses(componentName),
+        styles: this.getStyles(componentName)
       };
     }
   });
