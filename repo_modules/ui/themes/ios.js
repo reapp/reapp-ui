@@ -13,7 +13,8 @@ module.exports = getStylesObject(
   'Block',
   'Button',
   'Container',
-  'TitleBar',
+  'DottedViewList',
+  'Dots',
   'List',
   'ListItem',
   'ListTitle',
@@ -21,6 +22,7 @@ module.exports = getStylesObject(
   'Modal',
   'Pad',
   'Popover',
+  'TitleBar',
   'View',
   'ViewMain',
   'ViewLeft'

@@ -1,15 +1,19 @@
-module.exports = {
-  self: {},
-
+module.exports = { // todo: if function, dynamic vars
+  // todo: static vars, but can be overriden before setTheme
   dot: {
-    background: 'rgba(255,255,255,0.5)',
+    background: 'rgba(0,0,0,0.2)',
     borderRadius: 10,
-    width: 12,
-    height: 12,
-    margin: 4
+    width: 4,
+    height: 4,
+    margin: 2
   },
 
   dotActive: {
-    background: '#fff'
+    background: '#000'
+  },
+
+  inner: {
+    margin: 'auto',
+    flexFlow: 'row'
   }
 };

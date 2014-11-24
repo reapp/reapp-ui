@@ -9,17 +9,22 @@ module.exports = Component('Dots', {
 
   render() {
     var { total, active, ...props } = this.props;
-    var dots = new Array(total);
+
+    var dots = Array.apply(null, new Array(total)); // this sucks
+
     var dotProps = this.componentProps('dot');
-    var activeDotProps = [dotProps].concat(this.getStyles('dotActive'));
+    var activeDotProps = Object.assign({}, this.componentProps('dotActive'));
+    activeDotProps.styles.push(this.getStyles('dot'));
 
     return (
       <div {...props} {...this.componentProps()}>
-        {dots.map((dot, i) => (
-          i == active ?
-            <div {...activeDotProps} /> :
-            <div {...dotProps} />
-        ))}
+        <div {...this.componentProps('inner')}>
+          {dots.map((dot, i) => (
+            i === active ?
+              <div {...activeDotProps} /> :
+              <div {...dotProps} />
+          ))}
+        </div>
       </div>
     );
   }

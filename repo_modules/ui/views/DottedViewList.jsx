@@ -1,8 +1,8 @@
-var React = require('react');
+var Component = require('ui/component');
 var ViewList = require('./ViewList');
 var Dots = require('../components/Dots');
 
-var DottedViewList = React.createClass({
+module.exports = Component('DottedViewList', {
   getInitialState() {
     return { activeViewIndex: 0 };
   },
@@ -37,12 +37,13 @@ var DottedViewList = React.createClass({
     };
 
     return (
-      <div className="DottedViewList">
+      <div {...this.componentProps()}>
         <ViewList {...dottedViewProps} />
-        <Dots total={this.props.views.length} active={this.state.activeViewIndex} />
+        <Dots
+          total={this.props.views.length}
+          active={this.state.activeViewIndex}
+          styles={this.getStyles('dots')} />
       </div>
     );
   }
 });
-
-module.exports = DottedViewList;
