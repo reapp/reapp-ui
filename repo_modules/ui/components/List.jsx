@@ -19,13 +19,7 @@ var List = Component('list', {
   },
 
   render() {
-    var {
-      children,
-      type,
-      liProps,
-      title,
-      dontWrap
-    } = this.props;
+    var { children, type, liProps, title, dontWrap } = this.props;
 
     if (type)
       this.addStyles(this.styles[type]);

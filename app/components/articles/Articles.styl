@@ -19,6 +19,7 @@
 }
 
 .drawer-parent {
+  pointer-events: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -27,6 +28,10 @@
   z-index: 6000;
   transform: translate3d(0%,0,0);
   transition: .2s transform ease-out;
+
+  * {
+    pointer-events: auto;
+  }
 }
 
 .drawer-enter {

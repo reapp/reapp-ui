@@ -21,7 +21,9 @@ module.exports = function(name) {
     setClasses() {
       this.classes[name] = {};
       this.classes[name][this.className] = true;
-      this.classes[name][this.props.className] = !!this.props.className;
+
+      if (this.props.className)
+        this.classes[name][this.props.className] = true;
     },
 
     getClasses(key) {

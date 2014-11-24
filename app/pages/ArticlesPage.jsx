@@ -1,20 +1,10 @@
 var Actions = require('actions/Actions');
 var ArticlesStore = require('stores/ArticlesStore');
 var Articles = require('../components/articles/Articles');
+var StoreRefresh = require('mixins/StoreRefresh');
 
 var ArticlesPage = module.exports = React.createClass({
-  mixins: [{
-    componentWillMount() {
-      this.forceUpdater = () => {
-        this.forceUpdate();
-      };
-
-      ArticlesStore.listen(this.forceUpdater);
-    },
-    componentWillUnmount() {
-      ArticlesStore.unlisten(this.forceUpdater);
-    }
-  }],
+  mixins: [StoreRefresh('Articles')],
 
   statics: {
     fetchData() {

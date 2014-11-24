@@ -13,7 +13,11 @@ module.exports = {
   },
 
   firstChild: {
-    border: 'none'
+    borderTop: 'none'
+  },
+
+  arrow: {
+    margin: 'auto 8px auto 0'
   },
 
   wrapper: {
@@ -28,22 +32,10 @@ module.exports = {
     justifyContent: 'flex-end'
   },
 
-  arrow: {
-    margin: 'auto 8px auto 0'
-  },
-
   before: {
     flexShrink: 0,
     flexWrap: 'nowrap',
     margin: '0 10px 0 0'
-  },
-
-  after: {
-    color: '#999',
-    flexShrink: 0,
-    margin: 'auto 10px',
-    whiteSpace: 'nowrap',
-    alignSelf: 'stretch'
   },
 
   content: {
@@ -78,5 +70,13 @@ module.exports = {
     overflow: 'hidden',
     WebkitLineLamp: 2,
     WebkitBoxOrient: 'vertical',
-  }
+  },
+
+  after: {
+    color: '#999',
+    flexShrink: 0,
+    margin: 'auto 10px',
+    whiteSpace: 'nowrap',
+    alignSelf: 'stretch'
+  },
 };

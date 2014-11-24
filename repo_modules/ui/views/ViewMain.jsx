@@ -1,22 +1,16 @@
 var React = require('react/addons');
-var Styled = require('ui/styled');
-var cx = React.addons.classSet;
+var Component = require('ui/component');
 var Transition = React.addons.CSSTransitionGroup;
 
-var ViewMain = React.createClass({
-  mixins: [Styled('viewmain')],
-
+var ViewMain = Component('viewmain', {
   render() {
-    var { className, children, ...props } = this.props;
+    var { children, ...props } = this.props;
 
-    var classes = { ViewMain: true };
-    classes[className] = !!className;
+    if (!children)
+      this.addStyles(this.styles.childless);
 
     return (
-      <div
-        {...props}
-        className={cx(classes)}
-        styles={this.getStyles()}>
+      <div {...props} {...this.componentProps()}>
         <Transition transitionName="drawer">
           {children}
         </Transition>

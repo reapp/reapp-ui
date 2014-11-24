@@ -8,9 +8,9 @@ module.exports = function(name, spec) {
   var mixins = [].concat(spec.mixins || [], Styled(name), Classed(name), {
     componentProps(name) {
       return {
-        styles: this.getStyles(name),
+        ref: name,
         className: this.getClasses(name),
-        ref: name
+        styles: this.getStyles(name)
       };
     }
   });

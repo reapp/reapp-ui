@@ -10,6 +10,7 @@ var ArticleItem = require('./ArticleItem');
 var HotArticlesStore = require('stores/HotArticlesStore');
 
 require('./Articles.styl');
+require('./Articles.style');
 
 var ViewLoaderMixin = {
   // todo have this push "loading...", then have it "undo" once entered
@@ -31,7 +32,9 @@ function setViewContents(view, list, articles) {
   view.content = (
     <List dontWrap={true} liStyle={{ padding: 0 }}>
       {list
-        .map(id => ArticleItem(`AI-${view.id}-${id}`, articles.get(id.toString())))
+        .map(id => articles.get(id.toString()))
+        .filter(x => typeof x !== 'undefined')
+        .map(article => ArticleItem(`AI-${view.id}-${article.get('id')}`, article))
         .toArray()
         .concat([
           <ListItem style={{ textAlign:'center' }} onClick={handleLoadMore}>Load More</ListItem>
@@ -45,7 +48,6 @@ module.exports = Component('Articles', [ViewLoaderMixin, State],
   function render(props) {
     var { cursor, views } = props;
     var subRouteKey = this.getRoutes().reverse()[0].name + this.getParams().id;
-    console.log('KEY', subRouteKey);
 
     setViewContents(views[0], HotArticlesStore(), cursor);
 

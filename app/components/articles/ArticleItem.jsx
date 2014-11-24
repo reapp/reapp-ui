@@ -48,6 +48,7 @@ module.exports = Component('ArticleItem', mixins,
         wrapper={<a className="article--link" href={article.get('url')} />}
         title={article.get('title')}
         after={articleRight}
+        index={props.index}
         noicon>
         {stats}
       </ListItem>
