@@ -29,11 +29,11 @@ var DottedViewList = React.createClass({
       }
     }, this.props);
 
-    dottedViewProps.handleViewEnter = function(index) {
-      if (dottedViewProps.handleViewEnter)
-        dottedViewProps.handleViewEnter(index);
-
-      this.setState({ activeViewIndex: index });
+    var viewEnter = dottedViewProps.onViewEnter;
+    dottedViewProps.onViewEnter = (index) => {
+      viewEnter && viewEnter(index);
+      if (this.state.activeViewIndex !== index)
+        this.setState({ activeViewIndex: index });
     };
 
     return (
