@@ -6,7 +6,7 @@ var TouchableArea = require('../helpers/TouchableArea');
 var Transforms = require('../animations/Transforms');
 var View = require('./View');
 
-var ViewList = Component('viewList', {
+module.exports = Component('ViewList', {
   mixins: [Transforms.TransformerMixin],
 
   propTypes: {
@@ -239,5 +239,3 @@ var ViewList = Component('viewList', {
     );
   }
 });
-
-module.exports = ViewList;

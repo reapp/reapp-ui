@@ -1,6 +1,6 @@
 var Component = require('ui/component');
 
-var View = Component('view', {
+module.exports = Component('View', {
   getDefaultProps() {
     return {
       top: 44
@@ -21,5 +21,3 @@ var View = Component('view', {
     );
   }
 });
-
-module.exports = View;

@@ -2,7 +2,7 @@ var React = require('react/addons');
 var Component = require('ui/component');
 var Transition = React.addons.CSSTransitionGroup;
 
-var ViewMain = Component('viewMain', {
+module.exports = Component('ViewMain', {
   render() {
     var { children, ...props } = this.props;
 
@@ -18,5 +18,3 @@ var ViewMain = Component('viewMain', {
     );
   }
 });
-
-module.exports = ViewMain;

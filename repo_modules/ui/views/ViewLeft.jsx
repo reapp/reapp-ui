@@ -2,7 +2,7 @@ var Component = require('ui/component');
 var View = require('./View');
 var TitleBar = require('../components/TitleBar');
 
-var ViewLeft = Component('viewLeft', {
+module.exports = Component('viewLeft', {
   render() {
     var { children, title, ...props } = this.props;
 
@@ -14,5 +14,3 @@ var ViewLeft = Component('viewLeft', {
     );
   }
 });
-
-module.exports = ViewLeft;
