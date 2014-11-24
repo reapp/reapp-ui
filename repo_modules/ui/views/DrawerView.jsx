@@ -11,7 +11,7 @@ var DrawerView = React.createClass({
 
     return (
       <Drawer {...props}>
-        {title && <TitleBar title={title} />}
+        {title && <TitleBar>{title}</TitleBar>}
         <View styles={styles}>
           {this.props.children}
         </View>
