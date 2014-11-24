@@ -1,13 +1,12 @@
 var React = require('react');
+var Component = require('ui/component');
+var { Scroller } = require('scroller');
 var TitleBar = require('../components/TitleBar');
 var TouchableArea = require('../helpers/TouchableArea');
 var Transforms = require('../animations/Transforms');
 var View = require('./View');
-var { Scroller } = require('scroller');
 
-require('./ViewList.styl');
-
-var ViewList = React.createClass({
+var ViewList = Component('viewlist', {
   mixins: [Transforms.TransformerMixin],
 
   propTypes: {
@@ -137,29 +136,31 @@ var ViewList = React.createClass({
     return (this.state.step-1 < index) && (index < this.state.step+1);
   },
 
-  makeTitles(titles) {
+  makeTitles(titles, titleBarProps) {
+    titleBarProps = titleBarProps || {};
     var titleBars = titles.map((title, i) => {
-      var titleBarProps = {
+      var curTitleBarProps = Object.assign({
         key: `title-${i}`,
         left: title[0],
         right: title[2],
-        index: i,
-        // style: ToolbarStyle({
-        //   background: 'transparent',
-        //   pointerEvents: 'all',
-        //   display: this.isOnStage(i) ? 'inherit' : 'none'
-        // })
-      };
+        index: i
+      }, titleBarProps);
+
+      curTitleBarProps.style = Object.assign({
+        background: 'transparent',
+        pointerEvents: 'all',
+        display: this.isOnStage(i) ? 'inherit' : 'none'
+      }, titleBarProps.style);
 
       return (
-        <TitleBar {...titleBarProps}>
+        <TitleBar {...curTitleBarProps}>
           {title[1]}
         </TitleBar>
       );
     });
 
     return titleBars && titleBars.length && (
-      <div>{titleBars}</div> //  style={ToolbarStyle()}
+      <div styles={this.getStylesForComponent('titlebar')} style={titleBarProps.style}>{titleBars}</div>
     );
   },
 
@@ -182,12 +183,6 @@ var ViewList = React.createClass({
         </View>
       );
     });
-  },
-
-  styles(state) {
-    return {
-      flexFlow: 'row'
-    };
   },
 
   handleTouchStart(e) {
@@ -213,12 +208,10 @@ var ViewList = React.createClass({
   },
 
   render() {
-    var titles = this.makeTitles(this.views.titles);
+    var titles = this.makeTitles(this.views.titles, this.props.titleBarProps);
     var views = this.makeViews(this.views.contents);
 
     var viewListProps = {
-      className: 'ViewList',
-      style: this.styles(this.state),
       scroller: this.scroller,
       ignoreY: true,
       touchStartBounds: this.props.touchStartBounds,
@@ -228,7 +221,7 @@ var ViewList = React.createClass({
     };
 
     return (
-      <TouchableArea {...viewListProps}>
+      <TouchableArea {...this.componentProps()} {...viewListProps}>
         {titles}
         {views}
       </TouchableArea>

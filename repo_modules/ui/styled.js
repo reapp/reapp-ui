@@ -37,6 +37,7 @@ module.exports = function(name) {
     },
 
     makeReactStyle(obj) {
+      if (typeof obj !== 'object') debugger;
       return this.isReactStyle(obj) ? obj : ReactStyle(obj);
     },
 
@@ -88,6 +89,12 @@ module.exports = function(name) {
         .filter(x => typeof x !== 'undefined');
 
       return stylesForProp[stylesForProp.length - 1];
+    },
+
+    getStylesForComponent(componentName, prop) {
+      if (!prop) prop = 'self';
+      var theme = UI.getTheme();
+      return theme[componentName][prop];
     }
   };
 };
