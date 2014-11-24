@@ -20,6 +20,7 @@ module.exports = getStylesObject(
   'modal',
   'pad',
   'popover',
+  'view',
   'viewMain',
   'viewLeft'
 );

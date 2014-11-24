@@ -83,6 +83,7 @@ var ViewList = Component('viewList', {
 
   handleScroll(left) {
     var step = this.state.width ? left / this.state.width : 0;
+
     this.setState({ step: step });
     this._doTransforms(step);
 
@@ -136,8 +137,9 @@ var ViewList = Component('viewList', {
     return (this.state.step-1 < index) && (index < this.state.step+1);
   },
 
-  makeTitles(titles, titleBarProps) {
-    titleBarProps = titleBarProps || {};
+  makeTitles(titles) {
+    var titleBarProps = this.props.titleBarProps || {};
+
     var titleBars = titles.map((title, i) => {
       var curTitleBarProps = Object.assign({
         key: `title-${i}`,
@@ -159,23 +161,33 @@ var ViewList = Component('viewList', {
       );
     });
 
+    var titleBarContainerStyles = [
+      this.getStylesForComponent('titleBar'),
+      titleBarProps.styles,
+      this.makeReactStyle({ height: titleBarProps.height })
+    ];
+
     return titleBars && titleBars.length && (
-      <div styles={this.getStylesForComponent('titleBar')} style={titleBarProps.style}>{titleBars}</div>
+      <div styles={titleBarContainerStyles}>{titleBars}</div>
     );
   },
 
   makeViews(contents) {
+    var titleBarProps = this.props.titleBarProps;
+    var titleBarHeight = titleBarProps && titleBarProps.height;
+
     return Object.keys(contents).map((id, i) => {
-      var viewProps = {
+      var viewProps = Object.assign({
         key: `view-${i}`,
         id: id,
         'data-transform': this.props.transform,
         'data-transform-index': i,
         'data-width': this.state.width,
-        style: {
-          display: this.isOnStage(i) ? 'inherit' : 'none'
-        }
-      };
+        style: { display: this.isOnStage(i) ? 'inherit' : 'none' }
+      }, this.props.viewProps);
+
+      if (titleBarHeight)
+        viewProps.top = titleBarHeight;
 
       return (
         <View {...viewProps}>
@@ -208,17 +220,17 @@ var ViewList = Component('viewList', {
   },
 
   render() {
-    var titles = this.makeTitles(this.views.titles, this.props.titleBarProps);
+    var titles = this.makeTitles(this.views.titles);
     var views = this.makeViews(this.views.contents);
 
-    var viewListProps = {
+    var viewListProps = Object.assign({
       scroller: this.scroller,
       ignoreY: true,
       touchStartBounds: this.props.touchStartBounds,
       onTouchStart: this.handleTouchStart,
       onTouchEnd: this.handleTouchEnd,
       onClick: this.handleClick
-    };
+    }, this.props);
 
     return (
       <TouchableArea {...this.componentProps()} {...viewListProps}>

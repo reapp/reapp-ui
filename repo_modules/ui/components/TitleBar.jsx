@@ -26,10 +26,11 @@ var TitleBar = Component('titleBar', {
   },
 
   render() {
-    var { children, index, ...props } = this.props;
-    if (!children) return null;
+    var { children, index, height, ...props } = this.props;
+    var left, mid, right;
 
-    if (Array.isArray(children)) {
+    // Allow a 3 arity array as children rather than setting left and right props
+    if (!this.props.left && !this.props.right && Array.isArray(children)) {
       left = children[0];
       mid = children[1];
       right = children[2];
@@ -43,6 +44,8 @@ var TitleBar = Component('titleBar', {
     // add icon transitions for left and right
     left = this.addIconTransform(left);
     right = this.addIconTransform(right);
+
+    this.addStyles({ height });
 
     return (
       <div {...props} {...this.componentProps()}

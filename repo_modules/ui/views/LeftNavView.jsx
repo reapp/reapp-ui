@@ -83,6 +83,7 @@ var LeftNavView = React.createClass({
       handleStyle,
       sideContent,
       children,
+      viewProps,
       ...props } = this.props;
 
     var isNavOpen = this.isNavOpen();
@@ -121,10 +122,7 @@ var LeftNavView = React.createClass({
       bottom: 0
     };
 
-    var draggableProps = {
-      viewProps: {
-        style: { paddingTop: 0 }
-      },
+    var drawerProps = {
       containerProps: {
         layer: 1,
         style: {
@@ -137,7 +135,11 @@ var LeftNavView = React.createClass({
       onTouchTap: this._handleContentTouchTap
     };
 
-    var handleProps = draggableProps.containerProps;
+    viewProps = Object.assign({
+      top: 0
+    }, viewProps);
+
+    var handleProps = drawerProps.containerProps;
     if (handleStyle)
       handleProps.style = Object.assign({}, handleStyle, handleProps.style);
 
@@ -150,8 +152,8 @@ var LeftNavView = React.createClass({
             </div>
           </AnimatableContainer>
         )}
-        <Drawer {...draggableProps}>
-          <View>
+        <Drawer {...drawerProps}>
+          <View {...viewProps}>
             {children}
             <TouchableArea onClick={this._handleTap} scroller={this.scroller}>
               {handle}

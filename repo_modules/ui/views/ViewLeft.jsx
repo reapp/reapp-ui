@@ -2,14 +2,14 @@ var Component = require('ui/component');
 var View = require('./View');
 var TitleBar = require('../components/TitleBar');
 
-var ViewLeft = Component('viewleft', {
+var ViewLeft = Component('viewLeft', {
   render() {
     var { children, title, ...props } = this.props;
 
     return (
-      <div {...props} {...this.getStyles()}>
+      <div {...this.getStyles()}>
         {title && <TitleBar>{title}</TitleBar>}
-        <View className={this.getClasses()}>{children}</View>
+        <View top={0} {...props} className={this.getClasses()}>{children}</View>
       </div>
     );
   }

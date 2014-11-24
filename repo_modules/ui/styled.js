@@ -37,7 +37,6 @@ module.exports = function(name) {
     },
 
     makeReactStyle(obj) {
-      if (typeof obj !== 'object') debugger;
       return this.isReactStyle(obj) ? obj : ReactStyle(obj);
     },
 
