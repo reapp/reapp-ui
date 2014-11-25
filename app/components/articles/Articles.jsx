@@ -10,7 +10,6 @@ var ArticleItem = require('./ArticleItem');
 var HotArticlesStore = require('stores/HotArticlesStore');
 
 require('./Articles.styl');
-require('./Articles.style');
 
 var ViewLoaderMixin = {
   // todo have this push "loading...", then have it "undo" once entered
@@ -25,6 +24,7 @@ var ViewLoaderMixin = {
 
 function handleLoadMore(e) {
   e.preventDefault();
+  e.target.innerHTML = 'Loading...';
   Actions.loadMoreHotArticles();
 }
 

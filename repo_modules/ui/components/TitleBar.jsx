@@ -47,7 +47,8 @@ module.exports = Component('TitleBar', {
     left = this.addIconTransform(left);
     right = this.addIconTransform(right);
 
-    this.addStyles({ height });
+    if (height)
+      this.addStyles({ height });
 
     return (
       <div {...props} {...this.componentProps()}
