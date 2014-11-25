@@ -3,6 +3,8 @@ var Component = require('ui/component');
 
 require('./Popover.styl');
 
+var ARROW_SIZE = 19;
+
 module.exports = Component('Popover', {
   getDefaultProps() {
     return {
@@ -63,8 +65,8 @@ module.exports = Component('Popover', {
     var arrowOnBottom = targetCenter > windowCenter;
     var pad = this.props.edgePadding;
     var top = arrowOnBottom ?
-      targetTop - popover.clientHeight :
-      targetTop + target.height;
+      targetTop - popover.clientHeight - ARROW_SIZE :
+      targetTop + target.height + ARROW_SIZE;
     return arrowOnBottom ?
       Math.min(top, window.innerHeight - pad - popover.clientHeight) :
       Math.max(top, pad);
