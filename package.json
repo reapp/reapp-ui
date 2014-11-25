@@ -28,7 +28,8 @@
     "parseurl": "~1.3.0",
     "immutable": "^3.0.3",
     "fynx": "~1.3.2",
-    "omniscient": "~2.0.1"
+    "omniscient": "~2.0.1",
+    "interact": "git://github.com/taye/interact.js"
   },
   "devDependencies": {
     "transform-loader": "^0.2.1",
