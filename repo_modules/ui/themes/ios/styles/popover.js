@@ -18,33 +18,46 @@ module.exports = {
     zIndex: 15000
   },
 
-  list: {
-    ':before': {
-      content: ' ',
-      background: 'rgba(255,255,255,0.95)',
-      width: 26,
-      height: 26,
-      position: 'absolute',
-      left: 0,
-      top: 0,
-      borderRadius: 3,
-      transform: 'rotate(45deg)',
-    },
-
+  popover: {
     position: 'absolute',
     fontSize: '16px',
     background: 'rgba(255,255,255,0.95)',
-    padding: 0,
     borderRadius: 5,
     textAlign: 'center'
   },
 
-  item: {
-    firstChild: {
-      borderTop: 'none'
-    },
+  list: {
+    padding: 0,
+    margin: 0
+  },
 
+  arrow: {
+    width: 26,
+    height: 26,
+    top: -26,
+    left: '50%',
+    marginLeft: '-13px',
+    position: 'absolute',
+    overflow: 'hidden'
+  },
+
+  arrowInner: {
+    background: 'rgba(255,255,255,0.95)',
+    width: 26,
+    height: 26,
+    position: 'absolute',
+    left: 0,
+    top: 19,
+    borderRadius: 3,
+    transform: 'rotate(45deg)'
+  },
+
+  item: {
     minWidth: 120,
     borderTop: '1px solid #ccc',
+  },
+
+  itemFirstChild: {
+    borderTop: 'none'
   }
 };

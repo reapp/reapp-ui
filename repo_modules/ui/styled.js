@@ -46,24 +46,28 @@ module.exports = function(name) {
       return Array.isArray(obj) || !!obj.style;
     },
 
-    getStyles(elName, extras) {
+    getStyles(elName, index) {
       elName = elName === name ? 'self' : elName || 'self';
 
-      if (this.props.index === 0 && this.styles.firstChild) {
-        extras = (extras || []).concat(this.styles.firstChild);
+      if (elName === 'self' && this.props.index === 0 || index === 0) {
+        var firstChildKey = elName === 'self' ? 'firstChild' : elName + 'FirstChild';
+
+        if (this.styles[firstChildKey]) {
+          return this.styles[elName].concat(this.styles[firstChildKey]);
+        }
       }
 
-      return (!extras) ?
-        this.styles[elName] :
-        [].concat(this.styles[elName], extras);
+      return this.styles[elName];
     },
 
     addStyles(elName, styles) {
       // if no elName given, use "self"
-      if (!styles) {
+      if (typeof elName === 'object' && !styles) {
         styles = elName;
         elName = 'self';
       }
+
+      if (!styles) return;
 
       styles = this.makeReactStyle(styles);
 
