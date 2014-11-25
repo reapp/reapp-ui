@@ -1,6 +1,6 @@
-module.exports = {
+module.exports = (c) => ({
   self: {
-    background: '#999',
+    background: c.greyMid,
     color: '#fff',
     borderRadius: 100,
     fontWeight: 'bold',
@@ -12,4 +12,4 @@ module.exports = {
     lineHeight: '20px',
     fontWeight: 'normal'
   }
-};
+});

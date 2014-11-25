@@ -1,7 +1,6 @@
-module.exports = { // todo: if function, dynamic vars
-  // todo: static vars, but can be overriden before setTheme
+module.exports = (c) => ({
   dot: {
-    background: 'rgba(0,0,0,0.2)',
+    background: `rgba(${c.dotColor},0.2)`,
     borderRadius: 10,
     width: 4,
     height: 4,
@@ -9,11 +8,11 @@ module.exports = { // todo: if function, dynamic vars
   },
 
   dotActive: {
-    background: '#000'
+    background: `rgb(${c.dotColor})`
   },
 
   inner: {
     margin: 'auto',
     flexFlow: 'row'
   }
-};
+});

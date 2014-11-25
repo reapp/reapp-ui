@@ -49,6 +49,7 @@ module.exports = Component('ListItem', {
       children = wrapper.props.children;
     }
 
+    // todo: implement getConstant
     if (!this.getStyleVal('children', 'color'))
       this.addStyles('children', { color: title ? '#999' : '#000' });
 
@@ -61,7 +62,7 @@ module.exports = Component('ListItem', {
             styles={this.getStyles('arrow')}
             size={12}
             stroke={2}
-            color="#ccc"
+            color={this.getStyleVal('arrow', 'color')}
             type="right" /> :
           null,
         styles: this.getStyles('wrapper')

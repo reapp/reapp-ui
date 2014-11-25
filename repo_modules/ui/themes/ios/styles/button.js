@@ -1,12 +1,12 @@
-module.exports = {
+module.exports = (c) => ({
   self: {
     fontSize: '16px',
     background: 'none',
-    border: '1px solid #307cff', // todo: variables
+    border: `1px solid ${c.blue}`, // todo: variables
     borderRadius: '5px',
     textAlign: 'center',
     padding: '8px',
-    color: '#307cff',
+    color: c.blue,
     flexFlow: 'row',
     zoom: 1,
     lineHeight: 'normal',
@@ -22,4 +22,4 @@ module.exports = {
     border: 'none',
     borderRadius: 0
   }
-};
+});

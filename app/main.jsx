@@ -9,8 +9,7 @@ var UI = require('ui');
 var ENV = require('./ENV');
 
 // UI
-UI.addTheme(require('ui/themes/ios'));
-UI.addTheme(require('./themes/hn'));
+require('./themes/appTheme');
 
 ReactStyle.inject();
 React.initializeTouchEvents(true);

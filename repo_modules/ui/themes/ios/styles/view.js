@@ -1,14 +1,14 @@
-module.exports = {
+module.exports = (c) => ({
   self: {
-    background: '#efeff4',
+    background: c.bgLight,
     overflowY: 'scroll',
     overflowX: 'hidden',
     position: 'absolute',
-    top: 44,
+    top: c.toolbarHeight,
     left: 0,
     bottom: 0,
     right: 0,
     pointerEvents: 'all',
     WebkitOverflowScrolling: 'touch',
   }
-};
+});

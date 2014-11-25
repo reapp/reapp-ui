@@ -17,7 +17,8 @@ module.exports = {
   },
 
   arrow: {
-    margin: 'auto 8px auto 0'
+    margin: 'auto 8px auto 0',
+    color: '#c8c7cc'
   },
 
   wrapper: {
@@ -56,7 +57,7 @@ module.exports = {
   },
 
   titleAfter: {
-    color: '#999'
+    color: '#8e8e93'
   },
 
   titleSub: {
@@ -73,7 +74,7 @@ module.exports = {
   },
 
   after: {
-    color: '#999',
+    color: '#8e8e93',
     flexShrink: 0,
     margin: 'auto 10px',
     whiteSpace: 'nowrap',
