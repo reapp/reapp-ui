@@ -19,10 +19,10 @@ module.exports = function(name) {
         );
       };
 
-      var componentThemes = UI.getTheme(name);
-      if (componentThemes)
-        componentThemes.forEach(theme => (
-          Object.keys(theme).forEach(key => addStyle(key, theme[key]))
+      var componentStyles = UI.getStyles(name);
+      if (componentStyles)
+        componentStyles.forEach(styles => (
+          Object.keys(styles).forEach(key => addStyle(key, styles[key]))
         ));
 
       if (propStyles) {
@@ -97,8 +97,11 @@ module.exports = function(name) {
 
     getStylesForComponent(componentName, prop) {
       if (!prop) prop = 'self';
-      var theme = UI.getTheme(componentName);
-      return theme[prop];
+
+      return UI.getStyles(componentName)
+        .map(styles => styles[prop])
+        .filter(x => typeof x !== 'undefined')
+        .map(this.makeReactStyle);
     }
   };
 };

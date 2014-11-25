@@ -59,7 +59,11 @@ module.exports = {
     return styles;
   },
 
-  getTheme(name) {
+  getTheme() {
+    return this.theme;
+  },
+
+  getStyles(name) {
     return this.theme[name];
   },
 
