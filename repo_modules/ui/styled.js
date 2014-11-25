@@ -4,25 +4,26 @@ var ReactStyle = require('react-style');
 module.exports = function(name) {
   return {
     componentWillUpdate(nextProps) {
-      this.makeStyles(nextProps);
+      this.makeStyles(nextProps.styles);
     },
 
     componentWillMount() {
-      this.makeStyles(this.props);
+      this.makeStyles(this.props.styles);
     },
 
-    makeStyles(props) {
-      var theme = UI.getTheme();
-      var styles = {};
-      var propStyles = props.styles;
+    makeStyles(propStyles) {
+      this.styles = {};
+      var addStyle = (key, style) => {
+        this.styles[key] = (this.styles[key] || []).concat(
+          this.makeReactStyle(style)
+        );
+      };
 
-      Object.keys(theme[name] || {}).forEach(key => {
-        styles[key] = [theme[name][key]];
-      });
-
-      function addStyle(key, style) {
-        styles[key] = (styles[key] || []).concat(style);
-      }
+      var componentThemes = UI.getTheme()[name];
+      if (componentThemes)
+        componentThemes.forEach(theme => (
+          Object.keys(theme).forEach(key => addStyle(key, theme[key]))
+        ));
 
       if (propStyles) {
         if (this.isReactStyle(propStyles))
@@ -33,7 +34,7 @@ module.exports = function(name) {
           });
       }
 
-      this.styles = styles;
+      return this.styles;
     },
 
     makeReactStyle(obj) {

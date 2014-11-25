@@ -1,7 +1,7 @@
 module.exports = {
   self: {
     fontSize: '16px',
-    backgroundColor: '#fff',
+    background: '#fff',
     textAlign: 'center',
     borderBottom: '1px solid #ccc',
     zIndex: 1000,

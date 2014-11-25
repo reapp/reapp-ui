@@ -6,11 +6,11 @@ var Router = require('react-router');
 var ResolveAllPromises = require('when/keys').all;
 var Routes = require('./routes');
 var UI = require('ui');
-var IOSTheme = require('ui/themes/ios');
 var ENV = require('./ENV');
 
 // UI
-UI.setTheme(IOSTheme);
+UI.addTheme(require('ui/themes/ios'));
+UI.addTheme(require('./themes/hn'));
 
 ReactStyle.inject();
 React.initializeTouchEvents(true);

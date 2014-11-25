@@ -14,7 +14,7 @@ module.exports = Component('Dots', {
 
     var dotProps = this.componentProps('dot');
     var activeDotProps = Object.assign({}, this.componentProps('dotActive'));
-    activeDotProps.styles.push(this.getStyles('dot'));
+    activeDotProps.styles.unshift(this.getStyles('dot'));
 
     return (
       <div {...props} {...this.componentProps()}>

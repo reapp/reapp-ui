@@ -30,7 +30,7 @@ module.exports = getStylesObject(
 );
 
 function getStyles(name) {
-  var styles = Object.assign({}, require('./ios/styles/' + camelcase(name)));
+  var styles = Object.assign({}, require('./ios/styles/' + name));
 
   Object.keys(styles).forEach(key => {
     styles[key] = ReactStyle(styles[key]);
@@ -47,9 +47,4 @@ function getStylesObject() {
   });
 
   return styles;
-}
-
-// because its nicer to keep plain style objects lowercased
-function camelcase(name) {
-  return name.charAt(0).toLowerCase() + name.slice(1);
 }

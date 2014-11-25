@@ -2,7 +2,7 @@ module.exports = {
   self: {
     fontSize: '16px',
     background: 'none',
-    border: '1px solid #307cff',
+    border: '1px solid #307cff', // todo: variables
     borderRadius: '5px',
     textAlign: 'center',
     padding: '8px',
