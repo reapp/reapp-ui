@@ -98,7 +98,6 @@ module.exports = function(name) {
     getStylesForComponent(componentName, prop) {
       if (!prop) prop = 'self';
       var theme = UI.getTheme();
-      debugger;
       return theme[componentName][prop];
     }
   };

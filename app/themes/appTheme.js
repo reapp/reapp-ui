@@ -7,12 +7,12 @@ module.exports = UI.setup({
   ],
   themes: [
     {
-      styles: require('ui/themes/ios'),
-      exclude: ['TitleBar']
+      styles: require('ui/themes/ios/theme'),
+      // exclude: ['TitleBar']
     },
     {
-      styles: require('./hn'),
-      include: ['Dots']
+      styles: require('./hn/theme'),
+      // include: ['Dots']
     }
   ]
 });
