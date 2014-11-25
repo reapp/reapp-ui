@@ -19,7 +19,7 @@ module.exports = function(name) {
         );
       };
 
-      var componentThemes = UI.getTheme()[name];
+      var componentThemes = UI.getTheme(name);
       if (componentThemes)
         componentThemes.forEach(theme => (
           Object.keys(theme).forEach(key => addStyle(key, theme[key]))
@@ -97,8 +97,8 @@ module.exports = function(name) {
 
     getStylesForComponent(componentName, prop) {
       if (!prop) prop = 'self';
-      var theme = UI.getTheme();
-      return theme[componentName][prop];
+      var theme = UI.getTheme(componentName);
+      return theme[prop];
     }
   };
 };

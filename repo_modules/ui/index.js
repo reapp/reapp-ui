@@ -40,7 +40,9 @@ module.exports = {
   // styles: { name: requireFunc }
   addThemeStyles(requireFunc, styles) {
     styles.forEach(key => {
-      this.theme[key] = (this.theme[key] || []).concat(requireFunc(key));
+      var style = requireFunc(key);
+      if (typeof style === 'function') style = style(this.constants);
+      this.theme[key] = (this.theme[key] || []).concat(style);
     });
   },
 
@@ -57,8 +59,8 @@ module.exports = {
     return styles;
   },
 
-  getTheme() {
-    return this.theme;
+  getTheme(name) {
+    return this.theme[name];
   },
 
   getConstants() {
