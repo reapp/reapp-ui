@@ -231,6 +231,9 @@ module.exports = Component('ViewList', {
       onClick: this.handleClick
     }, this.props);
 
+    if (this.state.step === 0)
+      this.addStyles(this.styles.underTouchable);
+
     return (
       <TouchableArea {...this.componentProps()} {...viewListProps}>
         {titles}

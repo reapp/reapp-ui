@@ -1,6 +1,6 @@
 var React = require('react');
 var ParallaxViewList = require('ui/views/ParallaxViewList');
-var DrawerView = require('ui/views/DrawerView');
+var Drawer = require('ui/views/Drawer');
 var BackButton = require('ui/components/buttons/BackButton');
 var Block = require('ui/components/Block');
 
@@ -47,9 +47,9 @@ module.exports = React.createClass({
     ];
 
     return (
-      <DrawerView>
+      <Drawer>
         <ParallaxViewList views={views} />
-      </DrawerView>
+      </Drawer>
     );
   }
 });

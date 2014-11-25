@@ -3,6 +3,8 @@ var Component = require('ui/component');
 var DocumentTitle = require('react-document-title');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
 
+require('./TitleBar.styl');
+
 module.exports = Component('TitleBar', {
   componentDidMount() {
     this.centerMiddleTitle();

@@ -1,6 +1,7 @@
 var React = require('react');
 var DottedViewList = require('ui/views/DottedViewList');
-var DrawerView = require('ui/views/DrawerView');
+var Drawer = require('ui/views/Drawer');
+var TitleBar = require('ui/components/TitleBar');
 var BackButton = require('ui/components/buttons/BackButton');
 var Block = require('ui/components/Block');
 
@@ -9,7 +10,7 @@ module.exports = React.createClass({
     var views = [
       {
         id: 'one',
-        title: [<BackButton />, 'One'],
+        title: [,'One'],
         content: (
           <Block>
             Example of a deeply nested thing
@@ -19,7 +20,7 @@ module.exports = React.createClass({
       },
       {
         id: 'two',
-        title: [, 'Two',],
+        title: [,'Two'],
         content: (
           <Block>
             This is the first nested drawer
@@ -28,7 +29,7 @@ module.exports = React.createClass({
       },
       {
         id: 'three',
-        title: [null, 'Three'],
+        title: [,'Three'],
         content: (
           <Block>
             This is the second deeply nested
@@ -37,7 +38,7 @@ module.exports = React.createClass({
       },
       {
         id: 'four',
-        title: [null, 'Four'],
+        title: [,'Four'],
         content: (
           <Block>
             Final deeply nested view
@@ -46,10 +47,19 @@ module.exports = React.createClass({
       }
     ];
 
+    var titleBarStyles = {
+      self: {
+        zIndex: 10000,
+        background: 'transparent',
+        border: 'none'
+      }
+    };
+
     return (
-      <DrawerView>
+      <Drawer>
+        <TitleBar left={<BackButton />} styles={titleBarStyles} />
         <DottedViewList views={views} />
-      </DrawerView>
+      </Drawer>
     );
   }
 });

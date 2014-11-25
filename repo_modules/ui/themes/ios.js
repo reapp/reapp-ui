@@ -24,8 +24,9 @@ module.exports = getStylesObject(
   'Popover',
   'TitleBar',
   'View',
-  'ViewMain',
-  'ViewLeft'
+  'ViewLeft',
+  'ViewList',
+  'ViewMain'
 );
 
 function getStyles(name) {

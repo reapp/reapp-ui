@@ -1,10 +1,10 @@
 var React = require('react');
 var ViewList = require('./ViewList');
 
-var ParallaxViewList = React.createClass({
+module.exports = React.createClass({
   render() {
     var width = this.props.width || window.innerWidth;
-    var parallaxProps = {
+    var parallaxProps = Object.assign({
       transform: 'VIEW_PARALLAX',
       touchStartBounds: {
         // touchable only on the edges
@@ -13,11 +13,10 @@ var ParallaxViewList = React.createClass({
           { from: width-10, to: width }
         ]
       }
-    };
+    }, this.props);
 
-    var props = Object.assign({}, parallaxProps, this.props);
-    return ViewList(props);
+    return (
+      <ViewList {...parallaxProps} />
+    );
   }
 });
-
-module.exports = ParallaxViewList;
