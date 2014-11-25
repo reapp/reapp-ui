@@ -5,7 +5,7 @@ var ArticlesStore = require('stores/ArticlesStore');
 var HotArticlesStore = require('stores/HotArticlesStore');
 var Immutable = require('immutable');
 
-var page = -1;
+var page = 0;
 var per = 10;
 
 Actions.loadArticlesHot.listen(
@@ -14,7 +14,7 @@ Actions.loadArticlesHot.listen(
       HotArticlesStore(res);
       return res;
     })
-    .then(getNextArticles)
+    .then(getArticles)
     .then(Reducer)
     .then(ArticlesStore, error)
 );
@@ -51,6 +51,10 @@ function cacheArticles(list) {
 
 function getNextArticles(articles) {
   page = page + 1;
+  return getArticles(articles);
+}
+
+function getArticles(articles) {
   var start = page * per;
   return Promise.all(
     articles.slice(start, start + per).map(article => API.get(`item/${article}.json`))

@@ -15,8 +15,8 @@ var Layout = React.createClass({
   style: {
     button: {
       position: 'absolute',
-      zIndex: 1001,
-      top: 0,
+      zIndex: 1004,
+      top: 2,
       left: 0
     }
   },
