@@ -11,7 +11,7 @@ module.exports = {
     themes.forEach(themeObj => this.addTheme);
   },
 
-  // constants are order sensitive and are overwritten
+  // constants are order sensitive and are overwritten on object
   addConstants(constantObj) {
     Object.keys(constantObj).forEach(key => {
       this.constants[key] = constantObj[key];
@@ -19,23 +19,28 @@ module.exports = {
   },
 
   // themes are order sensitive and pushed onto array
+  // theme: { styles: { key: requireFunc }, (include: [] | exclude: []) }
   addTheme(theme) {
     var { styles, include, exclude } = theme;
-    invariant(!(include && exlcude), 'Cannot define include and exclude');
-
     var styleKeys = Object.keys(styles);
 
-    var includedStyleKeys = include ?
-      styleKeys.filter(x => include.indexOf(x.key) !== -1) :
-      exclude ?
-        styleKeys.filter(x => exclude.indexOf(x.key) === -1) :
-        styleKeys;
+    invariant(!(include && exclude), 'Cannot define include and exclude');
 
-    includedStyleKeys.forEach(key => {
-      if (this.theme[key])
-        this.theme[key].push(theme[key]);
-      else
-        this.theme[key] = [theme[key]];
+    addThemeStyles(
+      include ?
+        styleKeys.filter(x => include.indexOf(x.key) !== -1) :
+        exclude ?
+          styleKeys.filter(x => exclude.indexOf(x.key) === -1) :
+          styleKeys
+    );
+  },
+
+  // styles: { name: requireFunc }
+  addThemeStyles(styles) {
+    styles.forEach(key => {
+      var requireFunc = styles[key];
+      var styleObj = requireFunc(key);
+      this.theme[key] = (this.theme[key] || []).concat(styleObj);
     });
   },
 
@@ -44,7 +49,7 @@ module.exports = {
     var styles = {};
 
     components.forEach(key => {
-      styles[key] = { requireFunc, key };
+      styles[key] = requireFunc;
     });
 
     return styles;
