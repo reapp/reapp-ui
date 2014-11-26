@@ -8,5 +8,12 @@ module.exports = (c) => ({
     position: 'fixed',
     marginLeft: '100%',
     width: '100%'
+  },
+
+  dragger: {
+    position: 'fixed',
+    top: 0,
+    bottom: 0,
+    width: 10,
   }
 });

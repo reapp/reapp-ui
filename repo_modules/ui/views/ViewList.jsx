@@ -36,7 +36,7 @@ module.exports = Component('ViewList', {
 
   // only update on even steps
   shouldComponentUpdate(nextProps, nextState) {
-    return nextState.step % 1 !== 0;
+    return nextState.step % 1 === 0;
   },
 
   componentWillReceiveProps(nextProps) {

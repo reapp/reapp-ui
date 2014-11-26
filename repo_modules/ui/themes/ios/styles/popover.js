@@ -31,6 +31,11 @@ module.exports = {
     margin: 0
   },
 
+  link: {
+    textDecoration: 'none',
+    padding: 7
+  },
+
   arrow: {
     width: 26,
     height: 26,

@@ -1,8 +1,7 @@
 var React = require('react');
 var Component = require('ui/component');
 
-require('./Popover.styl');
-
+// todo: pass this to styles
 var ARROW_SIZE = 19;
 
 module.exports = Component('Popover', {
@@ -26,7 +25,7 @@ module.exports = Component('Popover', {
     if (nextProps.open)
       nextState = Object.assign(nextState, { open: nextProps.open });
 
-    this.setState(nextProps);
+    this.setState(nextState);
   },
 
   componentDidMount() {
@@ -99,7 +98,7 @@ module.exports = Component('Popover', {
           <ul {...this.componentProps('list')}>
             {React.Children.map(children, (li, i) => (
               <li key={i} styles={this.getStyles('item', i)}>
-                {li}
+                {React.addons.cloneWithProps(li, { styles: this.getStyles('link') })}
               </li>
             ))}
           </ul>

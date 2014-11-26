@@ -25,8 +25,9 @@ var fetchAllData = (routes, params) => {
   return ResolveAllPromises(promises);
 };
 
-var render = (Handler, data) =>
+var render = (Handler, data) => {
   React.render(<Handler data={data} />, document.getElementById('app'));
+};
 
 function renderSync() {
   Router.run(Routes, Router.HistoryLocation, (Handler, state) => {
@@ -35,17 +36,17 @@ function renderSync() {
 }
 
 function renderAsync() {
-  Router.run(Routes, (Handler, state) => {
+  Router.run(Routes, Router.HistoryLocation, (Handler, state) => {
     render(Handler, state);
-    // renderSync();
+    fetchAllData(state.routes, state.params).then(data => render(Handler, data));
   });
 }
 
 if (ENV.CLIENT) {
   // require('omniscient').debug(); // debug omniscient
   window.React = React;
-  // renderAsync();
-  renderSync();
+  renderAsync();
+  // renderSync();
 }
 else {
   // module.exports = RoutedApp;

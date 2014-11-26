@@ -4,7 +4,6 @@ var LeftNavBehavior = require('./LeftNavBehavior');
 var DrawerBehavior = require('./DrawerBehavior');
 var TouchableArea = require('../helpers/TouchableArea');
 var Drawer = require('./Drawer');
-var View = require('./View');
 var { Scroller } = require('scroller');
 
 var LeftNavView = React.createClass({
@@ -151,12 +150,10 @@ var LeftNavView = React.createClass({
           </AnimatableContainer>
         )}
         <Drawer {...drawerProps}>
-          <View {...viewProps}>
-            {children}
-            <TouchableArea onClick={this._handleTap} scroller={this.scroller}>
-              {handle}
-            </TouchableArea>
-          </View>
+          {children}
+          <TouchableArea onClick={this._handleTap} scroller={this.scroller}>
+            {handle}
+          </TouchableArea>
         </Drawer>
       </div>
     );

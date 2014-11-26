@@ -2,8 +2,6 @@ var React = require('react');
 var Component = require('ui/component');
 var Icon = require('./Icon');
 
-require('./ListItem.styl');
-
 module.exports = Component('ListItem', {
   statics: {
     isListItem: true

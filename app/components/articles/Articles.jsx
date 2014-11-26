@@ -28,16 +28,22 @@ function handleLoadMore(e) {
   Actions.loadMoreHotArticles();
 }
 
-function setViewContents(view, list, articles) {
-  view.content = (
-    <List dontWrap={true} liStyle={{ padding: 0 }}>
-      {list
-        .map(id => articles.get(id.toString()))
-        .filter(x => typeof x !== 'undefined')
+function setViewContents(view, hotArticlesList, articlesStore) {
+  var articles = hotArticlesList
+    .map(id => articlesStore.get(id.toString()))
+    .filter(x => typeof x !== 'undefined');
+
+  view.content = !articles.count() ? (
+    <List>
+      <ListItem style={{textAlign: 'center'}}>Loading...</ListItem>
+    </List>
+  ) : (
+    <List dontWrap={true}>
+      {articles
         .map(article => ArticleItem(`AI-${view.id}-${article.get('id')}`, article))
         .toArray()
         .concat([
-          <ListItem style={{ textAlign:'center' }} onClick={handleLoadMore}>Load More</ListItem>
+          <ListItem style={{textAlign:'center'}} onClick={handleLoadMore}>Load More</ListItem>
         ])
       }
     </List>

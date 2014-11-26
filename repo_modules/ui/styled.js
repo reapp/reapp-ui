@@ -75,7 +75,20 @@ module.exports = function(name) {
       if (elName === name)
         elName = 'self';
 
-      this.styles[elName] = [].concat(this.getStyles(elName), styles);
+      var curStyles = this.styles[elName];
+
+      if (curStyles && curStyles.length) {
+        if (Array.isArray(styles))
+          styles.map(style => curStyles.push(style));
+        else
+          this.styles[elName][curStyles.length] = styles;
+      }
+      else {
+        if (Array.isArray(styles))
+          this.styles[elName] = styles;
+        else
+          this.styles[elName] = [styles];
+      }
     },
 
     getStyleVal(elName, prop) {

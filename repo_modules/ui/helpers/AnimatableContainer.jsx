@@ -109,6 +109,8 @@ var AnimatableContainer = Component('AnimatableContainer', {
 
     this.addStyles(this.getStyle(props));
 
+    console.log('AC', blockUpdates, this.isAnimating);
+
     return (
       <StaticContainer {...props} {...this.componentProps()}
         shouldUpdate={!blockUpdates || !this.isAnimating}>

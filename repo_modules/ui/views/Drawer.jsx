@@ -89,31 +89,22 @@ module.exports = Component('Drawer', {
     } = this.props;
 
     this.addStyles({ zIndex: layer + 5000 });
+    this.addStyles('dragger', {
+      left: this.state.isClosed ? -10 : 0,
+      zIndex: 1000 + layer
+    });
 
     if (this.state.isClosed)
       this.addClass('closed');
 
-    // either use given translation, or use behavior
-    props.translate = translate ?
-      translate :
-      behavior.translate(this.state.xOffset);
-
-    // todo: move styles to styled, allow dynamic vars
-    touchableProps = Object.assign({
-      scroller: scroller || this.scroller,
-      style: {
-        left: this.state.isClosed ? -10 : 0,
-        position: 'fixed',
-        top: 0,
-        bottom: 0,
-        width: 10,
-        zIndex: 1000 + layer
-      }
-    }, touchableProps);
+    props.translate = (
+      translate || behavior.translate(this.state.xOffset)
+    );
 
     return (
       <AnimatableContainer {...props} {...this.componentProps()}>
-        <TouchableArea {...touchableProps} />
+        <TouchableArea {...this.componentProps('dragger')} {...touchableProps}
+          scroller={scroller || this.scroller} />
         {children}
       </AnimatableContainer>
     );

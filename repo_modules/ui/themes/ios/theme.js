@@ -8,6 +8,7 @@ module.exports = makeTheme(requirer, [
   'Container',
   'DottedViewList',
   'Dots',
+  'Drawer',
   'List',
   'ListItem',
   'ListTitle',

@@ -1,6 +1,6 @@
-var React = require('react');
+var Component = require('ui/component');
 
-module.exports = React.createClass({
+module.exports = Component('StaticContainer', {
   getDefaultProps() {
     return { shouldUpdate: false };
   },
@@ -12,7 +12,7 @@ module.exports = React.createClass({
 
   render() {
     return (
-      <div {...this.props}>
+      <div {...this.props} {...this.componentProps()}>
         {this.props.children}
       </div>
     );

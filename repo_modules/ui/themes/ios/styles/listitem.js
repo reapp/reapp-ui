@@ -49,11 +49,13 @@ module.exports = {
 
   titleTop: {
     flexFlow: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    maxWidth: '100%'
   },
 
   title: {
     fontWeight: '500',
+    maxWidth: '100%'
   },
 
   titleAfter: {
