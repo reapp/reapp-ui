@@ -34,6 +34,11 @@ module.exports = Component('ViewList', {
     };
   },
 
+  // only update on even steps
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextState.step % 1 !== 0;
+  },
+
   componentWillReceiveProps(nextProps) {
     if (this.props.views !== nextProps.views)
       this.getTitlesAndContents(nextProps.views);
@@ -42,10 +47,10 @@ module.exports = Component('ViewList', {
   componentWillMount() {
     this.setupViewEnterStates();
     this.getTitlesAndContents(this.props.views);
+    this.setupDimensions();
   },
 
   componentDidMount() {
-    this.setupDimensions();
     window.addEventListener('resize', this.setupDimensions);
   },
 
@@ -176,13 +181,14 @@ module.exports = Component('ViewList', {
     var titleBarHeight = titleBarProps && titleBarProps.height;
 
     return Object.keys(contents).map((id, i) => {
+      var isOnStage = this.isOnStage(i);
       var viewProps = Object.assign({
         key: `view-${i}`,
         id: id,
         'data-transform': this.props.transform,
         'data-transform-index': i,
         'data-width': this.state.width,
-        style: { display: this.isOnStage(i) ? 'inherit' : 'none' }
+        style: { display: isOnStage ? 'inherit' : 'none' }
       }, this.props.viewProps);
 
       if (titleBarHeight)

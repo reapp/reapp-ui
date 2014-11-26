@@ -1,10 +1,6 @@
 var React = require('react');
 
 var TouchableArea = React.createClass({
-  propTypes: {
-    scroller: React.PropTypes.function.isRequired
-  },
-
   getDefaultProps() {
     return {
       element: 'div',
@@ -18,26 +14,32 @@ var TouchableArea = React.createClass({
   getTouchTop: touches => touches[0].pageY,
   getTouchLeft: touches => touches[0].pageX,
 
-  isWithin: (bounds, point) {
-    return [].concat(bounds)
-      .map(bound => point < bound.to && point > bound.from)
-      .reduce((acc, val) => val && acc); // make sure all are true
+  isWithin: (bounds, point) => [].concat(bounds)
+    .map(bound => point < bound.to && point > bound.from),
+
+  allWithin(bounds, point) {
+    return this.isWithin(bounds, point).reduce((acc, val) => val && acc);
+  },
+
+  oneWithin(bounds, point) {
+    return this.isWithin(bounds, point).reduce((acc, val) => val || acc);
   },
 
   // this function accounts for touchStartBound that are passed in
   // if touchStart is within those bounds, it begins touchStartActions
   handleTouchStart(e) {
-    if (!this.props.touchable) return;
+    if (!this.props.touchable || !this.props.scroller) return;
 
-    this.ignoringScroll = false;
+    // null == we haven't figured out if were ignoring this scroll, yet
+    this.ignoringScroll = null;
     this._initialTouchLeft = this.getTouchLeft(e.touches);
     this._initialTouchTop = this.getTouchTop(e.touches);
 
     if (this.props.touchStartBounds) {
       var xBounds = this.props.touchStartBounds.x;
       var yBounds = this.props.touchStartBounds.y;
-      var withinX = !xBounds || this.isWithin(xBounds, this.getTouchLeft(touches));
-      var withinY = !yBounds || this.isWithin(yBounds, this.getTouchTop(touches));
+      var withinX = !xBounds || this.oneWithin(xBounds, this.getTouchLeft(e.touches));
+      var withinY = !yBounds || this.oneWithin(yBounds, this.getTouchTop(e.touches));
 
       if (withinX && withinY)
         this.touchStartActions(e);
@@ -52,7 +54,7 @@ var TouchableArea = React.createClass({
   },
 
   handleTouchMove(e) {
-    if (!this.props.touchable || this.ignoringScroll) return;
+    if (!this.props.scroller || !this.props.touchable || this.ignoringScroll) return;
     if (this.ignoreDirectionalScroll(e)) return;
 
     this.props.scroller.doTouchMove(e.touches, e.timeStamp, e.scale);
@@ -62,20 +64,28 @@ var TouchableArea = React.createClass({
   // this will ignore scrolls in a certain direction
   // for now it's very strict
   ignoreDirectionalScroll(e) {
-    if (this.props.ignoreY || this.props.ignoreX) {
-      var distanceY = Math.abs(this._initialTouchTop - this.getTouchTop(e.touches));
-      var distanceX = Math.abs(this._initialTouchLeft - this.getTouchLeft(e.touches));
+    // performance optimization: return cached value
+    if (this.ignoringScroll !== null)
+      return this.ignoringScroll;
 
-      if (distanceY > distanceX && this.props.ignoreY ||
-          distanceX > distanceY && this.props.ignoreX) {
-        this.ignoringScroll = true;
-        return;
-      }
-    }
+    // only run calculations if we have an ignore set
+    if (!this.props.ignoreY && !this.props.ignoreX)
+      return false;
+
+    // calculate ignore possibility
+    var distanceY = Math.abs(this._initialTouchTop - this.getTouchTop(e.touches));
+    var distanceX = Math.abs(this._initialTouchLeft - this.getTouchLeft(e.touches));
+
+    this.ignoringScroll = (
+      distanceY > distanceX && this.props.ignoreY ||
+      distanceX > distanceY && this.props.ignoreX
+    );
+
+    return this.ignoringScroll;
   },
 
   handleTouchEnd(e) {
-    if (!this.props.touchable) return;
+    if (!this.props.touchable || !this.props.scroller) return;
 
     this.props.scroller.doTouchEnd(e.timeStamp);
     if (this.props.onTouchEnd) this.props.onTouchEnd(e);

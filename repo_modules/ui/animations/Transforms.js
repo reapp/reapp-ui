@@ -32,11 +32,16 @@ Transforms.BaseMixin = {
   _getElementsWithTransforms(nodes, node, index, cb) {
     if (node.hasAttribute('data-transform')) {
       this._totalTransforms = this._totalTransforms - 1;
-      nodes.push({
+      nodeProps = {
         el: node,
-        name: node.getAttribute('data-transform'),
-        index: node.getAttribute('data-transform-index') || index
-      });
+        name: node.getAttribute('data-transform')
+      };
+
+      var nodeIndex = node.getAttribute('data-transform-index') || index;
+      if (typeof nodeIndex !== 'undefined')
+        nodeProps.index = +nodeIndex;
+
+      nodes.push(nodeProps);
     }
 
     if (this._totalTransforms === 0)
@@ -70,7 +75,7 @@ Transforms.TransformMixin = {
       transforms += `translate3d(${translate.x || 0}px, ${translate.y || 0}px, ${translate.z || 0}px)`;
 
     if (styles)
-      Object.keys(styles).map(style => { el.style[style] = styles[style]; });
+      Object.keys(styles).map(key => { el.style[key] = styles[key]; });
 
     el.style[StyleKeys.TRANSFORM] = transforms;
   }
@@ -88,7 +93,9 @@ Transforms.TransformerMixin = Object.assign({},
     _doTransforms(step) {
       if (!this._transforms) return;
       this._transforms.forEach(transform => {
-        this._transformElement(transform, step);
+        // performance: ensure we are within 1 step before doing animations
+        if (transform.index > step-1 && transform.index < step+1)
+          this._transformElement(transform, step);
       });
     }
   }
