@@ -123,14 +123,12 @@ var LeftNavView = React.createClass({
     };
 
     var drawerProps = {
-      containerProps: {
-        layer: 1,
-        style: {
-          left: 200,
-          marginLeft: 0
-        },
-        translate: DrawerBehavior.translate(this.state.scrollLeft)
+      layer: 1,
+      style: {
+        left: 200,
+        marginLeft: 0
       },
+      translate: DrawerBehavior.translate(this.state.scrollLeft),
       scroller: this.scroller,
       onTouchTap: this._handleContentTouchTap
     };

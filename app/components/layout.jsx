@@ -44,16 +44,15 @@ var Layout = React.createClass({
     );
 
     return (
-      <DocumentTitle title="React Base">
-        <LeftNavView
-          ref="appLeftNavView"
-          handle={button}
-          sideContent={menu}
-          topHeight={TOOLBAR_HEIGHT}
-          sideWidth={SIDE_WIDTH}>
-          <RouteHandler {...this.props} />
-        </LeftNavView>
-      </DocumentTitle>
+      <LeftNavView
+        ref="appLeftNavView"
+        handle={button}
+        sideContent={menu}
+        topHeight={TOOLBAR_HEIGHT}
+        sideWidth={SIDE_WIDTH}>
+        <DocumentTitle title="React Base" />
+        <RouteHandler {...this.props} />
+      </LeftNavView>
     );
   }
 });

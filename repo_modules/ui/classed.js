@@ -33,14 +33,12 @@ module.exports = function(name) {
       return cx(classSet);
     },
 
-    addClass(key, val) {
-      // allow shorthand
-      if (!val) {
-        val = key;
-        key = name;
-      }
+    addClass(name) {
+      this.classes[name] = true;
+    },
 
-      this.classes[val] = true;
+    removeClass(name) {
+      this.classes[name] = false;
     }
   };
 };

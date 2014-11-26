@@ -225,25 +225,27 @@ module.exports = Component('ViewList', {
   },
 
   render() {
+    var { after, before, touchStartBounds, ...props } = this.props;
     var titles = this.makeTitles(this.views.titles);
     var views = this.makeViews(this.views.contents);
-
     var viewListProps = Object.assign({
-      scroller: this.scroller,
       ignoreY: true,
-      touchStartBounds: this.props.touchStartBounds,
+      scroller: this.scroller,
+      touchStartBounds: touchStartBounds,
       onTouchStart: this.handleTouchStart,
       onTouchEnd: this.handleTouchEnd,
       onClick: this.handleClick
-    }, this.props);
+    }, props);
 
     if (this.state.step === 0)
       this.addStyles(this.styles.underTouchable);
 
     return (
       <TouchableArea {...this.componentProps()} {...viewListProps}>
+        {before}
         {titles}
         {views}
+        {after}
       </TouchableArea>
     );
   }

@@ -31,19 +31,20 @@ module.exports = Component('DottedViewList', {
 
     var viewEnter = dottedViewProps.onViewEnter;
     dottedViewProps.onViewEnter = (index) => {
-      viewEnter && viewEnter(index);
+      if (viewEnter) viewEnter(index);
       if (this.state.activeViewIndex !== index)
         this.setState({ activeViewIndex: index });
     };
 
+    var dots = (
+      <Dots
+        total={this.props.views.length}
+        active={this.state.activeViewIndex}
+        styles={this.getStyles('dots')} />
+    );
+
     return (
-      <div {...this.componentProps()}>
-        <ViewList {...dottedViewProps} />
-        <Dots
-          total={this.props.views.length}
-          active={this.state.activeViewIndex}
-          styles={this.getStyles('dots')} />
-      </div>
+      <ViewList {...this.componentProps()} {...dottedViewProps} after={dots} />
     );
   }
 });

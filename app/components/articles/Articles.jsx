@@ -62,11 +62,11 @@ module.exports = Component('Articles', [ViewLoaderMixin, State],
         </ViewLeft>
 
         <ViewMain>
+          <div className="drawer-parent">
           {this.getRoutes().length === 3 && (
-            <div className="drawer-parent">
-              <RouteHandler key={subRouteKey} />
-            </div>
+            <RouteHandler key={subRouteKey} />
           )}
+          </div>
         </ViewMain>
       </div>
     );

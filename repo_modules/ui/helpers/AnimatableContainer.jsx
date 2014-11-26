@@ -9,7 +9,6 @@ var AnimatableContainer = Component('AnimatableContainer', {
   getDefaultProps() {
     return {
       blockUpdates: true,
-      component: React.DOM.div,
       opacity: 1,
       rotate: null,
       scale: null,
@@ -63,7 +62,7 @@ var AnimatableContainer = Component('AnimatableContainer', {
   },
 
   getStyle(props) {
-    var style = Object.assign({}, this.props.style);
+    var style = Object.assign({}, props.style);
     var transforms = '';
 
     if (props.opacity !== 1) {
@@ -106,16 +105,15 @@ var AnimatableContainer = Component('AnimatableContainer', {
   },
 
   render() {
-    var { component, children, ...props } = this.props;
+    var { component, blockUpdates, children, ...props } = this.props;
+
+    this.addStyles(this.getStyle(props));
 
     return (
-      <component {...props}
-        className={this.getClasses()}
-        style={this.getStyle(props)}>
-        <StaticContainer shouldUpdate={!this.props.blockUpdates || !this.isAnimating}>
-          {this.props.children}
-        </StaticContainer>
-      </component>
+      <StaticContainer {...props} {...this.componentProps()}
+        shouldUpdate={!blockUpdates || !this.isAnimating}>
+        {children}
+      </StaticContainer>
     );
   }
 });

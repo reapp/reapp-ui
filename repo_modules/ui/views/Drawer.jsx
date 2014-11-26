@@ -1,14 +1,12 @@
-var React = require('react/addons');
+var Component = require('ui/component');
 var TouchableArea = require('../helpers/TouchableArea');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
 var DrawerBehavior = require('./DrawerBehavior');
 var { Scroller } = require('scroller');
-var cx = React.addons.classSet;
 
-var Drawer = React.createClass({
+module.exports = Component('Drawer', {
   getDefaultProps() {
     return {
-      className: 'drawer',
       layer: 2, // todo integrate w/ app state & manage index
       behavior: DrawerBehavior,
       parents: null
@@ -80,60 +78,44 @@ var Drawer = React.createClass({
   },
 
   render() {
-    var containerStyleProps = (this.props.containerProps || {}).style;
-    if (containerStyleProps) delete this.props.containerProps.style;
-    var containerClasses = {
-      closed: this.state.isClosed
-    };
+    var {
+      layer,
+      translate,
+      behavior,
+      scroller,
+      touchableProps,
+      children,
+      ...props
+    } = this.props;
 
-    if (this.props.className)
-      containerClasses[this.props.className] = true;
+    this.addStyles({ zIndex: layer + 5000 });
 
-    var containerProps = {
-      className: cx(containerClasses),
-      style: Object.assign({}, {
-        background: '#efeff4',
-        top: 0,
-        right: 0,
-        bottom: 0,
-        left: 0,
-        position: 'fixed',
-        marginLeft: '100%',
-        width: '100%'
-      }, containerStyleProps)
-    };
+    if (this.state.isClosed)
+      this.addClass('closed');
 
-    containerProps.style.zIndex = this.props.layer + 5000;
+    // either use given translation, or use behavior
+    props.translate = translate ?
+      translate :
+      behavior.translate(this.state.xOffset);
 
-    if (this.props.id)
-      containerProps.id = this.props.id;
-
-    if (this.props.containerProps)
-      containerProps = Object.assign({}, containerProps, this.props.containerProps);
-
-    // if no behavior passed in, use default
-    if (!(this.props.containerProps || {}).translate)
-      containerProps = Object.assign({}, containerProps, {
-        translate: this.props.behavior.translate(this.state.xOffset)
-      });
-
-    var touchableProps = {
+    // todo: move styles to styled, allow dynamic vars
+    touchableProps = Object.assign({
+      scroller: scroller || this.scroller,
       style: {
         left: this.state.isClosed ? -10 : 0,
         position: 'fixed',
-        top: 0, bottom: 0, width: 10,
-        zIndex: 1000 + this.props.layer
-      },
-      scroller: this.props.scroller || this.scroller
-    };
+        top: 0,
+        bottom: 0,
+        width: 10,
+        zIndex: 1000 + layer
+      }
+    }, touchableProps);
 
     return (
-      <AnimatableContainer {...containerProps}>
+      <AnimatableContainer {...props} {...this.componentProps()}>
         <TouchableArea {...touchableProps} />
-        {this.props.children}
+        {children}
       </AnimatableContainer>
     );
   }
 });
-
-module.exports = Drawer;
