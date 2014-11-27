@@ -10,6 +10,11 @@ module.exports = Component('TitleBar', {
     this.centerMiddleTitle();
   },
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.title !== this.props.title)
+      this.centerMiddleTitle();
+  },
+
   centerMiddleTitle() {
     if (this.refs.mid) {
       var mid = this.refs.mid.getDOMNode();

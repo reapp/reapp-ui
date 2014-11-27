@@ -30,8 +30,8 @@ var KitchenPage = module.exports = React.createClass({
             <Link to="viewLists">Parallax View List</Link>
             <Link to="dottedViewList">Dotted View List</Link>
             <Link to="viewFrosted">Frosted Glass Titlebar</Link>
-            <Link to="modals">Drawers &amp; Panels</Link>
-            <Link to="modals">Tabs</Link>
+            <Link to="panels">Drawers &amp; Panels</Link>
+            <Link to="tabs">Tabs</Link>
           </List>
 
           <ListTitle>Suites</ListTitle>

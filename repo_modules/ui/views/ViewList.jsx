@@ -3,7 +3,7 @@ var Component = require('ui/component');
 var { Scroller } = require('scroller');
 var TitleBar = require('../components/TitleBar');
 var TouchableArea = require('../helpers/TouchableArea');
-var Transforms = require('../animations/Transforms');
+var Transforms = require('../lib/Transforms');
 var View = require('./View');
 
 module.exports = Component('ViewList', {

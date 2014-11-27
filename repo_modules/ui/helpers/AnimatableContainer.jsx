@@ -8,7 +8,7 @@ var POLL_FACTOR = 0.5;
 var AnimatableContainer = Component('AnimatableContainer', {
   getDefaultProps() {
     return {
-      blockUpdates: true,
+      blockUpdates: false,
       opacity: 1,
       rotate: null,
       scale: null,
@@ -108,8 +108,6 @@ var AnimatableContainer = Component('AnimatableContainer', {
     var { component, blockUpdates, children, ...props } = this.props;
 
     this.addStyles(this.getStyle(props));
-
-    console.log('AC', blockUpdates, this.isAnimating);
 
     return (
       <StaticContainer {...props} {...this.componentProps()}

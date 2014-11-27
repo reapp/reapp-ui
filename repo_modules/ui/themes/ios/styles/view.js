@@ -10,5 +10,6 @@ module.exports = (c) => ({
     right: 0,
     pointerEvents: 'all',
     WebkitOverflowScrolling: 'touch',
+    padding: '0 10px'
   }
 });

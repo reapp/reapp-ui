@@ -1,6 +1,7 @@
 var Actions = require('./Actions');
 var API = require('./API');
 var Reducer = require('./Reducer');
+var { Promise } = require('when');
 var ArticlesStore = require('stores/ArticlesStore');
 var HotArticlesStore = require('stores/HotArticlesStore');
 var Immutable = require('immutable');
@@ -73,6 +74,7 @@ function getAllKids(item) {
   )
   .then(res => {
     item.kids = res;
+    item.kidsLoaded = true;
     return item;
   });
 }

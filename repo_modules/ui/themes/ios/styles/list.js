@@ -3,7 +3,7 @@ module.exports = {
     background: '#fff',
     borderTop: '1px solid #c8c7cc',
     borderBottom: '1px solid #c8c7cc',
-    margin: 0,
+    margin: '0 -10px',
     padding: '0 0 0 10px',
     zIndex: 101,
     fontSize: '16px'

@@ -20,11 +20,11 @@ var ImmutableTreeNode = React.createClass({
     var childNodes;
     if (children) {
       var i = 0;
-      var childLevel = level + 1;
+      var childLevel = `child-${level}`;
 
       childNodes = children.map(child => (
         <ImmutableTreeNode
-          key={`${childLevel}-${i++}`}
+          key={`${childLevel}-${++i}`}
           renderComponent={renderComponent}
           childKey={childKey}
           data={child}
