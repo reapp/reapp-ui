@@ -3,6 +3,7 @@ var Transition = React.addons.TransitionGroup;
 var { Link, RouteHandler, State } = require('react-router');
 var ViewMain = require('ui/views/ViewMain');
 var ViewLeft = require('ui/views/ViewLeft');
+var Drawer = require('ui/views/Drawer');
 var List = require('ui/components/List');
 var ListTitle = require('ui/components/ListTitle');
 var TitleBar = require('ui/components/TitleBar');
@@ -45,9 +46,17 @@ var KitchenPage = module.exports = React.createClass({
           </List>
         </ViewLeft>
 
-        <Transition component="div">
-          {hasChild ? <RouteHandler {...this.props} key={name} /> : null}
-        </Transition>
+        <ViewMain>
+          {hasChild ? (
+            <Transition>
+              <Drawer>
+                <RouteHandler {...this.props} key={name} />
+              </Drawer>
+            </Transition>
+          ) : (
+            <Transition></Transition>
+          )}
+        </ViewMain>
       </div>
     );
   }

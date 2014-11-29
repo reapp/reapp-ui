@@ -31,7 +31,10 @@ module.exports = Component('Drawer', {
       easing: TweenState.easingTypes.easeInOutQuad,
       duration: 300,
       endValue: 0,
-      onEnd: cb
+      onEnd: () => {
+        debugger;
+        cb();
+      }
     });
   },
 
@@ -53,14 +56,10 @@ module.exports = Component('Drawer', {
   componentDidMount() {
     this._measure();
     window.addEventListener('resize', this._measure);
-
-    setTimeout(function(){this.fullyOpened = true;}.bind(this), 250);
   },
 
   componentWillUnmount() {
     window.removeEventListener('resize', this._measure);
-
-    this.fullyOpened = false;
     this.transformParents('none');
   },
 
@@ -78,13 +77,13 @@ module.exports = Component('Drawer', {
   },
 
   _handleScroll(left) {
+    debugger;
     this.setState({
       xOffset: left,
       isClosed: left === 0
     });
 
-    if (this.fullyOpened)
-      this.transformParents('translate3d(-' + (left / 2) + 'px, 0, 0)');
+    this.transformParents('translate3d(-' + (left / 2) + 'px, 0, 0)');
   },
 
   transformParents(transform) {

@@ -1,5 +1,5 @@
 var React = require('react');
-var DrawerView = require('ui/views/DrawerView');
+var View = require('ui/views/View');
 var TitleBar = require('ui/components/TitleBar');
 var BackButton = require('ui/components/buttons/BackButton');
 var { Pad } = require('ui/components/Grid');
@@ -21,7 +21,7 @@ module.exports = React.createClass({
     var title = [<BackButton />, 'Lists'];
 
     return (
-      <DrawerView id="ListViewPage" title={title}>
+      <View id="ListViewPage" title={title}>
         <Pad>
           <p>ListViewPage View</p>
         </Pad>
@@ -97,7 +97,7 @@ module.exports = React.createClass({
           <Link to="popovers">Popovers</Link>
           <Link to="tabs">Tabs</Link>
         </List>
-      </DrawerView>
+      </View>
     );
   }
 });
