@@ -11,6 +11,10 @@ var ListItem = require('ui/components/ListItem');
 var { Link } = require('react-router');
 
 module.exports = React.createClass({
+  componentWillEnter(cb) {
+    debugger;
+  },
+
   render() {
     var icon = <Icon type="contact" size="28" />;
     var badge = <Badge value="5" />;

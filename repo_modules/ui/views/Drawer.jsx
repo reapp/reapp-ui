@@ -2,9 +2,12 @@ var Component = require('ui/component');
 var TouchableArea = require('../helpers/TouchableArea');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
 var DrawerBehavior = require('./DrawerBehavior');
+var TweenState = require('react-tween-state');
 var { Scroller } = require('scroller');
 
 module.exports = Component('Drawer', {
+  mixins: [TweenState.Mixin],
+
   getDefaultProps() {
     return {
       layer: 2, // todo integrate w/ app state & manage index
@@ -19,6 +22,21 @@ module.exports = Component('Drawer', {
       xOffset: 0,
       isClosed: false
     };
+  },
+
+  componentWillEnter(cb) {
+    debugger;
+    this.setState({ xOffset: window.innerWidth });
+    this.tweenState('xOffset', {
+      easing: TweenState.easingTypes.easeInOutQuad,
+      duration: 300,
+      endValue: 0,
+      onEnd: cb
+    });
+  },
+
+  componentWillLeave(cb) {
+    cb();
   },
 
   componentWillMount() {

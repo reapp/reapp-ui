@@ -1,5 +1,4 @@
 var Component = require('omniscient');
-var React = require('react/addons');
 var Time = require('react-ago-component');
 var Icon = require('ui/components/Icon');
 var ListItem = require('ui/components/ListItem');
@@ -18,7 +17,6 @@ module.exports = Component('ArticleItem', mixins,
     if (!cursor) return null;
 
     var article = cursor.get('data');
-    var classes = { Article: true };
 
     //<Link to="user" params={{id: article.get('by')}} activeClassName="">
     var stats = (
@@ -43,7 +41,8 @@ module.exports = Component('ArticleItem', mixins,
 
     return (
       <ListItem
-        className={React.addons.classSet(classes)}
+        className="Article"
+        styles={{ after: { margin: 0 } }}
         onClick={this.onTouch}
         wrapper={<a className="article--link" href={article.get('url')} />}
         title={article.get('title')}

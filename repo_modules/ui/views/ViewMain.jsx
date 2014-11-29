@@ -1,20 +1,19 @@
 var React = require('react/addons');
 var Component = require('ui/component');
-var Transition = React.addons.CSSTransitionGroup;
+var Transition = React.addons.TransitionGroup;
 
 module.exports = Component('ViewMain', {
   render() {
-    var { children, ...props } = this.props;
+    var { children, hasChild, ...props } = this.props;
 
     if (!children)
       this.addStyles(this.styles.childless);
 
+    debugger;
     return (
-      <div {...props} {...this.componentProps()}>
-        <Transition transitionName="drawer">
-          {children}
-        </Transition>
-      </div>
+      <Transition component="div" {...props} {...this.componentProps()}>
+        {children}
+      </Transition>
     );
   }
 });
