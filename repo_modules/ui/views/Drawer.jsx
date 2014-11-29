@@ -24,27 +24,8 @@ module.exports = Component('Drawer', {
     };
   },
 
-  componentWillEnter(cb) {
-    debugger;
-    this.setState({ xOffset: window.innerWidth });
-    this.tweenState('xOffset', {
-      easing: TweenState.easingTypes.easeInOutQuad,
-      duration: 300,
-      endValue: 0,
-      onEnd: () => {
-        debugger;
-        cb();
-      }
-    });
-  },
-
-  componentWillLeave(cb) {
-    cb();
-  },
-
   componentWillMount() {
     if (this.state.externalScroller) return;
-
     this.scroller = new Scroller(this._handleScroll, {
       bouncing: false,
       scrollingX: true,
@@ -53,17 +34,33 @@ module.exports = Component('Drawer', {
     });
   },
 
+  enter(cb) {
+    console.log(this.state.xOffset);
+    this.tweenState('xOffset', {
+      easing: TweenState.easingTypes.easeInOutQuad,
+      duration: 1500,
+      endValue: 300,
+      onEnd: cb
+    });
+  },
+
   componentDidMount() {
-    this._measure();
-    window.addEventListener('resize', this._measure);
+    this.measureScroller();
+    this.enter(this.scrollToOpen);
+    window.addEventListener('resize', this.measureAndScrollOpen);
   },
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this._measure);
+    window.removeEventListener('resize', this.measureAndScrollOpen);
     this.transformParents('none');
   },
 
-  _measure() {
+  scrollToOpen() {
+    if (this.scroller)
+      this.scroller.scrollTo(this.getDOMNode().clientWidth, 0);
+  },
+
+  measureScroller() {
     if (this.state.externalScroller) return;
     var node = this.getDOMNode();
     this.scroller.setDimensions(
@@ -73,11 +70,16 @@ module.exports = Component('Drawer', {
       node.clientHeight
     );
     this.scroller.setSnapSize(node.clientWidth, node.clientHeight);
-    this.scroller.scrollTo(node.clientWidth, 0);
+  },
+
+  measureAndScrollOpen() {
+    console.log('measure and scroll open');
+    this.measureScroller();
+    this.scrollToOpen();
   },
 
   _handleScroll(left) {
-    debugger;
+    console.log(left);
     this.setState({
       xOffset: left,
       isClosed: left === 0

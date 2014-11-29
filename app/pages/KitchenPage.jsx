@@ -1,6 +1,6 @@
 var React = require('react/addons');
 var Transition = React.addons.TransitionGroup;
-var { Link, RouteHandler, State } = require('react-router');
+var { Link, RouteHandler } = require('react-router');
 var ViewMain = require('ui/views/ViewMain');
 var ViewLeft = require('ui/views/ViewLeft');
 var Drawer = require('ui/views/Drawer');
@@ -11,12 +11,7 @@ var TitleBar = require('ui/components/TitleBar');
 var KitchenPage = module.exports = React.createClass({
   title: 'Kitchen Sink',
 
-  mixins: [ State ],
-
   render() {
-    var name = this.getRoutes().reverse()[0].name;
-    var hasChild = name !== 'kitchen';
-
     return (
       <div id="KitchenSink">
         <ViewLeft id="kitchenSinkLeftView" title={this.title}>
@@ -47,15 +42,7 @@ var KitchenPage = module.exports = React.createClass({
         </ViewLeft>
 
         <ViewMain>
-          {hasChild ? (
-            <Transition>
-              <Drawer>
-                <RouteHandler {...this.props} key={name} />
-              </Drawer>
-            </Transition>
-          ) : (
-            <Transition></Transition>
-          )}
+          <RouteHandler {...this.props} />
         </ViewMain>
       </div>
     );

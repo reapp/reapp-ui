@@ -1,5 +1,5 @@
 var React = require('react');
-var View = require('ui/views/View');
+var DrawerView = require('ui/views/DrawerView');
 var TitleBar = require('ui/components/TitleBar');
 var BackButton = require('ui/components/buttons/BackButton');
 var { Pad } = require('ui/components/Grid');
@@ -11,17 +11,13 @@ var ListItem = require('ui/components/ListItem');
 var { Link } = require('react-router');
 
 module.exports = React.createClass({
-  componentWillEnter(cb) {
-    debugger;
-  },
-
   render() {
     var icon = <Icon type="contact" size="28" />;
     var badge = <Badge value="5" />;
     var title = [<BackButton />, 'Lists'];
 
     return (
-      <View id="ListViewPage" title={title}>
+      <DrawerView id="ListViewPage" title={title}>
         <Pad>
           <p>ListViewPage View</p>
         </Pad>
@@ -97,7 +93,7 @@ module.exports = React.createClass({
           <Link to="popovers">Popovers</Link>
           <Link to="tabs">Tabs</Link>
         </List>
-      </View>
+      </DrawerView>
     );
   }
 });
