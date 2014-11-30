@@ -4,10 +4,10 @@ var ReactStylePlugin = require('react-style-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var loadersByExtension = require('./lib/loadersByExtension');
 var joinEntry = require('./lib/joinEntry');
-var transformLoader = require('transform-loader');
+var statsPlugin = require('./lib/statsPlugin');
 var autoprefixer = require('autoprefixer-core');
 
-module.exports = function(options) {
+module.exports = function(opts) {
   var entry = {
     main: './app/main'
   };
@@ -17,28 +17,19 @@ module.exports = function(options) {
     'jsx-loader?harmony&insertPragma=React.DOM'
   ];
 
-  if (options.hotComponents)
+  if (opts.hotComponents)
     jsxLoader.unshift('react-hot');
 
   var loaders = {
-    'coffee': 'coffee-redux-loader',
     'jsx|js': jsxLoader,
     'json': 'json-loader',
-    'json5': 'json5-loader',
-    'txt': 'raw-loader',
     'png|jgp|jpeg|gif|svg': 'url-loader?limit=10000',
-    'woff': 'url-loader?limit=100000',
-    'ttf': 'file-loader',
-    'wav|mp3': 'file-loader',
-    'html': 'html-loader',
-    'md|markdown': ['html-loader', 'markdown-loader'],
-    // /lodash-node/, path.resolve("./replaceWithLodash")
+    'html': 'html-loader'
   };
 
   var stylesheetLoaders = {
     'css': 'css-loader!postcss-loader',
-    'styl': 'css-loader!stylus-loader',
-    'sass': 'css-loader!sass-loader',
+    'styl': 'css-loader!stylus-loader'
   };
 
   var alias = {};
@@ -55,30 +46,23 @@ module.exports = function(options) {
   var root = [path.join(__dirname, 'app')];
 
   var output = {
-    path: path.join(__dirname, '..', 'build', options.prerender ? 'prerender' : 'public'),
-    publicPath: '/',
-    filename: '[name].js' + (options.longTermCaching && !options.prerender ? '?[chunkhash]' : ''),
-    chunkFilename: (options.dev ? '[id].js' : '[name].js') + (options.longTermCaching && !options.prerender ? '?[chunkhash]' : ''),
-    sourceMapFilename: 'debugging/[file].map',
-    libraryTarget: options.prerender ? 'commonjs2' : undefined,
-    pathinfo: options.debug
-  };
+    path: path.join(__dirname, '..', 'build',
+      opts.prerender ? 'prerender' : 'public'),
 
-  var statsPlugin = function() {
-    if (!options.prerender) {
-      this.plugin('done', function(stats) {
-        require('fs').writeFileSync(path.join(__dirname, '..', 'build', 'stats.json'), JSON.stringify(stats.toJson({
-          chunkModules: true,
-          exclude: [
-            /node_modules[\\\/]react/
-          ]
-        })));
-      });
-    }
+    filename: '[name].js' +
+      (opts.longTermCaching && !opts.prerender ? '?[chunkhash]' : ''),
+
+    chunkFilename: (opts.dev ? '[id].js' : '[name].js') +
+      (opts.longTermCaching && !opts.prerender ? '?[chunkhash]' : ''),
+
+    publicPath: '/',
+    sourceMapFilename: 'debugging/[file].map',
+    libraryTarget: opts.prerender ? 'commonjs2' : undefined,
+    pathinfo: opts.debug
   };
 
   var plugins = [
-    statsPlugin,
+    statsPlugin(opts),
     new webpack.PrefetchPlugin('react'),
     new webpack.PrefetchPlugin('react/lib/ReactComponentBrowserEnvironment'),
     // new ReactStylePlugin('bundle.css'),
@@ -87,50 +71,45 @@ module.exports = function(options) {
     )
   ];
 
-  if (options.prerender) {
+  if (opts.prerender) {
     aliasLoader['react-proxy$'] = 'react-proxy/unavailable';
     externals.push(/^react(\/.*)?$/);
     plugins.push(new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }));
   }
 
-  if (options.hotComponents) {
+  if (opts.hotComponents) {
     plugins.push(new webpack.HotModuleReplacementPlugin());
     plugins.push(new webpack.NoErrorsPlugin());
   }
 
-  if (options.commonsChunk) {
-    plugins.push(new webpack.optimize.CommonsChunkPlugin('commons', 'commons.js' + (options.longTermCaching && !options.prerender ? '?[chunkhash]' : '')));
-  }
+  if (opts.commonsChunk)
+    plugins.push(
+      new webpack.optimize.CommonsChunkPlugin('commons', 'commons.js' +
+        (opts.longTermCaching && !opts.prerender ? '?[chunkhash]' : '')));
 
-  if (options.hot) {
+  if (opts.hot)
     entry = joinEntry('webpack/hot/dev-server', entry);
-  }
 
-  if (options.dev) {
+  if (opts.dev)
     entry = joinEntry('webpack-dev-server/client?http://localhost:5284', entry);
-  }
 
   Object.keys(stylesheetLoaders).forEach(function(ext) {
     var loaders = stylesheetLoaders[ext];
     if (Array.isArray(loaders))
       loaders = loaders.join('!');
 
-    if (options.prerender) {
+    if (opts.prerender)
       stylesheetLoaders[ext] = 'null-loader';
-    }
-    else if (options.separateStylesheet) {
+    else if (opts.separateStylesheet)
       stylesheetLoaders[ext] = ExtractTextPlugin.extract('style-loader', loaders);
-    }
-    else {
+    else
       stylesheetLoaders[ext] = 'style-loader!' + loaders;
-    }
   });
 
-  if (options.separateStylesheet && !options.prerender) {
+  if (opts.separateStylesheet && !opts.prerender)
     plugins.push(new ExtractTextPlugin('[name].css'));
-  }
 
-  if (options.minimize) {
+  if (opts.minimize)
     plugins.push(
       new webpack.optimize.UglifyJsPlugin(),
       new webpack.optimize.DedupePlugin(),
@@ -140,17 +119,16 @@ module.exports = function(options) {
         }
       })
     );
-  }
 
-  var finalConfig = {
+  return {
     entry: entry,
     output: output,
-    target: options.prerender ? 'node' : 'web',
+    target: opts.prerender ? 'node' : 'web',
     module: {
       loaders: loadersByExtension(loaders).concat(loadersByExtension(stylesheetLoaders))
     },
-    devtool: options.devtool,
-    debug: options.debug,
+    devtool: opts.devtool,
+    debug: opts.debug,
     resolveLoader: {
       root: [
         path.join(__dirname, 'node_modules'),
@@ -168,7 +146,4 @@ module.exports = function(options) {
     plugins: plugins,
     postcss: [ autoprefixer({ browsers: ['last 2 version'] }) ]
   };
-
-  // console.log(finalConfig);
-  return finalConfig;
 };

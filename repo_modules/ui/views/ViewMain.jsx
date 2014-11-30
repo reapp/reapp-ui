@@ -7,6 +7,10 @@ module.exports = ViewComponent('ViewMain', {
     if (!children)
       this.addStyles(this.styles.childless);
 
+    this.addStyles({
+      zIndex: this.getStyleVal('zIndex') + 1
+    })
+
     return (
       <div {...props} {...this.componentProps()}>
         {children}

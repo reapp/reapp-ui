@@ -4,7 +4,7 @@ module.exports = Component('Icon', {
   getDefaultProps() {
     return {
       size: 32,
-      color: '#777',
+      color: 'currentColor',
       style: {}
     };
   },

@@ -52,7 +52,9 @@ module.exports = Component('TitleBar', {
     left = this.addIconTransform(left);
     right = this.addIconTransform(right);
 
-    this.addStyles({ zIndex: this.getNextViewZIndex() - 1 });
+    this.addStyles({
+      zIndex: this.getZIndexForNextLayer() - 1
+    });
 
     if (height)
       this.addStyles({ height });
