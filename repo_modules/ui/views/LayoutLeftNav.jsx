@@ -1,4 +1,5 @@
 var React = require('react');
+var ViewComponent = require('ui/viewcomponent');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
 var LeftNavBehavior = require('./LeftNavBehavior');
 var DrawerBehavior = require('./DrawerBehavior');
@@ -6,7 +7,7 @@ var TouchableArea = require('../helpers/TouchableArea');
 var Drawer = require('./Drawer');
 var { Scroller } = require('scroller');
 
-var LeftNavView = React.createClass({
+module.exports = ViewComponent('LayoutLeftNav', {
   componentWillMount() {
     this.scroller = new Scroller(this._handleScroll, {
       bouncing: false,
@@ -72,84 +73,40 @@ var LeftNavView = React.createClass({
   },
 
   render() {
-    var {
-      behavior,
-      sideWidth,
-      sideZIndex,
-      topHeight,
-      topContent,
-      handle,
-      handleStyle,
-      sideContent,
-      children,
-      viewProps,
-      ...props } = this.props;
-
+    var { behavior, sideWidth, sideZIndex, handle, nav, children, ...props } = this.props;
     var isNavOpen = this.isNavOpen();
-    var side = null;
 
-    var wrapperStyle = {
-      overflowX: 'hidden',
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      bottom: 0,
-      right: 0
-    };
-
-    var sideStyle = {
-      position: 'fixed',
-      top: 0,
-      bottom: 0,
+    this.addStyles('nav', isNavOpen && {
       left: sideWidth * -1,
       width: sideWidth,
       zIndex: sideZIndex || 1
-    };
+    });
 
     var navProps = {
       translate: behavior.parent.translate(sideWidth, this.state.scrollLeft),
       rotate: behavior.parent.rotate(sideWidth, this.state.scrollLeft),
       opacity: behavior.parent.opacity(sideWidth, this.state.scrollLeft),
-      style: isNavOpen ? sideStyle : null
-    };
-
-    var sideContainerStyle = {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0
+      style: isNavOpen ? this.getStyles('nav') : null
     };
 
     var drawerProps = {
       layer: 1,
-      style: {
-        left: 200,
-        marginLeft: 0
-      },
       translate: DrawerBehavior.translate(this.state.scrollLeft),
       scroller: this.scroller,
       onTouchTap: this._handleContentTouchTap
     };
 
-    viewProps = Object.assign({
-      top: 0
-    }, viewProps);
-
-    var handleProps = drawerProps.containerProps;
-    if (handleStyle)
-      handleProps.style = Object.assign({}, handleStyle, handleProps.style);
-
     return (
-      <div style={wrapperStyle}>
+      <div {...this.componentProps()}>
         {isNavOpen && (
           <AnimatableContainer {...navProps}>
-            <div style={sideContainerStyle} onClick={this._handleContentTouchTap}>
-              {sideContent}
+            <div {...this.componentProps('navInner')}
+              onClick={this._handleContentTouchTap}>
+              {nav}
             </div>
           </AnimatableContainer>
         )}
-        <Drawer {...drawerProps}>
+        <Drawer {...this.componentProps('drawer')} {...drawerProps}>
           {children}
           <TouchableArea onClick={this._handleTap} scroller={this.scroller}>
             {handle}
@@ -159,5 +116,3 @@ var LeftNavView = React.createClass({
     );
   }
 });
-
-module.exports = LeftNavView;

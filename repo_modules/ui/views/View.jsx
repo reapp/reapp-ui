@@ -1,6 +1,6 @@
-var Component = require('ui/component');
+var ViewComponent = require('ui/viewcomponent');
 
-module.exports = Component('View', {
+module.exports = ViewComponent('View', {
   getDefaultProps() {
     return {
       top: 44
@@ -9,6 +9,8 @@ module.exports = Component('View', {
 
   render() {
     var { children, top, ...props } = this.props;
+
+    console.log('this zindex', this.context.zIndex);
 
     if (top !== 44) {
       this.addStyles({ top: top });

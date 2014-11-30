@@ -1,6 +1,6 @@
-var Component = require('ui/component');
+var ViewComponent = require('ui/viewcomponent');
 
-module.exports = Component('ViewMain', {
+module.exports = ViewComponent('ViewMain', {
   render() {
     var { children, hasChild, ...props } = this.props;
 

@@ -2,7 +2,7 @@ var React = require('react');
 var DrawerView = require('ui/views/DrawerView');
 var TitleBar = require('ui/components/TitleBar');
 var BackButton = require('ui/components/buttons/BackButton');
-var { Pad } = require('ui/components/Grid');
+var { Container } = require('ui/components/Grid');
 var List = require('ui/components/List');
 var Icon = require('ui/components/Icon');
 var Badge = require('ui/components/Badge');
@@ -18,9 +18,9 @@ module.exports = React.createClass({
 
     return (
       <DrawerView id="ListViewPage" title={title}>
-        <Pad>
+        <Container>
           <p>ListViewPage View</p>
-        </Pad>
+        </Container>
 
         <ListTitle>Mail Style Media List</ListTitle>
         <List>

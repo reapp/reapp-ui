@@ -1,8 +1,8 @@
-var Component = require('ui/component');
+var ViewComponent = require('ui/viewcomponent');
 var View = require('./View');
 var TitleBar = require('../components/TitleBar');
 
-module.exports = Component('ViewLeft', {
+module.exports = ViewComponent('ViewLeft', {
   render() {
     var { children, title, ...props } = this.props;
 

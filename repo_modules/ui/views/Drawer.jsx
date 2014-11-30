@@ -26,7 +26,7 @@ module.exports = Component('Drawer', {
 
   componentWillMount() {
     if (this.state.externalScroller) return;
-    this.scroller = new Scroller(this._handleScroll, {
+    this.scroller = new Scroller(this.handleScroll, {
       bouncing: false,
       scrollingX: true,
       scrollingY: false,
@@ -35,11 +35,11 @@ module.exports = Component('Drawer', {
   },
 
   enter(cb) {
-    console.log(this.state.xOffset);
+    console.log('ENTER', this.state.xOffset);
     this.tweenState('xOffset', {
       easing: TweenState.easingTypes.easeInOutQuad,
-      duration: 1500,
-      endValue: 300,
+      duration: 300,
+      endValue: window.innerWidth,
       onEnd: cb
     });
   },
@@ -78,7 +78,7 @@ module.exports = Component('Drawer', {
     this.scrollToOpen();
   },
 
-  _handleScroll(left) {
+  handleScroll(left) {
     console.log(left);
     this.setState({
       xOffset: left,
@@ -97,28 +97,16 @@ module.exports = Component('Drawer', {
   },
 
   render() {
-    var {
-      layer,
-      translate,
-      behavior,
-      scroller,
-      touchableProps,
-      children,
-      ...props
-    } = this.props;
-
-    this.addStyles({ zIndex: layer + 5000 });
-    this.addStyles('dragger', {
-      left: this.state.isClosed ? -10 : 0,
-      zIndex: 1000 + layer
-    });
-
-    if (this.state.isClosed)
-      this.addClass('closed');
+    var { translate, behavior, scroller, touchableProps, children, ...props } = this.props;
 
     props.translate = (
       translate || behavior.translate(this.state.xOffset)
     );
+
+    this.addClass('closed', this.state.isClosed);
+    this.addStyles('dragger', {
+      left: this.state.isClosed ? -10 : 0
+    });
 
     return (
       <AnimatableContainer {...props} {...this.componentProps()}>

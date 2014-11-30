@@ -1,4 +1,4 @@
-var UI = require('./index');
+var UI = require('../index');
 var ReactStyle = require('react-style');
 
 module.exports = function(name) {
@@ -18,6 +18,12 @@ module.exports = function(name) {
           this.makeReactStyle(style)
         );
       };
+
+      // automatically set zIndex for view layers
+      if (this.isView)
+        addStyle('self', {
+          zIndex: this.getZIndexForLayer(this.context.layer)
+        });
 
       var componentStyles = UI.getStyles(name);
       if (componentStyles)

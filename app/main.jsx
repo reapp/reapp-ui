@@ -26,7 +26,9 @@ var fetchAllData = (routes, params) => {
 };
 
 var render = (Handler, data) => {
-  React.render(<Handler data={data} />, document.getElementById('app'));
+  React.withContext({ layer: 1 }, () => {
+    React.render(<Handler data={data} />, document.getElementById('app'));
+  });
 };
 
 function renderSync() {

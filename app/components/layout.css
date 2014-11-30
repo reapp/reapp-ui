@@ -68,7 +68,8 @@ a:visited, a:active {
 }
 
 p {
-  display: inline-block;
+  display: block;
+  color: #444;
 }
 
 p * {

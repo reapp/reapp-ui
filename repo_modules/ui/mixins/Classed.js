@@ -33,8 +33,9 @@ module.exports = function(name) {
       return cx(classSet);
     },
 
-    addClass(name) {
-      this.classes[name] = true;
+    addClass(name, conditional) {
+      if (typeof conditional === 'undefined' || !!conditional)
+        this.classes[name] = true;
     },
 
     removeClass(name) {

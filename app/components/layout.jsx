@@ -3,7 +3,7 @@ var { Link, RouteHandler } = require('react-router');
 var Menu = require('ui/components/Menu');
 var Title = require('ui/components/Title');
 var Button = require('ui/components/Button');
-var LeftNavView = require('ui/views/LeftNavView');
+var LayoutLeftNav = require('ui/views/LayoutLeftNav');
 var DocumentTitle = require('react-document-title');
 
 require('./Layout.css');
@@ -15,7 +15,6 @@ var Layout = React.createClass({
   style: {
     button: {
       position: 'absolute',
-      zIndex: 1004,
       top: 2,
       left: 0
     }
@@ -44,15 +43,14 @@ var Layout = React.createClass({
     );
 
     return (
-      <LeftNavView
-        ref="appLeftNavView"
+      <LayoutLeftNav
         handle={button}
-        sideContent={menu}
+        nav={menu}
         topHeight={TOOLBAR_HEIGHT}
         sideWidth={SIDE_WIDTH}>
         <DocumentTitle title="React Base" />
         <RouteHandler {...this.props} />
-      </LeftNavView>
+      </LayoutLeftNav>
     );
   }
 });

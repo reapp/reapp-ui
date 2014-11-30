@@ -4,7 +4,6 @@ module.exports = {
     background: '#fff',
     textAlign: 'center',
     borderBottom: '1px solid #ccc',
-    zIndex: 1000,
     position: 'fixed',
     top: 0,
     left: 0,
