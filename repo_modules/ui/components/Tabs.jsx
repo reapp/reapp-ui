@@ -16,7 +16,12 @@ module.exports = Component('Tabs', {
 
     return (
       <ul {...props} {...this.componentProps()}>
-        {children}
+        {React.Children.map(children, (child, i) => {
+          return React.addons.cloneWithProps(child, {
+            key: i,
+            type: type
+          });
+        })}
       </ul>
     );
   }

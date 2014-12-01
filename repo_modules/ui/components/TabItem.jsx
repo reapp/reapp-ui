@@ -1,27 +1,35 @@
 var React = require('react');
-var Invariant = require('react/lib/invariant');
 var Component = require('ui/component');
 var Icon = require('./Icon');
 
 module.exports = Component('TabItem', {
+  getDefaultProps() {
+    return { type: 'text' };
+  },
+
   makeSection(name, content) {
     return content && (
-      <span {...this.componentProps(name)}>
+      <span {...this.componentProps(`${this.props.type}-${name}`)}>
         {content}
       </span>
     );
   },
 
   render() {
-    var { icon, text, children, ...props } = this.props;
+    var { icon, text, children, type, ...props } = this.props;
 
-    Invariant(text || children, 'Must either pass in children or text, but not both');
+    this.addStyles(this.styles['tab-' + type]);
 
     if (!text && children)
       text = children;
 
     if (typeof icon === 'string')
-      icon = <Icon type={icon} />;
+      icon = (
+        <Icon
+          type={icon}
+          styles={this.styles.icon}
+          svgProps={{style: { margin: 'auto' }}} />
+        );
 
     return (
       <li {...props} {...this.componentProps()}>

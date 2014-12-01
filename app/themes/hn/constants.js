@@ -1,5 +1,7 @@
+var barBG = '#ff6600';
+
 module.exports = {
-  titleBarBG: '#ff6600',
+  titleBarBG: barBG,
   titleBarColor: '#fff',
 
   // colors

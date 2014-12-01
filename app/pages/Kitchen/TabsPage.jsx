@@ -12,7 +12,7 @@ module.exports = React.createClass({
   },
 
   handleTabType(e) {
-    this.setState({ tabsType: e.target.getAttribute('data-type') });
+    this.setState({ tabsType: e.currentTarget.getAttribute('data-type') });
   },
 
   render() {
@@ -21,7 +21,19 @@ module.exports = React.createClass({
         <TabItem>Feed</TabItem>,
         <TabItem>Stream</TabItem>,
         <TabItem>Board</TabItem>
-      ]
+      ],
+
+      icon: [
+        <TabItem icon="mailbox" />,
+        <TabItem icon="stopwatch" />,
+        <TabItem icon="star" />
+      ],
+
+      iconText: [
+        <TabItem icon="mailbox" text="Mailbox" />,
+        <TabItem icon="stopwatch" text="Stopwatch" />,
+        <TabItem icon="star" text="Star" />
+      ],
     };
 
     return (
@@ -35,10 +47,10 @@ module.exports = React.createClass({
 
         <Container>
           <Block>
-            <Button onClick={this.handleTabType} dataType="text">Text</Button>
-            <Button onClick={this.handleTabType} dataType="icon">Icon</Button>
-            <Button onClick={this.handleTabType} dataType="icon-text">Icon + Text</Button>
-            <Button onClick={this.handleTabType} dataType="icon-text-right">Icon + Text (Right)</Button>
+            <Button onClick={this.handleTabType} data-type="text">Text</Button>
+            <Button onClick={this.handleTabType} data-type="icon">Icon</Button>
+            <Button onClick={this.handleTabType} data-type="iconText">Icon + Text</Button>
+            <Button onClick={this.handleTabType} data-type="iconTextRight">Icon + Text (Right)</Button>
           </Block>
         </Container>
 

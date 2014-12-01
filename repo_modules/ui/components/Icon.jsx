@@ -5,23 +5,24 @@ module.exports = Component('Icon', {
     return {
       size: 32,
       color: 'currentColor',
-      style: {}
+      style: {},
+      svgProps: {}
     };
   },
 
   render() {
-    var { size, type, color, stroke, ...props } = this.props;
+    var { size, type, color, stroke, shapeRendering, svgProps, ...props } = this.props;
 
-    var svgProps = {
-      style: {
+    svgProps = Object.assign({
+      style: Object.assign({
         width: size,
         height: size,
-        shapeRendering: 'crispEdges',
+        shapeRendering: shapeRendering ? shapeRendering : 'initial',
         fill: 'currentColor'
-      },
+      }, svgProps.style),
       viewBox: '0 0 64 64',
       fill: color
-    };
+    }, svgProps);
 
     if (stroke) {
       Object.assign(svgProps, {
