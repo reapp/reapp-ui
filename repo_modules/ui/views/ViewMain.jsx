@@ -6,6 +6,14 @@ module.exports = ViewComponent('ViewMain', {
   },
 
   componentDidMount() {
+    this.setInactiveIfNoChildren();
+  },
+
+  componentDidReceiveProps() {
+    this.setInactiveIfNoChildren();
+  },
+
+  setInactiveIfNoChildren() {
     // todo: better way to determine null component?
     var children = this.refs.ViewMain.getDOMNode().children;
     if (children.length === 1 && children[0].tagName === 'NOSCRIPT')
