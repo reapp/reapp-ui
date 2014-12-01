@@ -11,17 +11,6 @@ var HotArticlesStore = require('stores/HotArticlesStore');
 
 require('./Articles.styl');
 
-var ViewLoaderMixin = {
-  // todo have this push "loading...", then have it "undo" once entered
-  handleViewEnter(index) {
-    this.props.views[index].content = 'Loading...';
-  },
-
-  handleViewLeave(i) {
-    console.log('VIEW LEAVE', arguments);
-  }
-};
-
 function handleLoadMore(e) {
   e.preventDefault();
   e.target.innerHTML = 'Loading...';
@@ -50,7 +39,7 @@ function setViewContents(view, hotArticlesList, articlesStore) {
   );
 }
 
-module.exports = Component('Articles', [ViewLoaderMixin, State],
+module.exports = Component('Articles', [State],
   function render(props) {
     var { cursor, views } = props;
     var subRouteKey = this.getRoutes().reverse()[0].name + this.getParams().id;

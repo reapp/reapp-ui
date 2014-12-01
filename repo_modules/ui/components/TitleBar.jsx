@@ -33,7 +33,7 @@ module.exports = Component('TitleBar', {
   },
 
   render() {
-    var { children, index, height, ...props } = this.props;
+    var { children, index, active, height, ...props } = this.props;
     var left, mid, right;
 
     // Allow a 3 arity array as children rather than setting left and right props
@@ -53,7 +53,7 @@ module.exports = Component('TitleBar', {
     right = this.addIconTransform(right);
 
     this.addStyles({
-      zIndex: this.getZIndexForNextLayer() - 1
+      zIndex: this.getZIndexForNextLayer() - 2 + (active ? 1 : 0)
     });
 
     if (height)

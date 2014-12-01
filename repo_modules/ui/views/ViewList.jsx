@@ -92,32 +92,35 @@ module.exports = Component('ViewList', {
     this.setState({ step: step });
     this._doTransforms(step);
 
-    if (this.props.onViewEnter) {
-      if (step % 1 !== 0) {
-        var newVisible = [ Math.floor(step), Math.ceil(step) ]
-          // only one new view can enter at a time
-          .filter(i => !this.visibleViews[i])[0];
+    if (step % 1 !== 0) {
+      var newVisibleIndex = [ Math.floor(step), Math.ceil(step) ]
+        .filter(i => !this.visibleViews[i])[0];
 
-        if (newVisible >= 0) {
-          this.visibleViews[newVisible] = true;
-          this.props.onViewEnter(newVisible);
-        }
-      }
-      else {
-        var prev = step-1;
-        var next = step+1;
-
-        if (this.visibleViews[prev]) {
-          if (this.props.onViewLeave) this.props.onViewLeave(prev);
-          this.visibleViews[prev] = false;
-        }
-
-        if (this.visibleViews[next]) {
-          if (this.props.onViewLeave) this.props.onViewLeave(next);
-          this.visibleViews[next] = false;
-        }
+      if (newVisibleIndex >= 0) {
+        this.visibleViews[newVisibleIndex] = true;
+        this.callProperty('onViewEntering', newVisibleIndex);
       }
     }
+    else {
+      this.callProperty('onViewEntered', step);
+
+      var prev = step-1;
+      var next = step+1;
+
+      if (this.visibleViews[prev]) {
+        this.callProperty('onViewLeft', prev);
+        this.visibleViews[prev] = false;
+      }
+      else if (this.visibleViews[next]) {
+        this.callProperty('onViewLeft', next);
+        this.visibleViews[next] = false;
+      }
+    }
+  },
+
+  callProperty(name) {
+    if (this.props[name])
+      this.props[name].apply(this, Array.prototype.slice.call(arguments, 1));
   },
 
   getTitlesAndContents(views) {
@@ -150,13 +153,12 @@ module.exports = Component('ViewList', {
         key: `title-${i}`,
         left: title[0],
         right: title[2],
-        index: i
+        index: i,
+        active: this.isOnStage(i)
       }, titleBarProps);
 
       curTitleBarProps.style = Object.assign({
-        background: 'transparent',
-        pointerEvents: 'all',
-        display: this.isOnStage(i) ? 'inherit' : 'none'
+        background: 'transparent'
       }, titleBarProps.style);
 
       return (

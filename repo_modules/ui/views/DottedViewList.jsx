@@ -29,9 +29,9 @@ module.exports = Component('DottedViewList', {
       }
     }, this.props);
 
-    var viewEnter = dottedViewProps.onViewEnter;
-    dottedViewProps.onViewEnter = (index) => {
-      if (viewEnter) viewEnter(index);
+    var viewEntered = dottedViewProps.onViewEntered;
+    dottedViewProps.onViewEntered = (index) => {
+      if (viewEntered) viewEntered(index);
       if (this.state.activeViewIndex !== index)
         this.setState({ activeViewIndex: index });
     };
