@@ -9,15 +9,18 @@ module.exports = ViewComponent('ViewMain', {
     this.setInactiveIfNoChildren();
   },
 
-  componentDidReceiveProps() {
-    this.setInactiveIfNoChildren();
+  componentDidUpdate(prevProps) {
+    if (prevProps.children !== this.props.children)
+      this.setInactiveIfNoChildren();
   },
 
   setInactiveIfNoChildren() {
     // todo: better way to determine null component?
     var children = this.refs.ViewMain.getDOMNode().children;
-    if (children.length === 1 && children[0].tagName === 'NOSCRIPT')
+    if (!children || children.length === 1 && children[0].tagName === 'NOSCRIPT')
       this.setState({ inactive: true });
+    else
+      this.setState({ inactive: false });
   },
 
   render() {
@@ -30,7 +33,7 @@ module.exports = ViewComponent('ViewMain', {
       zIndex: this.getZIndexForLayer() + 50
     });
 
-    if (this.state.inactive || this.props.inactive)
+    if (this.props.inactive || this.state.inactive)
       this.addStyles({ pointerEvents: 'none' });
 
     return (
