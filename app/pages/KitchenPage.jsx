@@ -22,7 +22,8 @@ var KitchenPage = module.exports = React.createClass({
             <Link to="modals">Modals</Link>
             <Link to="popovers">Popovers</Link>
             <Link to="forms">Forms</Link>
-            <Link to="grids">Grids</Link>
+            <Link to="tabs">Tabs</Link>
+            <Link to="grids">Grid</Link>
           </List>
 
           <ListTitle>Views</ListTitle>
@@ -31,7 +32,6 @@ var KitchenPage = module.exports = React.createClass({
             <Link to="dottedViewList">Dotted View List</Link>
             <Link to="viewFrosted">Frosted Glass Titlebar</Link>
             <Link to="panels">Drawers &amp; Panels</Link>
-            <Link to="tabs">Tabs</Link>
           </List>
 
           <ListTitle>Suites</ListTitle>

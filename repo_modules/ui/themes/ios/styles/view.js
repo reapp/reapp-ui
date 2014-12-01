@@ -1,10 +1,10 @@
-module.exports = (c) => ({
+module.exports = (vars) => ({
   self: {
-    background: c.bgLight,
+    background: vars.bgLight,
     overflowY: 'scroll',
     overflowX: 'hidden',
     position: 'absolute',
-    top: c.toolbarHeight,
+    top: vars.toolbarHeight,
     left: 0,
     bottom: 0,
     right: 0,

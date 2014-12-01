@@ -1,15 +1,15 @@
-module.exports = {
+module.exports = (vars) => ({
   self: {
-    fontSize: '16px',
-    background: '#fff',
+    background: vars.titleBarBG,
+    borderBottom: `1px solid ${vars.titleBarBorderColor}`,
+    height: vars.titleBarHeight,
+    fontSize: vars.titleBarFontSize,
     textAlign: 'center',
-    borderBottom: '1px solid #ccc',
     position: 'fixed',
     top: 0,
     left: 0,
     width: '100%',
     padding: 0,
-    height: 44,
     flexFlow: 'row',
     fontWeight: 500,
     justifyContent: 'space-between',
@@ -22,6 +22,7 @@ module.exports = {
   },
 
   mid: {
+    color: vars.titleBarColor,
     margin: 'auto 0',
     position: 'relative'
   },
@@ -29,4 +30,4 @@ module.exports = {
   right: {
     margin: 'auto 0'
   }
-};
+});

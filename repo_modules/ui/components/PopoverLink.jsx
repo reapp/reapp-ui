@@ -1,6 +1,6 @@
-var React = require('react');
+var Component = require('ui/component');
 
-var Popover = React.createClass({
+module.exports = Component('PopoverLink', {
   handleClick(e) {
     var popoverEvent = new CustomEvent(`popover-${this.props.to}`, {
       detail: {
@@ -19,5 +19,3 @@ var Popover = React.createClass({
     );
   }
 });
-
-module.exports = Popover;

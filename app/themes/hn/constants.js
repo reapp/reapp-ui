@@ -1,4 +1,7 @@
 module.exports = {
+  titleBarBG: '#ff6600',
+  titleBarColor: '#fff',
+
   // colors
   bgLight: '#efeff4',
   blue: '#307cff',

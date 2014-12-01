@@ -1,6 +1,6 @@
-module.exports = (c) => ({
+module.exports = (vars) => ({
   self: {
-    background: c.bgLight,
+    background: vars.bgLight,
     top: 0,
     right: 0,
     bottom: 0,

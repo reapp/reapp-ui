@@ -1,7 +1,7 @@
 var React = require('react');
 var { Link, RouteHandler } = require('react-router');
+var Layered = require('ui/mixins/Layered');
 var Menu = require('ui/components/Menu');
-var Title = require('ui/components/Title');
 var Button = require('ui/components/Button');
 var LayoutLeftNav = require('ui/views/LayoutLeftNav');
 var DocumentTitle = require('react-document-title');
@@ -12,13 +12,7 @@ var TOOLBAR_HEIGHT = 44;
 var SIDE_WIDTH = 200;
 
 var Layout = React.createClass({
-  style: {
-    button: {
-      position: 'absolute',
-      top: 2,
-      left: 0
-    }
-  },
+  mixins: [Layered],
 
   render() {
     var button = (
@@ -29,7 +23,12 @@ var Layout = React.createClass({
           size: 26,
           type: 'hamburger'
         }}
-        style={this.style.button}
+        style={{
+          position: 'absolute',
+          top: 2,
+          left: 0,
+          zIndex: this.getZIndexForNextLayer() - 1
+        }}
         borderless />
     );
 

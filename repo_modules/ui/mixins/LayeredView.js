@@ -6,10 +6,6 @@ var React = require('react');
 module.exports = {
   isView: true,
 
-  contextTypes: {
-    layer: React.PropTypes.number.isRequired
-  },
-
   childContextTypes: {
     layer: React.PropTypes.number.isRequired
   },

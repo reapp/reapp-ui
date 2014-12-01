@@ -1,5 +1,5 @@
 module.exports = {
   self: {
-    borderBottom: 'none'
+    flexGrow: 1
   }
 };

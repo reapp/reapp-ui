@@ -9,9 +9,7 @@ module.exports = Component('ListItem', {
 
   makeSection(name, content) {
     return content && (
-      <span
-        styles={this.getStyles(name)}
-        className={`ListItem--${name}`}>
+      <span {...this.componentProps(name)}>
         {content}
       </span>
     );
@@ -27,7 +25,6 @@ module.exports = Component('ListItem', {
 
   render() {
     var {
-      className,
       children,
       title,
       titleAfter,
@@ -37,9 +34,6 @@ module.exports = Component('ListItem', {
       wrapper,
       noicon,
       ...props } = this.props;
-
-    var classes = { ListItem: true };
-    classes[className] = !!className;
 
     // make a top level link into a wrapper so it can take up the whole item
     if (!wrapper && this.hasLinkAsChild(children)) {

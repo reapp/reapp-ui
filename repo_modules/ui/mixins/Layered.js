@@ -1,4 +1,10 @@
+var React = require('react');
+
 module.exports = {
+  contextTypes: {
+    layer: React.PropTypes.number.isRequired
+  },
+
   getZIndexFor(layer) {
     return layer * 1000;
   },
@@ -14,4 +20,4 @@ module.exports = {
   getZIndexForPrevLayer() {
     return this.getZIndexFor(this.context.layer - 1);
   }
-}
+};

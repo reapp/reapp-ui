@@ -1,16 +1,15 @@
-var Component = require('ui/component');
+var ViewComponent = require('ui/viewcomponent');
 var TouchableArea = require('../helpers/TouchableArea');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
 var DrawerBehavior = require('./DrawerBehavior');
 var TweenState = require('react-tween-state');
 var { Scroller } = require('scroller');
 
-module.exports = Component('Drawer', {
+module.exports = ViewComponent('Drawer', {
   mixins: [TweenState.Mixin],
 
   getDefaultProps() {
     return {
-      layer: 2, // todo integrate w/ app state & manage index
       behavior: DrawerBehavior,
       parents: null
     };
@@ -105,7 +104,8 @@ module.exports = Component('Drawer', {
 
     this.addClass('closed', this.state.isClosed);
     this.addStyles('dragger', {
-      left: this.state.isClosed ? -10 : 0
+      left: this.state.isClosed ? -10 : 0,
+      zIndex: this.getZIndexForLayer() + 1
     });
 
     return (

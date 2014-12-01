@@ -17,6 +17,8 @@ module.exports = makeTheme(requirer, [
   'Modal',
   'Pad',
   'Popover',
+  'TabItem',
+  'Tabs',
   'TitleBar',
   'View',
   'ViewLeft',

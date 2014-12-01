@@ -86,7 +86,7 @@ module.exports = ViewComponent('LayoutLeftNav', {
       translate: behavior.parent.translate(sideWidth, this.state.scrollLeft),
       rotate: behavior.parent.rotate(sideWidth, this.state.scrollLeft),
       opacity: behavior.parent.opacity(sideWidth, this.state.scrollLeft),
-      style: isNavOpen ? this.getStyles('nav') : null
+      styles: isNavOpen ? this.getStyles('nav') : null
     };
 
     var drawerProps = {

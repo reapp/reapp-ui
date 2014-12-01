@@ -1,8 +1,8 @@
-module.exports = (c) => ({
+module.exports = (vars) => ({
   self: {
     fontSize: '16px',
     background: 'none',
-    border: `1px solid ${c.blue}`, // todo: variables
+    border: `1px solid ${vars.blue}`, // todo: variables
     borderRadius: '5px',
     textAlign: 'center',
     padding: '8px',
