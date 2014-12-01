@@ -26,6 +26,7 @@ module.exports = Component('TabItem', {
     if (typeof icon === 'string')
       icon = (
         <Icon
+          size={(type === 'icon-text-right') ? 24 : 32}
           type={icon}
           styles={this.styles.icon}
           svgProps={{style: { margin: 'auto' }}} />

@@ -1,6 +1,7 @@
 module.exports = {
   self: {
     flexGrow: 1,
+    flexShrink: 0,
     color: '#444'
   },
 
@@ -8,8 +9,11 @@ module.exports = {
     margin: 'auto'
   },
 
-  // styles for icon or text
-  // ${type}-${icon/text}
+  'tab-icon': {
+    margin: 'auto'
+  },
+
+  'tab-icon-text': {},
 
   'icon-text-text': {
     fontSize: '11px',
@@ -17,14 +21,15 @@ module.exports = {
     height: 22
   },
 
-
-  // styles for tabs
-
-  'tab-icon': {
-    margin: 'auto'
+  'tab-icon-text-right': {
+    flexFlow: 'row'
   },
 
-  'tab-icon-text-right': {
+  'icon-text-right-icon': {
+    margin: '0 4px 0 0'
+  },
 
+  'icon-text-right-text': {
+    fontSize: '12px'
   }
 };

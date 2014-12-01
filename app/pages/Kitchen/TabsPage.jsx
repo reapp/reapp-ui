@@ -29,11 +29,17 @@ module.exports = React.createClass({
         <TabItem icon="star" />
       ],
 
-      iconText: [
+      'icon-text': [
         <TabItem icon="mailbox" text="Mailbox" />,
         <TabItem icon="stopwatch" text="Stopwatch" />,
         <TabItem icon="star" text="Star" />
       ],
+
+      'icon-text-right': [
+        <TabItem icon="mailbox" text="Mailbox" />,
+        <TabItem icon="stopwatch" text="Stopwatch" />,
+        <TabItem icon="star" text="Star" />
+      ]
     };
 
     return (
@@ -49,8 +55,8 @@ module.exports = React.createClass({
           <Block>
             <Button onClick={this.handleTabType} data-type="text">Text</Button>
             <Button onClick={this.handleTabType} data-type="icon">Icon</Button>
-            <Button onClick={this.handleTabType} data-type="iconText">Icon + Text</Button>
-            <Button onClick={this.handleTabType} data-type="iconTextRight">Icon + Text (Right)</Button>
+            <Button onClick={this.handleTabType} data-type="icon-text">Icon + Text</Button>
+            <Button onClick={this.handleTabType} data-type="icon-text-right">Icon + Text (Right)</Button>
           </Block>
         </Container>
 
