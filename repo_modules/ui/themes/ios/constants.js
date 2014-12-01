@@ -1,6 +1,13 @@
+var barBG = '#fff';
+
 module.exports = {
+  // Tabs
+  tabsBG: barBG,
+  tabsHeight: '49px',
+  tabsLineHeight: '49px',
+
   // TitleBar
-  titleBarBG: '#fff',
+  titleBarBG: barBG,
   titleBarColor: '#999',
   titleBarBorderColor: '#ccc',
   titleBarHeight: 44,

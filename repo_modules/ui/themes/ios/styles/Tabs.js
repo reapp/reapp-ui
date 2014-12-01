@@ -1,12 +1,12 @@
 module.exports = (vars) => ({
   self: {
-    background: vars.toolbarColor,
+    background: vars.tabsBG,
+    height: vars.tabsHeight,
+    lineHeight: vars.tabsLineHeight,
     position: 'fixed',
     bottom: 0,
     left: 0,
     right: 0,
-    height: 49,
-    lineHeight: '49px',
     flexFlow: 'row',
     margin: 0,
     padding: 0,
