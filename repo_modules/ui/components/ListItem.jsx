@@ -60,18 +60,22 @@ module.exports = Component('ListItem', {
         styles: this.getStyles('wrapper')
       });
 
-      if (hasLinkIcon) {
-        // pad out right side if wrapper
+      // pad out right side if it has a wrapper
+      if (hasLinkIcon)
         this.addStyles({ paddingRight: 20 });
-      }
     }
+
+    var hasTitle = (title || titleAfter);
+
+    if (!hasTitle)
+      this.addStyles('children', this.styles.childrenNoTitle);
 
     var span = this.makeSection;
     var content = [
       span('wrapper', wrapper),
       span('before', before),
       span('content', [
-        (title || titleAfter) && span('titleTop', [
+        hasTitle && span('titleTop', [
           span('title', title),
           span('titleAfter', titleAfter)
         ]),

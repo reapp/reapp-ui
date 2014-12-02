@@ -5,21 +5,29 @@ var DrawerBehavior = require('./DrawerBehavior');
 var TweenState = require('react-tween-state');
 var { Scroller } = require('scroller');
 
+// TODO:
+// fix tweentstate to work
+// look at using transition mixin rather than scroller stuff
+// drawer should support coming/dragging in from any direction
+// Behavior should encompass this
+// tweenState should also integrate with behavior
+
 module.exports = ViewComponent('Drawer', {
   mixins: [TweenState.Mixin],
 
   getDefaultProps() {
     return {
       behavior: DrawerBehavior,
-      parents: null
+      parents: null,
+      closed: false
     };
   },
 
   getInitialState() {
     return {
       externalScroller: !!this.props.scroller,
-      xOffset: 0,
-      isClosed: false
+      offset: 0,
+      closed: this.props.closed
     };
   },
 
@@ -34,8 +42,7 @@ module.exports = ViewComponent('Drawer', {
   },
 
   enter(cb) {
-    console.log('ENTER', this.state.xOffset);
-    this.tweenState('xOffset', {
+    this.tweenState('offset', {
       easing: TweenState.easingTypes.easeInOutQuad,
       duration: 300,
       endValue: window.innerWidth,
@@ -80,8 +87,8 @@ module.exports = ViewComponent('Drawer', {
   handleScroll(left) {
     console.log(left);
     this.setState({
-      xOffset: left,
-      isClosed: left === 0
+      offset: left,
+      closed: left === 0
     });
 
     this.transformParents('translate3d(-' + (left / 2) + 'px, 0, 0)');
@@ -99,12 +106,12 @@ module.exports = ViewComponent('Drawer', {
     var { translate, behavior, scroller, touchableProps, children, ...props } = this.props;
 
     props.translate = (
-      translate || behavior.translate(this.state.xOffset)
+      translate || behavior.translate(this.state.offset)
     );
 
-    this.addClass('closed', this.state.isClosed);
+    this.addClass('closed', this.state.closed);
     this.addStyles('dragger', {
-      left: this.state.isClosed ? -10 : 0,
+      left: this.state.closed ? -10 : 0,
       zIndex: this.getZIndexForLayer() + 1
     });
 

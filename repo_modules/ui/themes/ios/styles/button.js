@@ -1,12 +1,12 @@
-module.exports = (vars) => ({
+module.exports = (c) => ({
   self: {
+    border: `1px solid ${c.buttonBG}`, // todo: variables
+    color: c.buttonBG,
     fontSize: '16px',
     background: 'none',
-    border: `1px solid ${vars.blue}`, // todo: variables
     borderRadius: '5px',
     textAlign: 'center',
     padding: '8px',
-    color: c.blue,
     flexFlow: 'row',
     zoom: 1,
     lineHeight: 'normal',
@@ -21,5 +21,14 @@ module.exports = (vars) => ({
   borderless: {
     border: 'none',
     borderRadius: 0
+  },
+
+  rounded: {
+    borderRadius: '100px'
+  },
+
+  active: {
+    background: c.buttonBG,
+    color: c.buttonActiveColor
   }
 });

@@ -5,7 +5,7 @@ var ViewMain = require('ui/views/ViewMain');
 var ViewLeft = require('ui/views/ViewLeft');
 var Drawer = require('ui/views/Drawer');
 var List = require('ui/components/List');
-var ListTitle = require('ui/components/ListTitle');
+var Title = require('ui/components/Title');
 var TitleBar = require('ui/components/TitleBar');
 
 var KitchenPage = module.exports = React.createClass({
@@ -15,7 +15,7 @@ var KitchenPage = module.exports = React.createClass({
     return (
       <div id="KitchenSink">
         <ViewLeft id="kitchenSinkLeftView" title={this.title}>
-          <ListTitle>Interface</ListTitle>
+          <Title>Interface</Title>
           <List>
             <Link to="controls">Controls</Link>
             <Link to="lists">Lists</Link>
@@ -26,7 +26,7 @@ var KitchenPage = module.exports = React.createClass({
             <Link to="grids">Grid</Link>
           </List>
 
-          <ListTitle>Views</ListTitle>
+          <Title>Views</Title>
           <List>
             <Link to="viewLists">Parallax View List</Link>
             <Link to="dottedViewList">Dotted View List</Link>
@@ -34,7 +34,7 @@ var KitchenPage = module.exports = React.createClass({
             <Link to="panels">Drawers &amp; Panels</Link>
           </List>
 
-          <ListTitle>Suites</ListTitle>
+          <Title>Suites</Title>
           <List>
             <Link to="modals">Graphs</Link>
             <Link to="modals">Maps</Link>

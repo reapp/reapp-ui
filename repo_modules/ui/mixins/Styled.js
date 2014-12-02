@@ -11,32 +11,37 @@ module.exports = function(name) {
       this.makeStyles(this.props.styles);
     },
 
+    // note: we track two styles
+    // this.styles = styles that are added by the component itself
+    // this.propStyles = styles passed in by props
+    // getStyles will return propStyles after regular styles, so users can
+    // override styles set within a component
     makeStyles(propStyles) {
       this.styles = {};
-      var addStyle = (key, style) => {
-        this.styles[key] = (this.styles[key] || []).concat(
-          this.makeReactStyle(style)
-        );
+      this.propStyles = {};
+
+      var addStyle = (obj, key, style) => {
+        obj[key] = (obj[key] || []).concat(this.makeReactStyle(style));
       };
 
       // automatically set zIndex for view layers
       if (this.isView)
-        addStyle('self', {
+        addStyle(this.styles, 'self', {
           zIndex: this.getZIndexForLayer(this.context.layer)
         });
 
       var componentStyles = UI.getStyles(name);
       if (componentStyles)
         componentStyles.forEach(styles => (
-          Object.keys(styles).forEach(key => addStyle(key, styles[key]))
+          Object.keys(styles).forEach(key => addStyle(this.styles, key, styles[key]))
         ));
 
       if (propStyles) {
         if (this.isReactStyle(propStyles))
-          addStyle('self', propStyles);
+          addStyle(this.propStyles, 'self', propStyles);
         else
           Object.keys(propStyles).forEach(key => {
-            addStyle(key, this.makeReactStyle(propStyles[key]));
+            addStyle(this.propStyles, key, this.makeReactStyle(propStyles[key]));
           });
       }
 
@@ -64,7 +69,9 @@ module.exports = function(name) {
         }
       }
 
-      return this.styles[elName];
+      return this.styles[elName] ?
+        this.styles[elName].concat(this.propStyles[elName] || []) :
+        this.propStyles[elName];
     },
 
     addStyles(elName, styles) {

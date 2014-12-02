@@ -10,8 +10,7 @@ module.exports = ViewComponent('View', {
   render() {
     var { children, top, ...props } = this.props;
 
-    console.log('this zindex', this.context.zIndex);
-
+    // todo: this is nasty
     if (top !== 44) {
       this.addStyles({ top: top });
     }

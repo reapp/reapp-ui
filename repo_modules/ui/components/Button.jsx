@@ -7,11 +7,17 @@ module.exports = Component('Button', {
   },
 
   render() {
-    var { transforms, iconProps, borderless, children, type, ...props } = this.props;
+    var { transforms, iconProps, children, type, borderless, rounded, active, ...props } = this.props;
     var hasIconProps = !!iconProps;
 
     if (borderless)
       this.addStyles(this.styles.borderless);
+
+    if (rounded)
+      this.addStyles(this.styles.rounded);
+
+    if (active)
+      this.addStyles(this.styles.active);
 
     iconProps = iconProps || {};
     iconProps.color = iconProps.color || this.getStyleVal('color');

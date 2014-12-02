@@ -9,7 +9,7 @@ module.exports = ViewComponent('ViewLeft', {
     return title ? (
       <div {...this.componentProps()}>
         <TitleBar>{title}</TitleBar>
-        <View {...props} top={0}>
+        <View {...props}>
           {children}
         </View>
       </div>

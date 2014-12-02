@@ -3,7 +3,7 @@ module.exports = {
     fontSize: '13px',
     textTransform: 'uppercase',
     color: '#888',
-    padding: '10px 0 2px 12px',
+    padding: '10px 0 2px 0',
     margin: '15px 0 5px',
     fontWeight: 'normal'
   }

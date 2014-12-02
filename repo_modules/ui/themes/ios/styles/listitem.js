@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = (c) => ({
   self: {
     listStyle: 'none',
     margin: 0,
@@ -8,7 +8,7 @@ module.exports = {
     alignItems: 'center',
     justifyContent: 'space-between',
     minHeight: 44,
-    borderTop: '1px solid #c8c7cc',
+    borderTop: `1px solid ${c.listItemBorderColor}`,
     position: 'relative'
   },
 
@@ -18,7 +18,7 @@ module.exports = {
 
   arrow: {
     margin: 'auto 8px auto 0',
-    color: '#c8c7cc'
+    color: c.listItemBorderColor
   },
 
   wrapper: {
@@ -75,6 +75,10 @@ module.exports = {
     WebkitBoxOrient: 'vertical',
   },
 
+  childrenNoTitle: {
+    fontSize: '17px'
+  },
+
   after: {
     color: '#8e8e93',
     flexShrink: 0,
@@ -82,4 +86,4 @@ module.exports = {
     whiteSpace: 'nowrap',
     alignSelf: 'stretch'
   },
-};
+});

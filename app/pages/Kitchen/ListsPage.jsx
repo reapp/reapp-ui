@@ -6,7 +6,7 @@ var { Container } = require('ui/components/Grid');
 var List = require('ui/components/List');
 var Icon = require('ui/components/Icon');
 var Badge = require('ui/components/Badge');
-var ListTitle = require('ui/components/ListTitle');
+var Title = require('ui/components/Title');
 var ListItem = require('ui/components/ListItem');
 var { Link } = require('react-router');
 
@@ -22,7 +22,7 @@ module.exports = React.createClass({
           <p>ListViewPage View</p>
         </Container>
 
-        <ListTitle>Mail Style Media List</ListTitle>
+        <Title>Mail Style Media List</Title>
         <List>
           <ListItem
             title="Facebook"
@@ -36,7 +36,7 @@ module.exports = React.createClass({
           </ListItem>
         </List>
 
-        <ListTitle>Simple Media List</ListTitle>
+        <Title>Simple Media List</Title>
         <List>
           <ListItem
             before={icon}
@@ -49,7 +49,7 @@ module.exports = React.createClass({
             wrapper={<a href="http://google.com" />} />
         </List>
 
-        <ListTitle>List with Icons</ListTitle>
+        <Title>List with Icons</Title>
         <List>
           <ListItem
             before={icon}
@@ -69,14 +69,14 @@ module.exports = React.createClass({
           </ListItem>
         </List>
 
-        <ListTitle>List with Links</ListTitle>
+        <Title>List with Links</Title>
         <List>
           <Link to="modals">Modals</Link>
           <Link to="popovers">Popovers</Link>
           <Link to="tabs">Tabs</Link>
         </List>
 
-        <ListTitle>Grouped with Sticky Titles</ListTitle>
+        <Title>Grouped with Sticky Titles</Title>
         <List title="A">
           {['Adam', 'Alex', 'Annabel']}
         </List>
@@ -87,7 +87,7 @@ module.exports = React.createClass({
           {['Clay', 'Cody', 'Crawford']}
         </List>
 
-        <ListTitle>Inset</ListTitle>
+        <Title>Inset</Title>
         <List type="inset">
           <a href="http://google.com">Google</a>
           <Link to="popovers">Popovers</Link>

@@ -19,6 +19,7 @@
     "react-router": "^0.11.4",
     "react-style": "git+https://github.com/js-next/react-style#0.4",
     "rest": "git+https://github.com/cujojs/rest#f40242a43a3db826af",
+    "react-forms": "git+https://github.com/prometheusresearch/react-forms#5ddf54781fff",
     "scroller": "^0.0.2",
     "lodash-node": "^2.4.1",
     "react-document-title": "^0.1.1",

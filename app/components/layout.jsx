@@ -21,13 +21,14 @@ var Layout = React.createClass({
         iconProps={{
           stroke: 1,
           size: 26,
-          type: 'hamburger'
+          type: 'hamburger',
+          shapeRendering: 'crispEdges'
         }}
         style={{
           position: 'absolute',
           top: 2,
           left: 0,
-          zIndex: this.getZIndexForNextLayer() - 1
+          zIndex: this.getZIndexForLayer() + 10
         }}
         borderless />
     );
