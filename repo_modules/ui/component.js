@@ -7,10 +7,10 @@ var UI = require('./index');
 
 module.exports = function(name, spec) {
   var mixins = [].concat(
-    spec.mixins || [],
     Layered,
     Styled(name),
     Classed(name),
+    spec.mixins || [],
     {
       // allow access to layers
       contextTypes: {

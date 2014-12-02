@@ -26,4 +26,4 @@ module.exports = {
     left: 200,
     marginLeft: 0
   }
-}
+};

@@ -1,23 +1,7 @@
 var React = require('react');
 
 module.exports = {
-  contextTypes: {
-    layer: React.PropTypes.number.isRequired
-  },
-
-  getZIndexFor(layer) {
-    return layer * 1000;
-  },
-
-  getZIndexForLayer() {
-    return this.context.layer * 1000;
-  },
-
-  getZIndexForNextLayer() {
-    return this.getZIndexFor(this.context.layer + 1);
-  },
-
-  getZIndexForPrevLayer() {
-    return this.getZIndexFor(this.context.layer - 1);
+  getLayer() {
+    return this._mountDepth * 100 + (this.props.index || 0) * 10;
   }
 };

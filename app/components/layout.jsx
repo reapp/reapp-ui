@@ -28,7 +28,7 @@ var Layout = React.createClass({
           position: 'absolute',
           top: 2,
           left: 0,
-          zIndex: this.getZIndexForLayer() + 10
+          zIndex: this.getLayer() + 10
         }}
         borderless />
     );

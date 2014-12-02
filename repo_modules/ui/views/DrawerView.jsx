@@ -7,12 +7,12 @@ var TitleBar = require('../components/TitleBar');
 
 var DrawerView = ViewComponent('DrawerView', {
   render() {
-    var { title, styles, ...props } = this.props;
+    var { title, viewProps, ...props } = this.props;
 
     return (
       <Drawer {...props}>
         {title && <TitleBar>{title}</TitleBar>}
-        <View styles={styles}>
+        <View {...viewProps}>
           {this.props.children}
         </View>
       </Drawer>

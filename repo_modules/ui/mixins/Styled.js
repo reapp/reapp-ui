@@ -24,12 +24,6 @@ module.exports = function(name) {
         obj[key] = (obj[key] || []).concat(this.makeReactStyle(style));
       };
 
-      // automatically set zIndex for view layers
-      if (this.isView)
-        addStyle(this.styles, 'self', {
-          zIndex: this.getZIndexForLayer(this.context.layer)
-        });
-
       var componentStyles = UI.getStyles(name);
       if (componentStyles)
         componentStyles.forEach(styles => (

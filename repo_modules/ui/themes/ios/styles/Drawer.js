@@ -1,13 +1,14 @@
-module.exports = (vars) => ({
+module.exports = (c) => ({
   self: {
-    background: vars.bgLight,
+    background: c.bgLight,
     top: 0,
     right: 0,
     bottom: 0,
     left: 0,
     position: 'fixed',
     marginLeft: '100%',
-    width: '100%'
+    width: '100%',
+    pointerEvents: 'all'
   },
 
   dragger: {

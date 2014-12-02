@@ -112,14 +112,14 @@ module.exports = ViewComponent('Drawer', {
     this.addClass('closed', this.state.closed);
     this.addStyles('dragger', {
       left: this.state.closed ? -10 : 0,
-      zIndex: this.getZIndexForLayer() + 1
+      // zIndex: this.getZIndexForLayer() + 1
     });
 
     return (
       <AnimatableContainer {...props} {...this.componentProps()}>
+        {children}
         <TouchableArea {...this.componentProps('dragger')} {...touchableProps}
           scroller={scroller || this.scroller} />
-        {children}
       </AnimatableContainer>
     );
   }

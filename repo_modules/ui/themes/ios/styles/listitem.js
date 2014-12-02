@@ -23,7 +23,6 @@ module.exports = (c) => ({
 
   wrapper: {
     position: 'absolute',
-    zIndex: 2,
     top: 0,
     left: -10,
     right: 0,

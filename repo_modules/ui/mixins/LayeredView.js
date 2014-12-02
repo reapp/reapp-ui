@@ -6,13 +6,10 @@ var React = require('react');
 module.exports = {
   isView: true,
 
-  childContextTypes: {
-    layer: React.PropTypes.number.isRequired
-  },
-
-  getChildContext() {
-    return {
-      layer: (this.context.layer || 0) + 1
-    };
+  componentWillMount() {
+    this.addStyles({
+      zIndex: this.getLayer()
+    });
+    console.log(this.styles);
   }
 };
