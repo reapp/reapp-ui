@@ -9,9 +9,9 @@ module.exports = ViewComponent('ViewMain', {
   render() {
     var { children, hasChild, ...props } = this.props;
 
-    // this.addStyles({
-    //   zIndex: this.getZIndexForLayer() + 50
-    // });
+    this.addStyles({
+      zIndex: this._mountDepth
+    });
 
     if (this.props.inactive || this.state.inactive)
       this.addStyles({ pointerEvents: 'none' });

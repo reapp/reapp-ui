@@ -11,7 +11,6 @@ var ENV = require('./ENV');
 // UI
 require('./themes/appTheme');
 
-ReactStyle.inject();
 React.initializeTouchEvents(true);
 
 var fetchAllData = (routes, params) => {

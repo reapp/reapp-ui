@@ -27,7 +27,7 @@ module.exports = function(name) {
 
       if (key) {
         classSet = classSet || {};
-        classSet[`${this.className}--${key}`] = true;
+        classSet[this.getClassName(key)] = true;
       }
 
       return cx(classSet);
@@ -40,6 +40,14 @@ module.exports = function(name) {
 
     removeClass(name) {
       this.classes[name] = false;
+    },
+
+    getClassName(key) {
+      return !key ? this.className : `${this.className}--${key}`;
+    },
+
+    getSelector(key) {
+      return '.' + this.getClassName(key);
     }
   };
 };
