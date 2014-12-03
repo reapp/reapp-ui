@@ -1,6 +1,7 @@
 var React = require('react');
 var ViewComponent = require('ui/viewcomponent');
 var TitleBar = require('../components/TitleBar');
+var StaticContainer = require('../helpers/StaticContainer');
 
 module.exports = ViewComponent('View', {
   childContextTypes: {
@@ -35,7 +36,9 @@ module.exports = ViewComponent('View', {
           <TitleBar {...titleBarProps} index={index}>{title}</TitleBar>
         )}
         <div {...props} {...this.componentProps('inner')}>
-          {children}
+          <StaticContainer shouldUpdate={this.getAnimationStep() % 1 === 0}>
+            {children}
+          </StaticContainer>
         </div>
       </div>
     );

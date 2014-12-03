@@ -70,11 +70,6 @@ module.exports = Component('ViewList', {
     window.removeEventListener('resize', this.setupDimensions);
   },
 
-  // shouldComponentUpdate() {
-  //   // don't render between steps (when animating)
-  //   return this.state.step % 1 === 0;
-  // },
-
   componentWillReceiveProps(nextProps) {
     // if not changing views
     if (nextProps.initialStep === this.props.initialStep)
@@ -218,9 +213,7 @@ module.exports = Component('ViewList', {
     } = this.props;
 
     if (hasTitles)
-      Object.assign(titleBarProps, {
-        styles: { background: 'none' }
-      }, titleBarProps);
+      titleBarProps.styles = { self: { background: 'none' } };
 
     var viewListProps = Object.assign({
       touchStartBounds,
@@ -247,7 +240,9 @@ module.exports = Component('ViewList', {
     return (
       <TouchableArea {...this.componentProps()} {...viewListProps}>
         {hasTitles && (
-          <div styles={this.getStylesForComponent('TitleBar')} />
+          <div
+            className="ViewList__fakeTitle"
+            styles={this.getStylesForComponent('TitleBar')} />
         )}
         {before}
         {clonedChildren}

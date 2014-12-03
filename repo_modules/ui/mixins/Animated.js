@@ -15,11 +15,21 @@ module.exports = {
     return UI.getAnimations()[name];
   },
 
+  getAnimationStep() {
+    return defined(this.props.step) ?
+      this.props.step :
+      this.context.step;
+  },
+
+  getAnimationIndex() {
+    return defined(this.props.index) ?
+      this.props.index :
+      this.context.index;
+  },
+
   getAnimationStyles(name) {
-    var index = this.props.index;
-    if (!defined(index)) index = this.context.index;
-    var step = this.props.step;
-    if (!defined(step)) step = this.context.step;
+    var step = this.getAnimationStep();
+    var index = this.getAnimationIndex();
 
     Invariant(typeof step === 'number' && typeof index === 'number',
       'Must have defined step and index in either props or context to run an animation');

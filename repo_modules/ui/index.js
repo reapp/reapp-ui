@@ -1,9 +1,17 @@
-var invariant = require('react/lib/invariant');
+var Invariant = require('react/lib/invariant');
 
 module.exports = {
   theme: {},
   animations: {},
   constants: {},
+
+  constantsHelpers: {
+    _toRGB(hex) {
+      var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      Invariant(result, `Could not convert hex ${hex} to rgb`);
+      return `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}`;
+    }
+  },
 
   setup(opts) {
     var { constants, themes, animations } = opts;
@@ -20,6 +28,8 @@ module.exports = {
     Object.keys(constantObj).forEach(key => {
       this.constants[key] = constantObj[key];
     });
+
+    Object.assign(this.constants, this.constantsHelpers);
   },
 
   addAnimation(animationObj) {
@@ -36,7 +46,7 @@ module.exports = {
     delete styles.__requireFunc;
     var styleKeys = Object.keys(styles);
 
-    invariant(!(include && exclude), 'Cannot define include and exclude');
+    Invariant(!(include && exclude), 'Cannot define include and exclude');
 
     this.addThemeStyles(requireFunc,
       include && include.length ?

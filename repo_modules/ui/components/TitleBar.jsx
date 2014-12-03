@@ -68,6 +68,8 @@ module.exports = Component('TitleBar', {
 
     this.addStyles(this.getAnimationStyles(animation));
 
+    window.TitleBar = this;
+
     return (
       <div {...props} {...this.componentProps()}>
         <div {...this.componentProps('left')}>{left}</div>

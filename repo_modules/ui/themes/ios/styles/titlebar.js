@@ -1,9 +1,9 @@
-module.exports = (vars) => ({
+module.exports = (c) => ({
   self: {
-    background: vars.titleBarBG,
-    borderBottom: `1px solid ${vars.titleBarBorderColor}`,
-    height: vars.titleBarHeight,
-    fontSize: vars.titleBarFontSize,
+    background: c.titleBarBG,
+    borderBottom: `1px solid ${c.titleBarBorderColor}`,
+    height: c.titleBarHeight,
+    fontSize: c.titleBarFontSize,
     textAlign: 'center',
     position: 'fixed',
     top: 0,
@@ -23,7 +23,7 @@ module.exports = (vars) => ({
   },
 
   mid: {
-    color: vars.titleBarColor,
+    color: c.titleBarColor,
     margin: 'auto 0',
     position: 'relative'
   },

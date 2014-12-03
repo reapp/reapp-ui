@@ -13,6 +13,7 @@ var BackButton = module.exports = React.createClass({
 
   render() {
     var iconProps = Object.assign({
+      shapeRendering: 'crispEdges',
       size: 18,
       type: 'left',
       stroke: 2,
