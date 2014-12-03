@@ -60,7 +60,7 @@ module.exports = {
   // so we can conditionally require styles later
   makeTheme(requireFunc, components) {
     var styles = {};
-    styles['__requireFunc'] = requireFunc;
+    styles.__requireFunc = requireFunc;
 
     components.forEach(key => {
       styles[key] = true;

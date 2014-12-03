@@ -5,6 +5,9 @@ module.exports = UI.setup({
     require('ui/themes/ios/constants'),
     // require('./hn/constants')
   ],
+  animations: [
+    require('ui/themes/ios/animations')
+  ],
   themes: [
     {
       styles: require('ui/themes/ios/theme'),

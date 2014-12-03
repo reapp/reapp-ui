@@ -15,7 +15,7 @@ module.exports = ViewComponent('View', {
     var {
       children,
       title,
-      transform,
+      animation,
       index,
       width,
       containerProps,
@@ -26,8 +26,8 @@ module.exports = ViewComponent('View', {
     if (!title)
       this.addStyles('inner', { top: 0 });
 
-    if (transform)
-      this.addStyles('inner', this.getAnimationStyles(transform));
+    if (animation)
+      this.addStyles('inner', this.getAnimationStyles(animation));
 
     return (
       <div {...containerProps} {...this.componentProps()}>

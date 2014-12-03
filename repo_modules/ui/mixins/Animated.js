@@ -1,9 +1,8 @@
 var UI = require('../index');
 var StyleKeys = require('../lib/StyleKeys');
+var Invariant = require('react/lib/invariant');
 
-function defined(variable) {
-  return typeof variable !== 'undefined';
-}
+var defined = variable => (typeof variable !== 'undefined');
 
 module.exports = {
   getAnimation(name) {
@@ -11,22 +10,26 @@ module.exports = {
   },
 
   getAnimationStyles(name) {
-    var index = this.props.index || this.context.index;
-    var step = this.props.step || this.context.step;
-    var { scale, rotate, translate, ...other } = this.getAnimation(name)(index, step);
+    var index = this.props.index;
+    if (!defined(index)) index = this.context.index;
+    var step = this.props.step;
+    if (!defined(step)) step = this.context.step;
 
-    var styles = [];
-    var transformStyle = getTransformStyle(scale, rotate, translate);
+    Invariant(typeof step === 'number' && typeof index === 'number',
+      'Must have defined step and index in either props or context to run an animation');
 
-    if (transformStyle) {
-      var transformStyles = {};
-      transformStyles[StyleKeys.TRANSFORM] = transforms;
-      styles.push(transformStyles);
-    }
+    var animation = this.getAnimation(name);
+    var { scale, rotate, translate, ...other } = animation.call(this, index, step);
+    var styles = {};
+    var transformStyle = this.getTransformStyle(scale, rotate, translate);
+
+    if (transformStyle)
+      styles[StyleKeys.TRANSFORM] = transformStyle;
 
     if (other)
-      styles.push(other);
+      Object.assign(styles, other);
 
+    console.log(styles);
     return styles;
   },
 

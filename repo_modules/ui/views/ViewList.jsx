@@ -2,18 +2,17 @@ var React = require('react/addons');
 var Component = require('ui/component');
 var { Scroller } = require('scroller');
 var TouchableArea = require('../helpers/TouchableArea');
-var Transforms = require('../lib/Transforms');
 var { Promise } = require('when');
 
 module.exports = Component('ViewList', {
   // we pass down step so elements nested inside the views
   // can access them for their own animations
   childContextTypes: {
-    viewStep: React.PropTypes.number
+    step: React.PropTypes.number
   },
 
   getChildContext() {
-    return { viewStep: this.state.step };
+    return { step: this.state.step };
   },
 
   propTypes: {
@@ -32,7 +31,7 @@ module.exports = Component('ViewList', {
       height,
       resizeWithWindow: true,
       initialStep: 0,
-      transform: 'VIEW_PARALLAX',
+      animation: 'VIEW_PARALLAX',
       scrollerProps: {
         animationDuration: 300,
         paging: true,
@@ -69,10 +68,10 @@ module.exports = Component('ViewList', {
     window.removeEventListener('resize', this.setupDimensions);
   },
 
-  shouldComponentUpdate() {
-    // don't render between steps (when animating)
-    return this.state.step % 1 === 0;
-  },
+  // shouldComponentUpdate() {
+  //   // don't render between steps (when animating)
+  //   return this.state.step % 1 === 0;
+  // },
 
   componentWillReceiveProps(nextProps) {
     // if not changing views
@@ -103,7 +102,6 @@ module.exports = Component('ViewList', {
     this.scroller.setSnapSize(width, height);
     this.scroller.setDimensions(width, height, width * children.length, height);
     this.setState({ children });
-    this.findTransforms(props);
   },
 
   setupDimensions() {
@@ -135,7 +133,6 @@ module.exports = Component('ViewList', {
 
     var step = this.state.width ? left / this.state.width : 0;
     this.setState({ step: step });
-    this._doTransforms(step);
     this.runViewCallbacks(step);
   },
 
@@ -214,7 +211,7 @@ module.exports = Component('ViewList', {
       before,
       touchStartBounds,
       children,
-      transform,
+      animation,
       titleBarProps,
       ...props
     } = this.props;
@@ -232,8 +229,9 @@ module.exports = Component('ViewList', {
     var clonedChildren = React.Children.map(this.state.children, (view, i) => {
       return React.isValidElement(view) && React.addons.cloneWithProps(view, {
         titleBarProps,
-        transform,
+        animation,
         index: i,
+        step: this.state.step,
         width: this.state.width,
       });
     });
