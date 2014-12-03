@@ -1,6 +1,5 @@
 var React = require('react');
-var DrawerView = require('ui/views/DrawerView');
-var TitleBar = require('ui/components/TitleBar');
+var View = require('ui/views/View');
 var BackButton = require('ui/components/buttons/BackButton');
 var { Container } = require('ui/components/Grid');
 var List = require('ui/components/List');
@@ -14,10 +13,9 @@ module.exports = React.createClass({
   render() {
     var icon = <Icon type="contact" size="28" />;
     var badge = <Badge value="5" />;
-    var title = [<BackButton />, 'Lists'];
 
     return (
-      <DrawerView id="ListViewPage" title={title}>
+      <View {...this.props} title={[<BackButton />, 'Lists Page']}>
         <Container>
           <p>ListViewPage View</p>
         </Container>
@@ -78,13 +76,13 @@ module.exports = React.createClass({
 
         <Title>Grouped with Sticky Titles</Title>
         <List title="A">
-          {['Adam', 'Alex', 'Annabel']}
+          {['Adam', 'Alix', 'Annabel']}
         </List>
         <List title="B">
-          {['Blair', 'Brenda', 'Byron']}
+          {['Billy', 'Brenda', 'Byron']}
         </List>
         <List title="C">
-          {['Clay', 'Cody', 'Crawford']}
+          {['Clay', 'Cody', 'Crystal']}
         </List>
 
         <Title>Inset</Title>
@@ -93,7 +91,7 @@ module.exports = React.createClass({
           <Link to="popovers">Popovers</Link>
           <Link to="tabs">Tabs</Link>
         </List>
-      </DrawerView>
+      </View>
     );
   }
 });

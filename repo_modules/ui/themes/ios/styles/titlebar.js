@@ -14,7 +14,8 @@ module.exports = (vars) => ({
     fontWeight: 500,
     justifyContent: 'space-between',
     WebkitBackfaceVisibility: 'hidden',
-    WebkitTransform: 'translateZ(0)'
+    WebkitTransform: 'translateZ(0)',
+    zIndex: 10
   },
 
   left: {

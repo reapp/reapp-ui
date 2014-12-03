@@ -1,23 +1,21 @@
 var ViewComponent = require('ui/viewcomponent');
+var TitleBar = require('../components/TitleBar');
 
 module.exports = ViewComponent('View', {
-  getDefaultProps() {
-    return {
-      top: 44
-    };
-  },
-
   render() {
-    var { children, top, ...props } = this.props;
-
-    // todo: this is nasty
-    if (top !== 44) {
-      this.addStyles({ top: top });
-    }
+    var { children, title, transform, index, width, containerProps, ...props } = this.props;
 
     return (
-      <div {...props} {...this.componentProps()}>
-        {children}
+      <div {...containerProps} {...this.componentProps()}>
+        {title && (
+          <TitleBar index={index}>{title}</TitleBar>
+        )}
+        <div {...props} {...this.componentProps('inner')}
+          data-transform={transform}
+          data-transform-index={index}
+          data-width={width}>
+          {children}
+        </div>
       </div>
     );
   }

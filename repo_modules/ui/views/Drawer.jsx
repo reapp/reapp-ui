@@ -85,7 +85,9 @@ module.exports = ViewComponent('Drawer', {
   },
 
   handleScroll(left) {
-    console.log('handleScroll', left);
+    if (left === this.state.offset)
+      return;
+
     this.setState({
       offset: left,
       closed: left === 0

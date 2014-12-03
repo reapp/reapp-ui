@@ -1,4 +1,3 @@
 module.exports = {
-  after: {
-  }
+  lastViewLeftID: 0
 };

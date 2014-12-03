@@ -29,7 +29,8 @@ module.exports = (c) => ({
     bottom: 0,
     maxWidth: 'none',
     flexFlow: 'row',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    zIndex: 1
   },
 
   before: {

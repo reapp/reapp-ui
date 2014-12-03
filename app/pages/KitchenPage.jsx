@@ -1,20 +1,23 @@
 var React = require('react/addons');
 var Transition = React.addons.TransitionGroup;
-var { Link, RouteHandler } = require('react-router');
-var ViewMain = require('ui/views/ViewMain');
-var ViewLeft = require('ui/views/ViewLeft');
+var { Link, RouteHandler, State } = require('react-router');
+var ParallaxViewList = require('ui/views/ParallaxViewList');
+var View = require('ui/views/View');
 var Drawer = require('ui/views/Drawer');
 var List = require('ui/components/List');
 var Title = require('ui/components/Title');
 var TitleBar = require('ui/components/TitleBar');
 
-var KitchenPage = module.exports = React.createClass({
-  title: 'Kitchen Sink',
+module.exports = React.createClass({
+  mixins: [State],
 
   render() {
+    var numRoutes = this.getRoutes().length;
+    var hasChild = numRoutes > 2;
+
     return (
-      <div id="KitchenSink">
-        <ViewLeft id="kitchenSinkLeftView" title={this.title}>
+      <ParallaxViewList initialStep={numRoutes - 2}>
+        <View title="Kitchen Sink">
           <Title>Interface</Title>
           <List>
             <Link to="controls">Controls</Link>
@@ -39,12 +42,10 @@ var KitchenPage = module.exports = React.createClass({
             <Link to="modals">Graphs</Link>
             <Link to="modals">Maps</Link>
           </List>
-        </ViewLeft>
+        </View>
 
-        <ViewMain>
-          <RouteHandler {...this.props} />
-        </ViewMain>
-      </div>
+        {hasChild && <RouteHandler {...this.props} />}
+      </ParallaxViewList>
     );
   }
 });

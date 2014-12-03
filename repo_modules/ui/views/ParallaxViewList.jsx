@@ -4,7 +4,7 @@ var ViewList = require('./ViewList');
 module.exports = React.createClass({
   render() {
     var width = this.props.width || window.innerWidth;
-    var parallaxProps = Object.assign({
+    var props = Object.assign({
       transform: 'VIEW_PARALLAX',
       touchStartBounds: {
         // touchable only on the edges
@@ -16,7 +16,7 @@ module.exports = React.createClass({
     }, this.props);
 
     return (
-      <ViewList {...parallaxProps} />
+      <ViewList {...props} />
     );
   }
 });

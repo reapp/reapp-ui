@@ -10,6 +10,14 @@ var WINDOW_HEIGHT = window.innerHeight;
 
 Transforms.BaseMixin = {
   componentDidMount() {
+    this.findTransforms();
+  },
+
+  componentWillReceiveProps(nextProps) {
+    this.findTransforms();
+  },
+
+  findTransforms() {
     var node = this.getDOMNode();
     if (!node) return;
 
@@ -22,11 +30,6 @@ Transforms.BaseMixin = {
       this._transforms = nodes;
       this._doTransforms(0);
     });
-  },
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.step)
-      this._doTransforms(nextProps.step);
   },
 
   _getElementsWithTransforms(nodes, node, index, cb) {
@@ -94,7 +97,7 @@ Transforms.TransformerMixin = Object.assign({},
       if (!this._transforms) return;
       this._transforms.forEach(transform => {
         // performance: ensure we are within 1 step before doing animations
-        if (transform.index > step-1 && transform.index < step+1)
+        if (transform.index >= step-1 && transform.index <= step+1)
           this._transformElement(transform, step);
       });
     }
