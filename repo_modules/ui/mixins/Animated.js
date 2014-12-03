@@ -1,3 +1,4 @@
+var React = require('react');
 var UI = require('../index');
 var StyleKeys = require('../lib/StyleKeys');
 var Invariant = require('react/lib/invariant');
@@ -5,6 +6,11 @@ var Invariant = require('react/lib/invariant');
 var defined = variable => (typeof variable !== 'undefined');
 
 module.exports = {
+  contextTypes: {
+    index: React.PropTypes.number,
+    step: React.PropTypes.number
+  },
+
   getAnimation(name) {
     return UI.getAnimations()[name];
   },
@@ -29,7 +35,6 @@ module.exports = {
     if (other)
       Object.assign(styles, other);
 
-    console.log(styles);
     return styles;
   },
 

@@ -29,9 +29,11 @@ module.exports = Component('ViewList', {
     return {
       width,
       height,
+      hasTitles: true,
       resizeWithWindow: true,
       initialStep: 0,
       animation: 'VIEW_PARALLAX',
+      titleBarProps: {},
       scrollerProps: {
         animationDuration: 300,
         paging: true,
@@ -92,7 +94,6 @@ module.exports = Component('ViewList', {
   },
 
   setupScroller(props) {
-    console.log('setupScroller', props);
     var { width, height, children, scrollerProps } = props;
     children = children.filter(child => !!child);
 
@@ -126,7 +127,6 @@ module.exports = Component('ViewList', {
   },
 
   handleScroll(left) {
-    console.log('handleScroll', left);
     // don't scroll if we only have one view
     if (this.state.children.length === 1 && this.state.step === 0)
       return;
@@ -213,8 +213,14 @@ module.exports = Component('ViewList', {
       children,
       animation,
       titleBarProps,
+      hasTitles,
       ...props
     } = this.props;
+
+    if (hasTitles)
+      Object.assign(titleBarProps, {
+        styles: { background: 'none' }
+      }, titleBarProps);
 
     var viewListProps = Object.assign({
       touchStartBounds,
@@ -225,7 +231,6 @@ module.exports = Component('ViewList', {
       onClick: this.handleClick
     }, props);
 
-    console.log('render', this.state);
     var clonedChildren = React.Children.map(this.state.children, (view, i) => {
       return React.isValidElement(view) && React.addons.cloneWithProps(view, {
         titleBarProps,
@@ -241,6 +246,9 @@ module.exports = Component('ViewList', {
 
     return (
       <TouchableArea {...this.componentProps()} {...viewListProps}>
+        {hasTitles && (
+          <div styles={this.getStylesForComponent('TitleBar')} />
+        )}
         {before}
         {clonedChildren}
         {after}

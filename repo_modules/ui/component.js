@@ -8,6 +8,7 @@ var UI = require('./index');
 
 module.exports = function(name, spec) {
   var mixins = [].concat(
+    // React.addons.PureRenderMixin,
     Layered,
     Animated,
     Styled(name),
@@ -31,5 +32,10 @@ module.exports = function(name, spec) {
 
   spec.displayName = name;
   spec.mixins = mixins;
+
+  // allow checking for "isName" on all components
+  spec.statics = (spec.statics || {});
+  spec.statics[`is${name}`] = true;
+
   return React.createClass(spec);
 };

@@ -6,6 +6,12 @@ var AnimatableContainer = require('../helpers/AnimatableContainer');
 require('./TitleBar.styl');
 
 module.exports = Component('TitleBar', {
+  getDefaultProps() {
+    return {
+      animation: 'FADE_LEFT'
+    };
+  },
+
   componentDidMount() {
     this.centerMiddleTitle();
   },
@@ -24,16 +30,21 @@ module.exports = Component('TitleBar', {
     }
   },
 
-  addIconTransform(component) {
-    return React.isValidElement(component) ?
-      React.addons.cloneWithProps(component, {
-        iconProps: Object.assign({}, { transforms: 'MOVE_TO_RIGHT' }, component.props.iconProps)
-      }) :
-      component;
+  addIconAnimation(component) {
+    if (React.isValidElement(component) && component.type.isButton) {
+      var iconProps = Object.assign(
+        { animation: 'MOVE_TO_RIGHT' },
+        component.props.iconProps
+      );
+
+      return React.addons.cloneWithProps(component, { iconProps });
+    }
+
+    return component;
   },
 
   render() {
-    var { children, index, active, height, ...props } = this.props;
+    var { animation, children, index, active, height, ...props } = this.props;
     var left, mid, right;
 
     // Allow a 3 arity array as children rather than setting left and right props
@@ -49,16 +60,16 @@ module.exports = Component('TitleBar', {
     }
 
     // add icon transitions for left and right
-    left = this.addIconTransform(left);
-    right = this.addIconTransform(right);
+    left = this.addIconAnimation(left);
+    right = this.addIconAnimation(right);
 
     if (height)
       this.addStyles({ height });
 
+    this.addStyles(this.getAnimationStyles(animation));
+
     return (
-      <div {...props} {...this.componentProps()}
-        data-transform="FADE_LEFT"
-        data-transform-index={index}>
+      <div {...props} {...this.componentProps()}>
         <div {...this.componentProps('left')}>{left}</div>
         <div {...this.componentProps('mid')}>{mid}</div>
         <div {...this.componentProps('right')}>{right}</div>

@@ -11,7 +11,16 @@ module.exports = Component('Icon', {
   },
 
   render() {
-    var { size, type, color, stroke, shapeRendering, svgProps, ...props } = this.props;
+    var {
+      animation,
+      size,
+      type,
+      color,
+      stroke,
+      shapeRendering,
+      svgProps,
+      ...props
+    } = this.props;
 
     svgProps = Object.assign({
       style: Object.assign({
@@ -38,6 +47,9 @@ module.exports = Component('Icon', {
       height: size,
       overflow: 'hidden'
     }, props.style);
+
+    if (animation)
+      this.addStyles(this.getAnimationStyles(animation));
 
     return (
       <span {...props} {...this.componentProps()}>
