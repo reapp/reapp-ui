@@ -1,5 +1,5 @@
 var React = require('react');
-var DrawerView = require('ui/views/DrawerView');
+var View = require('ui/views/View');
 var Drawer = require('ui/views/Drawer');
 var { Container, Block } = require('ui/components/Grid');
 var BackButton = require('ui/components/buttons/BackButton');
@@ -22,7 +22,7 @@ module.exports = React.createClass({
     var title = [<BackButton />, this.title];
 
     return (
-      <DrawerView title={title}>
+      <View {...this.props} title={title}>
         <h3>{this.title}</h3>
         <p>Panels slide out from a side of the screen</p>
         <Container>
@@ -33,7 +33,7 @@ module.exports = React.createClass({
 
         <Drawer closed={this.state.bottomClosed}>
         </Drawer>
-      </DrawerView>
+      </View>
     );
   }
 });

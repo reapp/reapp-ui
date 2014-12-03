@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactStyle = require('react-style');
-var DrawerView = require('ui/views/DrawerView');
+var View = require('ui/views/View');
 var BackButton = require('ui/components/buttons/BackButton');
 var Button = require('ui/components/Button');
 var ButtonRow = require('ui/components/ButtonRow');
@@ -10,7 +10,7 @@ var { Container, Block } = require('ui/components/Grid');
 module.exports = React.createClass({
   render() {
     return (
-      <DrawerView title={[<BackButton />, "Forms"]}>
+      <View {...this.props} title={[<BackButton />, "Forms"]}>
         <Container>
           <Title>Buttons</Title>
         </Container>
@@ -32,7 +32,7 @@ module.exports = React.createClass({
             <Button>Button</Button>
           </ButtonRow>
         </Container>
-      </DrawerView>
+      </View>
     );
   }
 });

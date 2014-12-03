@@ -1,5 +1,5 @@
 var React = require('react');
-var DrawerView = require('ui/views/DrawerView');
+var View = require('ui/views/View');
 var Tabs = require('ui/components/Tabs');
 var TabItem = require('ui/components/TabItem');
 var Button = require('ui/components/Button');
@@ -43,7 +43,7 @@ module.exports = React.createClass({
     };
 
     return (
-      <DrawerView id="TabsPage" title={[<BackButton />, "TabsPage"]}>
+      <View {...this.props} id="TabsPage" title={[<BackButton />, "TabsPage"]}>
         <Container>
           <Block>
             <h3>Tabs</h3>
@@ -63,7 +63,7 @@ module.exports = React.createClass({
         <Tabs type={this.state.tabsType}>
           {tabContents[this.state.tabsType]}
         </Tabs>
-      </DrawerView>
+      </View>
     );
   }
 });

@@ -1,5 +1,5 @@
 var React = require('react');
-var DrawerView = require('ui/views/DrawerView');
+var View = require('ui/views/View');
 var Popover = require('ui/components/Popover');
 var PopoverLink = require('ui/components/PopoverLink');
 var TitleBar = require('ui/components/TitleBar');
@@ -17,7 +17,7 @@ module.exports = React.createClass({
     );
 
     return (
-      <DrawerView id="PopoversPage" title={[<BackButton />, 'Popovers', menu]}>
+      <View {...this.props} id="PopoversPage" title={[<BackButton />, 'Popovers', menu]}>
         <Block>
           <p>Popovers are <PopoverLink to="popover1">menus</PopoverLink> that
           will float above an element that triggers them. Apple recommends
@@ -29,7 +29,7 @@ module.exports = React.createClass({
           <Link to="popovers">Popovers</Link>
           <Link to="tabs">Tabs</Link>
         </Popover>
-      </DrawerView>
+      </View>
     );
   }
 });

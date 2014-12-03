@@ -1,5 +1,5 @@
 var React = require('react');
-var DrawerView = require('ui/views/DrawerView');
+var View = require('ui/views/View');
 var BackButton = require('ui/components/buttons/BackButton');
 var { Container, Block } = require('ui/components/Grid');
 
@@ -17,8 +17,7 @@ module.exports = React.createClass({
     };
 
     return (
-      <DrawerView
-        id="GridsPage"
+      <View {...this.props}
         styles={this.styles}
         title={[<BackButton />, "Grid System"]}>
 
@@ -60,7 +59,7 @@ module.exports = React.createClass({
           <Block>5</Block>
           <Block>6</Block>
         </Container>
-      </DrawerView>
+      </View>
     );
   }
 });

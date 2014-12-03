@@ -1,5 +1,5 @@
 var React = require('react');
-var DrawerView = require('ui/views/DrawerView');
+var View = require('ui/views/View');
 var Modal = require('ui/components/Modal');
 var Button = require('ui/components/Button');
 var BackButton = require('ui/components/buttons/BackButton');
@@ -32,7 +32,7 @@ module.exports = React.createClass({
     }
 
     return (
-      <DrawerView title={[<BackButton />, "Modals"]}>
+      <View {...this.props} title={[<BackButton />, "Modals"]}>
         <Container>
           <p>These are replicas of the native Alert, Prompt and Confirm modals.</p>
         </Container>
@@ -42,7 +42,7 @@ module.exports = React.createClass({
           <Button onClick={this.handleConfirm}>Confirm</Button>
         </Container>
         {modal}
-      </DrawerView>
+      </View>
     );
   }
 });

@@ -1,5 +1,5 @@
 var React = require('react');
-var Drawer = require('ui/views/Drawer');
+var View = require('ui/views/View');
 var TitleBar = require('ui/components/TitleBar');
 var BackButton = require('ui/components/buttons/BackButton');
 var Block = require('ui/components/Block');
@@ -110,7 +110,7 @@ module.exports = React.createClass({
     );
 
     return (
-      <Drawer id="ListViewPage">
+      <View {...this.props} id="ListViewPage">
         <TouchableArea scroller={this.scroller}>
           <FrostedGlassContainer
             className="GlassPage-container"
@@ -122,7 +122,7 @@ module.exports = React.createClass({
             </AnimatableContainer>
           </FrostedGlassContainer>
         </TouchableArea>
-      </Drawer>
+      </View>
     );
   }
 });
