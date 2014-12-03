@@ -5,6 +5,9 @@ module.exports = ViewComponent('View', {
   render() {
     var { children, title, transform, index, width, containerProps, ...props } = this.props;
 
+    if (!title)
+      this.addStyles('inner', { top: 0 });
+
     return (
       <div {...containerProps} {...this.componentProps()}>
         {title && (

@@ -3,63 +3,64 @@ var { RouteHandler, State } = require('react-router');
 var Actions = require('actions/Actions');
 var List = require('ui/components/List');
 var ListItem = require('ui/components/ListItem');
-var ViewLeft = require('ui/views/ViewLeft');
-var ViewMain = require('ui/views/ViewMain');
+var ViewList = require('ui/views/ViewList');
+var View = require('ui/views/View');
 var DottedViewList = require('ui/views/DottedViewList');
 var ArticleItem = require('./ArticleItem');
 var HotArticlesStore = require('stores/HotArticlesStore');
 
 require('./Articles.styl');
 
-function handleLoadMore(e) {
-  e.preventDefault();
-  e.target.innerHTML = 'Loading...';
-  Actions.loadMoreHotArticles();
-}
-
-function setViewContents(view, hotArticlesList, articlesStore) {
-  var articles = hotArticlesList
-    .map(id => articlesStore.get(id.toString()))
-    .filter(x => typeof x !== 'undefined');
-
-  view.content = !articles.count() ? (
-    <List>
-      <ListItem style={{textAlign: 'center'}}>Loading...</ListItem>
-    </List>
-  ) : (
-    <List dontWrap={true}>
-      {articles
-        .map(article => ArticleItem(`AI-${view.id}-${article.get('id')}`, article))
-        .toArray()
-        .concat([
-          <ListItem style={{textAlign:'center'}} onClick={handleLoadMore}>Load More</ListItem>
-        ])
-      }
-    </List>
-  );
-}
-
 module.exports = Component('Articles', [State],
   function render(props) {
-    var { cursor, views } = props;
+    var { cursor, views, ...rest } = props;
+
+    var handleLoadMore = (e) => {
+      e.preventDefault();
+      e.target.innerHTML = 'Loading...';
+      Actions.loadMoreHotArticles();
+    };
+
+    var numRoutes = this.getRoutes().length;
+    var hasChild = numRoutes > 2;
     var subRouteKey = this.getRoutes().reverse()[0].name + this.getParams().id;
 
-    setViewContents(views[0], HotArticlesStore(), cursor);
+    var articles = HotArticlesStore()
+      .map(id => cursor.get(id.toString()))
+      .filter(x => typeof x !== 'undefined');
+
+    var hasArticles = articles.count();
 
     return (
-      <div id="ArticlesPage">
-        <ViewLeft id="articlesLeftView">
-          <DottedViewList
-            views={views}
-            onViewLeave={this.handleViewLeave}
-            onViewEnter={this.handleViewEnter}
-            onTouchStart={this.handleTouchStart} />
-        </ViewLeft>
+      <ViewList initialStep={numRoutes - 2}>
+        <View>
+          <DottedViewList>
+            <View title="Hot Articles">
+              {!hasArticles && (
+                <List>
+                  <ListItem style={{textAlign: 'center'}}>Loading...</ListItem>
+                </List>
+              )}
 
-        <ViewMain>
-          <RouteHandler key={subRouteKey} />
-        </ViewMain>
-      </div>
+              {hasArticles && (
+                <List dontWrap={true}>
+                  {articles
+                    .map(article => ArticleItem(`AI-${article.get('id')}`, article))
+                    .toArray()
+                    .concat([
+                      <ListItem style={{textAlign:'center'}} onClick={handleLoadMore}>Load More</ListItem>
+                    ])
+                  }
+                </List>
+              )}
+            </View>
+
+            <View title="Top Articles" />
+          </DottedViewList>
+        </View>
+
+        {hasChild && <RouteHandler {...rest} key={subRouteKey} />}
+      </ViewList>
     );
   }
 );

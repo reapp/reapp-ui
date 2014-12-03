@@ -38,7 +38,7 @@ module.exports = Component('DottedViewList', {
 
     var dots = (
       <Dots
-        total={this.props.views.length}
+        total={this.props.children.length}
         active={this.state.activeViewIndex}
         styles={this.getStyles('dots')} />
     );

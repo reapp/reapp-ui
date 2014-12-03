@@ -17,12 +17,20 @@ module.exports = Component('ViewList', {
   },
 
   getDefaultProps() {
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+
     return {
+      width,
+      height,
+      resizeWithWindow: true,
       initialStep: 0,
       transform: 'VIEW_PARALLAX',
       touchStartBounds: {
+        // touchable only on the left and right edges
         x: [
-          { from: 0, to: 10 } // draggable only from left edge
+          { from: 0, to: 10 },
+          { from: width - 10, to: width }
         ]
       }
     };
@@ -30,7 +38,8 @@ module.exports = Component('ViewList', {
 
   getInitialState() {
     return {
-      width: 0,
+      width: this.props.width,
+      height: this.props.height,
       step: this.props.initialStep
     };
   },
@@ -41,6 +50,14 @@ module.exports = Component('ViewList', {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.setupDimensions);
+  },
+
+  setupDimensions() {
+    if (this.props.resizeWithWindow)
+      this.setState({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
   },
 
   // only update on even steps
@@ -70,14 +87,8 @@ module.exports = Component('ViewList', {
     this.numViews = props.children.filter(view => !!view).length;
   },
 
-  setupDimensions(props) {
-    var width = props.width || window.innerWidth;
-    var height = props.height || window.innerHeight;
-    this.setState({ width, height });
-  },
-
   setupScroller(props) {
-    var { width, height } = this.state;
+    var { width, height } = this.props;
 
     this.scroller = new Scroller(this.handleScroll, {
       paging: true,

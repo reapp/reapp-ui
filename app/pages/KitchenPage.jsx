@@ -1,7 +1,7 @@
 var React = require('react/addons');
 var Transition = React.addons.TransitionGroup;
 var { Link, RouteHandler, State } = require('react-router');
-var ParallaxViewList = require('ui/views/ParallaxViewList');
+var ViewList = require('ui/views/ViewList');
 var View = require('ui/views/View');
 var Drawer = require('ui/views/Drawer');
 var List = require('ui/components/List');
@@ -16,7 +16,7 @@ module.exports = React.createClass({
     var hasChild = numRoutes > 2;
 
     return (
-      <ParallaxViewList initialStep={numRoutes - 2}>
+      <ViewList initialStep={numRoutes - 2}>
         <View title="Kitchen Sink">
           <Title>Interface</Title>
           <List>
@@ -45,7 +45,7 @@ module.exports = React.createClass({
         </View>
 
         {hasChild && <RouteHandler {...this.props} />}
-      </ParallaxViewList>
+      </ViewList>
     );
   }
 });
