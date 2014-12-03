@@ -3,13 +3,9 @@ var ViewList = require('./ViewList');
 var Dots = require('../components/Dots');
 
 module.exports = Component('DottedViewList', {
-  getInitialState() {
-    return { activeViewIndex: 0 };
-  },
-
-  render() {
-    var width = this.props.width || window.innerWidth;
-    var dottedViewProps = Object.assign({
+  getDefaultProps() {
+    return {
+      transform: 'VIEW_SIDE_BY_SIDE',
       titleBarProps: {
         height: 48,
         styles: {
@@ -19,32 +15,39 @@ module.exports = Component('DottedViewList', {
           }
         }
       },
-      width: width,
-      transform: 'VIEW_SIDE_BY_SIDE',
       touchStartBounds: {
+        // everything but the left edge
         x: {
-          from: 10, // exclude left edge
-          to: width
+          from: 10,
+          to: window.innerWidth
         }
       }
-    }, this.props);
+    };
+  },
 
-    var viewEntered = dottedViewProps.onViewEntered;
-    dottedViewProps.onViewEntered = (index) => {
-      if (viewEntered) viewEntered(index);
+  getInitialState() {
+    return { activeViewIndex: 0 };
+  },
+
+  render() {
+    var viewEntered = this.props.onViewEntered;
+    this.props.onViewEntered = (index) => {
+      if (viewEntered)
+        viewEntered(index);
       if (this.state.activeViewIndex !== index)
         this.setState({ activeViewIndex: index });
     };
 
-    var dots = (
-      <Dots
-        total={this.props.children.length}
-        active={this.state.activeViewIndex}
-        styles={this.getStyles('dots')} />
-    );
-
     return (
-      <ViewList {...this.componentProps()} {...dottedViewProps} after={dots} />
+      <ViewList
+        {...this.componentProps()}
+        {...this.props}
+        after={(
+          <Dots
+            total={this.props.children.length}
+            active={this.state.activeViewIndex}
+            styles={this.getStyles('dots')} />
+        )} />
     );
   }
 });

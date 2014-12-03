@@ -1,10 +1,8 @@
 var React = require('react/addons');
 var Component = require('ui/component');
 var { Scroller } = require('scroller');
-var TitleBar = require('../components/TitleBar');
 var TouchableArea = require('../helpers/TouchableArea');
 var Transforms = require('../lib/Transforms');
-var View = require('./View');
 
 module.exports = Component('ViewList', {
   mixins: [Transforms.TransformerMixin],
@@ -190,11 +188,20 @@ module.exports = Component('ViewList', {
 
   render() {
     window.ViewList = this;
-    var { after, before, touchStartBounds, children, transform, ...props } = this.props;
+    var {
+      after,
+      before,
+      touchStartBounds,
+      children,
+      transform,
+      titleBarProps,
+      ...props
+    } = this.props;
+
     var viewListProps = Object.assign({
+      touchStartBounds,
       ignoreY: true,
       scroller: this.scroller,
-      touchStartBounds: touchStartBounds,
       onTouchStart: this.handleTouchStart,
       onTouchEnd: this.handleTouchEnd,
       onClick: this.handleClick
@@ -202,9 +209,10 @@ module.exports = Component('ViewList', {
 
     clonedChildren = React.Children.map(this.filterEmpty(children), (view, i) => {
       return view && React.addons.cloneWithProps(view, {
+        titleBarProps,
+        transform,
         index: i,
-        transform: transform,
-        width: this.state.width
+        width: this.state.width,
       });
     });
 

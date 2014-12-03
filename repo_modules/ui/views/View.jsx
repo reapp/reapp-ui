@@ -3,7 +3,16 @@ var TitleBar = require('../components/TitleBar');
 
 module.exports = ViewComponent('View', {
   render() {
-    var { children, title, transform, index, width, containerProps, ...props } = this.props;
+    var {
+      children,
+      title,
+      transform,
+      index,
+      width,
+      containerProps,
+      titleBarProps,
+      ...props
+    } = this.props;
 
     if (!title)
       this.addStyles('inner', { top: 0 });
@@ -11,7 +20,7 @@ module.exports = ViewComponent('View', {
     return (
       <div {...containerProps} {...this.componentProps()}>
         {title && (
-          <TitleBar index={index}>{title}</TitleBar>
+          <TitleBar {...titleBarProps} index={index}>{title}</TitleBar>
         )}
         <div {...props} {...this.componentProps('inner')}
           data-transform={transform}
