@@ -10,14 +10,14 @@ var WINDOW_HEIGHT = window.innerHeight;
 
 Transforms.BaseMixin = {
   componentDidMount() {
-    this.findTransforms();
+    this.findTransforms(this.props);
   },
 
   componentWillReceiveProps(nextProps) {
-    this.findTransforms();
+    this.findTransforms(nextProps);
   },
 
-  findTransforms() {
+  findTransforms(props) {
     var node = this.getDOMNode();
     if (!node) return;
 
@@ -26,7 +26,7 @@ Transforms.BaseMixin = {
       Number(node.hasAttribute('data-transform'))
     );
 
-    this._getElementsWithTransforms([], node, this.props.index, nodes => {
+    this._getElementsWithTransforms([], node, props.index, nodes => {
       this._transforms = nodes;
       this._doTransforms(0);
     });

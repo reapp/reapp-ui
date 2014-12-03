@@ -52,6 +52,7 @@ module.exports = Component('ViewList', {
   },
 
   componentDidMount() {
+    this.setupScroller(this.props);
     window.addEventListener('resize', this.setupDimensions);
   },
 
@@ -82,30 +83,27 @@ module.exports = Component('ViewList', {
     }
   },
 
-  componentWillMount() {
-    this.setupScroller(this.props);
-  },
-
   setupScroller(props) {
     var { width, height, children, scrollerProps } = props;
-
     children = children.filter(child => !!child);
-
-    this.setState({ children });
 
     this.setupDimensions();
     this.setupViewEnterStates();
-
     this.scroller = new Scroller(this.handleScroll, scrollerProps);
     this.scroller.setSnapSize(width, height);
-    this.scroller.setDimensions(
-      width, height, // view size
-      width * children.length, height // total size
-    );
+    this.scroller.setDimensions(width, height, width * children.length, height);
+    this.setState({ children });
+    this.findTransforms(props);
   },
 
   setupDimensions() {
-    if (!this.props.resizeWithWindow)
+    if (
+      !this.props.resizeWithWindow ||
+      (
+        this.state.width === window.innerWidth &&
+        this.state.height === window.innerHeight
+      )
+    )
       return;
 
     this.setState({
@@ -120,6 +118,7 @@ module.exports = Component('ViewList', {
   },
 
   handleScroll(left) {
+    console.log('handleScroll', left);
     // don't scroll if we only have one view
     if (this.state.children.length === 1 && this.state.step === 0)
       return;
@@ -127,10 +126,10 @@ module.exports = Component('ViewList', {
     var step = this.state.width ? left / this.state.width : 0;
     this.setState({ step: step });
     this._doTransforms(step);
-    this.visibleViewCallbacks(step);
+    this.runViewCallbacks(step);
   },
 
-  visibleViewCallbacks(step) {
+  runViewCallbacks(step) {
     if (step % 1 !== 0) {
       var newVisibleIndex = [ Math.floor(step), Math.ceil(step) ]
         .filter(i => !this.visibleViews[i])[0];
@@ -194,7 +193,7 @@ module.exports = Component('ViewList', {
   scrollToView(index) {
     this.scroller.scrollTo(this.state.width * index, 0, true);
     return new Promise(res => {
-      setTimeout(res, this.props.scrollerProps.animationDuration);
+      setTimeout(res, this.props.scrollerProps.animationDuration + 1);
     });
   },
 
@@ -219,8 +218,9 @@ module.exports = Component('ViewList', {
       onClick: this.handleClick
     }, props);
 
+    console.log('render', this.state);
     var clonedChildren = React.Children.map(this.state.children, (view, i) => {
-      return view && React.addons.cloneWithProps(view, {
+      return React.isValidElement(view) && React.addons.cloneWithProps(view, {
         titleBarProps,
         transform,
         index: i,
