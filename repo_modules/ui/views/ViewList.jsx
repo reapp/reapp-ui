@@ -3,6 +3,7 @@ var Component = require('ui/component');
 var { Scroller } = require('scroller');
 var TouchableArea = require('../helpers/TouchableArea');
 var Transforms = require('../lib/Transforms');
+var { Promise } = require('when');
 
 module.exports = Component('ViewList', {
   mixins: [Transforms.TransformerMixin],
@@ -21,6 +22,7 @@ module.exports = Component('ViewList', {
     return {
       width,
       height,
+      animationDuration: 300,
       resizeWithWindow: true,
       initialStep: 0,
       transform: 'VIEW_PARALLAX',
@@ -36,6 +38,8 @@ module.exports = Component('ViewList', {
 
   getInitialState() {
     return {
+      // We put children in state, to animate them out
+      children: this.props.children,
       width: this.props.width,
       height: this.props.height,
       step: this.props.initialStep
@@ -50,24 +54,22 @@ module.exports = Component('ViewList', {
     window.removeEventListener('resize', this.setupDimensions);
   },
 
-  setupDimensions() {
-    if (this.props.resizeWithWindow)
-      this.setState({
-        width: window.innerWidth,
-        height: window.innerHeight
-      });
-  },
-
-  // only update on even steps
   shouldComponentUpdate(nextProps, nextState) {
+    // only update on even steps
     return nextState.step % 1 === 0;
   },
 
-  componentWillReceiveProps(nextProps) {
-    this.setup(nextProps);
+  componentDidUpdate() {
+    // this.setupDimensions();
+  },
 
+  componentWillReceiveProps(nextProps) {
     if (nextProps.initialStep !== this.props.initialStep)
-      this.scrollToView(nextProps.initialStep);
+      this.scrollToView(nextProps.initialStep).then(() => {
+        this.setup(nextProps);
+      });
+    else
+      this.setup(nextProps);
   },
 
   componentWillMount() {
@@ -75,20 +77,31 @@ module.exports = Component('ViewList', {
   },
 
   setup(props) {
-    this.countViews(props);
-    this.setupViewEnterStates(props);
-    this.setupDimensions(props);
+    this.setState({ children: props.children });
+    this.countViews();
+    this.setupViewEnterStates();
     this.setupScroller(props);
   },
 
+  setupDimensions() {
+    if (!this.props.resizeWithWindow)
+      return;
+
+    this.setState({
+      width: window.innerWidth,
+      height: window.innerHeight
+    });
+  },
+
   countViews(props) {
-    this.numViews = props.children.filter(view => !!view).length;
+    this.numViews = this.state.children.filter(view => !!view).length;
   },
 
   setupScroller(props) {
     var { width, height } = this.props;
 
     this.scroller = new Scroller(this.handleScroll, {
+      animationDuration: props.animationDuration,
       paging: true,
       bouncing: false,
       scrollingY: false
@@ -105,8 +118,8 @@ module.exports = Component('ViewList', {
     this.scrollToView(props.initialStep);
   },
 
-  setupViewEnterStates(props) {
-    this.visibleViews = this.filterEmpty(props.children).map(v => false);
+  setupViewEnterStates() {
+    this.visibleViews = this.filterEmpty(this.state.children).map(v => false);
     this.visibleViews[0] = true;
   },
 
@@ -184,6 +197,9 @@ module.exports = Component('ViewList', {
 
   scrollToView(index) {
     this.scroller.scrollTo(this.state.width * index, 0, true);
+    return new Promise(res => {
+      setTimeout(res, this.props.animationDuration);
+    });
   },
 
   render() {
@@ -207,7 +223,8 @@ module.exports = Component('ViewList', {
       onClick: this.handleClick
     }, props);
 
-    clonedChildren = React.Children.map(this.filterEmpty(children), (view, i) => {
+    var stateChildren = this.filterEmpty(this.state.children);
+    var clonedChildren = React.Children.map(stateChildren, (view, i) => {
       return view && React.addons.cloneWithProps(view, {
         titleBarProps,
         transform,

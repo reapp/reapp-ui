@@ -3,10 +3,8 @@ var Transition = React.addons.TransitionGroup;
 var { Link, RouteHandler, State } = require('react-router');
 var ViewList = require('ui/views/ViewList');
 var View = require('ui/views/View');
-var Drawer = require('ui/views/Drawer');
 var List = require('ui/components/List');
 var Title = require('ui/components/Title');
-var TitleBar = require('ui/components/TitleBar');
 
 module.exports = React.createClass({
   mixins: [State],
@@ -49,5 +47,3 @@ module.exports = React.createClass({
     );
   }
 });
-
-// {Handler && <div className="drawer-parent">{Handler}</div>}
