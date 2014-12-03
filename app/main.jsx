@@ -39,7 +39,11 @@ function renderSync() {
 function renderAsync() {
   Router.run(Routes, Router.HistoryLocation, (Handler, state) => {
     render(Handler, state);
-    fetchAllData(state.routes, state.params).then(data => render(Handler, data));
+    fetchAllData(state.routes, state.params).then(data => {
+      // only re-render if we fetched data
+      if (Object.keys(data).length)
+        render(Handler, data);
+    });
   });
 }
 
