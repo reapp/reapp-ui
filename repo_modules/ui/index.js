@@ -2,12 +2,16 @@ var invariant = require('react/lib/invariant');
 
 module.exports = {
   theme: {},
+  animations: {},
   constants: {},
 
   setup(opts) {
-    var { constants, themes } = opts;
+    var { constants, themes, animations } = opts;
 
-    constants && constants.forEach(this.addConstants.bind(this));
+    if (constants)
+      constants.forEach(this.addConstants.bind(this));
+
+    animations.forEach(this.addAnimation.bind(this));
     themes.forEach(this.addTheme.bind(this));
   },
 
@@ -15,6 +19,12 @@ module.exports = {
   addConstants(constantObj) {
     Object.keys(constantObj).forEach(key => {
       this.constants[key] = constantObj[key];
+    });
+  },
+
+  addAnimation(animationObj) {
+    Object.keys(animationObj).forEach(key => {
+      this.animations[key] = animationObj[key];
     });
   },
 
@@ -69,5 +79,9 @@ module.exports = {
 
   getConstants() {
     return this.constants;
+  },
+
+  getAnimations() {
+    return this.animations;
   }
 };

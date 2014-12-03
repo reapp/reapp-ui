@@ -13,9 +13,9 @@ Transforms.BaseMixin = {
     this.findTransforms(this.props);
   },
 
-  componentWillReceiveProps(nextProps) {
-    this.findTransforms(nextProps);
-  },
+  // componentWillReceiveProps(nextProps) {
+  //   this.findTransforms(nextProps);
+  // },
 
   findTransforms(props) {
     var node = this.getDOMNode();

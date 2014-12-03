@@ -6,7 +6,15 @@ var Transforms = require('../lib/Transforms');
 var { Promise } = require('when');
 
 module.exports = Component('ViewList', {
-  mixins: [Transforms.TransformerMixin],
+  // we pass down step so elements nested inside the views
+  // can access them for their own animations
+  childContextTypes: {
+    viewStep: React.PropTypes.number
+  },
+
+  getChildContext() {
+    return { viewStep: this.state.step };
+  },
 
   propTypes: {
     onTouchStart: React.PropTypes.func,
@@ -53,6 +61,7 @@ module.exports = Component('ViewList', {
 
   componentDidMount() {
     this.setupScroller(this.props);
+    this.handleScroll(this.props.initialStep * this.state.width);
     window.addEventListener('resize', this.setupDimensions);
   },
 
@@ -61,7 +70,7 @@ module.exports = Component('ViewList', {
   },
 
   shouldComponentUpdate() {
-    // only update on even steps
+    // don't render between steps (when animating)
     return this.state.step % 1 === 0;
   },
 
@@ -73,7 +82,7 @@ module.exports = Component('ViewList', {
     // if advancing views
     if (nextProps.initialStep > this.state.step) {
       this.setupScroller(nextProps);
-      this.scrollToView(nextProps.initialStep);
+      // this.scrollToView(nextProps.initialStep);
     }
     // if regressing views
     else {
@@ -84,6 +93,7 @@ module.exports = Component('ViewList', {
   },
 
   setupScroller(props) {
+    console.log('setupScroller', props);
     var { width, height, children, scrollerProps } = props;
     children = children.filter(child => !!child);
 
