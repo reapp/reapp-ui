@@ -3,10 +3,6 @@ var Component = require('ui/component');
 var Icon = require('./Icon');
 
 module.exports = Component('ListItem', {
-  statics: {
-    isListItem: true
-  },
-
   makeSection(name, content) {
     return content && (
       <span {...this.componentProps(name)}>

@@ -1,8 +1,9 @@
 var React = require('react/addons');
 var Component = require('ui/component');
 var { Scroller } = require('scroller');
-var TouchableArea = require('../helpers/TouchableArea');
 var { Promise } = require('when');
+var TouchableArea = require('../helpers/TouchableArea');
+var CloneChildren = require('../lib/CloneChildren');
 
 module.exports = Component('ViewList', {
   // we pass down step so elements nested inside the views
@@ -29,13 +30,13 @@ module.exports = Component('ViewList', {
     return {
       width,
       height,
-      hasTitles: true,
+      noTitleBar: false,
       resizeWithWindow: true,
       initialStep: 0,
       animation: 'VIEW_PARALLAX',
       titleBarProps: {},
       scrollerProps: {
-        animationDuration: 300,
+        animationDuration: 350,
         paging: true,
         bouncing: false,
         scrollingY: false
@@ -62,7 +63,7 @@ module.exports = Component('ViewList', {
 
   componentDidMount() {
     this.setupScroller(this.props);
-    this.handleScroll(this.props.initialStep * this.state.width);
+    this.scroller.setPosition(this.state.step * this.state.width, 0);
     window.addEventListener('resize', this.setupDimensions);
   },
 
@@ -78,7 +79,7 @@ module.exports = Component('ViewList', {
     // if advancing views
     if (nextProps.initialStep > this.state.step) {
       this.setupScroller(nextProps);
-      // this.scrollToView(nextProps.initialStep);
+      this.scrollToView(nextProps.initialStep);
     }
     // if regressing views
     else {
@@ -93,7 +94,7 @@ module.exports = Component('ViewList', {
     children = children.filter(child => !!child);
 
     this.setupDimensions();
-    this.setupViewEnterStates();
+    this.setupViewEnterStates(children);
     this.scroller = new Scroller(this.handleScroll, scrollerProps);
     this.scroller.setSnapSize(width, height);
     this.scroller.setDimensions(width, height, width * children.length, height);
@@ -101,27 +102,27 @@ module.exports = Component('ViewList', {
   },
 
   setupDimensions() {
-    if (
-      !this.props.resizeWithWindow ||
-      (
-        this.state.width === window.innerWidth &&
-        this.state.height === window.innerHeight
-      )
-    )
-      return;
-
-    this.setState({
-      width: window.innerWidth,
-      height: window.innerHeight
-    });
+    if (this.props.resizeWithWindow)
+      this.setState({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
   },
 
-  setupViewEnterStates() {
-    this.visibleViews = this.state.children.map(v => false);
+  setupViewEnterStates(children) {
+    this.visibleViews = children.map(v => false);
     this.visibleViews[0] = true;
   },
 
+  // ignore first scroll event because scroller sucks
+  ignoreScroll: true,
+
   handleScroll(left) {
+    if (this.ignoreScroll) {
+      this.ignoreScroll = !this.ignoreScroll;
+      return;
+    }
+
     // don't scroll if we only have one view
     if (this.state.children.length === 1 && this.state.step === 0)
       return;
@@ -195,8 +196,16 @@ module.exports = Component('ViewList', {
   scrollToView(index) {
     this.scroller.scrollTo(this.state.width * index, 0, true);
     return new Promise(res => {
-      setTimeout(res, this.props.scrollerProps.animationDuration + 1);
+      setTimeout(res, this.props.scrollerProps.animationDuration);
     });
+  },
+
+  makeFakeTitleBar() {
+    var titleBarStyles = this.getStylesForComponent('TitleBar');
+    if (this.props.titleBarProps.height)
+      titleBarStyles.push(this.makeReactStyle({ height: this.props.titleBarProps.height }));
+
+    return <div className="ViewList__fakeTitleBar" styles={titleBarStyles} />;
   },
 
   render() {
@@ -208,11 +217,11 @@ module.exports = Component('ViewList', {
       children,
       animation,
       titleBarProps,
-      hasTitles,
+      noTitleBar,
       ...props
     } = this.props;
 
-    if (hasTitles)
+    if (!noTitleBar)
       titleBarProps.styles = { self: { background: 'none' } };
 
     var viewListProps = Object.assign({
@@ -239,11 +248,7 @@ module.exports = Component('ViewList', {
 
     return (
       <TouchableArea {...this.componentProps()} {...viewListProps}>
-        {hasTitles && (
-          <div
-            className="ViewList__fakeTitle"
-            styles={this.getStylesForComponent('TitleBar')} />
-        )}
+        {!noTitleBar && this.makeFakeTitleBar()}
         {before}
         {clonedChildren}
         {after}

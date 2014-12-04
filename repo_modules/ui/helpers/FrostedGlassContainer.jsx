@@ -1,6 +1,7 @@
 var React = require('react/addons');
 var FrostedGlassView = require('ui/views/FrostedGlassView');
 var StyleKeys = require('ui/lib/StyleKeys');
+var CloneChildren = require('../lib/CloneChildren');
 
 var GlassContainer = React.createClass({
   displayName: 'GlassContainer',
@@ -27,10 +28,10 @@ var GlassContainer = React.createClass({
     for (var key in this.props.overlays) {
       var overlay = this.props.overlays[key];
 
-      // TODO: this is somewhat of an anti-pattern: cloneChildren() should create the
+      // TODO: this is somewhat of an anti-pattern: CloneChildren() should create the
       // children with the correct props. But I'm too lazy to build the correct deep
       // merger. And this isn't that bad since this component owns the props anyway.
-      var clonedChildren = cloneChildren(this.props.children);
+      var clonedChildren = CloneChildren(this.props.children);
 
       clonedChildren.props = shallowCopy(clonedChildren.props);
       clonedChildren.props.style = shallowCopy(clonedChildren.props.style || {});
@@ -77,29 +78,5 @@ function shallowCopy(x) {
   }
   return y;
 }
-
-function cloneChildren(children) {
-  if (React.isValidElement(children)) {
-    return cloneComponent(children);
-  } else if (Array.isArray(children)) {
-    return children.map(cloneComponent);
-  } else if (!children) {
-    return null;
-  } else {
-    var r = {};
-    for (var k in children) {
-      if (!children.hasOwnProperty(k)) {
-        continue;
-      }
-      r[k] = cloneComponent(children[k]);
-    }
-    return r;
-  }
-}
-
-function cloneComponent(component) {
-  return React.addons.cloneWithProps(component);
-}
-
 
 module.exports = GlassContainer;

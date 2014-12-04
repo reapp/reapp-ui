@@ -15,11 +15,6 @@ module.exports = function(name, spec) {
     Classed(name),
     spec.mixins || [],
     {
-      // allow access to layers
-      contextTypes: {
-        layer: React.PropTypes.number.isRequired
-      },
-
       componentProps(componentName) {
         return {
           ref: componentName || name,

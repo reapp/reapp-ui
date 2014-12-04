@@ -32,7 +32,7 @@ module.exports = Component('Articles', [State],
     var hasArticles = articles.count();
 
     return (
-      <ViewList initialStep={numRoutes - 2}>
+      <ViewList initialStep={numRoutes - 2} noTitleBar>
         <View>
           <DottedViewList>
             <View title="Hot Articles">
