@@ -15,7 +15,7 @@ module.exports = (c) => ({
     justifyContent: 'space-between',
     WebkitBackfaceVisibility: 'hidden',
     WebkitTransform: 'translateZ(0)',
-    zIndex: 10
+    zIndex: 2
   },
 
   left: {

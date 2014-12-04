@@ -1,5 +1,13 @@
 var React = require('react');
 
 module.exports = {
-  isView: true
+  childContextTypes: {
+    layer: React.PropTypes.number
+  },
+
+  getChildContext() {
+    return {
+      layer: (this.context.layer++ || 1)
+    };
+  }
 };

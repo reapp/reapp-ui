@@ -1,5 +1,6 @@
-module.exports = {
+module.exports = (c) => ({
   self: {
+    background: c.bgLight,
     position: 'absolute',
     top: 0,
     left: 0,
@@ -11,4 +12,4 @@ module.exports = {
   underTouchable: {
     zIndex: 1
   }
-};
+});

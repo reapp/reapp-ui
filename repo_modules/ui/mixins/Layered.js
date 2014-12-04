@@ -1,7 +1,11 @@
 var React = require('react');
 
 module.exports = {
-  getLayer(modifier) {
-    return 1;
+  contextTypes: {
+    layer: React.PropTypes.number
+  },
+
+  getLayer() {
+    return (this.context.layer || 1);
   }
 };

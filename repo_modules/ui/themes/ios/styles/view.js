@@ -5,8 +5,9 @@ module.exports = (c) => ({
     left: 0,
     bottom: 0,
     right: 0,
-    pointerEvents: 'all',
-    WebkitOverflowScrolling: 'touch'
+    pointerEvents: 'none',
+    WebkitOverflowScrolling: 'touch',
+    zIndex: 2
   },
 
   inner: {
@@ -19,6 +20,6 @@ module.exports = (c) => ({
     overflowX: 'hidden',
     left: 0,
     bottom: 0,
-    right: 0,
+    right: 0
   }
 });

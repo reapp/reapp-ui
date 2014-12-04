@@ -18,17 +18,25 @@ module.exports = ViewComponent('View', {
       title,
       animation,
       index,
+      step,
       width,
+      height,
       containerProps,
       titleBarProps,
       ...props
     } = this.props;
+
+    if (index === step)
+      this.addStyles({ pointerEvents: 'all' });
 
     if (!title)
       this.addStyles('inner', { top: 0 });
 
     if (animation)
       this.addStyles('inner', this.getAnimationStyles(animation));
+
+    // clip box shadow from titlebar
+    this.addStyles('inner', { clip: `rect(0px, ${width}px, ${height}px, -10px)` });
 
     return (
       <div {...containerProps} {...this.componentProps()}>

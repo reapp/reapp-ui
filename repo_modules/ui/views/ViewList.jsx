@@ -1,11 +1,11 @@
 var React = require('react/addons');
-var Component = require('ui/component');
+var ViewComponent = require('ui/viewcomponent');
 var { Scroller } = require('scroller');
 var { Promise } = require('when');
 var TouchableArea = require('../helpers/TouchableArea');
 var CloneChildren = require('../lib/CloneChildren');
 
-module.exports = Component('ViewList', {
+module.exports = ViewComponent('ViewList', {
   // we pass down step so elements nested inside the views
   // can access them for their own animations
   childContextTypes: {
@@ -36,7 +36,7 @@ module.exports = Component('ViewList', {
       animation: 'VIEW_PARALLAX',
       titleBarProps: {},
       scrollerProps: {
-        animationDuration: 350,
+        animationDuration: 400,
         paging: true,
         bouncing: false,
         scrollingY: false
@@ -202,8 +202,11 @@ module.exports = Component('ViewList', {
 
   makeFakeTitleBar() {
     var titleBarStyles = this.getStylesForComponent('TitleBar');
+
     if (this.props.titleBarProps.height)
-      titleBarStyles.push(this.makeReactStyle({ height: this.props.titleBarProps.height }));
+      titleBarStyles.push(this.makeReactStyle({
+        height: this.props.titleBarProps.height
+      }));
 
     return <div className="ViewList__fakeTitleBar" styles={titleBarStyles} />;
   },
@@ -221,8 +224,11 @@ module.exports = Component('ViewList', {
       ...props
     } = this.props;
 
-    if (!noTitleBar)
-      titleBarProps.styles = { self: { background: 'none' } };
+    if (!noTitleBar) {
+      titleBarProps.styles = {
+        self: { background: 'none' }
+      };
+    }
 
     var viewListProps = Object.assign({
       touchStartBounds,
@@ -240,6 +246,7 @@ module.exports = Component('ViewList', {
         index: i,
         step: this.state.step,
         width: this.state.width,
+        height: this.state.height
       });
     });
 

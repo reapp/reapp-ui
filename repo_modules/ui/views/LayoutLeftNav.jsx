@@ -79,7 +79,7 @@ module.exports = ViewComponent('LayoutLeftNav', {
     this.addStyles('nav', isNavOpen && {
       left: sideWidth * -1,
       width: sideWidth,
-      // zIndex: sideZIndex || 1
+      zIndex: sideZIndex || 0
     });
 
     var navProps = {
