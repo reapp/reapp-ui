@@ -50,7 +50,13 @@ module.exports = Component('TitleBar', {
     if (transparent)
       this.addStyles(this.styles.transparent);
 
-    // Allow a 3 arity array as children rather than setting left and right props
+    if (height)
+      this.addStyles({ height });
+
+    if (animation)
+      props.style = this.getAnimationStyles(animation);
+
+    // Allow a 3 length array as children rather than setting left and right props
     if (!this.props.left && !this.props.right && Array.isArray(children)) {
       left = children[0];
       mid = children[1];
@@ -65,12 +71,6 @@ module.exports = Component('TitleBar', {
     // add icon transitions for left and right
     left = this.addIconAnimation(left);
     right = this.addIconAnimation(right);
-
-    if (height)
-      this.addStyles({ height });
-
-    if (animation)
-      props.style = this.getAnimationStyles(animation);
 
     return (
       <div {...props} {...this.componentProps()}>

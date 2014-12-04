@@ -1,5 +1,5 @@
 var Component = require('omniscient');
-var { RouteHandler, State } = require('react-router');
+var { RouteHandler, State, RouteHandlerMixin } = require('react-router');
 var Actions = require('actions/Actions');
 var List = require('ui/components/List');
 var ListItem = require('ui/components/ListItem');
@@ -11,7 +11,7 @@ var HotArticlesStore = require('stores/HotArticlesStore');
 
 require('./Articles.styl');
 
-module.exports = Component('Articles', [State],
+module.exports = Component('Articles', [State, RouteHandlerMixin],
   function render(props) {
     var { cursor, views, ...rest } = props;
 
@@ -32,7 +32,7 @@ module.exports = Component('Articles', [State],
     var hasArticles = articles.count();
 
     return (
-      <ViewList initialStep={numRoutes - 2} noTitleBar>
+      <ViewList initialStep={numRoutes - 2} noFakeTitleBar>
         <View>
           <DottedViewList>
             <View title="Hot Articles">
@@ -53,7 +53,7 @@ module.exports = Component('Articles', [State],
           </DottedViewList>
         </View>
 
-        {hasChild && <RouteHandler {...rest} key={subRouteKey} />}
+        {hasChild && this.getRouteHandler(Object.assign(rest, { key: subRouteKey }))}
       </ViewList>
     );
   }

@@ -31,7 +31,7 @@ module.exports = ViewComponent('ViewList', {
     return {
       width,
       height,
-      noTitleBar: false,
+      noFakeTitleBar: false,
       resizeWithWindow: true,
       initialStep: 0,
       animation: 'VIEW_PARALLAX',
@@ -218,17 +218,15 @@ module.exports = ViewComponent('ViewList', {
       children,
       animation,
       titleBarProps,
-      noTitleBar,
+      noFakeTitleBar,
       ...props
     } = this.props;
 
-    if (!noTitleBar) {
-      var fakeTitleBar = <TitleBar {...Object.create(titleBarProps)} />;
-
-      // make real title bars with transparent backgrounds
-      titleBarProps.styles = Object.assign({
-        self: this.getStylesForComponent('TitleBar', 'transparent')
-      }, titleBarProps.styles || {});
+    if (!noFakeTitleBar) {
+      console.log('1', titleBarProps);
+      var fakeTitleBar = <TitleBar {...titleBarProps} />;
+      var childTitleBarProps = Object.assign({}, titleBarProps);
+      console.log('2', titleBarProps, childTitleBarProps);
     }
 
     var viewListProps = Object.assign({
@@ -245,16 +243,16 @@ module.exports = ViewComponent('ViewList', {
 
     return (
       <TouchableArea {...this.componentProps()} {...viewListProps}>
-        {!noTitleBar && fakeTitleBar}
+        {!noFakeTitleBar && fakeTitleBar}
         {before}
         {React.Children.map(this.state.children, (view, i) => {
           return React.isValidElement(view) && React.addons.cloneWithProps(view, {
-            titleBarProps,
+            titleBarProps: childTitleBarProps,
             animation,
             index: i,
             step: this.state.step,
             width: this.state.width,
-            height: this.state.height
+            height: this.state.height,
           });
         })}
         {after}

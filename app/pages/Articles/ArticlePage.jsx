@@ -23,6 +23,9 @@ var ArticlePage = module.exports = React.createClass({
 
   render() {
     var cursor = ArticlesStore().get(this.getParams().id);
-    return cursor ? Article(`Article-${cursor.get('id')}`, cursor) : <div />;
+    return cursor ?
+      Article(`Article-${cursor.get('id')}`,
+        Object.assign(this.props, { cursor })) :
+      <div />;
   }
 });

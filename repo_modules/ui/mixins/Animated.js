@@ -36,7 +36,7 @@ module.exports = {
     var index = this.getAnimationIndex();
     var styles = {};
 
-    if (typeof step !== 'number' && typeof index !== 'number')
+    if (typeof step !== 'number' || typeof index !== 'number')
       return styles;
 
     var animation = this.getAnimation(name);
