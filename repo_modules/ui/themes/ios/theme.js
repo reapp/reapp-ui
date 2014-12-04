@@ -10,6 +10,7 @@ module.exports = makeTheme(requirer, [
   'DottedViewList',
   'Dots',
   'Drawer',
+  'Input',
   'LayoutLeftNav',
   'List',
   'ListItem',

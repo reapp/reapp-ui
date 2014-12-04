@@ -5,6 +5,8 @@ var BackButton = require('ui/components/buttons/BackButton');
 var Button = require('ui/components/Button');
 var ButtonRow = require('ui/components/ButtonRow');
 var Title = require('ui/components/Title');
+var List = require('ui/components/List');
+var Input = require('ui/components/Input');
 var { Container, Block } = require('ui/components/Grid');
 
 module.exports = React.createClass({
@@ -31,6 +33,21 @@ module.exports = React.createClass({
             <Button active>Button</Button>
             <Button>Button</Button>
           </ButtonRow>
+        </Container>
+
+        <Container>
+          <Title>Elements</Title>
+        </Container>
+        <Container>
+          <form>
+            <List>
+              <Input name="name" placeholder="Your Name" />
+              <Input name="email" type="email" placeholder="Your Email" />
+              <Input name="url" type="url" placeholder="URL" />
+              <Input name="password" type="password" placeholder="password" />
+              <Input name="phone" type="phone" placeholder="(555)-555-5555" />
+            </List>
+          </form>
         </Container>
       </View>
     );

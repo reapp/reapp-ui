@@ -66,6 +66,10 @@ module.exports = Component('ListItem', {
     if (!hasTitle)
       this.addStyles('children', this.styles.childrenNoTitle);
 
+    if (React.isValidElement(children) && children.type.isInput) {
+      this.addStyles('content', this.styles.contentBorderless);
+    }
+
     var span = this.makeSection;
     var content = [
       span('wrapper', wrapper),

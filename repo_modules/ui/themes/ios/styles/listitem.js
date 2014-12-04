@@ -47,6 +47,10 @@ module.exports = (c) => ({
     position: 'relative'
   },
 
+  contentBorderless: {
+    padding: 0
+  },
+
   titleTop: {
     flexFlow: 'row',
     justifyContent: 'space-between',
