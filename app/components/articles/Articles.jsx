@@ -36,23 +36,17 @@ module.exports = Component('Articles', [State],
         <View>
           <DottedViewList>
             <View title="Hot Articles">
-              {!hasArticles && (
-                <List>
-                  <ListItem style={{textAlign: 'center'}}>Loading...</ListItem>
-                </List>
-              )}
-
-              {hasArticles && (
-                <List dontWrap={true}>
-                  {articles
+              <List dontWrapChildren styles={{ self: { borderTop: 'none' } }}>
+                {hasArticles ?
+                  articles
                     .map(article => ArticleItem(`AI-${article.get('id')}`, article))
                     .toArray()
-                    .concat([
+                    .concat(
                       <ListItem style={{textAlign:'center'}} onClick={handleLoadMore}>Load More</ListItem>
-                    ])
-                  }
+                    ) :
+                  <ListItem style={{textAlign: 'center'}}>Loading...</ListItem>
+                }
                 </List>
-              )}
             </View>
 
             <View title="Top Articles" />

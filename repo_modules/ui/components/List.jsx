@@ -19,7 +19,7 @@ module.exports = Component('List', {
   },
 
   render() {
-    var { children, type, liProps, title, dontWrap } = this.props;
+    var { children, type, liProps, title, dontWrapChildren } = this.props;
 
     if (type)
       this.addStyles(this.styles[type]);
@@ -32,7 +32,7 @@ module.exports = Component('List', {
           </li>
         )}
         {React.Children.map(children, (li, i) => {
-          if (dontWrap || li.type && li.type.isListItem)
+          if (dontWrapChildren || li.type && li.type.isListItem)
             return React.addons.cloneWithProps(li, { key: i, index: i });
 
           return (

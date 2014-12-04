@@ -33,7 +33,10 @@ module.exports = ViewComponent('View', {
       this.addStyles('inner', { top: 0 });
 
     // clip box shadow from titlebar
-    this.addStyles('inner', { clip: `rect(0px, ${width}px, ${height}px, -10px)` });
+    if (this.isAnimating())
+      this.addStyles('inner', { clip: `rect(0px, ${width}px, ${height}px, -10px)` });
+    else
+      this.addStyles('inner', { boxShadow: 'none' });
 
     return (
       <div {...containerProps} {...this.componentProps()}>

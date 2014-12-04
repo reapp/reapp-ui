@@ -11,6 +11,10 @@ module.exports = {
     step: React.PropTypes.number
   },
 
+  isAnimating() {
+    return this.getAnimationStep() % 1 !== 0;
+  },
+
   getAnimation(name) {
     return UI.getAnimations()[name];
   },
@@ -30,17 +34,18 @@ module.exports = {
   getAnimationStyles(name) {
     var step = this.getAnimationStep();
     var index = this.getAnimationIndex();
+    var styles = {};
 
-    Invariant(typeof step === 'number' && typeof index === 'number',
-      'Must have defined step and index in either props or context to run an animation');
+    if (typeof step !== 'number' && typeof index !== 'number')
+      return styles;
 
     var animation = this.getAnimation(name);
     var { scale, rotate, translate, ...other } = animation.call(this, index, step);
-    var styles = {};
     var transformStyle = this.getTransformStyle(scale, rotate, translate);
 
-    if (transformStyle)
-      styles[StyleKeys.TRANSFORM] = transformStyle;
+    styles[StyleKeys.TRANSFORM] = transformStyle ?
+      transformStyle :
+      'translateZ(0px)'; // translateZ enables hardware accel
 
     if (other)
       Object.assign(styles, other);

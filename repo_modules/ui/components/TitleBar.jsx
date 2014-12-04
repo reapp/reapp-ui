@@ -44,8 +44,11 @@ module.exports = Component('TitleBar', {
   },
 
   render() {
-    var { animation, children, index, active, height, ...props } = this.props;
+    var { animation, children, index, active, height, transparent, ...props } = this.props;
     var left, mid, right;
+
+    if (transparent)
+      this.addStyles(this.styles.transparent);
 
     // Allow a 3 arity array as children rather than setting left and right props
     if (!this.props.left && !this.props.right && Array.isArray(children)) {
@@ -66,9 +69,8 @@ module.exports = Component('TitleBar', {
     if (height)
       this.addStyles({ height });
 
-    this.addStyles(this.getAnimationStyles(animation));
-
-    window.TitleBar = this;
+    if (animation)
+      props.style = this.getAnimationStyles(animation);
 
     return (
       <div {...props} {...this.componentProps()}>

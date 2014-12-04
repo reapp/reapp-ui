@@ -2,6 +2,7 @@ var React = require('react/addons');
 var ViewComponent = require('ui/viewcomponent');
 var { Scroller } = require('scroller');
 var { Promise } = require('when');
+var TitleBar = require('ui/components/TitleBar');
 var TouchableArea = require('../helpers/TouchableArea');
 var CloneChildren = require('../lib/CloneChildren');
 
@@ -62,6 +63,7 @@ module.exports = ViewComponent('ViewList', {
   },
 
   componentDidMount() {
+    this.scroller = new Scroller(this.handleScroll, this.props.scrollerProps);
     this.setupScroller(this.props);
     this.scroller.setPosition(this.state.step * this.state.width, 0);
     window.addEventListener('resize', this.setupDimensions);
@@ -79,23 +81,33 @@ module.exports = ViewComponent('ViewList', {
     // if advancing views
     if (nextProps.initialStep > this.state.step) {
       this.setupScroller(nextProps);
-      this.scrollToView(nextProps.initialStep);
+      this.scrollToStep(nextProps.initialStep);
     }
     // if regressing views
     else {
-      this.scrollToView(nextProps.initialStep).then(() => {
+      this.scrollToStep(nextProps.initialStep).then(() => {
         this.setupScroller(nextProps);
       });
     }
   },
 
+  scrollToStep(step) {
+    var duration = 0;
+
+    if (step !== this.state.step) {
+      this.scroller.scrollTo(this.state.width * step, 0, true);
+      duration = this.props.scrollerProps.animationDuration;
+    }
+
+    return new Promise(res => setTimeout(res, duration));
+  },
+
   setupScroller(props) {
-    var { width, height, children, scrollerProps } = props;
+    var { width, height, children } = props;
     children = children.filter(child => !!child);
 
     this.setupDimensions();
     this.setupViewEnterStates(children);
-    this.scroller = new Scroller(this.handleScroll, scrollerProps);
     this.scroller.setSnapSize(width, height);
     this.scroller.setDimensions(width, height, width * children.length, height);
     this.setState({ children });
@@ -128,11 +140,15 @@ module.exports = ViewComponent('ViewList', {
       return;
 
     var step = this.state.width ? left / this.state.width : 0;
-    this.setState({ step: step });
-    this.runViewCallbacks(step);
+
+    if (step !== this.state.step) {
+      this.setState({ step: step });
+      this.runViewCallbacks(step);
+    }
   },
 
   runViewCallbacks(step) {
+    console.log('viewcallbacks', step);
     if (step % 1 !== 0) {
       var newVisibleIndex = [ Math.floor(step), Math.ceil(step) ]
         .filter(i => !this.visibleViews[i])[0];
@@ -185,30 +201,12 @@ module.exports = ViewComponent('ViewList', {
     var hash = e.target.hash;
     if (!hash) return;
 
-    var viewIndex = this.props.children.map(v => v.id).indexOf(hash.slice(1));
-
-    if (viewIndex >= 0) {
-      this.scrollToView(viewIndex);
+    // this logic is for handling button presses that link to #${id}
+    var step = this.props.children.map(v => v.id).indexOf(hash.slice(1));
+    if (step >= 0) {
+      this.scrollToStep(step);
       e.preventDefault();
     }
-  },
-
-  scrollToView(index) {
-    this.scroller.scrollTo(this.state.width * index, 0, true);
-    return new Promise(res => {
-      setTimeout(res, this.props.scrollerProps.animationDuration);
-    });
-  },
-
-  makeFakeTitleBar() {
-    var titleBarStyles = this.getStylesForComponent('TitleBar');
-
-    if (this.props.titleBarProps.height)
-      titleBarStyles.push(this.makeReactStyle({
-        height: this.props.titleBarProps.height
-      }));
-
-    return <div className="ViewList__fakeTitleBar" styles={titleBarStyles} />;
   },
 
   render() {
@@ -224,10 +222,14 @@ module.exports = ViewComponent('ViewList', {
       ...props
     } = this.props;
 
-    if (!noTitleBar)
-      titleBarProps.styles = {
-        self: { background: 'none' }
-      };
+    if (!noTitleBar) {
+      var fakeTitleBar = <TitleBar {...Object.create(titleBarProps)} />;
+
+      // make real title bars with transparent backgrounds
+      titleBarProps.styles = Object.assign({
+        self: this.getStylesForComponent('TitleBar', 'transparent')
+      }, titleBarProps.styles || {});
+    }
 
     var viewListProps = Object.assign({
       touchStartBounds,
@@ -238,25 +240,23 @@ module.exports = ViewComponent('ViewList', {
       onClick: this.handleClick
     }, props);
 
-    var clonedChildren = React.Children.map(this.state.children, (view, i) => {
-      return React.isValidElement(view) && React.addons.cloneWithProps(view, {
-        titleBarProps,
-        animation,
-        index: i,
-        step: this.state.step,
-        width: this.state.width,
-        height: this.state.height
-      });
-    });
-
     if (this.state.step === 0)
       this.addStyles(this.styles.underTouchable);
 
     return (
       <TouchableArea {...this.componentProps()} {...viewListProps}>
-        {!noTitleBar && this.makeFakeTitleBar()}
+        {!noTitleBar && fakeTitleBar}
         {before}
-        {clonedChildren}
+        {React.Children.map(this.state.children, (view, i) => {
+          return React.isValidElement(view) && React.addons.cloneWithProps(view, {
+            titleBarProps,
+            animation,
+            index: i,
+            step: this.state.step,
+            width: this.state.width,
+            height: this.state.height
+          });
+        })}
         {after}
       </TouchableArea>
     );

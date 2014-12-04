@@ -49,7 +49,7 @@ module.exports = Component('Icon', {
     }, props.style);
 
     if (animation)
-      this.addStyles(this.getAnimationStyles(animation));
+      props.style = this.getAnimationStyles(animation);
 
     return (
       <span {...props} {...this.componentProps()}>

@@ -13,9 +13,12 @@ module.exports = (c) => ({
     flexFlow: 'row',
     fontWeight: 500,
     justifyContent: 'space-between',
-    WebkitBackfaceVisibility: 'hidden',
-    WebkitTransform: 'translateZ(0)',
     zIndex: 2
+  },
+
+  transparent: {
+    background: 'none',
+    borderBottom: 'none'
   },
 
   left: {
