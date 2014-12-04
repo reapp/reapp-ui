@@ -8,8 +8,11 @@ var Routes = require('./routes');
 var UI = require('ui');
 var ENV = require('./ENV');
 
-var injectTapEventPlugin = require("react-tap-event-plugin");
-injectTapEventPlugin();
+// var InjectTapEventPlugin = require("react-tap-event-plugin");
+// var isTouchDevice = 'ontouchstart' in document.documentElement;
+
+// if (isTouchDevice)
+//   InjectTapEventPlugin();
 
 // UI
 require('./themes/appTheme');

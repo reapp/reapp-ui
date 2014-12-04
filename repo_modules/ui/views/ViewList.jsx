@@ -44,8 +44,8 @@ module.exports = ViewComponent('ViewList', {
       touchStartBounds: {
         // touchable only on the left and right edges
         x: [
-          { from: 0, to: 10 },
-          { from: width - 10, to: width }
+          { from: 0, to: 20 },
+          { from: width - 20, to: width }
         ]
       }
     };
@@ -224,11 +224,10 @@ module.exports = ViewComponent('ViewList', {
       ...props
     } = this.props;
 
-    if (!noTitleBar) {
+    if (!noTitleBar)
       titleBarProps.styles = {
         self: { background: 'none' }
       };
-    }
 
     var viewListProps = Object.assign({
       touchStartBounds,

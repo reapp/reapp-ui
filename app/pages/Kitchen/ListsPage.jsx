@@ -9,13 +9,13 @@ var Title = require('ui/components/Title');
 var ListItem = require('ui/components/ListItem');
 var { Link } = require('react-router');
 
-module.exports = React.createClass({
+var ListsView = React.createClass({
   render() {
     var icon = <Icon type="contact" size="28" />;
     var badge = <Badge value="5" />;
 
     return (
-      <View {...this.props} title={[<BackButton />, 'Lists Page']}>
+      <div>
         <Container>
           <p>ListViewPage View</p>
         </Container>
@@ -91,6 +91,16 @@ module.exports = React.createClass({
           <Link to="popovers">Popovers</Link>
           <Link to="tabs">Tabs</Link>
         </List>
+      </div>
+    );
+  }
+});
+
+module.exports = React.createClass({
+  render() {
+    return (
+      <View {...this.props} title={[<BackButton />, 'Lists Page']}>
+        <ListsView {...this.props} />
       </View>
     );
   }

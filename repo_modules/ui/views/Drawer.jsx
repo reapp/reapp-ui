@@ -2,19 +2,14 @@ var ViewComponent = require('ui/viewcomponent');
 var TouchableArea = require('../helpers/TouchableArea');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
 var DrawerBehavior = require('./DrawerBehavior');
-var TweenState = require('react-tween-state');
 var { Scroller } = require('scroller');
 
 // TODO:
-// fix tweentstate to work
 // look at using transition mixin rather than scroller stuff
 // drawer should support coming/dragging in from any direction
 // Behavior should encompass this
-// tweenState should also integrate with behavior
 
 module.exports = ViewComponent('Drawer', {
-  mixins: [TweenState.Mixin],
-
   getDefaultProps() {
     return {
       behavior: DrawerBehavior,
@@ -41,18 +36,8 @@ module.exports = ViewComponent('Drawer', {
     });
   },
 
-  enter(cb) {
-    this.tweenState('offset', {
-      easing: TweenState.easingTypes.easeInOutQuad,
-      duration: 300,
-      endValue: window.innerWidth,
-      onEnd: cb
-    });
-  },
-
   componentDidMount() {
     this.measureScroller();
-    this.enter(this.scrollToOpen);
     window.addEventListener('resize', this.measureAndScrollOpen);
   },
 

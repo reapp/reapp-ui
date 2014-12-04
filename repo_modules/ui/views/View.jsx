@@ -32,9 +32,6 @@ module.exports = ViewComponent('View', {
     if (!title)
       this.addStyles('inner', { top: 0 });
 
-    if (animation)
-      this.addStyles('inner', this.getAnimationStyles(animation));
-
     // clip box shadow from titlebar
     this.addStyles('inner', { clip: `rect(0px, ${width}px, ${height}px, -10px)` });
 
@@ -43,7 +40,8 @@ module.exports = ViewComponent('View', {
         {title && (
           <TitleBar {...titleBarProps} index={index}>{title}</TitleBar>
         )}
-        <div {...props} {...this.componentProps('inner')}>
+        <div {...props} {...this.componentProps('inner')}
+          style={this.getAnimationStyles(animation)}>
           <StaticContainer shouldUpdate={this.getAnimationStep() % 1 === 0}>
             {children}
           </StaticContainer>
