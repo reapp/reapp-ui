@@ -1,11 +1,15 @@
 var React = require('react');
-var View = require('ui/views/View');
+var StaticView = require('ui/helpers/StaticView');
 var Modal = require('ui/components/Modal');
 var Button = require('ui/components/Button');
 var BackButton = require('ui/components/buttons/BackButton');
 var { Container, Block } = require('ui/components/Grid');
 
-module.exports = React.createClass({
+module.exports = StaticView({
+  statics: {
+    title: [<BackButton />, 'Modals']
+  },
+
   getInitialState() {
     return { modal: null };
   },
@@ -32,7 +36,7 @@ module.exports = React.createClass({
     }
 
     return (
-      <View {...this.props} title={[<BackButton />, "Modals"]}>
+      <div>
         <Container>
           <p>These are replicas of the native Alert, Prompt and Confirm modals.</p>
         </Container>
@@ -42,7 +46,7 @@ module.exports = React.createClass({
           <Button onClick={this.handleConfirm}>Confirm</Button>
         </Container>
         {modal}
-      </View>
+      </div>
     );
   }
 });

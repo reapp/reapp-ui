@@ -13,11 +13,18 @@ module.exports = React.createClass({
   render() {
     var containerProps = {
       pad: true,
-      styles: { textAlign: 'center' }
+      styles: {
+        self: {
+          textAlign: 'center',
+          marginTop: 0,
+          marginBottom: 0
+        }
+      }
     };
 
     return (
       <View {...this.props}
+        id="GridsPage"
         styles={this.styles}
         title={[<BackButton />, "Grid System"]}>
 

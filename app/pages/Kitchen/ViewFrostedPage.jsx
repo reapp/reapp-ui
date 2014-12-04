@@ -1,5 +1,5 @@
 var React = require('react');
-var View = require('ui/views/View');
+var StaticView = require('ui/helpers/StaticView');
 var TitleBar = require('ui/components/TitleBar');
 var BackButton = require('ui/components/buttons/BackButton');
 var Block = require('ui/components/Block');
@@ -16,14 +16,17 @@ var AnimatableContainer = require('ui/helpers/AnimatableContainer');
 var FrostedGlassContainer = require('ui/helpers/FrostedGlassContainer');
 var HEADER_HEIGHT = 44;
 
-module.exports = React.createClass({
+module.exports = StaticView({
+  statics: {
+    title: [<BackButton />, 'FrostedGlassContainer']
+  },
+
   mixins: [ScrollableMixin({ scrollY: true })],
 
   render() {
     var titleBarStyle = { background: 'rgba(255,255,255,0.8)', height:44 };
     var icon = <Icon type="contact" size="28" />;
     var badge = <Badge value="5" />;
-    var title = [<BackButton />, 'Lists'];
 
     // TODO: we can make this positioning significantly less lame
     // by measuring the DOM but I'm not sure we want to rely on that
@@ -110,7 +113,7 @@ module.exports = React.createClass({
     );
 
     return (
-      <View {...this.props} id="ListViewPage">
+      <div>
         <TouchableArea scroller={this.scroller}>
           <FrostedGlassContainer
             className="GlassPage-container"
@@ -122,7 +125,7 @@ module.exports = React.createClass({
             </AnimatableContainer>
           </FrostedGlassContainer>
         </TouchableArea>
-      </View>
+      </div>
     );
   }
 });

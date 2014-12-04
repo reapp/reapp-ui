@@ -1,12 +1,16 @@
 var React = require('react');
-var View = require('ui/views/View');
+var StaticView = require('ui/helpers/StaticView');
 var Tabs = require('ui/components/Tabs');
 var TabItem = require('ui/components/TabItem');
 var Button = require('ui/components/Button');
 var BackButton = require('ui/components/buttons/BackButton');
 var { Container, Block } = require('ui/components/Grid');
 
-module.exports = React.createClass({
+module.exports = StaticView({
+  statics: {
+    title: [<BackButton />, "Modals"]
+  },
+
   getInitialState() {
     return { tabsType: 'text' };
   },

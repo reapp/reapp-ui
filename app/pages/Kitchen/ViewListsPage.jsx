@@ -1,14 +1,14 @@
 var React = require('react');
+var StaticView = require('ui/helpers/StaticView');
 var ViewList = require('ui/views/ViewList');
-var View = require('ui/views/View');
 var Button = require('ui/components/Button');
 var BackButton = require('ui/components/buttons/BackButton');
 var { Container } = require('ui/components/Grid');
 
-module.exports = React.createClass({
+module.exports = StaticView({
   render() {
     return (
-      <View {...this.props}>
+      <div>
         <ViewList>
           <View title={[<BackButton />, 'One', <a href="#two">Two</a>]}>
             <Container>
@@ -23,7 +23,7 @@ module.exports = React.createClass({
             </Container>
           </View>
         </ViewList>
-      </View>
+      </div>
     );
   }
 });

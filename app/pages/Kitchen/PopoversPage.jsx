@@ -1,5 +1,5 @@
 var React = require('react');
-var View = require('ui/views/View');
+var StaticView = require('ui/helpers/StaticView');
 var Popover = require('ui/components/Popover');
 var PopoverLink = require('ui/components/PopoverLink');
 var TitleBar = require('ui/components/TitleBar');
@@ -8,16 +8,20 @@ var Button = require('ui/components/Button');
 var BackButton = require('ui/components/buttons/BackButton');
 var { Link } = require('react-router');
 
-module.exports = React.createClass({
-  render() {
-    var menu = (
-      <PopoverLink to="popover1">
-        <Button iconProps={{type: 'hamburger'}} borderless />
-      </PopoverLink>
-    );
+var menu = (
+  <PopoverLink to="popover1">
+    <Button iconProps={{type: 'hamburger'}} borderless />
+  </PopoverLink>
+);
 
+module.exports = StaticView({
+  statics: {
+    title: [<BackButton />, 'Popovers', menu]
+  },
+
+  render() {
     return (
-      <View {...this.props} id="PopoversPage" title={[<BackButton />, 'Popovers', menu]}>
+      <div>
         <Block>
           <p>Popovers are <PopoverLink to="popover1">menus</PopoverLink> that
           will float above an element that triggers them. Apple recommends
@@ -29,7 +33,7 @@ module.exports = React.createClass({
           <Link to="popovers">Popovers</Link>
           <Link to="tabs">Tabs</Link>
         </Popover>
-      </View>
+      </div>
     );
   }
 });

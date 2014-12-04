@@ -1,11 +1,15 @@
 var React = require('react');
-var View = require('ui/views/View');
+var StaticView = require('ui/helpers/StaticView');
 var Drawer = require('ui/views/Drawer');
 var { Container, Block } = require('ui/components/Grid');
 var BackButton = require('ui/components/buttons/BackButton');
 var Button = require('ui/components/Button');
 
-module.exports = React.createClass({
+module.exports = StaticView({
+  statics: {
+    title: [<BackButton />, 'Panels']
+  },
+
   title: 'Panels',
 
   getDefaultState() {
@@ -22,7 +26,7 @@ module.exports = React.createClass({
     var title = [<BackButton />, this.title];
 
     return (
-      <View {...this.props} title={title}>
+      <div>
         <h3>{this.title}</h3>
         <p>Panels slide out from a side of the screen</p>
         <Container>
@@ -33,7 +37,7 @@ module.exports = React.createClass({
 
         <Drawer closed={this.state.bottomClosed}>
         </Drawer>
-      </View>
+      </div>
     );
   }
 });

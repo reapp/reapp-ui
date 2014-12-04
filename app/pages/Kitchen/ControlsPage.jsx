@@ -1,23 +1,26 @@
 var React = require('react');
+var StaticView = require('ui/helpers/StaticView');
 var View = require('ui/views/View');
 var { Container, Block } = require('ui/components/Grid');
 var BackButton = require('ui/components/buttons/BackButton');
 var Button = require('ui/components/Button');
 var Title = require('ui/components/Title');
 
-module.exports = React.createClass({
-  render() {
-    var title = [<BackButton />, 'Controls'];
+module.exports = StaticView({
+  statics: {
+    title: [<BackButton />, 'Controls']
+  },
 
+  render() {
     return (
-      <View {...this.props} title={title}>
+      <div {...this.props}>
         <Title>Buttons</Title>
         <Container>
           <Button>Hello</Button>
           <Button>Hello</Button>
           <Button>Hello</Button>
         </Container>
-      </View>
+      </div>
     );
   }
 });

@@ -29,7 +29,7 @@ Animations.VIEW_PARALLAX = function(index, step) {
 
   return {
     translate: { x: translateX },
-    'box-shadow': `0 0 15px rgba(0,0,0,${linearEnter(step,index) / 2})`
+    boxShadow: `0 0 15px rgba(0,0,0,${linearEnter(step,index) / 2})`
   };
 };
 

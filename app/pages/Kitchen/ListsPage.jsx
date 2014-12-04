@@ -1,5 +1,5 @@
 var React = require('react');
-var View = require('ui/views/View');
+var StaticView = require('ui/helpers/StaticView');
 var BackButton = require('ui/components/buttons/BackButton');
 var { Container } = require('ui/components/Grid');
 var List = require('ui/components/List');
@@ -9,7 +9,11 @@ var Title = require('ui/components/Title');
 var ListItem = require('ui/components/ListItem');
 var { Link } = require('react-router');
 
-var ListsView = React.createClass({
+module.exports = StaticView({
+  statics: {
+    title: [<BackButton />, 'Lists Page']
+  },
+
   render() {
     var icon = <Icon type="contact" size="28" />;
     var badge = <Badge value="5" />;
@@ -92,16 +96,6 @@ var ListsView = React.createClass({
           <Link to="tabs">Tabs</Link>
         </List>
       </div>
-    );
-  }
-});
-
-module.exports = React.createClass({
-  render() {
-    return (
-      <View {...this.props} title={[<BackButton />, 'Lists Page']}>
-        <ListsView {...this.props} />
-      </View>
     );
   }
 });

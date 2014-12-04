@@ -1,6 +1,5 @@
 var React = require('react');
-var ReactStyle = require('react-style');
-var View = require('ui/views/View');
+var StaticView = require('ui/helpers/StaticView');
 var BackButton = require('ui/components/buttons/BackButton');
 var Button = require('ui/components/Button');
 var ButtonRow = require('ui/components/ButtonRow');
@@ -9,10 +8,14 @@ var List = require('ui/components/List');
 var Input = require('ui/components/Input');
 var { Container, Block } = require('ui/components/Grid');
 
-module.exports = React.createClass({
+module.exports = StaticView({
+  statics: {
+    title: [<BackButton />, "Forms"]
+  },
+
   render() {
     return (
-      <View {...this.props} title={[<BackButton />, "Forms"]}>
+      <div>
         <Container>
           <Title>Buttons</Title>
         </Container>
@@ -49,7 +52,7 @@ module.exports = React.createClass({
             </List>
           </form>
         </Container>
-      </View>
+      </div>
     );
   }
 });

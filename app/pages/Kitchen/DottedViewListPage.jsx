@@ -1,11 +1,14 @@
 var React = require('react');
+var StaticView = require('ui/helpers/StaticView');
 var DottedViewList = require('ui/views/DottedViewList');
-var Drawer = require('ui/views/Drawer');
-var TitleBar = require('ui/components/TitleBar');
 var BackButton = require('ui/components/buttons/BackButton');
 var Block = require('ui/components/Block');
 
-module.exports = React.createClass({
+module.exports = StaticView({
+  statics: {
+    title: [<BackButton />, 'Dotted View List']
+  },
+
   render() {
     var views = [
       {
@@ -47,19 +50,10 @@ module.exports = React.createClass({
       }
     ];
 
-    var titleBarStyles = {
-      self: {
-        zIndex: 10000,
-        background: 'transparent',
-        border: 'none'
-      }
-    };
-
     return (
-      <Drawer>
-        <TitleBar left={<BackButton />} styles={titleBarStyles} />
+      <div>
         <DottedViewList views={views} />
-      </Drawer>
+      </div>
     );
   }
 });
