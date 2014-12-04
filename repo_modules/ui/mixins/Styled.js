@@ -122,6 +122,10 @@ module.exports = function(name) {
         .map(styles => styles[prop])
         .filter(x => typeof x !== 'undefined')
         .map(this.makeReactStyle);
-    }
+    },
+
+    getConstant(name) {
+      return UI.getConstants()[name];
+    },
   };
 };

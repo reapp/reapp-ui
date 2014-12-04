@@ -29,8 +29,7 @@ module.exports = ViewComponent('View', {
     if (index === step)
       this.addStyles({ pointerEvents: 'all' });
 
-    if (!title)
-      this.addStyles('inner', { top: 0 });
+    this.addStyles('inner', { top: (titleBarProps || {}).height || 0 });
 
     // clip box shadow from titlebar
     if (this.isAnimating())

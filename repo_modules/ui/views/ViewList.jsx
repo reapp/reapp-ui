@@ -64,29 +64,30 @@ module.exports = ViewComponent('ViewList', {
 
   componentDidMount() {
     this.scroller = new Scroller(this.handleScroll, this.props.scrollerProps);
-    this.setupScroller(this.props);
+    this.setupViewList(this.props);
     this.scroller.setPosition(this.state.step * this.state.width, 0);
     window.addEventListener('resize', this.setupDimensions);
   },
 
   componentWillUnmount() {
+    delete this.scroller; // just in case?
     window.removeEventListener('resize', this.setupDimensions);
   },
 
   componentWillReceiveProps(nextProps) {
     // if not changing views
     if (nextProps.initialStep === this.props.initialStep)
-      return this.setupScroller(nextProps);
+      return this.setupViewList(nextProps);
 
     // if advancing views
     if (nextProps.initialStep > this.state.step) {
-      this.setupScroller(nextProps);
+      this.setupViewList(nextProps);
       this.scrollToStep(nextProps.initialStep);
     }
     // if regressing views
     else {
       this.scrollToStep(nextProps.initialStep).then(() => {
-        this.setupScroller(nextProps);
+        this.setupViewList(nextProps);
       });
     }
   },
@@ -102,9 +103,12 @@ module.exports = ViewComponent('ViewList', {
     return new Promise(res => setTimeout(res, duration));
   },
 
-  setupScroller(props) {
+  setupViewList(props) {
     var { width, height, children } = props;
     children = children.filter(child => !!child);
+
+    if (!props.titleBarProps.height)
+      props.titleBarProps.height = this.getConstant('titleBarHeight');
 
     this.setupDimensions();
     this.setupViewEnterStates(children);
@@ -142,13 +146,12 @@ module.exports = ViewComponent('ViewList', {
     var step = this.state.width ? left / this.state.width : 0;
 
     if (step !== this.state.step) {
-      this.setState({ step: step });
+      this.setState({ step });
       this.runViewCallbacks(step);
     }
   },
 
   runViewCallbacks(step) {
-    console.log('viewcallbacks', step);
     if (step % 1 !== 0) {
       var newVisibleIndex = [ Math.floor(step), Math.ceil(step) ]
         .filter(i => !this.visibleViews[i])[0];
@@ -223,10 +226,8 @@ module.exports = ViewComponent('ViewList', {
     } = this.props;
 
     if (!noFakeTitleBar) {
-      console.log('1', titleBarProps);
       var fakeTitleBar = <TitleBar {...titleBarProps} />;
-      var childTitleBarProps = Object.assign({}, titleBarProps);
-      console.log('2', titleBarProps, childTitleBarProps);
+      var childTitleBarProps = Object.assign({ transparent: true }, titleBarProps);
     }
 
     var viewListProps = Object.assign({

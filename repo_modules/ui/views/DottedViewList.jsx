@@ -29,23 +29,12 @@ module.exports = Component('DottedViewList', {
     return { activeViewIndex: 0 };
   },
 
-  componentWillMount() {
-    this.wrapOnViewEnteredCallback(this.props);
-  },
+  handleViewEntered(index) {
+    if (this.props.onViewEntered)
+      this.props.onViewEntered(index);
 
-  componentWillReceiveProps(nextProps) {
-    this.wrapOnViewEnteredCallback(nextProps);
-  },
-
-  wrapOnViewEnteredCallback(props) {
-    var viewEnteredCallback = props.onViewEntered;
-    this.props.onViewEntered = (index) => {
-      if (viewEnteredCallback)
-        viewEnteredCallback(index);
-
-      if (this.state.activeViewIndex !== index)
-        this.setState({ activeViewIndex: index });
-    };
+    if (this.state.activeViewIndex !== index)
+      this.setState({ activeViewIndex: index });
   },
 
   render() {
@@ -53,6 +42,7 @@ module.exports = Component('DottedViewList', {
       <ViewList
         {...this.componentProps()}
         {...this.props}
+        onViewEntered={this.handleViewEntered}
         initialStep={this.state.activeViewIndex}
         after={(
           <Dots

@@ -12,6 +12,10 @@ module.exports = function(opts) {
     main: './app/main'
   };
 
+  if (opts.vendorChunk) {
+    entry.vendor = Object.keys(require('../package.json')["dependencies"]);
+  }
+
   var jsxLoader = [
     ReactStylePlugin.loader(),
     'jsx-loader?harmony&stripTypes'
@@ -80,6 +84,10 @@ module.exports = function(opts) {
   if (opts.hotComponents) {
     plugins.push(new webpack.HotModuleReplacementPlugin());
     plugins.push(new webpack.NoErrorsPlugin());
+  }
+
+  if (opts.vendorChunk) {
+    plugins.push(new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'));
   }
 
   if (opts.commonsChunk)

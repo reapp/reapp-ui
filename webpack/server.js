@@ -28,15 +28,20 @@ module.exports = {
     console.log('Webpack server running on', port);
     webpackServer.listen(port, hostname);
 
-    var scripts = [
-      '<script src="' + base + 'main.js"></script>',
-      '<script src="' + base + 'webpack-dev-server.js"></script>'
-    ].join("\n");
+    var entries = [
+      'vendor',
+      'main',
+      'webpack-dev-server'
+    ];
+
+    var scripts = entries.map(function(key) {
+      return '<script src="' + base + key + '.js"></script>';
+    });
 
     var template = fs
       .readFileSync(__dirname + '/../app/assets/index.html')
       .toString()
-      .replace('<!-- SCRIPTS -->', scripts);
+      .replace('<!-- SCRIPTS -->', scripts.join("\n"));
 
     callback.call(this, template);
   }
