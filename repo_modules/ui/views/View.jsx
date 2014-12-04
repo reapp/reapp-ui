@@ -29,9 +29,15 @@ module.exports = ViewComponent('View', {
     if (index === step)
       this.addStyles({ pointerEvents: 'all' });
 
-    this.addStyles('inner', { top: (titleBarProps || {}).height || 0 });
+    // add offset from titlebar
+    var titleBarHeight = titleBarProps && titleBarProps.height;
+    if (!titleBarHeight && title)
+      titleBarHeight = this.getConstant('titleBarHeight');
 
-    // clip box shadow from titlebar
+    if (titleBarHeight)
+      this.addStyles('inner', { top: titleBarHeight });
+
+    // clip box shadow for titlebar
     if (this.isAnimating())
       this.addStyles('inner', { clip: `rect(0px, ${width}px, ${height}px, -10px)` });
     else

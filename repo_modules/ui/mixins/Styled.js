@@ -11,6 +11,10 @@ module.exports = function(name) {
       this.makeStyles(this.props.styles);
     },
 
+    getConstant(name) {
+      return UI.getConstants()[name];
+    },
+
     // note: we track two styles
     // this.styles = styles that are added by the component itself
     // this.propStyles = styles passed in by props
@@ -106,6 +110,31 @@ module.exports = function(name) {
       }
 
       var styles = this.getStyles(elName);
+      return this._findDominantVal(styles, prop);
+    },
+
+    getStylesForComponent(componentName, elName) {
+      if (!elName) elName = 'self';
+
+      return UI.getStyles(componentName)
+        .map(styles => styles[elName])
+        .filter(x => typeof x !== 'undefined')
+        .map(this.makeReactStyle);
+    },
+
+    getStyleValForComponent(componentName, elName, prop) {
+      if (!prop) {
+        prop = elName;
+        elName = 'self';
+      }
+
+      return this._findDominantVal(
+        this.getStylesForComponent(componentName, elName),
+        prop
+      );
+    },
+
+    _findDominantVal(styles, prop) {
       if (!styles) return null;
 
       var stylesForProp = styles
@@ -113,19 +142,6 @@ module.exports = function(name) {
         .filter(x => typeof x !== 'undefined');
 
       return stylesForProp[stylesForProp.length - 1];
-    },
-
-    getStylesForComponent(componentName, prop) {
-      if (!prop) prop = 'self';
-
-      return UI.getStyles(componentName)
-        .map(styles => styles[prop])
-        .filter(x => typeof x !== 'undefined')
-        .map(this.makeReactStyle);
-    },
-
-    getConstant(name) {
-      return UI.getConstants()[name];
-    },
+    }
   };
 };

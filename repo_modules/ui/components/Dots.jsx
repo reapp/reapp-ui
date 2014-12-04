@@ -21,8 +21,8 @@ module.exports = Component('Dots', {
         <div {...this.componentProps('inner')}>
           {dots.map((dot, i) => (
             i === active ?
-              <div {...activeDotProps} /> :
-              <div {...dotProps} />
+              <div {...activeDotProps} key={i} /> :
+              <div {...dotProps} key={i} />
           ))}
         </div>
       </div>

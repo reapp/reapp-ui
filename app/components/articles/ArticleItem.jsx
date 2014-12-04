@@ -41,6 +41,7 @@ module.exports = Component('ArticleItem', mixins,
 
     return (
       <ListItem
+        key={props.index}
         className="Article"
         styles={{ after: { margin: 0 } }}
         onClick={this.onTouch}
