@@ -1,12 +1,15 @@
 require('es-object-assign');
 
-var React  = require('react');
+var React  = require('react/addons');
 var ReactStyle = require('react-style');
 var Router = require('react-router');
 var ResolveAllPromises = require('when/keys').all;
 var Routes = require('./routes');
 var UI = require('ui');
 var ENV = require('./ENV');
+
+var injectTapEventPlugin = require("react-tap-event-plugin");
+injectTapEventPlugin();
 
 // UI
 require('./themes/appTheme');

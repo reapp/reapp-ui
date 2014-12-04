@@ -1,0 +1,14 @@
+[ignore]
+.*node_modules
+.*web_modules
+.*build
+.*tests
+
+[include]
+
+[libs]
+./repo_modules
+./web_modules
+./app
+
+[options]

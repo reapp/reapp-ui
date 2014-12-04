@@ -1,3 +1,4 @@
+var React = require('react');
 var { Route, DefaultRoute } = require('react-router');
 var Layout = require('./components/Layout');
 var Articles = require('./pages/ArticlesPage');

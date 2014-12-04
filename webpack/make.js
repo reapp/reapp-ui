@@ -14,7 +14,7 @@ module.exports = function(opts) {
 
   var jsxLoader = [
     ReactStylePlugin.loader(),
-    'jsx-loader?harmony&insertPragma=React.DOM'
+    'jsx-loader?harmony&stripTypes'
   ];
 
   if (opts.hotComponents)

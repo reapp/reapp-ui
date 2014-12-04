@@ -1,7 +1,7 @@
 var React = require('react/addons');
 var Component = require('ui/component');
 var ListItem = require('./ListItem');
-var StickyTitles = require('sticky-titles');
+// var StickyTitles = require('sticky-titles');
 
 require('./List.styl');
 
@@ -10,7 +10,7 @@ module.exports = Component('List', {
     // todo: expect StickyTItles
     var titles = this.getDOMNode().querySelectorAll('.List--title');
     if (titles) {
-      new StickyTitles(titles);
+      // new StickyTitles(titles);
     }
   },
 

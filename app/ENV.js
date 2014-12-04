@@ -1,4 +1,4 @@
-ENV = module.exports = {
+module.exports = ENV = {
   CLIENT: typeof window !== 'undefined',
   SERVER: typeof window === 'undefined'
 };

@@ -38,7 +38,8 @@ else
 
 function runDevelopmentServer() {
   var webpackServer = require('./webpack/server');
-  var hostname = 'localhost';//os.hostname();
+  var hostname = 'localhost';
+  hostname = os.hostname();
   yargs.hostname = hostname;
 
   webpackServer.run(webpackConfig, yargs, function(template) {
