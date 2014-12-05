@@ -1,6 +1,7 @@
 var React = require('react');
 var StaticView = require('ui/helpers/StaticView');
 var Modal = require('ui/components/Modal');
+var ModalMixin = require('ui/mixins/ModalMixin');
 var Button = require('ui/components/Button');
 var BackButton = require('ui/components/buttons/BackButton');
 var { Container, Block } = require('ui/components/Grid');
@@ -8,6 +9,15 @@ var { Container, Block } = require('ui/components/Grid');
 module.exports = StaticView({
   statics: {
     title: [<BackButton />, 'Modals']
+  },
+
+  contextTypes: {
+    setModal: React.PropTypes.func.isRequired
+  },
+
+  showModal(modal) {
+    var setModal = this.context.setModal;
+    if (setModal) setModal(modal);
   },
 
   getInitialState() {
@@ -35,6 +45,9 @@ module.exports = StaticView({
         break;
     }
 
+    if (modal)
+      this.showModal(modal);
+
     return (
       <div>
         <Container>
@@ -45,7 +58,6 @@ module.exports = StaticView({
           <Button onClick={this.handlePrompt}>Prompt</Button>
           <Button onClick={this.handleConfirm}>Confirm</Button>
         </Container>
-        {modal}
       </div>
     );
   }

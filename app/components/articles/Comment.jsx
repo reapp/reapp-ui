@@ -5,23 +5,24 @@ var cx = React.addons.classSet;
 require('./Comment.styl');
 
 module.exports = Component('Comment',
-  function render(cursor) {
-    var comment = cursor.data;
+  function render(props) {
+    var { data, level, children } = props;
+
     var toggleOpened = (e) => {
       e.stopPropagation();
-      comment.update('closed', closed => !closed);
+      data.update('closed', closed => !closed);
     };
 
-    var classes = { comment: true, closed: comment.get('closed') };
-    classes[`level-${cursor.level}`] = true;
+    var classes = { comment: true, closed: data.get('closed') };
+    classes[`level-${level}`] = true;
 
     return (
       <div className={cx(classes)} onClick={toggleOpened}>
         <div className="comment--content">
-          <h3>{comment.get('by')} - {comment.get('closed').toString()}</h3>
-          <p dangerouslySetInnerHTML={{__html: comment.get('text')}}></p>
+          <h3>{data.get('by')} - {data.get('closed').toString()}</h3>
+          <p dangerouslySetInnerHTML={{__html: data.get('text')}}></p>
         </div>
-        {this.props.statics}
+        {children}
       </div>
     );
   }

@@ -1,6 +1,5 @@
 var React = require('react');
 var { Link, RouteHandler } = require('react-router');
-var Layered = require('ui/mixins/Layered');
 var Menu = require('ui/components/Menu');
 var Button = require('ui/components/Button');
 var LayoutLeftNav = require('ui/views/LayoutLeftNav');
@@ -12,8 +11,6 @@ var TOOLBAR_HEIGHT = 44;
 var SIDE_WIDTH = 200;
 
 var Layout = React.createClass({
-  mixins: [Layered],
-
   render() {
     var button = (
       <Button
@@ -28,7 +25,7 @@ var Layout = React.createClass({
           position: 'absolute',
           top: 2,
           left: 0,
-          zIndex: this.getLayer() + 10
+          zIndex: 10
         }}
         borderless />
     );
@@ -45,8 +42,7 @@ var Layout = React.createClass({
     return (
       <LayoutLeftNav
         handle={button}
-        nav={menu}
-        topHeight={TOOLBAR_HEIGHT}
+        side={menu}
         sideWidth={SIDE_WIDTH}>
         <DocumentTitle title="React Base" />
         <RouteHandler {...this.props} />

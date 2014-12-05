@@ -8,6 +8,18 @@ var Drawer = require('./Drawer');
 var { Scroller } = require('scroller');
 
 module.exports = ViewComponent('LayoutLeftNav', {
+  childContextTypes: {
+    setModal: React.PropTypes.func
+  },
+
+  getChildContext() {
+    return { setModal: this.setModal };
+  },
+
+  setModal(modal) {
+    this.setState({ modal });
+  },
+
   componentWillMount() {
     this.scroller = new Scroller(this._handleScroll, {
       bouncing: false,
@@ -38,8 +50,8 @@ module.exports = ViewComponent('LayoutLeftNav', {
       this._measure();
   },
 
-  closeNav() {
-    if (this.isNavOpen())
+  closeSide() {
+    if (this.isSideOpen())
       this.scroller.scrollTo(this.props.sideWidth, 0, true);
   },
 
@@ -58,35 +70,35 @@ module.exports = ViewComponent('LayoutLeftNav', {
   },
 
   _handleTap() {
-    var scrollTo = this.isNavOpen() ? this.props.sideWidth : 0;
+    var scrollTo = this.isSideOpen() ? this.props.sideWidth : 0;
     this.scroller.scrollTo(scrollTo, 0, true);
   },
 
   _handleContentTouchTap(e) {
-    if (!this.isNavOpen()) return;
+    if (!this.isSideOpen()) return;
     this.scroller.scrollTo(this.props.sideWidth, 0, true);
     e.preventDefault();
   },
 
-  isNavOpen() {
+  isSideOpen() {
     return this.state.scrollLeft !== this.props.sideWidth;
   },
 
   render() {
-    var { behavior, sideWidth, sideZIndex, handle, nav, children, ...props } = this.props;
-    var isNavOpen = this.isNavOpen();
+    var { behavior, sideWidth, sideZIndex, handle, side, children, ...props } = this.props;
+    var isSideOpen = this.isSideOpen();
 
-    this.addStyles('nav', isNavOpen && {
+    this.addStyles('side', isSideOpen && {
       left: sideWidth * -1,
       width: sideWidth,
       zIndex: sideZIndex || 0
     });
 
-    var navProps = {
+    var sideProps = {
       translate: behavior.parent.translate(sideWidth, this.state.scrollLeft),
       rotate: behavior.parent.rotate(sideWidth, this.state.scrollLeft),
       opacity: behavior.parent.opacity(sideWidth, this.state.scrollLeft),
-      styles: isNavOpen ? this.getStyles('nav') : null
+      styles: isSideOpen ? this.getStyles('side') : null
     };
 
     var drawerProps = {
@@ -98,11 +110,12 @@ module.exports = ViewComponent('LayoutLeftNav', {
 
     return (
       <div {...this.componentProps()}>
-        {isNavOpen && (
-          <AnimatableContainer {...navProps}>
-            <div {...this.componentProps('navInner')}
+        {this.state.modal}
+        {isSideOpen && (
+          <AnimatableContainer {...sideProps}>
+            <div {...this.componentProps('sideInner')}
               onClick={this._handleContentTouchTap}>
-              {nav}
+              {side}
             </div>
           </AnimatableContainer>
         )}

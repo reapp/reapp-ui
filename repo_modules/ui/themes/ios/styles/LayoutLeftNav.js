@@ -8,13 +8,13 @@ module.exports = {
     right: 0
   },
 
-  nav: {
+  side: {
     position: 'fixed',
     top: 0,
     bottom: 0
   },
 
-  navInner: {
+  sideInner: {
     position: 'absolute',
     top: 0,
     left: 0,

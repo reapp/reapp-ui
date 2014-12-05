@@ -6,12 +6,7 @@ var React = require('react');
 
 var ImmutableTreeNode = React.createClass({
   render() {
-    var {
-      idKey,
-      level,
-      data,
-      childKey,
-      renderComponent } = this.props;
+    var { idKey, level, data, childKey, renderComponent } = this.props;
 
     level = level || 0;
     var children = data.get(childKey);
@@ -33,8 +28,7 @@ var ImmutableTreeNode = React.createClass({
     }
 
     return Component(`treenode-${data.get(idKey)}`,
-      { level: level, data: data },
-      childNodes
+      { level: level, data: data, children: childNodes }
     );
   }
 });
