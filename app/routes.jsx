@@ -4,7 +4,6 @@ var Layout = require('./components/Layout');
 var Articles = require('./pages/ArticlesPage');
 var Article = require('./pages/Articles/ArticlePage');
 var User = require('./pages/UserPage');
-var ImageRoll = require('./pages/ImageRollPage');
 var Viewer = require('./pages/ViewerPage');
 var Kitchen = require('./pages/KitchenPage');
 var Cards = require('./pages/Kitchen/CardsPage');

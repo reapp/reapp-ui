@@ -1,17 +1,13 @@
 var React = require('react');
-var { Navigation } = require('react-router');
 var ArticleItem = require('./ArticleItem');
 var Comment = require('./Comment');
 var ImmutableTreeNode = require('ui/helpers/ImmutableTreeNode');
 var View = require('ui/views/View');
 var BackButton = require('ui/components/buttons/BackButton');
-var List = require('ui/components/List');
 
 require('./Article.styl');
 
 module.exports = React.createClass({
-  mixins: [Navigation],
-
   getComments(comments) {
     return comments && comments.map(comment => (
       <ImmutableTreeNode
@@ -29,7 +25,9 @@ module.exports = React.createClass({
     var hasComments = data && article.get('kidsLoaded');
 
     return (
-      <View {...props} title={[<BackButton />, 'Comments ()']}>
+      <View {...props}
+        title={[<BackButton />, 'Comments ()']}
+        titleBarProps={{ height: 48 }}>
         <ArticleItem cursor={cursor} />
         {hasComments && (
           <div id="comments">

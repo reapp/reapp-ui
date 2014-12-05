@@ -34,10 +34,14 @@ module.exports = React.createClass({
       .map(id => cursor.get(id.toString()))
       .filter(x => typeof x !== 'undefined');
 
+    var dottedProps =  hasChild ?
+      { touchStartBoundsX: { from: 20, to: window.innerWidth - 20 } } :
+      null;
+
     return (
       <ViewList initialStep={numRoutes - 2} noFakeTitleBar>
         <View>
-          <DottedViewList touchStartBoundsX={{ from: 20, to: window.innerWidth - 20 }}>
+          <DottedViewList {...dottedProps}>
             <View title="Hot Articles">
               <List dontWrapChildren styles={{ self: { borderTop: 'none' } }}>
                 {articles.count() ?
