@@ -1,29 +1,29 @@
-var Component = require('omniscient');
+var React = require('react');
 var React = require('react/addons');
 var cx = React.addons.classSet;
 
 require('./Comment.styl');
 
-module.exports = Component('Comment',
-  function render(props) {
-    var { data, level, children } = props;
+module.exports = React.createClass({
+  toggleOpened(e) {
+    e.stopPropagation();
+    this.props.cursor.update('closed', closed => !closed);
+  },
 
-    var toggleOpened = (e) => {
-      e.stopPropagation();
-      data.update('closed', closed => !closed);
-    };
+  render() {
+    var { cursor, level, children } = this.props;
 
-    var classes = { comment: true, closed: data.get('closed') };
+    var classes = { comment: true, closed: cursor.get('closed') };
     classes[`level-${level}`] = true;
 
     return (
-      <div className={cx(classes)} onClick={toggleOpened}>
+      <div className={cx(classes)} onClick={this.toggleOpened}>
         <div className="comment--content">
-          <h3>{data.get('by')} - {data.get('closed').toString()}</h3>
-          <p dangerouslySetInnerHTML={{__html: data.get('text')}}></p>
+          <h3>{cursor.get('by')} - {cursor.get('closed').toString()}</h3>
+          <p dangerouslySetInnerHTML={{__html: cursor.get('text')}}></p>
         </div>
         {children}
       </div>
     );
   }
-);
+});

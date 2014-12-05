@@ -37,8 +37,6 @@ var ArticlesPage = module.exports = React.createClass({
   },
 
   render() {
-    return Articles('articles', {
-      cursor: ArticlesStore()
-    });
+    return <Articles cursor={ArticlesStore()} />;
   }
 });

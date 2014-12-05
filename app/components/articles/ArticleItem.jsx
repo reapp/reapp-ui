@@ -1,20 +1,17 @@
-var Component = require('omniscient');
+var React = require('react');
 var Time = require('react-ago-component');
 var Icon = require('ui/components/Icon');
 var ListItem = require('ui/components/ListItem');
 var { Link } = require('react-router');
+var Badge = require('ui/components/Badge');
 
 require('./ArticleItem.styl');
 
-var mixins = [{
-  onTouch() {
-  }
-}];
-
-module.exports = Component('ArticleItem', mixins,
-  function render(props) {
-    var { cursor } = props;
-    if (!cursor) return null;
+module.exports = React.createClass({
+  render() {
+    var { cursor, index } = this.props;
+    if (!cursor)
+      return null;
 
     var article = cursor.get('data');
 
@@ -22,7 +19,7 @@ module.exports = Component('ArticleItem', mixins,
     var stats = (
       <ul>
         <li className="score">
-          <span>{article.get('score')}</span>
+          <Badge>{article.get('score')}</Badge>
         </li>
         <li>
             {article.get('by')}
@@ -41,17 +38,17 @@ module.exports = Component('ArticleItem', mixins,
 
     return (
       <ListItem
-        key={props.index}
+        key={index}
         className="Article"
         styles={{ after: { margin: 0 } }}
         onClick={this.onTouch}
         wrapper={<a className="article--link" href={article.get('url')} />}
         title={article.get('title')}
         after={articleRight}
-        index={props.index}
+        index={index}
         noicon>
         {stats}
       </ListItem>
     );
   }
-);
+});

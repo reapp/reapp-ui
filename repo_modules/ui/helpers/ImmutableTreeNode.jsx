@@ -2,17 +2,21 @@ var React = require('react');
 
 // Build a tree from structured immutable objects
 // Wraps each node with a component
-// <ImmutableTreeNode renderComponent={Comment} childKey="kids" data={immutableObject} />
+//
+// <ImmutableTreeNode
+//    renderComponent={Comment}
+//    childKey="kids"
+//    cursor={immutableObject} />
 
-var ImmutableTreeNode = React.createClass({
+var ImmutableTreeNode = module.exports = React.createClass({
   render() {
-    var { idKey, level, data, childKey, renderComponent } = this.props;
+    var { idKey, level, cursor, childKey, renderComponent, ...props } = this.props;
 
     level = level || 0;
-    var children = data.get(childKey);
+    var children = cursor.get(childKey);
     var Component = renderComponent;
-
     var childNodes;
+
     if (children) {
       var i = 0;
       var childLevel = `child-${level}`;
@@ -22,15 +26,18 @@ var ImmutableTreeNode = React.createClass({
           key={`${childLevel}-${++i}`}
           renderComponent={renderComponent}
           childKey={childKey}
-          data={child}
+          cursor={child}
           level={childLevel} />
       )).toArray();
     }
 
-    return Component(`treenode-${data.get(idKey)}`,
-      { level: level, data: data, children: childNodes }
+    return (
+      <Component {...props}
+        key={cursor.get(idKey)}
+        level={level}
+        cursor={cursor}>
+        {childNodes}
+      </Component>
     );
   }
 });
-
-module.exports = ImmutableTreeNode;

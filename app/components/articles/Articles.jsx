@@ -1,5 +1,5 @@
-var Component = require('omniscient');
-var { RouteHandler, State, RouteHandlerMixin } = require('react-router');
+var React = require('react');
+var { State, RouteHandlerMixin } = require('react-router');
 var Actions = require('actions/Actions');
 var List = require('ui/components/List');
 var ListItem = require('ui/components/ListItem');
@@ -11,15 +11,20 @@ var HotArticlesStore = require('stores/HotArticlesStore');
 
 require('./Articles.styl');
 
-module.exports = Component('Articles', [State, RouteHandlerMixin],
-  function render(props) {
-    var { cursor, views, ...rest } = props;
+// todo: put stores in context,
+// declaratively say stores rather than pass as cursor?
 
-    var handleLoadMore = (e) => {
-      e.preventDefault();
-      e.target.innerHTML = 'Loading...';
-      Actions.loadMoreHotArticles();
-    };
+module.exports = React.createClass({
+  mixins: [State, RouteHandlerMixin],
+
+  handleLoadMore(e) {
+    e.preventDefault();
+    e.target.innerHTML = 'Loading...';
+    Actions.loadMoreHotArticles();
+  },
+
+  render() {
+    var { cursor } = this.props;
 
     var numRoutes = this.getRoutes().length;
     var hasChild = numRoutes > 2;
@@ -29,21 +34,23 @@ module.exports = Component('Articles', [State, RouteHandlerMixin],
       .map(id => cursor.get(id.toString()))
       .filter(x => typeof x !== 'undefined');
 
-    var hasArticles = articles.count();
-
     return (
       <ViewList initialStep={numRoutes - 2} noFakeTitleBar>
         <View>
           <DottedViewList>
             <View title="Hot Articles">
               <List dontWrapChildren styles={{ self: { borderTop: 'none' } }}>
-                {hasArticles ?
-                  articles
-                    .map(article => ArticleItem(`AI-${article.get('id')}`, article))
-                    .toArray()
-                    .concat(
-                      <ListItem style={{textAlign:'center'}} onClick={handleLoadMore}>Load More</ListItem>
-                    ) :
+                {articles.count() ?
+                  articles.map((article, i) =>
+                    <ArticleItem cursor={article} key={i} />
+                  ).toArray()
+                  .concat(
+                    <ListItem
+                      style={{textAlign:'center'}}
+                      onClick={this.handleLoadMore}>
+                      Load More
+                    </ListItem>
+                  ) :
                   <ListItem style={{textAlign: 'center'}}>Loading...</ListItem>
                 }
                 </List>
@@ -53,8 +60,8 @@ module.exports = Component('Articles', [State, RouteHandlerMixin],
           </DottedViewList>
         </View>
 
-        {hasChild && this.getRouteHandler(Object.assign(rest, { key: subRouteKey }))}
+        {hasChild && this.getRouteHandler({ key: subRouteKey })}
       </ViewList>
     );
   }
-);
+});

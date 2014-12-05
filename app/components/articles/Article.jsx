@@ -1,4 +1,4 @@
-var Component = require('omniscient');
+var React = require('react');
 var { Navigation } = require('react-router');
 var ArticleItem = require('./ArticleItem');
 var Comment = require('./Comment');
@@ -8,29 +8,34 @@ var BackButton = require('ui/components/buttons/BackButton');
 
 require('./Article.styl');
 
-var getComments = comments => comments &&
-  comments.map(comment => (
-    <ImmutableTreeNode
-      idKey="id"
-      childKey="kids"
-      renderComponent={Comment}
-      data={comment} />
-  )).toArray();
+module.exports = React.createClass({
+  mixins: [Navigation],
 
-module.exports = Component('Article', [Navigation],
-  function render(props) {
-    var { cursor, ...rest } = props;
-    var article = cursor && cursor.get('data') || { get: () => 'Loading' };
-    var commentTree = article.get('kidsLoaded') ? getComments(article.get('kids')) : null;
-    var parents = ['articlesLeftView', 'hamburger'];
+  getComments(comments) {
+    return comments && comments.map(comment => (
+      <ImmutableTreeNode
+        idKey="id"
+        cursor={comment}
+        childKey="kids"
+        renderComponent={Comment} />
+    )).toArray();
+  },
+
+  render() {
+    var { cursor, ...props } = this.props;
+    var data = cursor && cursor.get('data');
+    var article = data || { get: () => 'Loading' };
+    var hasComments = data && article.get('kidsLoaded');
 
     return (
-      <View {...rest} id="Article" title={[<BackButton />, 'Comments ()']}>
-        {ArticleItem(`ArticlePage-ArticleItem-${article.get('id')}`, cursor)}
-        <div id="comments">
-          {commentTree}
-        </div>
+      <View {...props} title={[<BackButton />, 'Comments ()']}>
+        <ArticleItem cursor={cursor} />
+        {hasComments && (
+          <div id="comments">
+            {this.getComments(article.get('kids'))}
+          </div>
+        )}
       </View>
     );
   }
-);
+});
