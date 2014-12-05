@@ -1,8 +1,9 @@
-module.exports = (vars) => ({
+module.exports = (c) => ({
   self: {
-    background: vars.tabsBG,
-    height: vars.tabsHeight,
-    lineHeight: vars.tabsLineHeight,
+    background: c.tabsBG,
+    height: c.tabsHeight,
+    lineHeight: c.tabsLineHeight,
+    borderTop: `1px solid ${c.tabsBorderColor}`,
     position: 'fixed',
     bottom: 0,
     left: 0,

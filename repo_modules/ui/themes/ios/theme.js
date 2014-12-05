@@ -6,6 +6,8 @@ module.exports = makeTheme(requirer, [
   'Block',
   'Button',
   'ButtonRow',
+  'Card',
+  'CardList',
   'Container',
   'DottedViewList',
   'Dots',

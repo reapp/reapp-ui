@@ -22,6 +22,7 @@ module.exports = React.createClass({
             <Link to="lists">Lists</Link>
             <Link to="modals">Modals</Link>
             <Link to="popovers">Popovers</Link>
+            <Link to="cards">Cards</Link>
             <Link to="forms">Forms</Link>
             <Link to="tabs">Tabs</Link>
             <Link to="grids">Grid</Link>

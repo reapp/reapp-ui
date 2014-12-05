@@ -55,4 +55,10 @@ Animations.MOVE_TO_RIGHT = function(index, step) {
   };
 };
 
+Animations.CARD = function(index, step) {
+  return {
+    translate: { y: step * index + symmetrical(step) * 10 }
+  };
+};
+
 module.exports = Animations;

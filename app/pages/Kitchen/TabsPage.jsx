@@ -8,7 +8,7 @@ var { Container, Block } = require('ui/components/Grid');
 
 module.exports = StaticView({
   statics: {
-    title: [<BackButton />, "Modals"]
+    title: [<BackButton />, 'Tabs']
   },
 
   getInitialState() {
@@ -47,7 +47,7 @@ module.exports = StaticView({
     };
 
     return (
-      <View {...this.props} id="TabsPage" title={[<BackButton />, "TabsPage"]}>
+      <div>
         <Container>
           <Block>
             <h3>Tabs</h3>
@@ -56,18 +56,25 @@ module.exports = StaticView({
         </Container>
 
         <Container>
-          <Block>
-            <Button onClick={this.handleTabType} data-type="text">Text</Button>
-            <Button onClick={this.handleTabType} data-type="icon">Icon</Button>
-            <Button onClick={this.handleTabType} data-type="icon-text">Icon + Text</Button>
-            <Button onClick={this.handleTabType} data-type="icon-text-right">Icon + Text (Right)</Button>
-          </Block>
+          <Button onClick={this.handleTabType} data-type="text">Text</Button>
+        </Container>
+
+        <Container>
+          <Button onClick={this.handleTabType} data-type="icon">Icon</Button>
+        </Container>
+
+        <Container>
+          <Button onClick={this.handleTabType} data-type="icon-text">Icon + Text</Button>
+        </Container>
+
+        <Container>
+          <Button onClick={this.handleTabType} data-type="icon-text-right">Icon + Text (Right)</Button>
         </Container>
 
         <Tabs type={this.state.tabsType}>
           {tabContents[this.state.tabsType]}
         </Tabs>
-      </View>
+      </div>
     );
   }
 });

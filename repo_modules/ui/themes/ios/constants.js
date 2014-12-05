@@ -1,7 +1,7 @@
 var blue = '#307cff';
 var textColor = '#000';
 var barBG = '#f7f7f8';
-var barBorderBG = '#c4c4c4';
+var barBorderColor = '#c4c4c4';
 var listBorderColor = '#c8c7cc';
 
 module.exports = {
@@ -13,11 +13,12 @@ module.exports = {
   tabsBG: barBG,
   tabsHeight: '49px',
   tabsLineHeight: '49px',
+  tabsBorderColor: barBorderColor,
 
   // TitleBar
   titleBarBG: barBG,
   titleBarColor: textColor,
-  titleBarBorderColor: barBorderBG,
+  titleBarBorderColor: barBorderColor,
   titleBarHeight: 44,
   titleBarFontSize: '16px',
 
