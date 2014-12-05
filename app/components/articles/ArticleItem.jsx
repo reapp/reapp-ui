@@ -1,5 +1,5 @@
 var React = require('react');
-var Time = require('react-ago-component');
+var Time = require('react-time');
 var Icon = require('ui/components/Icon');
 var ListItem = require('ui/components/ListItem');
 var { Link } = require('react-router');
@@ -9,23 +9,24 @@ require('./ArticleItem.styl');
 
 module.exports = React.createClass({
   render() {
-    var { cursor, index } = this.props;
+    var { cursor, index, noLink } = this.props;
     if (!cursor)
       return null;
 
     var article = cursor.get('data');
 
-    //<Link to="user" params={{id: article.get('by')}} activeClassName="">
     var stats = (
       <ul>
         <li className="score">
           <Badge>{article.get('score')}</Badge>
         </li>
-        <li>
+        <li className="author">
+          <Link to="user" params={{id: article.get('by')}} activeClassName="">
             {article.get('by')}
+          </Link>
         </li>
         <li className="time">
-          <Time date={new Date(article.get('time') * 1000)} autoUpdate />
+          <Time value={new Date(article.get('time') * 1000)} relative />
         </li>
       </ul>
     );
@@ -39,10 +40,10 @@ module.exports = React.createClass({
     return (
       <ListItem
         key={index}
-        className="Article"
+        className="ArticleItem"
         styles={{ after: { margin: 0 } }}
         onClick={this.onTouch}
-        wrapper={<a className="article--link" href={article.get('url')} />}
+        wrapper={!noLink && <a className="article--link" href={article.get('url')} />}
         title={article.get('title')}
         after={articleRight}
         index={index}

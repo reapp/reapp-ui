@@ -3,7 +3,7 @@ var Mime = require('rest/interceptor/mime');
 var Parseurl = require('parseurl');
 var When = require('when');
 
-var cache = {};
+var cache = window.cache = {};
 
 class Client {
   constructor({ base }) {
@@ -28,6 +28,7 @@ class Client {
     else
       return this.rest(this.getUrl(url)).then(
         res => {
+          console.log(url, res, res.entity);
           cache[url] = res.entity;
           return res.entity;
         },

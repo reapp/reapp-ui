@@ -19,7 +19,7 @@ module.exports = React.createClass({
     return (
       <div className={cx(classes)} onClick={this.toggleOpened}>
         <div className="comment--content">
-          <h3>{cursor.get('by')} - {cursor.get('closed').toString()}</h3>
+          <h3>{cursor.get('by')}</h3>
           <p dangerouslySetInnerHTML={{__html: cursor.get('text')}}></p>
         </div>
         {children}

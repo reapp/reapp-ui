@@ -5,6 +5,7 @@ var Comment = require('./Comment');
 var ImmutableTreeNode = require('ui/helpers/ImmutableTreeNode');
 var View = require('ui/views/View');
 var BackButton = require('ui/components/buttons/BackButton');
+var List = require('ui/components/List');
 
 require('./Article.styl');
 

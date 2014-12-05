@@ -42,13 +42,11 @@ module.exports = ViewComponent('ViewList', {
         bouncing: false,
         scrollingY: false
       },
-      touchStartBounds: {
-        // touchable only on the left and right edges
-        x: [
-          { from: 0, to: 20 },
-          { from: width - 20, to: width }
-        ]
-      }
+      // touchable only on the left and right edges
+      touchStartBoundsX: [
+        { from: 0, to: 20 },
+        { from: width - 20, to: width }
+      ]
     };
   },
 
@@ -217,7 +215,6 @@ module.exports = ViewComponent('ViewList', {
     var {
       after,
       before,
-      touchStartBounds,
       children,
       animation,
       titleBarProps,
@@ -231,7 +228,6 @@ module.exports = ViewComponent('ViewList', {
     }
 
     var viewListProps = Object.assign({
-      touchStartBounds,
       ignoreY: true,
       scroller: this.scroller,
       onTouchStart: this.handleTouchStart,
@@ -243,7 +239,7 @@ module.exports = ViewComponent('ViewList', {
       this.addStyles(this.styles.underTouchable);
 
     return (
-      <TouchableArea {...this.componentProps()} {...viewListProps}>
+      <TouchableArea {...this.componentProps()} {...viewListProps} stopPropagation>
         {!noFakeTitleBar && fakeTitleBar}
         {before}
         {React.Children.map(this.state.children, (view, i) => {
@@ -251,6 +247,7 @@ module.exports = ViewComponent('ViewList', {
             titleBarProps: childTitleBarProps,
             animation,
             index: i,
+            key: i,
             step: this.state.step,
             width: this.state.width,
             height: this.state.height,

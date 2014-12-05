@@ -15,12 +15,9 @@ module.exports = Component('DottedViewList', {
           }
         }
       },
-      touchStartBounds: {
-        // everything but the left edge
-        x: {
-          from: 20,
-          to: window.innerWidth
-        }
+      touchStartBoundsX: {
+        from: 20,
+        to: window.innerWidth
       }
     };
   },

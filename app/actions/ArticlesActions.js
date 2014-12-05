@@ -11,10 +11,7 @@ var per = 10;
 
 Actions.loadArticlesHot.listen(
   () => API.get('topstories.json')
-    .then(res => {
-      HotArticlesStore(res);
-      return res;
-    })
+    .then(res => HotArticlesStore(res) && res)
     .then(getArticles)
     .then(Reducer)
     .then(ArticlesStore, error)
@@ -58,7 +55,9 @@ function getNextArticles(articles) {
 function getArticles(articles) {
   var start = page * per;
   return Promise.all(
-    articles.slice(start, start + per).map(article => API.get(`item/${article}.json`))
+    articles.slice(start, start + per).map(article => {
+      return typeof article == 'object' ? article : API.get(`item/${article}.json`);
+    })
   );
 }
 

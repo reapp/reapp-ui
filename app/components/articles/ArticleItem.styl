@@ -1,4 +1,4 @@
-.Article {
+.ArticleItem {
   flex-flow: row;
   flex-wrap: nowrap;
   justify-content: space-between;
@@ -38,8 +38,14 @@
   }
 
   .score {
-    font-weight: bold;
     flex-grow: 0;
+  }
+
+  .author {
+    margin-left: 10px;
+    a {
+      color: #999 !important;
+    }
   }
 
   .time {

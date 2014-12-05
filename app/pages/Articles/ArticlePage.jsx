@@ -2,6 +2,7 @@ var { State } = require('react-router');
 var ArticlesStore = require('stores/ArticlesStore');
 var Actions = require('actions/Actions');
 var Article = require('components/articles/Article');
+var View = require('ui/views/View');
 
 var ArticlePage = module.exports = React.createClass({
   mixins: [State],
@@ -25,6 +26,6 @@ var ArticlePage = module.exports = React.createClass({
     var cursor = ArticlesStore().get(this.getParams().id);
     return cursor ?
       <Article {...this.props} cursor={cursor} /> :
-      <div />;
+      <View />;
   }
 });

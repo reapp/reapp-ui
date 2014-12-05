@@ -37,7 +37,7 @@ module.exports = React.createClass({
     return (
       <ViewList initialStep={numRoutes - 2} noFakeTitleBar>
         <View>
-          <DottedViewList>
+          <DottedViewList touchStartBoundsX={{ from: 20, to: window.innerWidth - 20 }}>
             <View title="Hot Articles">
               <List dontWrapChildren styles={{ self: { borderTop: 'none' } }}>
                 {articles.count() ?

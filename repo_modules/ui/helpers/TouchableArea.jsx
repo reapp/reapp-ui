@@ -5,9 +5,11 @@ var TouchableArea = React.createClass({
     return {
       element: 'div',
       touchable: true,
-      touchStartBounds: false,
+      touchStartBoundsX: false,
+      touchStartBoundsY: false,
       ignoreY: false,
-      ignoreX: false
+      ignoreX: false,
+      stopPropagation: false
     };
   },
 
@@ -28,16 +30,17 @@ var TouchableArea = React.createClass({
   // this function accounts for touchStartBound that are passed in
   // if touchStart is within those bounds, it begins touchStartActions
   handleTouchStart(e) {
-    if (!this.props.touchable || !this.props.scroller) return;
+    if (!this.props.touchable || !this.props.scroller || e.touchableAreaIsMoving)
+      return;
 
     // null == we haven't figured out if were ignoring this scroll, yet
     this.ignoringScroll = null;
     this._initialTouchLeft = this.getTouchLeft(e.touches);
     this._initialTouchTop = this.getTouchTop(e.touches);
 
-    if (this.props.touchStartBounds) {
-      var xBounds = this.props.touchStartBounds.x;
-      var yBounds = this.props.touchStartBounds.y;
+    if (this.props.touchStartBoundsX || this.props.touchStartBoundsY) {
+      var xBounds = this.props.touchStartBoundsX;
+      var yBounds = this.props.touchStartBoundsY;
       var withinX = !xBounds || this.oneWithin(xBounds, this.getTouchLeft(e.touches));
       var withinY = !yBounds || this.oneWithin(yBounds, this.getTouchTop(e.touches));
 
@@ -56,6 +59,9 @@ var TouchableArea = React.createClass({
   handleTouchMove(e) {
     if (!this.props.scroller || !this.props.touchable || this.ignoringScroll) return;
     if (this.ignoreDirectionalScroll(e)) return;
+
+    if (this.props.stopPropagation)
+      e.touchableAreaIsMoving = true;
 
     this.props.scroller.doTouchMove(e.touches, e.timeStamp, e.scale);
     e.preventDefault();
@@ -87,6 +93,7 @@ var TouchableArea = React.createClass({
   handleTouchEnd(e) {
     if (!this.props.touchable || !this.props.scroller) return;
 
+    e.touchableAreaIsMoving = false;
     this.props.scroller.doTouchEnd(e.timeStamp);
     if (this.props.onTouchEnd) this.props.onTouchEnd(e);
   },
