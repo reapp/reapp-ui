@@ -35,7 +35,6 @@ var Layout = React.createClass({
         <Link to="app">Home</Link>
         <Link to="kitchen">Kitchen Sink</Link>
         <Link to="viewer">3D Gallery</Link>
-        <Link to="imageRoll">Image Roll</Link>
       </Menu>
     );
 

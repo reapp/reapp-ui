@@ -42,6 +42,5 @@ module.exports = (
     </Route>
 
     <Route name="viewer" handler={Viewer} />
-    <Route name="imageRoll" handler={ImageRoll} />
   </Route>
 );
