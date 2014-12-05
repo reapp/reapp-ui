@@ -1,35 +1,29 @@
 /* --dev --port [#] --config [path] --wport [#] --quiet --colors --progress --hot */
 
-var mach = require('mach');
+var express = require('express');
 var path = require('path');
 var yargs = require('yargs').argv;
 var fs = require('fs');
 var os = require('os');
 var util = require('util');
 var Router = require('react-router');
+var Cors = require('cors');
 var webpack = require('webpack');
 var webpackConfig = require(path.join(
     __dirname, '/webpack/', (yargs.config || 'config.production.js')));
 
-var stack = mach.stack();
+var app = express();
 var port = Number(yargs.port || process.env.PORT || 5283);
+app.set('port', port);
 
 console.log('Starting', yargs.dev ? 'dev' : 'prod' , 'server...');
 
-var staticPaths = [
-  path.join(__dirname, 'build', 'public'),
-  path.join(__dirname, 'app', 'assets'),
-  path.join(__dirname, 'web_modules')
-];
+app.use(Cors());
 
+var staticPaths = [ '/build/public', '/app/assets', '/web_modules' ];
 staticPaths.forEach(function(path) {
-  stack.use(mach.file, {root: path});
+  app.use('/assets', express.static(__dirname + path));
 });
-
-stack.use(mach.logger);
-stack.use(addHeader, 'Access-Control-Allow-Origin', '*');
-stack.use(addHeader, 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-stack.run();
 
 if (yargs.dev)
   runDevelopmentServer();
@@ -43,10 +37,11 @@ function runDevelopmentServer() {
   yargs.hostname = hostname;
 
   webpackServer.run(webpackConfig, yargs, function(template) {
-    stack.get('/*', function() { return template; });
+    app.get('*', function(req, res) {
+      res.send(template);
+    });
+    runServer();
   });
-
-  runMach();
 }
 
 function runProductionServer() {
@@ -62,21 +57,18 @@ function runProductionServer() {
       var STYLE_URL = 'main.css?' + stats.hash;
       var SCRIPT_URL = [].concat(stats.assetsByChunkName.main)[0] + '?' + stats.hash;
 
-      stack.get('/*', function(req) {
+      app.get('/*', function(req) {
         return renderProductionApp(app, req.path, STYLE_URL, SCRIPT_URL);
       });
 
-      runMach();
+      runServer();
     }
   });
 }
 
-function runMach() {
-  console.log('Mach server running on', port);
-  mach.serve(stack, {
-    port: port,
-    quiet: true
-  });
+function runServer() {
+  console.log('Server running on', port);
+  app.listen(app.get('port'));
 }
 
 function renderProductionApp(app, path, styleUrl, scriptUrl) {
@@ -97,15 +89,6 @@ function renderProductionApp(app, path, styleUrl, scriptUrl) {
       resolve(output);
     });
   });
-}
-
-function addHeader(app, headerName, headerValue) {
-  return function(request) {
-    return request.call(app).then(function (response) {
-      response.headers[headerName] = headerValue;
-      return response;
-    });
-  };
 }
 
 var util;

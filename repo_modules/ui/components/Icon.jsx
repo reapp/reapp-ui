@@ -55,7 +55,7 @@ module.exports = Component('Icon', {
       <span {...props} {...this.componentProps()}>
         <svg {...svgProps}>
           <g dangerouslySetInnerHTML={{__html:
-            '<use xlink:href="/icons/svg/'+ type +'.svg#Layer_1"></use>'
+            '<use xlink:href="/assets/icons/svg/'+ type +'.svg#Layer_1"></use>'
           }} />
         </svg>
       </span>
