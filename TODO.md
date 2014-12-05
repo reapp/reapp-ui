@@ -1,27 +1,28 @@
+- finish card view horizontal and vertical
+- extract scroller parts
+- use scroller parts in viewlists, etc
+
+- icons from ionic
+
+- redo scroller with physics library from that guy
+- then,
+- search bar under title
+- pull to refresh
+- swipe list items to side
+
 roadmap
 - dont use omniscient, take out pieces of it
   - direct integration with react, but
   - pre-mixed in:
     - cursor shouldComponentUpdate
-    - purerendermixin
-- strategy for managing styles
 - stores
-
-UI
-- themeing
 
 UI state
 - all elements attributes
 - routes
 - scroll positions
 
-icon - extract into package
- - allow passing in icon type
-
 HN
 - frosted glass headers
 - swipe right to add to "read later"
 - add refresh button
-
-LeftNavView
-- Allow all styling to be overridden
