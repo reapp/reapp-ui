@@ -1,11 +1,12 @@
-var { State } = require('react-router');
+var React = require('react');
+var Component = require('component');
 var ArticlesStore = require('stores/ArticlesStore');
 var Actions = require('actions/Actions');
 var Article = require('components/articles/Article');
 var View = require('ui/views/View');
 
-var ArticlePage = module.exports = React.createClass({
-  mixins: [State],
+module.exports = Component({
+  mixins: ['rr.State'],
 
   statics: {
     fetchData(params) {
@@ -24,7 +25,6 @@ var ArticlePage = module.exports = React.createClass({
 
   render() {
     var cursor = ArticlesStore().get(this.getParams().id);
-    console.log('articlpage', this.props);
     return cursor ?
       <Article {...this.props} cursor={cursor} /> :
       <View />;

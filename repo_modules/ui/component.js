@@ -1,14 +1,11 @@
-var React = require('react/addons');
-var ReactStyle = require('react-style');
+var React = require('react');
 var Styled = require('./mixins/Styled');
 var Classed = require('./mixins/Classed');
 var Layered = require('./mixins/Layered');
 var Animated = require('./mixins/Animated');
-var UI = require('./index');
 
 module.exports = function(name, spec) {
   var mixins = [].concat(
-    // React.addons.PureRenderMixin,
     Layered,
     Animated,
     Styled(name),

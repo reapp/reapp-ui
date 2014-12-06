@@ -4,10 +4,6 @@ var TweenState = require('react-tween-state');
 module.exports = Component('Icon', {
   mixins: [TweenState.Mixin],
 
-  getInitialState() {
-    return { step: 0 };
-  },
-
   getDefaultProps() {
     return {
       size: 32,
@@ -18,14 +14,19 @@ module.exports = Component('Icon', {
   },
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.animation === 'ROTATE')
+    if (nextProps.animation === 'ROTATE') {
+      this.setState({ step: 0 });
       this.rotate();
+    }
+    else {
+      this.setState({ step: null });
+    }
   },
 
   rotate() {
     this.tweenState('step', {
-      endValue: this.state.step === 1 ? 0 : 1,
-      duration: 400,
+      endValue: this.state.step === 0 ? 1 : 0,
+      duration: 500,
       onEnd: this.rotate
     });
   },
@@ -70,8 +71,6 @@ module.exports = Component('Icon', {
 
     if (animation)
       props.style = this.getAnimationStyles(animation);
-
-    console.log(props.style);
 
     return (
       <span {...props} {...this.componentProps()}>

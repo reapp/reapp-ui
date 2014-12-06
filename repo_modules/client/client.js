@@ -28,7 +28,6 @@ class Client {
     else
       return this.rest(this.getUrl(url)).then(
         res => {
-          console.log(url, res, res.entity);
           cache[url] = res.entity;
           return res.entity;
         },

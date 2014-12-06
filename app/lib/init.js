@@ -1,0 +1,1 @@
+require('es-object-assign');

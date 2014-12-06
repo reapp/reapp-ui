@@ -20,7 +20,7 @@ module.exports = Component('ListItem', {
   },
 
   hasLinkAsChild(child) {
-    return  React.isValidElement(child) && this.isLink(child);
+    return React.isValidElement(child) && this.isLink(child);
   },
 
   render() {

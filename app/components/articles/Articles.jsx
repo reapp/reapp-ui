@@ -1,5 +1,5 @@
+var Component = require('component');
 var React = require('react');
-var { State, RouteHandlerMixin } = require('react-router');
 var Actions = require('actions/Actions');
 var List = require('ui/components/List');
 var Button = require('ui/components/Button');
@@ -15,11 +15,15 @@ require('./Articles.styl');
 // todo: put stores in context,
 // declaratively say stores rather than pass as cursor?
 
-module.exports = React.createClass({
-  mixins: [State, RouteHandlerMixin],
+module.exports = Component({
+  mixins: ['rr.State', 'rr.RouteHandler'],
 
   getInitialState() {
     return { isRefreshing: false };
+  },
+
+  componentWillReceiveProps() {
+    this.setState({ isRefreshing: false });
   },
 
   handleLoadMore(e) {
@@ -54,7 +58,6 @@ module.exports = React.createClass({
       stroke: 1
     };
 
-    console.log('render');
     if (this.state.isRefreshing)
       refreshIconProps.animation = 'ROTATE';
 
