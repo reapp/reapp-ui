@@ -3,10 +3,15 @@ var Icon = require('./Icon');
 
 module.exports = Component('Button', {
   render() {
-    var { transforms, iconProps, children, borderless, rounded, active, ...props } = this.props;
+    var { transforms, iconProps, icon, children, borderless, rounded, active, ...props } = this.props;
     var hasIconProps = !!iconProps;
 
-    if (hasIconProps)
+    if (icon) {
+      iconProps = (iconProps || {});
+      iconProps.type = icon;
+    }
+
+    if (iconProps)
       iconProps.color = iconProps.color || this.getStyleVal('color');
 
     if (borderless)

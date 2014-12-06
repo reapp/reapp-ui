@@ -25,7 +25,7 @@ module.exports = function(name, spec) {
     }
   );
 
-  spec.displayName = name;
+  spec.displayName = 'UI-' + name;
   spec.mixins = mixins;
 
   // allow checking for "isName" on all components

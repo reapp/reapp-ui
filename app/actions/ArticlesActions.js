@@ -9,15 +9,19 @@ var Immutable = require('immutable');
 var page = 0;
 var per = 10;
 
-Actions.loadArticlesHot.listen(
-  () => API.get('topstories.json')
+Actions.articlesHotLoad.listen(
+  (opts) => API.get('topstories.json', opts)
     .then(res => HotArticlesStore(res) && res)
     .then(getArticles)
     .then(Reducer)
     .then(ArticlesStore, error)
 );
 
-Actions.loadMoreHotArticles.listen(
+Actions.articlesHotRefresh.listen(
+  () => Actions.articlesHotLoad({ nocache: true })
+);
+
+Actions.articlesHotLoadMore.listen(
   () =>  API.get('topstories.json')
     .then(getNextArticles)
     .then(Reducer)
@@ -30,7 +34,7 @@ Actions.loadMoreHotArticles.listen(
     })
 );
 
-Actions.loadArticle.listen(
+Actions.articleLoad.listen(
   id => API.get(`item/${id}.json`)
     .then(getAllKids)
     .then(

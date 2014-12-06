@@ -15,7 +15,7 @@ var ArticlesPage = module.exports = React.createClass({
             res(data);
           }
         });
-        Actions.loadArticlesHot();
+        Actions.articlesHotLoad();
       });
     }
   },

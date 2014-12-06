@@ -3,29 +3,53 @@ var Transition = React.addons.TransitionGroup;
 var { Link, RouteHandlerMixin, State } = require('react-router');
 var ViewList = require('ui/views/ViewList');
 var View = require('ui/views/View');
+var SearchBar = require('ui/components/SearchBar');
 var List = require('ui/components/List');
 var Title = require('ui/components/Title');
 
 module.exports = React.createClass({
   mixins: [State, RouteHandlerMixin],
 
+  getInitialState() {
+    return { searchVal: '' };
+  },
+
+  handleSearch(e) {
+    this.setState({ searchVal: e.target.value });
+  },
+
+  filteredLinks(links) {
+    var search = RegExp(this.state.searchVal, 'i');
+    var filteredLinks = links.filter(link => !!link[1].match(search));
+    return filteredLinks.map(this.makeLink);
+  },
+
+  makeLink(link) {
+    return <Link to={link[0]}>{link[1]}</Link>;
+  },
+
   render() {
     var numRoutes = this.getRoutes().length;
     var hasChild = numRoutes > 2;
+    var interfaceLinks = [
+      ['controls', 'Controls'],
+      ['lists', 'Lists'],
+      ['modals', 'Modals'],
+      ['popovers', 'Popovers'],
+      ['cards', 'Cards'],
+      ['forms', 'Forms'],
+      ['tabs', 'Tabs'],
+      ['grids', 'Grid']
+    ];
 
     return (
       <ViewList initialStep={numRoutes - 2}>
         <View title="Kitchen Sink">
+          <SearchBar onChange={this.handleSearch} defaultValue="" />
+
           <Title>Interface</Title>
           <List>
-            <Link to="controls">Controls</Link>
-            <Link to="lists">Lists</Link>
-            <Link to="modals">Modals</Link>
-            <Link to="popovers">Popovers</Link>
-            <Link to="cards">Cards</Link>
-            <Link to="forms">Forms</Link>
-            <Link to="tabs">Tabs</Link>
-            <Link to="grids">Grid</Link>
+            {this.filteredLinks(interfaceLinks)}
           </List>
 
           <Title>Views</Title>

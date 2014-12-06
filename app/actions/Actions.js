@@ -1,10 +1,12 @@
 var Fynx = require('fynx');
 
 var actions = Fynx.createActions([
-  'loadArticlesHot',
-  'loadMoreHotArticles',
-  'loadArticle',
-  'loadUser'
+  'articlesHotLoad',
+  'articlesHotLoadMore',
+  'articlesHotRefresh',
+  'articlesHotRefreshed',
+  'articleLoad',
+  'userLoad'
 ]);
 
 module.exports = actions;

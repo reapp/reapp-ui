@@ -17,7 +17,7 @@ var ArticlePage = module.exports = React.createClass({
             res(article);
           }
         });
-        Actions.loadArticle(params.id);
+        Actions.articleLoad(params.id);
       });
     }
   },

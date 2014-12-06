@@ -11,10 +11,10 @@ var Container = Component('Container', {
 
     return (
       <div {...this.componentProps()}>
-        {React.Children.map(children, child => {
+        {React.Children.map(children, (child, i) => {
           return child.type && child.type.isBlock ?
-            React.addons.cloneWithProps(child, { pad: pad }) :
-            <Block pad={pad}>{child}</Block>;
+            React.addons.cloneWithProps(child, { pad: pad, key: i }) :
+            <Block pad={pad} key={i}>{child}</Block>;
         })}
       </div>
     );

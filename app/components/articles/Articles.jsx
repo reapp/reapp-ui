@@ -2,6 +2,7 @@ var React = require('react');
 var { State, RouteHandlerMixin } = require('react-router');
 var Actions = require('actions/Actions');
 var List = require('ui/components/List');
+var Button = require('ui/components/Button');
 var ListItem = require('ui/components/ListItem');
 var ViewList = require('ui/views/ViewList');
 var View = require('ui/views/View');
@@ -20,7 +21,11 @@ module.exports = React.createClass({
   handleLoadMore(e) {
     e.preventDefault();
     e.target.innerHTML = 'Loading...';
-    Actions.loadMoreHotArticles();
+    Actions.articlesHotLoadMore();
+  },
+
+  handleRefresh(e) {
+    Actions.articlesHotRefresh();
   },
 
   render() {
@@ -42,7 +47,15 @@ module.exports = React.createClass({
       <ViewList initialStep={numRoutes - 2} noFakeTitleBar>
         <View>
           <DottedViewList {...dottedProps}>
-            <View title="Hot Articles">
+            <View
+              title={[
+                null,
+                'Hot Articles',
+                <Button
+                  icon="arrow-refresh"
+                  onClick={this.handleRefresh}
+                  borderless />
+              ]}>
               <List dontWrapChildren styles={{ self: { borderTop: 'none' } }}>
                 {articles.count() ?
                   articles.map((article, i) =>
