@@ -36,12 +36,15 @@ module.exports = {
     var index = this.getAnimationIndex();
     var styles = {};
 
+    if (this.getTweeningValue)
+      step = this.getTweeningValue('step');
+
     if (typeof step !== 'number' || typeof index !== 'number')
       return styles;
 
     var animation = this.getAnimation(name);
-    var { scale, rotate, translate, ...other } = animation.call(this, index, step);
-    var transformStyle = this.getTransformStyle(scale, rotate, translate);
+    var { scale, rotate, rotate3d, translate, ...other } = animation.call(this, index, step);
+    var transformStyle = this.getTransformStyle(scale, rotate, rotate3d, translate);
 
     styles[StyleKeys.TRANSFORM] = transformStyle ?
       transformStyle :
@@ -53,14 +56,21 @@ module.exports = {
     return styles;
   },
 
-  getTransformStyle(scale, rotate, translate) {
+  getTransformStyle(scale, rotate, rotate3d, translate) {
     var transforms = '';
 
     if (defined(scale))
       transforms += `scale(${scale}) `;
 
+    if (defined(rotate3d))
+      transforms += (
+          rotate.x ? `rotateX(${rotate3d.x}deg)` : '' +
+          rotate.y ? `rotateY(${rotate3d.y}deg)` : '' +
+          rotate.z ? `rotateZ(${rotate3d.z}deg)` : ''
+      );
+
     if (defined(rotate))
-      transforms += `rotate3d(${rotate.x || 0},${rotate.y || 0},${rotate.z || 0}) `;
+      transforms += `rotate(${rotate}deg)`;
 
     if (defined(translate))
       transforms += `translate3d(${translate.x || 0}px, ${translate.y || 0}px, ${translate.z || 0}px)`;

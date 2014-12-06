@@ -1,6 +1,13 @@
 var Component = require('ui/component');
+var TweenState = require('react-tween-state');
 
 module.exports = Component('Icon', {
+  mixins: [TweenState.Mixin],
+
+  getInitialState() {
+    return { step: 0 };
+  },
+
   getDefaultProps() {
     return {
       size: 32,
@@ -8,6 +15,19 @@ module.exports = Component('Icon', {
       style: {},
       svgProps: {}
     };
+  },
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.animation === 'ROTATE')
+      this.rotate();
+  },
+
+  rotate() {
+    this.tweenState('step', {
+      endValue: this.state.step === 1 ? 0 : 1,
+      duration: 400,
+      onEnd: this.rotate
+    });
   },
 
   render() {
@@ -50,6 +70,8 @@ module.exports = Component('Icon', {
 
     if (animation)
       props.style = this.getAnimationStyles(animation);
+
+    console.log(props.style);
 
     return (
       <span {...props} {...this.componentProps()}>

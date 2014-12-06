@@ -18,6 +18,10 @@ require('./Articles.styl');
 module.exports = React.createClass({
   mixins: [State, RouteHandlerMixin],
 
+  getInitialState() {
+    return { isRefreshing: false };
+  },
+
   handleLoadMore(e) {
     e.preventDefault();
     e.target.innerHTML = 'Loading...';
@@ -25,6 +29,7 @@ module.exports = React.createClass({
   },
 
   handleRefresh(e) {
+    this.setState({ isRefreshing: true });
     Actions.articlesHotRefresh();
   },
 
@@ -43,19 +48,29 @@ module.exports = React.createClass({
       { touchStartBoundsX: { from: 20, to: window.innerWidth - 20 } } :
       null;
 
+    var refreshIconProps = {
+      type: 'arrow-refresh',
+      size: 24,
+      stroke: 1
+    };
+
+    console.log('render');
+    if (this.state.isRefreshing)
+      refreshIconProps.animation = 'ROTATE';
+
+    var refreshButton = (
+      <Button
+        iconProps={refreshIconProps}
+        onClick={this.handleRefresh}
+        borderless />
+    );
+
     return (
       <ViewList initialStep={numRoutes - 2} noFakeTitleBar>
         <View>
           <DottedViewList {...dottedProps}>
             <View
-              title={[
-                null,
-                'Hot Articles',
-                <Button
-                  icon="arrow-refresh"
-                  onClick={this.handleRefresh}
-                  borderless />
-              ]}>
+              title={[, 'Hot Articles', refreshButton]}>
               <List dontWrapChildren styles={{ self: { borderTop: 'none' } }}>
                 {articles.count() ?
                   articles.map((article, i) =>

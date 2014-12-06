@@ -61,4 +61,10 @@ Animations.CARD = function(index, step) {
   };
 };
 
+Animations.ROTATE = function(index, step) {
+  return {
+    rotate: step * 360
+  };
+};
+
 module.exports = Animations;
