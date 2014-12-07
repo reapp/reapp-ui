@@ -1,10 +1,10 @@
 var Component = require('component');
 var Omniscient = require('omniscient');
-var { State, RouteHandlerMixin } = require('react-router');
+var ReactRouter = require('react-router');
 
 var sharedMixins = {
-  'rr.State': State,
-  'rr.RouteHandler': RouteHandlerMixin
+  'rr.State': ReactRouter.State,
+  'rr.RouteHandler': ReactRouter.RouteHandlerMixin
 };
 
 // shared mixins

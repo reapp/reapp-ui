@@ -9,10 +9,20 @@ var DottedViewList = require('ui/views/DottedViewList');
 var ArticleItem = require('./ArticleItem');
 var HotArticlesStore = require('stores/HotArticlesStore');
 
+var { actions, helpers, mixins } = Component;
+var { ArticlesStore } = Component.stores;
+
 require('./Articles.styl');
 
 module.exports = Component({
-  mixins: ['rr.State', 'rr.RouteHandler'],
+  mixins: ['rr.State', 'rr.RouteHandler', mixins.storeListener(ArticlesStore)],
+
+  statics: {
+    fetchData() {
+      actions.articlesHotLoad();
+      return helpers.storePromise(ArticlesStore, data => !!data.size);
+    }
+  },
 
   getInitialState() {
     return { isRefreshing: false };

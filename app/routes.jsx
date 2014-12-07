@@ -1,7 +1,7 @@
 var React = require('react');
 var { Route, DefaultRoute } = require('react-router');
 var Layout = require('./components/Layout');
-var Articles = require('./pages/ArticlesPage');
+// var Articles = require('./pages/ArticlesPage');
 var Article = require('./pages/Articles/ArticlePage');
 var User = require('./pages/UserPage');
 var Viewer = require('./pages/ViewerPage');
@@ -19,9 +19,38 @@ var Controls = require('./pages/Kitchen/ControlsPage');
 var Grids = require('./pages/Kitchen/GridsPage');
 var Forms = require('./pages/Kitchen/FormsPage');
 
+var match = function(name, path, ...children) {
+  return { name, path, children };
+};
+
+var routes = function(match, parentsPath) {
+  console.log(match);
+  var children;
+  parentsPath = parentsPath || '';
+
+  if (match.children && match.children.length)
+    children = match.children.map(child => routes(child, parentsPath + match.name + '/'));
+
+  console.log('./components/' + parentsPath + match.name, children);
+  // return (
+  //   <Route
+  //     name={match.name}
+  //     path={match.path}
+  //     handler={Layout}>
+  //     {children}
+  //   </Route>
+  // );
+};
+
+routes(match('app', '/',
+  match('articles', '/articles',
+    match('article', '/article/:article')
+  )
+));
+
 module.exports = (
   <Route name="app" path="/" handler={Layout}>
-    <Route name="articles" path="/" handler={Articles}>
+    <Route name="articles" path="/" handler={Layout}>
       <Route name="article" path="/article/:id" handler={Article} addHandlerKey={true} />
       <Route name="user" path="/user/:id" handler={User} addHandlerKey={true} />
     </Route>
