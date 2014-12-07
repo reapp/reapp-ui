@@ -1,24 +1,19 @@
-var React = require('react');
 var Component = require('component');
-var ArticlesStore = require('stores/ArticlesStore');
-var Actions = require('actions/Actions');
 var Article = require('components/articles/Article');
 var View = require('ui/views/View');
+
+var { actions, helpers, mixins } = Component.statics;
+var { ArticlesStore } = Component.statics.stores;
 
 module.exports = Component({
   mixins: ['rr.State'],
 
   statics: {
     fetchData(params) {
-      return new Promise((res, rej) => {
-        var unlisten = ArticlesStore.listen(data => {
-          var article = data.get(params.id);
-          if (article && article.get('status') === 'LOADED') {
-            unlisten();
-            res(article);
-          }
-        });
-        Actions.articleLoad(params.id);
+      actions.articleLoad(params.id);
+      return helpers.storePromise(ArticlesStore, data => {
+        var article = data.get(params.id);
+        return article && article.get('status') === 'LOADED';
       });
     }
   },
