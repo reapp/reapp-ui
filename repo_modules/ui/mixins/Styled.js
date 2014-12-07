@@ -21,6 +21,7 @@ module.exports = function(name) {
     // getStyles will return propStyles after regular styles, so users can
     // override styles set within a component
     makeStyles(propStyles) {
+      console.log('running makeStyles')
       this.styles = {};
       this.mediaStyles = {};
       this.propStyles = {};
@@ -37,6 +38,7 @@ module.exports = function(name) {
         Object.keys(styles).forEach(key => {
           this.mediaStyles[mediaQuery] = {};
           addStyle(this.mediaStyles[mediaQuery], key, styles[key]);
+          console.log(this.mediaStyles[mediaQuery])
         });
       };
 
