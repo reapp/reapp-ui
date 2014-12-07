@@ -1,17 +1,21 @@
-module.exports = {
-  componentWillMount() {
-    this.forceUpdater = () => {
-      this.forceUpdate();
-    };
+module.exports = function(stores) {
+  stores = [].concat(stores);
 
-    this.stores.forEach(store => {
-      // this.context.stores[store].listen(this.forceUpdater);
-    });
-  },
+  return {
+    componentWillMount() {
+      this.forceUpdater = () => {
+        this.forceUpdate();
+      };
 
-  componentWillUnmount() {
-    this.stores.forEach(store => {
-      // this.context.stores[store].unlisten(this.forceUpdater);
-    });
-  }
+      stores.forEach(store => {
+        store.listen(this.forceUpdater);
+      });
+    },
+
+    componentWillUnmount() {
+      stores.forEach(store => {
+        store.unlisten(this.forceUpdater);
+      });
+    }
+  };
 };

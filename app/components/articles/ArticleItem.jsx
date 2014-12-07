@@ -1,4 +1,5 @@
 var React = require('react');
+var Component = require('component');
 var Time = require('react-time');
 var Icon = require('ui/components/Icon');
 var ListItem = require('ui/components/ListItem');
@@ -7,7 +8,7 @@ var Badge = require('ui/components/Badge');
 
 require('./ArticleItem.styl');
 
-module.exports = React.createClass({
+module.exports = Component({
   render() {
     var { cursor, index, noLink } = this.props;
     if (!cursor)

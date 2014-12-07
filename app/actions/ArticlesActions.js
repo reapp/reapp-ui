@@ -60,7 +60,9 @@ function getArticles(articles) {
   var start = page * per;
   return Promise.all(
     articles.slice(start, start + per).map(article => {
-      return typeof article == 'object' ? article : API.get(`item/${article}.json`);
+      return typeof article == 'object' ?
+        article :
+        API.get(`item/${article}.json`);
     })
   );
 }

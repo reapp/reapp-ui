@@ -1,4 +1,5 @@
 var React = require('react');
+var Component = require('component');
 var ArticleItem = require('./ArticleItem');
 var Comment = require('./Comment');
 var ImmutableTreeNode = require('ui/helpers/ImmutableTreeNode');
@@ -7,7 +8,7 @@ var BackButton = require('ui/components/buttons/BackButton');
 
 require('./Article.styl');
 
-module.exports = React.createClass({
+module.exports = Component({
   getComments(comments) {
     return comments && comments.map(comment => (
       <ImmutableTreeNode

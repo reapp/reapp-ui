@@ -1,5 +1,5 @@
-var Component = require('component');
 var React = require('react');
+var Component = require('component');
 var Actions = require('actions/Actions');
 var List = require('ui/components/List');
 var Button = require('ui/components/Button');

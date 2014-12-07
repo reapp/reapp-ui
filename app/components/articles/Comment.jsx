@@ -1,5 +1,5 @@
-var React = require('react');
 var React = require('react/addons');
+var Component = require('component');
 var cx = React.addons.classSet;
 
 require('./Comment.styl');

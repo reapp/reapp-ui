@@ -1,18 +1,23 @@
 var React = require('react/addons');
-var transformers = [];
+var decorators = [];
 var index = 0;
 
 function Component(spec) {
-  transformers.forEach(transformer => {
-    spec = transformer(spec);
+  decorators.forEach(decorator => {
+    spec = decorator(spec);
   });
 
   spec.displayName = spec.displayName || index++;
   return React.createClass(spec);
 }
 
-Component.addTransformer = transformer => {
-  transformers.push(transformer);
+Component.addDecorator = decorator => {
+  decorators.push(decorator);
+};
+
+Component.addStatics = function(statics) {
+  this.statics = this.statics || {};
+  Object.assign(this.statics, statics);
 };
 
 module.exports = Component;

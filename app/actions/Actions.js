@@ -1,4 +1,5 @@
 var Fynx = require('fynx');
+var Component = require('component');
 
 var actions = Fynx.createActions([
   'articlesHotLoad',

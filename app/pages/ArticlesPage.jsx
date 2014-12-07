@@ -1,24 +1,16 @@
-var React = require('react');
 var Component = require('component');
-var Actions = require('actions/Actions');
-var ArticlesStore = require('stores/ArticlesStore');
-var Articles = require('../components/articles/Articles');
+var Articles = require('components/articles/Articles');
+
+var { actions, helpers, mixins } = Component.statics;
+var { ArticlesStore } = Component.statics.stores;
 
 module.exports = Component({
-  mixins: ['StoreListener'],
-  stores: ['Articles'],
+  mixins: [mixins.storeListener(ArticlesStore)],
 
   statics: {
     fetchData() {
-      return new Promise((res, rej) => {
-        var unlisten = ArticlesStore.listen(data => {
-          if (data.size) {
-            unlisten();
-            res(data);
-          }
-        });
-        Actions.articlesHotLoad();
-      });
+      actions.articlesHotLoad();
+      return helpers.storePromise(ArticlesStore, data => !!data.size);
     }
   },
 
