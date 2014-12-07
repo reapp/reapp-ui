@@ -1,4 +1,6 @@
-var React = require('react/addons');
+var React = require('react');
+var Invariant = require('react/lib/invariant');
+
 var decorators = [];
 var index = 0;
 
@@ -16,8 +18,15 @@ Component.addDecorator = decorator => {
 };
 
 Component.addStatics = function(statics) {
-  this.statics = this.statics || {};
-  Object.assign(this.statics, statics);
+  Invariant(Object.prototype.toString.call(statics) === '[object Object]',
+    'Must provide an object as statics');
+
+  Invariant(typeof statics.addDecorator === 'undefined',
+    'Cannot overwrite addDecorator');
+
+  Object.keys(statics).forEach(key => {
+    this[key] = statics[key];
+  });
 };
 
 module.exports = Component;

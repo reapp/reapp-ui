@@ -1,4 +1,3 @@
-var React = require('react');
 var Component = require('component');
 var Actions = require('actions/Actions');
 var List = require('ui/components/List');
@@ -11,9 +10,6 @@ var ArticleItem = require('./ArticleItem');
 var HotArticlesStore = require('stores/HotArticlesStore');
 
 require('./Articles.styl');
-
-// todo: put stores in context,
-// declaratively say stores rather than pass as cursor?
 
 module.exports = Component({
   mixins: ['rr.State', 'rr.RouteHandler'],

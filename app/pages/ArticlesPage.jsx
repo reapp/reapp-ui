@@ -1,8 +1,8 @@
 var Component = require('component');
 var Articles = require('components/articles/Articles');
 
-var { actions, helpers, mixins } = Component.statics;
-var { ArticlesStore } = Component.statics.stores;
+var { actions, helpers, mixins } = Component;
+var { ArticlesStore } = Component.stores;
 
 module.exports = Component({
   mixins: [mixins.storeListener(ArticlesStore)],

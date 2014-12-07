@@ -2,8 +2,8 @@ var Component = require('component');
 var Article = require('components/articles/Article');
 var View = require('ui/views/View');
 
-var { actions, helpers, mixins } = Component.statics;
-var { ArticlesStore } = Component.statics.stores;
+var { actions, helpers, mixins } = Component;
+var { ArticlesStore } = Component.stores;
 
 module.exports = Component({
   mixins: ['rr.State'],

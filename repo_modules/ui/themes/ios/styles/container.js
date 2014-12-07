@@ -5,5 +5,12 @@ module.exports = {
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap'
+  },
+
+  // todo
+  '@media (max-width: 768px)': {
+    children: {
+      flexFlow: 'column'
+    }
   }
 };

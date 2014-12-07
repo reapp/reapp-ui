@@ -22,10 +22,22 @@ module.exports = function(name) {
     // override styles set within a component
     makeStyles(propStyles) {
       this.styles = {};
+      this.mediaStyles = {};
       this.propStyles = {};
 
       var addStyle = (obj, key, style) => {
-        obj[key] = (obj[key] || []).concat(this.makeReactStyle(style));
+        if (key.charAt(0) == '@')
+          addMediaQueryStyles(key, style);
+        else
+          obj[key] = (obj[key] || []).concat(this.makeReactStyle(style));
+      };
+
+      var addMediaQueryStyles = (mediaQuery, styles) => {
+        console.log('adding media query style', mediaQuery, styles);
+        Object.keys(styles).forEach(key => {
+          this.mediaStyles[mediaQuery] = {};
+          addStyle(this.mediaStyles[mediaQuery], key, styles[key]);
+        });
       };
 
       var componentStyles = UI.getStyles(name);

@@ -1,4 +1,3 @@
-var React = require('react');
 var Component = require('component');
 var ArticleItem = require('./ArticleItem');
 var Comment = require('./Comment');
@@ -24,12 +23,16 @@ module.exports = Component({
     var data = cursor && cursor.get('data');
     var article = data || { get: () => 'Loading' };
     var hasComments = data && article.get('kidsLoaded');
+    var articleItemStyles = {
+      self: { borderTop: 'none' },
+      after: { display: 'none' }
+    };
 
     return (
       <View {...props}
         title={[<BackButton />, 'Comments ()']}
         titleBarProps={{ height: 48 }}>
-        <ArticleItem cursor={cursor} />
+        <ArticleItem cursor={cursor} styles={articleItemStyles} />
         {hasComments && (
           <div id="comments">
             {this.getComments(article.get('kids'))}

@@ -10,7 +10,7 @@ require('./ArticleItem.styl');
 
 module.exports = Component({
   render() {
-    var { cursor, index, noLink } = this.props;
+    var { cursor, index, noLink, styles } = this.props;
     if (!cursor)
       return null;
 
@@ -42,7 +42,7 @@ module.exports = Component({
       <ListItem
         key={index}
         className="ArticleItem"
-        styles={{ after: { margin: 0 } }}
+        styles={Object.assign({ after: { margin: 0 } }, styles)}
         onClick={this.onTouch}
         wrapper={!noLink && <a className="article--link" href={article.get('url')} />}
         title={article.get('title')}

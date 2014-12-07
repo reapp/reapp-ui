@@ -21,11 +21,22 @@ var Container = Component('Container', {
   }
 });
 
-var Block = Component('Block', {
-  statics: {
-    isBlock: true
+var Break = Component('Break', {
+  propTypes: {
+    width: React.PropTypes.string,
+    height: React.PropTypes.string
   },
 
+  render() {
+    return React.Children.map(this.props.children, child => {
+      return React.addons.cloneWithProps(child, {
+        // todo
+      });
+    });
+  }
+});
+
+var Block = Component('Block', {
   getDefaultProps() {
     return { pad: false };
   },
