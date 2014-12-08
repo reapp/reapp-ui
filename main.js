@@ -1,4 +1,7 @@
-require('./lib/statics');
-require('./lib/theme');
+require('./lib/init');
+
 require('./app/mixins');
+require('./app/stores');
+require('./app/actions');
+
 require('./lib/run')(require('./app/routes'));

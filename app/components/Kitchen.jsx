@@ -54,9 +54,9 @@ module.exports = React.createClass({
 
           <Title>Views</Title>
           <List>
-            <Link to="viewLists">Parallax View List</Link>
-            <Link to="dottedViewList">Dotted View List</Link>
-            <Link to="viewFrosted">Frosted Glass Titlebar</Link>
+            <Link to="view-lists">Parallax View List</Link>
+            <Link to="dotted-view-list">Dotted View List</Link>
+            <Link to="view-frosted">Frosted Glass Titlebar</Link>
             <Link to="panels">Drawers &amp; Panels</Link>
           </List>
 

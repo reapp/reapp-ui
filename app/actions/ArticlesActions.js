@@ -1,15 +1,16 @@
-var Actions = require('./Actions');
+var Component = require('component');
+var { Promise } = require('when');
+var Immutable = require('immutable');
 var API = require('./API');
 var Reducer = require('./Reducer');
-var { Promise } = require('when');
-var ArticlesStore = require('stores/ArticlesStore');
-var HotArticlesStore = require('stores/HotArticlesStore');
-var Immutable = require('immutable');
+
+var { ArticlesStore, HotArticlesStore } = Component.stores;
+var { actions } = Component;
 
 var page = 0;
 var per = 10;
 
-Actions.articlesHotLoad.listen(
+actions.articlesHotLoad.listen(
   (opts) => API.get('topstories.json', opts)
     .then(res => HotArticlesStore(res) && res)
     .then(getArticles)
@@ -17,11 +18,11 @@ Actions.articlesHotLoad.listen(
     .then(ArticlesStore, error)
 );
 
-Actions.articlesHotRefresh.listen(
-  () => Actions.articlesHotLoad({ nocache: true })
+actions.articlesHotRefresh.listen(
+  () => actions.articlesHotLoad({ nocache: true })
 );
 
-Actions.articlesHotLoadMore.listen(
+actions.articlesHotLoadMore.listen(
   () =>  API.get('topstories.json')
     .then(getNextArticles)
     .then(Reducer)
@@ -34,7 +35,7 @@ Actions.articlesHotLoadMore.listen(
     })
 );
 
-Actions.articleLoad.listen(
+actions.articleLoad.listen(
   id => API.get(`item/${id}.json`)
     .then(getAllKids)
     .then(

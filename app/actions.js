@@ -10,8 +10,10 @@ var actions = Fynx.createActions([
   'userLoad'
 ]);
 
+Component.addStatics({ actions });
+
 module.exports = actions;
 
 // Required here so actions are bundled with the app
-require('./ArticlesActions');
-require('./UsersActions');
+require('./actions/ArticlesActions');
+require('./actions/UsersActions');
