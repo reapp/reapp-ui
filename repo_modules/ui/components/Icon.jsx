@@ -25,9 +25,12 @@ module.exports = Component('Icon', {
 
   rotate() {
     this.tweenState('step', {
-      endValue: this.state.step === 0 ? 1 : 0,
+      endValue: 1,
       duration: 500,
-      onEnd: this.rotate
+      onEnd: () => {
+        this.setState({ step: 0 });
+        this.rotate();
+      }
     });
   },
 

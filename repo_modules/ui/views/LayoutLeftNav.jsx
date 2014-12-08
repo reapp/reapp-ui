@@ -8,14 +8,6 @@ var Drawer = require('./Drawer');
 var { Scroller } = require('scroller');
 
 module.exports = ViewComponent('LayoutLeftNav', {
-  childContextTypes: {
-    setModal: React.PropTypes.func
-  },
-
-  getChildContext() {
-    return { setModal: this.setModal };
-  },
-
   getDefaultProps() {
     return {
       sideWidth: 200,
@@ -111,7 +103,6 @@ module.exports = ViewComponent('LayoutLeftNav', {
 
     return (
       <div {...this.componentProps()}>
-        {this.state.modal}
         {isSideOpen && (
           <AnimatableContainer {...sideProps}>
             <div {...this.componentProps('sideInner')}

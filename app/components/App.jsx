@@ -1,13 +1,17 @@
 var React = require('react');
 var { Link, RouteHandler } = require('react-router');
+var DocumentTitle = require('react-document-title');
 var Menu = require('ui/components/Menu');
 var Button = require('ui/components/Button');
 var LayoutLeftNav = require('ui/views/LayoutLeftNav');
-var DocumentTitle = require('react-document-title');
+var PopoverHandler = require('ui/mixins/PopoverHandler');
+var Popover = require('ui/components/Popover');
 
 require('./App.css');
 
 module.exports = React.createClass({
+  mixins: [PopoverHandler],
+
   render() {
     var button = (
       <Button
@@ -35,6 +39,9 @@ module.exports = React.createClass({
         side={menu}>
         <DocumentTitle title="React Base" />
         <RouteHandler {...this.props} menuButton={button} />
+        {this.state && this.state.popoverProps && (
+          <Popover {...this.state.popoverProps} />
+        )}
       </LayoutLeftNav>
     );
   }

@@ -17,6 +17,18 @@ module.exports = Component('Popover', {
     };
   },
 
+  componentDidMount() {
+    var popover = this.refs.popover.getDOMNode();
+
+    console.log('didmont', this.getLeft(popover, this.props.target));
+
+    this.setState({
+      open: true,
+      left: this.getLeft(popover, this.props.target),
+      top: this.getTop(popover, this.props.target)
+    });
+  },
+
   componentWillReceiveProps(nextProps) {
     var nextState = {};
 
@@ -26,23 +38,6 @@ module.exports = Component('Popover', {
       nextState = Object.assign(nextState, { open: nextProps.open });
 
     this.setState(nextState);
-  },
-
-  componentDidMount() {
-    window.addEventListener(`popover-${this.props.id}`, e => {
-      var target = e.detail.boundingRect;
-      var popover = this.refs.popover.getDOMNode();
-
-      this.setState({
-        open: true,
-        left: this.getLeft(popover, target),
-        top: this.getTop(popover, target)
-      });
-    });
-  },
-
-  componentWillUnmount() {
-    window.removeEventListener(`popover-${this.props.id}`);
   },
 
   getLeft(popover, target) {
@@ -71,13 +66,16 @@ module.exports = Component('Popover', {
       Math.max(top, pad);
   },
 
-  handleClick(e) {
+  handleClose(e) {
     this.setState({ open: false });
     e.preventDefault();
+
+    if (this.props.handleClose)
+      this.props.handleClose(e);
   },
 
   render() {
-    var { popoverStyle, itemStyle, children, ...props } = this.props;
+    var { itemStyle, children, ...props } = this.props;
 
     if (this.state.open) {
       this.addClass('open');
@@ -85,12 +83,11 @@ module.exports = Component('Popover', {
     }
 
     this.addStyles('popover', { top: this.state.top, left: this.state.left });
-    this.addStyles('popover', popoverStyle);
     this.addStyles('item', itemStyle);
 
     return (
       <div {...props} {...this.componentProps()}
-        onClick={this.handleClick}>
+        onClick={this.handleClose}>
         <div {...this.componentProps('popover')}>
           <div {...this.componentProps('arrow')}>
             <div {...this.componentProps('arrowInner')} />

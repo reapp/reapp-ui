@@ -31,7 +31,7 @@ module.exports = Component('TitleBar', {
   },
 
   addIconAnimation(component) {
-    var isValid = React.isValidElement(component) && component.type.isButton;
+    var isValid = React.isValidElement(component);
 
     if (isValid) {
       component.props.iconProps = component.props.iconProps || {};
@@ -71,8 +71,6 @@ module.exports = Component('TitleBar', {
     // add icon transitions for left and right
     left = this.addIconAnimation(left);
     right = this.addIconAnimation(right);
-
-    console.log(left);
 
     return (
       <div {...props} {...this.componentProps()}>

@@ -36,7 +36,7 @@ module.exports = {
     var index = this.getAnimationIndex();
     var styles = {};
 
-    if (this.getTweeningValue && this.state.step)
+    if (this.getTweeningValue && this.getTweeningValue('step'))
       step = this.getTweeningValue('step');
 
     if (typeof step !== 'number' || typeof index !== 'number')
