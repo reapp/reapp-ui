@@ -18,7 +18,8 @@ module.exports = ViewComponent('LayoutLeftNav', {
 
   getDefaultProps() {
     return {
-      sideWidth: 200
+      sideWidth: 200,
+      behavior: LeftNavBehavior.ALL_PARALLAX_FADE
     };
   },
 
@@ -67,12 +68,6 @@ module.exports = ViewComponent('LayoutLeftNav', {
 
   getInitialState() {
     return {scrollLeft: 0};
-  },
-
-  getDefaultProps() {
-    return {
-      behavior: LeftNavBehavior.ALL_PARALLAX_FADE
-    };
   },
 
   _handleTap() {

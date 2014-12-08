@@ -3,9 +3,7 @@ var { Route, DefaultRoute } = require('react-router');
 var { route, routes } = require('react-router-generator');
 
 var generate = props => {
-  if (props.children)
-    props.children = props.children.map(generate);
-
+  props.children = props.children ? props.children.map(generate) : null;
   props.handler = require(props.handlerPath);
 
   return props.defaultRoute ?
@@ -13,7 +11,8 @@ var generate = props => {
     <Route {...props} />;
 };
 
-module.exports = generate(routes({ prefix: 'components/' },
+module.exports = generate(routes(
+  { dir: 'components/' },
   route({ name: 'app', path: '/', dir: '' },
     route('articles', '/',
       route({ name: 'article', path: '/article/:id', addHandlerKey: true }),

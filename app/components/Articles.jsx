@@ -1,16 +1,14 @@
 var Component = require('component');
-var Actions = require('actions/Actions');
 var List = require('ui/components/List');
 var Button = require('ui/components/Button');
 var ListItem = require('ui/components/ListItem');
 var ViewList = require('ui/views/ViewList');
 var View = require('ui/views/View');
 var DottedViewList = require('ui/views/DottedViewList');
-var HotArticlesStore = require('stores/HotArticlesStore');
 var ArticleItem = require('./articles/ArticleItem');
 
 var { actions, helpers, mixins } = Component;
-var { ArticlesStore } = Component.stores;
+var { ArticlesStore, HotArticlesStore } = Component.stores;
 
 require('./Articles.styl');
 
@@ -35,23 +33,21 @@ module.exports = Component({
   handleLoadMore(e) {
     e.preventDefault();
     e.target.innerHTML = 'Loading...';
-    Actions.articlesHotLoadMore();
+    actions.articlesHotLoadMore();
   },
 
   handleRefresh(e) {
     this.setState({ isRefreshing: true });
-    Actions.articlesHotRefresh();
+    actions.articlesHotRefresh();
   },
 
   render() {
-    var { cursor } = this.props;
-
     var numRoutes = this.getRoutes().length;
     var hasChild = numRoutes > 2;
     var subRouteKey = this.getRoutes().reverse()[0].name + this.getParams().id;
 
     var articles = HotArticlesStore()
-      .map(id => cursor.get(id.toString()))
+      .map(id => ArticlesStore().get(id.toString()))
       .filter(x => typeof x !== 'undefined');
 
     var dottedProps =  hasChild ?

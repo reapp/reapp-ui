@@ -25,7 +25,7 @@ var routes = function(opts, route) {
   // default opts
   opts = Object.assign({
     filename: name => proper(name),
-    prefix: ''
+    dir: ''
   }, opts);
 
   return routesGenerator(opts, route, '');
@@ -41,7 +41,7 @@ var routesGenerator = (opts, route, parentsPath) => {
       routesGenerator(opts, child, parentsPath + pick(route.dir, route.name + '/'))
     ));
 
-  var handlerPath = './' + (opts.prefix || '') + parentsPath +
+  var handlerPath = './' + (opts.dir || '') + parentsPath +
     (opts.handler ? opts.handler :
       (opts.filename ? opts.filename(route.name) : route.name));
 
