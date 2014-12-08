@@ -39,7 +39,7 @@ module.exports = React.createClass({
           stroke: 1,
           shapeRendering: 'crispEdges',
         }}
-        onClick={ShowPopover.bind(null, popoverContent)}
+        onClick={ShowPopover.bind(null, { content: popoverContent })}
         borderless />
     );
 

@@ -44,7 +44,7 @@ module.exports = React.createClass({
 
     return (
       <ViewList initialStep={numRoutes - 2}>
-        <View title="Kitchen Sink">
+        <View title={[this.props.menuButton, 'Kitchen Sink']}>
           <SearchBar onChange={this.handleSearch} defaultValue="" />
 
           <Title>Interface</Title>

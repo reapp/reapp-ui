@@ -5,6 +5,6 @@ module.exports = function(children, e) {
   var target = e.target.getBoundingClientRect();
 
   Actions({
-    popover: { children, target }
+    popoverProps: { children, target }
   });
 };

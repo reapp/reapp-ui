@@ -6,11 +6,13 @@ var Button = require('ui/components/Button');
 var LayoutLeftNav = require('ui/views/LayoutLeftNav');
 var PopoverHandler = require('ui/mixins/PopoverHandler');
 var Popover = require('ui/components/Popover');
+var ModalHandler = require('ui/mixins/ModalHandler');
+var Modal = require('ui/components/Modal');
 
 require('./App.css');
 
 module.exports = React.createClass({
-  mixins: [PopoverHandler],
+  mixins: [PopoverHandler, ModalHandler],
 
   render() {
     var button = (
@@ -39,8 +41,11 @@ module.exports = React.createClass({
         side={menu}>
         <DocumentTitle title="React Base" />
         <RouteHandler {...this.props} menuButton={button} />
-        {this.state && this.state.popoverProps && (
+        {this.state.popoverProps && (
           <Popover {...this.state.popoverProps} />
+        )}
+        {this.state.modalProps && (
+          <Modal {...this.state.modalProps} />
         )}
       </LayoutLeftNav>
     );

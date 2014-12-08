@@ -20,8 +20,6 @@ module.exports = Component('Popover', {
   componentDidMount() {
     var popover = this.refs.popover.getDOMNode();
 
-    console.log('didmont', this.getLeft(popover, this.props.target));
-
     this.setState({
       open: true,
       left: this.getLeft(popover, this.props.target),

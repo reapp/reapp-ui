@@ -29,9 +29,12 @@ module.exports = Component('Modal', {
     window.removeEventListener(`modal-${this.props.id}`);
   },
 
-  handleClick(e) {
+  handleClose(e) {
     this.setState({ open: false });
     e.preventDefault();
+
+    if (this.props.handleClose)
+      this.props.handleClose(e);
   },
 
   render() {
@@ -59,7 +62,7 @@ module.exports = Component('Modal', {
     }
 
     return (
-      <div {...props} {...this.componentProps()} onClick={this.handleClick}>
+      <div {...props} {...this.componentProps()} onClick={this.handleClose}>
         <div {...this.componentProps('window')}>
           <div {...this.componentProps('inner')}>
             {title && (
