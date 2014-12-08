@@ -45,6 +45,8 @@ module.exports = Component({
   },
 
   render() {
+    var { menuButton } = this.props;
+
     var numRoutes = this.getRoutes().length;
     var hasChild = numRoutes > 2;
     var subRouteKey = this.getRoutes().reverse()[0].name + this.getParams().id;
@@ -78,7 +80,7 @@ module.exports = Component({
         <View>
           <DottedViewList {...dottedProps}>
             <View
-              title={[, 'Hot Articles', refreshButton]}>
+              title={[menuButton, 'Hot Articles', refreshButton]}>
               <List dontWrapChildren styles={{ self: { borderTop: 'none' } }}>
                 {articles.count() ?
                   articles.map((article, i) =>
@@ -86,17 +88,18 @@ module.exports = Component({
                   ).toArray()
                   .concat(
                     <ListItem
+                      key={-1}
                       style={{textAlign:'center'}}
                       onClick={this.handleLoadMore}>
                       Load More
                     </ListItem>
                   ) :
-                  <ListItem style={{textAlign: 'center'}}>Loading...</ListItem>
+                  <ListItem key={-1} style={{textAlign: 'center'}}>Loading...</ListItem>
                 }
                 </List>
             </View>
 
-            <View title="Top Articles" />
+            <View title={[menuButton, 'Saved Articles']} />
           </DottedViewList>
         </View>
 

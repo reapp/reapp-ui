@@ -211,7 +211,6 @@ module.exports = ViewComponent('ViewList', {
   },
 
   render() {
-    window.ViewList = this;
     var {
       after,
       before,

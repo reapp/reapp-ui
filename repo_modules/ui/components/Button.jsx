@@ -3,7 +3,7 @@ var Icon = require('./Icon');
 
 module.exports = Component('Button', {
   render() {
-    var { transforms, iconProps, icon, children, borderless, rounded, active, ...props } = this.props;
+    var { iconProps, icon, children, borderless, rounded, active, ...props } = this.props;
     var hasIconProps = !!iconProps;
 
     if (icon) {
@@ -27,7 +27,7 @@ module.exports = Component('Button', {
       <button {...props} {...this.componentProps()}>
         {hasIconProps && <Icon {...iconProps} />}
         {children && (
-          <span style={{ margin: 'auto' }} data-transform={transforms}>
+          <span style={{ margin: 'auto' }}>
             {children}
           </span>
         )}

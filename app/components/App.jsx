@@ -18,12 +18,6 @@ module.exports = React.createClass({
           type: 'hamburger',
           shapeRendering: 'crispEdges'
         }}
-        style={{
-          position: 'absolute',
-          top: 2,
-          left: 0,
-          zIndex: 10
-        }}
         borderless />
     );
 
@@ -40,7 +34,7 @@ module.exports = React.createClass({
         handle={button}
         side={menu}>
         <DocumentTitle title="React Base" />
-        <RouteHandler {...this.props} />
+        <RouteHandler {...this.props} menuButton={button} />
       </LayoutLeftNav>
     );
   }

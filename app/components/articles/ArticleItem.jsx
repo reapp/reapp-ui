@@ -10,7 +10,7 @@ require('./ArticleItem.styl');
 
 module.exports = Component({
   render() {
-    var { cursor, index, noLink, styles } = this.props;
+    var { key, cursor, index, noLink, styles } = this.props;
     if (!cursor)
       return null;
 
@@ -40,7 +40,7 @@ module.exports = Component({
 
     return (
       <ListItem
-        key={index}
+        key={key || index}
         className="ArticleItem"
         styles={Object.assign({ after: { margin: 0 } }, styles)}
         onClick={this.onTouch}
