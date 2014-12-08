@@ -1,3 +1,4 @@
+var ReactStyle = require('react-style');
 var Invariant = require('react/lib/invariant');
 
 module.exports = {
@@ -50,8 +51,10 @@ module.exports = {
     delete styles.__requireFunc;
     var styleKeys = Object.keys(styles);
 
-    Invariant(!(include && exclude), 'Cannot define include and exclude');
+    Invariant(!(include && exclude),
+      'Cannot define include and exclude');
 
+    // include or exclude certain styles
     this._addStyles(requireFunc,
       include && include.length ?
         styleKeys.filter(x => include.indexOf(x) !== -1) :
@@ -61,18 +64,25 @@ module.exports = {
     );
   },
 
+  // do the actual adding
   // styles: { name: requireFunc }
   _addStyles(requireFunc, styles) {
     styles.forEach(key => {
       var style = requireFunc(key);
       if (typeof style === 'function')
         style = style(this.constants);
-      this.styles[key] = (this.styles[key] || []).concat(style);
+
+      // make into ReactStyle
+      Object.keys(style).forEach(styleKey => {
+        this.styles[key] = (this.styles[key] || {});
+        this.styles[key][styleKey] = (this.styles[key][styleKey] || [])
+          .concat(ReactStyle(style[styleKey]));
+      });
     });
   },
 
-  // we just store key: true and then __requireFunc: function
-  // so we can conditionally require styles later
+  // we just store key: true and __requireFunc: function
+  // so webpack can conditionally require styles later
   makeStyles(requireFunc, components) {
     var styles = {};
     styles.__requireFunc = requireFunc;
@@ -88,11 +98,11 @@ module.exports = {
     return name ? this.styles[name] : this.styles;
   },
 
-  getConstants() {
-    return this.constants;
+  getConstants(name) {
+    return name ? this.constants[name] : this.constants;
   },
 
-  getAnimations() {
-    return this.animations;
+  getAnimations(name) {
+    return name ? this.animations[name] : this.animations;
   }
 };

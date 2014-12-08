@@ -11,8 +11,14 @@ module.exports = function(name) {
       this.makeStyles(this.props.styles);
     },
 
+    componentWillUnmount() {
+      delete this.styles;
+      delete this.mediaStyles;
+      delete this.propStyles;
+    },
+
     getConstant(name) {
-      return UI.getConstants()[name];
+      return UI.getConstants(name);
     },
 
     // note: we track two styles
@@ -21,43 +27,38 @@ module.exports = function(name) {
     // getStyles will return propStyles after regular styles, so users can
     // override styles set within a component
     makeStyles(propStyles) {
-      console.log('running makeStyles')
-      this.styles = {};
+      this.styles = UI.getStyles(name) || {};
+      this.addedStyles = {};
       this.mediaStyles = {};
       this.propStyles = {};
 
-      var addStyle = (obj, key, style) => {
-        if (key.charAt(0) == '@')
-          addMediaQueryStyles(key, style);
-        else
-          obj[key] = (obj[key] || []).concat(this.makeReactStyle(style));
-      };
-
-      var addMediaQueryStyles = (mediaQuery, styles) => {
-        console.log('adding media query style', mediaQuery, styles);
-        Object.keys(styles).forEach(key => {
-          this.mediaStyles[mediaQuery] = {};
-          addStyle(this.mediaStyles[mediaQuery], key, styles[key]);
-          console.log(this.mediaStyles[mediaQuery])
-        });
-      };
-
-      var componentStyles = UI.getStyles(name);
-      if (componentStyles)
-        componentStyles.forEach(styles => (
-          Object.keys(styles).forEach(key => addStyle(this.styles, key, styles[key]))
-        ));
-
-      if (propStyles) {
-        if (this.isReactStyle(propStyles))
-          addStyle(this.propStyles, 'self', propStyles);
-        else
-          Object.keys(propStyles).forEach(key => {
-            addStyle(this.propStyles, key, this.makeReactStyle(propStyles[key]));
-          });
-      }
+      if (propStyles)
+        this.addPropStyles(propStyles);
 
       return this.styles;
+    },
+
+    addPropStyles(propStyles) {
+      if (this.isReactStyle(propStyles))
+        this.addStyleTo(this.propStyles, 'self', propStyles);
+      else
+        Object.keys(propStyles).forEach(key => {
+          this.addStyleTo(this.propStyles, key, this.makeReactStyle(propStyles[key]));
+        });
+    },
+
+    addStyleTo(obj, key, style) {
+      if (key.charAt(0) == '@')
+        this.addMediaQueryStyles(key, style);
+      else
+        obj[key] = (obj[key] || []).concat(style);
+    },
+
+    addMediaQueryStyles(mediaQuery, styles) {
+      Object.keys(styles).forEach(key => {
+        this.mediaStyles[mediaQuery] = {};
+        this.addStyleTo(this.mediaStyles[mediaQuery], key, styles[key]);
+      });
     },
 
     makeReactStyle(obj) {
@@ -73,17 +74,30 @@ module.exports = function(name) {
     getStyles(elName, index) {
       elName = elName === name ? 'self' : elName || 'self';
 
-      if (elName === 'self' && this.props.index === 0 || index === 0) {
-        var firstChildKey = elName === 'self' ? 'firstChild' : elName + 'FirstChild';
+      return (
+        this.styles[elName] || []
+      ).concat(
+        this.addedStyles[elName] || []
+      ).concat(
+        this.getExtraStyles(elName, index)
+      ).concat(
+        this.propStyles[elName] || []
+      );
+    },
 
-        if (this.styles[firstChildKey]) {
-          return this.styles[elName].concat(this.styles[firstChildKey]);
-        }
+    getExtraStyles(elName, index) {
+      var extraStyles = [];
+
+      if (elName === 'self' && this.props.index === 0 || index === 0) {
+        var firstChildKey = elName === 'self' ?
+          'firstChild' :
+          elName + 'FirstChild';
+
+        if (this.styles[firstChildKey])
+          extraStyles = this.styles[firstChildKey];
       }
 
-      return this.styles[elName] ?
-        this.styles[elName].concat(this.propStyles[elName] || []) :
-        this.propStyles[elName];
+      return extraStyles;
     },
 
     addStyles(elName, styles) {
@@ -93,26 +107,27 @@ module.exports = function(name) {
         elName = 'self';
       }
 
-      if (!styles) return;
+      if (!styles)
+        return;
 
       styles = this.makeReactStyle(styles);
 
       if (elName === name)
         elName = 'self';
 
-      var curStyles = this.styles[elName];
+      var curStyles = this.addedStyles[elName];
 
       if (curStyles && curStyles.length) {
         if (Array.isArray(styles))
           styles.map(style => curStyles.push(style));
         else
-          this.styles[elName][curStyles.length] = styles;
+          this.addedStyles[elName][curStyles.length] = styles;
       }
       else {
         if (Array.isArray(styles))
-          this.styles[elName] = styles;
+          this.addedStyles[elName] = styles;
         else
-          this.styles[elName] = [styles];
+          this.addedStyles[elName] = [styles];
       }
     },
 
@@ -131,9 +146,8 @@ module.exports = function(name) {
       if (!elName) elName = 'self';
 
       return UI.getStyles(componentName)
-        .map(styles => styles[elName])
-        .filter(x => typeof x !== 'undefined')
-        .map(this.makeReactStyle);
+        .map(styles => styles.style[elName])
+        .filter(x => typeof x !== 'undefined');
     },
 
     getStyleValForComponent(componentName, elName, prop) {
@@ -149,12 +163,14 @@ module.exports = function(name) {
     },
 
     _findDominantVal(styles, prop) {
-      if (!styles) return null;
+      if (!styles)
+        return null;
 
       var stylesForProp = styles
         .map(style => style.style[prop])
         .filter(x => typeof x !== 'undefined');
 
+        console.log(styles, stylesForProp);
       return stylesForProp[stylesForProp.length - 1];
     }
   };

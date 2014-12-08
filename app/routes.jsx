@@ -2,15 +2,6 @@ var React = require('react');
 var { Route, DefaultRoute } = require('react-router');
 var { route, routes } = require('react-router-generator');
 
-var generate = props => {
-  props.children = props.children ? props.children.map(generate) : null;
-  props.handler = require(props.handlerPath);
-
-  return props.defaultRoute ?
-    <DefaultRoute {...props} /> :
-    <Route {...props} />;
-};
-
 module.exports = generate(routes(
   { dir: 'components/' },
   route({ name: 'app', path: '/', dir: '' },
@@ -35,3 +26,12 @@ module.exports = generate(routes(
     route('viewer')
   )
 ));
+
+function generate(props) {
+  props.children = props.children ? props.children.map(generate) : null;
+  props.handler = require(props.handlerPath);
+
+  return props.defaultRoute ?
+    <DefaultRoute {...props} /> :
+    <Route {...props} />;
+}
