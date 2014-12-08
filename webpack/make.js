@@ -9,7 +9,7 @@ var autoprefixer = require('autoprefixer-core');
 
 module.exports = function(opts) {
   var entry = {
-    main: './app/main'
+    main: './main'
   };
 
   if (opts.vendorChunk) {

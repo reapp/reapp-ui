@@ -1,4 +1,4 @@
-require('./lib/init');
+require('./lib/statics');
 require('./lib/theme');
-require('./lib/mixins');
-require('./lib/run')(require('./routes'));
+require('./app/mixins');
+require('./lib/run')(require('./app/routes'));

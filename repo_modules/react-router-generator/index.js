@@ -26,17 +26,19 @@ var routes = function(opts, route) {
   opts = Object.assign({
     filename: name => proper(name),
     prefix: ''
-  });
+  }, opts);
 
   return routesGenerator(opts, route, '');
 };
+
+var pick = (a, b) => typeof a !== 'undefined' ? a : b;
 
 var routesGenerator = (opts, route, parentsPath) => {
   var children;
 
   if (route.children)
     children = route.children.map(child => (
-      routesGenerator(opts, child, parentsPath + route.name + '/')
+      routesGenerator(opts, child, parentsPath + pick(route.dir, route.name + '/'))
     ));
 
   var handlerPath = './' + (opts.prefix || '') + parentsPath +

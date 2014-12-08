@@ -6,19 +6,16 @@ var generate = props => {
   if (props.children)
     props.children = props.children.map(generate);
 
-  console.log(props.handlerPath)
-  var path = props.handlerPath.replace('app', 'components');
-  console.log(path);
-  props.handler = require(path);
+  props.handler = require(props.handlerPath);
 
   return props.defaultRoute ?
     <DefaultRoute {...props} /> :
     <Route {...props} />;
 };
 
-module.exports = generate(routes(
-  route('app', '/',
-    route('articles',
+module.exports = generate(routes({ prefix: 'components/' },
+  route({ name: 'app', path: '/', dir: '' },
+    route('articles', '/',
       route({ name: 'article', path: '/article/:id', addHandlerKey: true }),
       route({ name: 'user', path: '/user/:id', addHandlerKey: true })
     ),
