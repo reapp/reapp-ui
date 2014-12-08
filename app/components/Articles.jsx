@@ -6,8 +6,8 @@ var ListItem = require('ui/components/ListItem');
 var ViewList = require('ui/views/ViewList');
 var View = require('ui/views/View');
 var DottedViewList = require('ui/views/DottedViewList');
-var ArticleItem = require('./ArticleItem');
 var HotArticlesStore = require('stores/HotArticlesStore');
+var ArticleItem = require('./articles/ArticleItem');
 
 var { actions, helpers, mixins } = Component;
 var { ArticlesStore } = Component.stores;

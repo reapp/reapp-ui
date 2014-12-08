@@ -3,7 +3,7 @@ var View = require('ui/views/View');
 var BackButton = require('ui/components/buttons/BackButton');
 var { Container, Block } = require('ui/components/Grid');
 
-require('./GridsPage.styl');
+require('./Grids.styl');
 
 module.exports = React.createClass({
   styles: {

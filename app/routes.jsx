@@ -1,75 +1,41 @@
 var React = require('react');
 var { Route, DefaultRoute } = require('react-router');
-var Layout = require('./components/Layout');
-// var Articles = require('./pages/ArticlesPage');
-var Article = require('./pages/Articles/ArticlePage');
-var User = require('./pages/UserPage');
-var Viewer = require('./pages/ViewerPage');
-var Kitchen = require('./pages/KitchenPage');
-var Cards = require('./pages/Kitchen/CardsPage');
-var ViewLists = require('./pages/Kitchen/ViewListsPage');
-var DottedViewList = require('./pages/Kitchen/DottedViewListPage');
-var ViewFrosted = require('./pages/Kitchen/ViewFrostedPage');
-var Modals = require('./pages/Kitchen/ModalsPage');
-var Popovers = require('./pages/Kitchen/PopoversPage');
-var Tabs = require('./pages/Kitchen/TabsPage');
-var Panels = require('./pages/Kitchen/PanelsPage');
-var Lists = require('./pages/Kitchen/ListsPage');
-var Controls = require('./pages/Kitchen/ControlsPage');
-var Grids = require('./pages/Kitchen/GridsPage');
-var Forms = require('./pages/Kitchen/FormsPage');
+var { route, routes } = require('react-router-generator');
 
-var match = function(name, path, ...children) {
-  return { name, path, children };
+var generate = props => {
+  if (props.children)
+    props.children = props.children.map(generate);
+
+  console.log(props.handlerPath)
+  var path = props.handlerPath.replace('app', 'components');
+  console.log(path);
+  props.handler = require(path);
+
+  return props.defaultRoute ?
+    <DefaultRoute {...props} /> :
+    <Route {...props} />;
 };
 
-var routes = function(match, parentsPath) {
-  console.log(match);
-  var children;
-  parentsPath = parentsPath || '';
-
-  if (match.children && match.children.length)
-    children = match.children.map(child => routes(child, parentsPath + match.name + '/'));
-
-  console.log('./components/' + parentsPath + match.name, children);
-  // return (
-  //   <Route
-  //     name={match.name}
-  //     path={match.path}
-  //     handler={Layout}>
-  //     {children}
-  //   </Route>
-  // );
-};
-
-routes(match('app', '/',
-  match('articles', '/articles',
-    match('article', '/article/:article')
+module.exports = generate(routes(
+  route('app', '/',
+    route('articles',
+      route({ name: 'article', path: '/article/:id', addHandlerKey: true }),
+      route({ name: 'user', path: '/user/:id', addHandlerKey: true })
+    ),
+    route('kitchen',
+      route('controls'),
+      route('modals'),
+      route('popovers'),
+      route('tabs'),
+      route('cards'),
+      route('panels'),
+      route('lists'),
+      route('view-lists'),
+      route('dotted-view-list'),
+      route('view-frosted'),
+      route('grids'),
+      route('forms')
+    ),
+    route('viewer')
   )
 ));
-
-module.exports = (
-  <Route name="app" path="/" handler={Layout}>
-    <Route name="articles" path="/" handler={Layout}>
-      <Route name="article" path="/article/:id" handler={Article} addHandlerKey={true} />
-      <Route name="user" path="/user/:id" handler={User} addHandlerKey={true} />
-    </Route>
-
-    <Route name="kitchen" handler={Kitchen}>
-      <Route name="controls" handler={Controls} />
-      <Route name="modals" handler={Modals} />
-      <Route name="popovers" handler={Popovers} />
-      <Route name="tabs" handler={Tabs} />
-      <Route name="cards" handler={Cards} />
-      <Route name="panels" handler={Panels} />
-      <Route name="lists" handler={Lists} />
-      <Route name="viewLists" handler={ViewLists} />
-      <Route name="dottedViewList" handler={DottedViewList} />
-      <Route name="viewFrosted" handler={ViewFrosted} />
-      <Route name="grids" handler={Grids} />
-      <Route name="forms" handler={Forms} />
-    </Route>
-
-    <Route name="viewer" handler={Viewer} />
-  </Route>
-);

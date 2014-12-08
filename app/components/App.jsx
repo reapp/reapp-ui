@@ -5,12 +5,9 @@ var Button = require('ui/components/Button');
 var LayoutLeftNav = require('ui/views/LayoutLeftNav');
 var DocumentTitle = require('react-document-title');
 
-require('./Layout.css');
+require('./App.css');
 
-var TOOLBAR_HEIGHT = 44;
-var SIDE_WIDTH = 200;
-
-var Layout = React.createClass({
+module.exports = React.createClass({
   render() {
     var button = (
       <Button
@@ -41,13 +38,10 @@ var Layout = React.createClass({
     return (
       <LayoutLeftNav
         handle={button}
-        side={menu}
-        sideWidth={SIDE_WIDTH}>
+        side={menu}>
         <DocumentTitle title="React Base" />
         <RouteHandler {...this.props} />
       </LayoutLeftNav>
     );
   }
 });
-
-module.exports = Layout;

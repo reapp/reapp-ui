@@ -20,7 +20,7 @@ console.log('Starting', yargs.dev ? 'dev' : 'prod' , 'server...');
 
 app.use(Cors());
 
-var staticPaths = [ '/build/public', '/app/assets', '/web_modules' ];
+var staticPaths = [ '/build/public', '/assets', '/web_modules' ];
 staticPaths.forEach(function(path) {
   app.use('/assets', express.static(__dirname + path));
 });

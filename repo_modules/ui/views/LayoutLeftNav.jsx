@@ -16,6 +16,12 @@ module.exports = ViewComponent('LayoutLeftNav', {
     return { setModal: this.setModal };
   },
 
+  getDefaultProps() {
+    return {
+      sideWidth: 200
+    };
+  },
+
   setModal(modal) {
     this.setState({ modal });
   },
