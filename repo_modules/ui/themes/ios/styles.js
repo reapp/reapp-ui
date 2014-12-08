@@ -1,7 +1,7 @@
-var { makeTheme } = require('../../index');
+var { makeStyles } = require('../../index');
 var requirer = (name) => require('./styles/' + name);
 
-module.exports = makeTheme(requirer, [
+module.exports = makeStyles(requirer, [
   'Badge',
   'Block',
   'Button',

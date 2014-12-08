@@ -6,14 +6,17 @@ var ViewList = require('ui/views/ViewList');
 var View = require('ui/views/View');
 var DottedViewList = require('ui/views/DottedViewList');
 var ArticleItem = require('./articles/ArticleItem');
-
 var { actions, helpers, mixins } = Component;
 var { ArticlesStore, HotArticlesStore } = Component.stores;
 
 require('./Articles.styl');
 
 module.exports = Component({
-  mixins: ['rr.State', 'rr.RouteHandler', mixins.storeListener(ArticlesStore)],
+  mixins: [
+    'RouteState',
+    'RouteHandler',
+    mixins.storeListener(ArticlesStore)
+  ],
 
   statics: {
     fetchData() {

@@ -4,14 +4,13 @@ var Comment = require('./Comment');
 var ImmutableTreeNode = require('ui/helpers/ImmutableTreeNode');
 var View = require('ui/views/View');
 var BackButton = require('ui/components/buttons/BackButton');
-
 var { actions, helpers, mixins } = Component;
 var { ArticlesStore } = Component.stores;
 
 require('./Article.styl');
 
 module.exports = Component({
-  mixins: ['rr.State'],
+  mixins: ['RouteState'],
 
   statics: {
     fetchData(params) {

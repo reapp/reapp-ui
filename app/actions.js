@@ -1,5 +1,4 @@
 var Fynx = require('fynx');
-var Component = require('component');
 
 var actions = Fynx.createActions([
   'articlesHotLoad',
@@ -9,8 +8,6 @@ var actions = Fynx.createActions([
   'articleLoad',
   'userLoad'
 ]);
-
-Component.addStatics({ actions });
 
 module.exports = actions;
 

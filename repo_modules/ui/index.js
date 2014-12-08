@@ -1,7 +1,7 @@
 var Invariant = require('react/lib/invariant');
 
 module.exports = {
-  theme: {},
+  styles: {},
   animations: {},
   constants: {},
 
@@ -13,14 +13,18 @@ module.exports = {
     }
   },
 
-  setup(opts) {
-    var { constants, themes, animations } = opts;
-
-    if (constants)
-      constants.forEach(this.addConstants.bind(this));
-
-    animations.forEach(this.addAnimation.bind(this));
-    themes.forEach(this.addTheme.bind(this));
+  setup(type, obj) {
+    switch(type) {
+    case 'constants':
+      this.addConstants(obj);
+      break;
+    case 'animations':
+      this.addAnimation(obj);
+      break;
+    case 'styles':
+      this.addStyles(obj);
+      break;
+    }
   },
 
   // constants are order sensitive and are overwritten on object
@@ -38,17 +42,17 @@ module.exports = {
     });
   },
 
-  // themes are order sensitive and pushed onto array
-  // theme: { styles: { key: requireFunc }, (include: [] | exclude: []) }
-  addTheme(theme) {
-    var { styles, include, exclude } = theme;
+  // styles are order sensitive and pushed onto array
+  // style: { styles: { key: requireFunc }, (include: [] | exclude: []) }
+  addStyles(style) {
+    var { styles, include, exclude } = style.styles ? style : { styles: style };
     var requireFunc = styles.__requireFunc;
     delete styles.__requireFunc;
     var styleKeys = Object.keys(styles);
 
     Invariant(!(include && exclude), 'Cannot define include and exclude');
 
-    this.addThemeStyles(requireFunc,
+    this._addStyles(requireFunc,
       include && include.length ?
         styleKeys.filter(x => include.indexOf(x) !== -1) :
         exclude && exclude.length ?
@@ -58,17 +62,18 @@ module.exports = {
   },
 
   // styles: { name: requireFunc }
-  addThemeStyles(requireFunc, styles) {
+  _addStyles(requireFunc, styles) {
     styles.forEach(key => {
       var style = requireFunc(key);
-      if (typeof style === 'function') style = style(this.constants);
-      this.theme[key] = (this.theme[key] || []).concat(style);
+      if (typeof style === 'function')
+        style = style(this.constants);
+      this.styles[key] = (this.styles[key] || []).concat(style);
     });
   },
 
   // we just store key: true and then __requireFunc: function
   // so we can conditionally require styles later
-  makeTheme(requireFunc, components) {
+  makeStyles(requireFunc, components) {
     var styles = {};
     styles.__requireFunc = requireFunc;
 
@@ -79,12 +84,8 @@ module.exports = {
     return styles;
   },
 
-  getTheme() {
-    return this.theme;
-  },
-
   getStyles(name) {
-    return this.theme[name];
+    return name ? this.styles[name] : this.styles;
   },
 
   getConstants() {
