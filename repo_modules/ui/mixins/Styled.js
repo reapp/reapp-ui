@@ -170,7 +170,6 @@ module.exports = function(name) {
         .map(style => style.style[prop])
         .filter(x => typeof x !== 'undefined');
 
-        console.log(styles, stylesForProp);
       return stylesForProp[stylesForProp.length - 1];
     }
   };
