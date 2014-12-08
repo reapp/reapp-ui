@@ -12,7 +12,8 @@ var PopoversPage = React.createClass({
     return (
       <div>
         <Block>
-          <p>Popovers are <PopoverLink content={this.props.content}>menus</PopoverLink> that
+          <p>Popovers
+          are <PopoverLink content={this.props.content}>menus</PopoverLink> that
           will float above an element that triggers them. Apple recommends
           to use popovers on iPad, not smaller mobile devices. For iPhone, use
           actions and modals.</p>
@@ -43,7 +44,7 @@ module.exports = React.createClass({
     );
 
     return (
-      <View title={[<BackButton />, 'Popovers', menuButton]}>
+      <View {...this.props} title={[<BackButton />, 'Popovers', menuButton]}>
         <PopoversPage {...this.props} content={popoverContent} />
       </View>
     );
