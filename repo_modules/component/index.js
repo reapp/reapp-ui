@@ -1,11 +1,18 @@
 var React = require('react');
 var Invariant = require('react/lib/invariant');
 
-var decorators = [];
-var index = 0;
-
 // Component is a helper designed for top-down applications
 // It provides two things
+//  - decorators
+//  - dependency injection
+
+// Because React apps use gradual controller-view -> view trees
+// DI is typically very simple and more akin to global variables
+
+// Decorators are helpful for medium to large scale apps.
+// They can help you have default mixins, and automate other small common tasks
+
+var decorators = [];
 
 function Component(spec) {
   decorators.forEach(decorator => {

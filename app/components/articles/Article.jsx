@@ -34,13 +34,8 @@ module.exports = Component({
 
   render() {
     var cursor = ArticlesStore().get(this.getParams().id);
-
-    if (!cursor)
-      return <View />;
-
-    var data = cursor && cursor.get('data');
-    var article = data || { get: () => 'Loading' };
-    var hasComments = data && article.get('kidsLoaded');
+    var article = cursor && cursor.get('data');
+    var commentsLoaded = article && article.get('kidsLoaded');
     var articleItemStyles = {
       self: { borderTop: 'none' },
       after: { display: 'none' }
@@ -50,8 +45,10 @@ module.exports = Component({
       <View {...this.props}
         title={[<BackButton />, 'Comments ()']}
         titleBarProps={{ height: 48 }}>
-        <ArticleItem cursor={cursor} styles={articleItemStyles} />
-        {hasComments && (
+        {article && (
+          <ArticleItem cursor={cursor} styles={articleItemStyles} />
+        )}
+        {commentsLoaded && (
           <div id="comments">
             {this.getComments(article.get('kids'))}
           </div>
