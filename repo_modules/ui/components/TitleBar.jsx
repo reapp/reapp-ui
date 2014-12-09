@@ -33,9 +33,11 @@ module.exports = Component('TitleBar', {
   addIconAnimation(component) {
     var isValid = React.isValidElement(component);
 
+    // add MOVE_TO_RIGHT icon animation if it doesn't have another already
     if (isValid) {
       component.props.iconProps = component.props.iconProps || {};
-      Object.assign(component.props.iconProps, { animation: 'MOVE_TO_RIGHT' });
+      component.props.iconProps.animation =
+        component.props.iconProps.animation || 'MOVE_TO_RIGHT';
     }
 
     return isValid ?

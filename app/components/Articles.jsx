@@ -62,7 +62,8 @@ module.exports = Component({
     var refreshIconProps = {
       type: 'arrow-refresh',
       size: 24,
-      stroke: 1
+      stroke: 1,
+      styles: { self: { marginTop: -1 } }
     };
 
     if (this.state.isRefreshing)

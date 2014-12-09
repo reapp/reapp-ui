@@ -4,7 +4,6 @@ var Icon = require('./Icon');
 module.exports = Component('Button', {
   render() {
     var { iconProps, icon, children, borderless, rounded, active, ...props } = this.props;
-    var hasIconProps = !!iconProps;
 
     if (icon) {
       iconProps = (iconProps || {});
@@ -25,7 +24,7 @@ module.exports = Component('Button', {
 
     return (
       <button {...props} {...this.componentProps()}>
-        {hasIconProps && <Icon {...iconProps} />}
+        {!!iconProps && <Icon {...iconProps} />}
         {children && (
           <span style={{ margin: 'auto' }}>
             {children}

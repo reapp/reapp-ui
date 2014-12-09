@@ -89,11 +89,13 @@ module.exports = ViewComponent('LayoutLeftNav', {
         )}
         <Drawer {...this.componentProps('drawer')} {...drawerProps}>
           {children}
-          <TouchableArea onClick={this._handleTap} scroller={this.scroller}>
-            {handle}
-          </TouchableArea>
+
         </Drawer>
       </div>
     );
   }
 });
+
+// <TouchableArea onClick={this._handleTap} scroller={this.scroller}>
+//   {handle}
+// </TouchableArea>

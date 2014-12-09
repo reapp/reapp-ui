@@ -16,7 +16,7 @@ module.exports = {
   },
 
   getAnimation(name) {
-    return UI.getAnimations()[name];
+    return UI.getAnimations(name);
   },
 
   getAnimationStep() {

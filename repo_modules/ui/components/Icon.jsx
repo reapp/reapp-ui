@@ -14,22 +14,25 @@ module.exports = Component('Icon', {
   },
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.animation === 'ROTATE') {
-      this.setState({ step: 0 });
+    if (nextProps.animation === 'ROTATE' && !this.state.isRotating) {
+      this.setState({ step: 0, isRotating: true });
       this.rotate();
     }
     else {
-      this.setState({ step: null });
+      this.setState({ isRotating: false });
     }
   },
 
   rotate() {
     this.tweenState('step', {
+      easing: TweenState.easingTypes.linear,
       endValue: 1,
-      duration: 500,
+      duration: 1500,
       onEnd: () => {
         this.setState({ step: 0 });
-        this.rotate();
+
+        if (this.state.isRotating)
+          this.rotate();
       }
     });
   },
