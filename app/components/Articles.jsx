@@ -80,8 +80,7 @@ module.exports = Component({
       <ViewList scrollToStep={numRoutes - 2} noFakeTitleBar>
         <View>
           <DottedViewList {...dottedProps}>
-            <View
-              title={[menuButton, 'Hot Articles', refreshButton]}>
+            <View title={[menuButton, 'Hot Articles', refreshButton]}>
               <List dontWrapChildren styles={{ self: { borderTop: 'none' } }}>
                 {articles.count() ?
                   articles.map((article, i) =>

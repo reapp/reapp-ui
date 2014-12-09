@@ -10,11 +10,16 @@ module.exports = ViewComponent('ViewList', {
   // we pass down viewListStep so elements nested inside the views
   // can access them for their own animations
   childContextTypes: {
-    viewListStep: React.PropTypes.number
+    viewList: React.PropTypes.object
   },
 
   getChildContext() {
-    return { viewListStep: this.state.step };
+    return {
+      viewList: {
+        step: this.state.step,
+        width: this.props.width
+      }
+    };
   },
 
   propTypes: {
@@ -249,8 +254,10 @@ module.exports = ViewComponent('ViewList', {
             titleBarProps: childTitleBarProps,
             key: i,
             animations,
-            viewListIndex: i,
-            viewListStep: this.state.step,
+            viewList: {
+              step: this.state.step,
+              index: i
+            },
             width: this.state.width,
             height: this.state.height,
           });

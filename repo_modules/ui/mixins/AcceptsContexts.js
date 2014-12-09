@@ -5,8 +5,7 @@ module.exports = function(...sources) {
 
   if (sources)
     sources.forEach(source => {
-      contextTypes[source + 'Step'] = React.PropTypes.number;
-      contextTypes[source + 'Index'] = React.PropTypes.number;
+      contextTypes[source] = React.PropTypes.object;
     });
 
   return { contextTypes };

@@ -7,45 +7,34 @@ var defined = variable => (typeof variable !== 'undefined');
 
 module.exports = {
   isAnimating(source) {
-    return this.getAnimationStep(source) % 1 !== 0;
+    return this.getAnimationProps(source).step % 1 !== 0;
   },
 
   getAnimation(name) {
-    return this.props.animations.filter(a => a.name === name);
+    return this.props.animations.filter(a => a && a.name === name);
   },
 
   hasAnimation(name) {
     return this.props.animations && !!this.getAnimation(name).length;
   },
 
-  getStepKey(source) {
-    return source ? source + 'Step' : 'step';
+  getAnimator(name) {
+    return UI.getAnimations(name);
   },
 
-  getIndexKey(source) {
-    return source ? source + 'Index' : 'index';
-  },
+  getAnimationProps(source) {
+    if (!source)
+      return Object.assign({}, this.context, this.props, this.state);
 
-  getAnimator(source) {
-    return UI.getAnimations(source);
+    return Object.assign({},
+      this.context[source] || {},
+      this.props[source] || {},
+      this.state && this.state[source] || {}
+    );
   },
 
   getAnimationStep(source) {
-    var stepKey = this.getStepKey(source);
-    return this.state && defined(this.state[stepKey]) ?
-      this.state[stepKey] :
-        defined(this.props[stepKey]) ?
-          this.props[stepKey] :
-          this.context[stepKey];
-  },
-
-  getAnimationIndex(source) {
-    var indexKey = this.getIndexKey(source);
-    return this.state && defined(this.state[indexKey]) ?
-      this.state[indexKey] :
-        defined(this.props[indexKey]) ?
-          this.props[indexKey] :
-          this.conte;
+    return this.getAnimationProps(source).step;
   },
 
   getAnimationStyles() {
@@ -54,19 +43,18 @@ module.exports = {
 
     if (this.props.animations)
       this.props.animations.forEach(animation => {
-        var { name, source } = animation;
-        index = this.getAnimationIndex(source);
-        step = this.getAnimationStep(source);
+        if (!animation) return;
 
-        // support react-tween-state
-        if (this.getTweeningValue && this.getTweeningValue(this.getStepKey(source)))
-          step = this.getTweeningValue('step');
+        var { name, source } = animation;
+        var { index, step, ...props } = this.getAnimationProps(source);
+        console.log('aniamtionProps', name, source, index, step, props, this.context);
+
 
         if (!defined(step) || !defined(index))
-          throw new Error(`No step or index defined for animation ${source}`);
+          return; // throw new Error(`No step or index defined for animation ${source}`);
 
         var animator = this.getAnimator(name);
-        var { scale, rotate, rotate3d, translate, ...other } = animator.call(this, index, step);
+        var { scale, rotate, rotate3d, translate, ...other } = animator.call(this, index, step, props);
         var transformStyle = this.getTransformStyle(scale, rotate, rotate3d, translate);
 
         styles[StyleKeys.TRANSFORM] = transformStyle ?

@@ -1,4 +1,4 @@
-module.exports = {
+var AnimationHelpers = module.exports = {
   // Increase strength on enter
   //  0 -> 1 (in) -> 1
   linearEnter(step, index) {
@@ -15,7 +15,7 @@ module.exports = {
   //  0 -> 1 (in) -> 0
   symmetrical(step, index) {
     return (step <= index) ?
-      linearEnter(step, index) :
-      linearExit(step, index);
+      AnimationHelpers.linearEnter(step, index) :
+      AnimationHelpers.linearExit(step, index);
   }
 };

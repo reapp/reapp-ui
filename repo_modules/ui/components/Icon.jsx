@@ -1,9 +1,9 @@
 var Component = require('ui/component');
 var TweenState = require('react-tween-state');
-var AcceptsAnimation = require('../mixins/AcceptsAnimation');
+var AcceptsContexts = require('../mixins/AcceptsContexts');
 
 module.exports = Component('Icon', {
-  mixins: [TweenState.Mixin, AcceptsAnimation('viewList')],
+  mixins: [TweenState.Mixin, AcceptsContexts('viewList')],
 
   getDefaultProps() {
     return {

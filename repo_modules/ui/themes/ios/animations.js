@@ -21,16 +21,16 @@ var Animations = module.exports = {
     };
   },
 
-  fadeLeft(index, step) {
+  fadeLeft(index, step, props) {
     return {
-      translate: { x: - (step - index) * (WINDOWWIDTH/2.5) },
+      translate: { x: - (step - index) * (props.width/2.5) },
       opacity: symmetrical(step, index)
     };
   },
 
-  moveToRight(index, step) {
+  moveToRight(index, step, props) {
     return {
-      translate: { x: (step - index) * (WINDOWWIDTH/2.5) }
+      translate: { x: (step - index) * (props.width/2.5) }
     };
   },
 
