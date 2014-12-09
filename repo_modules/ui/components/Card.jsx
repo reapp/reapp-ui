@@ -12,7 +12,7 @@ module.exports = Component('Card', {
 
   getDefaultProps() {
     return {
-      animation: 'CARD'
+      animation: 'card'
     };
   },
 

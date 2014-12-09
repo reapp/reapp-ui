@@ -1,8 +1,9 @@
 var Component = require('ui/component');
 var TweenState = require('react-tween-state');
+var AcceptsAnimation = require('../mixins/AcceptsAnimation');
 
 module.exports = Component('Icon', {
-  mixins: [TweenState.Mixin],
+  mixins: [TweenState.Mixin, AcceptsAnimation('viewList')],
 
   getDefaultProps() {
     return {
@@ -14,7 +15,7 @@ module.exports = Component('Icon', {
   },
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.animation === 'ROTATE' && !this.state.isRotating) {
+    if (this.hasAnimation('rotate') && !this.state.isRotating) {
       this.setState({ step: 0, isRotating: true });
       this.rotate();
     }
@@ -39,7 +40,7 @@ module.exports = Component('Icon', {
 
   render() {
     var {
-      animation,
+      animations,
       size,
       type,
       color,
@@ -75,8 +76,8 @@ module.exports = Component('Icon', {
       overflow: 'hidden'
     }, props.style);
 
-    if (animation)
-      props.style = this.getAnimationStyles(animation);
+    if (animations)
+      props.style = this.getAnimationStyles(animations);
 
     return (
       <span {...props} {...this.componentProps()}>

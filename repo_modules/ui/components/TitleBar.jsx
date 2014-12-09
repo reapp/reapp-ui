@@ -2,13 +2,16 @@ var React = require('react/addons');
 var Component = require('ui/component');
 var DocumentTitle = require('react-document-title');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
+var AcceptsAnimation = require('../mixins/AcceptsAnimation');
 
 require('./TitleBar.styl');
 
 module.exports = Component('TitleBar', {
+  mixins: [AcceptsAnimation('viewList')],
+
   getDefaultProps() {
     return {
-      animation: 'FADE_LEFT'
+      animation: 'fadeLeft'
     };
   },
 
@@ -37,7 +40,10 @@ module.exports = Component('TitleBar', {
     if (isValid) {
       component.props.iconProps = component.props.iconProps || {};
       component.props.iconProps.animation =
-        component.props.iconProps.animation || 'MOVE_TO_RIGHT';
+        [].concat(component.props.iconProps.animation, {
+          name: 'moveToRight',
+          source: 'viewList'
+        });
     }
 
     return isValid ?
@@ -46,7 +52,7 @@ module.exports = Component('TitleBar', {
   },
 
   render() {
-    var { animation, children, index, active, height, transparent, ...props } = this.props;
+    var { animations, children, index, active, height, transparent, ...props } = this.props;
     var left, mid, right;
 
     if (transparent)
@@ -55,8 +61,8 @@ module.exports = Component('TitleBar', {
     if (height)
       this.addStyles({ height });
 
-    if (animation)
-      props.style = this.getAnimationStyles(animation);
+    if (animations)
+      props.style = this.getAnimationStyles(animations);
 
     // Allow a 3 length array as children rather than setting left and right props
     if (!this.props.left && !this.props.right && Array.isArray(children)) {

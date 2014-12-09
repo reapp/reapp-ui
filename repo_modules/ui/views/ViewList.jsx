@@ -7,14 +7,14 @@ var TouchableArea = require('../helpers/TouchableArea');
 var CloneChildren = require('../lib/CloneChildren');
 
 module.exports = ViewComponent('ViewList', {
-  // we pass down step so elements nested inside the views
+  // we pass down viewListStep so elements nested inside the views
   // can access them for their own animations
   childContextTypes: {
-    step: React.PropTypes.number
+    viewListStep: React.PropTypes.number
   },
 
   getChildContext() {
-    return { step: this.state.step };
+    return { viewListStep: this.state.step };
   },
 
   propTypes: {
@@ -33,8 +33,10 @@ module.exports = ViewComponent('ViewList', {
       height,
       noFakeTitleBar: false,
       resizeWithWindow: true,
-      initialStep: 0,
-      animation: 'VIEW_PARALLAX',
+      scrollToStep: 0,
+      animations: [
+       { name: 'viewParallax', source: 'viewList' }
+      ],
       titleBarProps: {},
       scrollerProps: {
         animationDuration: 400,
@@ -56,7 +58,7 @@ module.exports = ViewComponent('ViewList', {
       children: this.props.children,
       width: this.props.width,
       height: this.props.height,
-      step: this.props.initialStep
+      step: this.props.scrollToStep
     };
   },
 
@@ -75,17 +77,17 @@ module.exports = ViewComponent('ViewList', {
   // needs to ensure it animates, then updates children views in state
   componentWillReceiveProps(nextProps) {
     // if not changing views
-    if (nextProps.initialStep === this.props.initialStep)
+    if (nextProps.scrollTo === this.props.scrollTo)
       return this.setupViewList(nextProps);
 
     // if advancing views
-    if (nextProps.initialStep > this.state.step) {
+    if (nextProps.scrollTo > this.state.step) {
       this.setupViewList(nextProps);
-      this.scrollToStep(nextProps.initialStep);
+      this.scrollToStep(nextProps.scrollTo);
     }
     // if regressing views
     else {
-      this.scrollToStep(nextProps.initialStep).then(() => {
+      this.scrollToStep(nextProps.scrollTo).then(() => {
         this.setupViewList(nextProps);
       });
     }
@@ -216,7 +218,7 @@ module.exports = ViewComponent('ViewList', {
       after,
       before,
       children,
-      animation,
+      animations,
       titleBarProps,
       noFakeTitleBar,
       ...props
@@ -245,10 +247,10 @@ module.exports = ViewComponent('ViewList', {
         {React.Children.map(this.state.children, (view, i) => {
           return React.isValidElement(view) && React.addons.cloneWithProps(view, {
             titleBarProps: childTitleBarProps,
-            animation,
-            index: i,
             key: i,
-            step: this.state.step,
+            animations,
+            viewListIndex: i,
+            viewListStep: this.state.step,
             width: this.state.width,
             height: this.state.height,
           });

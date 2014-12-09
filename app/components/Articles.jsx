@@ -67,7 +67,7 @@ module.exports = Component({
     };
 
     if (this.state.isRefreshing)
-      refreshIconProps.animation = 'ROTATE';
+      refreshIconProps.animation = { name: 'rotate' };
 
     var refreshButton = (
       <Button
@@ -77,7 +77,7 @@ module.exports = Component({
     );
 
     return (
-      <ViewList initialStep={numRoutes - 2} noFakeTitleBar>
+      <ViewList scrollToStep={numRoutes - 2} noFakeTitleBar>
         <View>
           <DottedViewList {...dottedProps}>
             <View

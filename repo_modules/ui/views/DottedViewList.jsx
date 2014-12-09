@@ -5,7 +5,9 @@ var Dots = require('../components/Dots');
 module.exports = Component('DottedViewList', {
   getDefaultProps() {
     return {
-      animation: 'VIEW_SIDE_BY_SIDE',
+      animations: [
+        { name: 'viewSideBySide', source: 'viewList' }
+      ],
       titleBarProps: {
         height: 48,
         styles: {

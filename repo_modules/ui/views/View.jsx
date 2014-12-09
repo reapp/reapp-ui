@@ -2,23 +2,26 @@ var React = require('react');
 var ViewComponent = require('ui/viewcomponent');
 var TitleBar = require('../components/TitleBar');
 var StaticContainer = require('../helpers/StaticContainer');
+var AcceptsAnimation = require('../mixins/AcceptsAnimation');
 
 module.exports = ViewComponent('View', {
+  mixins: [AcceptsAnimation('viewList')],
+
   childContextTypes: {
-    index: React.PropTypes.number
+    viewListIndex: React.PropTypes.number
   },
 
   getChildContext() {
-    return { index: this.props.index };
+    return { viewListIndex: this.props.viewListindex };
   },
 
   render() {
     var {
       children,
       title,
-      animation,
-      index,
-      step,
+      animations,
+      viewListIndex,
+      viewListStep,
       width,
       height,
       containerProps,
@@ -26,7 +29,7 @@ module.exports = ViewComponent('View', {
       ...props
     } = this.props;
 
-    if (index === step)
+    if (viewListIndex === viewListStep)
       this.addStyles({ pointerEvents: 'all' });
 
     // add offset from titlebar
@@ -38,7 +41,7 @@ module.exports = ViewComponent('View', {
       this.addStyles('inner', { top: titleBarHeight });
 
     // clip box shadow for titlebar
-    if (this.isAnimating())
+    if (this.isAnimating('viewList'))
       this.addStyles('inner', { clip: `rect(0px, ${width}px, ${height}px, -10px)` });
     else
       this.addStyles('inner', { boxShadow: 'none' });
@@ -46,11 +49,11 @@ module.exports = ViewComponent('View', {
     return (
       <div {...containerProps} {...this.componentProps()}>
         {title && (
-          <TitleBar {...titleBarProps} index={index}>{title}</TitleBar>
+          <TitleBar {...titleBarProps} viewListIndex={viewListIndex}>{title}</TitleBar>
         )}
         <div {...props} {...this.componentProps('inner')}
-          style={this.getAnimationStyles(animation)}>
-          <StaticContainer shouldUpdate={this.getAnimationStep() % 1 === 0}>
+          style={this.getAnimationStyles(animations)}>
+          <StaticContainer shouldUpdate={this.getAnimationStep('viewList') % 1 === 0}>
             {children}
           </StaticContainer>
         </div>

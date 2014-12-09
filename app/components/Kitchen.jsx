@@ -43,7 +43,7 @@ module.exports = React.createClass({
     ];
 
     return (
-      <ViewList initialStep={numRoutes - 2}>
+      <ViewList scrollToStep={numRoutes - 2}>
         <View title={[this.props.menuButton, 'Kitchen Sink']}>
           <SearchBar onChange={this.handleSearch} defaultValue="" />
 
