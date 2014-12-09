@@ -61,6 +61,18 @@ Animations.CARD = function(index, step) {
   };
 };
 
+Animations.FADE = function(index, step) {
+  return {
+    opacity: symmetrical(step, index)
+  };
+};
+
+Animations.SCALE_DOWN = function(index, step) {
+  return {
+    scale: linearExit(step, index) * 1.9
+  };
+};
+
 Animations.ROTATE = function(index, step) {
   return {
     rotate: step * 360

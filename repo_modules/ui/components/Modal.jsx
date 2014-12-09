@@ -1,35 +1,44 @@
 var React = require('react');
 var Component = require('ui/component');
 var Button = require('./Button');
+var TweenState = require('react-tween-state');
 
 module.exports = Component('Modal', {
+  mixins: [TweenState.Mixin],
+
   propTypes: {
     type: React.PropTypes.string
   },
 
   getDefaultProps() {
-    return {
-      type: 'alert'
-    };
+    return { type: 'alert' };
   },
 
   getInitialState() {
     return {
-      open: this.props.open || true
+      open: this.props.open || false,
+      step: 0,
+      index: 1
     };
   },
 
   componentDidMount() {
-    window.addEventListener(`modal-${this.props.id}`, e => {
-      this.setState({ open: true });
+    this.setState({ open: true });
+    this.tweenState('step', {
+      endValue: 1,
+      duration: 400
     });
   },
 
-  componentWillUnmount() {
-    window.removeEventListener(`modal-${this.props.id}`);
+  handleClose(e) {
+    this.tweenState('step', {
+      endValue: 0,
+      duration: 400,
+      onEnd: this.afterClose.bind(this, e)
+    });
   },
 
-  handleClose(e) {
+  afterClose(e) {
     this.setState({ open: false });
     e.preventDefault();
 
@@ -62,8 +71,11 @@ module.exports = Component('Modal', {
     }
 
     return (
-      <div {...props} {...this.componentProps()} onClick={this.handleClose}>
-        <div {...this.componentProps('window')}>
+      <div {...props} {...this.componentProps()}
+        onClick={this.handleClose}
+        style={this.getAnimationStyles('FADE')}>
+        <div {...this.componentProps('window')}
+          style={this.getAnimationStyles('SCALE_DOWN')}>
           <div {...this.componentProps('inner')}>
             {title && (
               <div {...this.componentProps('title')}>

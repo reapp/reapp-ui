@@ -8,6 +8,7 @@ var PopoverHandler = require('ui/mixins/PopoverHandler');
 var Popover = require('ui/components/Popover');
 var ModalHandler = require('ui/mixins/ModalHandler');
 var Modal = require('ui/components/Modal');
+var { Scroller } = require('scroller');
 
 require('./App.css');
 
@@ -36,17 +37,18 @@ module.exports = React.createClass({
     );
 
     return (
-      <LayoutLeftNav
-        handle={button}
-        side={menu}>
+      <LayoutLeftNav side={menu} handle={button}>
         <DocumentTitle title="React Base" />
         <RouteHandler {...this.props} menuButton={button} />
+
         {this.state.popoverProps && (
           <Popover {...this.state.popoverProps} />
         )}
+
         {this.state.modalProps && (
           <Modal {...this.state.modalProps} />
         )}
+
       </LayoutLeftNav>
     );
   }

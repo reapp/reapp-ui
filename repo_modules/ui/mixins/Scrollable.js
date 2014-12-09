@@ -1,8 +1,5 @@
 var { Scroller } = require('scroller');
 
-// this.props.contentWidth
-// this.props.contentHeight
-
 var Scrollable = function(props) {
   return {
     getDefaultProps() {
@@ -18,12 +15,12 @@ var Scrollable = function(props) {
       return {
         scrollX: 0,
         scrollY: 0,
-        isClosed: false
+        scrollOff: false
       };
     },
 
     componentWillMount() {
-      this.scroller = new Scroller(this._handleScroll, {
+      this.scroller = this.props.scroller || new Scroller(this._handleScroll, {
         bouncing: this.props.scrollBounce,
         scrollingX: this.props.scrollX,
         scrollingY: this.props.scrollY,
@@ -54,17 +51,23 @@ var Scrollable = function(props) {
       this.scroller.setDimensions(
         node.clientWidth,
         node.clientHeight,
-        this.props.contentWidth || contentWidth || node.clientWidth,
-        this.props.contentHeight || contentHeight || node.clientHeight
+        (this.props.contentWidth || contentWidth || node.clientWidth) +
+          (this.props.sideWidth || 0),
+        this.props.contentHeight || contentHeight || node.clientHeight +
+          (this.props.topWidth || 0)
       );
 
-      if (this.props.scrollSnap)
-        this.scroller.setSnapSize(node.clientWidth, node.clientHeight);
+      if (this.afterMeasureScroll)
+        this.afterMeasureScroll(node);
+      else {
+        if (this.props.scrollSnap)
+          this.scroller.setSnapSize(node.clientWidth, node.clientHeight);
 
-      this.scroller.scrollTo(node.clientWidth, 0);
+        this.scroller.scrollTo(node.clientWidth, 0);
+      }
     },
 
-    _handleScroll(x, y, z) {
+    _handleScroll(x, y) {
       this.setState({
         scrollX: x,
         scrollY: y

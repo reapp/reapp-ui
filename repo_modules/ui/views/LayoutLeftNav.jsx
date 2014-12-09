@@ -5,9 +5,22 @@ var LeftNavBehavior = require('./LeftNavBehavior');
 var DrawerBehavior = require('./DrawerBehavior');
 var TouchableArea = require('../helpers/TouchableArea');
 var Drawer = require('./Drawer');
-var { Scroller } = require('scroller');
+var Scrollable = require('../mixins/Scrollable');
 
 module.exports = ViewComponent('LayoutLeftNav', {
+  mixins: [Scrollable({
+    scrollBounce: false,
+    scrollX: true,
+    scrollY: false,
+    scrollSnap: true
+  })],
+
+  afterMeasureScroll(node) {
+    this.scroller.setSnapSize(this.props.sideWidth, node.clientHeight);
+    this.scroller.scrollTo(this.props.sideWidth, 0);
+    window.scroller = this.scroller;
+  },
+
   getDefaultProps() {
     return {
       sideWidth: 200,
@@ -15,51 +28,14 @@ module.exports = ViewComponent('LayoutLeftNav', {
     };
   },
 
-  setModal(modal) {
-    this.setState({ modal });
-  },
-
-  componentWillMount() {
-    this.scroller = new Scroller(this._handleScroll, {
-      bouncing: false,
-      scrollingX: true,
-      scrollingY: false,
-      snapping: true
-    });
-  },
-
-  componentDidMount() {
-    this._measure();
-  },
-
-  _measure() {
-    var node = this.getDOMNode();
-    this.scroller.setDimensions(
-      node.clientWidth,
-      node.clientHeight,
-      node.clientWidth + this.props.sideWidth,
-      node.clientHeight
-    );
-    this.scroller.setSnapSize(this.props.sideWidth, node.clientHeight);
-    this.scroller.scrollTo(this.props.sideWidth, 0);
-  },
-
   componentDidUpdate(prevProps) {
     if (this.props.sideWidth !== prevProps.sideWidth)
-      this._measure();
+      this._measureScroll();
   },
 
   closeSide() {
     if (this.isSideOpen())
       this.scroller.scrollTo(this.props.sideWidth, 0, true);
-  },
-
-  _handleScroll(left) {
-    this.setState({scrollLeft: left});
-  },
-
-  getInitialState() {
-    return {scrollLeft: 0};
   },
 
   _handleTap() {
@@ -74,7 +50,7 @@ module.exports = ViewComponent('LayoutLeftNav', {
   },
 
   isSideOpen() {
-    return this.state.scrollLeft !== this.props.sideWidth;
+    return this.state.scrollX !== this.props.sideWidth;
   },
 
   render() {
@@ -88,15 +64,15 @@ module.exports = ViewComponent('LayoutLeftNav', {
     });
 
     var sideProps = {
-      translate: behavior.parent.translate(sideWidth, this.state.scrollLeft),
-      rotate: behavior.parent.rotate(sideWidth, this.state.scrollLeft),
-      opacity: behavior.parent.opacity(sideWidth, this.state.scrollLeft),
+      translate: behavior.parent.translate(sideWidth, this.state.scrollX),
+      rotate: behavior.parent.rotate(sideWidth, this.state.scrollX),
+      opacity: behavior.parent.opacity(sideWidth, this.state.scrollX),
       styles: isSideOpen ? this.getStyles('side') : null
     };
 
     var drawerProps = {
       layer: 1,
-      translate: DrawerBehavior.translate(this.state.scrollLeft),
+      translate: DrawerBehavior.translate(this.state.scrollX),
       scroller: this.scroller,
       onTouchTap: this._handleContentTouchTap
     };
