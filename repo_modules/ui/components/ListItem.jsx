@@ -3,13 +3,9 @@ var Component = require('ui/component');
 var Icon = require('./Icon');
 
 module.exports = Component('ListItem', {
-  componentWillMount() {
-    this.key = 0;
-  },
-
   makeSection(name, content) {
     return content && (
-      <span {...this.componentProps(name)} key={this.key++}>
+      <span {...this.componentProps(name)} key={`${name}-${this.props.key}`}>
         {content}
       </span>
     );

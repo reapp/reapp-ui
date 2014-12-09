@@ -38,7 +38,7 @@ module.exports = Component('List', {
           return (
             <ListItem {...liProps}
               index={i}
-              key={li.key || i}>
+              key={i}>
               {li.content || li}
             </ListItem>
           );

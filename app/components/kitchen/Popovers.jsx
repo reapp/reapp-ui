@@ -1,4 +1,3 @@
-var React = require('react');
 var View = require('ui/views/View');
 var PopoverLink = require('ui/components/PopoverLink');
 var ShowPopover = require('ui/actions/ShowPopover');

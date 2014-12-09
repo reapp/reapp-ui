@@ -72,6 +72,7 @@ module.exports = ViewComponent('ViewList', {
     window.removeEventListener('resize', this.setupDimensions);
   },
 
+  // needs to ensure it animates, then updates children views in state
   componentWillReceiveProps(nextProps) {
     // if not changing views
     if (nextProps.initialStep === this.props.initialStep)
