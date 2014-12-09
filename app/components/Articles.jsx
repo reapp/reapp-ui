@@ -6,16 +6,19 @@ var ViewList = require('ui/views/ViewList');
 var View = require('ui/views/View');
 var DottedViewList = require('ui/views/DottedViewList');
 var ArticleItem = require('./articles/ArticleItem');
-var { actions, helpers, mixins } = Component;
+var { actions, helpers } = Component;
 var { ArticlesStore, HotArticlesStore } = Component.stores;
 
 require('./Articles.styl');
 
 module.exports = Component({
+  stores: [
+    'Articles'
+  ],
+
   mixins: [
     'RouteState',
-    'RouteHandler',
-    mixins.storeListener(ArticlesStore)
+    'RouteHandler'
   ],
 
   statics: {
@@ -29,10 +32,6 @@ module.exports = Component({
     return { isRefreshing: false };
   },
 
-  componentWillReceiveProps() {
-    this.setState({ isRefreshing: false });
-  },
-
   handleLoadMore(e) {
     e.preventDefault();
     e.target.innerHTML = 'Loading...';
@@ -41,7 +40,9 @@ module.exports = Component({
 
   handleRefresh(e) {
     this.setState({ isRefreshing: true });
-    actions.articlesHotRefresh();
+    actions.articlesHotRefresh().then(res => {
+      this.setState({ isRefreshing: false });
+    });
   },
 
   render() {
