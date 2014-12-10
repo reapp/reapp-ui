@@ -6,11 +6,12 @@ var Actions = require('../actions');
 var API = require('./API');
 var Reducer = require('./Reducer');
 
+var loadedReducer = Reducer.bind(null, 'LOADED');
 var page = 0;
 var per = 10;
 
 Actions.articlesHotLoad.listen(
-  (opts) => API.get('topstories.json', opts)
+  opts => API.get('topstories.json', opts)
     .then(res => HotArticlesStore(res) && res)
     .then(getArticles)
 );
@@ -20,26 +21,28 @@ Actions.articlesHotRefresh.listen(
 );
 
 Actions.articlesHotLoadMore.listen(
-  () =>  API.get('topstories.json')
+  () => API.get('topstories.json')
     .then(getNextArticles)
-    .then(Actions.articlesHotLoadMoreDone)
+    .then(res => Actions.articlesHotLoadMoreDone())
 );
 
 Actions.articleLoad.listen(
   id => API.get(`item/${id}.json`)
     .then(getAllKids)
-    .then(
-      res => {
-        ArticlesStore().withMutations(articles => {
-          articles.set(id, Immutable.fromJS(Reducer('LOADED', res)[id]));
-        });
-      },
-      error
-    )
+    .then(loadedReducer)
+    .then(insertArticle)
 );
 
-function cacheArticles(list) {
-  articles = list;
+function insertArticle(res, rej) {
+  if (res) {
+    res.map(article => {
+      ArticlesStore(ArticlesStore().set(article.get('id'), article));
+    });
+    return res;
+  }
+  else {
+    throw new Error(rej);
+  }
 }
 
 function getNextArticles(articles) {
@@ -50,13 +53,14 @@ function getNextArticles(articles) {
 function getArticles(articles) {
   var start = page * per;
 
-  articles.slice(start, start + per).map(article => {
-    return typeof article == 'object' ? article :
-      API.get(`item/${article}.json`)
-        .then(res => ArticlesStore().withMutations(articles => {
-          articles.set(''+res.id, Immutable.fromJS(Reducer(res)[res.id]));
-        }));
-  });
+  return Promise.all(
+    articles.slice(start, start + per).map(
+      article => isObject(article) ? article :
+        API.get(`item/${article}.json`)
+          .then(Reducer)
+          .then(insertArticle)
+    ).toJS()
+  );
 }
 
 function getAllKids(item) {
@@ -66,8 +70,9 @@ function getAllKids(item) {
     return new Promise(res => res(item));
 
   return Promise.all(
-    item.kids.map(item =>
-      API.get(`item/${item}.json`).then(res => getAllKids(res)))
+    item.kids.map(
+      item => API.get(`item/${item}.json`).then(
+        res => getAllKids(res)))
   )
   .then(res => {
     item.kids = res;
@@ -78,4 +83,8 @@ function getAllKids(item) {
 
 function error(err) {
   throw err;
+}
+
+function isObject(x) {
+  return typeof x === 'object';
 }

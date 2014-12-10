@@ -1,6 +1,14 @@
 var Client = require('client');
+var Immutable = require('immutable');
 
-var base = 'https://hacker-news.firebaseio.com/v0/';
-var API = new Client({ base });
+class API extends Client {
+  get(url, opts) {
+    return super(url, opts).then(Immutable.fromJS);
+  }
+}
 
-module.exports = API;
+var opts = {
+  base: 'https://hacker-news.firebaseio.com/v0/'
+};
+
+module.exports = new API(opts);

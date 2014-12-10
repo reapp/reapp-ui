@@ -31,7 +31,7 @@ class Client {
           cache[url] = res.entity;
           return res.entity;
         },
-        res => res
+        err => console.error(err)
       );
   }
 

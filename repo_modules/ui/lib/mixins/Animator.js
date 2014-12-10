@@ -11,7 +11,7 @@ module.exports = {
     return { animateProps: this.props.animateProps };
   },
 
-  animate(source, props) {
+  animate(source, props, cb) {
     var obj = {};
     obj[source] = props;
     Animate(obj);

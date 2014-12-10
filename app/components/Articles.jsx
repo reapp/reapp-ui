@@ -39,6 +39,7 @@ module.exports = Component({
     e.target.innerHTML = 'Loading...';
     actions.articlesHotLoadMore();
     var unlisten = actions.articlesHotLoadMoreDone.listen(() => {
+      console.log('done')
       this.setState({ isRefreshing: false });
       unlisten();
     });
