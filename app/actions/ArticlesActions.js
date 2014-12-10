@@ -13,8 +13,6 @@ Actions.articlesHotLoad.listen(
   (opts) => API.get('topstories.json', opts)
     .then(res => HotArticlesStore(res) && res)
     .then(getArticles)
-    .then(Reducer)
-    .then(ArticlesStore, error)
 );
 
 Actions.articlesHotRefresh.listen(
@@ -58,13 +56,15 @@ function getNextArticles(articles) {
 
 function getArticles(articles) {
   var start = page * per;
-  return Promise.all(
-    articles.slice(start, start + per).map(article => {
-      return typeof article == 'object' ?
-        article :
-        API.get(`item/${article}.json`);
-    })
-  );
+
+  articles.slice(start, start + per).map(article => {
+    return typeof article == 'object' ? article :
+      API.get(`item/${article}.json`)
+        .then(res => ArticlesStore().withMutations(articles => {
+          console.log(res)
+          articles.set(''+res.id, Immutable.fromJS(Reducer(res)[res.id]));
+        }));
+  });
 }
 
 function getAllKids(item) {
