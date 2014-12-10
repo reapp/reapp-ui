@@ -2,16 +2,11 @@ var React = require('react/addons');
 var Component = require('ui/component');
 var DocumentTitle = require('react-document-title');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
-var AcceptsContexts = require('../mixins/AcceptsContexts');
 
 require('./TitleBar.styl');
 
 module.exports = Component({
   name: 'TitleBar',
-
-  mixins: [
-    AcceptsContexts({viewList: 'object'})
-  ],
 
   getDefaultProps() {
     return {
@@ -84,7 +79,7 @@ module.exports = Component({
       iconProps.animations = [animation];
     }
 
-    iconProps.viewList = this.context.viewList;
+    iconProps.animateProps = this.context.animateProps;
     return React.addons.cloneWithProps(component, component.props);
   },
 

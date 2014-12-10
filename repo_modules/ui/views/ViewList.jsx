@@ -5,22 +5,12 @@ var { Promise } = require('when');
 var TitleBar = require('ui/components/TitleBar');
 var TouchableArea = require('../helpers/TouchableArea');
 var CloneChildren = require('../lib/CloneChildren');
+var Animator = require('../lib/mixins/Animator');
 
 module.exports = Component({
   name: 'ViewList',
 
-  childContextTypes: {
-    viewList: React.PropTypes.object
-  },
-
-  getChildContext() {
-    return {
-      viewList: {
-        step: this.state.step,
-        width: this.props.width
-      }
-    };
-  },
+  mixins: [Animator],
 
   propTypes: {
     onTouchStart: React.PropTypes.func,
@@ -229,6 +219,11 @@ module.exports = Component({
       ...props
     } = this.props;
 
+    this.animate('viewList', {
+      step: this.state.step,
+      width: this.state.width
+    });
+
     if (!noFakeTitleBar) {
       var fakeTitleBar = <TitleBar {...titleBarProps} />;
       var childTitleBarProps = Object.assign({ transparent: true }, titleBarProps);
@@ -253,10 +248,10 @@ module.exports = Component({
           return React.isValidElement(view) && React.addons.cloneWithProps(view, {
             titleBarProps: childTitleBarProps,
             key: i,
+            index: i,
             animations,
-            viewList: {
-              step: this.state.step,
-              index: i
+            animateProps: {
+              viewList: { index: i }
             },
             width: this.state.width,
             height: this.state.height,

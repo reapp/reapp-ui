@@ -1,4 +1,4 @@
-var UI = require('../index');
+var UI = require('../../index');
 var ReactStyle = require('react-style');
 
 module.exports = function(name) {

@@ -2,40 +2,27 @@ var React = require('react');
 var Component = require('ui/component');
 var TitleBar = require('../components/TitleBar');
 var StaticContainer = require('../helpers/StaticContainer');
-var AcceptsContexts = require('../mixins/AcceptsContexts');
+var Animator = require('../lib/mixins/Animator');
 
 module.exports = Component({
   name: 'View',
 
-  mixins: [
-    AcceptsContexts({viewList: 'object'})
-  ],
-
-  childContextTypes: {
-    viewList: React.PropTypes.object
-  },
-
-  getChildContext() {
-    return {
-      viewList: Object.assign({}, this.context.viewList,
-        { index: this.props.viewList && this.props.viewList.index  })
-    };
-  },
+  mixins: [Animator],
 
   render() {
     var {
       children,
       title,
-      animations,
-      viewList,
+      index,
       width,
       height,
+      animateProps,
       containerProps,
       titleBarProps,
       ...props
     } = this.props;
 
-    if (!viewList || viewList.index === viewList.step)
+    if (!index || index === this.getAnimationStep('viewList'))
       this.addStyles({ pointerEvents: 'all' });
 
     // add offset from titlebar
@@ -55,10 +42,10 @@ module.exports = Component({
     return (
       <div {...containerProps} {...this.componentProps()}>
         {title && (
-          <TitleBar {...titleBarProps} viewList={viewList}>{title}</TitleBar>
+          <TitleBar {...titleBarProps} animateProps={animateProps}>{title}</TitleBar>
         )}
         <div {...props} {...this.componentProps('inner')}
-          style={this.getAnimationStyles(animations)}>
+          style={this.getAnimationStyles()}>
           <StaticContainer shouldUpdate={this.getAnimationStep('viewList') % 1 === 0}>
             {children}
           </StaticContainer>

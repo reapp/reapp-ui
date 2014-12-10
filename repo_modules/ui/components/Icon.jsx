@@ -52,8 +52,6 @@ module.exports = Component({
       ...props
     } = this.props;
 
-    // console.log('icon context', this.context);
-
     svgProps = Object.assign({
       style: Object.assign({
         width: size,

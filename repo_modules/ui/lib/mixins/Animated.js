@@ -1,11 +1,16 @@
 var React = require('react');
-var UI = require('../index');
-var StyleKeys = require('../lib/StyleKeys');
+var UI = require('../../index');
+var StyleKeys = require('../StyleKeys');
 var Invariant = require('react/lib/invariant');
+var AnimateStore = require('../../stores/Animate');
 
 var defined = variable => (typeof variable !== 'undefined');
 
 module.exports = {
+  contextTypes: {
+    animateProps: React.PropTypes.object
+  },
+
   isAnimating(source) {
     return this.getAnimationProps(source).step % 1 !== 0;
   },
@@ -37,12 +42,10 @@ module.exports = {
 
     if (props.animations)
       props.animations.forEach(animation => {
-        console.log('CPS', this.name, this.context && this.context[animation.source] || {},
-          props[animation.source] || {},
-          state && state[animation.source] || {})
+        // debugger;
         this._animations[animation.source] = Object.assign({},
-          this.context && this.context[animation.source] || {},
-          props[animation.source] || {},
+          AnimateStore()[animation.source],
+          props.animateProps && props.animateProps[animation.source] || {},
           state && state[animation.source] || {}
         );
       });
