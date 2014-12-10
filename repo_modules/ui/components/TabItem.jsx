@@ -2,7 +2,9 @@ var React = require('react');
 var Component = require('ui/component');
 var Icon = require('./Icon');
 
-module.exports = Component('TabItem', {
+module.exports = Component({
+  name: 'TabItem',
+
   getDefaultProps() {
     return { type: 'text' };
   },

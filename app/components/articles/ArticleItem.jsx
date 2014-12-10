@@ -1,5 +1,3 @@
-var React = require('react');
-var Component = require('component');
 var Time = require('react-time');
 var Icon = require('ui/components/Icon');
 var ListItem = require('ui/components/ListItem');

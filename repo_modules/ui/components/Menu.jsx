@@ -1,7 +1,9 @@
 var Component = require('ui/component');
 var List = require('./List');
 
-module.exports = Component('Menu', {
+module.exports = Component({
+  name: 'Menu',
+
   render() {
     var liProps = {
       noicon: true,

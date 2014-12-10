@@ -39,7 +39,6 @@ module.exports = {
 
   getAnimationStyles() {
     var styles = {};
-    var step, index;
 
     if (this.props.animations)
       this.props.animations.forEach(animation => {
@@ -47,8 +46,10 @@ module.exports = {
 
         var { name, source } = animation;
         var { index, step, ...props } = this.getAnimationProps(source);
-        console.log('aniamtionProps', name, source, index, step, props, this.context);
+        // console.log('aniamtionProps', name, source, index, step, props, this.context);
 
+        if (!source && this.getTweenState && this.getTweenState('step'))
+          step = this.getTweenState('step');
 
         if (!defined(step) || !defined(index))
           return; // throw new Error(`No step or index defined for animation ${source}`);
@@ -76,9 +77,9 @@ module.exports = {
 
     if (defined(rotate3d))
       transforms += (
-          rotate.x ? `rotateX(${rotate3d.x}deg)` : '' +
-          rotate.y ? `rotateY(${rotate3d.y}deg)` : '' +
-          rotate.z ? `rotateZ(${rotate3d.z}deg)` : ''
+        rotate.x ? `rotateX(${rotate3d.x}deg)` : '' +
+        rotate.y ? `rotateY(${rotate3d.y}deg)` : '' +
+        rotate.z ? `rotateZ(${rotate3d.z}deg)` : ''
       );
 
     if (defined(rotate))

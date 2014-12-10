@@ -1,4 +1,5 @@
 var React = require('react');
+var Component = require('component');
 var { Link, RouteHandler } = require('react-router');
 var DocumentTitle = require('react-document-title');
 var Menu = require('ui/components/Menu');

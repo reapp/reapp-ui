@@ -1,7 +1,9 @@
 var Component = require('ui/component');
 var React = require('react/addons');
 
-module.exports = Component('ButtonRow', {
+module.exports = Component({
+  name: 'ButtonRow',
+
   getStyleForButtonAtIndex(i, total) {
     // first button
     if (i === 0 && total > 2)

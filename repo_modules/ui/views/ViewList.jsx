@@ -1,14 +1,16 @@
 var React = require('react/addons');
-var ViewComponent = require('ui/viewcomponent');
+var Component = require('ui/component');
 var { Scroller } = require('scroller');
 var { Promise } = require('when');
 var TitleBar = require('ui/components/TitleBar');
 var TouchableArea = require('../helpers/TouchableArea');
 var CloneChildren = require('../lib/CloneChildren');
 
-module.exports = ViewComponent('ViewList', {
-  // we pass down viewListStep so elements nested inside the views
-  // can access them for their own animations
+module.exports = Component({
+  name: 'ViewList',
+
+  // we pass down viewList objet so elements nested
+  // can access the props for their animations
   childContextTypes: {
     viewList: React.PropTypes.object
   },
@@ -82,17 +84,17 @@ module.exports = ViewComponent('ViewList', {
   // needs to ensure it animates, then updates children views in state
   componentWillReceiveProps(nextProps) {
     // if not changing views
-    if (nextProps.scrollTo === this.props.scrollTo)
+    if (nextProps.scrollToStep === this.props.scrollToStep)
       return this.setupViewList(nextProps);
 
     // if advancing views
-    if (nextProps.scrollTo > this.state.step) {
+    if (nextProps.scrollToStep > this.state.step) {
       this.setupViewList(nextProps);
-      this.scrollToStep(nextProps.scrollTo);
+      this.scrollToStep(nextProps.scrollToStep);
     }
     // if regressing views
     else {
-      this.scrollToStep(nextProps.scrollTo).then(() => {
+      this.scrollToStep(nextProps.scrollToStep).then(() => {
         this.setupViewList(nextProps);
       });
     }

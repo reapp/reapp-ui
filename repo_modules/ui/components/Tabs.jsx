@@ -1,7 +1,9 @@
 var React = require('react/addons');
 var Component = require('ui/component');
 
-module.exports = Component('Tabs', {
+module.exports = Component({
+  name: 'Tabs',
+
   getDefaultProps() {
     return {
       type: 'text'

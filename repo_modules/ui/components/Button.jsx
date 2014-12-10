@@ -1,7 +1,9 @@
 var Component = require('ui/component');
 var Icon = require('./Icon');
 
-module.exports = Component('Button', {
+module.exports = Component({
+  name: 'Button',
+
   render() {
     var { iconProps, icon, children, borderless, rounded, active, ...props } = this.props;
 

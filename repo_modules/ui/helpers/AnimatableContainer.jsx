@@ -5,7 +5,9 @@ var StyleKeys = require('../lib/StyleKeys');
 
 var POLL_FACTOR = 0.5;
 
-var AnimatableContainer = Component('AnimatableContainer', {
+var AnimatableContainer = Component({
+  name: 'AnimatableContainer',
+
   getDefaultProps() {
     return {
       blockUpdates: false,

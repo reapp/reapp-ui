@@ -1,6 +1,8 @@
 var Component = require('ui/component');
 
-module.exports = Component('Badge', {
+module.exports = Component({
+  name: 'Badge',
+
   render() {
     var { children, value, ...props } = this.props;
 

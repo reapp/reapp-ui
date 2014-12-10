@@ -1,7 +1,9 @@
 var React = require('react');
 var Component = require('ui/component');
 
-module.exports = Component('Card', {
+module.exports = Component({
+  name: 'Card',
+
   childContextTypes: {
     index: React.PropTypes.number
   },

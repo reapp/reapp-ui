@@ -1,3 +1,4 @@
+var React = require('react');
 var StaticView = require('ui/helpers/StaticView');
 var BackButton = require('ui/components/buttons/BackButton');
 var { Container } = require('ui/components/Grid');

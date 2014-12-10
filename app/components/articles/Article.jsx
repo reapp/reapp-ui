@@ -1,4 +1,3 @@
-var Component = require('component');
 var ArticleItem = require('./ArticleItem');
 var Comment = require('./Comment');
 var ImmutableTreeNode = require('ui/helpers/ImmutableTreeNode');

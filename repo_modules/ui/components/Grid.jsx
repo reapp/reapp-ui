@@ -1,7 +1,9 @@
 var React = require('react/addons');
 var Component = require('ui/component');
 
-var Container = Component('Container', {
+var Container = Component({
+  name: 'Container',
+
   getDefaultProps() {
     return { pad: false };
   },

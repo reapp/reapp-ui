@@ -5,7 +5,9 @@ var ListItem = require('./ListItem');
 
 require('./List.styl');
 
-module.exports = Component('List', {
+module.exports = Component({
+  name: 'List',
+
   componentDidMount() {
     // todo: expect StickyTItles
     var titles = this.getDOMNode().querySelectorAll('.List--title');

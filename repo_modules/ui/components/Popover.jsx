@@ -4,7 +4,9 @@ var Component = require('ui/component');
 // todo: pass this to styles
 var ARROW_SIZE = 19;
 
-module.exports = Component('Popover', {
+module.exports = Component({
+  name: 'Popover',
+
   getDefaultProps() {
     return {
       edgePadding: 10

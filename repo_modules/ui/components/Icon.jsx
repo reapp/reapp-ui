@@ -1,9 +1,12 @@
 var Component = require('ui/component');
 var TweenState = require('react-tween-state');
-var AcceptsContexts = require('../mixins/AcceptsContexts');
 
-module.exports = Component('Icon', {
-  mixins: [TweenState.Mixin, AcceptsContexts('viewList')],
+module.exports = Component({
+  name: 'Icon',
+
+  mixins: [
+    TweenState.Mixin
+  ],
 
   getDefaultProps() {
     return {
@@ -50,6 +53,8 @@ module.exports = Component('Icon', {
       ...props
     } = this.props;
 
+    // console.log('icon context', this.context);
+
     svgProps = Object.assign({
       style: Object.assign({
         width: size,
@@ -77,7 +82,7 @@ module.exports = Component('Icon', {
     }, props.style);
 
     if (animations)
-      props.style = this.getAnimationStyles(animations);
+      props.style = this.getAnimationStyles();
 
     return (
       <span {...props} {...this.componentProps()}>

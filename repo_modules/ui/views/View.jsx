@@ -1,11 +1,15 @@
 var React = require('react');
-var ViewComponent = require('ui/viewcomponent');
+var Component = require('ui/component');
 var TitleBar = require('../components/TitleBar');
 var StaticContainer = require('../helpers/StaticContainer');
 var AcceptsContexts = require('../mixins/AcceptsContexts');
 
-module.exports = ViewComponent('View', {
-  mixins: [AcceptsContexts('viewList')],
+module.exports = Component({
+  name: 'View',
+
+  mixins: [
+    AcceptsContexts({viewList: 'object'})
+  ],
 
   childContextTypes: {
     viewList: React.PropTypes.object
@@ -14,7 +18,7 @@ module.exports = ViewComponent('View', {
   getChildContext() {
     return {
       viewList: Object.assign({}, this.context.viewList,
-        { index: this.props.viewList.index  })
+        { index: this.props.viewList && this.props.viewList.index  })
     };
   },
 
@@ -31,7 +35,7 @@ module.exports = ViewComponent('View', {
       ...props
     } = this.props;
 
-    if (viewList.index === viewList.step)
+    if (!viewList || viewList.index === viewList.step)
       this.addStyles({ pointerEvents: 'all' });
 
     // add offset from titlebar

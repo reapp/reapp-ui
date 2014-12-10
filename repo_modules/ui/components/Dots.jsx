@@ -1,7 +1,9 @@
 var React = require('react');
 var Component = require('ui/component');
 
-module.exports = Component('Dots', {
+module.exports = Component({
+  name: 'Dots',
+
   propTypes: {
     total: React.PropTypes.number.isRequired,
     active: React.PropTypes.number.isRequired

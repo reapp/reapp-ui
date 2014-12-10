@@ -1,4 +1,5 @@
 var React = require('react/addons');
+var Component = require('component');
 var Transition = React.addons.TransitionGroup;
 var { Link, RouteHandlerMixin, State } = require('react-router');
 var ViewList = require('ui/views/ViewList');

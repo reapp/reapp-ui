@@ -6,8 +6,12 @@ var AcceptsContexts = require('../mixins/AcceptsContexts');
 
 require('./TitleBar.styl');
 
-module.exports = Component('TitleBar', {
-  mixins: [AcceptsContexts('viewList')],
+module.exports = Component({
+  name: 'TitleBar',
+
+  mixins: [
+    AcceptsContexts({viewList: 'object'})
+  ],
 
   getDefaultProps() {
     return {
@@ -66,20 +70,18 @@ module.exports = Component('TitleBar', {
     var isValid = React.isValidElement(component);
 
     // add moveToRight icon animation
-    if (isValid) {
-      var iconProps = component.props.iconProps;
-      iconProps = iconProps || {};
+    if (!isValid)
+      return component;
 
-      if (!iconProps.animations || !iconProps.animations.filter(a => a && a.source === 'viewList'))
-        iconProps.animations = [].concat(iconProps.animations,
-          { name: 'moveToRight', source: 'viewList' });
+    var iconProps = component.props.iconProps;
+    iconProps = iconProps || {};
 
-      console.log(iconProps.animations);
-    }
+    if (!iconProps.animations || !iconProps.animations.filter(a => a && a.source === 'viewList'))
+      iconProps.animations = [].concat(iconProps.animations,
+        { name: 'moveToRight', source: 'viewList' });
 
-    return isValid ?
-      React.addons.cloneWithProps(component, component.props) :
-      component;
+    iconProps.viewList = this.context.viewList;
+    return React.addons.cloneWithProps(component, component.props);
   },
 
   render() {
@@ -92,7 +94,7 @@ module.exports = Component('TitleBar', {
       this.addStyles({ height });
 
     if (animations)
-      props.style = this.getAnimationStyles(animations);
+      props.style = this.getAnimationStyles();
 
     return (
       <div {...props} {...this.componentProps()}>

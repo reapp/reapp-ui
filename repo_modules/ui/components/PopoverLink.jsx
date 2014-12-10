@@ -1,7 +1,9 @@
 var Component = require('ui/component');
 var ShowPopover = require('ui/actions/ShowPopover');
 
-module.exports = Component('PopoverLink', {
+module.exports = Component({
+  name: 'PopoverLink',
+
   handleClick(e) {
     e.preventDefault();
     ShowPopover(this.props.content, e);

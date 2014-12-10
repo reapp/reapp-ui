@@ -1,5 +1,5 @@
 var React = require('react');
-var ViewComponent = require('ui/viewcomponent');
+var Component = require('ui/component');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
 var LeftNavBehavior = require('./LeftNavBehavior');
 var DrawerBehavior = require('./DrawerBehavior');
@@ -7,7 +7,9 @@ var TouchableArea = require('../helpers/TouchableArea');
 var Drawer = require('./Drawer');
 var Scrollable = require('../mixins/Scrollable');
 
-module.exports = ViewComponent('LayoutLeftNav', {
+module.exports = Component({
+  name: 'LayoutLeftNav',
+
   mixins: [Scrollable({
     scrollBounce: false,
     scrollX: true,

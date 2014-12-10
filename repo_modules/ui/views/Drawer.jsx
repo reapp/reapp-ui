@@ -1,4 +1,4 @@
-var ViewComponent = require('ui/viewcomponent');
+var Component = require('ui/component');
 var TouchableArea = require('../helpers/TouchableArea');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
 var DrawerBehavior = require('./DrawerBehavior');
@@ -9,7 +9,9 @@ var { Scroller } = require('scroller');
 // drawer should support coming/dragging in from any direction
 // Behavior should encompass this
 
-module.exports = ViewComponent('Drawer', {
+module.exports = Component({
+  name: 'Drawer',
+
   getDefaultProps() {
     return {
       behavior: DrawerBehavior,

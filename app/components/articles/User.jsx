@@ -1,4 +1,3 @@
-var Component = require('component');
 var View = require('ui/views/View');
 
 module.exports = Component({

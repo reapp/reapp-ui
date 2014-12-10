@@ -2,7 +2,9 @@ var React = require('react');
 var Component = require('ui/component');
 var Icon = require('./Icon');
 
-module.exports = Component('ListItem', {
+module.exports = Component({
+  name: 'ListItem',
+
   makeSection(name, content) {
     return content && (
       <span {...this.componentProps(name)} key={`${name}-${this.props.key}`}>

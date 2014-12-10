@@ -1,6 +1,8 @@
 var Component = require('ui/component');
 
-module.exports = Component('Input', {
+module.exports = Component({
+  name: 'Input',
+
   getDefaultProps() {
     return {
       type: 'text'

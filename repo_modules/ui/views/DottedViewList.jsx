@@ -2,7 +2,9 @@ var Component = require('ui/component');
 var ViewList = require('./ViewList');
 var Dots = require('../components/Dots');
 
-module.exports = Component('DottedViewList', {
+module.exports = Component({
+  name: 'DottedViewList',
+
   getDefaultProps() {
     return {
       animations: [

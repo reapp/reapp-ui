@@ -1,20 +1,21 @@
+var Component = require('reapp-component')();
 var React = require('react');
 var Styled = require('./mixins/Styled');
 var Classed = require('./mixins/Classed');
 var Layered = require('./mixins/Layered');
 var Animated = require('./mixins/Animated');
 
-module.exports = function(name, spec) {
-  var mixins = [].concat(
+Component.addDecorator(spec => {
+  spec.mixins = [].concat(
     Layered,
     Animated,
-    Styled(name),
-    Classed(name),
+    Styled(spec.name),
+    Classed(spec.name),
     spec.mixins || [],
     {
       componentProps(componentName) {
         return {
-          ref: componentName || name,
+          ref: componentName || spec.name,
           className: this.getClasses(componentName),
           styles: this.getStyles(componentName)
         };
@@ -22,12 +23,13 @@ module.exports = function(name, spec) {
     }
   );
 
-  spec.displayName = 'UI-' + name;
-  spec.mixins = mixins;
+  spec.displayName = 'UI-' + spec.name;
 
   // allow checking for "isName" on all components
   spec.statics = (spec.statics || {});
-  spec.statics[`is${name}`] = true;
+  spec.statics[`is${spec.name}`] = true;
 
   return React.createClass(spec);
-};
+});
+
+module.exports = Component;

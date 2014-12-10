@@ -1,3 +1,4 @@
+var React = require('react');
 var Component = require('component');
 var List = require('ui/components/List');
 var Button = require('ui/components/Button');

@@ -3,7 +3,9 @@ var Component = require('ui/component');
 var Button = require('./Button');
 var TweenState = require('react-tween-state');
 
-module.exports = Component('Modal', {
+module.exports = Component({
+  name: 'Modal',
+
   mixins: [TweenState.Mixin],
 
   propTypes: {

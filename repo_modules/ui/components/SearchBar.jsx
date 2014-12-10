@@ -1,6 +1,8 @@
 var Component = require('ui/component');
 
-module.exports = Component('SearchBar', {
+module.exports = Component({
+  name: 'SearchBar',
+
   render() {
     var { barProps, ...props } = this.props;
 

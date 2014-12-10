@@ -1,11 +1,13 @@
-var ViewComponent = require('ui/viewcomponent');
+var Component = require('ui/component');
 var Drawer = require('./Drawer');
 var View = require('./View');
 var TitleBar = require('../components/TitleBar');
 
 // High level view that combines a drawer with a simple view
 
-var DrawerView = ViewComponent('DrawerView', {
+var DrawerView = Component({
+  name: 'DrawerView',
+
   render() {
     var { title, viewProps, ...props } = this.props;
 

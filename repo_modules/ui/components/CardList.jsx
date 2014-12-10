@@ -3,11 +3,10 @@ var Component = require('ui/component');
 var { Scroller } = require('scroller');
 var TouchableArea = require('../helpers/TouchableArea');
 
-module.exports = Component('CardList', {
-  // todo: mixins: [Stepper],
+module.exports = Component({
+  name: 'CardList',
 
-  // we pass down step so elements nested inside the views
-  // can access them for their own animations
+  // todo
   childContextTypes: {
     step: React.PropTypes.number
   },

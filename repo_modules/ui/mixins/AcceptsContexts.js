@@ -1,11 +1,11 @@
 var React = require('react');
 
-module.exports = function(...sources) {
+module.exports = function(contexts) {
   var contextTypes = {};
 
-  if (sources)
-    sources.forEach(source => {
-      contextTypes[source] = React.PropTypes.object;
+  if (contexts)
+    Object.keys(contexts).forEach(key => {
+      contextTypes[key] = React.PropTypes[contexts[key]];
     });
 
   return { contextTypes };

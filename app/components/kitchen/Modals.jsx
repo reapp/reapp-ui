@@ -1,3 +1,4 @@
+var React = require('react');
 var StaticView = require('ui/helpers/StaticView');
 var ShowModal = require('ui/actions/ShowModal');
 var Button = require('ui/components/Button');
