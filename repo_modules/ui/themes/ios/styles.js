@@ -8,11 +8,14 @@ module.exports = makeStyles(requirer, [
   'ButtonRow',
   'Card',
   'CardList',
+  'Checkbox',
   'Container',
   'DottedViewList',
   'Dots',
   'Drawer',
+  'Form',
   'Input',
+  'Label',
   'LayoutLeftNav',
   'List',
   'ListItem',
@@ -25,7 +28,5 @@ module.exports = makeStyles(requirer, [
   'Title',
   'TitleBar',
   'View',
-  'ViewLeft',
   'ViewList',
-  'ViewMain'
 ]);

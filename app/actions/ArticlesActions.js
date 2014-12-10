@@ -22,14 +22,7 @@ Actions.articlesHotRefresh.listen(
 Actions.articlesHotLoadMore.listen(
   () =>  API.get('topstories.json')
     .then(getNextArticles)
-    .then(Reducer)
-    .then(nextArticles => {
-      ArticlesStore().withMutations(articles => {
-        Object.keys(nextArticles).map(key => {
-          articles.set(key, Immutable.fromJS(nextArticles[key]));
-        });
-      });
-    })
+    .then(Actions.articlesHotLoadMoreDone)
 );
 
 Actions.articleLoad.listen(

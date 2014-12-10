@@ -5,8 +5,8 @@ var Button = require('ui/components/Button');
 var ButtonRow = require('ui/components/ButtonRow');
 var Title = require('ui/components/Title');
 var List = require('ui/components/List');
-var Input = require('ui/components/Input');
 var { Container, Block } = require('ui/components/Grid');
+var { Label, Input, Form } = require('ui/components/Forms');
 
 module.exports = StaticView({
   statics: {
@@ -36,6 +36,17 @@ module.exports = StaticView({
             <Button active>Button</Button>
             <Button>Button</Button>
           </ButtonRow>
+        </Container>
+
+        <Container>
+          <Title>Inputs</Title>
+        </Container>
+        <Container>
+          <Form>
+            <Label title="Checkbox One">
+              <Input type="checkbox" />
+            </Label>
+          </Form>
         </Container>
 
         <Container>

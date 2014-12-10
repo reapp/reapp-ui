@@ -38,6 +38,10 @@ module.exports = Component({
     e.preventDefault();
     e.target.innerHTML = 'Loading...';
     actions.articlesHotLoadMore();
+    var unlisten = actions.articlesHotLoadMoreDone.listen(() => {
+      this.setState({ isRefreshing: false });
+      unlisten();
+    });
   },
 
   handleRefresh(e) {

@@ -49,7 +49,6 @@ module.exports = React.createClass({
         {this.state.modalProps && (
           <Modal {...this.state.modalProps} />
         )}
-
       </LayoutLeftNav>
     );
   }
