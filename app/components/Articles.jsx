@@ -31,7 +31,7 @@ module.exports = Component({
   },
 
   componentWillReceiveProps() {
-    this.setState({ isRefreshing: false });
+    // this.setState({ isRefreshing: false });
   },
 
   handleLoadMore(e) {
@@ -42,7 +42,7 @@ module.exports = Component({
 
   handleRefresh(e) {
     this.setState({ isRefreshing: true });
-    actions.articlesHotRefresh();
+    // actions.articlesHotRefresh();
   },
 
   render() {
@@ -64,11 +64,9 @@ module.exports = Component({
       type: 'arrow-refresh',
       size: 24,
       stroke: 1,
-      styles: { self: { marginTop: -1 } }
+      styles: { self: { marginTop: -1 } },
+      animations: this.state.isRefreshing ? [{ name: 'rotate' }] : null
     };
-
-    if (this.state.isRefreshing)
-      refreshIconProps.animation = { name: 'rotate' };
 
     var refreshButton = (
       <Button

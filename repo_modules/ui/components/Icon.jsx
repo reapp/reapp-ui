@@ -18,12 +18,9 @@ module.exports = Component({
   },
 
   componentWillReceiveProps(nextProps) {
-    if (this.hasAnimation('rotate') && !this.state.isRotating) {
+    if (this.hasAnimation('rotate', nextProps.animations) && !this.state.isRotating) {
       this.setState({ step: 0, isRotating: true });
       this.rotate();
-    }
-    else {
-      this.setState({ isRotating: false });
     }
   },
 
@@ -31,12 +28,14 @@ module.exports = Component({
     this.tweenState('step', {
       easing: TweenState.easingTypes.linear,
       endValue: 1,
-      duration: 1500,
+      duration: 1000,
       onEnd: () => {
         this.setState({ step: 0 });
 
-        if (this.state.isRotating)
+        if (this.hasAnimation('rotate'))
           this.rotate();
+        else
+          this.setState({ isRotating: false });
       }
     });
   },

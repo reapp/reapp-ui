@@ -69,16 +69,20 @@ module.exports = Component({
   addIconAnimation(component) {
     var isValid = React.isValidElement(component);
 
-    // add moveToRight icon animation
     if (!isValid)
       return component;
 
+    var animation = { name: 'moveToRight', source: 'viewList' };
     var iconProps = component.props.iconProps;
     iconProps = iconProps || {};
 
-    if (!iconProps.animations || !iconProps.animations.filter(a => a && a.source === 'viewList'))
-      iconProps.animations = [].concat(iconProps.animations,
-        { name: 'moveToRight', source: 'viewList' });
+    if (iconProps.animations) {
+      if (!iconProps.animations.filter(a => a.name === 'moveToRight'))
+        iconProps.animations.push(animation);
+    }
+    else {
+      iconProps.animations = [animation];
+    }
 
     iconProps.viewList = this.context.viewList;
     return React.addons.cloneWithProps(component, component.props);

@@ -1,8 +1,8 @@
 var { linearExit, linearEnter, symmetrical } = require('ui/lib/animate/helpers');
 
 var Animations = module.exports = {
-  viewParallax(index, step) {
-    var width = this.props.width;
+  viewParallax(index, step, props) {
+    var width = props.width;
     var translateX = (index - step) * width;
     if (index < step) translateX = translateX / 2;
 
@@ -12,8 +12,8 @@ var Animations = module.exports = {
     };
   },
 
-  viewSideBySide(index, step) {
-    var width = this.props.width;
+  viewSideBySide(index, step, props) {
+    var width = props.width;
     var translateX = (index - step) * width;
 
     return {
