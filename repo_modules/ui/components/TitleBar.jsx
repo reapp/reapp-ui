@@ -40,15 +40,14 @@ module.exports = Component({
       return component;
 
     var iconProps = component.props.iconProps || {};
-    var animations = iconProps.animations || [];
+    var animations = _.union(iconProps.animations || [], this.props.iconAnimations);
 
-    animations = _.union(animations, this.props.iconAnimations);
     iconProps.animateProps = this.context.animateProps;
-
     iconProps.animations = animations;
-    Object.assign(component.props, { iconProps });
-    console.log('newProps', component.props);
-    return React.addons.cloneWithProps(component, component.props);
+
+    return React.addons.cloneWithProps(component,
+      Object.assign(component.props, { iconProps })
+    );
   },
 
   render() {
