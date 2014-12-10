@@ -1,6 +1,8 @@
 var Component = require('ui/component');
 
-module.exports = Component('StaticContainer', {
+module.exports = Component({
+  name: 'StaticContainer',
+
   getDefaultProps() {
     return { shouldUpdate: false };
   },

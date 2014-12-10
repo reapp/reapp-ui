@@ -23,7 +23,9 @@ var Container = Component({
   }
 });
 
-var Break = Component('Break', {
+var Break = Component({
+  name: 'Break',
+
   propTypes: {
     width: React.PropTypes.string,
     height: React.PropTypes.string
@@ -38,7 +40,9 @@ var Break = Component('Break', {
   }
 });
 
-var Block = Component('Block', {
+var Block = Component({
+  name: 'Block',
+
   getDefaultProps() {
     return { pad: false };
   },
@@ -72,7 +76,9 @@ var Block = Component('Block', {
   }
 });
 
-var Pad = Component('Pad', {
+var Pad = Component({
+  name: 'Pad',
+
   render() {
     var { children, ...props } = this.props;
 
