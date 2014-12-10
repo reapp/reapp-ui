@@ -37,6 +37,9 @@ module.exports = {
 
     if (props.animations)
       props.animations.forEach(animation => {
+        console.log('CPS', this.name, this.context && this.context[animation.source] || {},
+          props[animation.source] || {},
+          state && state[animation.source] || {})
         this._animations[animation.source] = Object.assign({},
           this.context && this.context[animation.source] || {},
           props[animation.source] || {},

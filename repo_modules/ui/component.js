@@ -1,8 +1,8 @@
 var Component = require('reapp-component')();
 var React = require('react');
-var Styled = require('./mixins/Styled');
-var Classed = require('./mixins/Classed');
-var Animated = require('./mixins/Animated');
+var Styled = require('./lib/mixins/Styled');
+var Classed = require('./lib/mixins/Classed');
+var Animated = require('./lib/mixins/Animated');
 
 Component.addDecorator(spec => {
   spec.mixins = [].concat(

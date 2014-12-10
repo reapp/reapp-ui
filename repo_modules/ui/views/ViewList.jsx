@@ -9,8 +9,6 @@ var CloneChildren = require('../lib/CloneChildren');
 module.exports = Component({
   name: 'ViewList',
 
-  // we pass down viewList objet so elements nested
-  // can access the props for their animations
   childContextTypes: {
     viewList: React.PropTypes.object
   },

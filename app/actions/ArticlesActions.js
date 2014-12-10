@@ -61,7 +61,6 @@ function getArticles(articles) {
     return typeof article == 'object' ? article :
       API.get(`item/${article}.json`)
         .then(res => ArticlesStore().withMutations(articles => {
-          console.log(res)
           articles.set(''+res.id, Immutable.fromJS(Reducer(res)[res.id]));
         }));
   });
