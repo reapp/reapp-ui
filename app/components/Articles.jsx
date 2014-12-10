@@ -31,7 +31,7 @@ module.exports = Component({
   },
 
   componentWillReceiveProps() {
-    // this.setState({ isRefreshing: false });
+    this.setState({ isRefreshing: false });
   },
 
   handleLoadMore(e) {
@@ -42,7 +42,7 @@ module.exports = Component({
 
   handleRefresh(e) {
     this.setState({ isRefreshing: true });
-    // actions.articlesHotRefresh();
+    actions.articlesHotRefresh();
   },
 
   render() {
@@ -87,13 +87,12 @@ module.exports = Component({
                   ).toArray()
                   .concat(
                     <ListItem
-                      key={-1}
                       style={{textAlign:'center'}}
                       onClick={this.handleLoadMore}>
                       Load More
                     </ListItem>
                   ) :
-                  <ListItem key={-1} style={{textAlign: 'center'}}>Loading...</ListItem>
+                  <ListItem style={{textAlign: 'center'}}>Loading...</ListItem>
                 }
                 </List>
             </View>

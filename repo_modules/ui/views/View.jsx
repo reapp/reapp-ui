@@ -9,6 +9,26 @@ module.exports = Component({
 
   mixins: [Animator],
 
+  addTitleBarOffset() {
+    var { title, titleBarProps } = this.props;
+    var titleBarHeight = titleBarProps && titleBarProps.height;
+
+    if (!titleBarHeight && title)
+      titleBarHeight = this.getConstant('titleBarHeight');
+
+    if (titleBarHeight)
+      this.addStyles('inner', { top: titleBarHeight });
+  },
+
+  hideBoxShadowWhileAnimating() {
+    if (this.isAnimating('viewList'))
+      this.addStyles('inner', {
+        clip: `rect(0px, ${this.props.width}px, ${this.props.height}px, -10px)`
+      });
+    else
+      this.addStyles('inner', { boxShadow: 'none' });
+  },
+
   render() {
     var {
       children,
@@ -25,19 +45,8 @@ module.exports = Component({
     if (!index || index === this.getAnimationStep('viewList'))
       this.addStyles({ pointerEvents: 'all' });
 
-    // add offset from titlebar
-    var titleBarHeight = titleBarProps && titleBarProps.height;
-    if (!titleBarHeight && title)
-      titleBarHeight = this.getConstant('titleBarHeight');
-
-    if (titleBarHeight)
-      this.addStyles('inner', { top: titleBarHeight });
-
-    // clip box shadow for titlebar
-    if (this.isAnimating('viewList'))
-      this.addStyles('inner', { clip: `rect(0px, ${width}px, ${height}px, -10px)` });
-    else
-      this.addStyles('inner', { boxShadow: 'none' });
+    this.addTitleBarOffset();
+    this.hideBoxShadowWhileAnimating();
 
     return (
       <div {...containerProps} {...this.componentProps()}>

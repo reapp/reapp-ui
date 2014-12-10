@@ -108,21 +108,23 @@ module.exports = {
     var transformsString = '';
     var t = styles.transforms;
 
-    if (defined(t.scale))
-      transformsString += `scale(${t.scale}) `;
+    if (t) {
+      if (defined(t.scale))
+        transformsString += `scale(${t.scale}) `;
 
-    if (defined(t.rotate3d))
-      transformsString += (
-        rotate.x ? `rotateX(${t.rotate3d.x || 0}deg)` : '' +
-        rotate.y ? `rotateY(${t.rotate3d.y || 0}deg)` : '' +
-        rotate.z ? `rotateZ(${t.rotate3d.z || 0}deg)` : ''
-      );
+      if (defined(t.rotate3d))
+        transformsString += (
+          rotate.x ? `rotateX(${t.rotate3d.x || 0}deg)` : '' +
+          rotate.y ? `rotateY(${t.rotate3d.y || 0}deg)` : '' +
+          rotate.z ? `rotateZ(${t.rotate3d.z || 0}deg)` : ''
+        );
 
-    if (defined(t.rotate))
-      transformsString += `rotate(${t.rotate}deg)`;
+      if (defined(t.rotate))
+        transformsString += `rotate(${t.rotate}deg)`;
 
-    if (defined(t.translate))
-      transformsString += `translate3d(${t.translate.x || 0}px, ${t.translate.y || 0}px, ${t.translate.z || 0}px)`;
+      if (defined(t.translate))
+        transformsString += `translate3d(${t.translate.x || 0}px, ${t.translate.y || 0}px, ${t.translate.z || 0}px)`;
+    }
 
     delete styles.transforms;
     styles[StyleKeys.TRANSFORM] = transformsString || 'translateZ(0px)';

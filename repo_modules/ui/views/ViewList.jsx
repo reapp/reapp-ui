@@ -225,7 +225,7 @@ module.exports = Component({
     });
 
     if (!noFakeTitleBar) {
-      var fakeTitleBar = <TitleBar {...titleBarProps} />;
+      var fakeTitleBar = <TitleBar {...titleBarProps} animations={[]} />;
       var childTitleBarProps = Object.assign({ transparent: true }, titleBarProps);
     }
 
