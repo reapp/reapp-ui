@@ -33,21 +33,49 @@ module.exports = {
     this.setAnimations(this.props, this.state);
   },
 
-  componentWillUpdate(nextProps, nextState) {
-    this.setAnimations(nextProps, nextState);
+  componentWillUpdate(nextProps) {
+    if (!this.props.animations && !nextProps.animations)
+      return;
+
+    if (this.hasNewAnimations(nextProps))
+      this.setAnimations(nextProps);
+    else
+      this.updateAnimations();
   },
 
-  setAnimations(props, state) {
+  hasNewAnimations(nextProps) {
+    var animations = nextProps.animations;
+
+    if (!animations)
+      return false;
+
+    for (var i = 0, len = animations.length; i < len; i++)
+      if (!this.isSameAnimation(animations[i], this.props.animations[i]))
+        return true;
+
+    return false;
+  },
+
+  setAnimations(props) {
     this._animations = {};
 
     if (props.animations)
       props.animations.forEach(animation => {
         this._animations[animation.source] = Object.assign({},
           AnimateStore(animation.source, this._mountDepth) || {},
-          props.animateProps && props.animateProps[animation.source] || {},
-          state && state[animation.source] || {}
+          props && props.animateProps && props.animateProps[animation.source] || {}
         );
       });
+  },
+
+  // a slightly quicker version of setAnimations (ignores props)
+  updateAnimations() {
+    var newProps;
+
+    this.props.animations.forEach(animation => {
+      newProps = AnimateStore(animation.source, this._mountDepth);
+      Object.assign(this._animations[animation.source], newProps);
+    });
   },
 
   getAnimationProps(source) {
@@ -185,5 +213,9 @@ module.exports = {
       transforms.translate.y += (translate.y || 0);
       transforms.translate.z += (translate.z || 0);
     }
+  },
+
+  isSameAnimation(a, b) {
+    return a.name === b.name && a.source === b.source;
   }
 };

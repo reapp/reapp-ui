@@ -3,11 +3,12 @@ var Component = require('ui/component');
 var TitleBar = require('../components/TitleBar');
 var StaticContainer = require('../helpers/StaticContainer');
 var Animator = require('../lib/mixins/Animator');
+var AnimatedScrollToTop = require('../mixins/AnimatedScrollToTop');
 
 module.exports = Component({
   name: 'View',
 
-  mixins: [Animator],
+  mixins: [Animator, AnimatedScrollToTop],
 
   addTitleBarOffset() {
     var { title, titleBarProps } = this.props;
@@ -33,6 +34,10 @@ module.exports = Component({
     this.setAnimationStyles('inner');
   },
 
+  handleDoubleTap() {
+    this.animatedScrollToTop(this.refs.inner.getDOMNode(), 300);
+  },
+
   render() {
     var {
       children,
@@ -45,6 +50,12 @@ module.exports = Component({
       titleBarProps,
       ...props
     } = this.props;
+
+    // add double tap event
+    if (!titleBarProps)
+      titleBarProps = { onDoubleTap: this.handleDoubleTap };
+    else if (!titleBarProps.onDoubleTap)
+      titleBarProps.onDoubleTap = this.handleDoubleTap;
 
     if (!index || index === this.getAnimationStep('viewList'))
       this.addStyles({ pointerEvents: 'all' });

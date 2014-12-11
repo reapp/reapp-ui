@@ -1,13 +1,16 @@
 var React = require('react/addons');
 var Component = require('ui/component');
 var DocumentTitle = require('react-document-title');
+var Union = require('lodash-node/modern/arrays/union');
+var MultiTappable = require('ui/mixins/MultiTappable');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
-var _ = require('lodash-node');
 
 require('./TitleBar.styl');
 
 module.exports = Component({
   name: 'TitleBar',
+
+  mixins: [MultiTappable],
 
   getDefaultProps() {
     return {
@@ -44,7 +47,7 @@ module.exports = Component({
       return component;
 
     var iconProps = component.props.iconProps || {};
-    var animations = _.union(iconProps.animations || [], this.props.iconAnimations);
+    var animations = Union(iconProps.animations || [], this.props.iconAnimations);
 
     iconProps.animateProps = this.context.animateProps;
     iconProps.animations = animations;
@@ -52,6 +55,11 @@ module.exports = Component({
     return React.addons.cloneWithProps(component,
       Object.assign(component.props, { iconProps })
     );
+  },
+
+  handleDoubleTap() {
+    if (this.props.onDoubleTap)
+      this.props.onDoubleTap();
   },
 
   render() {
@@ -77,7 +85,7 @@ module.exports = Component({
       this.addStyles({ height });
 
     return (
-      <div {...props} {...this.componentProps()}>
+      <div {...props} {...this.componentProps()} {...this.multiTap(2, this.handleDoubleTap)}>
         <div {...this.componentProps('left')}>
           {this.addIconProps(l)}
         </div>

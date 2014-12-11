@@ -92,12 +92,22 @@ module.exports = Component({
     this.scroller.setPosition(this.state.step * this.state.width, 0);
   },
 
+  getTitleBarHeight() {
+    return this.props.titleBarProps.height || this.getConstant('titleBarHeight');
+  },
+
   setupViewList(props) {
     var { width, height, children } = props;
     children = children.filter(child => !!child);
 
-    if (!props.titleBarProps.height)
-      props.titleBarProps.height = this.getConstant('titleBarHeight');
+    // set default titlebar height
+    props.titleBarProps.height = this.getTitleBarHeight();
+
+    // default to not allowing swipes on the titlebar
+    props.touchStartBoundsY = props.touchStartBoundsY || {
+      from: this.getTitleBarHeight(),
+      to: window.innerHeight
+    };
 
     this.setupDimensions();
     this.setupViewEnterStates(children);
