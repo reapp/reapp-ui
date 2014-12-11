@@ -9,7 +9,7 @@ module.exports = Component({
 
   getDefaultProps() {
     return {
-      edgePadding: 10
+      edgePadding: 3
     };
   },
 
@@ -21,12 +21,8 @@ module.exports = Component({
 
   componentDidMount() {
     var popover = this.refs.popover.getDOMNode();
-
-    this.setState({
-      open: true,
-      left: this.getLeft(popover, this.props.target),
-      top: this.getTop(popover, this.props.target)
-    });
+    this.setState(this.getPositionState(popover, this.props.target));
+    this.setState({ open: true });
   },
 
   componentWillReceiveProps(nextProps) {
@@ -40,15 +36,25 @@ module.exports = Component({
     this.setState(nextState);
   },
 
+  getPositionState(popover, target) {
+    var top = this.getTop(popover, target);
+    var left = this.getLeft(popover, target);
+    var arrowTop = 1;
+    var arrowLeft = arrowLeft;
+    return { top, left, arrowTop, arrowLeft };
+  },
+
   getLeft(popover, target) {
     var targetLeft = target.left - window.scrollX;
     var targetCenter =  targetLeft + target.width / 2;
     var popoverCenter = popover.clientWidth / 2;
     var left = targetCenter - popoverCenter;
-    var pad = this.props.edgePadding;
     return Math.max(
-      pad,
-      Math.min(left, window.innerWidth - pad - popover.clientWidth)
+      this.props.edgePadding,
+      Math.min(
+        left,
+        window.innerWidth - this.props.edgePadding - popover.clientWidth
+      )
     );
   },
 
@@ -75,23 +81,26 @@ module.exports = Component({
   },
 
   render() {
-    var { itemStyle, children, ...props } = this.props;
+    var { children, ...props } = this.props;
 
     if (this.state.open) {
       this.addClass('open');
-      this.addStyles(this.styles.open);
+      this.addStyles('open');
     }
 
-    this.addStyles('popover', { top: this.state.top, left: this.state.left });
-    this.addStyles('item', itemStyle);
+    this.addStyles('popover',
+      { top: this.state.top, left: this.state.left });
+
+    this.addStyles('arrow',
+      { top: this.state.arrowTop, left: this.state.arrowLeft });
 
     return (
       <div {...props} {...this.componentProps()}
         onClick={this.handleClose}>
+        <div {...this.componentProps('arrow')}>
+          <div {...this.componentProps('arrowInner')} />
+        </div>
         <div {...this.componentProps('popover')}>
-          <div {...this.componentProps('arrow')}>
-            <div {...this.componentProps('arrowInner')} />
-          </div>
           <ul {...this.componentProps('list')}>
             {React.Children.map(children, (li, i) => (
               <li key={i} styles={this.getStyles('item', i)}>

@@ -1,7 +1,7 @@
 var React = require('react/addons');
 var Component = require('ui/component');
 var { Scroller } = require('scroller');
-var { Promise } = require('when');
+var { Promise } = require('bluebird');
 var TitleBar = require('ui/components/TitleBar');
 var TouchableArea = require('../helpers/TouchableArea');
 var CloneChildren = require('../lib/CloneChildren');

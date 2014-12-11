@@ -101,4 +101,53 @@ var Checkbox = Component({
   }
 });
 
+var Radio = Component({
+  name: 'Radio',
+
+  statics: {
+    liNoPad: true
+  },
+
+  getInitialState() {
+    return { checked: this.props.checked };
+  },
+
+  handleChange(e) {
+    if (e.currentTarget.checked)
+      this.setState({ checked: true });
+    else
+      this.setState({ checked: false });
+
+    if (this.props.onChange)
+      this.props.onChange(e);
+  },
+
+  render() {
+    var { label, nolabel, ...props } = this.props;
+
+    if (this.state.checked) {
+      this.addStyles('toggle', 'toggleIsChecked');
+      this.addStyles('toggleSwitch', 'toggleSwitchIsChecked');
+    }
+
+    var input = (
+      <span {...this.componentProps()}>
+        <input {...this.componentProps('input')} {...this.props} onChange={this.handleChange} />
+        <span {...this.componentProps('toggle')}>
+          <span {...this.componentProps('toggleSwitch')} />
+        </span>
+      </span>
+    );
+
+    if (nolabel)
+      return input;
+
+    return (
+      <Label title={label}>
+        {input}
+      </Label>
+    );
+  }
+});
+
 module.exports = { Input, Form, Label };

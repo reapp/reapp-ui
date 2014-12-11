@@ -1,5 +1,7 @@
-// Simple reducer for use with flux
-// reduces an array or map into an array of objects with:
+var { List, Map } = require('immutable');
+
+// Simple reducer for use with flux / immutable data
+// reduces an List or Map into a List of Maps with keys:
 
 // { id, data, status }
 
@@ -15,14 +17,13 @@ function reducer(status, obj) {
     status = 'OK';
   }
 
-  if (!Array.isArray(obj))
-    obj = [obj];
+  if (!(obj instanceof List))
+    obj = List([obj]);
 
   return obj.reduce((acc, data) => {
-    var id = data.id || uniqueId();
-    acc.push({ id, data, status });
-    return acc;
-  }, []);
+    var id = data.get('id') || uniqueId();
+    return acc.push(Map({ id, data, status }));
+  }, List());
 }
 
 var id = 0;

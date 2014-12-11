@@ -111,8 +111,14 @@ module.exports = function(name) {
 
     // adds styles onto a property
     _addStyle(elName, styles) {
-      // if no elName given, use "self"
-      if (typeof elName === 'object' && !styles) {
+      // if given just an object, add as the styles object for 'self'
+      if (!styles && typeof elName === 'object') {
+        styles = elName;
+        elName = 'self';
+      }
+
+      // if given just a string, add as the styles object reference for 'self'
+      if (!styles && typeof elName === 'string') {
         styles = elName;
         elName = 'self';
       }

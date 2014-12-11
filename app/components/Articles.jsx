@@ -39,7 +39,6 @@ module.exports = Component({
     e.target.innerHTML = 'Loading...';
     actions.articlesHotLoadMore();
     var unlisten = actions.articlesHotLoadMoreDone.listen(() => {
-      console.log('done')
       this.setState({ isRefreshing: false });
       unlisten();
     });
@@ -58,7 +57,7 @@ module.exports = Component({
     var subRouteKey = this.getRoutes().reverse()[0].name + this.getParams().id;
 
     var articles = HotArticlesStore()
-      .map(id => ArticlesStore().get(id.toString()))
+      .map(id => ArticlesStore().get(id))
       .filter(x => typeof x !== 'undefined');
 
     var dottedProps =  hasChild ?

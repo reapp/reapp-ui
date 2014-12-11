@@ -32,7 +32,7 @@ module.exports = Component({
   },
 
   render() {
-    var cursor = ArticlesStore().get(this.getParams().id);
+    var cursor = ArticlesStore().get(Number(this.getParams().id));
     var article = cursor && cursor.get('data');
     var commentsLoaded = article && article.get('kidsLoaded');
     var articleItemStyles = {

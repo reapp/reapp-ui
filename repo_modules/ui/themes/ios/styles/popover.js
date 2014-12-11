@@ -39,9 +39,6 @@ module.exports = {
   arrow: {
     width: 26,
     height: 26,
-    top: -26,
-    left: '50%',
-    marginLeft: '-13px',
     position: 'absolute',
     overflow: 'hidden'
   },

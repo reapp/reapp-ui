@@ -1,47 +1,49 @@
 var Component = require('component');
-var { Promise } = require('when');
-var Immutable = require('immutable');
+var { Promise } = require('bluebird');
 var { ArticlesStore, HotArticlesStore } = require('../stores');
 var Actions = require('../actions');
 var API = require('./API');
 var Reducer = require('./Reducer');
+var Immutable = require('immutable');
 
 var loadedReducer = Reducer.bind(null, 'LOADED');
 var page = 0;
 var per = 10;
 
 Actions.articlesHotLoad.listen(
-  opts => API.get('topstories.json', opts)
-    .then(res => HotArticlesStore(res) && res)
-    .then(getArticles)
+  opts =>
+    API.get('topstories.json', opts)
+      .then(res => HotArticlesStore(res) && res)
+      .then(getArticles)
 );
 
 Actions.articlesHotRefresh.listen(
-  () => Actions.articlesHotLoad({ nocache: true })
+  () =>
+    Actions.articlesHotLoad({ nocache: true })
 );
 
 Actions.articlesHotLoadMore.listen(
-  () => API.get('topstories.json')
-    .then(getNextArticles)
-    .then(res => Actions.articlesHotLoadMoreDone())
+  () =>
+    API.get('topstories.json')
+      .then(getNextArticles)
+      .then(Actions.articlesHotLoadMoreDone)
 );
 
 Actions.articleLoad.listen(
-  id => API.get(`item/${id}.json`)
-    .then(getAllKids)
-    .then(loadedReducer)
-    .then(insertArticle)
+  id =>
+    API.get(`item/${id}.json`)
+      .then(getAllKids)
+      .then(loadedReducer)
+      .then(insertArticle)
 );
 
 function insertArticle(res, rej) {
+  if (rej) error(rej);
   if (res) {
     res.map(article => {
-      ArticlesStore(ArticlesStore().set(article.get('id'), article));
+      ArticlesStore().set(article.id, Immutable.fromJS(article));
     });
     return res;
-  }
-  else {
-    throw new Error(rej);
   }
 }
 
@@ -59,20 +61,19 @@ function getArticles(articles) {
         API.get(`item/${article}.json`)
           .then(Reducer)
           .then(insertArticle)
-    ).toJS()
+    )
   );
 }
 
 function getAllKids(item) {
+  var kids = item.kids;
   item.closed = false;
 
-  if (!item.kids)
+  if (!kids)
     return new Promise(res => res(item));
 
   return Promise.all(
-    item.kids.map(
-      item => API.get(`item/${item}.json`).then(
-        res => getAllKids(res)))
+    kids.map(item => API.get(`item/${item}.json`).then(getAllKids))
   )
   .then(res => {
     item.kids = res;
