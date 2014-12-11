@@ -2,6 +2,12 @@ var React = require('react');
 var Axn = require('axn');
 var AnimateActions = require('../../actions/Animate');
 
+var i = 0;
+function uniqueId() {
+  if (i > 1000000) i = 0;
+  return i++;
+}
+
 module.exports = {
   childContextTypes: {
     animateProps: React.PropTypes.object
@@ -11,9 +17,24 @@ module.exports = {
     return { animateProps: this.props.animateProps };
   },
 
-  animate(source, props, cb) {
-    var obj = { mountDepth: this._mountDepth };
-    obj[source] = props;
-    AnimateActions(obj);
+  componentWillMount() {
+    this._animateID = uniqueId();
+  },
+
+  componentWillUnmount() {
+    AnimateActions({
+      type: 'remove',
+      id: this._animateID
+    });
+  },
+
+  animate(source, props) {
+    AnimateActions({
+      type: 'add',
+      id: this._animateID,
+      depth: this._mountDepth,
+      source,
+      props
+    });
   }
 };

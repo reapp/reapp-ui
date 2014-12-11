@@ -42,12 +42,8 @@ module.exports = {
 
     if (props.animations)
       props.animations.forEach(animation => {
-        // debugger;
-        console.log('setting animation for', this.name, AnimateStore()[animation.source],
-          props.animateProps && props.animateProps[animation.source] || {},
-          state && state[animation.source] || {});
         this._animations[animation.source] = Object.assign({},
-          AnimateStore()[animation.source],
+          AnimateStore(animation.source, this._mountDepth) || {},
           props.animateProps && props.animateProps[animation.source] || {},
           state && state[animation.source] || {}
         );
