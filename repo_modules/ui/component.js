@@ -4,6 +4,15 @@ var Styled = require('./lib/mixins/Styled');
 var Classed = require('./lib/mixins/Classed');
 var Animated = require('./lib/mixins/Animated');
 
+// clone
+Component.addStatics('clone', function(children, props) {
+  return React.Children.map(children, child => {
+    return React.isValidElement(child) ?
+      React.addons.cloneWithProps(child, props) :
+      child;
+  });
+});
+
 Component.addDecorator(spec => {
   spec.mixins = [].concat(
     Animated,

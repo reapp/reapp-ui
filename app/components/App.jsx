@@ -40,7 +40,7 @@ module.exports = React.createClass({
     return (
       <LayoutLeftNav side={menu} handle={button}>
         <DocumentTitle title="React Base" />
-        <RouteHandler {...this.props} menuButton={button} />
+        <RouteHandler {...this.props} />
 
         {this.state.popoverProps && (
           <Popover {...this.state.popoverProps} />

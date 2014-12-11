@@ -4,7 +4,7 @@ var TouchableArea = React.createClass({
   getDefaultProps() {
     return {
       element: 'div',
-      touchable: true,
+      untouchable: false,
       touchStartBoundsX: false,
       touchStartBoundsY: false,
       ignoreY: false,
@@ -30,7 +30,7 @@ var TouchableArea = React.createClass({
   // this function accounts for touchStartBound that are passed in
   // if touchStart is within those bounds, it begins touchStartActions
   handleTouchStart(e) {
-    if (!this.props.touchable || !this.props.scroller || e.touchableAreaIsMoving)
+    if (this.props.untouchable || !this.props.scroller || e.touchableAreaIsMoving)
       return;
 
     // null == we haven't figured out if were ignoring this scroll, yet
@@ -53,12 +53,19 @@ var TouchableArea = React.createClass({
 
   touchStartActions(e) {
     this.props.scroller.doTouchStart(e.touches, e.timeStamp);
-    if (this.props.onTouchStart) this.props.onTouchStart(e);
+
+    if (this.props.onTouchStart)
+      this.props.onTouchStart(e);
   },
 
   handleTouchMove(e) {
-    if (!this.props.scroller || !this.props.touchable || this.ignoringScroll) return;
-    if (this.ignoreDirectionalScroll(e)) return;
+    if (
+      !this.props.scroller ||
+      this.props.untouchable ||
+      this.ignoringScroll ||
+      this.ignoreDirectionalScroll(e)
+    )
+      return;
 
     if (this.props.stopPropagation)
       e.touchableAreaIsMoving = true;
@@ -91,11 +98,13 @@ var TouchableArea = React.createClass({
   },
 
   handleTouchEnd(e) {
-    if (!this.props.touchable || !this.props.scroller) return;
+    if (this.props.untouchable || !this.props.scroller) return;
 
     e.touchableAreaIsMoving = false;
     this.props.scroller.doTouchEnd(e.timeStamp);
-    if (this.props.onTouchEnd) this.props.onTouchEnd(e);
+
+    if (this.props.onTouchEnd)
+      this.props.onTouchEnd(e);
   },
 
   render() {

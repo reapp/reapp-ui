@@ -51,7 +51,7 @@ module.exports = Component({
   },
 
   render() {
-    var { menuButton } = this.props;
+    var { handle } = this.props;
 
     var numRoutes = this.getRoutes().length;
     var hasChild = numRoutes > 2;
@@ -84,7 +84,7 @@ module.exports = Component({
       <ViewList scrollToStep={numRoutes - 2} noFakeTitleBar>
         <View>
           <DottedViewList {...dottedProps}>
-            <View title={[menuButton, 'Hot Articles', refreshButton]}>
+            <View title={[handle, 'Hot Articles', refreshButton]}>
               <List dontWrapChildren styles={{ self: { borderTop: 'none' } }}>
                 {articles.count() ?
                   articles.map((article, i) =>
@@ -102,7 +102,7 @@ module.exports = Component({
                 </List>
             </View>
 
-            <View title={[menuButton, 'Saved Articles']} />
+            <View title={[handle, 'Saved Articles']} />
           </DottedViewList>
         </View>
 

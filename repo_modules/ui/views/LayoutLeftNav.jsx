@@ -1,4 +1,4 @@
-var React = require('react');
+var React = require('react/addons');
 var Component = require('ui/component');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
 var LeftNavBehavior = require('./LeftNavBehavior');
@@ -79,6 +79,12 @@ module.exports = Component({
       onTouchTap: this._handleContentTouchTap
     };
 
+    var touchableHandle = (
+      <TouchableArea onClick={this._handleTap} scroller={this.scroller}>
+        {handle}
+      </TouchableArea>
+    );
+
     return (
       <div {...this.componentProps()}>
         {isSideOpen && (
@@ -90,14 +96,9 @@ module.exports = Component({
           </AnimatableContainer>
         )}
         <Drawer {...this.componentProps('drawer')} {...drawerProps}>
-          {children}
-
+          {Component.clone(children, { handle: touchableHandle })}
         </Drawer>
       </div>
     );
   }
 });
-
-// <TouchableArea onClick={this._handleTap} scroller={this.scroller}>
-//   {handle}
-// </TouchableArea>
