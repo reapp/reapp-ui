@@ -1,6 +1,6 @@
 var React = require('react');
 var Axn = require('axn');
-var Animate = require('../../actions/Animate');
+var AnimateActions = require('../../actions/Animate');
 
 module.exports = {
   childContextTypes: {
@@ -12,8 +12,8 @@ module.exports = {
   },
 
   animate(source, props, cb) {
-    var obj = {};
+    var obj = { mountDepth: this._mountDepth };
     obj[source] = props;
-    Animate(obj);
+    AnimateActions(obj);
   }
 };

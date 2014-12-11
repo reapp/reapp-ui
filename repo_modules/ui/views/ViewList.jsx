@@ -60,13 +60,13 @@ module.exports = Component({
   componentDidMount() {
     this.scroller = new Scroller(this.handleScroll, this.props.scrollerProps);
     this.setupViewList(this.props);
-    this.scroller.setPosition(this.state.step * this.state.width, 0);
-    window.addEventListener('resize', this.setupDimensions);
+    this.setScrollPosition();
+    window.addEventListener('resize', this.resize);
   },
 
   componentWillUnmount() {
     delete this.scroller; // just in case?
-    window.removeEventListener('resize', this.setupDimensions);
+    window.removeEventListener('resize', this.resize);
   },
 
   // needs to ensure it animates, then updates children views in state
@@ -88,15 +88,8 @@ module.exports = Component({
     }
   },
 
-  scrollToStep(step) {
-    var duration = 0;
-
-    if (step !== this.state.step) {
-      this.scroller.scrollTo(this.state.width * step, 0, true);
-      duration = this.props.scrollerProps.animationDuration;
-    }
-
-    return new Promise(res => setTimeout(res, duration));
+  setScrollPosition() {
+    this.scroller.setPosition(this.state.step * this.state.width, 0);
   },
 
   setupViewList(props) {
@@ -113,12 +106,28 @@ module.exports = Component({
     this.setState({ children });
   },
 
+  scrollToStep(step) {
+    var duration = 0;
+
+    if (step !== this.state.step) {
+      this.scroller.scrollTo(this.state.width * step, 0, true);
+      duration = this.props.scrollerProps.animationDuration;
+    }
+
+    return new Promise(res => setTimeout(res, duration));
+  },
+
   setupDimensions() {
     if (this.props.resizeWithWindow)
       this.setState({
         width: window.innerWidth,
         height: window.innerHeight
       });
+  },
+
+  resize() {
+    this.setupDimensions();
+    this.setScrollPosition();
   },
 
   setupViewEnterStates(children) {
@@ -237,8 +246,8 @@ module.exports = Component({
       onClick: this.handleClick
     }, props);
 
-    if (this.state.step === 0)
-      this.addStyles(this.styles.underTouchable);
+    // if (this.state.step === 0)
+      // this.addStyles(this.styles.underTouchable);
 
     return (
       <TouchableArea {...this.componentProps()} {...viewListProps} stopPropagation>

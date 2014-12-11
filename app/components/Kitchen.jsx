@@ -8,6 +8,11 @@ var SearchBar = require('ui/components/SearchBar');
 var List = require('ui/components/List');
 var Title = require('ui/components/Title');
 
+var InertLink = React.createClass({
+  displayName: 'Link',
+  render() { return <Link {...this.props} activeClassName="" />; }
+});
+
 module.exports = React.createClass({
   mixins: [State, RouteHandlerMixin],
 
@@ -26,7 +31,7 @@ module.exports = React.createClass({
   },
 
   makeLink(link) {
-    return <Link to={link[0]}>{link[1]}</Link>;
+    return <InertLink to={link[0]}>{link[1]}</InertLink>;
   },
 
   render() {
@@ -55,16 +60,16 @@ module.exports = React.createClass({
 
           <Title>Views</Title>
           <List>
-            <Link to="view-lists">Parallax View List</Link>
-            <Link to="dotted-view-list">Dotted View List</Link>
-            <Link to="view-frosted">Frosted Glass Titlebar</Link>
-            <Link to="panels">Drawers &amp; Panels</Link>
+            <InertLink to="view-lists">Parallax View List</InertLink>
+            <InertLink to="dotted-view-list">Dotted View List</InertLink>
+            <InertLink to="view-frosted">Frosted Glass Titlebar</InertLink>
+            <InertLink to="panels">Drawers &amp; Panels</InertLink>
           </List>
 
           <Title>Suites</Title>
           <List>
-            <Link to="modals">Graphs</Link>
-            <Link to="modals">Maps</Link>
+            <InertLink to="modals">Graphs</InertLink>
+            <InertLink to="modals">Maps</InertLink>
           </List>
         </View>
 

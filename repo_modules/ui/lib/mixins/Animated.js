@@ -43,6 +43,9 @@ module.exports = {
     if (props.animations)
       props.animations.forEach(animation => {
         // debugger;
+        console.log('setting animation for', this.name, AnimateStore()[animation.source],
+          props.animateProps && props.animateProps[animation.source] || {},
+          state && state[animation.source] || {});
         this._animations[animation.source] = Object.assign({},
           AnimateStore()[animation.source],
           props.animateProps && props.animateProps[animation.source] || {},
@@ -60,6 +63,32 @@ module.exports = {
 
   getAnimationStep(source) {
     return this.getAnimationProps(source).step;
+  },
+
+  setAnimationStyles(part) {
+    var styles = this.getAnimationStyles();
+    var node = (part ? this.refs[part].getDOMNode() : this.getDOMNode());
+    var reactID = node.getAttribute('data-reactid');
+    var headStyleID = `animate-${reactID}`;
+    var headStyleTag = document.getElementById(headStyleID);
+    var hasHeadStyleTag = !!headStyleTag;
+
+    if (!hasHeadStyleTag) {
+      headStyleTag = document.createElement('style');
+      headStyleTag.id = headStyleID;
+    }
+
+    headStyleTag.innerHTML =
+      `[data-reactid="${reactID}"] {
+        ${this.stylesToString(styles)}
+      }`;
+
+    if (!hasHeadStyleTag)
+      document.head.appendChild(headStyleTag);
+  },
+
+  stylesToString(obj) {
+    return Object.keys(obj).reduce((acc, key) => `${key}: ${obj[key]} !important; ${acc}`, '');
   },
 
   getAnimationStyles() {
@@ -127,7 +156,7 @@ module.exports = {
     }
 
     delete styles.transforms;
-    styles[StyleKeys.TRANSFORM] = transformsString || 'translateZ(0px)';
+    styles['transform'] = transformsString || 'translateZ(0px)';
     return styles;
   },
 

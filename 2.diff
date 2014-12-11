@@ -1,0 +1,361 @@
+<div class="LayoutLeftNav" style="overflow-x: hidden; position: fixed; top: 0px; left: 0px; bottom: 0px; right: 0px;" data-reactid=".0">
+<div class="StaticContainer AnimatableContainer Drawer LayoutLeftNav--drawer" opacity="1" style="-webkit-transform: translate3d(-200px, 0px, 0px); top: 0px; right: 0px; bottom: 0px; left: 200px; position: fixed; margin-left: 0px; width: 100%; pointer-events: all; background: rgb(239, 239, 244);" data-reactid=".0.1">
+<div class="Drawer--dragger" style="position:fixed;top:0;bottom:0;width:10px;left:0;z-index:5;" data-reactid=".0.1.0">
+</div>
+<noscript data-reactid=".0.1.1:$=10:0">
+</noscript>
+<div class="ViewList" width="317" height="568" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; z-index: 1000; background: rgb(239, 239, 244);" data-reactid=".0.1.1:$=11:0">
+<div width="317" class="TitleBar" style="background:#f7f7f8;border-bottom:1px solid #c4c4c4;height:44px;font-size:16px;text-align:center;position:fixed;top:0;left:0;width:100%;padding:0;flex-flow:row;font-weight:500;justify-content:space-between;z-index:2;" data-reactid=".0.1.1:$=11:0.0">
+<div class="TitleBar--left" style="margin:auto 0;" data-reactid=".0.1.1:$=11:0.0.0">
+</div>
+<div class="TitleBar--mid" style="color: rgb(0, 0, 0); margin: auto 0px; position: relative; left: -0.5px;" data-reactid=".0.1.1:$=11:0.0.1">
+</div>
+<div class="TitleBar--right" style="margin:auto 0;" data-reactid=".0.1.1:$=11:0.0.2">
+</div>
+</div>
+<div class="View" style="position:absolute;top:0;left:0;bottom:0;right:0;pointer-events:all;-webkit-overflow-scrolling:touch;-webkit-backface-visibility:hidden;-webkit-transform:translateZ(0);z-index:2;" data-reactid=".0.1.1:$=11:0.2:$=10:$0">
+<div width="317" class="TitleBar" style="background:none;border-bottom:none;height:44px;font-size:16px;text-align:center;position:fixed;top:0;left:0;width:100%;padding:0;flex-flow:row;font-weight:500;justify-content:space-between;z-index:2;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.0">
+<div class="TitleBar--left" style="margin:auto 0;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.0.0">
+<div data-reactid=".0.1.1:$=11:0.2:$=10:$0.0.0.0">
+<button id="hamburger" class="Button" style="border:none;color:#307cff;font-size:16px;background:none;border-radius:0;text-align:center;padding:8px;flex-flow:row;zoom:1;line-height:normal;white-space:nowrap;vertical-align:baseline;cursor:pointer;-webkit-user-drag:none;-webkit-user-select:none;outline:none;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.0.0.0.0">
+<span style="color:#307cff;width:26px;height:26px;overflow:hidden;" class="Icon" data-reactid=".0.1.1:$=11:0.2:$=10:$0.0.0.0.0.0">
+<svg style="width:26px;height:26px;shape-rendering:crispEdges;fill:currentColor;" viewBox="0 0 64 64" fill="#307cff" stroke="#307cff" stroke-width="4" stroke-linecap="round" data-reactid=".0.1.1:$=11:0.2:$=10:$0.0.0.0.0.0.0">
+<g data-reactid=".0.1.1:$=11:0.2:$=10:$0.0.0.0.0.0.0.0">
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/svg/hamburger.svg#Layer_1">
+</use>
+</g>
+</svg>
+</span>
+</button>
+</div>
+</div>
+<div class="TitleBar--mid" style="color: rgb(0, 0, 0); margin: auto 0px; position: relative; left: -21px;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.0.1">
+Kitchen Sink</div>
+<div class="TitleBar--right" style="margin:auto 0;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.0.2">
+</div>
+</div>
+<div class="View--inner" style="padding: 0px 10px; z-index: 1; position: absolute; overflow-y: scroll; overflow-x: hidden; top: 44px; left: 0px; bottom: 0px; right: 0px; -webkit-backface-visibility: hidden; box-shadow: none; background: rgb(239, 239, 244);" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1">
+<div class="StaticContainer" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0">
+<div class="SearchBar" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.0">
+<input type="search" value="" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.0.0">
+</div>
+<h3 class="Title" style="font-size:13px;text-transform:uppercase;color:#888;padding:10px 0 2px 0;margin:15px 0 5px;font-weight:normal;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.1">
+Interface</h3>
+<ul class="List" style="border-top:1px solid #c8c7cc;border-bottom:1px solid #c8c7cc;background:#fff;margin:0 -10px;padding:0 0 0 10px;font-size:16px;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2">
+<li class="ListItem" style="list-style:none;margin:0;padding:0;overflow:hidden;flex-flow:row;align-items:center;justify-content:space-between;min-height:44px;border-top:none;position:relative;padding-right:20px;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=10:$0">
+<span class="ListItem--wrapper" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=10:$0.$wrapper-undefined">
+<a href="/kitchen/controls" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=10:$0.$wrapper-undefined.0" class="active">
+<span style="color:#c8c7cc;width:12px;height:12px;overflow:hidden;margin:auto 8px auto 0;" class="Icon" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=10:$0.$wrapper-undefined.0.0">
+<svg style="width:12px;height:12px;shape-rendering:initial;fill:currentColor;" viewBox="0 0 64 64" fill="#c8c7cc" stroke="#c8c7cc" stroke-width="8" stroke-linecap="round" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=10:$0.$wrapper-undefined.0.0.0">
+<g data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=10:$0.$wrapper-undefined.0.0.0.0">
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/svg/right.svg#Layer_1">
+</use>
+</g>
+</svg>
+</span>
+</a>
+</span>
+<span class="ListItem--content" style="flex-shrink:1;flex-grow:800;color:#000;padding:10px 10px 10px 0;position:relative;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=10:$0.$content-undefined">
+<span class="ListItem--children" style="max-height:42px;font-size:17px;line-height:21px;overflow:hidden;-webkit-line-lamp:2px;-webkit-box-orient:vertical;color:#000;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=10:$0.$content-undefined.$children-undefined">
+Controls</span>
+</span>
+</li>
+<li class="ListItem" style="list-style:none;margin:0;padding:0;overflow:hidden;flex-flow:row;align-items:center;justify-content:space-between;min-height:44px;border-top:1px solid #c8c7cc;position:relative;padding-right:20px;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=11:$1">
+<span class="ListItem--wrapper" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=11:$1.$wrapper-undefined">
+<a href="/kitchen/lists" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=11:$1.$wrapper-undefined.0">
+<span style="color:#c8c7cc;width:12px;height:12px;overflow:hidden;margin:auto 8px auto 0;" class="Icon" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=11:$1.$wrapper-undefined.0.0">
+<svg style="width:12px;height:12px;shape-rendering:initial;fill:currentColor;" viewBox="0 0 64 64" fill="#c8c7cc" stroke="#c8c7cc" stroke-width="8" stroke-linecap="round" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=11:$1.$wrapper-undefined.0.0.0">
+<g data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=11:$1.$wrapper-undefined.0.0.0.0">
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/svg/right.svg#Layer_1">
+</use>
+</g>
+</svg>
+</span>
+</a>
+</span>
+<span class="ListItem--content" style="flex-shrink:1;flex-grow:800;color:#000;padding:10px 10px 10px 0;position:relative;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=11:$1.$content-undefined">
+<span class="ListItem--children" style="max-height:42px;font-size:17px;line-height:21px;overflow:hidden;-webkit-line-lamp:2px;-webkit-box-orient:vertical;color:#000;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=11:$1.$content-undefined.$children-undefined">
+Lists</span>
+</span>
+</li>
+<li class="ListItem" style="list-style:none;margin:0;padding:0;overflow:hidden;flex-flow:row;align-items:center;justify-content:space-between;min-height:44px;border-top:1px solid #c8c7cc;position:relative;padding-right:20px;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=12:$2">
+<span class="ListItem--wrapper" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=12:$2.$wrapper-undefined">
+<a href="/kitchen/modals" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=12:$2.$wrapper-undefined.0">
+<span style="color:#c8c7cc;width:12px;height:12px;overflow:hidden;margin:auto 8px auto 0;" class="Icon" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=12:$2.$wrapper-undefined.0.0">
+<svg style="width:12px;height:12px;shape-rendering:initial;fill:currentColor;" viewBox="0 0 64 64" fill="#c8c7cc" stroke="#c8c7cc" stroke-width="8" stroke-linecap="round" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=12:$2.$wrapper-undefined.0.0.0">
+<g data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=12:$2.$wrapper-undefined.0.0.0.0">
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/svg/right.svg#Layer_1">
+</use>
+</g>
+</svg>
+</span>
+</a>
+</span>
+<span class="ListItem--content" style="flex-shrink:1;flex-grow:800;color:#000;padding:10px 10px 10px 0;position:relative;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=12:$2.$content-undefined">
+<span class="ListItem--children" style="max-height:42px;font-size:17px;line-height:21px;overflow:hidden;-webkit-line-lamp:2px;-webkit-box-orient:vertical;color:#000;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=12:$2.$content-undefined.$children-undefined">
+Modals</span>
+</span>
+</li>
+<li class="ListItem" style="list-style:none;margin:0;padding:0;overflow:hidden;flex-flow:row;align-items:center;justify-content:space-between;min-height:44px;border-top:1px solid #c8c7cc;position:relative;padding-right:20px;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=13:$3">
+<span class="ListItem--wrapper" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=13:$3.$wrapper-undefined">
+<a href="/kitchen/popovers" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=13:$3.$wrapper-undefined.0">
+<span style="color:#c8c7cc;width:12px;height:12px;overflow:hidden;margin:auto 8px auto 0;" class="Icon" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=13:$3.$wrapper-undefined.0.0">
+<svg style="width:12px;height:12px;shape-rendering:initial;fill:currentColor;" viewBox="0 0 64 64" fill="#c8c7cc" stroke="#c8c7cc" stroke-width="8" stroke-linecap="round" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=13:$3.$wrapper-undefined.0.0.0">
+<g data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=13:$3.$wrapper-undefined.0.0.0.0">
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/svg/right.svg#Layer_1">
+</use>
+</g>
+</svg>
+</span>
+</a>
+</span>
+<span class="ListItem--content" style="flex-shrink:1;flex-grow:800;color:#000;padding:10px 10px 10px 0;position:relative;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=13:$3.$content-undefined">
+<span class="ListItem--children" style="max-height:42px;font-size:17px;line-height:21px;overflow:hidden;-webkit-line-lamp:2px;-webkit-box-orient:vertical;color:#000;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=13:$3.$content-undefined.$children-undefined">
+Popovers</span>
+</span>
+</li>
+<li class="ListItem" style="list-style:none;margin:0;padding:0;overflow:hidden;flex-flow:row;align-items:center;justify-content:space-between;min-height:44px;border-top:1px solid #c8c7cc;position:relative;padding-right:20px;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=14:$4">
+<span class="ListItem--wrapper" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=14:$4.$wrapper-undefined">
+<a href="/kitchen/cards" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=14:$4.$wrapper-undefined.0">
+<span style="color:#c8c7cc;width:12px;height:12px;overflow:hidden;margin:auto 8px auto 0;" class="Icon" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=14:$4.$wrapper-undefined.0.0">
+<svg style="width:12px;height:12px;shape-rendering:initial;fill:currentColor;" viewBox="0 0 64 64" fill="#c8c7cc" stroke="#c8c7cc" stroke-width="8" stroke-linecap="round" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=14:$4.$wrapper-undefined.0.0.0">
+<g data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=14:$4.$wrapper-undefined.0.0.0.0">
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/svg/right.svg#Layer_1">
+</use>
+</g>
+</svg>
+</span>
+</a>
+</span>
+<span class="ListItem--content" style="flex-shrink:1;flex-grow:800;color:#000;padding:10px 10px 10px 0;position:relative;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=14:$4.$content-undefined">
+<span class="ListItem--children" style="max-height:42px;font-size:17px;line-height:21px;overflow:hidden;-webkit-line-lamp:2px;-webkit-box-orient:vertical;color:#000;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=14:$4.$content-undefined.$children-undefined">
+Cards</span>
+</span>
+</li>
+<li class="ListItem" style="list-style:none;margin:0;padding:0;overflow:hidden;flex-flow:row;align-items:center;justify-content:space-between;min-height:44px;border-top:1px solid #c8c7cc;position:relative;padding-right:20px;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=15:$5">
+<span class="ListItem--wrapper" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=15:$5.$wrapper-undefined">
+<a href="/kitchen/forms" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=15:$5.$wrapper-undefined.0">
+<span style="color:#c8c7cc;width:12px;height:12px;overflow:hidden;margin:auto 8px auto 0;" class="Icon" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=15:$5.$wrapper-undefined.0.0">
+<svg style="width:12px;height:12px;shape-rendering:initial;fill:currentColor;" viewBox="0 0 64 64" fill="#c8c7cc" stroke="#c8c7cc" stroke-width="8" stroke-linecap="round" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=15:$5.$wrapper-undefined.0.0.0">
+<g data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=15:$5.$wrapper-undefined.0.0.0.0">
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/svg/right.svg#Layer_1">
+</use>
+</g>
+</svg>
+</span>
+</a>
+</span>
+<span class="ListItem--content" style="flex-shrink:1;flex-grow:800;color:#000;padding:10px 10px 10px 0;position:relative;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=15:$5.$content-undefined">
+<span class="ListItem--children" style="max-height:42px;font-size:17px;line-height:21px;overflow:hidden;-webkit-line-lamp:2px;-webkit-box-orient:vertical;color:#000;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=15:$5.$content-undefined.$children-undefined">
+Forms</span>
+</span>
+</li>
+<li class="ListItem" style="list-style:none;margin:0;padding:0;overflow:hidden;flex-flow:row;align-items:center;justify-content:space-between;min-height:44px;border-top:1px solid #c8c7cc;position:relative;padding-right:20px;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=16:$6">
+<span class="ListItem--wrapper" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=16:$6.$wrapper-undefined">
+<a href="/kitchen/tabs" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=16:$6.$wrapper-undefined.0">
+<span style="color:#c8c7cc;width:12px;height:12px;overflow:hidden;margin:auto 8px auto 0;" class="Icon" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=16:$6.$wrapper-undefined.0.0">
+<svg style="width:12px;height:12px;shape-rendering:initial;fill:currentColor;" viewBox="0 0 64 64" fill="#c8c7cc" stroke="#c8c7cc" stroke-width="8" stroke-linecap="round" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=16:$6.$wrapper-undefined.0.0.0">
+<g data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=16:$6.$wrapper-undefined.0.0.0.0">
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/svg/right.svg#Layer_1">
+</use>
+</g>
+</svg>
+</span>
+</a>
+</span>
+<span class="ListItem--content" style="flex-shrink:1;flex-grow:800;color:#000;padding:10px 10px 10px 0;position:relative;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=16:$6.$content-undefined">
+<span class="ListItem--children" style="max-height:42px;font-size:17px;line-height:21px;overflow:hidden;-webkit-line-lamp:2px;-webkit-box-orient:vertical;color:#000;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=16:$6.$content-undefined.$children-undefined">
+Tabs</span>
+</span>
+</li>
+<li class="ListItem" style="list-style:none;margin:0;padding:0;overflow:hidden;flex-flow:row;align-items:center;justify-content:space-between;min-height:44px;border-top:1px solid #c8c7cc;position:relative;padding-right:20px;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=17:$7">
+<span class="ListItem--wrapper" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=17:$7.$wrapper-undefined">
+<a href="/kitchen/grids" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=17:$7.$wrapper-undefined.0">
+<span style="color:#c8c7cc;width:12px;height:12px;overflow:hidden;margin:auto 8px auto 0;" class="Icon" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=17:$7.$wrapper-undefined.0.0">
+<svg style="width:12px;height:12px;shape-rendering:initial;fill:currentColor;" viewBox="0 0 64 64" fill="#c8c7cc" stroke="#c8c7cc" stroke-width="8" stroke-linecap="round" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=17:$7.$wrapper-undefined.0.0.0">
+<g data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=17:$7.$wrapper-undefined.0.0.0.0">
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/svg/right.svg#Layer_1">
+</use>
+</g>
+</svg>
+</span>
+</a>
+</span>
+<span class="ListItem--content" style="flex-shrink:1;flex-grow:800;color:#000;padding:10px 10px 10px 0;position:relative;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=17:$7.$content-undefined">
+<span class="ListItem--children" style="max-height:42px;font-size:17px;line-height:21px;overflow:hidden;-webkit-line-lamp:2px;-webkit-box-orient:vertical;color:#000;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=17:$7.$content-undefined.$children-undefined">
+Grid</span>
+</span>
+</li>
+</ul>
+<h3 class="Title" style="font-size:13px;text-transform:uppercase;color:#888;padding:10px 0 2px 0;margin:15px 0 5px;font-weight:normal;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.3">
+Views</h3>
+<ul class="List" style="border-top:1px solid #c8c7cc;border-bottom:1px solid #c8c7cc;background:#fff;margin:0 -10px;padding:0 0 0 10px;font-size:16px;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4">
+<li class="ListItem" style="list-style:none;margin:0;padding:0;overflow:hidden;flex-flow:row;align-items:center;justify-content:space-between;min-height:44px;border-top:none;position:relative;padding-right:20px;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=10:$0">
+<span class="ListItem--wrapper" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=10:$0.$wrapper-undefined">
+<a href="/kitchen/view-lists" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=10:$0.$wrapper-undefined.0">
+<span style="color:#c8c7cc;width:12px;height:12px;overflow:hidden;margin:auto 8px auto 0;" class="Icon" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=10:$0.$wrapper-undefined.0.0">
+<svg style="width:12px;height:12px;shape-rendering:initial;fill:currentColor;" viewBox="0 0 64 64" fill="#c8c7cc" stroke="#c8c7cc" stroke-width="8" stroke-linecap="round" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=10:$0.$wrapper-undefined.0.0.0">
+<g data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=10:$0.$wrapper-undefined.0.0.0.0">
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/svg/right.svg#Layer_1">
+</use>
+</g>
+</svg>
+</span>
+</a>
+</span>
+<span class="ListItem--content" style="flex-shrink:1;flex-grow:800;color:#000;padding:10px 10px 10px 0;position:relative;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=10:$0.$content-undefined">
+<span class="ListItem--children" style="max-height:42px;font-size:17px;line-height:21px;overflow:hidden;-webkit-line-lamp:2px;-webkit-box-orient:vertical;color:#000;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=10:$0.$content-undefined.$children-undefined">
+Parallax View List</span>
+</span>
+</li>
+<li class="ListItem" style="list-style:none;margin:0;padding:0;overflow:hidden;flex-flow:row;align-items:center;justify-content:space-between;min-height:44px;border-top:1px solid #c8c7cc;position:relative;padding-right:20px;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=11:$1">
+<span class="ListItem--wrapper" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=11:$1.$wrapper-undefined">
+<a href="/kitchen/dotted-view-list" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=11:$1.$wrapper-undefined.0">
+<span style="color:#c8c7cc;width:12px;height:12px;overflow:hidden;margin:auto 8px auto 0;" class="Icon" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=11:$1.$wrapper-undefined.0.0">
+<svg style="width:12px;height:12px;shape-rendering:initial;fill:currentColor;" viewBox="0 0 64 64" fill="#c8c7cc" stroke="#c8c7cc" stroke-width="8" stroke-linecap="round" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=11:$1.$wrapper-undefined.0.0.0">
+<g data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=11:$1.$wrapper-undefined.0.0.0.0">
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/svg/right.svg#Layer_1">
+</use>
+</g>
+</svg>
+</span>
+</a>
+</span>
+<span class="ListItem--content" style="flex-shrink:1;flex-grow:800;color:#000;padding:10px 10px 10px 0;position:relative;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=11:$1.$content-undefined">
+<span class="ListItem--children" style="max-height:42px;font-size:17px;line-height:21px;overflow:hidden;-webkit-line-lamp:2px;-webkit-box-orient:vertical;color:#000;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=11:$1.$content-undefined.$children-undefined">
+Dotted View List</span>
+</span>
+</li>
+<li class="ListItem" style="list-style:none;margin:0;padding:0;overflow:hidden;flex-flow:row;align-items:center;justify-content:space-between;min-height:44px;border-top:1px solid #c8c7cc;position:relative;padding-right:20px;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=12:$2">
+<span class="ListItem--wrapper" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=12:$2.$wrapper-undefined">
+<a href="/kitchen/view-frosted" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=12:$2.$wrapper-undefined.0">
+<span style="color:#c8c7cc;width:12px;height:12px;overflow:hidden;margin:auto 8px auto 0;" class="Icon" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=12:$2.$wrapper-undefined.0.0">
+<svg style="width:12px;height:12px;shape-rendering:initial;fill:currentColor;" viewBox="0 0 64 64" fill="#c8c7cc" stroke="#c8c7cc" stroke-width="8" stroke-linecap="round" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=12:$2.$wrapper-undefined.0.0.0">
+<g data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=12:$2.$wrapper-undefined.0.0.0.0">
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/svg/right.svg#Layer_1">
+</use>
+</g>
+</svg>
+</span>
+</a>
+</span>
+<span class="ListItem--content" style="flex-shrink:1;flex-grow:800;color:#000;padding:10px 10px 10px 0;position:relative;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=12:$2.$content-undefined">
+<span class="ListItem--children" style="max-height:42px;font-size:17px;line-height:21px;overflow:hidden;-webkit-line-lamp:2px;-webkit-box-orient:vertical;color:#000;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=12:$2.$content-undefined.$children-undefined">
+Frosted Glass Titlebar</span>
+</span>
+</li>
+<li class="ListItem" style="list-style:none;margin:0;padding:0;overflow:hidden;flex-flow:row;align-items:center;justify-content:space-between;min-height:44px;border-top:1px solid #c8c7cc;position:relative;padding-right:20px;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=13:$3">
+<span class="ListItem--wrapper" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=13:$3.$wrapper-undefined">
+<a href="/kitchen/panels" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=13:$3.$wrapper-undefined.0">
+<span style="color:#c8c7cc;width:12px;height:12px;overflow:hidden;margin:auto 8px auto 0;" class="Icon" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=13:$3.$wrapper-undefined.0.0">
+<svg style="width:12px;height:12px;shape-rendering:initial;fill:currentColor;" viewBox="0 0 64 64" fill="#c8c7cc" stroke="#c8c7cc" stroke-width="8" stroke-linecap="round" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=13:$3.$wrapper-undefined.0.0.0">
+<g data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=13:$3.$wrapper-undefined.0.0.0.0">
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/svg/right.svg#Layer_1">
+</use>
+</g>
+</svg>
+</span>
+</a>
+</span>
+<span class="ListItem--content" style="flex-shrink:1;flex-grow:800;color:#000;padding:10px 10px 10px 0;position:relative;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=13:$3.$content-undefined">
+<span class="ListItem--children" style="max-height:42px;font-size:17px;line-height:21px;overflow:hidden;-webkit-line-lamp:2px;-webkit-box-orient:vertical;color:#000;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.4.1:$=13:$3.$content-undefined.$children-undefined">
+Drawers &amp; Panels</span>
+</span>
+</li>
+</ul>
+<h3 class="Title" style="font-size:13px;text-transform:uppercase;color:#888;padding:10px 0 2px 0;margin:15px 0 5px;font-weight:normal;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.5">
+Suites</h3>
+<ul class="List" style="border-top:1px solid #c8c7cc;border-bottom:1px solid #c8c7cc;background:#fff;margin:0 -10px;padding:0 0 0 10px;font-size:16px;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.6">
+<li class="ListItem" style="list-style:none;margin:0;padding:0;overflow:hidden;flex-flow:row;align-items:center;justify-content:space-between;min-height:44px;border-top:none;position:relative;padding-right:20px;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.6.1:$=10:$0">
+<span class="ListItem--wrapper" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.6.1:$=10:$0.$wrapper-undefined">
+<a href="/kitchen/modals" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.6.1:$=10:$0.$wrapper-undefined.0">
+<span style="color:#c8c7cc;width:12px;height:12px;overflow:hidden;margin:auto 8px auto 0;" class="Icon" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.6.1:$=10:$0.$wrapper-undefined.0.0">
+<svg style="width:12px;height:12px;shape-rendering:initial;fill:currentColor;" viewBox="0 0 64 64" fill="#c8c7cc" stroke="#c8c7cc" stroke-width="8" stroke-linecap="round" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.6.1:$=10:$0.$wrapper-undefined.0.0.0">
+<g data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.6.1:$=10:$0.$wrapper-undefined.0.0.0.0">
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/svg/right.svg#Layer_1">
+</use>
+</g>
+</svg>
+</span>
+</a>
+</span>
+<span class="ListItem--content" style="flex-shrink:1;flex-grow:800;color:#000;padding:10px 10px 10px 0;position:relative;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.6.1:$=10:$0.$content-undefined">
+<span class="ListItem--children" style="max-height:42px;font-size:17px;line-height:21px;overflow:hidden;-webkit-line-lamp:2px;-webkit-box-orient:vertical;color:#000;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.6.1:$=10:$0.$content-undefined.$children-undefined">
+Graphs</span>
+</span>
+</li>
+<li class="ListItem" style="list-style:none;margin:0;padding:0;overflow:hidden;flex-flow:row;align-items:center;justify-content:space-between;min-height:44px;border-top:1px solid #c8c7cc;position:relative;padding-right:20px;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.6.1:$=11:$1">
+<span class="ListItem--wrapper" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.6.1:$=11:$1.$wrapper-undefined">
+<a href="/kitchen/modals" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.6.1:$=11:$1.$wrapper-undefined.0">
+<span style="color:#c8c7cc;width:12px;height:12px;overflow:hidden;margin:auto 8px auto 0;" class="Icon" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.6.1:$=11:$1.$wrapper-undefined.0.0">
+<svg style="width:12px;height:12px;shape-rendering:initial;fill:currentColor;" viewBox="0 0 64 64" fill="#c8c7cc" stroke="#c8c7cc" stroke-width="8" stroke-linecap="round" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.6.1:$=11:$1.$wrapper-undefined.0.0.0">
+<g data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.6.1:$=11:$1.$wrapper-undefined.0.0.0.0">
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/svg/right.svg#Layer_1">
+</use>
+</g>
+</svg>
+</span>
+</a>
+</span>
+<span class="ListItem--content" style="flex-shrink:1;flex-grow:800;color:#000;padding:10px 10px 10px 0;position:relative;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.6.1:$=11:$1.$content-undefined">
+<span class="ListItem--children" style="max-height:42px;font-size:17px;line-height:21px;overflow:hidden;-webkit-line-lamp:2px;-webkit-box-orient:vertical;color:#000;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.6.1:$=11:$1.$content-undefined.$children-undefined">
+Maps</span>
+</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="View" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; pointer-events: all; -webkit-backface-visibility: hidden; -webkit-transform: translateZ(0px); z-index: 2;" data-reactid=".0.1.1:$=11:0.2:$=11:$1">
+<div width="317" class="TitleBar" style="background:none;border-bottom:none;height:44px;font-size:16px;text-align:center;position:fixed;top:0;left:0;width:100%;padding:0;flex-flow:row;font-weight:500;justify-content:space-between;z-index:2;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.0">
+<div class="TitleBar--left" style="margin:auto 0;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.0.0">
+<button class="Button" style="border:none;color:#307cff;font-size:16px;background:none;border-radius:0;text-align:center;padding:8px;flex-flow:row;zoom:1;line-height:normal;white-space:nowrap;vertical-align:baseline;cursor:pointer;-webkit-user-drag:none;-webkit-user-select:none;outline:none;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.0.0.0">
+<span style="width:18px;margin:0 2px 0 -4px;color:#307cff;height:18px;overflow:hidden;" class="Icon" data-reactid=".0.1.1:$=11:0.2:$=11:$1.0.0.0.0">
+<svg style="width:18px;height:18px;shape-rendering:crispEdges;fill:currentColor;" viewBox="0 0 64 64" fill="#307cff" stroke="#307cff" stroke-width="8" stroke-linecap="round" data-reactid=".0.1.1:$=11:0.2:$=11:$1.0.0.0.0.0">
+<g data-reactid=".0.1.1:$=11:0.2:$=11:$1.0.0.0.0.0.0">
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/svg/left.svg#Layer_1">
+</use>
+</g>
+</svg>
+</span>
+<span style="margin:auto;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.0.0.0.1">
+Back</span>
+</button>
+</div>
+<div class="TitleBar--mid" style="color: rgb(0, 0, 0); margin: auto 0px; position: relative; left: -34.5px;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.0.1">
+Controls</div>
+<div class="TitleBar--right" style="margin:auto 0;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.0.2">
+</div>
+</div>
+<div data="[object Object]" class="View--inner" style="padding: 0px 10px; z-index: 1; position: absolute; overflow-y: scroll; overflow-x: hidden; top: 44px; left: 0px; bottom: 0px; right: 0px; -webkit-backface-visibility: hidden; box-shadow: none; background: rgb(239, 239, 244);" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1">
+<div class="StaticContainer" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1.0">
+<div width="317" height="568" data="[object Object]" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1.0.0">
+<h3 class="Title" style="font-size:13px;text-transform:uppercase;color:#888;padding:10px 0 2px 0;margin:15px 0 5px;font-weight:normal;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1.0.0.0">
+Buttons</h3>
+<div class="Container" style="margin:10px -10px;box-sizing:border-box;display:flex;flex-direction:row;flex-wrap:wrap;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1.0.0.1">
+<div class="Block" style="box-sizing:border-box;display:flex;flex-direction:column;flex-grow:0;flex-shrink:0;padding-right:0.5rem;padding-left:0.5rem;flex:1;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1.0.0.1.$=10:$0">
+<button class="Button" style="border:1px solid #307cff;color:#307cff;font-size:16px;background:none;border-radius:5px;text-align:center;padding:8px;flex-flow:row;zoom:1;line-height:normal;white-space:nowrap;vertical-align:baseline;cursor:pointer;-webkit-user-drag:none;-webkit-user-select:none;outline:none;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1.0.0.1.$=10:$0.0">
+<span style="margin:auto;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1.0.0.1.$=10:$0.0.1">
+Hello</span>
+</button>
+</div>
+<div class="Block" style="box-sizing:border-box;display:flex;flex-direction:column;flex-grow:0;flex-shrink:0;padding-right:0.5rem;padding-left:0.5rem;flex:1;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1.0.0.1.$=11:$1">
+<button class="Button" style="border:1px solid #307cff;color:#307cff;font-size:16px;background:none;border-radius:5px;text-align:center;padding:8px;flex-flow:row;zoom:1;line-height:normal;white-space:nowrap;vertical-align:baseline;cursor:pointer;-webkit-user-drag:none;-webkit-user-select:none;outline:none;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1.0.0.1.$=11:$1.0">
+<span style="margin:auto;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1.0.0.1.$=11:$1.0.1">
+Hello</span>
+</button>
+</div>
+<div class="Block" style="box-sizing:border-box;display:flex;flex-direction:column;flex-grow:0;flex-shrink:0;padding-right:0.5rem;padding-left:0.5rem;flex:1;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1.0.0.1.$=12:$2">
+<button class="Button" style="border:1px solid #307cff;color:#307cff;font-size:16px;background:none;border-radius:5px;text-align:center;padding:8px;flex-flow:row;zoom:1;line-height:normal;white-space:nowrap;vertical-align:baseline;cursor:pointer;-webkit-user-drag:none;-webkit-user-select:none;outline:none;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1.0.0.1.$=12:$2.0">
+<span style="margin:auto;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1.0.0.1.$=12:$2.0.1">
+Hello</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>

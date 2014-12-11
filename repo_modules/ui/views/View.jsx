@@ -29,6 +29,10 @@ module.exports = Component({
       this.addStyles('inner', { boxShadow: 'none' });
   },
 
+  componentWillUpdate() {
+    this.setAnimationStyles('inner');
+  },
+
   render() {
     var {
       children,
@@ -53,8 +57,7 @@ module.exports = Component({
         {title && (
           <TitleBar {...titleBarProps} animateProps={animateProps}>{title}</TitleBar>
         )}
-        <div {...props} {...this.componentProps('inner')}
-          style={this.getAnimationStyles()}>
+        <div {...props} {...this.componentProps('inner')}>
           <StaticContainer shouldUpdate={this.getAnimationStep('viewList') % 1 === 0}>
             {children}
           </StaticContainer>

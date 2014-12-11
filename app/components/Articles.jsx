@@ -105,7 +105,7 @@ module.exports = Component({
           </DottedViewList>
         </View>
 
-        {hasChild && this.getRouteHandler({ key: subRouteKey })}
+        {hasChild && this.getRouteHandler(Object.assign(this.props, { key: subRouteKey }))}
       </ViewList>
     );
   }

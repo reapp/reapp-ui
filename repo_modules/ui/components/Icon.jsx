@@ -40,6 +40,10 @@ module.exports = Component({
     });
   },
 
+  componentWillUpdate() {
+    this.setAnimationStyles();
+  },
+
   render() {
     var {
       animations,
@@ -77,9 +81,6 @@ module.exports = Component({
       height: size,
       overflow: 'hidden'
     }, props.style);
-
-    if (animations)
-      props.style = this.getAnimationStyles();
 
     return (
       <span {...props} {...this.componentProps()}>

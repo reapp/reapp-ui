@@ -21,6 +21,10 @@ module.exports = Component({
     this.centerMiddleTitle();
   },
 
+  componentWillUpdate() {
+    this.setAnimationStyles();
+  },
+
   componentDidUpdate(prevProps) {
     if (prevProps.title !== this.props.title)
       this.centerMiddleTitle();
@@ -71,9 +75,6 @@ module.exports = Component({
 
     if (height)
       this.addStyles({ height });
-
-    if (animations)
-      props.style = this.getAnimationStyles();
 
     return (
       <div {...props} {...this.componentProps()}>

@@ -1,0 +1,59 @@
+7c7
+< <div class="ViewList" width="317" height="568" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; z-index: 1; background: rgb(239, 239, 244);" data-reactid=".0.1.1:$=11:0">
+---
+> <div class="ViewList" width="317" height="568" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; z-index: 1000; background: rgb(239, 239, 244);" data-reactid=".0.1.1:$=11:0">
+47c47
+< <a href="/kitchen/controls" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=10:$0.$wrapper-undefined.0">
+---
+> <a href="/kitchen/controls" style="position:absolute;top:0;left:-10px;right:0;bottom:0;max-width:none;flex-flow:row;justify-content:flex-end;z-index:1;" data-reactid=".0.1.1:$=11:0.2:$=10:$0.1.0.2.1:$=10:$0.$wrapper-undefined.0" class="active">
+308a309,358
+> <div class="View" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; pointer-events: all; -webkit-backface-visibility: hidden; -webkit-transform: translateZ(0px); z-index: 2;" data-reactid=".0.1.1:$=11:0.2:$=11:$1">
+> <div width="317" class="TitleBar" style="background:none;border-bottom:none;height:44px;font-size:16px;text-align:center;position:fixed;top:0;left:0;width:100%;padding:0;flex-flow:row;font-weight:500;justify-content:space-between;z-index:2;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.0">
+> <div class="TitleBar--left" style="margin:auto 0;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.0.0">
+> <button class="Button" style="border:none;color:#307cff;font-size:16px;background:none;border-radius:0;text-align:center;padding:8px;flex-flow:row;zoom:1;line-height:normal;white-space:nowrap;vertical-align:baseline;cursor:pointer;-webkit-user-drag:none;-webkit-user-select:none;outline:none;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.0.0.0">
+> <span style="width:18px;margin:0 2px 0 -4px;color:#307cff;height:18px;overflow:hidden;" class="Icon" data-reactid=".0.1.1:$=11:0.2:$=11:$1.0.0.0.0">
+> <svg style="width:18px;height:18px;shape-rendering:crispEdges;fill:currentColor;" viewBox="0 0 64 64" fill="#307cff" stroke="#307cff" stroke-width="8" stroke-linecap="round" data-reactid=".0.1.1:$=11:0.2:$=11:$1.0.0.0.0.0">
+> <g data-reactid=".0.1.1:$=11:0.2:$=11:$1.0.0.0.0.0.0">
+> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/svg/left.svg#Layer_1">
+> </use>
+> </g>
+> </svg>
+> </span>
+> <span style="margin:auto;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.0.0.0.1">
+> Back</span>
+> </button>
+> </div>
+> <div class="TitleBar--mid" style="color: rgb(0, 0, 0); margin: auto 0px; position: relative; left: -34.5px;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.0.1">
+> Controls</div>
+> <div class="TitleBar--right" style="margin:auto 0;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.0.2">
+> </div>
+> </div>
+> <div data="[object Object]" class="View--inner" style="padding: 0px 10px; z-index: 1; position: absolute; overflow-y: scroll; overflow-x: hidden; top: 44px; left: 0px; bottom: 0px; right: 0px; -webkit-backface-visibility: hidden; box-shadow: none; background: rgb(239, 239, 244);" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1">
+> <div class="StaticContainer" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1.0">
+> <div width="317" height="568" data="[object Object]" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1.0.0">
+> <h3 class="Title" style="font-size:13px;text-transform:uppercase;color:#888;padding:10px 0 2px 0;margin:15px 0 5px;font-weight:normal;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1.0.0.0">
+> Buttons</h3>
+> <div class="Container" style="margin:10px -10px;box-sizing:border-box;display:flex;flex-direction:row;flex-wrap:wrap;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1.0.0.1">
+> <div class="Block" style="box-sizing:border-box;display:flex;flex-direction:column;flex-grow:0;flex-shrink:0;padding-right:0.5rem;padding-left:0.5rem;flex:1;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1.0.0.1.$=10:$0">
+> <button class="Button" style="border:1px solid #307cff;color:#307cff;font-size:16px;background:none;border-radius:5px;text-align:center;padding:8px;flex-flow:row;zoom:1;line-height:normal;white-space:nowrap;vertical-align:baseline;cursor:pointer;-webkit-user-drag:none;-webkit-user-select:none;outline:none;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1.0.0.1.$=10:$0.0">
+> <span style="margin:auto;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1.0.0.1.$=10:$0.0.1">
+> Hello</span>
+> </button>
+> </div>
+> <div class="Block" style="box-sizing:border-box;display:flex;flex-direction:column;flex-grow:0;flex-shrink:0;padding-right:0.5rem;padding-left:0.5rem;flex:1;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1.0.0.1.$=11:$1">
+> <button class="Button" style="border:1px solid #307cff;color:#307cff;font-size:16px;background:none;border-radius:5px;text-align:center;padding:8px;flex-flow:row;zoom:1;line-height:normal;white-space:nowrap;vertical-align:baseline;cursor:pointer;-webkit-user-drag:none;-webkit-user-select:none;outline:none;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1.0.0.1.$=11:$1.0">
+> <span style="margin:auto;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1.0.0.1.$=11:$1.0.1">
+> Hello</span>
+> </button>
+> </div>
+> <div class="Block" style="box-sizing:border-box;display:flex;flex-direction:column;flex-grow:0;flex-shrink:0;padding-right:0.5rem;padding-left:0.5rem;flex:1;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1.0.0.1.$=12:$2">
+> <button class="Button" style="border:1px solid #307cff;color:#307cff;font-size:16px;background:none;border-radius:5px;text-align:center;padding:8px;flex-flow:row;zoom:1;line-height:normal;white-space:nowrap;vertical-align:baseline;cursor:pointer;-webkit-user-drag:none;-webkit-user-select:none;outline:none;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1.0.0.1.$=12:$2.0">
+> <span style="margin:auto;" data-reactid=".0.1.1:$=11:0.2:$=11:$1.1.0.0.1.$=12:$2.0.1">
+> Hello</span>
+> </button>
+> </div>
+> </div>
+> </div>
+> </div>
+> </div>
+> </div>
