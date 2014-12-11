@@ -13,6 +13,10 @@ var Form = Component({
 var Label = Component({
   name: 'Label',
 
+  statics: {
+    liNoPad: true
+  },
+
   render() {
     var { title, children, ...props } = this.props;
 
@@ -29,6 +33,10 @@ var Label = Component({
 
 var Input = Component({
   name: 'Input',
+
+  statics: {
+    liNoPad: true
+  },
 
   getDefaultProps() {
     return { type: 'text' };
@@ -47,6 +55,10 @@ var Input = Component({
 var Checkbox = Component({
   name: 'Checkbox',
 
+  statics: {
+    liNoPad: true
+  },
+
   getInitialState() {
     return { checked: this.props.checked };
   },
@@ -62,18 +74,29 @@ var Checkbox = Component({
   },
 
   render() {
+    var { label, nolabel, ...props } = this.props;
+
     if (this.state.checked) {
-      this.addStyles('toggle', this.styles.toggleIsChecked);
-      this.addStyles('toggleSwitch', this.styles.toggleSwitchIsChecked);
+      this.addStyles('toggle', 'toggleIsChecked');
+      this.addStyles('toggleSwitch', 'toggleSwitchIsChecked');
     }
 
-    return (
+    var input = (
       <span {...this.componentProps()}>
         <input {...this.componentProps('input')} {...this.props} onChange={this.handleChange} />
         <span {...this.componentProps('toggle')}>
           <span {...this.componentProps('toggleSwitch')} />
         </span>
       </span>
+    );
+
+    if (nolabel)
+      return input;
+
+    return (
+      <Label title={label}>
+        {input}
+      </Label>
     );
   }
 });

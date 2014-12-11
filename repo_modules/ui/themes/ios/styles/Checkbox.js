@@ -4,7 +4,7 @@ module.exports = {
   },
 
   input: {
-    visibility: 'hidden'
+    display: 'none'
   },
 
   toggle: {

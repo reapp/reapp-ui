@@ -9,11 +9,10 @@ var PopoverHandler = require('ui/mixins/PopoverHandler');
 var Popover = require('ui/components/Popover');
 var ModalHandler = require('ui/mixins/ModalHandler');
 var Modal = require('ui/components/Modal');
-var { Scroller } = require('scroller');
 
 require('./App.css');
 
-module.exports = React.createClass({
+module.exports = Component({
   mixins: [PopoverHandler, ModalHandler],
 
   render() {

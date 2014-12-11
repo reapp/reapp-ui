@@ -39,13 +39,21 @@ module.exports = StaticView({
         </Container>
 
         <Container>
-          <Title>Inputs</Title>
+          <Title>Checkboxes &amp; Radios</Title>
         </Container>
         <Container>
           <Form>
-            <Label title="Checkbox One">
-              <Input type="checkbox" />
-            </Label>
+            <List>
+              <Input type="checkbox" label="Work" />
+            </List>
+
+            <Title>Radio Group</Title>
+            <List>
+              <Input type="radio" label="Generic" />
+              <Input type="radio" label="Radio" />
+              <Input type="radio" label="Select" />
+              <Input type="radio" label="Group" />
+            </List>
           </Form>
         </Container>
 

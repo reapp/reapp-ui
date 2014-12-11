@@ -21,7 +21,7 @@ module.exports = Component({
   },
 
   render() {
-    var { children, type, liProps, title, dontWrapChildren } = this.props;
+    var { children, type, liProps, title, nowrap, nopad } = this.props;
 
     if (type)
       this.addStyles(this.styles[type]);
@@ -34,13 +34,14 @@ module.exports = Component({
           </li>
         )}
         {React.Children.map(children, (li, i) => {
-          if (dontWrapChildren || li.type && li.type.isListItem)
-            return React.addons.cloneWithProps(li, { key: i, index: i });
+          if (nowrap || li.type && li.type.isListItem)
+            return React.addons.cloneWithProps(li, { key: i, index: i, nopad });
 
           return (
             <ListItem {...liProps}
               index={i}
-              key={i}>
+              key={i}
+              nopad={nopad}>
               {li.content || li}
             </ListItem>
           );

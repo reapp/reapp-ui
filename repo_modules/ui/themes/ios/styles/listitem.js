@@ -47,7 +47,7 @@ module.exports = (c) => ({
     position: 'relative'
   },
 
-  contentBorderless: {
+  contentNoPad: {
     padding: 0
   },
 

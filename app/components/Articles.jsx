@@ -85,7 +85,7 @@ module.exports = Component({
         <View>
           <DottedViewList {...dottedProps}>
             <View title={[handle, 'Hot Articles', refreshButton]}>
-              <List dontWrapChildren styles={{ self: { borderTop: 'none' } }}>
+              <List styles={{ self: { borderTop: 'none' } }} nowrap>
                 {articles.count() ?
                   articles.map((article, i) =>
                     <ArticleItem cursor={article} key={i} />

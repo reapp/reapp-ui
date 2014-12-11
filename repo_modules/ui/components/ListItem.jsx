@@ -31,6 +31,7 @@ module.exports = Component({
       after,
       wrapper,
       noicon,
+      nopad,
       ...props } = this.props;
 
     // make a top level link into a wrapper so it can take up the whole item
@@ -66,11 +67,10 @@ module.exports = Component({
     var hasTitle = (title || titleAfter);
 
     if (!hasTitle)
-      this.addStyles('children', this.styles.childrenNoTitle);
+      this.addStyles('children', 'childrenNoTitle');
 
-    if (React.isValidElement(children) && children.type.isInput) {
-      this.addStyles('content', this.styles.contentBorderless);
-    }
+    if (nopad || children && children.type && children.type.liNoPad)
+      this.addStyles('content', 'contentNoPad');
 
     var span = this.makeSection;
     var content = [

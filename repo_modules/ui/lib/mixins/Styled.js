@@ -100,20 +100,30 @@ module.exports = function(name) {
       return extraStyles;
     },
 
+    // supports adding an object directly (ie this.styles.somestyle)
+    // or a string or an array of strings
     addStyles(elName, styles) {
+      if (Array.isArray(styles))
+        styles.forEach(this._addStyle.bind(this, elName));
+      else
+        this._addStyle(elName, styles);
+    },
+
+    // adds styles onto a property
+    _addStyle(elName, styles) {
       // if no elName given, use "self"
       if (typeof elName === 'object' && !styles) {
         styles = elName;
         elName = 'self';
       }
 
+      if (typeof styles === 'string')
+        styles = this.styles[styles];
+
       if (!styles)
         return;
 
       styles = this.makeReactStyle(styles);
-
-      if (elName === name)
-        elName = 'self';
 
       var curStyles = this.addedStyles[elName];
 
