@@ -27,7 +27,7 @@ module.exports = Component({
   },
 
   componentWillUpdate() {
-    this.setAnimationStyles();
+    this.animate();
   },
 
   componentDidUpdate(prevProps) {

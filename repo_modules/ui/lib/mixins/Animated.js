@@ -5,6 +5,21 @@ var Invariant = require('react/lib/invariant');
 var AnimateStore = require('../../stores/Animate');
 
 var defined = variable => (typeof variable !== 'undefined');
+var animationQueue = [];
+
+// todo: only run this when we need to
+window.requestAnimationFrame(runAnimations);
+function runAnimations() {
+  var i, len = animationQueue.length;
+  for (i = 0; i < len; i++) {
+    animationQueue[i].from.setAnimationStyles.call(
+      animationQueue[i].from,
+      animationQueue[i].ref
+    );
+  }
+  animationQueue = [];
+  window.requestAnimationFrame(runAnimations);
+}
 
 module.exports = {
   contextTypes: {
@@ -30,18 +45,25 @@ module.exports = {
       document.head.removeChild(this._headStyleTag);
   },
 
+  animate(ref) {
+    if (!this.hasPendingAnimations) {
+      animationQueue.push({ from: this, ref });
+      this.hasPendingAnimations = true;
+    }
+  },
+
   isAnimating(source) {
     return this.getAnimationProps(source).step % 1 !== 0;
   },
 
-  getAnimation(name, animations) {
+  getAnimationProp(name, animations) {
     animations = animations || this.props.animations;
     return animations.filter(a => a && a.name === name);
   },
 
   hasAnimation(name, animations) {
     animations = animations || this.props.animations;
-    return animations && !!this.getAnimation(name, animations).length;
+    return animations && !!this.getAnimationProp(name, animations).length;
   },
 
   getAnimator(name) {
@@ -93,14 +115,18 @@ module.exports = {
   },
 
   setAnimationStyles(ref) {
+    this.hasPendingAnimations = false;
     var styles = this.getAnimationStyles();
 
     if (!styles)
       return;
 
     var node = ref ?
-      this.refs[ref].getDOMNode() :
+      this.refs[ref] && this.refs[ref].getDOMNode() :
       this.getDOMNode();
+
+    if (!node)
+      return;
 
     var selector = node.id ?
       `#${node.id}.${node.className.split(' ').join('.')}` :

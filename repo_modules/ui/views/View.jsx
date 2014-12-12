@@ -31,7 +31,7 @@ module.exports = Component({
   },
 
   componentWillUpdate() {
-    this.setAnimationStyles('inner');
+    this.animate('inner');
   },
 
   handleDoubleTap() {

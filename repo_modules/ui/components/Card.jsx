@@ -30,8 +30,7 @@ module.exports = Component({
     var { children, title, animation, index, step, ...props } = this.props;
 
     return (
-      <div {...this.componentProps()} {...props}
-        style={this.getAnimationStyles(animation)}>
+      <div {...this.componentProps()} {...props}>
         {this.makeSection('title', title)}
         {this.makeSection('content', children)}
       </div>

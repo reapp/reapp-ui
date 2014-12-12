@@ -230,7 +230,7 @@ module.exports = Component({
   },
 
   doAnimate() {
-    this.animate('viewList', {
+    this.runAnimation('viewList', {
       step: this.state.step,
       width: this.state.width
     });

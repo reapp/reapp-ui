@@ -41,7 +41,7 @@ module.exports = Component({
   },
 
   componentDidUpdate() {
-    this.setAnimationStyles();
+    this.animate();
   },
 
   render() {

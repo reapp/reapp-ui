@@ -28,7 +28,7 @@ module.exports = {
     });
   },
 
-  animate(source, props) {
+  runAnimation(source, props) {
     AnimateActions({
       type: 'add',
       id: this._animateID,

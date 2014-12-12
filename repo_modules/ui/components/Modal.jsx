@@ -72,12 +72,13 @@ module.exports = Component({
         break;
     }
 
+    // todo modal animatinos
+    // style={this.getAnimationStyles('FADE')}
+    // style={this.getAnimationStyles('SCALE_DOWN')}
     return (
       <div {...this.componentProps()} {...props}
-        onClick={this.handleClose}
-        style={this.getAnimationStyles('FADE')}>
-        <div {...this.componentProps('window')}
-          style={this.getAnimationStyles('SCALE_DOWN')}>
+        onClick={this.handleClose}>
+        <div {...this.componentProps('window')}>
           <div {...this.componentProps('inner')}>
             {title && (
               <div {...this.componentProps('title')}>
