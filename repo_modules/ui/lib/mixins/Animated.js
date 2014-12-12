@@ -118,7 +118,7 @@ module.exports = {
     this.hasPendingAnimations = false;
     var styles = this.getAnimationStyles();
 
-    if (!styles)
+    if (!styles || this._lifeCycleState !== 'MOUNTED')
       return;
 
     var node = ref ?
