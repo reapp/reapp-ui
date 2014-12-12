@@ -15,6 +15,7 @@ Actions.articlesHotLoad.listen(
     API.get('topstories.json', opts)
       .then(res => HotArticlesStore(res) && res)
       .then(getArticles)
+      .then(Actions.articlesHotLoadDone)
 );
 
 Actions.articlesHotRefresh.listen(

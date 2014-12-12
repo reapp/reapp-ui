@@ -55,6 +55,10 @@ module.exports = Component({
     return this.state.scrollX !== this.props.sideWidth;
   },
 
+  _isAnimating() {
+    return this.state.scrollX > 0 && this.state.scrollX < this.props.sideWidth;
+  },
+
   render() {
     var { behavior, sideWidth, sideZIndex, handle, side, children, ...props } = this.props;
     var isSideOpen = this.isSideOpen();
@@ -76,7 +80,8 @@ module.exports = Component({
       layer: 1,
       translate: DrawerBehavior.translate(this.state.scrollX),
       scroller: this.scroller,
-      onTouchTap: this._handleContentTouchTap
+      onTouchTap: this._handleContentTouchTap,
+      shouldUpdate: !this._isAnimating()
     };
 
     var touchableHandle = (

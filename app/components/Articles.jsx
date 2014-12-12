@@ -16,7 +16,10 @@ module.exports = Component({
   mixins: [
     'RouteState',
     'RouteHandler',
-    mixins.storeListener(ArticlesStore)
+    mixins.listener(
+      ArticlesStore,
+      actions.articlesHotLoadDone
+    )
   ],
 
   statics: {

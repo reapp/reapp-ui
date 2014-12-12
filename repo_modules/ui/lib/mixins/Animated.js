@@ -177,7 +177,7 @@ module.exports = {
   stylesToString(obj) {
     return Object.keys(obj).reduce(
       (acc, key) =>
-        `${key}: ${obj[key]} !important;
+        `${key}: ${obj[key]};
          ${acc}`,
       '');
   },

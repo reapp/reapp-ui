@@ -17,7 +17,8 @@ module.exports = Component({
     return {
       behavior: DrawerBehavior,
       parents: null,
-      closed: false
+      closed: false,
+      shouldUpdate: true
     };
   },
 
@@ -67,7 +68,6 @@ module.exports = Component({
   },
 
   measureAndScrollOpen() {
-    console.log('measure and scroll open');
     this.measureScroller();
     this.scrollToOpen();
   },
@@ -93,7 +93,7 @@ module.exports = Component({
   },
 
   render() {
-    var { translate, behavior, scroller, touchableProps, children, ...props } = this.props;
+    var { translate, behavior, scroller, touchableProps, children, shouldUpdate, ...props } = this.props;
 
     props.translate = (
       translate || behavior.translate(this.state.offset)
@@ -108,7 +108,7 @@ module.exports = Component({
       <AnimatableContainer {...props} {...this.componentProps()}>
         <TouchableArea {...this.componentProps('dragger')} {...touchableProps}
           scroller={scroller || this.scroller} />
-          <StaticContainer shouldUpdate={false}>
+          <StaticContainer shouldUpdate={shouldUpdate}>
             {children}
           </StaticContainer>
       </AnimatableContainer>
