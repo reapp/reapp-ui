@@ -40,11 +40,23 @@ module.exports = Component({
     });
   },
 
+  shouldComponentUpdate() {
+    if (this.getTweeningValue('step')) {
+      this.animate('svg');
+      return false;
+    }
+    return true;
+  },
+
   componentDidUpdate() {
-    this.animate();
+    // todo: new syntax
+    // this.animate({ source: 'viewList' });
+    // this.animate({ source: 'rotate', ref: 'svg' });
+
   },
 
   render() {
+    console.log('render')
     var {
       animations,
       size,
@@ -56,35 +68,36 @@ module.exports = Component({
       ...props
     } = this.props;
 
-    svgProps = Object.assign({
-      style: Object.assign({
-        width: size,
-        height: size,
-        shapeRendering: shapeRendering ? shapeRendering : 'initial',
-        fill: 'currentColor'
-      }, svgProps.style),
+    this.addStyles({
+      color,
+      width: size,
+      height: size,
+      overflow: 'hidden'
+    });
+
+    this.addStyles('svg', {
+      width: size,
+      height: size,
+      shapeRendering: shapeRendering ? shapeRendering : 'initial',
+      fill: 'currentColor'
+    });
+
+    var svgExtraProps = {
       viewBox: '0 0 64 64',
       fill: color
-    }, svgProps);
+    };
 
     if (stroke) {
-      Object.assign(svgProps, {
+      Object.assign(svgExtraProps, {
         stroke: color,
         strokeWidth: stroke * 4, // were scaling down from 64 / 2
         strokeLinecap: 'round'
       });
     }
 
-    Object.assign(props.style, {
-      color: color,
-      width: size,
-      height: size,
-      overflow: 'hidden'
-    }, props.style);
-
     return (
       <span {...props} {...this.componentProps()}>
-        <svg {...svgProps}>
+        <svg {...svgExtraProps} {...svgProps} {...this.componentProps('svg')}>
           <g dangerouslySetInnerHTML={{__html:
             '<use xlink:href="/assets/icons/svg/'+ name +'.svg#Layer_1"></use>'
           }} />

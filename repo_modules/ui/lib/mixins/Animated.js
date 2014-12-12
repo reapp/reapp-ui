@@ -8,7 +8,6 @@ var defined = variable => (typeof variable !== 'undefined');
 var animationQueue = [];
 
 // todo: only run this when we need to
-window.requestAnimationFrame(runAnimations);
 function runAnimations() {
   var i, len = animationQueue.length;
   for (i = 0; i < len; i++) {
@@ -18,7 +17,6 @@ function runAnimations() {
     );
   }
   animationQueue = [];
-  window.requestAnimationFrame(runAnimations);
 }
 
 module.exports = {
@@ -45,10 +43,12 @@ module.exports = {
       document.head.removeChild(this._headStyleTag);
   },
 
+  // todo  animate({ source, ref });
   animate(ref) {
     if (!this.hasPendingAnimations) {
       animationQueue.push({ from: this, ref });
       this.hasPendingAnimations = true;
+      window.requestAnimationFrame(runAnimations);
     }
   },
 
@@ -129,7 +129,7 @@ module.exports = {
       return;
 
     var selector = node.id ?
-      `#${node.id}.${node.className.split(' ').join('.')}` :
+      `#${node.id}` :
       `[data-reactid="${node.getAttribute('data-reactid')}"]`;
 
     var hasHeadStyleTag = !!this._headStyleTag;
