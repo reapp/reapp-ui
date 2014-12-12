@@ -45,6 +45,7 @@ var animationMatches = (animation, source) => {
 // two cases, ADD or UPDATE
 function addToStore(action) {
   var actionStore = store[action.source];
+  action.timestamp = new Date();
 
   // NOT EXISTS YET
   if (!actionStore || !actionStore.length) {
@@ -66,17 +67,39 @@ function addToStore(action) {
   store[action.source].push(action);
 }
 
-var getAnimation = (source, depth) => {
+function getAnimation(source, depth) {
   var animations = store[source];
-  if (!animations) return;
+
+  if (!animations || !animations.length)
+    return;
+
+  return getLastActiveAnimation(animations).props;
+}
+
+// todo: re-enable this as an option
+function getDeepestMountedAnimation(animations) {
   var i, len = animations.length;
   var deepestAnimation = { depth: -1 };
-  for (i = 0; i < len; i++) {
-    if (animations[i].depth <= depth && animations[i].depth >= deepestAnimation.depth) {
+
+  for (i = 0; i < len; i++)
+    if (animations[i].depth <= depth && animations[i].depth >= deepestAnimation.depth)
       deepestAnimation = animations[i];
-    }
-  }
-  return deepestAnimation.props;
-};
+
+  return deepestAnimation;
+}
+
+function getLastActiveAnimation(animations) {
+  var i, len = animations.length;
+  var lastActiveAnimation = animations[0];
+
+  for (i = 1; i < len; i++)
+    if (animations[i].timestamp.valueOf() > lastActiveAnimation.timestamp.valueOf())
+      lastActiveAnimation = animations[i];
+
+  return lastActiveAnimation;
+}
+
+window.a = store;
+window.g = getAnimation;
 
 module.exports = getAnimation;

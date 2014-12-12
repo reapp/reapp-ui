@@ -58,6 +58,7 @@ module.exports = Component({
   },
 
   componentDidMount() {
+    this.doAnimate();
     this.scroller = new Scroller(this.handleScroll, this.props.scrollerProps);
     this.setupViewList(this.props);
     this.setScrollPosition();
@@ -162,6 +163,7 @@ module.exports = Component({
 
     if (step !== this.state.step) {
       this.setState({ step });
+      this.doAnimate();
       this.runViewCallbacks(step);
     }
   },
@@ -227,6 +229,13 @@ module.exports = Component({
     }
   },
 
+  doAnimate() {
+    this.animate('viewList', {
+      step: this.state.step,
+      width: this.state.width
+    });
+  },
+
   render() {
     var {
       after,
@@ -238,10 +247,8 @@ module.exports = Component({
       ...props
     } = this.props;
 
-    this.animate('viewList', {
-      step: this.state.step,
-      width: this.state.width
-    });
+    if (this.state.step % 1 === 0)
+      this.doAnimate();
 
     if (!noFakeTitleBar) {
       var fakeTitleBar = <TitleBar {...titleBarProps} animations={[]} />;
@@ -260,7 +267,7 @@ module.exports = Component({
       // this.addStyles(this.styles.underTouchable);
 
     return (
-      <TouchableArea {...this.componentProps()} {...viewListProps} stopPropagation>
+      <TouchableArea {...this.componentProps()} {...viewListProps}>
         {!noFakeTitleBar && fakeTitleBar}
         {before}
         {React.Children.map(this.state.children, (view, i) => {

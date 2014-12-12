@@ -72,6 +72,9 @@ var TouchableArea = React.createClass({
 
     this.props.scroller.doTouchMove(e.touches, e.timeStamp, e.scale);
     e.preventDefault();
+
+    if (this.props.onTouchMove)
+      this.props.onTouchMove(e);
   },
 
   // this will ignore scrolls in a certain direction

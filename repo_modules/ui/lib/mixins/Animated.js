@@ -11,6 +11,20 @@ module.exports = {
     animateProps: React.PropTypes.object
   },
 
+  componentWillMount() {
+    this.setAnimations(this.props, this.state);
+  },
+
+  componentWillUpdate(nextProps) {
+    if (!this.props.animations && !nextProps.animations)
+      return;
+
+    if (this.hasNewAnimations(nextProps))
+      this.setAnimations(nextProps);
+    else
+      this.updateAnimations();
+  },
+
   isAnimating(source) {
     return this.getAnimationProps(source).step % 1 !== 0;
   },
@@ -27,20 +41,6 @@ module.exports = {
 
   getAnimator(name) {
     return UI.getAnimations(name);
-  },
-
-  componentWillMount() {
-    this.setAnimations(this.props, this.state);
-  },
-
-  componentWillUpdate(nextProps) {
-    if (!this.props.animations && !nextProps.animations)
-      return;
-
-    if (this.hasNewAnimations(nextProps))
-      this.setAnimations(nextProps);
-    else
-      this.updateAnimations();
   },
 
   hasNewAnimations(nextProps) {
