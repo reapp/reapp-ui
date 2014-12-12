@@ -23,9 +23,7 @@ module.exports = Component({
 
   hideBoxShadowWhileAnimating() {
     if (this.isAnimating('viewList'))
-      this.addStyles('inner', {
-        clip: `rect(0px, ${this.props.width}px, ${this.props.height}px, -10px)`
-      });
+      this.addStyles('inner', { clip: `rect(0px, ${this.props.width}px, ${this.props.height}px, -10px)` });
     else
       this.addStyles('inner', { boxShadow: 'none' });
   },
