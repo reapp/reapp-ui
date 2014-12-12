@@ -29,7 +29,7 @@ Component.addDecorator(spec => {
     {
       componentProps(componentName) {
         return {
-          id: this._uniqueID,
+          id: componentName ? this._uniqueID + componentName : this._uniqueID,
           ref: componentName || spec.name,
           className: this.getClasses(componentName),
           styles: this.getStyles(componentName)

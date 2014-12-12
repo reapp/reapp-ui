@@ -3,6 +3,6 @@ var uniqueID = () => i++ % 1000000;
 
 module.exports = {
   componentWillMount() {
-    this._uniqueID = `component-${uniqueID()}`;
+    this._uniqueID = `ui-${uniqueID()}`;
   }
 };
