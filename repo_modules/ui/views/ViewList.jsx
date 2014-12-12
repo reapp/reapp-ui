@@ -267,24 +267,26 @@ module.exports = Component({
       // this.addStyles(this.styles.underTouchable);
 
     return (
-      <TouchableArea {...this.componentProps()} {...viewListProps}>
-        {!noFakeTitleBar && fakeTitleBar}
-        {before}
-        {React.Children.map(this.state.children, (view, i) => {
-          return React.isValidElement(view) && React.addons.cloneWithProps(view, {
-            titleBarProps: childTitleBarProps,
-            key: i,
-            index: i,
-            animations,
-            animateProps: {
-              viewList: { index: i }
-            },
-            width: this.state.width,
-            height: this.state.height,
-          });
-        })}
-        {after}
-      </TouchableArea>
+      <div {...this.componentProps()}>
+        <TouchableArea {...viewListProps}>
+          {!noFakeTitleBar && fakeTitleBar}
+          {before}
+          {React.Children.map(this.state.children, (view, i) => {
+            return React.isValidElement(view) && React.addons.cloneWithProps(view, {
+              titleBarProps: childTitleBarProps,
+              key: i,
+              index: i,
+              animations,
+              animateProps: {
+                viewList: { index: i }
+              },
+              width: this.state.width,
+              height: this.state.height,
+            });
+          })}
+          {after}
+        </TouchableArea>
+      </div>
     );
   }
 });

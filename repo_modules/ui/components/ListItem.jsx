@@ -74,11 +74,11 @@ module.exports = Component({
       wrapper = React.addons.cloneWithProps(wrapper, {
         children: hasLinkIcon ?
           <Icon
+            name="right"
             styles={this.getStyles('arrow')}
             size={12}
             stroke={2}
-            color={this.getStyleVal('arrow', 'color')}
-            type="right" /> :
+            color={this.getStyleVal('arrow', 'color')} /> :
           null,
         styles: this.getStyles('wrapper')
       });

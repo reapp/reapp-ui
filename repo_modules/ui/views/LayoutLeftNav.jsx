@@ -80,7 +80,7 @@ module.exports = Component({
     };
 
     var touchableHandle = (
-      <TouchableArea onClick={this._handleTap} scroller={this.scroller}>
+      <TouchableArea onClick={this._handleTap} scroller={this.scroller} passprops>
         {handle}
       </TouchableArea>
     );

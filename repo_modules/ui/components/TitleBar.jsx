@@ -10,7 +10,9 @@ require('./TitleBar.styl');
 module.exports = Component({
   name: 'TitleBar',
 
-  mixins: [MultiTappable],
+  mixins: [
+    MultiTappable
+  ],
 
   getDefaultProps() {
     return {

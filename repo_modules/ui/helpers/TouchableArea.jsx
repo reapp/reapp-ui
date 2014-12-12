@@ -10,7 +10,8 @@ var TouchableArea = React.createClass({
       touchStartBoundsY: false,
       ignoreY: false,
       ignoreX: false,
-      stopPropagation: false
+      stopPropagation: false,
+      passprops: false
     };
   },
 
@@ -112,14 +113,27 @@ var TouchableArea = React.createClass({
   },
 
   render() {
-    var { children, element, ...props } = this.props;
+    var {
+      children,
+      element,
+      untouchable,
+      touchStartBoundsX,
+      touchStartBoundsY,
+      ignoreY,
+      ignoreX,
+      stopPropagation,
+      passprops,
+      ...props } = this.props;
 
     props.onTouchStart = this.handleTouchStart;
     props.onTouchMove = this.handleTouchMove;
     props.onTouchEnd = this.handleTouchEnd;
     props.onTouchCancel = this.handleTouchEnd;
 
-    return React.createElement(element, props, Component.clone(children, props, true));
+    if (passprops)
+      children = Component.clone(children, props, true);
+
+    return React.createElement(element, props, children);
   }
 });
 
