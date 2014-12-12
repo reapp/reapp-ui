@@ -1,6 +1,6 @@
 module.exports = require("./make")({
   dev: true,
-  devtool: "source-map",
+  devtool: "eval",
   debug: true,
   separateStylesheet: false
 });

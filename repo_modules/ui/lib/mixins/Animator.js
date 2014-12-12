@@ -1,6 +1,6 @@
 var React = require('react');
 var Axn = require('axn');
-var AnimateActions = require('../../actions/Animate');
+var AnimateActions = require('../../actions/AnimateActions');
 
 var i = 0;
 function uniqueId() {

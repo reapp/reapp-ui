@@ -4,6 +4,6 @@ module.exports = require("./make")({
   hotComponents: true,
   devtool: "source-map",
   debug: true,
-  vendorChunk: true,
+  // vendorChunk: true,
   separateStylesheet: false
 });

@@ -17,8 +17,7 @@ module.exports = Component({
     'RouteState',
     'RouteHandler',
     mixins.listener(
-      ArticlesStore,
-      actions.articlesHotLoadDone
+      ArticlesStore
     )
   ],
 
@@ -41,7 +40,7 @@ module.exports = Component({
     e.preventDefault();
     e.target.innerHTML = 'Loading...';
     actions.articlesHotLoadMore();
-    var unlisten = actions.articlesHotLoadMoreDone.listen(() => {
+    var unlisten = actions.articlesHotLoadDone.listen(() => {
       this.setState({ isRefreshing: false });
       unlisten();
     });

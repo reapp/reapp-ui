@@ -72,7 +72,12 @@ module.exports = function(opts) {
     // new ReactStylePlugin('bundle.css'),
     new webpack.ResolverPlugin(
       new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
-    )
+    ),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(opts.minimize ? 'production' : 'development')
+      }
+    })
   ];
 
   if (opts.prerender) {
@@ -120,12 +125,7 @@ module.exports = function(opts) {
   if (opts.minimize)
     plugins.push(
       new webpack.optimize.UglifyJsPlugin(),
-      new webpack.optimize.DedupePlugin(),
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify('production')
-        }
-      })
+      new webpack.optimize.DedupePlugin()
     );
 
   return {

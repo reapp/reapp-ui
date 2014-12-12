@@ -2,7 +2,7 @@ var React = require('react');
 var UI = require('../../index');
 var StyleKeys = require('../StyleKeys');
 var Invariant = require('react/lib/invariant');
-var AnimateStore = require('../../stores/Animate');
+var AnimateStore = require('../../stores/AnimateStore');
 
 // This is a somewhat haphazard mixin at the moment that
 // organizes and runs animations on elements.
@@ -116,7 +116,7 @@ module.exports = {
 
       props.animations.forEach(animation => {
         this._animations[animation.source] = Object.assign({},
-          AnimateStore(animation.source, this._mountDepth) || {},
+          AnimateStore(animation, this._mountDepth) || {},
           props && props.animateProps && props.animateProps[animation.source] || {}
         );
       });
@@ -128,7 +128,7 @@ module.exports = {
     var newProps;
 
     this.props.animations.forEach(animation => {
-      newProps = AnimateStore(animation.source, this._mountDepth);
+      newProps = AnimateStore(animation, this._mountDepth);
       Object.assign(this._animations[animation.source], newProps);
     });
   },

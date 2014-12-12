@@ -1,5 +1,4 @@
 var React = require('react');
-var _ = require('lodash-node');
 
 // Build a tree from well structured objects
 // Wraps each node with a component
@@ -14,7 +13,7 @@ var TreeNode = React.createClass({
     var childNodes;
 
     if (children) {
-      childNodes = _.map(children, (child, i) => {
+      childNodes = React.Children.map(children, (child, i) => {
         return (
           <TreeNode
             key={`${level}-${i}`}

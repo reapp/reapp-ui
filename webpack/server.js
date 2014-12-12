@@ -29,7 +29,7 @@ module.exports = {
     webpackServer.listen(port, hostname);
 
     var entries = [
-      'vendor',
+      // 'vendor',
       'main',
       'webpack-dev-server'
     ];

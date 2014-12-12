@@ -1,4 +1,4 @@
-var AnimateActions = require('../actions/Animate');
+var AnimateActions = require('../actions/AnimateActions');
 
 // This store is used for synchronizing animations.
 // It allows Animators to store props for their animations
@@ -67,36 +67,56 @@ function addToStore(action) {
   store[action.source].push(action);
 }
 
-function getAnimation(source, depth) {
-  var animations = store[source];
+function getAnimation(animation, depth) {
+  var animations = store[animation.source];
 
   if (!animations || !animations.length)
     return;
 
-  return getLastActiveAnimation(animations).props;
+  var strategy = FetchStrategies[animation.strategy || 'newestShallowest'];
+  var result = strategy.call(this, animations).props;
+  return result;
 }
 
-// todo: re-enable this as an option
-function getDeepestMountedAnimation(animations) {
+// strategies for resolving how to determine which animation to choose
+// only relevant when you have multiple animations from the same source
+// ie: nested viewLists, you may want to get the animation from the deepest,
+// shallowest, or most recent.
+
+var FetchStrategies = {
+  newestShallowest: animations => reduceAnimations(animations,
+     (best, current) => {
+      var curTime = current.timestamp.valueOf();
+      var bestTime = best.timestamp.valueOf();
+
+      if (curTime === bestTime)
+        return current.depth <= best.depth;
+      else
+        return curTime > bestTime;
+    }),
+
+  deepest: animations => reduceAnimations(animations,
+      (best, current) => current.depth >= best.depth),
+
+  shallowest: animations => reduceAnimations(animations,
+      (best, current) => current.depth <= best.depth),
+
+  strongest: animations => reduceAnimations(animations,
+      (best, current) => current.strength <= best.strength),
+
+  newest: animations => reduceAnimations(animations,
+      (best, current) => current.timestamp.valueOf() > best.timestamp.valueOf())
+};
+
+function reduceAnimations(animations, cb) {
   var i, len = animations.length;
-  var deepestAnimation = { depth: -1 };
-
-  for (i = 0; i < len; i++)
-    if (animations[i].depth <= depth && animations[i].depth >= deepestAnimation.depth)
-      deepestAnimation = animations[i];
-
-  return deepestAnimation;
-}
-
-function getLastActiveAnimation(animations) {
-  var i, len = animations.length;
-  var lastActiveAnimation = animations[0];
+  var best = animations[0];
 
   for (i = 1; i < len; i++)
-    if (animations[i].timestamp.valueOf() > lastActiveAnimation.timestamp.valueOf())
-      lastActiveAnimation = animations[i];
+    if (cb(best, animations[i]))
+      best = animations[i];
 
-  return lastActiveAnimation;
+  return best;
 }
 
 window.a = store;
