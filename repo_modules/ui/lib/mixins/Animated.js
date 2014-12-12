@@ -93,21 +93,23 @@ module.exports = {
   },
 
   setAnimationStyles(ref) {
+    var styles = this.getAnimationStyles();
+
+    if (!styles)
+      return;
+
     var node = ref ?
       this.refs[ref].getDOMNode() :
       this.getDOMNode();
 
     var selector = node.id ?
-      `#${node.id}` :
+      `#${node.id}.${node.className.split(' ').join('.')}` :
       `[data-reactid="${node.getAttribute('data-reactid')}"]`;
 
     var hasHeadStyleTag = !!this._headStyleTag;
 
     if (!hasHeadStyleTag)
       this._headStyleTag = document.createElement('style');
-
-    // get styles
-    var styles = this.getAnimationStyles();
 
     // set tag styles
     this._headStyleTag.innerHTML =
@@ -128,14 +130,13 @@ module.exports = {
   },
 
   getAnimationStyles() {
-    var styles = {};
-
     if (!this.props.animations)
-      return styles;
+      return;
 
-    var animation;
+    var styles = {};
+    var transform;
     var firstTransform = true;
-    var i, len = this.props.animations.length;
+    var animation, i, len = this.props.animations.length;
 
     for (i = 0; i < len; i++) {
       animation = this.props.animations[i];
@@ -157,76 +158,79 @@ module.exports = {
 
       if (firstTransform && (defined(scale) || defined(rotate) || defined(rotate3d) || defined(translate))) {
         firstTransform = false;
-        styles.transforms = { scale, rotate, rotate3d, translate };
+        transform = { scale, rotate, rotate3d, translate };
       }
-      else
-        this.mergeTransforms(styles.transforms, scale, rotate, rotate3d, translate);
+      else {
+        this.mergeTransforms(transform, scale, rotate, rotate3d, translate);
+      }
 
       if (other)
         Object.assign(styles, other);
     }
 
-    return this.animationTransformsToString(styles);
-  },
+    if (transform)
+      styles.transform = this.animationTransformsToString(transform);
 
-  animationTransformsToString(styles) {
-    if (!styles.transforms)
+    if (Object.keys(styles).length > 0)
       return styles;
-
-    var transformsString = '';
-    var t = styles.transforms;
-
-    if (t) {
-      if (defined(t.scale))
-        transformsString += `scale(${t.scale}) `;
-
-      if (defined(t.rotate3d))
-        transformsString += (
-          rotate.x ? `rotateX(${t.rotate3d.x || 0}deg)` : '' +
-          rotate.y ? `rotateY(${t.rotate3d.y || 0}deg)` : '' +
-          rotate.z ? `rotateZ(${t.rotate3d.z || 0}deg)` : ''
-        );
-
-      if (defined(t.rotate))
-        transformsString += `rotate(${t.rotate}deg)`;
-
-      if (defined(t.translate))
-        transformsString += `translate3d(${t.translate.x || 0}px, ${t.translate.y || 0}px, ${t.translate.z || 0}px)`;
-    }
-
-    delete styles.transforms;
-    styles.transform = transformsString || 'translateZ(0px)';
-    return styles;
+    else
+      return;
   },
 
-  mergeTransforms(transforms, scale, rotate, rotate3d, translate) {
-    if (defined(scale)) {
-      if (!defined(transforms.scale))
-        transforms.scale = 1;
+  animationTransformsToString(transform) {
+    if (!transform)
+      return;
 
-      transforms.scale += 1 - scale;
+    var transformString = '';
+    var t = transform;
+
+    if (defined(t.scale))
+      transformString += `scale(${t.scale}) `;
+
+    if (defined(t.rotate3d))
+      transformString += (
+        rotate.x ? `rotateX(${t.rotate3d.x || 0}deg)` : '' +
+        rotate.y ? `rotateY(${t.rotate3d.y || 0}deg)` : '' +
+        rotate.z ? `rotateZ(${t.rotate3d.z || 0}deg)` : ''
+      );
+
+    if (defined(t.rotate))
+      transformString += `rotate(${t.rotate}deg)`;
+
+    if (defined(t.translate))
+      transformString += `translate3d(${t.translate.x || 0}px, ${t.translate.y || 0}px, ${t.translate.z || 0}px)`;
+
+    return transformString || 'translateZ(0px)';
+  },
+
+  mergeTransforms(transform, scale, rotate, rotate3d, translate) {
+    if (defined(scale)) {
+      if (!defined(transform.scale))
+        transform.scale = 1;
+
+      transform.scale += 1 - scale;
     }
 
     if (defined(rotate3d)) {
-      if (!defined(transforms.rotate3d))
-        transforms.rotate3d = { x: 0, y: 0, z: 0 };
+      if (!defined(transform.rotate3d))
+        transform.rotate3d = { x: 0, y: 0, z: 0 };
 
-      transforms.rotate3d.x += (rotate3d.x || 0);
-      transforms.rotate3d.y += (rotate3d.y || 0);
-      transforms.rotate3d.z += (rotate3d.z || 0);
+      transform.rotate3d.x += (rotate3d.x || 0);
+      transform.rotate3d.y += (rotate3d.y || 0);
+      transform.rotate3d.z += (rotate3d.z || 0);
     }
 
     if (defined(rotate)) {
-      transforms.rotate = (transforms.rotate || 0) + rotate;
+      transform.rotate = (transform.rotate || 0) + rotate;
     }
 
     if (defined(translate)) {
-      if (!defined(transforms.translate))
-        transforms.translate = { x: 0, y: 0, z: 0 };
+      if (!defined(transform.translate))
+        transform.translate = { x: 0, y: 0, z: 0 };
 
-      transforms.translate.x += (translate.x || 0);
-      transforms.translate.y += (translate.y || 0);
-      transforms.translate.z += (translate.z || 0);
+      transform.translate.x += (translate.x || 0);
+      transform.translate.y += (translate.y || 0);
+      transform.translate.z += (translate.z || 0);
     }
   },
 
