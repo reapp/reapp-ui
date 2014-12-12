@@ -26,10 +26,8 @@ module.exports = {
   },
 
   componentWillUnmount() {
-    // remove styles tag in head
-    var headStyles = document.getElementById(this._headAnimationStyleID);
-    if (headStyles)
-      document.head.removeChild(headStyles);
+    if (this._headStyleTag)
+      document.head.removeChild(this._headStyleTag);
   },
 
   isAnimating(source) {
@@ -113,22 +111,18 @@ module.exports = {
       selector = `[data-reactid="${id}"]`;
     }
 
-    this._headAnimationStyleID = `animationStyle_${id}`;
-    var headStyleTag = document.getElementById(this._headAnimationStyleID);
-    var hasHeadStyleTag = !!headStyleTag;
+    var hasHeadStyleTag = !!this._headStyleTag;
 
-    if (!hasHeadStyleTag) {
-      headStyleTag = document.createElement('style');
-      headStyleTag.id = this._headAnimationStyleID;
-    }
+    if (!hasHeadStyleTag)
+      this._headStyleTag = document.createElement('style');
 
-    headStyleTag.innerHTML =
+    this._headStyleTag.innerHTML =
       `${selector} {
         ${this.stylesToString(styles)}
       }`;
 
     if (!hasHeadStyleTag)
-      document.head.appendChild(headStyleTag);
+      document.head.appendChild(this._headStyleTag);
   },
 
   stylesToString(obj) {
@@ -178,6 +172,9 @@ module.exports = {
   },
 
   animationTransformsToString(styles) {
+    if (!styles.transforms)
+      return styles;
+
     var transformsString = '';
     var t = styles.transforms;
 
