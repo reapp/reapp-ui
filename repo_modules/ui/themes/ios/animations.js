@@ -11,7 +11,7 @@ var Animations = module.exports = {
 
     return {
       translate: { x: translateX },
-      boxShadow: `0 0 15px rgba(0,0,0,${linearEnter(step,index) / 2})`
+      'box-shadow': `0 0 15px rgba(0,0,0,${linearEnter(step,index) / 2})`
     };
   },
 

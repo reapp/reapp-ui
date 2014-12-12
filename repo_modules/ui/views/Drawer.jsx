@@ -1,6 +1,7 @@
 var Component = require('ui/component');
 var TouchableArea = require('../helpers/TouchableArea');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
+var StaticContainer = require('../helpers/StaticContainer');
 var DrawerBehavior = require('./DrawerBehavior');
 var { Scroller } = require('scroller');
 
@@ -100,15 +101,16 @@ module.exports = Component({
 
     this.addClass('closed', this.state.closed);
     this.addStyles('dragger', {
-      left: this.state.closed ? -10 : 0,
-      zIndex: this._mountDepth
+      left: this.state.closed ? -10 : 0
     });
 
     return (
       <AnimatableContainer {...props} {...this.componentProps()}>
         <TouchableArea {...this.componentProps('dragger')} {...touchableProps}
           scroller={scroller || this.scroller} />
-        {children}
+          <StaticContainer shouldUpdate={false}>
+            {children}
+          </StaticContainer>
       </AnimatableContainer>
     );
   }
