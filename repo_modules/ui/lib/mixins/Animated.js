@@ -92,30 +92,24 @@ module.exports = {
     return this.getAnimationProps(source).step;
   },
 
-  setAnimationStyles(part) {
-    var styles = this.getAnimationStyles();
-
-    var node = part ?
-      this.refs[part].getDOMNode() :
+  setAnimationStyles(ref) {
+    var node = ref ?
+      this.refs[ref].getDOMNode() :
       this.getDOMNode();
 
-
-    var id, selector;
-
-    if (node.id) {
-      id = node.id;
-      selector = `#${node.id}`;
-    }
-    else {
-      id = node.getAttribute('data-reactid');
-      selector = `[data-reactid="${id}"]`;
-    }
+    var selector = node.id ?
+      `#${node.id}` :
+      `[data-reactid="${node.getAttribute('data-reactid')}"]`;
 
     var hasHeadStyleTag = !!this._headStyleTag;
 
     if (!hasHeadStyleTag)
       this._headStyleTag = document.createElement('style');
 
+    // get styles
+    var styles = this.getAnimationStyles();
+
+    // set tag styles
     this._headStyleTag.innerHTML =
       `${selector} {
         ${this.stylesToString(styles)}
@@ -126,7 +120,11 @@ module.exports = {
   },
 
   stylesToString(obj) {
-    return Object.keys(obj).reduce((acc, key) => `${key}: ${obj[key]} !important; ${acc}`, '');
+    return Object.keys(obj).reduce(
+      (acc, key) =>
+        `${key}: ${obj[key]} !important;
+         ${acc}`,
+      '');
   },
 
   getAnimationStyles() {
@@ -197,7 +195,7 @@ module.exports = {
     }
 
     delete styles.transforms;
-    styles['transform'] = transformsString || 'translateZ(0px)';
+    styles.transform = transformsString || 'translateZ(0px)';
     return styles;
   },
 
