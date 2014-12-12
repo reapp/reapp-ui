@@ -18,11 +18,10 @@ module.exports = Component({
   render() {
     var button = (
       <Button
-        id="hamburger"
         iconProps={{
+          name: 'hamburger',
           stroke: 1,
           size: 26,
-          type: 'hamburger',
           shapeRendering: 'crispEdges'
         }}
         borderless />

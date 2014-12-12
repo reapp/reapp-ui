@@ -73,7 +73,7 @@ module.exports = Component({
     }
 
     return (
-      <div {...props} {...this.componentProps()}
+      <div {...this.componentProps()} {...props}
         onClick={this.handleClose}
         style={this.getAnimationStyles('FADE')}>
         <div {...this.componentProps('window')}

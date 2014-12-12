@@ -9,7 +9,7 @@ module.exports = Component({
 
     if (icon) {
       iconProps = (iconProps || {});
-      iconProps.type = icon;
+      iconProps.name = icon;
     }
 
     if (iconProps)
@@ -25,7 +25,7 @@ module.exports = Component({
       this.addStyles(this.styles.active);
 
     return (
-      <button {...props} {...this.componentProps()}>
+      <button {...this.componentProps()} {...props}>
         {!!iconProps && <Icon {...iconProps} />}
         {children && (
           <span style={{ margin: 'auto' }}>

@@ -22,13 +22,13 @@ module.exports = Component({
   },
 
   render() {
-    var { children, type, liProps, title, nowrap, nopad } = this.props;
+    var { children, type, liProps, title, nowrap, nopad, ...props } = this.props;
 
     if (type)
       this.addStyles(this.styles[type]);
 
     return (
-      <ul {...this.componentProps()}>
+      <ul {...props} {...this.componentProps()}>
         {title && (
           <li {...this.componentProps('title')}>
             {title}

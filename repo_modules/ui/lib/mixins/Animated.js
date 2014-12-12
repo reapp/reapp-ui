@@ -25,6 +25,13 @@ module.exports = {
       this.updateAnimations();
   },
 
+  componentWillUnmount() {
+    // remove styles tag in head
+    var headStyles = document.getElementById(this._headAnimationStyleID);
+    if (headStyles)
+      document.head.removeChild(headStyles);
+  },
+
   isAnimating(source) {
     return this.getAnimationProps(source).step % 1 !== 0;
   },
@@ -57,15 +64,16 @@ module.exports = {
   },
 
   setAnimations(props) {
-    this._animations = {};
+    if (props.animations) {
+      this._animations = {};
 
-    if (props.animations)
       props.animations.forEach(animation => {
         this._animations[animation.source] = Object.assign({},
           AnimateStore(animation.source, this._mountDepth) || {},
           props && props.animateProps && props.animateProps[animation.source] || {}
         );
       });
+    }
   },
 
   // a slightly quicker version of setAnimations (ignores props)
@@ -88,19 +96,34 @@ module.exports = {
 
   setAnimationStyles(part) {
     var styles = this.getAnimationStyles();
-    var node = (part ? this.refs[part].getDOMNode() : this.getDOMNode());
-    var reactID = node.getAttribute('data-reactid');
-    var headStyleID = `animate-${reactID}`;
-    var headStyleTag = document.getElementById(headStyleID);
+
+    var node = part ?
+      this.refs[part].getDOMNode() :
+      this.getDOMNode();
+
+
+    var id, selector;
+
+    if (node.id) {
+      id = node.id;
+      selector = `#${node.id}`;
+    }
+    else {
+      id = node.getAttribute('data-reactid');
+      selector = `[data-reactid="${id}"]`;
+    }
+
+    this._headAnimationStyleID = `animationStyle_${id}`;
+    var headStyleTag = document.getElementById(this._headAnimationStyleID);
     var hasHeadStyleTag = !!headStyleTag;
 
     if (!hasHeadStyleTag) {
       headStyleTag = document.createElement('style');
-      headStyleTag.id = headStyleID;
+      headStyleTag.id = this._headAnimationStyleID;
     }
 
     headStyleTag.innerHTML =
-      `[data-reactid="${reactID}"] {
+      `${selector} {
         ${this.stylesToString(styles)}
       }`;
 

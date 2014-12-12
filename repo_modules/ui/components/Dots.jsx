@@ -19,7 +19,7 @@ module.exports = Component({
     activeDotProps.styles.unshift(this.getStyles('dot'));
 
     return (
-      <div {...props} {...this.componentProps()}>
+      <div {...this.componentProps()} {...props}>
         <div {...this.componentProps('inner')}>
           {dots.map((dot, i) => (
             i === active ?

@@ -65,7 +65,7 @@ module.exports = Component({
       null;
 
     var refreshIconProps = {
-      type: 'arrow-refresh',
+      name: 'arrow-refresh',
       size: 24,
       stroke: 1,
       styles: { self: { marginTop: -1 } },

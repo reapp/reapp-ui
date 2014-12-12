@@ -1,4 +1,4 @@
-var Time = require('react-time');
+// var Time = require('react-time');
 var Icon = require('ui/components/Icon');
 var ListItem = require('ui/components/ListItem');
 var { Link } = require('react-router');
@@ -25,14 +25,13 @@ module.exports = Component({
           </Link>
         </li>
         <li className="time">
-          <Time value={new Date(article.get('time') * 1000)} relative />
         </li>
       </ul>
     );
 
     var articleRight = (
       <Link to="article" params={{id: article.get('id')}} activeClassName="">
-        <Icon type="speech" color="#999" />
+        <Icon name="speech" color="#999" />
       </Link>
     );
 
@@ -52,3 +51,5 @@ module.exports = Component({
     );
   }
 });
+
+// <Time value={new Date(article.get('time') * 1000)} relative />

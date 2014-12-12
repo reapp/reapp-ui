@@ -1,3 +1,5 @@
+"react-time": "^2.1.1",
+
 - finish card view horizontal and vertical
 - extract scroller parts
 - use scroller parts in viewlists, etc

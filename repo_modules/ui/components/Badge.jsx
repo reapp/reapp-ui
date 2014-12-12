@@ -7,7 +7,7 @@ module.exports = Component({
     var { children, value, ...props } = this.props;
 
     return (
-      <div {...props} {...this.componentProps()}>
+      <div {...this.componentProps()} {...props}>
         <span {...this.componentProps('text')}>
           {value || children}
         </span>

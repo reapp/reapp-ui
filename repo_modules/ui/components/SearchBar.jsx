@@ -7,7 +7,7 @@ module.exports = Component({
     var { barProps, ...props } = this.props;
 
     return (
-      <div {...barProps} {...this.componentProps()}>
+      <div {...this.componentProps()} {...barProps}>
         <input {...props}
           type="search" />
       </div>

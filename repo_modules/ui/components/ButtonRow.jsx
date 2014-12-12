@@ -23,7 +23,7 @@ module.exports = Component({
     var total = children.length;
 
     return (
-      <div {...props} {...this.componentProps()}>
+      <div {...this.componentProps()} {...props}>
         {React.Children.map(children, (child, i) => {
           return React.addons.cloneWithProps(child, Object.assign({
             styles: this.getStyleForButtonAtIndex(i, total)

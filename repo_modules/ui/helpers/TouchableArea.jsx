@@ -1,4 +1,5 @@
 var React = require('react');
+var Component = require('ui/component');
 
 var TouchableArea = React.createClass({
   getDefaultProps() {
@@ -118,7 +119,7 @@ var TouchableArea = React.createClass({
     props.onTouchEnd = this.handleTouchEnd;
     props.onTouchCancel = this.handleTouchEnd;
 
-    return React.createElement(element, props, children);
+    return React.createElement(element, props, Component.clone(children, props, true));
   }
 });
 

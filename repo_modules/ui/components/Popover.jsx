@@ -95,7 +95,7 @@ module.exports = Component({
       { top: this.state.arrowTop, left: this.state.arrowLeft });
 
     return (
-      <div {...props} {...this.componentProps()}
+      <div {...this.componentProps()} {...props}
         onClick={this.handleClose}>
         <div {...this.componentProps('arrow')}>
           <div {...this.componentProps('arrowInner')} />
