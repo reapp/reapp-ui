@@ -79,9 +79,6 @@ module.exports = {
   },
 
   getAnimationProps(source) {
-    if (!source)
-      return Object.assign({}, this.context, this.props, this.state);
-
     return this._animations[source];
   },
 

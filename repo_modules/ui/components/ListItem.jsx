@@ -1,9 +1,29 @@
 var React = require('react');
 var Component = require('ui/component');
 var Icon = require('./Icon');
+var TweenState = require('react-tween-state');
+var Animator = require('../lib/mixins/Animator');
 
 module.exports = Component({
   name: 'ListItem',
+
+  // todo: testing this as a simple example of animating
+  // mixins: [TweenState.Mixin, Animator],
+
+  // getDefaultProps() {
+  //   return {
+  //     animations: [{ name: 'fadeDown', source: 'listItem' }],
+  //     step: 0,
+  //   };
+  // },
+
+  // componentDidMount() {
+  //   this.setState({ step: this.props.index - 1 });
+  //   this.tweenState('step', {
+  //     endValue: this.props.index,
+  //     duration: 100
+  //   });
+  // },
 
   makeSection(name, content) {
     return content && (
@@ -33,6 +53,10 @@ module.exports = Component({
       noicon,
       nopad,
       ...props } = this.props;
+
+    // this.animate('listItem', {
+    //   step: this.state.step
+    // });
 
     // make a top level link into a wrapper so it can take up the whole item
     if (!wrapper && this.hasLinkAsChild(children)) {

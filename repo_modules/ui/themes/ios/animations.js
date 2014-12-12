@@ -1,4 +1,7 @@
-var { linearExit, linearEnter, symmetrical } = require('ui/lib/animate/helpers');
+var {
+  linearExit,
+  linearEnter,
+  symmetrical } = require('ui/lib/animate/helpers');
 
 var Animations = module.exports = {
   viewParallax(index, step, props) {
@@ -25,6 +28,13 @@ var Animations = module.exports = {
     return {
       translate: { x: - (step - index) * (props.width/2.5) },
       opacity: symmetrical(step, index)
+    };
+  },
+
+  fadeDown(index, step) {
+    return {
+      opacity: symmetrical(step, index),
+      height: symmetrical(step, index) * 100 + '%'
     };
   },
 
