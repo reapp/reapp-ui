@@ -72,12 +72,8 @@ module.exports = Component({
 
   // needs to ensure it animates, then updates children views in state
   componentWillReceiveProps(nextProps) {
-    // if not changing views
-    if (nextProps.scrollToStep === this.props.scrollToStep)
-      return this.setupViewList(nextProps);
-
-    // if advancing views
-    if (nextProps.scrollToStep > this.state.step) {
+    // if advancing views or remaining the same
+    if (nextProps.scrollToStep >= this.state.step) {
       this.setupViewList(nextProps);
       this.scrollToStep(nextProps.scrollToStep);
     }
