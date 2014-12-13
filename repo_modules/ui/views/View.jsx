@@ -58,7 +58,8 @@ module.exports = Component({
   },
 
   handleDoubleTap() {
-    this.animatedScrollToTop(this.refs.inner.getDOMNode(), 300);
+    if (this.refs.inner)
+      this.animatedScrollToTop(this.refs.inner.getDOMNode(), 300);
   },
 
   hasOverlay() {
@@ -87,7 +88,7 @@ module.exports = Component({
       titleBarProps.onDoubleTap = this.handleDoubleTap;
 
     if (!index || index === this.getAnimationStep('viewList'))
-      this.addStyles({ pointerEvents: 'all' });
+      this.addStyles('active');
 
     this.addTitleBarOffset();
     this.hideBoxShadowWhileAnimating();

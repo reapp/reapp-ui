@@ -4,12 +4,9 @@ var { Scroller } = require('scroller');
 var { Promise } = require('bluebird');
 var TitleBar = require('ui/components/TitleBar');
 var TouchableArea = require('../helpers/TouchableArea');
-var CloneChildren = require('../lib/CloneChildren');
 var Animator = require('../lib/mixins/Animator');
 
-module.exports = Component({
-  name: 'ViewList',
-
+module.exports = {
   mixins: [
     Animator
   ],
@@ -23,48 +20,17 @@ module.exports = Component({
     onViewLeft: React.PropTypes.func,
   },
 
-  getDefaultProps() {
-    var width = window.innerWidth;
-    var height = window.innerHeight;
-
-    return {
-      disable: false,
-      width,
-      height,
-      noFakeTitleBar: false,
-      resizeWithWindow: true,
-      scrollToStep: 0,
-      animations: [
-       { name: 'viewParallax', source: 'viewList' },
-       { name: 'fadeOnEnter', source: 'viewList', target: 'overlay' }
-      ],
-      titleBarProps: {},
-      scrollerProps: {
-        animationDuration: 400,
-        paging: true,
-        bouncing: false,
-        scrollingY: false
-      },
-      // touchable only on the left and right edges
-      touchStartBoundsX: [
-        { from: 0, to: 20 },
-        { from: width - 20, to: width }
-      ]
-    };
-  },
-
-  getInitialState() {
-    return {
+  getViewListInitialState(state) {
+    return Object.assign({
       // We put children in state, to animate them out
       children: this.props.children,
       width: this.props.width,
       height: this.props.height,
       step: this.props.scrollToStep
-    };
+    }, state || {});
   },
 
   componentDidMount() {
-    this.doAnimate();
     this.scroller = new Scroller(this.handleScroll, this.props.scrollerProps);
     this.setupViewList(this.props);
     this.setScrollPosition();
@@ -125,7 +91,7 @@ module.exports = Component({
     // default to not allowing swipes on the titlebar
     props.touchStartBoundsY = props.touchStartBoundsY || {
       from: this.getTitleBarHeight(),
-      to: window.innerHeight
+      to: this.props.height
     };
 
     this.setupDimensions();
@@ -181,9 +147,12 @@ module.exports = Component({
 
     if (step !== this.state.step) {
       this.setState({ step });
-      this.doAnimate();
       this.runViewCallbacks(step);
     }
+  },
+
+  componentWillUpdate() {
+    this.doAnimate();
   },
 
   runViewCallbacks(step) {
@@ -276,59 +245,58 @@ module.exports = Component({
     return <TitleBar {...this.props.titleBarProps} animations={[]} />;
   },
 
-  render() {
-    var {
-      after,
-      before,
-      children,
-      animations,
-      titleBarProps,
-      noFakeTitleBar,
-      disable,
-      ...props
-    } = this.props;
+  getViewListProps() {
+    return Object.assign(
+      {
+        ignoreY: true,
+        scroller: this.scroller
+      },
+      this.props,
+      {
+        onTouchStart: this.handleTouchStart,
+        onTouchEnd: this.handleTouchEnd,
+        onClick: this.handleClick
+      }
+    );
+  },
 
-    // animate on the final step
+  getTitleBarProps() {
+    return this.props.noFakeTitleBar ?
+      this.props.titleBarProps :
+      Object.assign({ transparent: true }, this.props.titleBarProps);
+  },
+
+  getViewAnimations(view) {
+    return view && view.props.animations ?
+      view.props.animations.concat(this.props.animations) :
+      this.props.animations;
+  },
+
+  renderViewList(props) {
+    props = props || {};
+
+    // for animating on the ends of steps
     if (this.state.step % 1 === 0)
       this.doAnimate();
 
-    var childTitleBarProps = noFakeTitleBar ?
-      titleBarProps :
-      Object.assign({ transparent: true }, titleBarProps);
-
-    var viewListProps = Object.assign({
-      ignoreY: true,
-      scroller: this.scroller,
-      onTouchStart: this.handleTouchStart,
-      onTouchEnd: this.handleTouchEnd,
-      onClick: this.handleClick
-    }, props);
-
-    if (this.state.step === 0)
-      this.addStyles(this.styles.underTouchable);
-
     return (
-      <div {...this.componentProps()}>
-        <TouchableArea {...viewListProps}>
-          {!noFakeTitleBar && this.getFakeTitleBar()}
-          {before}
+      <div {...props} {...this.componentProps()}>
+        <TouchableArea {...this.getViewListProps()}>
+          {!this.props.noFakeTitleBar && this.getFakeTitleBar()}
+          {this.props.before}
           {Component.clone(this.state.children, (child, i) => ({
-            titleBarProps,
             key: i,
             index: i,
-            animationDisabled: disable,
-            animations: child && child.props.animations ?
-              child.props.animations.concat(animations) :
-              animations,
-            animateProps: {
-              viewList: { index: i }
-            },
+            titleBarProps: this.getTitleBarProps(),
+            animationDisabled: this.props.disable,
+            animations: this.getViewAnimations(child),
+            animateProps: { viewList: { index: i } },
             width: this.state.width,
             height: this.state.height,
           }))}
-          {after}
+          {this.props.after}
         </TouchableArea>
       </div>
     );
   }
-});
+};

@@ -2,7 +2,7 @@ var React = require('react/addons');
 var Component = require('component');
 var Transition = React.addons.TransitionGroup;
 var { Link, RouteHandlerMixin, State } = require('react-router');
-var ViewList = require('ui/views/ViewList');
+var ParallaxViewList = require('ui/views/ParallaxViewList');
 var View = require('ui/views/View');
 var SearchBar = require('ui/components/SearchBar');
 var List = require('ui/components/List');
@@ -49,7 +49,7 @@ module.exports = React.createClass({
     ];
 
     return (
-      <ViewList scrollToStep={numRoutes - 2}>
+      <ParallaxViewList scrollToStep={numRoutes - 2}>
         <View title={[this.props.handle, 'Kitchen Sink']}>
           <SearchBar onChange={this.handleSearch} defaultValue="" />
 
@@ -74,7 +74,7 @@ module.exports = React.createClass({
         </View>
 
         {hasChild && this.getRouteHandler(this.props)}
-      </ViewList>
+      </ParallaxViewList>
     );
   }
 });

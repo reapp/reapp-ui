@@ -10,9 +10,10 @@ var AnimateStore = require('../../stores/AnimateStore');
 // This mixin works through props, state or the AnimateStore
 // The AnimateStore can be used by the Animator mixin, which
 // is used by parent components that want to run an animation
+// (until contexts pass through parents at least)
 
 // runAnimations() runs a queue of upcoming animations and
-// uses requestAnimationFrame for some performance help
+// uses requestAnimationFrame for some performance
 
 // For now I'm testing avoiding the react render pipeline.
 // I found that with many animations running at once, even
@@ -26,10 +27,20 @@ var AnimateStore = require('../../stores/AnimateStore');
 // Animations are passed through props, but are sideloaded with
 // the theme you define. UI.setAnimations is a good starting point
 
-// There are two props this uses. 'animations' and 'animationProps'
-// animations is an object with two keys, 'source', 'name'
-// both are set by you. source is used to help with multiple
-// animations. name references the animation set by UI.setAnimation
+// Expects props to be set in the form of animations key, value is
+// an array of animation objects.
+
+// An animation object can have three properties:
+//   source {string} - identifier to get info on animation
+//   name {string} - identifier for the animation function
+//   target {string} - to animate a ref, must have that ref
+
+// other relevant proprties
+
+// - animationProps: for passing in extra info.
+//     Must have a key matching with 'source', inside you can
+//     add any info you may need in your animation function
+// - animationActive: for disabling animations
 
 var defined = variable => (typeof variable !== 'undefined');
 var animationQueue = [];

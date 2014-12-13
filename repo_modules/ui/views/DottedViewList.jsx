@@ -1,12 +1,26 @@
 var Component = require('ui/component');
-var ViewList = require('./ViewList');
+var ViewListMixin = require('../mixins/ViewListMixin');
 var Dots = require('../components/Dots');
 
 module.exports = Component({
   name: 'DottedViewList',
 
+  mixins: [
+    ViewListMixin
+  ],
+
   getDefaultProps() {
     return {
+      width: window.innerWidth,
+      height: window.innerHeight,
+      resizeWithWindow: true,
+      scrollToStep: 0,
+      scrollerProps: {
+        animationDuration: 400,
+        paging: true,
+        bouncing: false,
+        scrollingY: false
+      },
       animations: [
         { name: 'viewSideBySide', source: 'viewList' }
       ],
@@ -27,7 +41,9 @@ module.exports = Component({
   },
 
   getInitialState() {
-    return { activeViewIndex: 0 };
+    return this.getViewListInitialState({
+      activeViewIndex: 0
+    });
   },
 
   handleViewEntered(index) {
@@ -39,18 +55,19 @@ module.exports = Component({
   },
 
   render() {
-    return (
-      <ViewList
-        {...this.componentProps()}
-        {...this.props}
-        onViewEntered={this.handleViewEntered}
-        initialStep={this.state.activeViewIndex}
-        after={(
+    return this.renderViewList(Object.assign(
+      this.componentProps(),
+      this.props,
+      {
+        onViewEntered: this.handleViewEntered,
+        initialStep: this.state.activeViewIndex,
+        after: (
           <Dots
             total={this.props.children.length}
             active={this.state.activeViewIndex}
             styles={this.getStyles('dots')} />
-        )} />
-    );
+        )
+      }
+    ));
   }
 });

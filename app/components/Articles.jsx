@@ -1,6 +1,6 @@
 var React = require('react');
 var Component = require('component');
-var ViewList = require('ui/views/ViewList');
+var ParallaxViewList = require('ui/views/ParallaxViewList');
 var View = require('ui/views/View');
 var ArticlesHome = require('./articles/ArticlesHome');
 var { actions, helpers, mixins } = Component;
@@ -43,7 +43,7 @@ module.exports = Component({
       .filter(x => typeof x !== 'undefined');
 
     return (
-      <ViewList
+      <ParallaxViewList
         scrollToStep={numRoutes - 2}
         onViewEntered={this.handleViewEntered}
         noFakeTitleBar>
@@ -56,7 +56,7 @@ module.exports = Component({
         </View>
 
         {hasChild && this.getRouteHandler(Object.assign(this.props, { key: subRouteKey }))}
-      </ViewList>
+      </ParallaxViewList>
     );
   }
 });

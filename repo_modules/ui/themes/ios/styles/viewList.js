@@ -5,11 +5,10 @@ module.exports = (c) => ({
     top: 0,
     left: 0,
     bottom: 0,
-    right: 0,
-    zIndex: 1000
+    right: 0
   },
 
-  underTouchable: {
-    zIndex: 1
+  advanced: {
+    zIndex: 3
   }
 });

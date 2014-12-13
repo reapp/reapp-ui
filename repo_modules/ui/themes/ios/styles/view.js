@@ -12,6 +12,10 @@ module.exports = (c) => ({
     zIndex: 2
   },
 
+  active: {
+    pointerEvents: 'all'
+  },
+
   inner: {
     background: c.bgLight,
     padding: `0 ${c.viewPad}`,

@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "transform-loader": "^0.2.1",
-    "react-hot-loader": "~1.0.0-alpha",
+    "react-hot-loader": "~1.0.0-alpha.3",
     "react-style-webpack-plugin": "git+https://github.com/js-next/react-style-webpack-plugin#c1fce80c1",
     "webpack": "^1.4.8",
     "style-loader": "^0.6.4",
