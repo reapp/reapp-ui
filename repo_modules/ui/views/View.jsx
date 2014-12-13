@@ -8,7 +8,10 @@ var AnimatedScrollToTop = require('../mixins/AnimatedScrollToTop');
 module.exports = Component({
   name: 'View',
 
-  mixins: [Animator, AnimatedScrollToTop],
+  mixins: [
+    Animator,
+    AnimatedScrollToTop
+  ],
 
   addTitleBarOffset() {
     var { title, titleBarProps } = this.props;
@@ -67,7 +70,7 @@ module.exports = Component({
           <TitleBar {...titleBarProps} animateProps={animateProps}>{title}</TitleBar>
         )}
         <div {...props} {...this.componentProps('inner')}>
-          <StaticContainer shouldUpdate={this.getAnimationStep('viewList') % 1 === 0}>
+          <StaticContainer shouldUpdate={!this.props.animations || this.getAnimationStep('viewList') % 1 === 0}>
             {children}
           </StaticContainer>
         </div>

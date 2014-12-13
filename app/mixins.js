@@ -4,7 +4,7 @@ var ReactRouter = require('react-router');
 
 module.exports = {
   global: [
-    { shouldComponentUpdate: Omniscient.shouldComponentUpdate }
+    // { shouldComponentUpdate: Omniscient.shouldComponentUpdate }
   ],
   shared: {
     'RouteState': ReactRouter.State,

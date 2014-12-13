@@ -73,19 +73,16 @@ function getAnimation(animation, depth) {
   if (!animations || !animations.length)
     return;
 
-  var strategy = FetchStrategies[animation.strategy || 'newestShallowest'];
-  var result = strategy.call(this, animations).props;
-  return result;
+  return reduceAnimations(animations, Strategies.deepest).props;
 }
 
-// strategies for resolving how to determine which animation to choose
+// Strategies for resolving how to determine which animation to choose
 // only relevant when you have multiple animations from the same source
 // ie: nested viewLists, you may want to get the animation from the deepest,
 // shallowest, or most recent.
 
-var FetchStrategies = {
-  newestShallowest: animations => reduceAnimations(animations,
-     (best, current) => {
+var Strategies = {
+  newestShallowest: animations => (best, current) => {
       var curTime = current.timestamp.valueOf();
       var bestTime = best.timestamp.valueOf();
 
@@ -93,19 +90,12 @@ var FetchStrategies = {
         return current.depth <= best.depth;
       else
         return curTime > bestTime;
-    }),
+    },
 
-  deepest: animations => reduceAnimations(animations,
-      (best, current) => current.depth >= best.depth),
-
-  shallowest: animations => reduceAnimations(animations,
-      (best, current) => current.depth <= best.depth),
-
-  strongest: animations => reduceAnimations(animations,
-      (best, current) => current.strength <= best.strength),
-
-  newest: animations => reduceAnimations(animations,
-      (best, current) => current.timestamp.valueOf() > best.timestamp.valueOf())
+  deepest: (best, current) => current.depth >= best.depth,
+  shallowest: (best, current) => current.depth <= best.depth,
+  strongest: (best, current) => current.strength <= best.strength,
+  newest: (best, current) => current.timestamp.valueOf() > best.timestamp.valueOf()
 };
 
 function reduceAnimations(animations, cb) {

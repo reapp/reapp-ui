@@ -15,6 +15,7 @@ module.exports = (c) => ({
     position: 'fixed',
     top: 0,
     bottom: 0,
-    width: 10,
+    width: 20,
+    zIndex: 2,
   }
 });

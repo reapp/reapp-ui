@@ -72,7 +72,7 @@ module.exports = {
 
   // todo  animate({ source, ref });
   animate(ref) {
-    if (!this.hasPendingAnimations) {
+    if (this.props.animations && !this.hasPendingAnimations) {
       animationQueue.push({ from: this, ref });
       this.hasPendingAnimations = true;
       window.requestAnimationFrame(runAnimations);
@@ -80,7 +80,7 @@ module.exports = {
   },
 
   isAnimating(source) {
-    return this.getAnimationProps(source).step % 1 !== 0;
+    return this._animations && this.getAnimationProps(source).step % 1 !== 0;
   },
 
   getAnimationProp(name, animations) {
@@ -127,10 +127,11 @@ module.exports = {
   updateAnimations() {
     var newProps;
 
-    this.props.animations.forEach(animation => {
-      newProps = AnimateStore(animation, this._mountDepth);
-      Object.assign(this._animations[animation.source], newProps);
-    });
+    if (this.props.animations)
+      this.props.animations.forEach(animation => {
+        newProps = AnimateStore(animation, this._mountDepth);
+        Object.assign(this._animations[animation.source], newProps);
+      });
   },
 
   getAnimationProps(source) {
@@ -161,8 +162,10 @@ module.exports = {
 
     var hasHeadStyleTag = !!this._headStyleTag;
 
-    if (!hasHeadStyleTag)
+    if (!hasHeadStyleTag) {
       this._headStyleTag = document.createElement('style');
+      this._headStyleTag.id = selector;
+    }
 
     // set tag styles
     this._headStyleTag.innerHTML =
@@ -198,7 +201,9 @@ module.exports = {
         continue;
 
       var { index, step, ...props } = this.getAnimationProps(animation.source);
-      index = defined(index) ? index : 1;
+
+      Invariant(defined(step), 'Must define step for animation to run');
+      Invariant(defined(index), 'Must define index for animation to run');
 
       if (!animation.source && this.getTweeningValue && this.getTweeningValue('step'))
         step = this.getTweeningValue('step');

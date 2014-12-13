@@ -1,12 +1,8 @@
 var React = require('react');
 var Component = require('component');
-var List = require('ui/components/List');
-var Button = require('ui/components/Button');
-var ListItem = require('ui/components/ListItem');
 var ViewList = require('ui/views/ViewList');
 var View = require('ui/views/View');
-var DottedViewList = require('ui/views/DottedViewList');
-var ArticleItem = require('./articles/ArticleItem');
+var ArticlesHome = require('./articles/ArticlesHome');
 var { actions, helpers, mixins } = Component;
 var { ArticlesStore, HotArticlesStore } = Component.stores;
 
@@ -17,7 +13,8 @@ module.exports = Component({
     'RouteState',
     'RouteHandler',
     mixins.listener(
-      ArticlesStore
+      ArticlesStore,
+      actions.articlesHotLoadDone
     )
   ],
 
@@ -29,30 +26,17 @@ module.exports = Component({
   },
 
   getInitialState() {
-    return { isRefreshing: false };
+    return { disableDottedViewList: false };
   },
 
-  componentWillReceiveProps() {
-    this.setState({ isRefreshing: false });
-  },
-
-  handleLoadMore(e) {
-    e.preventDefault();
-    e.target.innerHTML = 'Loading...';
-    actions.articlesHotLoadMore();
-    var unlisten = actions.articlesHotLoadDone.listen(() => {
-      this.setState({ isRefreshing: false });
-      unlisten();
-    });
-  },
-
-  handleRefresh(e) {
-    this.setState({ isRefreshing: true });
-    actions.articlesHotRefresh();
+  handleViewEntering(i) {
+    debugger;
+    this.setState({ disableDottedViewList: (i > 0) });
   },
 
   render() {
     var { handle } = this.props;
+    console.log('render')
 
     var numRoutes = this.getRoutes().length;
     var hasChild = numRoutes > 2;
@@ -62,49 +46,18 @@ module.exports = Component({
       .map(id => ArticlesStore().get(id))
       .filter(x => typeof x !== 'undefined');
 
-    var dottedProps =  hasChild ?
-      { touchStartBoundsX: { from: 20, to: window.innerWidth - 20 } } :
-      null;
-
-    var refreshIconProps = {
-      name: 'arrow-refresh',
-      size: 24,
-      stroke: 1,
-      styles: { self: { marginTop: -1 } },
-      animations: this.state.isRefreshing ? [{ name: 'rotate' }] : null
-    };
-
-    var refreshButton = (
-      <Button
-        iconProps={refreshIconProps}
-        onClick={this.handleRefresh}
-        borderless />
-    );
-
+      console.log('aritcles render disable', this.state.disableDottedViewList)
     return (
-      <ViewList scrollToStep={numRoutes - 2} noFakeTitleBar>
+      <ViewList
+        scrollToStep={numRoutes - 2}
+        onViewEntering={this.handleViewEntering}
+        noFakeTitleBar>
         <View>
-          <DottedViewList {...dottedProps}>
-            <View title={[handle, 'Hot Articles', refreshButton]}>
-              <List styles={{ self: { borderTop: 'none' } }} nowrap>
-                {articles.count() ?
-                  articles.map((article, i) =>
-                    <ArticleItem cursor={article} key={i} />
-                  ).toArray()
-                  .concat(
-                    <ListItem
-                      style={{textAlign:'center'}}
-                      onClick={this.handleLoadMore}>
-                      Load More
-                    </ListItem>
-                  ) :
-                  <ListItem style={{textAlign: 'center'}}>Loading...</ListItem>
-                }
-                </List>
-            </View>
-
-            <View title={[handle, 'Saved Articles']} />
-          </DottedViewList>
+          <ArticlesHome
+            disable={this.state.disableDottedViewList}
+            articles={articles}
+            handle={handle}
+            hasChild={hasChild} />
         </View>
 
         {hasChild && this.getRouteHandler(Object.assign(this.props, { key: subRouteKey }))}

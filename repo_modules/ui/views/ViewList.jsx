@@ -10,13 +10,17 @@ var Animator = require('../lib/mixins/Animator');
 module.exports = Component({
   name: 'ViewList',
 
-  mixins: [Animator],
+  mixins: [
+    Animator
+  ],
 
   propTypes: {
     onTouchStart: React.PropTypes.func,
     onTouchEnd: React.PropTypes.func,
-    onViewEnter: React.PropTypes.func,
-    onViewLeave: React.PropTypes.func,
+    onViewEntered: React.PropTypes.func,
+    onViewEntering: React.PropTypes.func,
+    onViewLeaving: React.PropTypes.func,
+    onViewLeft: React.PropTypes.func,
   },
 
   getDefaultProps() {
@@ -24,6 +28,7 @@ module.exports = Component({
     var height = window.innerHeight;
 
     return {
+      disable: false,
       width,
       height,
       noFakeTitleBar: false,
@@ -66,12 +71,22 @@ module.exports = Component({
   },
 
   componentWillUnmount() {
-    delete this.scroller; // just in case?
     window.removeEventListener('resize', this.resize);
+  },
+
+  componentWillMount() {
+    if (this.props.disable)
+      this.disableAnimation();
   },
 
   // needs to ensure it animates, then updates children views in state
   componentWillReceiveProps(nextProps) {
+    console.log('disbale', nextProps.disable);
+    if (nextProps.disable)
+      this.disableAnimation();
+    else
+      this.enableAnimation();
+
     // if advancing views or remaining the same
     if (nextProps.scrollToStep >= this.state.step) {
       this.setupViewList(nextProps);
@@ -98,7 +113,7 @@ module.exports = Component({
     children = children.filter(child => !!child);
 
     // set default titlebar height
-    props.titleBarProps.height = this.getTitleBarHeight();
+    // props.titleBarProps.height = this.getTitleBarHeight();
 
     // default to not allowing swipes on the titlebar
     props.touchStartBoundsY = props.touchStartBoundsY || {
@@ -166,15 +181,32 @@ module.exports = Component({
 
   runViewCallbacks(step) {
     if (step % 1 !== 0) {
-      var newVisibleIndex = [ Math.floor(step), Math.ceil(step) ]
-        .filter(i => !this.visibleViews[i])[0];
+      if (this._hasCalledEnteringLeaving)
+        return;
 
-      if (newVisibleIndex >= 0) {
-        this.visibleViews[newVisibleIndex] = true;
-        this.callProperty('onViewEntering', newVisibleIndex);
+      var entering, leaving;
+      var floor = Math.floor(step);
+      var ceil = Math.ceil(step);
+
+      // if sliding forwards
+      if (this.visibleViews[floor]) {
+        entering = ceil;
+        leaving = floor;
       }
+      else {
+        entering = floor;
+        leaving = ceil;
+      }
+
+      this.visibleViews[entering] = true;
+      this.callProperty('onViewEntering', ceil);
+      this.callProperty('onViewLeaving', floor);
+      this._hasCalledEnteringLeaving = true;
     }
     else {
+      // set this to false to reset entering/leaving callbacks for next drag
+      this._hasCalledEnteringLeaving = false;
+
       this.callProperty('onViewEntered', step);
 
       var prev = step-1;
@@ -226,10 +258,11 @@ module.exports = Component({
   },
 
   doAnimate() {
-    this.runAnimation('viewList', {
-      step: this.state.step,
-      width: this.state.width
-    });
+    if (!this.props.disable)
+      this.runAnimation('viewList', {
+        step: this.state.step,
+        width: this.state.width
+      });
   },
 
   render() {
@@ -243,13 +276,16 @@ module.exports = Component({
       ...props
     } = this.props;
 
+    // animate on the final step
     if (this.state.step % 1 === 0)
       this.doAnimate();
 
-    if (!noFakeTitleBar) {
-      var fakeTitleBar = <TitleBar {...titleBarProps} animations={[]} />;
-      var childTitleBarProps = Object.assign({ transparent: true }, titleBarProps);
-    }
+    var fakeTitleBar = !noFakeTitleBar && (
+      <TitleBar {...titleBarProps} animations={[]} />
+    );
+
+    if (!noFakeTitleBar)
+      Object.assign(titleBarProps, { transparent: true });
 
     var viewListProps = Object.assign({
       ignoreY: true,
@@ -259,27 +295,25 @@ module.exports = Component({
       onClick: this.handleClick
     }, props);
 
-    // if (this.state.step === 0)
-      // this.addStyles(this.styles.underTouchable);
+    if (this.state.step === 0)
+      this.addStyles(this.styles.underTouchable);
 
     return (
       <div {...this.componentProps()}>
         <TouchableArea {...viewListProps}>
           {!noFakeTitleBar && fakeTitleBar}
           {before}
-          {React.Children.map(this.state.children, (view, i) => {
-            return React.isValidElement(view) && React.addons.cloneWithProps(view, {
-              titleBarProps: childTitleBarProps,
-              key: i,
-              index: i,
-              animations,
-              animateProps: {
-                viewList: { index: i }
-              },
-              width: this.state.width,
-              height: this.state.height,
-            });
-          })}
+          {Component.clone(this.state.children, (child, i) => ({
+            titleBarProps,
+            key: i,
+            index: i,
+            animations,
+            animateProps: {
+              viewList: { index: i }
+            },
+            width: this.state.width,
+            height: this.state.height,
+          }))}
           {after}
         </TouchableArea>
       </div>
