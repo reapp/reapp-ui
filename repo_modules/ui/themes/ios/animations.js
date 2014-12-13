@@ -1,7 +1,9 @@
 var {
-  linearExit,
-  linearEnter,
-  symmetrical } = require('ui/lib/animate/helpers');
+  symmetrical,
+  decreaseOnExit,
+  increaseOnEnter,
+  decreaseOnEnter
+} = require('ui/lib/animate/helpers');
 
 var Animations = module.exports = {
   viewParallax(index, step, props) {
@@ -11,7 +13,7 @@ var Animations = module.exports = {
 
     return {
       translate: { x: translateX },
-      'box-shadow': `0 0 15px rgba(0,0,0,${linearEnter(step,index) / 2})`
+      'box-shadow': `0 0 15px rgba(0,0,0,${increaseOnEnter(index, step) / 2})`
     };
   },
 
@@ -27,14 +29,14 @@ var Animations = module.exports = {
   fadeLeft(index, step, props) {
     return {
       translate: { x: - (step - index) * (props.width/2.5) },
-      opacity: symmetrical(step, index)
+      opacity: symmetrical(index, step)
     };
   },
 
   fadeDown(index, step) {
     return {
-      opacity: symmetrical(step, index),
-      height: symmetrical(step, index) * 100 + '%'
+      opacity: symmetrical(index, step),
+      height: symmetrical(index, step) * 100 + '%'
     };
   },
 
@@ -52,13 +54,19 @@ var Animations = module.exports = {
 
   fade(index, step) {
     return {
-      opacity: symmetrical(step, index)
+      opacity: symmetrical(index, step)
+    };
+  },
+
+  fadeOnEnter(index, step) {
+    return {
+      opacity: symmetrical(index, step) / 2
     };
   },
 
   scaleDown(index, step) {
     return {
-      scale: linearExit(step, index) * 1.9
+      scale: decreaseOnExit(index, step) * 1.9
     };
   },
 

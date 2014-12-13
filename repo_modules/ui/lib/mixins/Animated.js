@@ -69,7 +69,11 @@ module.exports = {
   },
 
   animationsDisabled() {
-    return this.props.animationDisabled || this.context.animationDisabled
+    return this.props.animationDisabled || this.context.animationDisabled;
+  },
+
+  setDefaultAnimationTarget(target) {
+    this._defaultAnimationTarget = target;
   },
 
   animate() {
@@ -155,13 +159,16 @@ module.exports = {
 
     if (!hasHeadStyleTag) {
       this._headStyleTag = document.createElement('style');
-      this._headStyleTag.id = selector;
+      this._headStyleTag.ref = this._uniqueID;
+    }
+    else {
+      this._headStyleTag.innerHTML = '';
     }
 
     Object.keys(animations).forEach(key => {
       node = key === 'self' ?
         this.getDOMNode() :
-        this.refs[ref] && this.refs[ref].getDOMNode();
+        this.refs[key] && this.refs[key].getDOMNode();
 
       if (!node)
         return;
@@ -228,7 +235,7 @@ module.exports = {
       styles.transform = this.animationTransformsToString({ scale, rotate, rotate3d, translate });
 
       // update animations
-      animations[animation.target || 'self'] = styles;
+      animations[animation.target || this._defaultAnimationTarget || 'self'] = styles;
     }
 
     return Object.keys(animations).length ? animations : null;

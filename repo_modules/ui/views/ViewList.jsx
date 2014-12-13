@@ -35,7 +35,8 @@ module.exports = Component({
       resizeWithWindow: true,
       scrollToStep: 0,
       animations: [
-       { name: 'viewParallax', source: 'viewList' }
+       { name: 'viewParallax', source: 'viewList' },
+       { name: 'fadeOnEnter', source: 'viewList', target: 'overlay' }
       ],
       titleBarProps: {},
       scrollerProps: {
@@ -316,7 +317,9 @@ module.exports = Component({
             key: i,
             index: i,
             animationDisabled: disable,
-            animations,
+            animations: child && child.props.animations ?
+              child.props.animations.concat(animations) :
+              animations,
             animateProps: {
               viewList: { index: i }
             },

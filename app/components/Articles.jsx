@@ -9,20 +9,26 @@ var { ArticlesStore, HotArticlesStore } = Component.stores;
 require('./Articles.styl');
 
 module.exports = Component({
+  statics: {
+    fetchData: params => (
+      actions.articlesHotLoad() &&
+      helpers.storePromise(ArticlesStore, data => !!data.size)
+    )
+  },
+
   mixins: [
     'RouteState',
     'RouteHandler',
+    'Navigation',
     mixins.listener(
       ArticlesStore,
       actions.articlesHotLoadDone
     )
   ],
 
-  statics: {
-    fetchData() {
-      actions.articlesHotLoad();
-      return helpers.storePromise(ArticlesStore, data => !!data.size);
-    }
+  handleViewEntered(i) {
+    if (i === 0)
+      this.goBack();
   },
 
   render() {
@@ -39,6 +45,7 @@ module.exports = Component({
     return (
       <ViewList
         scrollToStep={numRoutes - 2}
+        onViewEntered={this.handleViewEntered}
         noFakeTitleBar>
         <View>
           <ArticlesHome

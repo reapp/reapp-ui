@@ -1,22 +1,20 @@
 module.exports = {
   self: {
     background: '#fff',
-    border: '1px solid #ccc',
     width: '100%',
-    padding: 10,
-    borderRadius: 7,
-    boxShadow: '0 0 8px rgba(0,0,0,0.1)',
-    margin: '5px 0 0'
+    padding: 8,
+    borderRadius: 2,
+    boxShadow: '0 0 6px rgba(0,0,0,0.1)',
+    margin: '5px 0'
   },
 
   title: {
-    fontSize: '14px',
+    fontSize: '17px',
     color: '#000',
-    fontWeight: 'bold'
   },
 
   content: {
-    fontSize: '17px',
+    fontSize: '16px',
     color: '#555'
   }
 };

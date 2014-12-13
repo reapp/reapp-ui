@@ -13,7 +13,10 @@ var Modal = require('ui/components/Modal');
 require('./App.css');
 
 module.exports = Component({
-  mixins: [PopoverHandler, ModalHandler],
+  mixins: [
+    PopoverHandler,
+    ModalHandler
+  ],
 
   render() {
     var button = (

@@ -19,7 +19,7 @@ module.exports = Component({
 
   componentWillReceiveProps(nextProps) {
     if (this.hasAnimation('rotate', nextProps.animations) && !this.state.isRotating) {
-      this.setState({ step: 0, isRotating: true });
+      this.setState({ step: 0, index: 1, isRotating: true });
       this.rotate();
     }
   },

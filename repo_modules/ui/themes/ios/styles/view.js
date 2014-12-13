@@ -24,5 +24,15 @@ module.exports = (c) => ({
     bottom: 0,
     right: 0,
     WebkitBackfaceVisibility: 'hidden'
+  },
+
+  overlay: {
+    position: 'absolute',
+    top: c.titleBarHeight,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: '#000',
+    pointerEvents: 'none'
   }
 });

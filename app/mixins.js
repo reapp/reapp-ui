@@ -9,5 +9,6 @@ module.exports = {
   shared: {
     'RouteState': ReactRouter.State,
     'RouteHandler': ReactRouter.RouteHandlerMixin,
+    'Navigation': ReactRouter.Navigation,
   }
 };

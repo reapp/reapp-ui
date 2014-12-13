@@ -15,6 +15,10 @@ module.exports = Component({
     AnimatedScrollToTop
   ],
 
+  componentWillMount() {
+    this.setDefaultAnimationTarget('inner');
+  },
+
   componentDidMount() {
     this.setScrollTop();
   },
@@ -22,19 +26,24 @@ module.exports = Component({
   setScrollTop() {
     if (this.props.scrollTop)
       this.refs.inner.getDOMNode().scrollTop = this.props.scrollTop;
-    else if (Array.isArray(this.props.children) && this.props.children[0].type.isSearchBar)
+    else if (
+      Array.isArray(this.props.children) &&
+      this.props.children[0] &&
+      this.props.children[0].type.isSearchBar
+    )
       this.refs.inner.getDOMNode().scrollTop = this.getConstant('scrollBarHeight');
   },
 
+  getTitleBarHeight() {
+    return (
+      this.props.titleBarProps && this.props.titleBarProps.height ||
+      this.getConstant('titleBarHeight')
+    );
+  },
+
   addTitleBarOffset() {
-    var { title, titleBarProps } = this.props;
-    var titleBarHeight = titleBarProps && titleBarProps.height;
-
-    if (!titleBarHeight && title)
-      titleBarHeight = this.getConstant('titleBarHeight');
-
-    if (titleBarHeight)
-      this.addStyles('inner', { top: titleBarHeight });
+    if (this.props.title)
+      this.addStyles('inner', { top: this.getTitleBarHeight() });
   },
 
   hideBoxShadowWhileAnimating() {
@@ -45,15 +54,21 @@ module.exports = Component({
   },
 
   componentWillUpdate() {
-    this.animate('inner');
+    this.animate();
   },
 
   handleDoubleTap() {
     this.animatedScrollToTop(this.refs.inner.getDOMNode(), 300);
   },
 
+  hasOverlay() {
+    return this.props.animations &&
+      !!this.props.animations.filter(a => a.target === 'overlay').length;
+  },
+
   render() {
     var {
+      animations,
       children,
       title,
       index,
@@ -87,6 +102,12 @@ module.exports = Component({
             {children}
           </StaticContainer>
         </div>
+        {this.hasOverlay() && (
+          <div {...this.componentProps('overlay')} style={{
+            top: this.getTitleBarHeight(),
+            display: this.isAnimating('viewList') ? 'block' : 'none'
+          }} />
+        )}
       </div>
     );
   }
