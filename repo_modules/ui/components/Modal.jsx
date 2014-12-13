@@ -6,14 +6,22 @@ var TweenState = require('react-tween-state');
 module.exports = Component({
   name: 'Modal',
 
-  mixins: [TweenState.Mixin],
+  mixins: [
+    TweenState.Mixin
+  ],
 
   propTypes: {
     type: React.PropTypes.string
   },
 
   getDefaultProps() {
-    return { type: 'alert' };
+    return {
+      type: 'alert',
+      animations: [
+        { name: 'fade', target: 'self' },
+        { name: 'scaleDown', target: 'window' }
+      ]
+    };
   },
 
   getInitialState() {
@@ -34,14 +42,14 @@ module.exports = Component({
 
   handleClose(e) {
     this.tweenState('step', {
-      endValue: 0,
+      endValue: 2,
       duration: 400,
       onEnd: this.afterClose.bind(this, e)
     });
   },
 
   afterClose(e) {
-    this.setState({ open: false });
+    this.setState({ open: false, step: 0 });
     e.preventDefault();
 
     if (this.props.handleClose)
@@ -50,6 +58,8 @@ module.exports = Component({
 
   render() {
     var { modalProps, title, type, children, ...props } = this.props;
+
+    this.animate();
 
     if (this.state.open) {
       this.addClass('open');
@@ -72,9 +82,6 @@ module.exports = Component({
         break;
     }
 
-    // todo modal animatinos
-    // style={this.getAnimationStyles('FADE')}
-    // style={this.getAnimationStyles('SCALE_DOWN')}
     return (
       <div {...this.componentProps()} {...props}
         onClick={this.handleClose}>

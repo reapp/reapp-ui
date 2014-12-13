@@ -38,10 +38,7 @@ var animationQueue = [];
 function runAnimations() {
   var i, len = animationQueue.length;
   for (i = 0; i < len; i++) {
-    animationQueue[i].from.setAnimationStyles.call(
-      animationQueue[i].from,
-      animationQueue[i].ref
-    );
+    animationQueue[i].setAnimationStyles.call(animationQueue[i]);
   }
   animationQueue = [];
 }
@@ -75,10 +72,9 @@ module.exports = {
     return this.props.animationDisabled || this.context.animationDisabled
   },
 
-  // todo  animate({ source, ref });
-  animate(ref) {
+  animate() {
     if (!this.animationsDisabled() && this.props.animations && !this.hasPendingAnimations) {
-      animationQueue.push({ from: this, ref });
+      animationQueue.push(this);
       this.hasPendingAnimations = true;
       window.requestAnimationFrame(runAnimations);
     }
@@ -147,24 +143,14 @@ module.exports = {
     return this.getAnimationProps(source).step;
   },
 
-  setAnimationStyles(ref) {
+  setAnimationStyles() {
     this.hasPendingAnimations = false;
-    var styles = this.getAnimationStyles();
+    var animations = this.getAnimations();
 
-    if (!styles || this._lifeCycleState !== 'MOUNTED')
+    if (!animations || this._lifeCycleState !== 'MOUNTED')
       return;
 
-    var node = ref ?
-      this.refs[ref] && this.refs[ref].getDOMNode() :
-      this.getDOMNode();
-
-    if (!node)
-      return;
-
-    var selector = node.id ?
-      `#${node.id}` :
-      `[data-reactid="${node.getAttribute('data-reactid')}"]`;
-
+    var node, selector;
     var hasHeadStyleTag = !!this._headStyleTag;
 
     if (!hasHeadStyleTag) {
@@ -172,11 +158,24 @@ module.exports = {
       this._headStyleTag.id = selector;
     }
 
-    // set tag styles
-    this._headStyleTag.innerHTML =
-      `${selector} {
-        ${this.stylesToString(styles)}
-      }`;
+    Object.keys(animations).forEach(key => {
+      node = key === 'self' ?
+        this.getDOMNode() :
+        this.refs[ref] && this.refs[ref].getDOMNode();
+
+      if (!node)
+        return;
+
+      selector = node.id ?
+        `#${node.id}` :
+        `[data-reactid="${node.getAttribute('data-reactid')}"]`;
+
+      // set tag styles
+      this._headStyleTag.innerHTML +=
+        `${selector} {
+          ${this.stylesToString(animations[key])}
+        }`;
+    });
 
     if (!hasHeadStyleTag)
       document.head.appendChild(this._headStyleTag);
@@ -190,22 +189,29 @@ module.exports = {
       '');
   },
 
-  getAnimationStyles() {
+  // this is the meat of it, fetches animations and returns an object
+  // of animations. key is the ref, value is an object of styles.
+  getAnimations() {
     if (!this.props.animations)
       return;
 
-    var styles = {};
+    // animations = { 'ref': { ...styles } }
+    var animations = {};
     var transform;
-    var firstTransform = true;
-    var animation, i, len = this.props.animations.length;
+    var animation, styles, target, i, len = this.props.animations.length;
 
+    // loop through animations
     for (i = 0; i < len; i++) {
       animation = this.props.animations[i];
 
       if (!animation)
         continue;
 
+      // get index, step and props for animation
       var { index, step, ...props } = this.getAnimationProps(animation.source);
+
+      if (!defined(index) && this.state)
+        index = this.state.index;
 
       if (!animation.source && this.getTweeningValue && this.getTweeningValue('step'))
         step = this.getTweeningValue('step');
@@ -213,28 +219,19 @@ module.exports = {
       Invariant(defined(step), 'Must define step for animation to run');
       Invariant(defined(index), 'Must define index for animation to run');
 
+      // get the animator function set in theme
       var animator = this.getAnimator(animation.name);
       var { scale, rotate, rotate3d, translate, ...other } = animator(index, step, props);
 
-      if (firstTransform && (defined(scale) || defined(rotate) || defined(rotate3d) || defined(translate))) {
-        firstTransform = false;
-        transform = { scale, rotate, rotate3d, translate };
-      }
-      else {
-        this.mergeTransforms(transform, scale, rotate, rotate3d, translate);
-      }
+      // set styles
+      styles = Object.assign({}, other);
+      styles.transform = this.animationTransformsToString({ scale, rotate, rotate3d, translate });
 
-      if (other)
-        Object.assign(styles, other);
+      // update animations
+      animations[animation.target || 'self'] = styles;
     }
 
-    if (transform)
-      styles.transform = this.animationTransformsToString(transform);
-
-    if (Object.keys(styles).length > 0)
-      return styles;
-    else
-      return;
+    return Object.keys(animations).length ? animations : null;
   },
 
   animationTransformsToString(transform) {
@@ -261,37 +258,6 @@ module.exports = {
       transformString += `translate3d(${t.translate.x || 0}px, ${t.translate.y || 0}px, ${t.translate.z || 0}px)`;
 
     return transformString || 'translateZ(0px)';
-  },
-
-  mergeTransforms(transform, scale, rotate, rotate3d, translate) {
-    if (defined(scale)) {
-      if (!defined(transform.scale))
-        transform.scale = 1;
-
-      transform.scale += 1 - scale;
-    }
-
-    if (defined(rotate3d)) {
-      if (!defined(transform.rotate3d))
-        transform.rotate3d = { x: 0, y: 0, z: 0 };
-
-      transform.rotate3d.x += (rotate3d.x || 0);
-      transform.rotate3d.y += (rotate3d.y || 0);
-      transform.rotate3d.z += (rotate3d.z || 0);
-    }
-
-    if (defined(rotate)) {
-      transform.rotate = (transform.rotate || 0) + rotate;
-    }
-
-    if (defined(translate)) {
-      if (!defined(transform.translate))
-        transform.translate = { x: 0, y: 0, z: 0 };
-
-      transform.translate.x += (translate.x || 0);
-      transform.translate.y += (translate.y || 0);
-      transform.translate.z += (translate.z || 0);
-    }
   },
 
   isSameAnimation(a, b) {

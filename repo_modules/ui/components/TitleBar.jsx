@@ -65,7 +65,7 @@ module.exports = Component({
   },
 
   render() {
-    var { animations, left, right, children, height, transparent, ...props } = this.props;
+    var { left, right, children, height, transparent, ...props } = this.props;
     var l, m, r;
 
     // allow shorthand array entry

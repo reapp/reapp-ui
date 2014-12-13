@@ -49,9 +49,6 @@ module.exports = Component({
   },
 
   componentDidUpdate() {
-    // todo: new syntax
-    // this.animate({ source: 'viewList' });
-    // this.animate({ source: 'rotate', ref: 'svg' });
     this.animate();
   },
 
