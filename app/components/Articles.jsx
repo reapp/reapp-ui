@@ -25,17 +25,8 @@ module.exports = Component({
     }
   },
 
-  getInitialState() {
-    return { disableDottedViewList: false };
-  },
-
-  handleViewAction(i) {
-    this.setState({ disableDottedViewList: i !== 0 });
-  },
-
   render() {
     var { handle } = this.props;
-    console.log('render')
 
     var numRoutes = this.getRoutes().length;
     var hasChild = numRoutes > 2;
@@ -45,16 +36,13 @@ module.exports = Component({
       .map(id => ArticlesStore().get(id))
       .filter(x => typeof x !== 'undefined');
 
-      console.log('aritcles render disable', this.state.disableDottedViewList)
     return (
       <ViewList
         scrollToStep={numRoutes - 2}
-        onViewEntering={this.handleViewAction}
-        onViewEntered={this.handleViewAction}
         noFakeTitleBar>
         <View>
           <ArticlesHome
-            disable={this.state.disableDottedViewList}
+            disable={numRoutes > 2}
             articles={articles}
             handle={handle}
             hasChild={hasChild} />

@@ -13,7 +13,7 @@ module.exports = (c) => ({
 
   dragger: {
     position: 'fixed',
-    top: 0,
+    top: c.titleBarHeight,
     bottom: 0,
     width: 20,
     zIndex: 2,

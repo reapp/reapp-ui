@@ -1,4 +1,8 @@
 module.exports = (c) => ({
+  self: {
+    pointerEvents: 'none'
+  },
+
   dot: {
     background: `rgba(${c.dotColor},0.2)`,
     borderRadius: 10,

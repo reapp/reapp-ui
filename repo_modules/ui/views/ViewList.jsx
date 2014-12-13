@@ -17,8 +17,8 @@ module.exports = Component({
   propTypes: {
     onTouchStart: React.PropTypes.func,
     onTouchEnd: React.PropTypes.func,
-    onViewEntered: React.PropTypes.func,
     onViewEntering: React.PropTypes.func,
+    onViewEntered: React.PropTypes.func,
     onViewLeaving: React.PropTypes.func,
     onViewLeft: React.PropTypes.func,
   },
@@ -82,20 +82,27 @@ module.exports = Component({
   // needs to ensure it animates, then updates children views in state
   componentWillReceiveProps(nextProps) {
     if (nextProps.disable)
-      this.disableAnimation();
+      return this.disableAnimation();
     else
       this.enableAnimation();
 
-    // if advancing views or remaining the same
-    if (nextProps.scrollToStep >= this.state.step) {
-      this.setupViewList(nextProps);
-      this.scrollToStep(nextProps.scrollToStep);
-    }
-    // if regressing views
-    else {
-      this.scrollToStep(nextProps.scrollToStep).then(() => {
+    // if new scrollToStep
+    if (nextProps.scrollToStep !== this.props.scrollToStep) {
+      // if advancing views or remaining the same
+      if (nextProps.scrollToStep >= this.state.step) {
         this.setupViewList(nextProps);
-      });
+        this.scrollToStep(nextProps.scrollToStep);
+      }
+      // if regressing views
+      else {
+        this.scrollToStep(nextProps.scrollToStep).then(() => {
+          this.setupViewList(nextProps);
+        });
+      }
+    }
+    // else no new scrollToStop
+    else {
+      this.setupViewList(nextProps);
     }
   },
 
@@ -264,6 +271,10 @@ module.exports = Component({
       });
   },
 
+  getFakeTitleBar() {
+    return <TitleBar {...this.props.titleBarProps} animations={[]} />;
+  },
+
   render() {
     var {
       after,
@@ -272,6 +283,7 @@ module.exports = Component({
       animations,
       titleBarProps,
       noFakeTitleBar,
+      disable,
       ...props
     } = this.props;
 
@@ -279,12 +291,9 @@ module.exports = Component({
     if (this.state.step % 1 === 0)
       this.doAnimate();
 
-    var fakeTitleBar = !noFakeTitleBar && (
-      <TitleBar {...titleBarProps} animations={[]} />
-    );
-
-    if (!noFakeTitleBar)
-      Object.assign(titleBarProps, { transparent: true });
+    var childTitleBarProps = noFakeTitleBar ?
+      titleBarProps :
+      Object.assign({ transparent: true }, titleBarProps);
 
     var viewListProps = Object.assign({
       ignoreY: true,
@@ -300,12 +309,13 @@ module.exports = Component({
     return (
       <div {...this.componentProps()}>
         <TouchableArea {...viewListProps}>
-          {!noFakeTitleBar && fakeTitleBar}
+          {!noFakeTitleBar && this.getFakeTitleBar()}
           {before}
           {Component.clone(this.state.children, (child, i) => ({
             titleBarProps,
             key: i,
             index: i,
+            animationDisabled: disable,
             animations,
             animateProps: {
               viewList: { index: i }

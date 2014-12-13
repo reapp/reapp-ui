@@ -10,21 +10,24 @@ function uniqueId() {
 
 module.exports = {
   childContextTypes: {
-    animateProps: React.PropTypes.object
+    animateProps: React.PropTypes.object,
+    animationDisabled: React.PropTypes.bool
   },
 
   getChildContext() {
-    return { animateProps: this.props.animateProps };
+    return {
+      animateProps: this.props.animateProps,
+      animationDisabled: typeof this._animationsDisabled !== 'undefined' ?
+        !!this._animationsDisabled :
+        this.props.animationDisabled
+    };
   },
 
   runAnimation(source, props) {
     if (this._animationsDisabled)
       return;
 
-    AnimateActions({
-      source,
-      props
-    });
+    AnimateActions({ source, props });
   },
 
   disableAnimation() {

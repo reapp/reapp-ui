@@ -1,7 +1,7 @@
 module.exports = {
   dots: {
     position: 'fixed',
-    zIndex: 1004, // todo: zindex positioning
+    zIndex: 3,
     textAlign: 'center',
     top: 35,
     left: 0,

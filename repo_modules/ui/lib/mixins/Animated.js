@@ -48,7 +48,8 @@ function runAnimations() {
 
 module.exports = {
   contextTypes: {
-    animateProps: React.PropTypes.object
+    animateProps: React.PropTypes.object,
+    animationsActive: React.PropTypes.bool
   },
 
   componentWillMount() {
@@ -70,9 +71,13 @@ module.exports = {
       document.head.removeChild(this._headStyleTag);
   },
 
+  animationsDisabled() {
+    return this.props.animationDisabled || this.context.animationDisabled
+  },
+
   // todo  animate({ source, ref });
   animate(ref) {
-    if (this.props.animations && !this.hasPendingAnimations) {
+    if (!this.animationsDisabled() && this.props.animations && !this.hasPendingAnimations) {
       animationQueue.push({ from: this, ref });
       this.hasPendingAnimations = true;
       window.requestAnimationFrame(runAnimations);

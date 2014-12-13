@@ -72,20 +72,21 @@ module.exports = function(name) {
     },
 
     getStyles(elName, index) {
-      elName = elName === name ? 'self' : elName || 'self';
+      elName = elName || 'self';
 
       return (
         this.styles[elName] || []
       ).concat(
         this.addedStyles[elName] || []
       ).concat(
-        this.getExtraStyles(elName, index)
+        this.getConditionalStyles(elName, index)
       ).concat(
         this.propStyles[elName] || []
       );
     },
 
-    getExtraStyles(elName, index) {
+    // styles for things like 'firstChild', 'lastItem'
+    getConditionalStyles(elName, index) {
       var extraStyles = [];
 
       if (elName === 'self' && this.props.index === 0 || index === 0) {

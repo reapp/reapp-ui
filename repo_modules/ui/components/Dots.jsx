@@ -9,10 +9,18 @@ module.exports = Component({
     active: React.PropTypes.number.isRequired
   },
 
+  shouldComponentUpdate(nextProps) {
+    return (
+      nextProps.total !== this.props.total ||
+      nextProps.active !== this.props.active
+    );
+  },
+
   render() {
     var { total, active, ...props } = this.props;
 
-    var dots = Array.apply(null, new Array(total)); // this sucks
+    // is this really how you make a new empty array in js?
+    var dots = Array.apply(null, new Array(total));
 
     var dotProps = this.componentProps('dot');
     var activeDotProps = Object.assign({}, this.componentProps('dotActive'));

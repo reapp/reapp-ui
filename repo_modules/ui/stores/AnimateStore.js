@@ -31,11 +31,8 @@ AnimateActions.listen(action => {
     store[action.source] = action;
 });
 
-function getAnimation(animation) {
-  return store[animation.source] && store[animation.source].props;
-}
-
 window.a = store;
-window.g = getAnimation;
 
-module.exports = getAnimation;
+module.exports = function(animation) {
+  return store[animation.source] && store[animation.source].props;
+};

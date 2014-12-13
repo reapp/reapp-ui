@@ -53,7 +53,6 @@ module.exports = Component({
       { touchStartBoundsX: { from: 20, to: window.innerWidth - 20 } } :
       null;
 
-      console.log('render', props)
     return (
       <DottedViewList {...props} {...dottedProps}>
         <View title={[handle, 'Hot Articles', refreshButton]}>

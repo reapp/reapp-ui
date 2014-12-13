@@ -8,12 +8,15 @@ module.exports = {
         clearTimeout(tapTimeout);
         tapCount++;
 
-        if (tapCount == total)
+        if (tapCount == total) {
+          tapCount = 0;
           cb(e);
-        else
+        }
+        else {
           tapTimeout = setTimeout(function() {
             tapCount = 0;
-          }, timeout || 300);
+          }, timeout || 500);
+        }
       }
     };
   }
