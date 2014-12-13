@@ -116,7 +116,7 @@ module.exports = {
 
       props.animations.forEach(animation => {
         this._animations[animation.source] = Object.assign({},
-          AnimateStore(animation, this._mountDepth) || {},
+          AnimateStore(animation) || {},
           props && props.animateProps && props.animateProps[animation.source] || {}
         );
       });
@@ -129,7 +129,7 @@ module.exports = {
 
     if (this.props.animations)
       this.props.animations.forEach(animation => {
-        newProps = AnimateStore(animation, this._mountDepth);
+        newProps = AnimateStore(animation);
         Object.assign(this._animations[animation.source], newProps);
       });
   },
@@ -202,14 +202,11 @@ module.exports = {
 
       var { index, step, ...props } = this.getAnimationProps(animation.source);
 
-      Invariant(defined(step), 'Must define step for animation to run');
-      Invariant(defined(index), 'Must define index for animation to run');
-
       if (!animation.source && this.getTweeningValue && this.getTweeningValue('step'))
         step = this.getTweeningValue('step');
 
-      if (!defined(step))
-        continue; // throw new Error(`No step defined for animation ${source}`);
+      Invariant(defined(step), 'Must define step for animation to run');
+      Invariant(defined(index), 'Must define index for animation to run');
 
       var animator = this.getAnimator(animation.name);
       var { scale, rotate, rotate3d, translate, ...other } = animator(index, step, props);

@@ -17,22 +17,11 @@ module.exports = {
     return { animateProps: this.props.animateProps };
   },
 
-  componentWillMount() {
-    this._animateID = uniqueId();
-  },
-
-  componentWillUnmount() {
-    this._removeAnimation();
-  },
-
   runAnimation(source, props) {
     if (this._animationsDisabled)
       return;
 
     AnimateActions({
-      type: 'add',
-      id: this._animateID,
-      depth: this._mountDepth,
       source,
       props
     });
@@ -40,17 +29,9 @@ module.exports = {
 
   disableAnimation() {
     this._animationsDisabled = true;
-    this._removeAnimation();
   },
 
   enableAnimation() {
     this._animationsDisabled = false;
-  },
-
-  _removeAnimation() {
-    AnimateActions({
-      type: 'remove',
-      id: this._animateID
-    });
   }
 };

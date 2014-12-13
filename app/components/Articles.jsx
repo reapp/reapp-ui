@@ -29,9 +29,8 @@ module.exports = Component({
     return { disableDottedViewList: false };
   },
 
-  handleViewEntering(i) {
-    debugger;
-    this.setState({ disableDottedViewList: (i > 0) });
+  handleViewAction(i) {
+    this.setState({ disableDottedViewList: i !== 0 });
   },
 
   render() {
@@ -50,7 +49,8 @@ module.exports = Component({
     return (
       <ViewList
         scrollToStep={numRoutes - 2}
-        onViewEntering={this.handleViewEntering}
+        onViewEntering={this.handleViewAction}
+        onViewEntered={this.handleViewAction}
         noFakeTitleBar>
         <View>
           <ArticlesHome

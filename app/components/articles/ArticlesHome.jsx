@@ -18,14 +18,14 @@ module.exports = Component({
 
   handleRefresh(e) {
     this.setState({ isRefreshing: true });
-    actions.articlesHotRefresh();
+    Component.actions.articlesHotRefresh();
   },
 
   handleLoadMore(e) {
     e.preventDefault();
     e.target.innerHTML = 'Loading...';
-    actions.articlesHotLoadMore();
-    var unlisten = actions.articlesHotLoadDone.listen(() => {
+    Component.actions.articlesHotLoadMore();
+    var unlisten = Component.actions.articlesHotLoadDone.listen(() => {
       this.setState({ isRefreshing: false });
       unlisten();
     });

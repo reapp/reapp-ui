@@ -81,7 +81,6 @@ module.exports = Component({
 
   // needs to ensure it animates, then updates children views in state
   componentWillReceiveProps(nextProps) {
-    console.log('disbale', nextProps.disable);
     if (nextProps.disable)
       this.disableAnimation();
     else
