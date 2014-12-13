@@ -26,6 +26,10 @@ module.exports = Component({
     this.centerMiddleTitle();
   },
 
+  componentWillMount() {
+    this.animate();
+  },
+
   componentWillUpdate() {
     this.animate();
   },

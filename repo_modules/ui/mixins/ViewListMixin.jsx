@@ -280,7 +280,7 @@ module.exports = {
       this.doAnimate();
 
     return (
-      <div {...props} {...this.componentProps()}>
+      <div {...this.componentProps()} {...props}>
         <TouchableArea {...this.getViewListProps()}>
           {!this.props.noFakeTitleBar && this.getFakeTitleBar()}
           {this.props.before}

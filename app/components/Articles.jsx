@@ -3,6 +3,7 @@ var Component = require('component');
 var ParallaxViewList = require('ui/views/ParallaxViewList');
 var View = require('ui/views/View');
 var ArticlesHome = require('./articles/ArticlesHome');
+
 var { actions, helpers, mixins } = Component;
 var { ArticlesStore, HotArticlesStore } = Component.stores;
 
@@ -17,45 +18,33 @@ module.exports = Component({
   },
 
   mixins: [
-    'RouteState',
-    'RouteHandler',
-    'Navigation',
+    // getViewListProps, getKeyedSubRoute
+    mixins.routedViewListHandler({ depth: 2 }),
     mixins.listener(
       ArticlesStore,
       actions.articlesHotLoadDone
     )
   ],
 
-  handleViewEntered(i) {
-    if (i === 0)
-      this.goBack();
-  },
-
   render() {
     var { handle } = this.props;
-
-    var numRoutes = this.getRoutes().length;
-    var hasChild = numRoutes > 2;
-    var subRouteKey = this.getRoutes().reverse()[0].name + this.getParams().id;
-
     var articles = HotArticlesStore()
       .map(id => ArticlesStore().get(id))
       .filter(x => typeof x !== 'undefined');
 
     return (
       <ParallaxViewList
-        scrollToStep={numRoutes - 2}
-        onViewEntered={this.handleViewEntered}
+        {...this.getViewListProps()}
         noFakeTitleBar>
         <View>
           <ArticlesHome
-            disable={numRoutes > 2}
+            disable={this.numRoutes() > 2}
+            hasChild={this.hasChildRoute()}
             articles={articles}
-            handle={handle}
-            hasChild={hasChild} />
+            handle={handle} />
         </View>
 
-        {hasChild && this.getRouteHandler(Object.assign(this.props, { key: subRouteKey }))}
+        {this.getKeyedSubRoute()}
       </ParallaxViewList>
     );
   }

@@ -17,6 +17,7 @@ module.exports = Component({
 
   componentWillMount() {
     this.setDefaultAnimationTarget('inner');
+    this.animate();
   },
 
   componentDidMount() {

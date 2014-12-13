@@ -1,7 +1,6 @@
-var React = require('react/addons');
 var Component = require('component');
-var Transition = React.addons.TransitionGroup;
-var { Link, RouteHandlerMixin, State } = require('react-router');
+var React = require('react');
+var { Link } = require('react-router');
 var ParallaxViewList = require('ui/views/ParallaxViewList');
 var View = require('ui/views/View');
 var SearchBar = require('ui/components/SearchBar');
@@ -13,8 +12,11 @@ var InertLink = React.createClass({
   render() { return <Link {...this.props} activeClassName="" />; }
 });
 
-module.exports = React.createClass({
-  mixins: [State, RouteHandlerMixin],
+module.exports = Component({
+  mixins: [
+    // getViewListProps, getKeyedSubRoute
+    Component.mixins.RoutedViewListHandler({ depth: 2 })
+  ],
 
   getInitialState() {
     return { searchVal: '' };
@@ -49,7 +51,7 @@ module.exports = React.createClass({
     ];
 
     return (
-      <ParallaxViewList scrollToStep={numRoutes - 2}>
+      <ParallaxViewList {...this.getViewListProps()}>
         <View title={[this.props.handle, 'Kitchen Sink']}>
           <SearchBar onChange={this.handleSearch} defaultValue="" />
 
@@ -73,7 +75,7 @@ module.exports = React.createClass({
           </List>
         </View>
 
-        {hasChild && this.getRouteHandler(this.props)}
+        {this.getKeyedSubRoute()}
       </ParallaxViewList>
     );
   }
