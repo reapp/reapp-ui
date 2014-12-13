@@ -28,6 +28,9 @@ module.exports = {
   // ListItem
   listItemBorderColor: listBorderColor,
 
+  // ScrollBar
+  scrollBarHeight: 44,
+
   // View
   viewPad: '10px',
 

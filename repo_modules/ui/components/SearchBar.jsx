@@ -8,8 +8,10 @@ module.exports = Component({
 
     return (
       <div {...this.componentProps()} {...barProps}>
-        <input {...props}
-          type="search" />
+        <div {...this.componentProps('inner')}>
+          <input {...this.componentProps('input')} {...props}
+            type="search" />
+        </div>
       </div>
     );
   }

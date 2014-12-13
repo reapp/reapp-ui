@@ -3,15 +3,28 @@ var Component = require('ui/component');
 var TitleBar = require('../components/TitleBar');
 var StaticContainer = require('../helpers/StaticContainer');
 var Animator = require('../lib/mixins/Animator');
+var ScrollTopable = require('../mixins/ScrollTopable');
 var AnimatedScrollToTop = require('../mixins/AnimatedScrollToTop');
 
 module.exports = Component({
   name: 'View',
 
   mixins: [
+    ScrollTopable,
     Animator,
     AnimatedScrollToTop
   ],
+
+  componentDidMount() {
+    this.setScrollTop();
+  },
+
+  setScrollTop() {
+    if (this.props.scrollTop)
+      this.refs.inner.getDOMNode().scrollTop = this.props.scrollTop;
+    else if (Array.isArray(this.props.children) && this.props.children[0].type.isSearchBar)
+      this.refs.inner.getDOMNode().scrollTop = this.getConstant('scrollBarHeight');
+  },
 
   addTitleBarOffset() {
     var { title, titleBarProps } = this.props;
