@@ -4,8 +4,7 @@ var ParallaxViewList = require('ui/views/ParallaxViewList');
 var View = require('ui/views/View');
 var ArticlesHome = require('./articles/ArticlesHome');
 
-var { actions, helpers, mixins } = Component;
-var { ArticlesStore, HotArticlesStore } = Component.stores;
+var { actions, helpers, mixins, stores } = Component;
 
 require('./Articles.styl');
 
@@ -18,7 +17,7 @@ module.exports = Component({
   },
 
   mixins: [
-    // getViewListProps, getKeyedSubRoute
+    // provides: getViewListProps, getKeyedSubRoute
     mixins.routedViewListHandler({ depth: 2 }),
     mixins.listener(
       ArticlesStore,
@@ -28,9 +27,6 @@ module.exports = Component({
 
   render() {
     var { handle } = this.props;
-    var articles = HotArticlesStore()
-      .map(id => ArticlesStore().get(id))
-      .filter(x => typeof x !== 'undefined');
 
     return (
       <ParallaxViewList
@@ -38,8 +34,9 @@ module.exports = Component({
         noFakeTitleBar>
         <View>
           <ArticlesHome
+            hotArticlesStore={stores.HotArticlesStore()}
+            articlesStore={stores.ArticlesStore()}
             disable={this.numRoutes() > 2}
-            articles={articles}
             handle={handle} />
         </View>
 

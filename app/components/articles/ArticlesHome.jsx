@@ -37,7 +37,11 @@ module.exports = Component({
   },
 
   render() {
-    var { articles, handle, ...props } = this.props;
+    var { hotArticlesStore, articlesStore, handle, ...props } = this.props;
+
+    var articles = hotArticlesStore
+      .map(id => articlesStore.get(id))
+      .filter(x => typeof x !== 'undefined');
 
     var refreshButton = (
       <Button
@@ -56,7 +60,7 @@ module.exports = Component({
       <DottedViewList {...props} {...this.disableTouchRightProps()}>
         <View title={[handle, 'Hot Articles', refreshButton]}>
           <List styles={{ self: { borderTop: 'none' } }} nowrap>
-            {articles.count() ?
+            {articles && articles.count() ?
               articles.map((article, i) =>
                 <ArticleItem cursor={article} key={i} />
               ).toArray()
