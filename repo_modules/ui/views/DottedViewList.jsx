@@ -22,7 +22,7 @@ module.exports = Component({
         scrollingY: false
       },
       animations: [
-        { animation: 'viewSideBySide', source: 'viewList' }
+        { animation: 'viewSideBySide', source: 'viewList', name: 'pane' }
       ],
       titleBarProps: {
         height: 48,

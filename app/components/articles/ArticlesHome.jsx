@@ -76,7 +76,9 @@ module.exports = Component({
             </List>
         </View>
 
-        <View title={[handle, 'Saved Articles']} />
+        <View title={[handle, 'Saved Articles']}>
+          <p>My saved articles. Try swiping an articles to the right to add it here.</p>
+        </View>
       </DottedViewList>
     );
   }
