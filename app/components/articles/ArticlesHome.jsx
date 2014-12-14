@@ -60,7 +60,7 @@ module.exports = Component({
       <DottedViewList {...props} {...this.disableTouchRightProps()}>
         <View title={[handle, 'Hot Articles', refreshButton]}>
           <List styles={{ self: { borderTop: 'none' } }} nowrap>
-            {articles && articles.count() ?
+            {articles.count() ?
               articles.map((article, i) =>
                 <ArticleItem cursor={article} key={i} />
               ).toArray()

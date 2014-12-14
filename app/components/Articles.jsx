@@ -20,7 +20,7 @@ module.exports = Component({
     // provides: getViewListProps, getKeyedSubRoute
     mixins.routedViewListHandler({ depth: 2 }),
     mixins.listener(
-      ArticlesStore,
+      stores.ArticlesStore,
       actions.articlesHotLoadDone
     )
   ],
