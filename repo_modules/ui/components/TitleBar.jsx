@@ -17,21 +17,13 @@ module.exports = Component({
   getDefaultProps() {
     return {
       width: window.innerWidth,
-      iconAnimations: [{ name: 'moveToRight', source: 'viewList' }],
-      animations: [{ name: 'fadeLeft', source: 'viewList' }]
+      iconAnimations: [{ animation: 'moveToRight', source: 'viewList' }],
+      animations: [{ animation: 'fadeLeft', source: 'viewList' }]
     };
   },
 
   componentDidMount() {
     this.centerMiddleTitle();
-  },
-
-  componentWillMount() {
-    this.animate();
-  },
-
-  componentWillUpdate() {
-    this.animate();
   },
 
   componentDidUpdate(prevProps) {
@@ -91,7 +83,8 @@ module.exports = Component({
       this.addStyles({ height });
 
     return (
-      <div {...props} {...this.componentProps()} {...this.multiTap(2, this.handleDoubleTap)}>
+      <div {...props} {...this.componentProps()} {...this.multiTap(2, this.handleDoubleTap)}
+        style={this.getAnimation()}>
         <div {...this.componentProps('left')}>
           {this.addIconProps(l)}
         </div>

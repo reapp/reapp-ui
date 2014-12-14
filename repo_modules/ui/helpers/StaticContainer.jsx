@@ -7,10 +7,10 @@ module.exports = Component({
     return { shouldUpdate: false };
   },
 
-  shouldComponentUpdate(nextProps) {
-    return nextProps.shouldUpdate ||
-      (this.props.staticKey !== nextProps.staticKey);
-  },
+  // shouldComponentUpdate(nextProps) {
+  //   return nextProps.shouldUpdate ||
+  //     (this.props.staticKey !== nextProps.staticKey);
+  // },
 
   render() {
     return (

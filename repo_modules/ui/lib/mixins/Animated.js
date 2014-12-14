@@ -30,10 +30,10 @@ var AnimateStore = require('../../stores/AnimateStore');
 // Expects props to be set in the form of animations key, value is
 // an array of animation objects.
 
-// An animation object can have three properties:
-//   source {string} - identifier to get info on animation
-//   name {string} - identifier for the animation function
-//   target {string} - to animate a ref, must have that ref
+// An animation object can have the following props:
+//   animation (required) {string} - animation function
+//   source (optional) {string} - for info from parents
+//   name (optional) {string} - can use as an identifier
 
 // other relevant proprties
 
@@ -83,34 +83,22 @@ module.exports = {
     return this.props.animationDisabled || this.context.animationDisabled;
   },
 
-  setDefaultAnimationTarget(target) {
-    this._defaultAnimationTarget = target;
-  },
-
-  animate() {
-    if (!this.animationsDisabled() && this.props.animations && !this.hasPendingAnimations) {
-      animationQueue.push(this);
-      this.hasPendingAnimations = true;
-      window.requestAnimationFrame(runAnimations);
-    }
-  },
-
   isAnimating(source) {
     return this._animations && this.getAnimationProps(source).step % 1 !== 0;
   },
 
-  getAnimationProp(name, animations) {
+  getAnimationProp(animation, animations) {
     animations = animations || this.props.animations;
-    return animations.filter(a => a && a.name === name);
+    return animations.filter(a => a && a.animation === animation);
   },
 
-  hasAnimation(name, animations) {
+  hasAnimation(animation, animations) {
     animations = animations || this.props.animations;
-    return animations && !!this.getAnimationProp(name, animations).length;
+    return animations && !!this.getAnimationProp(animation, animations).length;
   },
 
-  getAnimator(name) {
-    return UI.getAnimations(name);
+  getAnimator(animation) {
+    return UI.getAnimations(animation);
   },
 
   hasNewAnimations(nextProps) {
@@ -158,9 +146,19 @@ module.exports = {
     return this.getAnimationProps(source).step;
   },
 
+  // experimental: for out of react render
+  animate() {
+    if (!this.animationsDisabled() && this.props.animations && !this.hasPendingAnimations) {
+      animationQueue.push(this);
+      this.hasPendingAnimations = true;
+      window.requestAnimationFrame(runAnimations);
+    }
+  },
+
+  // experimental: for out of react render
   setAnimationStyles() {
     this.hasPendingAnimations = false;
-    var animations = this.getAnimations();
+    var animations = this.getAnimation();
 
     if (!animations || this._lifeCycleState !== 'MOUNTED')
       return;
@@ -199,6 +197,7 @@ module.exports = {
       document.head.appendChild(this._headStyleTag);
   },
 
+  // experimental: for out of react render
   stylesToString(obj) {
     return Object.keys(obj).reduce(
       (acc, key) =>
@@ -209,20 +208,19 @@ module.exports = {
 
   // this is the meat of it, fetches animations and returns an object
   // of animations. key is the ref, value is an object of styles.
-  getAnimations() {
+  // TODO: make this use RAF and return on every frame
+  getAnimation(name) {
     if (!this.props.animations)
       return;
 
-    // animations = { 'ref': { ...styles } }
-    var animations = {};
-    var transform;
-    var animation, styles, target, i, len = this.props.animations.length;
+    var styles;
+    var animation, i, len = this.props.animations.length;
 
     // loop through animations
     for (i = 0; i < len; i++) {
       animation = this.props.animations[i];
 
-      if (!animation)
+      if (!animation || name && name !== animation.name)
         continue;
 
       // get index, step and props for animation
@@ -238,18 +236,15 @@ module.exports = {
       Invariant(defined(index), 'Must define index for animation to run');
 
       // get the animator function set in theme
-      var animator = this.getAnimator(animation.name);
+      var animator = this.getAnimator(animation.animation);
       var { scale, rotate, rotate3d, translate, ...other } = animator(index, step, props);
 
       // set styles
       styles = Object.assign({}, other);
       styles[StyleKeys.TRANSFORM] = this.animationTransformsToString({ scale, rotate, rotate3d, translate });
-
-      // update animations
-      animations[animation.target || this._defaultAnimationTarget || 'self'] = styles;
     }
 
-    return Object.keys(animations).length ? animations : null;
+    return styles;
   },
 
   animationTransformsToString(transform) {
@@ -279,6 +274,9 @@ module.exports = {
   },
 
   isSameAnimation(a, b) {
-    return a.name === b.name && a.source === b.source;
+    return a.animation === b.animation && (
+      !a.source && !b.source ||
+      a.source === b.source
+    );
   }
 };

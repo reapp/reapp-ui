@@ -26,8 +26,8 @@ module.exports = Component({
         scrollingY: false
       },
       animations: [
-       { name: 'viewParallax', source: 'viewList' },
-       { name: 'fadeOnEnter', source: 'viewList', target: 'overlay' }
+       { animation: 'viewParallax', source: 'viewList', name: 'pane' },
+       { animation: 'fadeOnEnter', source: 'viewList', name: 'overlay' }
       ],
       // touchable only on the left and right edges
       touchStartBoundsX: [

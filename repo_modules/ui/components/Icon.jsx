@@ -40,18 +40,6 @@ module.exports = Component({
     });
   },
 
-  shouldComponentUpdate() {
-    if (this.getTweeningValue('step')) {
-      this.animate('svg');
-      return false;
-    }
-    return true;
-  },
-
-  componentDidUpdate() {
-    this.animate();
-  },
-
   render() {
     var {
       animations,
@@ -92,7 +80,7 @@ module.exports = Component({
     }
 
     return (
-      <span {...props} {...this.componentProps()}>
+      <span {...props} {...this.componentProps()} style={this.getAnimation()}>
         <svg {...svgExtraProps} {...svgProps} {...this.componentProps('svg')}>
           <g dangerouslySetInnerHTML={{__html:
             '<use xlink:href="/assets/icons/svg/'+ name +'.svg#Layer_1"></use>'

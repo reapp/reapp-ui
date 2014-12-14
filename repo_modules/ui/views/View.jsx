@@ -15,11 +15,6 @@ module.exports = Component({
     AnimatedScrollToTop
   ],
 
-  componentWillMount() {
-    this.setDefaultAnimationTarget('inner');
-    this.animate();
-  },
-
   componentDidMount() {
     this.setScrollTop();
   },
@@ -54,10 +49,6 @@ module.exports = Component({
       this.addStyles('inner', { boxShadow: 'none' });
   },
 
-  componentWillUpdate() {
-    this.animate();
-  },
-
   handleDoubleTap() {
     if (this.refs.inner)
       this.animatedScrollToTop(this.refs.inner.getDOMNode(), 300);
@@ -65,7 +56,7 @@ module.exports = Component({
 
   hasOverlay() {
     return this.props.animations &&
-      !!this.props.animations.filter(a => a.target === 'overlay').length;
+      !!this.props.animations.filter(a => a.name === 'overlay').length;
   },
 
   render() {
@@ -99,16 +90,16 @@ module.exports = Component({
         {title && (
           <TitleBar {...titleBarProps} animateProps={animateProps}>{title}</TitleBar>
         )}
-        <div {...props} {...this.componentProps('inner')}>
+        <div {...props} {...this.componentProps('inner')} style={this.getAnimation('pane')}>
           <StaticContainer shouldUpdate={!this.props.animations || this.getAnimationStep('viewList') % 1 === 0}>
             {children}
           </StaticContainer>
         </div>
         {this.hasOverlay() && (
-          <div {...this.componentProps('overlay')} style={{
+          <div {...this.componentProps('overlay')} style={Object.assign({
             top: this.getTitleBarHeight(),
             display: this.isAnimating('viewList') ? 'block' : 'none'
-          }} />
+          }, this.getAnimation('overlay'))} />
         )}
       </div>
     );
