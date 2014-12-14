@@ -241,8 +241,8 @@ module.exports = {
       });
   },
 
-  getFakeTitleBar() {
-    return <TitleBar {...this.props.titleBarProps} animations={[]} />;
+  getFakeTitleBar(props) {
+    return <TitleBar {...props.titleBarProps} animations={[]} />;
   },
 
   getViewListProps() {
@@ -260,10 +260,10 @@ module.exports = {
     );
   },
 
-  getTitleBarProps() {
-    return this.props.noFakeTitleBar ?
-      this.props.titleBarProps :
-      Object.assign({ transparent: true }, this.props.titleBarProps);
+  getTitleBarProps(props) {
+    return props.noFakeTitleBar ?
+      props.titleBarProps :
+      Object.assign({ transparent: true }, props.titleBarProps);
   },
 
   getViewAnimations(view) {
@@ -282,13 +282,13 @@ module.exports = {
     return (
       <div {...props}>
         <TouchableArea {...this.getViewListProps()}>
-          {!props.noFakeTitleBar && this.getFakeTitleBar()}
+          {!props.noFakeTitleBar && this.getFakeTitleBar(props)}
           {props.before}
           {Component.clone(this.state.children, (child, i) => ({
             key: i,
             index: i,
-            titleBarProps: this.getTitleBarProps(),
-            animationDisabled: this.props.disable,
+            titleBarProps: this.getTitleBarProps(props),
+            animationDisabled: props.disable,
             animations: this.getViewAnimations(child),
             animateProps: { viewList: { index: i } },
             width: this.state.width,
