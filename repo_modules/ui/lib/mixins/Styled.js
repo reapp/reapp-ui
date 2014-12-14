@@ -44,7 +44,7 @@ module.exports = function(name) {
 
       return (ref === 'self' && this.isReactStyle(this.propStyles)) ?
         this.propStyles :
-        Object.keys(this.propStyles).map(key => (
+        Object.keys(this.propStyles).filter(key => key === ref).map(key => (
           this.makeReactStyle(this.propStyles[key])
         ));
     },

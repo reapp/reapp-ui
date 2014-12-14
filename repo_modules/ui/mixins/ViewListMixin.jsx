@@ -243,6 +243,7 @@ module.exports = {
       // default props
       {
         ignoreY: true,
+        currentTargetOnly: true,
         scroller: this.scroller
       },
 
