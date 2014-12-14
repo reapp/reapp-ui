@@ -7,8 +7,6 @@ var { Scroller } = require('scroller');
 
 // TODO:
 // look at using transition mixin rather than scroller stuff
-// drawer should support coming/dragging in from any direction
-// Behavior should encompass this
 
 module.exports = Component({
   name: 'Drawer',
@@ -16,6 +14,7 @@ module.exports = Component({
   getDefaultProps() {
     return {
       behavior: DrawerBehavior,
+      type: 'right',
       parents: null,
       closed: false,
       shouldUpdate: true
@@ -72,16 +71,34 @@ module.exports = Component({
     this.scrollToOpen();
   },
 
-  handleScroll(left) {
-    if (left === this.state.offset)
-      return;
+  handleScroll(left, top) {
+    var offset, transform;
+
+    switch(this.props.type){
+      case 'left':
+        offset = -left;
+        transform = 'translate3d(' + (left / 2) + 'px, 0, 0)';
+        break;
+      case 'right':
+        offset = left;
+        transform = 'translate3d(-' + (left / 2) + 'px, 0, 0)';
+        break;
+      case 'top':
+        offset = -top;
+        transform = 'translate3d(0, ' + (left / 2) + 'px, 0)';
+        break;
+      case 'bottom':
+        offset = top;
+        transform = 'translate3d(0, -' + (left / 2) + 'px, 0)';
+      break;
+    }
 
     this.setState({
-      offset: left,
-      closed: left === 0
+      offset,
+      closed: offset === 0
     });
 
-    this.transformParents('translate3d(-' + (left / 2) + 'px, 0, 0)');
+    this.transformParents(transform);
   },
 
   transformParents(transform) {
@@ -92,20 +109,26 @@ module.exports = Component({
     }
   },
 
+  typeMap(type) {
+    return { left: 'right', right: 'left', top: 'bottom', bottom: 'top' };
+  },
+
   render() {
-    var { translate, behavior, scroller, touchableProps, children, shouldUpdate, ...props } = this.props;
+    var { translate, type, behavior, scroller, touchableProps, children, shouldUpdate, ...props } = this.props;
 
     props.translate = (
-      translate || behavior.translate(this.state.offset)
+      translate || behavior[type].translate(this.state.offset)
     );
 
     this.addClass('closed', this.state.closed);
-    this.addStyles('dragger', {
-      left: this.state.closed ? -10 : 0
-    });
+    this.addStyles(this.props.type);
+
+    var draggerOffset = {};
+    draggerOffset[this.typeMap(type)] = this.state.closed ? -10 : 0;
+    this.addStyles('dragger', draggerOffset);
 
     return (
-      <AnimatableContainer {...props} {...this.componentProps()}>
+      <AnimatableContainer {...this.componentProps()} {...props}>
         <TouchableArea {...this.componentProps('dragger')} {...touchableProps}
           scroller={scroller || this.scroller} />
           <StaticContainer shouldUpdate={shouldUpdate}>

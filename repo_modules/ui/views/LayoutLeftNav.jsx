@@ -2,9 +2,9 @@ var React = require('react/addons');
 var Component = require('ui/component');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
 var LeftNavBehavior = require('./LeftNavBehavior');
-var DrawerBehavior = require('./DrawerBehavior');
+var Drawer = require('../components/Drawer');
+var DrawerBehavior = require('../components/DrawerBehavior');
 var TouchableArea = require('../helpers/TouchableArea');
-var Drawer = require('./Drawer');
 var Scrollable = require('../mixins/Scrollable');
 
 module.exports = Component({
@@ -78,7 +78,7 @@ module.exports = Component({
 
     var drawerProps = {
       layer: 1,
-      translate: DrawerBehavior.translate(this.state.scrollX),
+      translate: DrawerBehavior.right.translate(this.state.scrollX),
       scroller: this.scroller,
       onTouchTap: this._handleContentTouchTap,
       shouldUpdate: !this._isAnimating()

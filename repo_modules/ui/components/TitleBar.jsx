@@ -83,7 +83,10 @@ module.exports = Component({
       this.addStyles({ height });
 
     return (
-      <div {...props} {...this.componentProps()} {...this.multiTap(2, this.handleDoubleTap)}
+      <div
+        {...this.componentProps()}
+        {...this.multiTap(2, this.handleDoubleTap)}
+        {...props}
         style={this.getAnimation()}>
         <div {...this.componentProps('left')}>
           {this.addIconProps(l)}

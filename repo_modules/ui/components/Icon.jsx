@@ -80,7 +80,7 @@ module.exports = Component({
     }
 
     return (
-      <span {...props} {...this.componentProps()} style={this.getAnimation()}>
+      <span {...this.componentProps()} style={this.getAnimation()} {...props}>
         <svg {...svgExtraProps} {...svgProps} {...this.componentProps('svg')}>
           <g dangerouslySetInnerHTML={{__html:
             '<use xlink:href="/assets/icons/svg/'+ name +'.svg#Layer_1"></use>'

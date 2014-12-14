@@ -86,7 +86,7 @@ module.exports = Component({
     this.hideBoxShadowWhileAnimating();
 
     return (
-      <div {...containerProps} {...this.componentProps()}>
+      <div {...this.componentProps()} {...containerProps}>
         {title && (
           <TitleBar {...titleBarProps} animateProps={animateProps}>{title}</TitleBar>
         )}

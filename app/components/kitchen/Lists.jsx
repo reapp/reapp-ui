@@ -15,7 +15,7 @@ module.exports = StaticView({
   },
 
   render() {
-    var icon = <Icon type="contact" size="28" />;
+    var icon = <Icon name="contact" size="28" />;
     var badge = <Badge value="5" />;
 
     return (

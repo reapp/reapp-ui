@@ -4,6 +4,8 @@ module.exports = (c) => ({
     color: '#fff',
     borderRadius: 100,
     fontWeight: 'bold',
+    minWidth: '20px',
+    textAlign: 'center'
   },
 
   text: {

@@ -16,48 +16,37 @@ var ReactStyle = require('react-style');
 module.exports = function(name) {
   return {
     componentWillUpdate(nextProps) {
-      this.makeStyles(nextProps.styles);
+      this.setupStyles(nextProps);
     },
 
     componentWillMount() {
-      this.makeStyles(this.props.styles);
+      this.setupStyles(this.props);
+      this.styles = UI.getStyles(name) || {};
     },
 
-    componentWillUnmount() {
-      delete this.styles;
-      delete this.mediaStyles;
-      delete this.propStyles;
+    setupStyles(props) {
+      this.addedStyles = {};
+
+      if (props.styles) {
+        this.addedStyles = {};
+        this.propStyles = props.styles;
+        delete props.styles; // bad, i know
+      }
     },
 
     getConstant(name) {
       return UI.getConstants(name);
     },
 
-    // note: we track three styles
-    // this.styles = styles that are added by the component itself
-    // this.propStyles = styles passed in by props
-    // this.mediaStyles = styles for media queries
-    // getStyles will return propStyles after regular styles, so users can
-    // override styles set within a component
-    makeStyles(propStyles) {
-      this.styles = UI.getStyles(name) || {};
-      this.addedStyles = {};
-      this.mediaStyles = {};
-      this.propStyles = {};
+    getPropStyles(ref) {
+      if (!this.propStyles)
+        return;
 
-      if (propStyles)
-        this.addPropStyles(propStyles);
-
-      return this.styles;
-    },
-
-    addPropStyles(propStyles) {
-      if (this.isReactStyle(propStyles))
-        this.addStyleTo(this.propStyles, 'self', propStyles);
-      else
-        Object.keys(propStyles).forEach(key => {
-          this.addStyleTo(this.propStyles, key, this.makeReactStyle(propStyles[key]));
-        });
+      return (ref === 'self' && this.isReactStyle(this.propStyles)) ?
+        this.propStyles :
+        Object.keys(this.propStyles).map(key => (
+          this.makeReactStyle(this.propStyles[key])
+        ));
     },
 
     addStyleTo(obj, key, style) {
@@ -78,34 +67,33 @@ module.exports = function(name) {
       return this.isReactStyle(obj) ? obj : ReactStyle(obj);
     },
 
+    // todo: better way to do this
     isReactStyle(obj) {
-      // todo: checking for array is dirty,
-      // just used for now because we turn everything into array
       return Array.isArray(obj) || !!obj.style;
     },
 
-    getStyles(elName, index) {
-      elName = elName || 'self';
+    getStyles(ref, index) {
+      ref = ref || 'self';
 
       return (
-        this.styles[elName] || []
+        this.styles[ref] || []
       ).concat(
-        this.addedStyles[elName] || []
+        this.addedStyles[ref] || []
       ).concat(
-        this.getConditionalStyles(elName, index)
+        this.getConditionalStyles(ref, index)
       ).concat(
-        this.propStyles[elName] || []
+        this.getPropStyles(ref) || []
       );
     },
 
     // styles for things like 'firstChild', 'lastItem'
-    getConditionalStyles(elName, index) {
+    getConditionalStyles(ref, index) {
       var conditionalStyles = [];
 
-      if (elName === 'self' && this.props.index === 0 || index === 0) {
-        var firstChildKey = elName === 'self' ?
+      if (ref === 'self' && this.props.index === 0 || index === 0) {
+        var firstChildKey = ref === 'self' ?
           'firstChild' :
-          elName + 'FirstChild';
+          ref + 'FirstChild';
 
         if (this.styles[firstChildKey])
           conditionalStyles = this.styles[firstChildKey];
@@ -116,25 +104,25 @@ module.exports = function(name) {
 
     // supports adding an object directly (ie this.styles.somestyle)
     // or a string or an array of strings
-    addStyles(elName, styles) {
+    addStyles(ref, styles) {
       if (Array.isArray(styles))
-        styles.forEach(this._addStyle.bind(this, elName));
+        styles.forEach(this._addStyle.bind(this, ref));
       else
-        this._addStyle(elName, styles);
+        this._addStyle(ref, styles);
     },
 
     // adds styles onto a ref
-    _addStyle(elName, styles) {
+    _addStyle(ref, styles) {
       // if given just an object, add as the styles object for 'self'
-      if (!styles && typeof elName === 'object') {
-        styles = elName;
-        elName = 'self';
+      if (!styles && typeof ref === 'object') {
+        styles = ref;
+        ref = 'self';
       }
 
       // if given just a string, add as the styles object reference for 'self'
-      if (!styles && typeof elName === 'string') {
-        styles = elName;
-        elName = 'self';
+      if (!styles && typeof ref === 'string') {
+        styles = ref;
+        ref = 'self';
       }
 
       if (typeof styles === 'string')
@@ -145,52 +133,52 @@ module.exports = function(name) {
 
       styles = this.makeReactStyle(styles);
 
-      var curStyles = this.addedStyles[elName];
+      var curStyles = this.addedStyles[ref];
 
       if (curStyles && curStyles.length) {
         if (Array.isArray(styles))
           styles.map(style => curStyles.push(style));
         else
-          this.addedStyles[elName][curStyles.length] = styles;
+          this.addedStyles[ref][curStyles.length] = styles;
       }
       else {
         if (Array.isArray(styles))
-          this.addedStyles[elName] = styles;
+          this.addedStyles[ref] = styles;
         else
-          this.addedStyles[elName] = [styles];
+          this.addedStyles[ref] = [styles];
       }
     },
 
     // get a style value
-    getStyleVal(elName, prop) {
-      // if no elName given, we just use "self"
+    getStyleVal(ref, prop) {
+      // if no ref given, we just use "self"
       if (typeof prop === 'undefined') {
-        prop = elName;
-        elName = 'self';
+        prop = ref;
+        ref = 'self';
       }
 
-      var styles = this.getStyles(elName);
+      var styles = this.getStyles(ref);
       return this._findDominantVal(styles, prop);
     },
 
     // get another components styles
-    getStylesForComponent(componentName, elName) {
-      if (!elName) elName = 'self';
+    getStylesForComponent(componentName, ref) {
+      if (!ref) ref = 'self';
 
       return UI.getStyles(componentName)
-        .map(styles => styles.style[elName])
+        .map(styles => styles.style[ref])
         .filter(x => typeof x !== 'undefined');
     },
 
     // get another components style value
-    getStyleValForComponent(componentName, elName, prop) {
+    getStyleValForComponent(componentName, ref, prop) {
       if (!prop) {
-        prop = elName;
-        elName = 'self';
+        prop = ref;
+        ref = 'self';
       }
 
       return this._findDominantVal(
-        this.getStylesForComponent(componentName, elName),
+        this.getStylesForComponent(componentName, ref),
         prop
       );
     },

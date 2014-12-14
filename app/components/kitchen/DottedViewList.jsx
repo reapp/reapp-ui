@@ -3,7 +3,7 @@ var StaticView = require('ui/helpers/StaticView');
 var DottedViewList = require('ui/views/DottedViewList');
 var View = require('ui/views/View');
 var BackButton = require('ui/components/buttons/BackButton');
-var Block = require('ui/components/Block');
+var { Container } = require('ui/components/Grid');
 
 module.exports = StaticView({
   statics: {
@@ -14,28 +14,28 @@ module.exports = StaticView({
     return (
       <DottedViewList>
         <View id="one" title={[,'One']}>
-          <Block>
+          <Container>
             First
             <a className="button" href="#two">Button</a>
-          </Block>
+          </Container>
         </View>
 
         <View id="two" title={[,'Two']}>
-          <Block>
+          <Container>
             Second
-          </Block>
+          </Container>
         </View>
 
         <View id="three" title={[,'Three']}>
-          <Block>
+          <Container>
             Third
-          </Block>
+          </Container>
         </View>
 
         <View id="four" title={[,'Four']}>
-          <Block>
+          <Container>
             Fourth
-          </Block>
+          </Container>
         </View>
       </DottedViewList>
     );

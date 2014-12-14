@@ -2,7 +2,7 @@ var React = require('react');
 var StaticView = require('ui/helpers/StaticView');
 var TitleBar = require('ui/components/TitleBar');
 var BackButton = require('ui/components/buttons/BackButton');
-var Block = require('ui/components/Block');
+var { Container } = require('ui/components/Grid');
 var List = require('ui/components/List');
 var Icon = require('ui/components/Icon');
 var Badge = require('ui/components/Badge');
@@ -54,9 +54,9 @@ module.exports = StaticView({
 
     var content = (
       <div>
-        <Block>
+        <Container>
           <p>ListViewPage View</p>
-        </Block>
+        </Container>
 
         <Title>Mail Style Media List</Title>
         <List>

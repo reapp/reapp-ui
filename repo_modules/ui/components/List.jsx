@@ -28,7 +28,7 @@ module.exports = Component({
       this.addStyles(this.styles[type]);
 
     return (
-      <ul {...props} {...this.componentProps()}>
+      <ul {...this.componentProps()} {...props}>
         {title && (
           <li {...this.componentProps('title')}>
             {title}

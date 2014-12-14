@@ -112,7 +112,7 @@ module.exports = Component({
     ];
 
     return (
-      <li {...props} {...this.componentProps()}>
+      <li {...this.componentProps()} {...props}>
         {content}
       </li>
     );

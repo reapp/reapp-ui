@@ -67,9 +67,7 @@ var Block = Component({
     this.addStyles(this.getWidthStyle(width));
 
     return (
-      <div
-        {...props}
-        {...this.componentProps()}>
+      <div {...this.componentProps()} {...props}>
         {children}
       </div>
     );
@@ -83,7 +81,7 @@ var Pad = Component({
     var { children, ...props } = this.props;
 
     return (
-      <div {...this.componentProps()}>
+      <div {...this.componentProps()} {...props}>
         {children}
       </div>
     );

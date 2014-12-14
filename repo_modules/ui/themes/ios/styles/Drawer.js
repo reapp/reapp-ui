@@ -6,9 +6,24 @@ module.exports = (c) => ({
     bottom: 0,
     left: 0,
     position: 'fixed',
-    marginLeft: '100%',
     width: '100%',
     pointerEvents: 'all'
+  },
+
+  right: {
+    marginLeft: '100%'
+  },
+
+  left: {
+    marginRight: '100%'
+  },
+
+  top: {
+    marginBottom: '100%'
+  },
+
+  bottom: {
+    marginTop: '100%'
   },
 
   dragger: {
