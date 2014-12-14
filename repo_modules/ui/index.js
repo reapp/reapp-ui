@@ -1,6 +1,29 @@
 var ReactStyle = require('react-style');
 var Invariant = require('react/lib/invariant');
 
+// Base for UI
+
+// Stores constants, animations and styles
+//   see themes/ios/all.js for an example usage.
+
+// Constants should be added before styles, they are
+// passed into any styles file that returns a function.
+// You can load multiple constants files, so if you'd
+// like load the iOS theme, then override a few constants
+
+// Styles are one big object, with each key mapping to a
+// component/view's name. The values of those keys map
+// to the refs within each component, and finally those
+// values map to objects with styles.
+
+// Styles compiled to ReactStyle objects on init.
+// You can also load multiple styles objects, and order
+// determines winner (last in applies).
+
+// Finally, animations are an object. Their keys map to
+// functions that take in (index, step, props).
+
+
 module.exports = {
   styles: {},
   animations: {},

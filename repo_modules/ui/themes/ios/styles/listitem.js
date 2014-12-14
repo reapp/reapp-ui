@@ -5,8 +5,11 @@ module.exports = (c) => ({
     padding: 0,
     overflow: 'hidden',
     flexFlow: 'row',
+    WebkitFlexFlow: 'row',
     alignItems: 'center',
+    WebkitAlignItems: 'center',
     justifyContent: 'space-between',
+    WebkitJustifyContent: 'space-between',
     minHeight: 44,
     borderTop: `1px solid ${c.listItemBorderColor}`,
     position: 'relative'
@@ -29,19 +32,25 @@ module.exports = (c) => ({
     bottom: 0,
     maxWidth: 'none',
     flexFlow: 'row',
+    WebkitFlexFlow: 'row',
     justifyContent: 'flex-end',
+    WebkitJustifyContent: 'flex-end',
     zIndex: 1
   },
 
   before: {
     flexShrink: 0,
+    WebkitFlexShrink: 0,
     flexWrap: 'nowrap',
+    WebkitFlexWrap: 'nowrap',
     margin: '0 10px 0 0'
   },
 
   content: {
     flexShrink: 1,
+    WebkitFlexShrink: 1,
     flexGrow: 800,
+    WebkitFlexGrow: 800,
     color: '#000',
     padding: '10px 10px 10px 0',
     position: 'relative'
@@ -53,7 +62,9 @@ module.exports = (c) => ({
 
   titleTop: {
     flexFlow: 'row',
+    WebkitFlexFlow: 'row',
     justifyContent: 'space-between',
+    WebkitJustifyContent: 'space-between',
     maxWidth: '100%'
   },
 
@@ -86,8 +97,10 @@ module.exports = (c) => ({
   after: {
     color: '#8e8e93',
     flexShrink: 0,
+    WebkitFlexShrink: 0,
     margin: 'auto 10px',
     whiteSpace: 'nowrap',
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
+    WebkitAlignSelf: 'stretch'
   },
 });

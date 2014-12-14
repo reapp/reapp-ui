@@ -4,6 +4,10 @@ replace "react-time": "^2.1.1",
 - svg icons
 - react touch
 
+- styles
+can be compiled pre-runtime
+constants => autoprefixr => react-style
+
 - finish card view horizontal and vertical
 - extract scroller parts
 - use scroller parts in viewlists, etc

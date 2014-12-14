@@ -62,6 +62,7 @@
     "autoprefixer-core": "^3.1.2",
     "qs": "~2.3.3",
     "cors": "~2.5.2",
-    "express": "~4.10.4"
+    "express": "~4.10.4",
+    "autoprefixer-loader": "~1.0.0"
   }
 }

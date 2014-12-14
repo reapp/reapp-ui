@@ -1,6 +1,6 @@
-module.exports = (vars) => ({
+module.exports = (c) => ({
   self: {
-    background: vars.greyMid,
+    background: c.greyMid,
     color: '#fff',
     borderRadius: 100,
     fontWeight: 'bold',

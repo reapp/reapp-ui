@@ -7,7 +7,6 @@ module.exports = (c) => ({
     borderRadius: '5px',
     textAlign: 'center',
     padding: '8px',
-    flexFlow: 'row',
     zoom: 1,
     lineHeight: 'normal',
     whiteSpace: 'nowrap',
@@ -15,7 +14,9 @@ module.exports = (c) => ({
     cursor: 'pointer',
     WebkitUserDrag: 'none',
     WebkitUserSelect: 'none',
-    outline: 'none'
+    outline: 'none',
+    flexFlow: 'row',
+    WebkitFlexFlow: 'row'
   },
 
   borderless: {

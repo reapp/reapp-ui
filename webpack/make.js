@@ -5,7 +5,6 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var loadersByExtension = require('./lib/loadersByExtension');
 var joinEntry = require('./lib/joinEntry');
 var statsPlugin = require('./lib/statsPlugin');
-var autoprefixer = require('autoprefixer-core');
 
 module.exports = function(opts) {
   var entry = {
@@ -31,9 +30,10 @@ module.exports = function(opts) {
     'html': 'html-loader'
   };
 
+  var cssLoader = 'css-loader!autoprefixer-loader?browsers=last 2 version';
   var stylesheetLoaders = {
-    'css': 'css-loader!postcss-loader',
-    'styl': 'css-loader!stylus-loader'
+    'css': cssLoader,
+    'styl': cssLoader + '!stylus-loader'
   };
 
   var alias = {};
@@ -151,7 +151,6 @@ module.exports = function(opts) {
       extensions: extensions,
       alias: alias,
     },
-    plugins: plugins,
-    postcss: [ autoprefixer({ browsers: ['last 2 version'] }) ]
+    plugins: plugins
   };
 };

@@ -6,7 +6,6 @@ module.exports = {
     right: 0,
     bottom: 0,
     visibility: 'hidden',
-    zIndex: -1,
     background: 'rgba(0,0,0,0.3)',
     opacity: 0,
     transition: 'opacity 300ms ease-in'

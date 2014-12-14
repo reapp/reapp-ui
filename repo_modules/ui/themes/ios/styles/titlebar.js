@@ -10,10 +10,12 @@ module.exports = (c) => ({
     left: 0,
     width: '100%',
     padding: 0,
-    flexFlow: 'row',
     fontWeight: 500,
+    zIndex: 2,
+    flexFlow: 'row',
+    WebkitFlexFlow: 'row',
     justifyContent: 'space-between',
-    zIndex: 2
+    WebkitJustifyContent: 'space-between'
   },
 
   transparent: {

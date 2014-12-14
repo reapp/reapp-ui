@@ -243,7 +243,7 @@ module.exports = {
 
       // set styles
       styles = Object.assign({}, other);
-      styles.transform = this.animationTransformsToString({ scale, rotate, rotate3d, translate });
+      styles[StyleKeys.TRANSFORM] = this.animationTransformsToString({ scale, rotate, rotate3d, translate });
 
       // update animations
       animations[animation.target || this._defaultAnimationTarget || 'self'] = styles;
