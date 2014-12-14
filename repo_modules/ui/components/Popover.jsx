@@ -1,15 +1,13 @@
 var React = require('react');
 var Component = require('ui/component');
 
-// todo: pass this to styles
-var ARROW_SIZE = 19;
-
 module.exports = Component({
   name: 'Popover',
 
   getDefaultProps() {
     return {
-      edgePadding: 3
+      edgePadding: 3,
+      arrowSize: 19
     };
   },
 
@@ -29,7 +27,7 @@ module.exports = Component({
     var nextState = {};
 
     if (nextProps.left && nextProps.top)
-      nextState = Object.assign(nextState, { left: nextProps.left, top: nextProps.top });
+      nextState = Object.assign(nextState, { popoverLeft: nextProps.left, popoverTop: nextProps.top });
     if (nextProps.open)
       nextState = Object.assign(nextState, { open: nextProps.open });
 
@@ -37,39 +35,39 @@ module.exports = Component({
   },
 
   getPositionState(popover, target) {
-    var top = this.getTop(popover, target);
-    var left = this.getLeft(popover, target);
-    var arrowTop = 1;
-    var arrowLeft = arrowLeft;
-    return { top, left, arrowTop, arrowLeft };
+    var { arrowTop, popoverTop } = this.getTop(popover, target);
+    var { arrowLeft, popoverLeft } = this.getLeft(popover, target);
+    return { popoverTop, popoverLeft, arrowTop, arrowLeft };
+  },
+
+  withinEdgePadding(pos, max, extra) {
+    return Math.min(max - this.props.edgePadding - extra,
+      Math.max(this.props.edgePadding, pos));
   },
 
   getLeft(popover, target) {
     var targetLeft = target.left - window.scrollX;
-    var targetCenter =  targetLeft + target.width / 2;
+    var targetCenter =  target.left + target.width / 2;
     var popoverCenter = popover.clientWidth / 2;
     var left = targetCenter - popoverCenter;
-    return Math.max(
-      this.props.edgePadding,
-      Math.min(
-        left,
-        window.innerWidth - this.props.edgePadding - popover.clientWidth
-      )
-    );
+    return {
+      arrowLeft: this.withinEdgePadding(targetCenter, window.innerWidth, this.props.arrowSize * 2),
+      popoverLeft: this.withinEdgePadding(left, window.innerWidth, popover.clientWidth)
+    };
   },
 
   getTop(popover, target) {
     var targetTop = target.top - window.scrollY;
-    var targetCenter = targetTop + target.height / 2;
+    var targetCenter = target.top + target.height / 2;
     var windowCenter = window.innerHeight / 2;
     var arrowOnBottom = targetCenter > windowCenter;
-    var pad = this.props.edgePadding;
     var top = arrowOnBottom ?
-      targetTop - popover.clientHeight - ARROW_SIZE :
-      targetTop + target.height + ARROW_SIZE;
-    return arrowOnBottom ?
-      Math.min(top, window.innerHeight - pad - popover.clientHeight) :
-      Math.max(top, pad);
+      targetTop - popover.clientHeight - this.props.arrowSize :
+      targetTop + target.height + this.props.arrowSize;
+    return {
+      arrowTop: this.withinEdgePadding(top, window.innerHeight, this.props.arrowSize),
+      popoverTop: this.withinEdgePadding(top, window.innerHeight, popover.clientHeight)
+    };
   },
 
   handleClose(e) {
@@ -89,7 +87,7 @@ module.exports = Component({
     }
 
     this.addStyles('popover',
-      { top: this.state.top, left: this.state.left });
+      { top: this.state.popoverTop, left: this.state.popoverLeft });
 
     this.addStyles('arrow',
       { top: this.state.arrowTop, left: this.state.arrowLeft });

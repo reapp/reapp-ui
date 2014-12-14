@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = (c) => ({
   self: {
     position: 'fixed',
     top: 0,
@@ -6,7 +6,7 @@ module.exports = {
     right: 0,
     bottom: 0,
     visibility: 'hidden',
-    background: 'rgba(0,0,0,0.3)',
+    background: c.popoverOverlayBG,
     opacity: 0,
     transition: 'opacity 300ms ease-in'
   },
@@ -20,7 +20,7 @@ module.exports = {
   popover: {
     position: 'absolute',
     fontSize: '16px',
-    background: 'rgba(255,255,255,0.95)',
+    background: c.popoverBG,
     borderRadius: 5,
     textAlign: 'center'
   },
@@ -36,16 +36,17 @@ module.exports = {
   },
 
   arrow: {
-    width: 26,
-    height: 26,
+    width: c.popoverArrowSize,
+    height: c.popoverArrowSize,
+    marginTop: -c.popoverArrowSize,
     position: 'absolute',
     overflow: 'hidden'
   },
 
   arrowInner: {
-    background: 'rgba(255,255,255,0.95)',
-    width: 26,
-    height: 26,
+    background: c.popoverBG,
+    width: c.popoverArrowSize,
+    height: c.popoverArrowSize,
     position: 'absolute',
     left: 0,
     top: 19,
@@ -55,10 +56,10 @@ module.exports = {
 
   item: {
     minWidth: 120,
-    borderTop: '1px solid #ccc',
+    borderTop: c.popoverItemBorder,
   },
 
   itemFirstChild: {
     borderTop: 'none'
   }
-};
+});

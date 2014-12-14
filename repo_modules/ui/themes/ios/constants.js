@@ -5,6 +5,12 @@ var barBorderColor = '#c4c4c4';
 var listBorderColor = '#c8c7cc';
 
 module.exports = {
+  // BASE
+  bgLight: '#efeff4',
+  dotColor: '0,0,0',
+  greyMid: '#8e8e93',
+  toolbarHeight: 44,
+
   // Button
   buttonBG: blue,
   buttonActiveColor: '#fff',
@@ -28,17 +34,15 @@ module.exports = {
   // ListItem
   listItemBorderColor: listBorderColor,
 
+  // Popover
+  popoverArrowSize: 26,
+  popoverBG: 'rgba(255,255,255,0.95)',
+  popoverItemBorder: '1px solid #ccc',
+  popoverOverlayBG: 'rgba(0,0,0,0.3)',
+
   // ScrollBar
   scrollBarHeight: 44,
 
   // View
-  viewPad: '10px',
-
-  // colors
-  bgLight: '#efeff4',
-  dotColor: '0,0,0',
-  greyMid: '#8e8e93',
-
-  // dimensions
-  toolbarHeight: 44
+  viewPad: '10px'
 };

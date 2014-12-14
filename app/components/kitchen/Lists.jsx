@@ -18,8 +18,6 @@ module.exports = StaticView({
     var icon = <Icon type="contact" size="28" />;
     var badge = <Badge value="5" />;
 
-    console.log('rnder')
-
     return (
       <div>
         <Container>
