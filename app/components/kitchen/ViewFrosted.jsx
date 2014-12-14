@@ -40,7 +40,7 @@ module.exports = StaticView({
         width: '100%',
         height: HEADER_HEIGHT,
         style: {borderBottom: '1px solid rgba(10, 10, 10, 0.1)'},
-        children: <TitleBar style={titleBarStyle}>Frosted glass overlay</TitleBar>
+        children: <TitleBar animations={[]} style={titleBarStyle}>Frosted glass overlay</TitleBar>
       }
     };
 

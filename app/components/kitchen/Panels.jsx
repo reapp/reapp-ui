@@ -12,7 +12,7 @@ module.exports = StaticView({
 
   title: 'Panels',
 
-  getDefaultState() {
+  getInitialState() {
     return {
       bottomClosed: true
     };
