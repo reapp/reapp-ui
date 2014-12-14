@@ -280,10 +280,10 @@ module.exports = {
       this.doAnimate();
 
     return (
-      <div {...this.componentProps()} {...props}>
+      <div {...props}>
         <TouchableArea {...this.getViewListProps()}>
-          {!this.props.noFakeTitleBar && this.getFakeTitleBar()}
-          {this.props.before}
+          {!props.noFakeTitleBar && this.getFakeTitleBar()}
+          {props.before}
           {Component.clone(this.state.children, (child, i) => ({
             key: i,
             index: i,
@@ -294,7 +294,7 @@ module.exports = {
             width: this.state.width,
             height: this.state.height,
           }))}
-          {this.props.after}
+          {props.after}
         </TouchableArea>
       </div>
     );
