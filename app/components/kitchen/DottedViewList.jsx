@@ -1,6 +1,7 @@
 var React = require('react');
 var StaticView = require('ui/helpers/StaticView');
 var DottedViewList = require('ui/views/DottedViewList');
+var View = require('ui/views/View');
 var BackButton = require('ui/components/buttons/BackButton');
 var Block = require('ui/components/Block');
 
@@ -10,50 +11,33 @@ module.exports = StaticView({
   },
 
   render() {
-    var views = [
-      {
-        id: 'one',
-        title: [,'One'],
-        content: (
+    return (
+      <DottedViewList>
+        <View id="one" title={[,'One']}>
           <Block>
-            Example of a deeply nested thing
+            First
             <a className="button" href="#two">Button</a>
           </Block>
-        ),
-      },
-      {
-        id: 'two',
-        title: [,'Two'],
-        content: (
-          <Block>
-            This is the first nested drawer
-          </Block>
-        )
-      },
-      {
-        id: 'three',
-        title: [,'Three'],
-        content: (
-          <Block>
-            This is the second deeply nested
-          </Block>
-        )
-      },
-      {
-        id: 'four',
-        title: [,'Four'],
-        content: (
-          <Block>
-            Final deeply nested view
-          </Block>
-        )
-      }
-    ];
+        </View>
 
-    return (
-      <div>
-        <DottedViewList views={views} />
-      </div>
+        <View id="two" title={[,'Two']}>
+          <Block>
+            Second
+          </Block>
+        </View>
+
+        <View id="three" title={[,'Three']}>
+          <Block>
+            Third
+          </Block>
+        </View>
+
+        <View id="four" title={[,'Four']}>
+          <Block>
+            Fourth
+          </Block>
+        </View>
+      </DottedViewList>
     );
   }
 });
