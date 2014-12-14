@@ -31,30 +31,29 @@ module.exports = Component({
     });
   },
 
-  render() {
-    var { articles, hasChild, handle, ...props } = this.props;
+  disableTouchRightProps() {
+    return this.props.disable &&
+      { touchStartBoundsX: { from: 20, to: window.innerWidth - 20 } };
+  },
 
-    var refreshIconProps = {
-      name: 'arrow-refresh',
-      size: 24,
-      stroke: 1,
-      styles: { self: { marginTop: -1 } },
-      animations: this.state.isRefreshing ? [{ name: 'rotate' }] : null
-    };
+  render() {
+    var { articles, handle, ...props } = this.props;
 
     var refreshButton = (
       <Button
-        iconProps={refreshIconProps}
+        iconProps={{
+          name: 'arrow-refresh',
+          size: 24,
+          stroke: 1,
+          styles: { self: { marginTop: -1 } },
+          animations: this.state.isRefreshing && [{ name: 'rotate', target: 'svg' }]
+        }}
         onClick={this.handleRefresh}
         borderless />
     );
 
-    var dottedProps =  hasChild ?
-      { touchStartBoundsX: { from: 20, to: window.innerWidth - 20 } } :
-      null;
-
     return (
-      <DottedViewList {...props} {...dottedProps}>
+      <DottedViewList {...props} {...this.disableTouchRightProps()}>
         <View title={[handle, 'Hot Articles', refreshButton]}>
           <List styles={{ self: { borderTop: 'none' } }} nowrap>
             {articles.count() ?

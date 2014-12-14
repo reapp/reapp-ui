@@ -39,7 +39,6 @@ module.exports = Component({
         <View>
           <ArticlesHome
             disable={this.numRoutes() > 2}
-            hasChild={this.hasChildRoute()}
             articles={articles}
             handle={handle} />
         </View>
