@@ -1,6 +1,18 @@
 var UI = require('../../index');
 var ReactStyle = require('react-style');
 
+// Styled helps components with styling
+
+// It provides a pure way of adding and mixins styles
+// working with UI loaded styles
+
+// It tracks four types of styles (or it will eventually)
+// and combines the styles in order of precedence:
+//   1. styles: runtime loaded styles
+//   2. addedStyles: styles added in component
+//   3. mediaStyles: @media styles
+//   4. propStyles: styles passed in with props
+
 module.exports = function(name) {
   return {
     componentWillUpdate(nextProps) {
@@ -21,9 +33,10 @@ module.exports = function(name) {
       return UI.getConstants(name);
     },
 
-    // note: we track two styles
+    // note: we track three styles
     // this.styles = styles that are added by the component itself
     // this.propStyles = styles passed in by props
+    // this.mediaStyles = styles for media queries
     // getStyles will return propStyles after regular styles, so users can
     // override styles set within a component
     makeStyles(propStyles) {
@@ -87,7 +100,7 @@ module.exports = function(name) {
 
     // styles for things like 'firstChild', 'lastItem'
     getConditionalStyles(elName, index) {
-      var extraStyles = [];
+      var conditionalStyles = [];
 
       if (elName === 'self' && this.props.index === 0 || index === 0) {
         var firstChildKey = elName === 'self' ?
@@ -95,10 +108,10 @@ module.exports = function(name) {
           elName + 'FirstChild';
 
         if (this.styles[firstChildKey])
-          extraStyles = this.styles[firstChildKey];
+          conditionalStyles = this.styles[firstChildKey];
       }
 
-      return extraStyles;
+      return conditionalStyles;
     },
 
     // supports adding an object directly (ie this.styles.somestyle)
@@ -110,7 +123,7 @@ module.exports = function(name) {
         this._addStyle(elName, styles);
     },
 
-    // adds styles onto a property
+    // adds styles onto a ref
     _addStyle(elName, styles) {
       // if given just an object, add as the styles object for 'self'
       if (!styles && typeof elName === 'object') {
@@ -148,6 +161,7 @@ module.exports = function(name) {
       }
     },
 
+    // get a style value
     getStyleVal(elName, prop) {
       // if no elName given, we just use "self"
       if (typeof prop === 'undefined') {
@@ -159,6 +173,7 @@ module.exports = function(name) {
       return this._findDominantVal(styles, prop);
     },
 
+    // get another components styles
     getStylesForComponent(componentName, elName) {
       if (!elName) elName = 'self';
 
@@ -167,6 +182,7 @@ module.exports = function(name) {
         .filter(x => typeof x !== 'undefined');
     },
 
+    // get another components style value
     getStyleValForComponent(componentName, elName, prop) {
       if (!prop) {
         prop = elName;

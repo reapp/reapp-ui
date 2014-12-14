@@ -1,7 +1,7 @@
 var Component = require('component');
 var React = require('react');
 var { Link } = require('react-router');
-var ParallaxViewList = require('ui/views/ParallaxViewList');
+var NestedViewList = require('ui/views/NestedViewList');
 var View = require('ui/views/View');
 var SearchBar = require('ui/components/SearchBar');
 var List = require('ui/components/List');
@@ -19,7 +19,9 @@ module.exports = Component({
   ],
 
   getInitialState() {
-    return { searchVal: '' };
+    return {
+      searchVal: ''
+    };
   },
 
   handleSearch(e) {
@@ -51,7 +53,7 @@ module.exports = Component({
     ];
 
     return (
-      <ParallaxViewList {...this.getViewListProps()}>
+      <NestedViewList {...this.getViewListProps()}>
         <View title={[this.props.handle, 'Kitchen Sink']}>
           <SearchBar onChange={this.handleSearch} defaultValue="" />
 
@@ -76,7 +78,7 @@ module.exports = Component({
         </View>
 
         {this.getKeyedSubRoute()}
-      </ParallaxViewList>
+      </NestedViewList>
     );
   }
 });

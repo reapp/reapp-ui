@@ -1,6 +1,7 @@
 var React = require('react');
 var StaticView = require('ui/helpers/StaticView');
-var ParallaxViewList = require('ui/views/ParallaxViewList');
+var NestedViewList = require('ui/views/NestedViewList');
+var View = require('ui/views/View');
 var Button = require('ui/components/Button');
 var BackButton = require('ui/components/buttons/BackButton');
 var { Container } = require('ui/components/Grid');
@@ -9,7 +10,7 @@ module.exports = StaticView({
   render() {
     return (
       <div>
-        <ParallaxViewList>
+        <NestedViewList>
           <View title={[<BackButton />, 'One', <a href="#two">Two</a>]}>
             <Container>
               Example of a deeply nested thing
@@ -22,7 +23,7 @@ module.exports = StaticView({
               This is the first nested View
             </Container>
           </View>
-        </ParallaxViewList>
+        </NestedViewList>
       </div>
     );
   }

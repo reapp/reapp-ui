@@ -34,6 +34,7 @@ module.exports = {
     this.scroller = new Scroller(this.handleScroll, this.props.scrollerProps);
     this.setupViewList(this.props);
     this.setScrollPosition();
+    this.runViewCallbacks();
     window.addEventListener('resize', this.resize);
   },
 
@@ -41,18 +42,8 @@ module.exports = {
     window.removeEventListener('resize', this.resize);
   },
 
-  componentWillMount() {
-    if (this.props.disable)
-      this.disableAnimation();
-  },
-
   // needs to ensure it animates, then updates children views in state
   componentWillReceiveProps(nextProps) {
-    if (nextProps.disable)
-      return this.disableAnimation();
-    else
-      this.enableAnimation();
-
     // if new scrollToStep
     if (nextProps.scrollToStep !== this.props.scrollToStep) {
       // if advancing views or remaining the same
@@ -156,6 +147,8 @@ module.exports = {
   },
 
   runViewCallbacks(step) {
+    step = step || this.state.step;
+
     if (step % 1 !== 0) {
       if (this._hasCalledEnteringLeaving)
         return;
@@ -245,13 +238,18 @@ module.exports = {
     return <TitleBar {...props.titleBarProps} animations={[]} />;
   },
 
-  getViewListProps() {
+  getTouchableAreaProps() {
     return Object.assign(
+      // default props
       {
         ignoreY: true,
         scroller: this.scroller
       },
+
+      // parent props
       this.props,
+
+      // required props
       {
         onTouchStart: this.handleTouchStart,
         onTouchEnd: this.handleTouchEnd,
@@ -272,6 +270,17 @@ module.exports = {
       this.props.animations;
   },
 
+  getTouchStartBounds() {
+    switch(this.state.viewListIndex) {
+      case 0:
+        return {};
+      case 1:
+        return { touchStartBoundsX: { from: 0, to: 20 } };
+    }
+
+    return { touchStartBoundsX: {} };
+  },
+
   renderViewList(props) {
     props = props || {};
 
@@ -281,7 +290,7 @@ module.exports = {
 
     return (
       <div {...props}>
-        <TouchableArea {...this.getViewListProps()}>
+        <TouchableArea {...this.getTouchableAreaProps()} disable={props.disable}>
           {!props.noFakeTitleBar && this.getFakeTitleBar(props)}
           {props.before}
           {Component.clone(this.state.children, (child, i) => ({

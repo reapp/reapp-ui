@@ -1,6 +1,6 @@
 var React = require('react');
 var Component = require('component');
-var ParallaxViewList = require('ui/views/ParallaxViewList');
+var NestedViewList = require('ui/views/NestedViewList');
 var View = require('ui/views/View');
 var ArticlesHome = require('./articles/ArticlesHome');
 
@@ -20,28 +20,23 @@ module.exports = Component({
     // provides: getViewListProps, getKeyedSubRoute
     mixins.routedViewListHandler({ depth: 2 }),
     mixins.listener(
-      stores.ArticlesStore,
-      actions.articlesHotLoadDone
+      stores.ArticlesStore
     )
   ],
 
   render() {
-    var { handle } = this.props;
-
     return (
-      <ParallaxViewList
-        {...this.getViewListProps()}
-        noFakeTitleBar>
+      <NestedViewList {...this.getViewListProps()} noFakeTitleBar>
         <View>
           <ArticlesHome
             hotArticlesStore={stores.HotArticlesStore()}
             articlesStore={stores.ArticlesStore()}
             disable={this.numRoutes() > 2}
-            handle={handle} />
+            handle={this.props.handle} />
         </View>
 
         {this.getKeyedSubRoute()}
-      </ParallaxViewList>
+      </NestedViewList>
     );
   }
 });

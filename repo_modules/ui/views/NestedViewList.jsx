@@ -2,7 +2,7 @@ var Component = require('ui/component');
 var ViewListMixin = require('../mixins/ViewListMixin');
 
 module.exports = Component({
-  name: 'ParallaxViewList',
+  name: 'NestedViewList',
 
   mixins: [
     ViewListMixin
