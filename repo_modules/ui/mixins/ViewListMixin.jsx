@@ -49,7 +49,8 @@ module.exports = {
       // if advancing views or remaining the same
       if (nextProps.scrollToStep >= this.state.step) {
         this.setupViewList(nextProps);
-        setTimeout(() => this.scrollToStep(nextProps.scrollToStep), 1);
+        // setTimeout to push until after next render, hopefully
+        setTimeout(() => this.scrollToStep(nextProps.scrollToStep), 5);
       }
       // if regressing views
       else {

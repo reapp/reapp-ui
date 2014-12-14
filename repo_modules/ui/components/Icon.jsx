@@ -42,7 +42,6 @@ module.exports = Component({
 
   render() {
     var {
-      animations,
       size,
       name,
       color,
@@ -80,7 +79,7 @@ module.exports = Component({
     }
 
     return (
-      <span {...this.componentProps()} style={this.getAnimation()} {...props}>
+      <span {...this.componentProps()} {...props} style={this.getAnimation()}>
         <svg {...svgExtraProps} {...svgProps} {...this.componentProps('svg')}>
           <g dangerouslySetInnerHTML={{__html:
             '<use xlink:href="/assets/icons/svg/'+ name +'.svg#Layer_1"></use>'
