@@ -15,7 +15,7 @@ var InertLink = React.createClass({
 module.exports = Component({
   mixins: [
     // getViewListProps, getKeyedSubRoute
-    Component.mixins.RoutedViewListHandler({ depth: 2 })
+    Component.mixins.routedViewListHandler({ depth: 2 })
   ],
 
   getInitialState() {
