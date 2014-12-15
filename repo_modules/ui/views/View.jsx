@@ -70,7 +70,7 @@ module.exports = Component({
       index,
       width,
       height,
-      animateProps,
+      animationProps,
       containerProps,
       titleBarProps,
       ...props
@@ -91,7 +91,7 @@ module.exports = Component({
     return (
       <div {...this.componentProps()} {...containerProps}>
         {title && (
-          <TitleBar {...titleBarProps} animateProps={animateProps}>{title}</TitleBar>
+          <TitleBar {...titleBarProps} animationProps={animationProps}>{title}</TitleBar>
         )}
         <div {...this.componentProps('inner')} {...props} style={this.getAnimation('pane')}>
           <StaticContainer shouldUpdate={!this.props.animations || this.getAnimationStep('viewList') % 1 === 0}>

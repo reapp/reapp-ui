@@ -297,7 +297,7 @@ module.exports = {
             titleBarProps: this.getTitleBarProps(props),
             animationDisabled: props.disable,
             animations: this.getViewAnimations(child),
-            animateProps: { viewList: { index: i } },
+            animationProps: { viewList: { index: i } },
             width: this.state.width,
             height: this.state.height,
           }))}

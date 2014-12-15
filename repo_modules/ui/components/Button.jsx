@@ -7,11 +7,6 @@ module.exports = Component({
   render() {
     var { iconProps, icon, children, borderless, rounded, active, ...props } = this.props;
 
-    if (icon) {
-      iconProps = iconProps || {};
-      iconProps.name = icon;
-    }
-
     if (iconProps)
       iconProps.color = iconProps.color || this.getStyleVal('color');
 
@@ -26,7 +21,7 @@ module.exports = Component({
 
     return (
       <button {...this.componentProps()} {...props}>
-        {!!iconProps && <Icon {...iconProps} />}
+        {icon || !!iconProps && <Icon {...iconProps} />}
         {children && (
           <span style={{ margin: 'auto' }}>
             {children}

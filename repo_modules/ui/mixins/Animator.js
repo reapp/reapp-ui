@@ -10,13 +10,13 @@ function uniqueId() {
 
 module.exports = {
   childContextTypes: {
-    animateProps: React.PropTypes.object,
+    animationProps: React.PropTypes.object,
     animationDisabled: React.PropTypes.bool
   },
 
   getChildContext() {
     return {
-      animateProps: this.props.animateProps,
+      animationProps: this.props.animationProps,
       animationDisabled: typeof this._animationsDisabled !== 'undefined' ?
         !!this._animationsDisabled :
         this.props.animationDisabled

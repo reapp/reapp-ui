@@ -1,14 +1,12 @@
 var Component = require('ui/component');
 var Animated = require('ui/mixins/Animated');
-var TweenState = require('react-tween-state');
 var Union = require('lodash-node/modern/arrays/union');
 
 module.exports = Component({
   name: 'Icon',
 
   mixins: [
-    Animated,
-    TweenState.Mixin
+    Animated
   ],
 
   getDefaultProps() {
@@ -27,31 +25,11 @@ module.exports = Component({
 
   componentWillReceiveProps(nextProps) {
     this.setupAnimations(nextProps);
-    if (this.hasAnimation('rotate', nextProps.animations) && !this.state.isRotating) {
-      this.setState({ step: 0, index: 1, isRotating: true });
-      this.rotate();
-    }
   },
 
   setupAnimations(props) {
     if (props.isInTitleBar)
       props.animations = Union(props.animations || [], this.props.titleBarAnimations);
-  },
-
-  rotate() {
-    this.tweenState('step', {
-      easing: TweenState.easingTypes.linear,
-      endValue: 1,
-      duration: 1000,
-      onEnd: () => {
-        this.setState({ step: 0 });
-
-        if (this.hasAnimation('rotate'))
-          this.rotate();
-        else
-          this.setState({ isRotating: false });
-      }
-    });
   },
 
   render() {

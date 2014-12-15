@@ -6,6 +6,8 @@ var ListItem = require('ui/components/ListItem');
 var View = require('ui/views/View');
 var DottedViewList = require('ui/views/DottedViewList');
 var ArticleItem = require('./ArticleItem');
+var RotatingComponent = require('ui/helpers/RotatingComponent');
+var Icon = require('ui/components/Icon');
 
 module.exports = Component({
   getInitialState() {
@@ -43,17 +45,19 @@ module.exports = Component({
       .map(id => articlesStore.get(id))
       .filter(x => typeof x !== 'undefined');
 
+    // styles: { self: { marginTop: -1 } }
     var refreshButton = (
       <Button
-        iconProps={{
-          name: 'arrow-refresh',
-          size: 24,
-          stroke: 1,
-          styles: { self: { marginTop: -1 } },
-          animations: this.state.isRefreshing && [{ name: 'rotate', target: 'svg' }]
-        }}
         onClick={this.handleRefresh}
-        borderless />
+        borderless
+        icon={(
+          <RotatingComponent rotate={this.state.isRefreshing}>
+            <Icon
+            name="arrow-refresh"
+            size="24"
+            stroke="1" />
+          </RotatingComponent>
+        )} />
     );
 
     return (

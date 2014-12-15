@@ -46,37 +46,27 @@ var defined = variable => (typeof variable !== 'undefined');
 
 module.exports = {
   contextTypes: {
-    animateProps: React.PropTypes.object,
+    animationProps: React.PropTypes.object,
     animationsActive: React.PropTypes.bool
   },
 
   componentWillUpdate(nextProps, nextState) {
-    this._setAnimations(nextProps, nextState);
+    this._setAnimationsState(nextProps, nextState);
   },
 
-  getAnimations(props, state) {
-    var animations = [];
-
-    if (typeof props === 'undefined') {
-      props = this.props;
-      state = this.state;
-    }
-
-    if (props.animations && props.animations.length)
-      animations = this.props.animations;
-
-    if (state && state.animations && state.animations.length)
-      animations = animations.concat(state.animations);
-
-    return animations;
+  // This is what links it to the UI loading, and grabs animations
+  // todo: make this not necessary
+  getAnimator(animation) {
+    return UI.getAnimations(animation);
   },
 
+  // Helper props
   animationsDisabled() {
     return this.props.animationDisabled || this.context.animationDisabled;
   },
 
   isAnimating(source) {
-    return this._animationsState && this.getAnimationsState(source).step % 1 !== 0;
+    return this._animationsState && this.getAnimationState(source).step % 1 !== 0;
   },
 
   getAnimationProp(animation, animations) {
@@ -89,11 +79,24 @@ module.exports = {
     return animations.length && !!this.getAnimationProp(animation, animations).length;
   },
 
-  getAnimator(animation) {
-    return UI.getAnimations(animation);
+  getAnimations(props, state) {
+    var animations = [];
+
+    if (typeof props === 'undefined') {
+      props = this.props;
+      state = this.state;
+    }
+
+    if (props.animations && props.animations.length)
+      animations = props.animations;
+
+    if (state && state.animations && state.animations.length)
+      animations = animations.concat(state.animations);
+
+    return animations;
   },
 
-  _setAnimations(props, state) {
+  _setAnimationsState(props, state) {
     if (typeof props === 'undefined') {
       props = this.props;
       state = this.state;
@@ -102,33 +105,35 @@ module.exports = {
     this._animationsState = {};
     var animations = this.getAnimations(props, state);
 
-    if (animations.length) {
+    if (animations && animations.length) {
       var source;
 
       animations.forEach(animation => {
         source = animation.source || 'self';
+
         this._animationsState[source] = Object.assign({},
           AnimateStore(animation) || {},
-          props && props.animateProps && props.animateProps[animation.source] || {},
-          this.context && this.context.animateProps && this.context.animateProps[animation.source] || {},
-          source === 'self' && state && { step: state.step, index: state.index }
+          props && props.animationProps && props.animationProps[animation.source] || {},
+          this.context && this.context.animationProps && this.context.animationProps[animation.source] || {},
+          source === 'self' && state && defined(state.step) && { step: state.step },
+          source === 'self' && state && defined(state.index) && { index: state.index }
         );
       });
     }
   },
 
-  getAnimationsState(source) {
+  getAnimationState(source) {
     if (!this._animationsState)
-      this._setAnimations();
+      this._setAnimationsState();
 
     return this._animationsState[source || 'self'];
   },
 
   getAnimationStep(source) {
     if (!this._animationsState)
-      this._setAnimations();
+      this._setAnimationsState();
 
-    return this.getAnimationsState(source || 'self').step;
+    return this.getAnimationState(source).step;
   },
 
   // this is the meat of it, fetches animations and returns an object
@@ -151,7 +156,7 @@ module.exports = {
         continue;
 
       // get index, step and props for animation
-      var { index, step, ...props } = this.getAnimationsState(animation.source);
+      var { index, step, ...props } = this.getAnimationState(animation.source);
 
       if (!defined(index) && this.state)
         index = this.state.index;
@@ -217,7 +222,7 @@ module.exports = {
   // },
 
   // // experimental: for out of react render
-  // _setAnimationStyles() {
+  // _setAnimationSStatetyles() {
   //   this.hasPendingAnimations = false;
   //   var animations = this.getAnimation();
 
@@ -278,7 +283,7 @@ module.exports = {
 // function runAnimations() {
 //   var i, len = animationQueue.length;
 //   for (i = 0; i < len; i++) {
-//     animationQueue[i]._setAnimationStyles.call(animationQueue[i]);
+//     animationQueue[i]._setAnimationSStatetyles.call(animationQueue[i]);
 //   }
 //   animationQueue = [];
 // }
