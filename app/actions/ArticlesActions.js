@@ -12,7 +12,8 @@ var per = 10;
 
 Actions.articlesHotLoad.listen(
   opts => {
-    if (opts && !opts.nocache || HotArticlesStore().count())
+    var hasHotArticles = HotArticlesStore().count();
+    if (opts && !opts.nocache && hasHotArticles || !opts && hasHotArticles)
       Actions.articlesHotLoadDone();
     else
       API.get('topstories.json', opts)

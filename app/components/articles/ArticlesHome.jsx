@@ -14,12 +14,12 @@ module.exports = Component({
     return { isRefreshing: false };
   },
 
-  componentWillReceiveProps() {
-    this.setState({ isRefreshing: false });
-  },
-
   handleRefresh(e) {
     this.setState({ isRefreshing: true });
+    var unlisten = Component.actions.articlesHotLoadDone.listen(() => {
+      this.setState({ isRefreshing: false });
+      unlisten();
+    });
     Component.actions.articlesHotRefresh();
   },
 
