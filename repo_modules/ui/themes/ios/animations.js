@@ -66,7 +66,7 @@ var Animations = module.exports = {
 
   scaleDown(index, step) {
     return {
-      scale: decreaseOnExit(index, step) * 1.9
+      scale: decreaseOnExit(index, step)
     };
   },
 

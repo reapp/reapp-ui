@@ -19,9 +19,11 @@ module.exports = Component({
   getDefaultProps() {
     return {
       type: 'alert',
+      animationDuration: 300,
       animations: [
         { animation: 'fade', name: 'bg' },
-        { animation: 'scaleDown', name: 'window' }
+        { animation: 'scaleDown', name: 'window' },
+        { animation: 'fade', name: 'window' }
       ]
     };
   },
@@ -30,7 +32,8 @@ module.exports = Component({
     return {
       open: this.props.open || false,
       step: 0,
-      index: 1
+      index: 1,
+      isClosing: false
     };
   },
 
@@ -38,24 +41,26 @@ module.exports = Component({
     this.setState({ open: true });
     this.tweenState('step', {
       endValue: 1,
-      duration: 400
+      duration: this.props.animationDuration
     });
   },
 
   handleClose(e) {
-    this.afterClose(e);
-    this.tweenState('step', {
-      endValue: 2,
-      duration: 400,
-      onEnd: this.afterClose.bind(this, e)
-    });
+    if (!this.state.isClosing) {
+      this.setState({ isClosing: true });
+      this.tweenState('step', {
+        endValue: 2,
+        duration: this.props.animationDuration,
+        onEnd: this.afterClose.bind(this, e)
+      });
+    }
   },
 
   afterClose(e) {
-    this.setState({ open: false, step: 0 });
-
-    if (this.props.handleClose)
-      this.props.handleClose(e);
+    setTimeout(() => {
+      if (this.props.handleClose)
+        this.props.handleClose(e);
+    }, 5);
   },
 
   render() {
@@ -83,9 +88,10 @@ module.exports = Component({
     }
 
     return (
-      <div {...this.componentProps()} {...props}
-        onClick={this.handleClose}
-        style={this.getAnimation('bg')}>
+      <div {...this.componentProps()} {...props}>
+        <div {...this.componentProps('bg')}
+          onClick={this.handleClose}
+          style={this.getAnimation('bg')} />
         <div {...this.componentProps('window')}
           style={this.getAnimation('window')}>
           <div {...this.componentProps('inner')}>

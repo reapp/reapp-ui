@@ -213,7 +213,7 @@ module.exports = {
     if (!len)
       return;
 
-    var styles;
+    var styles, transform;
 
     // loop through animations
     for (i = 0; i < len; i++) {
@@ -235,13 +235,20 @@ module.exports = {
       Invariant(defined(index), 'Must define index for animation to run');
 
       // get the animator function set in theme
+      transform = null;
       var animator = this.getAnimator(animation.animation);
       var { scale, rotate, rotate3d, translate, ...other } = animator(index, step, props);
 
       // set styles
-      styles = Object.assign({}, other);
-      styles[StyleKeys.TRANSFORM] = this.animationTransformsToString({ scale, rotate, rotate3d, translate });
+      styles = Object.assign(styles || {}, other);
+      transform = this.animationTransformsToString({ scale, rotate, rotate3d, translate });
+
+      if (transform)
+        styles[StyleKeys.TRANSFORM] = transform;
     }
+
+    // ensure translatez to ensure hardware accel
+    styles[StyleKeys.TRANSFORM] = styles[StyleKeys.TRANSFORM] || 'translateZ(0px)';
 
     return styles;
   },
@@ -269,7 +276,7 @@ module.exports = {
     if (defined(t.translate))
       transformString += `translate3d(${t.translate.x || 0}px, ${t.translate.y || 0}px, ${t.translate.z || 0}px)`;
 
-    return transformString || 'translateZ(0px)';
+    return transformString;
   },
 
   isSameAnimation(a, b) {

@@ -31,7 +31,8 @@
     "axn": "~1.3.1",
     "bluebird": "~2.3.11",
     "omniscient": "~2.1.0",
-    "httpinvoke": "~1.3.2"
+    "superagent": "~0.21.0",
+    "superagent-bluebird-promise": "~0.5.1"
   },
   "devDependencies": {
     "transform-loader": "^0.2.1",

@@ -1,8 +1,10 @@
 var Rest = require('rest');
 var Mime = require('rest/interceptor/mime');
 var Parseurl = require('parseurl');
-var HttpInvoke = require('httpinvoke');
+var Request = require('superagent');
 var { Promise } = require('bluebird');
+
+require('superagent-bluebird-promise');
 
 var cache = window.cache = {};
 
@@ -27,7 +29,7 @@ class Client {
     if (!opts.nocache && cache[url])
       return Promise.resolve(cache[url]);
     else
-      return HttpInvoke(this.getUrl(url), 'GET').then(
+      return Request.get(this.getUrl(url)).promise().then(
         res => {
           cache[url] = res.body;
           return res.body;
