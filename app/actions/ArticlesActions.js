@@ -11,11 +11,15 @@ var page = 0;
 var per = 10;
 
 Actions.articlesHotLoad.listen(
-  opts =>
-    API.get('topstories.json', opts)
-      .then(res => HotArticlesStore(res) && res)
-      .then(getArticles)
-      .then(Actions.articlesHotLoadDone)
+  opts => {
+    if (opts && !opts.nocache || HotArticlesStore().count())
+      Actions.articlesHotLoadDone();
+    else
+      API.get('topstories.json', opts)
+        .then(res => HotArticlesStore(res) && res)
+        .then(getArticles)
+        .then(Actions.articlesHotLoadDone);
+  }
 );
 
 Actions.articlesHotRefresh.listen(
@@ -31,8 +35,8 @@ Actions.articlesHotLoadMore.listen(
 );
 
 Actions.articleLoad.listen(
-  id => {
-    id = Number(id);
+  params => {
+    var id = Number(params.id);
     var article = ArticlesStore().get(id);
 
     if (article && article.get('status') === 'LOADED')

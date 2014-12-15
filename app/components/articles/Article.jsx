@@ -12,8 +12,8 @@ module.exports = Component({
   mixins: ['RouteState'],
 
   statics: {
-    fetchData(params) {
-      actions.articleLoad(params.id);
+    fetchData: params => {
+      actions.articleLoad(params);
       return new Promise((res, rej) => {
         actions.articleLoadDone(id => id === params.id &&
           res(ArticlesStore().get(params.id)));
