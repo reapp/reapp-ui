@@ -6,6 +6,11 @@ var TitleBar = require('ui/components/TitleBar');
 var TouchableArea = require('ui/helpers/TouchableArea');
 var Animator = require('ui/mixins/Animator');
 
+// ViewLists are, so far, the most complex piece of the UI kit
+// Their usage is simple, but they manage a lot of state,
+// encompass animations, and also handle some edge cases that
+// come up when using them with titles.
+
 module.exports = {
   mixins: [
     Animator
@@ -22,7 +27,8 @@ module.exports = {
 
   getViewListInitialState(state) {
     return Object.assign({
-      // We put children in state, to animate them out
+      // We put children in state, so when a parent removes a view
+      // we can animate backwards, and then remove them from state
       children: this.props.children,
       width: this.props.width,
       height: this.props.height,
@@ -42,8 +48,11 @@ module.exports = {
     window.removeEventListener('resize', this.resize);
   },
 
-  // needs to ensure it animates, then updates children views in state
+  // ensure proper animation/update order
   componentWillReceiveProps(nextProps) {
+    if (this._isAnimating)
+      return;
+
     // if new scrollToStep
     if (nextProps.scrollToStep !== this.props.scrollToStep) {
       // if advancing views or remaining the same
@@ -91,6 +100,7 @@ module.exports = {
   },
 
   scrollToStep(step) {
+    this._isAnimating = true;
     var duration = 0;
 
     if (step !== this.state.step) {
@@ -98,7 +108,10 @@ module.exports = {
       duration = this.props.scrollerProps.animationDuration;
     }
 
-    return new Promise(res => setTimeout(res, duration));
+    return new Promise(res => setTimeout(() => {
+      this._isAnimating = false;
+      res(); // promise fulfilled
+    }, duration));
   },
 
   setupDimensions() {

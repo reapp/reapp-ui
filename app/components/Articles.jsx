@@ -17,8 +17,7 @@ module.exports = Component({
   },
 
   mixins: [
-    // provides: getViewListProps, getKeyedSubRoute
-    mixins.routedViewListHandler({ depth: 2 }),
+    mixins.routedViewListHandler,
     mixins.listener(
       stores.ArticlesStore
     )
@@ -26,7 +25,7 @@ module.exports = Component({
 
   render() {
     return (
-      <NestedViewList {...this.getViewListProps()} titleBarProps={{height:48}}>
+      <NestedViewList {...this.routedViewListProps()} titleBarProps={{height:48}}>
         <View>
           <ArticlesHome
             hotArticlesStore={stores.HotArticlesStore()}
@@ -35,7 +34,7 @@ module.exports = Component({
             handle={this.props.handle} />
         </View>
 
-        {this.getKeyedSubRoute()}
+        {this.routedSubRoute()}
       </NestedViewList>
     );
   }

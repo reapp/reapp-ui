@@ -16,8 +16,7 @@ var InertLink = React.createClass({
 
 module.exports = Component({
   mixins: [
-    // getViewListProps, getKeyedSubRoute
-    Component.mixins.routedViewListHandler({ depth: 2 })
+    Component.mixins.routedViewListHandler
   ],
 
   getInitialState() {
@@ -69,7 +68,7 @@ module.exports = Component({
     var hasChild = numRoutes > 2;
 
     return (
-      <NestedViewList {...this.getViewListProps()}>
+      <NestedViewList {...this.routedViewListProps()}>
         <View title={[this.props.handle, 'Kitchen Sink']}>
           <SearchBar onChange={this.handleSearch} defaultValue="" />
 
