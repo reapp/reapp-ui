@@ -1,29 +1,30 @@
 var React = require('react');
 var Component = require('ui/component');
 var Icon = require('./Icon');
-var TweenState = require('react-tween-state');
-var Animator = require('../lib/mixins/Animator');
+var Scrollable = require('ui/mixins/Scrollable');
 
 module.exports = Component({
   name: 'ListItem',
 
-  // todo: testing this as a simple example of animating
-  // mixins: [TweenState.Mixin, Animator],
+  mixins: [Scrollable({
+    scrollBounce: false,
+    scrollX: true,
+    scrollY: false,
+    scrollSnap: true
+  })],
 
-  // getDefaultProps() {
-  //   return {
-  //     animations: [{ name: 'fadeDown', source: 'listItem' }],
-  //     step: 0,
-  //   };
-  // },
+  getDefaultProps() {
+    return {
+      underLeft: ['Hello'],
+      underRight: ['World']
+    };
+  },
 
-  // componentDidMount() {
-  //   this.setState({ step: this.props.index - 1 });
-  //   this.tweenState('step', {
-  //     endValue: this.props.index,
-  //     duration: 100
-  //   });
-  // },
+  afterMeasureScroll(node) {
+    var width = (this.props.underLeft.length + this.props.underRight.length) * 100;
+    this.scroller.setSnapSize(width, node.clientHeight);
+    this.scroller.scrollTo(width, 0);
+  },
 
   makeSection(name, content) {
     return content && (
@@ -50,13 +51,11 @@ module.exports = Component({
       before,
       after,
       wrapper,
+      underLeft,
+      underRight,
       noicon,
       nopad,
       ...props } = this.props;
-
-    // this.animate('listItem', {
-    //   step: this.state.step
-    // });
 
     // make a top level link into a wrapper so it can take up the whole item
     if (!wrapper && this.hasLinkAsChild(children)) {
@@ -98,6 +97,7 @@ module.exports = Component({
 
     var span = this.makeSection;
     var content = [
+      span('underLeft', underLeft),
       span('wrapper', wrapper),
       span('before', before),
       span('content', [
@@ -108,7 +108,8 @@ module.exports = Component({
         span('titleSub', titleSub),
         span('children', children)
       ]),
-      span('after', after)
+      span('after', after),
+      span('underRight', underRight),
     ];
 
     return (

@@ -1,7 +1,8 @@
 var Rest = require('rest');
 var Mime = require('rest/interceptor/mime');
 var Parseurl = require('parseurl');
-var When = require('when');
+var HttpInvoke = require('httpinvoke');
+var { Promise } = require('bluebird');
 
 var cache = window.cache = {};
 
@@ -24,20 +25,24 @@ class Client {
   get(url, opts) {
     opts = opts || {};
     if (!opts.nocache && cache[url])
-      return When(cache[url]);
+      return Promise.resolve(cache[url]);
     else
-      return this.rest(this.getUrl(url)).then(
+      return HttpInvoke(this.getUrl(url), 'GET').then(
         res => {
-          cache[url] = res.entity;
-          return res.entity;
+          cache[url] = res.body;
+          return res.body;
         },
-        err => console.error(err)
+        err => error(err)
       );
   }
 
   dispatcher(dispatcher) {
     this.dispatcher = dispatcher;
   }
+}
+
+function error(err) {
+  throw new Error(err);
 }
 
 module.exports = Client;

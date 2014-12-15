@@ -20,7 +20,6 @@ module.exports = Component({
   afterMeasureScroll(node) {
     this.scroller.setSnapSize(this.props.sideWidth, node.clientHeight);
     this.scroller.scrollTo(this.props.sideWidth, 0);
-    window.scroller = this.scroller;
   },
 
   getDefaultProps() {

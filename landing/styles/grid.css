@@ -335,6 +335,9 @@
   .last-sm {
     order: 1;
   }
+  .hide-sm {
+    display: none;
+  }
 }
 @media only screen and (min-width: 62em) {
   .col-md,

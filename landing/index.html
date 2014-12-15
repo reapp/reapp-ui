@@ -1,19 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" type="text/css" href="base.css" />
-  <link rel="stylesheet" type="text/css" href="grid.css" />
+  <link rel="stylesheet" type="text/css" href="/styles/base.css" />
+  <link rel="stylesheet" type="text/css" href="/styles/grid.css" />
+  <link rel="stylesheet" type="text/css" href="/styles/landing.css" />
 </head>
 <body>
   <div class="layout">
+    <div class="header row">
+      <h1><a href="/">reapp</a></h1>
+      <nav>
+        <a href="/docs">Get Started</a>
+        <a href="/docs">Docs</a>
+        <a href="/docs">Showcase</a>
+        <a href="/docs">Blog</a>
+        <a href="https://github.com/reapp/reapp">Github</a>
+      </nav>
+      <div class="install">
+        <p>npm install -g reapp <span>reapp new myproject</span></p>
+      </div>
+    </div>
     <div class="hero">
       <div class="row center-xs">
-        <h1 class="hero-headline">reapp</h1>
-      </div>
-      <div class="row center-xs">
-        <p class="hero-copy">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae mollitia incidunt at numquam quisquam debitis ab a enim, reprehenderit aspernatur porro ducimus ut excepturi doloribus architecto molestias aliquid suscipit saepe?
-        </p>
+        <div class="col-lg-5 col-sm-12">
+          <h2 class="hero-headline">An easy way to build apps</h2>
+          <p>reapp is was built with React, designed for apps, and focused on speed
+          all around. It’s a generator, a few modules, and a CLI that all work together.</p>
+          <p>Sign up to the mailing list to get early updates and information
+          on development:</p>
+          <form>
+            <input type="text" name="email" />
+            <input type="submit" value="Sign Up" />
+          </form>
+        </div>
+
+        <div class="col-lg-7 hide-sm">
+          <span id="info-one" class="info">Interactive, additive animations</span>
+          <span id="info-two" class="info">UI Framework</span>
+          <span id="info-three" class="info">CLI with build tools</span>
+        </div>
       </div>
     </div>
     <div class="row">
