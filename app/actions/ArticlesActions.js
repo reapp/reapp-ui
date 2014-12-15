@@ -31,11 +31,19 @@ Actions.articlesHotLoadMore.listen(
 );
 
 Actions.articleLoad.listen(
-  id =>
-    API.get(`item/${id}.json`)
-      .then(getAllKids)
-      .then(loadedReducer)
-      .then(insertArticle)
+  id => {
+    id = Number(id);
+    var article = ArticlesStore().get(id);
+
+    if (article && article.get('status') === 'LOADED')
+      Actions.articleLoadDone(id);
+    else
+      API.get(`item/${id}.json`)
+        .then(getAllKids)
+        .then(loadedReducer)
+        .then(insertArticle)
+        .then(Actions.articleLoadDone.bind(this, id));
+  }
 );
 
 function insertArticle(res, rej) {
