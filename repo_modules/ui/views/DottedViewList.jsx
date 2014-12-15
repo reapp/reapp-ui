@@ -21,7 +21,7 @@ module.exports = Component({
         bouncing: false,
         scrollingY: false
       },
-      animations: [
+      viewAnimations: [
         { animation: 'viewSideBySide', source: 'viewList', name: 'pane' }
       ],
       titleBarProps: {

@@ -18,7 +18,7 @@ module.exports = generate(routes(
       route('panels'),
       route('lists'),
       route('view-lists'),
-      route('dotted-view-list'),
+      route('dotted-view-lists'),
       route('view-frosted'),
       route('grids'),
       route('forms')

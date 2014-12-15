@@ -1,7 +1,6 @@
 var React = require('react/addons');
 var Component = require('ui/component');
 var ListItem = require('./ListItem');
-// var { Scroller } = require('scroller');
 // var StickyTitles = require('sticky-titles');
 
 require('./List.styl');

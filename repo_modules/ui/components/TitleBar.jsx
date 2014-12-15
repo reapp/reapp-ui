@@ -4,6 +4,7 @@ var DocumentTitle = require('react-document-title');
 var Union = require('lodash-node/modern/arrays/union');
 var MultiTappable = require('ui/mixins/MultiTappable');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
+var Animated = require('ui/mixins/Animated');
 
 require('./TitleBar.styl');
 
@@ -11,13 +12,13 @@ module.exports = Component({
   name: 'TitleBar',
 
   mixins: [
+    Animated,
     MultiTappable
   ],
 
   getDefaultProps() {
     return {
       width: window.innerWidth,
-      iconAnimations: [{ animation: 'moveToRight', source: 'viewList' }],
       animations: [{ animation: 'fadeLeft', source: 'viewList' }]
     };
   },
@@ -44,15 +45,7 @@ module.exports = Component({
     if (!component || !React.isValidElement(component))
       return component;
 
-    var iconProps = component.props.iconProps || {};
-    var animations = Union(iconProps.animations || [], this.props.iconAnimations);
-
-    iconProps.animateProps = this.context.animateProps;
-    iconProps.animations = animations;
-
-    return React.addons.cloneWithProps(component,
-      Object.assign(component.props, { iconProps })
-    );
+    return React.addons.cloneWithProps(component, { inTitleBar: true });
   },
 
   handleDoubleTap() {

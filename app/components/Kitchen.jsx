@@ -60,7 +60,7 @@ module.exports = Component({
 
   viewLinks: [
     ['view-lists', 'View List'],
-    ['dotted-view-list', 'Dotted View List'],
+    ['dotted-view-lists', 'Dotted View List'],
     ['view-frosted', 'Frosted Glass Titlebar', true]
   ],
 

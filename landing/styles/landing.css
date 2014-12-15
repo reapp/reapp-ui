@@ -43,6 +43,7 @@ body {
   top: 0;
   bottom: 0;
   display: flex;
+  text-align: center;
 }
 
 .header nav a {
@@ -100,9 +101,8 @@ body {
       url('/fonts/lato-black-webfont.woff') format('woff'),
       url('/fonts/lato-black-webfont.ttf') format('truetype'),
       url('/fonts/lato-black-webfont.svg#latoblack') format('svg');
-  font-weight: normal;
-  font-style: normal;
-
+  font-weight: bold;
+  font-style: bold;
 }
 
 @font-face {
@@ -115,5 +115,4 @@ body {
       url('/fonts/lato-regular-webfont.svg#latoregular') format('svg');
   font-weight: normal;
   font-style: normal;
-
 }

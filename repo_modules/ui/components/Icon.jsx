@@ -1,10 +1,12 @@
 var Component = require('ui/component');
+var Animated = require('ui/mixins/Animated');
 var TweenState = require('react-tween-state');
 
 module.exports = Component({
   name: 'Icon',
 
   mixins: [
+    Animated,
     TweenState.Mixin
   ],
 

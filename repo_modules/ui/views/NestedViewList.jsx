@@ -25,7 +25,7 @@ module.exports = Component({
         bouncing: false,
         scrollingY: false
       },
-      animations: [
+      viewAnimations: [
        { animation: 'viewParallax', source: 'viewList', name: 'pane' },
        { animation: 'fadeOnEnter', source: 'viewList', name: 'overlay' }
       ],

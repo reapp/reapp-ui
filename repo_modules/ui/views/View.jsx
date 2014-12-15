@@ -2,7 +2,8 @@ var React = require('react');
 var Component = require('ui/component');
 var TitleBar = require('../components/TitleBar');
 var StaticContainer = require('../helpers/StaticContainer');
-var Animator = require('../lib/mixins/Animator');
+var Animator = require('../mixins/Animator');
+var Animated = require('../mixins/Animated');
 var ScrollTopable = require('../mixins/ScrollTopable');
 var AnimatedScrollToTop = require('../mixins/AnimatedScrollToTop');
 
@@ -12,6 +13,7 @@ module.exports = Component({
   mixins: [
     ScrollTopable,
     Animator,
+    Animated,
     AnimatedScrollToTop
   ],
 

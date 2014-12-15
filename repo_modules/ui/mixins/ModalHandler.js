@@ -1,4 +1,4 @@
-var Actions = require('../actions/Actions');
+var Actions = require('ui/actions/Actions');
 
 module.exports = {
   componentWillMount() {

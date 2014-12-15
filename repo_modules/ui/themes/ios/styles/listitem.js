@@ -102,5 +102,5 @@ module.exports = (c) => ({
     whiteSpace: 'nowrap',
     alignSelf: 'stretch',
     WebkitAlignSelf: 'stretch'
-  },
+  }
 });

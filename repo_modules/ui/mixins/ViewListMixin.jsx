@@ -3,8 +3,8 @@ var Component = require('ui/component');
 var { Scroller } = require('scroller');
 var { Promise } = require('bluebird');
 var TitleBar = require('ui/components/TitleBar');
-var TouchableArea = require('../helpers/TouchableArea');
-var Animator = require('../lib/mixins/Animator');
+var TouchableArea = require('ui/helpers/TouchableArea');
+var Animator = require('ui/mixins/Animator');
 
 module.exports = {
   mixins: [
@@ -268,8 +268,8 @@ module.exports = {
 
   getViewAnimations(view) {
     return view && view.props.animations ?
-      view.props.animations.concat(this.props.animations) :
-      this.props.animations;
+      view.props.animations.concat(this.props.viewAnimations) :
+      this.props.viewAnimations;
   },
 
   getTouchStartBounds() {

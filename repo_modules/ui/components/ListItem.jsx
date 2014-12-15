@@ -1,30 +1,9 @@
 var React = require('react');
 var Component = require('ui/component');
 var Icon = require('./Icon');
-var Scrollable = require('ui/mixins/Scrollable');
 
 module.exports = Component({
   name: 'ListItem',
-
-  mixins: [Scrollable({
-    scrollBounce: false,
-    scrollX: true,
-    scrollY: false,
-    scrollSnap: true
-  })],
-
-  getDefaultProps() {
-    return {
-      underLeft: ['Hello'],
-      underRight: ['World']
-    };
-  },
-
-  afterMeasureScroll(node) {
-    var width = (this.props.underLeft.length + this.props.underRight.length) * 100;
-    this.scroller.setSnapSize(width, node.clientHeight);
-    this.scroller.scrollTo(width, 0);
-  },
 
   makeSection(name, content) {
     return content && (
@@ -97,7 +76,6 @@ module.exports = Component({
 
     var span = this.makeSection;
     var content = [
-      span('underLeft', underLeft),
       span('wrapper', wrapper),
       span('before', before),
       span('content', [
@@ -109,7 +87,6 @@ module.exports = Component({
         span('children', children)
       ]),
       span('after', after),
-      span('underRight', underRight),
     ];
 
     return (
