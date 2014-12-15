@@ -23,11 +23,6 @@ Actions.articlesHotLoad.listen(
   }
 );
 
-Actions.articlesHotRefresh.listen(
-  () =>
-    Actions.articlesHotLoad({ nocache: true })
-);
-
 Actions.articlesHotLoadMore.listen(
   () =>
     API.get('topstories.json')

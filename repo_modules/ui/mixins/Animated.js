@@ -112,9 +112,9 @@ module.exports = {
         source = animation.source || 'self';
 
         this._animationsState[source] = Object.assign({},
-          AnimateStore(animation) || {},
-          props && props.animationProps && props.animationProps[animation.source] || {},
-          this.context && this.context.animationProps && this.context.animationProps[animation.source] || {},
+          AnimateStore(animation.source),
+          props && props.animationProps && props.animationProps[animation.source],
+          this.context && this.context.animationProps && this.context.animationProps[animation.source],
           source === 'self' && state && defined(state.step) && { step: state.step },
           source === 'self' && state && defined(state.index) && { index: state.index }
         );

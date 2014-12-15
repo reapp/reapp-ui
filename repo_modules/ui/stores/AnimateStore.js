@@ -33,6 +33,6 @@ AnimateActions.listen(action => {
 
 window.a = store;
 
-module.exports = function(animation) {
-  return store[animation.source] && store[animation.source].props;
+module.exports = function(source) {
+  return store[source] && store[source].props;
 };

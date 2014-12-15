@@ -16,18 +16,24 @@ module.exports = Component({
 
   handleRefresh(e) {
     this.setState({ isRefreshing: true });
-    var unlisten = Component.actions.articlesHotLoadDone.listen(() => {
-      this.setState({ isRefreshing: false });
-      unlisten();
-    });
-    Component.actions.articlesHotRefresh();
+
+    if (!this.state.isRefreshing) {
+      var unlisten = Component.actions.articlesHotLoadDone.listen(() => {
+        this.setState({ isRefreshing: false });
+        unlisten();
+      });
+      Component.actions.articlesHotLoad({ nocache: true });
+    }
   },
 
   handleLoadMore(e) {
+    this.setState({ isRefreshing: true });
+
     e.preventDefault();
     e.target.innerHTML = 'Loading...';
+
     Component.actions.articlesHotLoadMore();
-    var unlisten = Component.actions.articlesHotLoadDone.listen(() => {
+    var unlisten = Component.actions.articlesHotLoadMoreDone.listen(() => {
       this.setState({ isRefreshing: false });
       unlisten();
     });
@@ -53,9 +59,10 @@ module.exports = Component({
         icon={(
           <RotatingComponent rotate={this.state.isRefreshing}>
             <Icon
-            name="arrow-refresh"
-            size="24"
-            stroke="1" />
+              name="arrow-refresh"
+              size="24"
+              stroke="1"
+              isInTitleBar />
           </RotatingComponent>
         )} />
     );

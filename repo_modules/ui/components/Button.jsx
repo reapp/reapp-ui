@@ -10,6 +10,9 @@ module.exports = Component({
     if (iconProps)
       iconProps.color = iconProps.color || this.getStyleVal('color');
 
+    if (icon && iconProps)
+      icon = Component.clone(icon, iconProps, true);
+
     if (borderless)
       this.addStyles(this.styles.borderless);
 

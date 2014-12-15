@@ -62,6 +62,13 @@ module.exports = Component({
       !!this.props.animations.filter(a => a.name === 'overlay').length;
   },
 
+  getOverlayStyle() {
+    return Object.assign({
+      top: this.getTitleBarHeight(),
+      display: this.isAnimating('viewList') ? 'block' : 'none'
+    }, this.getAnimation('overlay'));
+  },
+
   render() {
     var {
       animations,
@@ -99,10 +106,7 @@ module.exports = Component({
           </StaticContainer>
         </div>
         {this.hasOverlay() && (
-          <div {...this.componentProps('overlay')} style={Object.assign({
-            top: this.getTitleBarHeight(),
-            display: this.isAnimating('viewList') ? 'block' : 'none'
-          }, this.getAnimation('overlay'))} />
+          <div {...this.componentProps('overlay')} style={this.getOverlayStyle()} />
         )}
       </div>
     );

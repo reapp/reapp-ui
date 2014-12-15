@@ -5,7 +5,6 @@ var actions = Fynx.createActions([
   'articlesHotLoadDone',
   'articlesHotLoadMore',
   'articlesHotLoadMoreDone',
-  'articlesHotRefresh',
   'articleLoad',
   'articleLoadDone',
   'userLoad'

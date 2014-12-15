@@ -56,11 +56,12 @@ module.exports = Component({
   },
 
   render() {
+    var { children, animations, ...props } = this.props;
+
     return (
       <div style={this.getAnimation()}>
-        {this.props.children}
+        {Component.clone(children, props, true)}
       </div>
     );
   }
-
 });
