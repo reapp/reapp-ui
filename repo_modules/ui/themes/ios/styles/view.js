@@ -32,7 +32,6 @@ module.exports = (c) => ({
 
   overlay: {
     position: 'absolute',
-    top: c.titleBarHeight,
     left: 0,
     right: 0,
     bottom: 0,

@@ -8,7 +8,7 @@ module.exports = Component({
     var { iconProps, icon, children, borderless, rounded, active, ...props } = this.props;
 
     if (icon) {
-      iconProps = (iconProps || {});
+      iconProps = iconProps || {};
       iconProps.name = icon;
     }
 

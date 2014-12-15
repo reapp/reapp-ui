@@ -43,16 +43,6 @@ var AnimateStore = require('ui/stores/AnimateStore');
 // - animationActive: for disabling animations
 
 var defined = variable => (typeof variable !== 'undefined');
-var animationQueue = [];
-
-// todo: only run this when we need to
-function runAnimations() {
-  var i, len = animationQueue.length;
-  for (i = 0; i < len; i++) {
-    animationQueue[i].setAnimationStyles.call(animationQueue[i]);
-  }
-  animationQueue = [];
-}
 
 module.exports = {
   contextTypes: {
@@ -60,17 +50,8 @@ module.exports = {
     animationsActive: React.PropTypes.bool
   },
 
-  componentWillMount() {
-    this.setAnimations();
-  },
-
   componentWillUpdate(nextProps, nextState) {
-    this.setAnimations(nextProps, nextState);
-  },
-
-  componentWillUnmount() {
-    if (this._headStyleTag)
-      document.head.removeChild(this._headStyleTag);
+    this._setAnimations(nextProps, nextState);
   },
 
   getAnimations(props, state) {
@@ -95,7 +76,7 @@ module.exports = {
   },
 
   isAnimating(source) {
-    return this._animations && this.getAnimationProps(source).step % 1 !== 0;
+    return this._animationsState && this.getAnimationsState(source).step % 1 !== 0;
   },
 
   getAnimationProp(animation, animations) {
@@ -112,95 +93,42 @@ module.exports = {
     return UI.getAnimations(animation);
   },
 
-  setAnimations(props, state) {
+  _setAnimations(props, state) {
     if (typeof props === 'undefined') {
       props = this.props;
       state = this.state;
     }
 
+    this._animationsState = {};
     var animations = this.getAnimations(props, state);
 
     if (animations.length) {
       var source;
-      this._animations = {};
 
       animations.forEach(animation => {
         source = animation.source || 'self';
-        this._animations[source] = Object.assign({},
+        this._animationsState[source] = Object.assign({},
           AnimateStore(animation) || {},
           props && props.animateProps && props.animateProps[animation.source] || {},
+          this.context && this.context.animateProps && this.context.animateProps[animation.source] || {},
           source === 'self' && state && { step: state.step, index: state.index }
         );
       });
     }
   },
 
-  getAnimationProps(source) {
-    return this._animations[source || 'self'];
+  getAnimationsState(source) {
+    if (!this._animationsState)
+      this._setAnimations();
+
+    return this._animationsState[source || 'self'];
   },
 
   getAnimationStep(source) {
-    return this.getAnimationProps(source || 'self').step;
-  },
+    if (!this._animationsState)
+      this._setAnimations();
 
-  // experimental: for out of react render
-  animate() {
-    if (!this.animationsDisabled() && this.getAnimations().length && !this.hasPendingAnimations) {
-      animationQueue.push(this);
-      this.hasPendingAnimations = true;
-      window.requestAnimationFrame(runAnimations);
-    }
-  },
-
-  // experimental: for out of react render
-  setAnimationStyles() {
-    this.hasPendingAnimations = false;
-    var animations = this.getAnimation();
-
-    if (!animations || this._lifeCycleState !== 'MOUNTED')
-      return;
-
-    var node, selector;
-    var hasHeadStyleTag = !!this._headStyleTag;
-
-    if (!hasHeadStyleTag) {
-      this._headStyleTag = document.createElement('style');
-      this._headStyleTag.ref = this._uniqueID;
-    }
-    else {
-      this._headStyleTag.innerHTML = '';
-    }
-
-    Object.keys(animations).forEach(key => {
-      node = key === 'self' ?
-        this.getDOMNode() :
-        this.refs[key] && this.refs[key].getDOMNode();
-
-      if (!node)
-        return;
-
-      selector = node.id ?
-        `#${node.id}` :
-        `[data-reactid="${node.getAttribute('data-reactid')}"]`;
-
-      // set tag styles
-      this._headStyleTag.innerHTML +=
-        `${selector} {
-          ${this.stylesToString(animations[key])}
-        }`;
-    });
-
-    if (!hasHeadStyleTag)
-      document.head.appendChild(this._headStyleTag);
-  },
-
-  // experimental: for out of react render
-  stylesToString(obj) {
-    return Object.keys(obj).reduce(
-      (acc, key) =>
-        `${key}: ${obj[key]};
-         ${acc}`,
-      '');
+    return this.getAnimationsState(source || 'self').step;
   },
 
   // this is the meat of it, fetches animations and returns an object
@@ -223,7 +151,7 @@ module.exports = {
         continue;
 
       // get index, step and props for animation
-      var { index, step, ...props } = this.getAnimationProps(animation.source);
+      var { index, step, ...props } = this.getAnimationsState(animation.source);
 
       if (!defined(index) && this.state)
         index = this.state.index;
@@ -241,7 +169,7 @@ module.exports = {
 
       // set styles
       styles = Object.assign(styles || {}, other);
-      transform = this.animationTransformsToString({ scale, rotate, rotate3d, translate });
+      transform = this._animationTransformsToString({ scale, rotate, rotate3d, translate });
 
       if (transform)
         styles[StyleKeys.TRANSFORM] = transform;
@@ -253,7 +181,7 @@ module.exports = {
     return styles;
   },
 
-  animationTransformsToString(transform) {
+  _animationTransformsToString(transform) {
     if (!transform)
       return;
 
@@ -279,10 +207,78 @@ module.exports = {
     return transformString;
   },
 
-  isSameAnimation(a, b) {
-    return a.animation === b.animation && (
-      !a.source && !b.source ||
-      a.source === b.source
-    );
-  }
+  // experimental: for out of react render
+  // _animate() {
+  //   if (!this.animationsDisabled() && this.getAnimations().length && !this.hasPendingAnimations) {
+  //     animationQueue.push(this);
+  //     this.hasPendingAnimations = true;
+  //     window.requestAnimationFrame(runAnimations);
+  //   }
+  // },
+
+  // // experimental: for out of react render
+  // _setAnimationStyles() {
+  //   this.hasPendingAnimations = false;
+  //   var animations = this.getAnimation();
+
+  //   if (!animations || this._lifeCycleState !== 'MOUNTED')
+  //     return;
+
+  //   var node, selector;
+  //   var hasHeadStyleTag = !!this._headStyleTag;
+
+  //   if (!hasHeadStyleTag) {
+  //     this._headStyleTag = document.createElement('style');
+  //     this._headStyleTag.ref = this._uniqueID;
+  //   }
+  //   else {
+  //     this._headStyleTag.innerHTML = '';
+  //   }
+
+  //   Object.keys(animations).forEach(key => {
+  //     node = key === 'self' ?
+  //       this.getDOMNode() :
+  //       this.refs[key] && this.refs[key].getDOMNode();
+
+  //     if (!node)
+  //       return;
+
+  //     selector = node.id ?
+  //       `#${node.id}` :
+  //       `[data-reactid="${node.getAttribute('data-reactid')}"]`;
+
+  //     // set tag styles
+  //     this._headStyleTag.innerHTML +=
+  //       `${selector} {
+  //         ${this._stylesToString(animations[key])}
+  //       }`;
+  //   });
+
+  //   if (!hasHeadStyleTag)
+  //     document.head.appendChild(this._headStyleTag);
+  // },
+
+  // // experimental: for out of react render
+  // _stylesToString(obj) {
+  //   return Object.keys(obj).reduce(
+  //     (acc, key) =>
+  //       `${key}: ${obj[key]};
+  //        ${acc}`,
+  //     '');
+  // },
+
+  // componentWillUnmount() {
+  //   if (this._headStyleTag)
+  //     document.head.removeChild(this._headStyleTag);
+  // },
 };
+
+// experimental: out of react animations
+// var animationQueue = [];
+// function runAnimations() {
+//   var i, len = animationQueue.length;
+//   for (i = 0; i < len; i++) {
+//     animationQueue[i]._setAnimationStyles.call(animationQueue[i]);
+//   }
+//   animationQueue = [];
+// }

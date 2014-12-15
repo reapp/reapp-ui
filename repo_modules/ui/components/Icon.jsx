@@ -1,6 +1,7 @@
 var Component = require('ui/component');
 var Animated = require('ui/mixins/Animated');
 var TweenState = require('react-tween-state');
+var Union = require('lodash-node/modern/arrays/union');
 
 module.exports = Component({
   name: 'Icon',
@@ -15,15 +16,26 @@ module.exports = Component({
       size: 32,
       color: 'currentColor',
       style: {},
-      svgProps: {}
+      svgProps: {},
+      titleBarAnimations: [{ source: 'viewList', animation: 'moveToRight' }]
     };
   },
 
+  componentWillMount() {
+    this.setupAnimations(this.props);
+  },
+
   componentWillReceiveProps(nextProps) {
+    this.setupAnimations(nextProps);
     if (this.hasAnimation('rotate', nextProps.animations) && !this.state.isRotating) {
       this.setState({ step: 0, index: 1, isRotating: true });
       this.rotate();
     }
+  },
+
+  setupAnimations(props) {
+    if (props.isInTitleBar)
+      props.animations = Union(props.animations || [], this.props.titleBarAnimations);
   },
 
   rotate() {

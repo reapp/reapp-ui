@@ -77,9 +77,6 @@ module.exports = {
     var { width, height, children } = props;
     children = children.filter(child => !!child);
 
-    // set default titlebar height
-    // props.titleBarProps.height = this.getTitleBarHeight();
-
     // default to not allowing swipes on the titlebar
     props.touchStartBoundsY = props.touchStartBoundsY || {
       from: this.getTitleBarHeight(),
@@ -244,7 +241,6 @@ module.exports = {
       // default props
       {
         ignoreY: true,
-        currentTargetOnly: true,
         scroller: this.scroller
       },
 

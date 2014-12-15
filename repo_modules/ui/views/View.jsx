@@ -22,6 +22,7 @@ module.exports = Component({
   },
 
   setScrollTop() {
+    // allow passing in a scrollToTop, or auto adjust for a SearchBar
     if (this.props.scrollTop)
       this.refs.inner.getDOMNode().scrollTop = this.props.scrollTop;
     else if (
@@ -29,7 +30,7 @@ module.exports = Component({
       this.props.children[0] &&
       this.props.children[0].type.isSearchBar
     )
-      this.refs.inner.getDOMNode().scrollTop = this.getConstant('scrollBarHeight');
+      this.refs.inner.getDOMNode().scrollTop = this.getConstant('searchBarHeight');
   },
 
   getTitleBarHeight() {
@@ -92,7 +93,7 @@ module.exports = Component({
         {title && (
           <TitleBar {...titleBarProps} animateProps={animateProps}>{title}</TitleBar>
         )}
-        <div {...props} {...this.componentProps('inner')} style={this.getAnimation('pane')}>
+        <div {...this.componentProps('inner')} {...props} style={this.getAnimation('pane')}>
           <StaticContainer shouldUpdate={!this.props.animations || this.getAnimationStep('viewList') % 1 === 0}>
             {children}
           </StaticContainer>

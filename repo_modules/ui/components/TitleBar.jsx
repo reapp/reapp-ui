@@ -45,7 +45,11 @@ module.exports = Component({
     if (!component || !React.isValidElement(component))
       return component;
 
-    return React.addons.cloneWithProps(component, { inTitleBar: true });
+    var newIconProps = { iconProps:
+      Object.assign(component.props.iconProps || {}, { isInTitleBar: true })
+    };
+
+    return React.addons.cloneWithProps(component, newIconProps);
   },
 
   handleDoubleTap() {

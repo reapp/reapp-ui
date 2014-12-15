@@ -1,6 +1,6 @@
 module.exports = (c) => ({
   self: {
-    height: c.scrollBarHeight,
+    height: c.searchBarHeight,
     background: '#c9c9ce',
     padding: '0 8px',
     margin: `0 -${c.viewPad}`,

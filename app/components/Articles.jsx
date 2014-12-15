@@ -26,7 +26,7 @@ module.exports = Component({
 
   render() {
     return (
-      <NestedViewList {...this.getViewListProps()} noFakeTitleBar>
+      <NestedViewList {...this.getViewListProps()} titleBarProps={{height:48}}>
         <View>
           <ArticlesHome
             hotArticlesStore={stores.HotArticlesStore()}

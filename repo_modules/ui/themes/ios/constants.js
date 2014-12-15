@@ -40,8 +40,8 @@ module.exports = {
   popoverItemBorder: '1px solid #ccc',
   popoverOverlayBG: 'rgba(0,0,0,0.3)',
 
-  // ScrollBar
-  scrollBarHeight: 44,
+  // SearchBar
+  searchBarHeight: 44,
 
   // View
   viewPad: '10px'

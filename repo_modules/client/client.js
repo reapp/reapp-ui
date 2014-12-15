@@ -37,10 +37,6 @@ class Client {
         err => error(err)
       );
   }
-
-  dispatcher(dispatcher) {
-    this.dispatcher = dispatcher;
-  }
 }
 
 function error(err) {
