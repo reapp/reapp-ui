@@ -14,7 +14,7 @@ module.exports = Component({
     };
 
     return (
-      <List {...this.componentProps()} liProps={liProps}>
+      <List {...this.componentProps()} liProps={liProps} {...this.props}>
         {this.props.children}
       </List>
     );
