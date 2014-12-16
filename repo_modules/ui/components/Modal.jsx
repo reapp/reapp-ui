@@ -78,7 +78,7 @@ module.exports = Component({
     switch (type) {
       case 'alert':
         buttons = [
-          <Button borderless>OK</Button>
+          <Button chromeless>OK</Button>
         ];
         break;
       case 'prompt':

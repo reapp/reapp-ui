@@ -5,7 +5,7 @@ module.exports = Component({
   name: 'Button',
 
   render() {
-    var { iconProps, icon, children, borderless, rounded, active, ...props } = this.props;
+    var { iconProps, icon, children, chromeless, rounded, active, ...props } = this.props;
 
     if (iconProps)
       iconProps.color = iconProps.color || this.getStyleVal('color');
@@ -13,8 +13,8 @@ module.exports = Component({
     if (icon && iconProps)
       icon = Component.clone(icon, iconProps, true);
 
-    if (borderless)
-      this.addStyles(this.styles.borderless);
+    if (chromeless)
+      this.addStyles(this.styles.chromeless);
 
     if (rounded)
       this.addStyles(this.styles.rounded);

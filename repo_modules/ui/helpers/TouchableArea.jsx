@@ -47,7 +47,10 @@ var TouchableArea = React.createClass({
     if (this.props.currentTargetOnly && e.currentTarget !== this.getDOMNode())
       return;
 
-    // null === we haven't figured out if were ignoring this scroll, yet
+    // todo: allow touching again after letting go ("catching")
+    // should be done in the scroller library
+
+    // _disableDirection === null, we haven't figured out if ignoring this scroll yet
     this.disableDirection = null;
     this._initialTouchLeft = this.getTouchLeft(e.touches);
     this._initialTouchTop = this.getTouchTop(e.touches);

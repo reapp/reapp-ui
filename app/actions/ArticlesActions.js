@@ -1,14 +1,12 @@
-var Component = require('component');
 var { Promise } = require('bluebird');
 var Immutable = require('immutable');
 var Actions = require('../actions');
 var API = require('./API');
 var Reducer = require('./Reducer');
-
 var {
-  ArticlesStore,
-  HotArticlesStore,
-  SavedArticlesStore } = require('../stores');
+    ArticlesStore,
+    HotArticlesStore,
+    SavedArticlesStore } = require('../stores');
 
 var loadedReducer = Reducer.bind(null, 'LOADED');
 var page = 0;

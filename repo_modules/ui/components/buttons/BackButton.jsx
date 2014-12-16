@@ -28,7 +28,7 @@ var BackButton = module.exports = React.createClass({
         {...this.props}
         onClick={this.goBack}
         iconProps={iconProps}
-        borderless>
+        chromeless>
         Back
       </Button>
     );

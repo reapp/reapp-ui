@@ -27,7 +27,7 @@ module.exports = Component({
           size: 26,
           shapeRendering: 'crispEdges'
         }}
-        borderless />
+        chromeless />
     );
 
     var menu = (

@@ -75,7 +75,7 @@ module.exports = Component({
     var refreshButton = (
       <Button
         onClick={this.handleRefresh}
-        borderless
+        chromeless
         icon={(
           <RotatingComponent rotate={this.state.isRefreshing}>
             <Icon

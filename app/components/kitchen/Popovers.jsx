@@ -33,14 +33,14 @@ module.exports = React.createClass({
 
     var menuButton = (
       <Button
-        icon="hamburger"
         iconProps={{
+          name: 'hamburger',
           size: 24,
           stroke: 1,
           shapeRendering: 'crispEdges',
         }}
         onClick={ShowPopover.bind(null, { content: popoverContent })}
-        borderless />
+        chromeless />
     );
 
     return (

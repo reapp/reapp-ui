@@ -301,7 +301,7 @@ module.exports = {
 
     return (
       <div {...props}>
-        <TouchableArea {...this.getTouchableAreaProps()} disable={props.disable}>
+        <TouchableArea {...this.getTouchableAreaProps()}>
           {!props.noFakeTitleBar && this.getFakeTitleBar(props)}
           {props.before}
           {Component.clone(this.state.children, (child, i) => ({

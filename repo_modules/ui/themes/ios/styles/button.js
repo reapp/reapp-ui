@@ -19,7 +19,7 @@ module.exports = (c) => ({
     WebkitFlexFlow: 'row'
   },
 
-  borderless: {
+  chromeless: {
     border: 'none',
     borderRadius: 0
   },
