@@ -55,20 +55,19 @@ body {
 
 .header, .hero, .body {
   padding: 0 2rem;
-  position: relative;
 }
 
 .row {
   max-width: 1280px;
   width: 90%;
   margin: 0 auto;
+  position: relative;
 }
 
 .header {
   min-width: 468px;
   padding: 0 1.5rem;
   color: #fff;
-  font-weight: bold;
   justify-content: space-between;
   z-index: 2;
 }
@@ -97,7 +96,7 @@ body {
 .header nav {
   margin: auto;
   flex-flow: row;
-  flex-grow: 5;
+  flex-grow: 4;
   display: flex;
   justify-content: center;
 }
@@ -107,11 +106,18 @@ body {
   font-size: .9rem;
   padding: .4rem 1rem;
   color: #fff;
+  opacity: 0.8;
+  transition: opacity .2s ease-in;
+}
+
+.header nav a:hover {
+  opacity: 1;
 }
 
 .install {
   text-align: right;
   margin: auto;
+  flex-grow: 2;
 }
 
 .install p {
@@ -126,11 +132,12 @@ body {
 }
 
 .hero {
-  padding: 2rem;
+  padding: 0;
   padding-bottom: 3rem;
   background: none;
   border: none;
   color: #fff;
+  z-index: 3;
 }
 
 .hero h2 {
@@ -147,6 +154,7 @@ body {
 .hero-second, .hero-first {
   position: relative;
   z-index: 3;
+  padding: 2rem 0;
 }
 
 .info {
@@ -176,15 +184,6 @@ body {
   right: 50px;
 }
 
-#phone {
-  background: url(/images/phone.jpg) no-repeat bottom right;
-  width: 620px;
-  height: 671px;
-  position: absolute;
-  bottom: -274px;
-  right: -100px;
-  z-index: 1;
-}
 .hero h2 {
   color: #fff;
 }
@@ -201,6 +200,23 @@ body {
   background: #fff;
   padding-top: 2rem;
   padding-bottom: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+#phone {
+  background: url(/images/phone.jpg) no-repeat bottom right;
+  width: 620px;
+  height: 671px;
+  position: absolute;
+  top: -429px;
+  right: -100px;
+  z-index: 1;
+}
+
+.body div {
+  position: relative;
+  z-index: 2;
 }
 
 .screenshot {
