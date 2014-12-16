@@ -34,8 +34,9 @@ module.exports = Component({
           </li>
         )}
         {React.Children.map(children, (li, i) => {
+          console.log(li)
           if (nowrap || li.type && li.type.isListItem)
-            return React.addons.cloneWithProps(li, { key: i, index: i, nopad });
+            return Component.clone(li, { key: i, index: i, nopad });
 
           return (
             <ListItem {...liProps}

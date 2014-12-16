@@ -39,15 +39,33 @@ module.exports = Component({
     });
   },
 
+  handleArticleHold(id) {
+    actions.articleSave(id);
+  },
+
+  handleArticleHoldEnd() {
+    // todo: alert that it saved
+  },
+
   disableTouchRightProps() {
     return this.props.disable &&
       { touchStartBoundsX: { from: 20, to: window.innerWidth - 20 } };
   },
 
   render() {
-    var { hotArticlesStore, articlesStore, handle, ...props } = this.props;
+    var {
+      savedArticlesStore,
+      hotArticlesStore,
+      articlesStore,
+      handle,
+      ...props
+    } = this.props;
 
     var articles = hotArticlesStore
+      .map(id => articlesStore.get(id))
+      .filter(x => typeof x !== 'undefined');
+
+    var savedArticles = savedArticlesStore
       .map(id => articlesStore.get(id))
       .filter(x => typeof x !== 'undefined');
 
@@ -67,28 +85,48 @@ module.exports = Component({
         )} />
     );
 
+    var hasArticles = !!articles.count();
+    var hasSavedArticles = !!savedArticles.count();
+
     return (
       <DottedViewList {...props} {...this.disableTouchRightProps()}>
         <View title={[handle, 'Hot Articles', refreshButton]}>
           <List styles={{ self: { borderTop: 'none' } }} nowrap>
-            {articles.count() ?
+            {hasArticles &&
               articles.map((article, i) =>
-                <ArticleItem cursor={article} key={i} />
-              ).toArray()
-              .concat(
+                <ArticleItem
+                  onTouchHold={this.handleArticleHold.bind(this, article.get('id'))}
+                  onTouchHoldDuration={400}
+                  onTouchHoldEnd={this.handleArticleHoldEnd}
+                  cursor={article}
+                  key={i} />
+              ).toArray().concat(
                 <ListItem
                   style={{textAlign:'center'}}
                   onClick={this.handleLoadMore}>
                   Load More
                 </ListItem>
-              ) :
+              )
+            }
+
+            {!hasArticles &&
               <ListItem style={{textAlign: 'center'}}>Loading...</ListItem>
             }
             </List>
         </View>
 
         <View title={[handle, 'Saved Articles']}>
-          <p>My saved articles. Try swiping an articles to the right to add it here.</p>
+          {hasSavedArticles &&
+            savedArticles.map((article, i) =>
+              <ArticleItem
+                cursor={article}
+                key={i} />
+            ).toArray()
+          }
+
+          {!hasSavedArticles &&
+            <p>My saved articles. Try swiping an articles to the right to add it here.</p>
+          }
         </View>
       </DottedViewList>
     );

@@ -8,7 +8,7 @@ require('./ArticleItem.styl');
 
 module.exports = Component({
   render() {
-    var { key, cursor, index, noLink, styles } = this.props;
+    var { key, cursor, index, noLink, styles, ...props } = this.props;
     if (!cursor)
       return null;
 
@@ -45,7 +45,8 @@ module.exports = Component({
         title={article.get('title')}
         after={articleRight}
         index={index}
-        noicon>
+        noicon
+        {...props}>
         {stats}
       </ListItem>
     );

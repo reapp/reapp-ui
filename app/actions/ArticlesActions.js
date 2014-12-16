@@ -1,10 +1,14 @@
 var Component = require('component');
 var { Promise } = require('bluebird');
-var { ArticlesStore, HotArticlesStore } = require('../stores');
+var Immutable = require('immutable');
 var Actions = require('../actions');
 var API = require('./API');
 var Reducer = require('./Reducer');
-var Immutable = require('immutable');
+
+var {
+  ArticlesStore,
+  HotArticlesStore,
+  SavedArticlesStore } = require('../stores');
 
 var loadedReducer = Reducer.bind(null, 'LOADED');
 var page = 0;
@@ -43,6 +47,12 @@ Actions.articleLoad.listen(
         .then(loadedReducer)
         .then(insertArticle)
         .then(Actions.articleLoadDone.bind(this, id));
+  }
+);
+
+Actions.articleSave.listen(
+  id => {
+    SavedArticlesStore().push(id);
   }
 );
 

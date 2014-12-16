@@ -28,6 +28,7 @@ module.exports = Component({
       <NestedViewList {...this.routedViewListProps()} titleBarProps={{height:48}}>
         <View>
           <ArticlesHome
+            savedArticlesStore={stores.SavedArticlesStore()}
             hotArticlesStore={stores.HotArticlesStore()}
             articlesStore={stores.ArticlesStore()}
             disable={this.numRoutes() > 2}
