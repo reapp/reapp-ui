@@ -21,20 +21,26 @@ body {
 }
 
 .header {
-  height: 80px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  min-width: 468px;
   padding: 0 1.5rem;
   color: #fff;
   font-weight: bold;
   justify-content: space-between;
-  position: relative;
   z-index: 2;
   background: rgba(35,35,35,0.2);
 }
 
+.header .row {
+  height: 60px;
+}
+
 .header h1 {
   display: block;
-  width: 160px;
-  height: 58px;
+  margin: auto 0;
 }
 
 .header h1 a {
@@ -44,12 +50,13 @@ body {
   text-indent: 100%;
   white-space: nowrap;
   overflow: hidden;
-  width: 100%;
-  height: 100%;
+  width: 160px;
+  height: 48px;
   background: url(/images/reapp-logo.png) no-repeat top left;
 }
 
 .header nav {
+  margin: auto;
   flex-flow: row;
   flex-grow: 5;
   display: flex;
@@ -59,7 +66,7 @@ body {
 .header nav a {
   margin: auto 0;
   font-size: .9rem;
-  padding: .5rem .9rem;
+  padding: .4rem 1rem;
   color: #fff;
 }
 
@@ -80,14 +87,42 @@ body {
 }
 
 .hero {
+  padding-top: 6rem;
   background: none;
   border: none;
   color: #fff;
 }
 
-.hero-second {
+.hero-second, .hero-first {
   position: relative;
   z-index: 3;
+}
+
+.info {
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  font-weight: bold;
+  padding: 5px 6px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+  border-radius: 2px;
+  position: absolute;
+  font-size: .7rem;
+  line-height: .7rem;
+}
+
+.info-one {
+  top: 100px;
+  right: 200px;
+}
+
+.info-two {
+  top: 160px;
+  right: 150px;
+}
+
+.info-three {
+  top: 200px;
+  right: 50px;
 }
 
 #phone {
@@ -96,7 +131,7 @@ body {
   height: 671px;
   position: absolute;
   bottom: -274px;
-  right: 0;
+  right: -100px;
   z-index: 1;
 }
 
@@ -114,4 +149,10 @@ body {
 
 .body {
   background: #fff;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.screenshot {
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
 }
