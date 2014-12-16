@@ -1,9 +1,9 @@
 module.exports = {
   right: {
-    translate: left => ({ x: -left })
+    translate: right => ({ x: -right })
   },
   left: {
-    translate: right => ({ x: -right })
+    translate: left => ({ x: -left })
   },
   bottom: {
     translate: top => ({ x: -top })

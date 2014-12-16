@@ -52,19 +52,19 @@ module.exports = StaticView({
         </Container>
 
         <Drawer type="bottom" closed={this.state.bottomClosed}>
-          <p>Lorem ipsum</p>
+          <p>Bottom ipsum</p>
         </Drawer>
 
         <Drawer type="top" closed={this.state.topClosed}>
-          <p>Lorem ipsum</p>
+          <p>Top ipsum</p>
         </Drawer>
 
         <Drawer type="left" closed={this.state.leftClosed}>
-          <p>Lorem ipsum</p>
+          <p>Left ipsum</p>
         </Drawer>
 
         <Drawer type="right" closed={this.state.rightClosed}>
-          <p>Lorem ipsum</p>
+          <p>Right ipsum</p>
         </Drawer>
       </div>
     );

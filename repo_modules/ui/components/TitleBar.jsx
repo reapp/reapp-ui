@@ -19,7 +19,7 @@ module.exports = Component({
   getDefaultProps() {
     return {
       width: window.innerWidth,
-      animations: [{ animation: 'fadeLeft', source: 'viewList' }]
+      animations: [{ animation: 'fadeTitle', source: 'viewList' }]
     };
   },
 

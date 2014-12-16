@@ -73,9 +73,10 @@ var AnimatableContainer = Component({
 
     if (props.translate) {
       transforms += (
-        'translate3d(' + (props.translate.x || 0) + 'px, ' +
-        (props.translate.y || 0) + 'px, ' +
-        (props.translate.z || 0) + 'px)'
+        'translate3d(' +
+          (props.translate.x || 0) + 'px, ' +
+          (props.translate.y || 0) + 'px, ' +
+          (props.translate.z || 0) + 'px)'
       );
     }
 

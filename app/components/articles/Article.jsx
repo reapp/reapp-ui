@@ -42,8 +42,10 @@ module.exports = Component({
 
     return (
       <View {...this.props}
-        title={[<BackButton />, 'Comments ()']}
-        titleBarProps={{ height: 48 }}>
+        id="Article"
+        title={[<BackButton />, `Comments (${document.getElementsByClassName('comment').length})`]}
+        titleBarProps={{ height: 48 }}
+        styles={{ inner: { padding: 0 } }}>
         {article && (
           <ArticleItem cursor={cursor} styles={articleItemStyles} />
         )}

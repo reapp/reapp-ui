@@ -14,7 +14,7 @@ module.exports = Component({
   getDefaultProps() {
     return {
       behavior: DrawerBehavior,
-      type: 'right',
+      type: 'left',
       parents: null,
       closed: false,
       shouldUpdate: true
@@ -46,7 +46,6 @@ module.exports = Component({
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.measureAndScrollOpen);
-    this.transformParents('none');
   },
 
   scrollToOpen() {
@@ -55,14 +54,25 @@ module.exports = Component({
   },
 
   measureScroller() {
-    if (this.state.externalScroller) return;
+    if (this.state.externalScroller)
+      return;
+
     var node = this.getDOMNode();
+    var totalWidth = node.clientWidth;
+    var totalHeight = node.clientHeight;
+
+    if (['left', 'right'].filter(x => x === this.props.type).length)
+      totalWidth = totalWidth * 2;
+    else
+      totalHeight = totalHeight * 2;
+
     this.scroller.setDimensions(
       node.clientWidth,
       node.clientHeight,
-      node.clientWidth * 2,
-      node.clientHeight
+      totalWidth,
+      totalHeight
     );
+
     this.scroller.setSnapSize(node.clientWidth, node.clientHeight);
   },
 
@@ -73,23 +83,20 @@ module.exports = Component({
 
   handleScroll(left, top) {
     var offset, transform;
+    console.log(left, top)
 
     switch(this.props.type){
       case 'left':
-        offset = -left;
-        transform = 'translate3d(' + (left / 2) + 'px, 0, 0)';
+        offset = left;
         break;
       case 'right':
-        offset = left;
-        transform = 'translate3d(-' + (left / 2) + 'px, 0, 0)';
+        offset = -left;
         break;
       case 'top':
         offset = -top;
-        transform = 'translate3d(0, ' + (left / 2) + 'px, 0)';
         break;
       case 'bottom':
         offset = top;
-        transform = 'translate3d(0, -' + (left / 2) + 'px, 0)';
       break;
     }
 
@@ -97,16 +104,6 @@ module.exports = Component({
       offset,
       closed: offset === 0
     });
-
-    this.transformParents(transform);
-  },
-
-  transformParents(transform) {
-    if (this.props.parents) {
-      [].concat(this.props.parents).map(parent => {
-        document.getElementById(parent).style.transform = transform;
-      });
-    }
   },
 
   typeMap(type) {
@@ -122,9 +119,11 @@ module.exports = Component({
 
     this.addClass('closed', this.state.closed);
     this.addStyles(this.props.type);
+    this.addStyles('dragger', `${this.props.type}Dragger`);
 
     var draggerOffset = {};
-    draggerOffset[this.typeMap(type)] = this.state.closed ? -10 : 0;
+    // todo get const dragger width
+    draggerOffset[this.typeMap(type)] = this.state.closed ? -20 : 0;
     this.addStyles('dragger', draggerOffset);
 
     return (

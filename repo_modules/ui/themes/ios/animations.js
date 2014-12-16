@@ -5,11 +5,15 @@ var {
   decreaseOnEnter
 } = require('ui/lib/animate/helpers');
 
+var EasingFunction = require('ui/lib/animate/EasingFunctions');
+
 var Animations = module.exports = {
   viewParallax(index, step, props) {
     var width = props.width;
     var translateX = (index - step) * width;
-    if (index < step) translateX = translateX / 2;
+
+    if (index < step)
+      translateX = translateX / 2;
 
     return {
       translate: { x: translateX },
@@ -26,7 +30,7 @@ var Animations = module.exports = {
     };
   },
 
-  fadeLeft(index, step, props) {
+  fadeTitle(index, step, props) {
     return {
       translate: { x: - (step - index) * (props.width/2.5) },
       opacity: symmetrical(index, step)

@@ -15,41 +15,44 @@ body {
 
 #grid {
   display: block;
-  background: url(/images/grid.svg);
   position: absolute;
   top: 0;
-  left: 0;
-  bottom: 0;
   right: 60%;
-  z-index: 0;
-  opacity: 0.1;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  background: url(/images/grid.svg);
+  opacity: 0.13;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
-#grid::before {
+#grid div {
   display: block;
   position: absolute;
-  content: ' ';
   top: 0;
-  right: 0;
-  bottom: 0;
   left: 0;
+  bottom: 0;
+  right: 0;
   background: -moz-linear-gradient(right,  rgba(35,35,35,0.65) 0%, rgba(35,35,35,0) 59%, rgba(35,35,35,0) 64%); /* FF3.6+ */
   background: -webkit-gradient(linear, right top, right top, color-stop(0%,rgba(35,35,35,0.65)), color-stop(59%,rgba(35,35,35,0)), color-stop(64%,rgba(35,35,35,0))); /* Chrome,Safari4+ */
   background: -webkit-linear-gradient(right,  rgba(35,35,35,0.65) 0%,rgba(35,35,35,0) 59%,rgba(35,35,35,0) 64%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(right,  rgba(35,35,35,0.65) 0%,rgba(35,35,35,0) 59%,rgba(35,35,35,0) 64%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(right,  rgba(35,35,35,0.65) 0%,rgba(35,35,35,0) 59%,rgba(35,35,35,0) 64%); /* IE10+ */
   background: linear-gradient(to left,  rgba(35,35,35,0.65) 0%,rgba(35,35,35,0) 59%,rgba(35,35,35,0) 64%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6232323', endColorstr='#00232323',GradientType=1 ); /* IE6-9 */
 }
 
 #glow {
   position: absolute;
   top: 10%;
   left: 0;
-  background: rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.1);
   width: 220px;
   height: 200px;
   -webkit-filter: blur(80px);
+  -moz-filter: blur(80px);
+  filter: blur(80px);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
 }
 
 
