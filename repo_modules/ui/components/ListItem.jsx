@@ -1,9 +1,12 @@
 var React = require('react');
 var Component = require('ui/component');
 var Icon = require('./Icon');
+// var TouchHoldable = require('ui/mixins/TouchHoldable');
 
 module.exports = Component({
   name: 'ListItem',
+
+  // mixins: [TouchHoldable],
 
   makeSection(name, content) {
     return content && (

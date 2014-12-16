@@ -1,6 +1,15 @@
 var React = require('react');
 var Component = require('ui/component');
 
+// todo: separate into mixin and component
+// todo: decouple from scrolling more, it should be usable as a
+// generic wrapper around anything so you can do stuff like:
+//   - touchhold
+//   - double/triple/xxx tap
+//   - scrolls with limitations
+//   - pinch
+//   - double/triple touch
+
 var TouchableArea = React.createClass({
   getDefaultProps() {
     return {
@@ -57,7 +66,8 @@ var TouchableArea = React.createClass({
   },
 
   touchStartActions(e) {
-    this.props.scroller.doTouchStart(e.touches, e.timeStamp);
+    if (this.props.scroller)
+      this.props.scroller.doTouchStart(e.touches, e.timeStamp);
 
     if (this.props.onTouchStart)
       this.props.onTouchStart(e);

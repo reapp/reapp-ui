@@ -40,10 +40,12 @@ module.exports = Component({
   },
 
   handleArticleHold(id) {
+    console.log('article held')
     actions.articleSave(id);
   },
 
   handleArticleHoldEnd() {
+    console.log('aritcle held end')
     // todo: alert that it saved
   },
 
