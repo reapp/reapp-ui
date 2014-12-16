@@ -3,7 +3,7 @@ div, span {
 }
 
 body {
-  font-family: 'Lato Regular', 'Helvetica Neue', Helvetica, sans-serif;
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, sans-serif;
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -13,25 +13,64 @@ body {
   line-height: 1.4rem;
 }
 
+#grid {
+  display: block;
+  background: url(/images/grid.svg);
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 60%;
+  z-index: 0;
+  opacity: 0.1;
+}
+
+#grid::before {
+  display: block;
+  position: absolute;
+  content: ' ';
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: -moz-linear-gradient(right,  rgba(35,35,35,0.65) 0%, rgba(35,35,35,0) 59%, rgba(35,35,35,0) 64%); /* FF3.6+ */
+  background: -webkit-gradient(linear, right top, right top, color-stop(0%,rgba(35,35,35,0.65)), color-stop(59%,rgba(35,35,35,0)), color-stop(64%,rgba(35,35,35,0))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(right,  rgba(35,35,35,0.65) 0%,rgba(35,35,35,0) 59%,rgba(35,35,35,0) 64%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(right,  rgba(35,35,35,0.65) 0%,rgba(35,35,35,0) 59%,rgba(35,35,35,0) 64%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(right,  rgba(35,35,35,0.65) 0%,rgba(35,35,35,0) 59%,rgba(35,35,35,0) 64%); /* IE10+ */
+  background: linear-gradient(to left,  rgba(35,35,35,0.65) 0%,rgba(35,35,35,0) 59%,rgba(35,35,35,0) 64%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6232323', endColorstr='#00232323',GradientType=1 ); /* IE6-9 */
+}
+
+#glow {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  background: rgba(255,255,255,0.08);
+  width: 220px;
+  height: 200px;
+  -webkit-filter: blur(80px);
+}
+
+
 .header, .hero, .body {
-  max-width: 1280px;
-  margin: 0 auto;
   padding: 0 2rem;
   position: relative;
 }
 
+.row {
+  max-width: 1280px;
+  width: 90%;
+  margin: 0 auto;
+}
+
 .header {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
   min-width: 468px;
   padding: 0 1.5rem;
   color: #fff;
   font-weight: bold;
   justify-content: space-between;
   z-index: 2;
-  background: rgba(35,35,35,0.2);
 }
 
 .header .row {
@@ -87,10 +126,22 @@ body {
 }
 
 .hero {
-  padding-top: 6rem;
+  padding: 2rem;
+  padding-bottom: 3rem;
   background: none;
   border: none;
   color: #fff;
+}
+
+.hero h2 {
+  font-size: 2.3rem;
+  margin: 0 0 1rem 0 ;
+  font-weight: normal;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  line-height: 1.8rem;
 }
 
 .hero-second, .hero-first {
@@ -134,7 +185,6 @@ body {
   right: -100px;
   z-index: 1;
 }
-
 .hero h2 {
   color: #fff;
 }
