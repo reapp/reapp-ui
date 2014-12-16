@@ -83,7 +83,7 @@ module.exports = Component({
           </List>
         </View>
 
-        {this.getKeyedSubRoute()}
+        {this.routedSubRoute()}
       </NestedViewList>
     );
   }
