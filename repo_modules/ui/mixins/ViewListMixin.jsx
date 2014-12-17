@@ -4,18 +4,14 @@ var { Scroller } = require('scroller');
 var { Promise } = require('bluebird');
 var TitleBar = require('ui/components/TitleBar');
 var TouchableArea = require('ui/helpers/TouchableArea');
-var Animator = require('ui/mixins/Animator');
+var Animated = require('ui/mixins/Animated');
 
 // ViewLists are, so far, the most complex piece of the UI kit
 // Their usage is simple, but they manage a lot of state,
-// encompass animations, and also handle some edge cases that
-// come up when using them with titles.
+// encompass many animations, and also need to know about multiple
+// children components (see TitleBar, View, Icon)
 
 module.exports = {
-  mixins: [
-    Animator('viewList')
-  ],
-
   propTypes: {
     onTouchStart: React.PropTypes.func,
     onTouchEnd: React.PropTypes.func,
@@ -23,6 +19,12 @@ module.exports = {
     onViewEntered: React.PropTypes.func,
     onViewLeaving: React.PropTypes.func,
     onViewLeft: React.PropTypes.func,
+  },
+
+  animationContext() {
+    return {
+      width: this.state.width
+    };
   },
 
   getViewListInitialState(state) {
@@ -153,10 +155,6 @@ module.exports = {
     }
   },
 
-  componentWillUpdate() {
-    this.doAnimate();
-  },
-
   runViewCallbacks(step) {
     step = step || this.state.step;
 
@@ -237,14 +235,6 @@ module.exports = {
     }
   },
 
-  doAnimate() {
-    if (!this.props.disable)
-      this.runAnimation('viewList', {
-        step: this.state.step,
-        width: this.state.width
-      });
-  },
-
   getFakeTitleBar(props) {
     return <TitleBar {...props.titleBarProps} animations={false} />;
   },
@@ -295,9 +285,9 @@ module.exports = {
   renderViewList(props) {
     props = props || {};
 
-    // for animating on the ends of steps
-    if (this.state.step % 1 === 0)
-      this.doAnimate();
+    // pushes state to a store for child use
+    // in the future this can be done with contexts
+    this.setAnimationState('viewList');
 
     return (
       <div {...props}>
@@ -307,12 +297,11 @@ module.exports = {
           {Component.clone(this.state.children, (child, i) => ({
             key: i,
             index: i,
+            viewList: { index: i },
             titleBarProps: this.getTitleBarProps(props),
-            animationDisabled: props.disable,
             animations: this.getViewAnimations(child),
-            animationProps: { viewList: { index: i } },
             width: this.state.width,
-            height: this.state.height,
+            height: this.state.height
           }))}
           {props.after}
         </TouchableArea>

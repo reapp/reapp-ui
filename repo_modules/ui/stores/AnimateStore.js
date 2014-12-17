@@ -1,38 +1,14 @@
-var AnimateActions = require('../actions/AnimateActions');
-
 // This store is used for synchronizing animations.
-// It allows Animators to store props for their animations
-// and Animateds to fetch the right props based on their source
+// It allows Animators to store state for their animations
+// and Animateds to fetch the right state based on their source
 
-// Was using contexts, but I found they were inconsistent
-// When accepting input from both props and context
-// there were times when context was one step behind props
-
-// Also, this store *should* be able to be faster than context
-// just because it is singly-focused. But, one day it could be
-// switched to context once that spec is finalized.
-
-// var store = {
-//   'animationSourceName': [
-//     {
-//       id: this._animateID,
-//       depth: this._mountDepth,
-//       props: propsObject
-//     }
-//   ]
-// };
+// Waiting on contexts support in React to remove this
 
 var store = {};
 
-AnimateActions.listen(action => {
-  if (action.type === 'remove')
-    delete store[action.source];
+module.exports = function(source, state) {
+  if (state)
+    store[source] = state;
   else
-    store[action.source] = action;
-});
-
-window.a = store;
-
-module.exports = function(source) {
-  return store[source] && store[source].props;
+    return store[source];
 };

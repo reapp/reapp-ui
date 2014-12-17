@@ -6,10 +6,6 @@ var Union = require('lodash-node/modern/arrays/union');
 module.exports = Component({
   name: 'Icon',
 
-  mixins: [
-    Animated
-  ],
-
   getDefaultProps() {
     return {
       size: 32,
@@ -31,10 +27,12 @@ module.exports = Component({
   },
 
   setupAnimations(props) {
-    if (props.isInTitleBar)
+    if (props.isInTitleBar) {
+      this.animationSources = { self: 'viewList' };
       this.setState({
         animations: Object.assign(this.props.titleBarAnimations, props.animations)
       });
+    }
   },
 
   render() {
@@ -74,8 +72,6 @@ module.exports = Component({
         strokeLinecap: 'round'
       });
     }
-
-    this.setAnimationSource('self', 'viewList');
 
     return (
       <span {...this.componentProps()} {...props}>

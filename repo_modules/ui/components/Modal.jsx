@@ -8,7 +8,6 @@ module.exports = Component({
   name: 'Modal',
 
   mixins: [
-    Animated,
     TweenState.Mixin
   ],
 
@@ -16,15 +15,18 @@ module.exports = Component({
     type: React.PropTypes.string
   },
 
+  animationSources: {
+    bg: 'viewList',
+    modal: 'viewList'
+  },
+
   getDefaultProps() {
     return {
       type: 'alert',
       animationDuration: 300,
       animations: {
-        self: {
-          window: ['fade', 'down'],
-          bg: 'fade'
-        }
+        modal: ['fade', 'down'],
+        bg: 'fade'
       }
     };
   },
@@ -92,7 +94,7 @@ module.exports = Component({
       <div {...this.componentProps()} {...props}>
         <div {...this.componentProps('bg')}
           onClick={this.handleClose}/>
-        <div {...this.componentProps('window')}>
+        <div {...this.componentProps('modal')}>
           <div {...this.componentProps('inner')}>
             {title && (
               <div {...this.componentProps('title')}>

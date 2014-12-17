@@ -23,7 +23,7 @@ module.exports = {
     background: 'rgba(0,0,0,0.45)'
   },
 
-  window: {
+  modal: {
     minWidth: 270,
     maxWidth: '100%',
     margin: 'auto',

@@ -7,7 +7,6 @@ module.exports = Component({
   name: 'RotatingComponent',
 
   mixins: [
-    Animated,
     TweenState.Mixin
   ],
 
@@ -61,7 +60,7 @@ module.exports = Component({
     var { children, animations, ...props } = this.props;
 
     return (
-      <div style={this.getAnimation()}>
+      <div {...this.componentProps()}>
         {Component.clone(children, props, true)}
       </div>
     );

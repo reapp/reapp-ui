@@ -30,7 +30,7 @@ var Animations = module.exports = {
     };
   },
 
-  fadeTitle(index, step, props) {
+  fadeToLeft(index, step, props) {
     return {
       translate: { x: - (step - index) * (props.width/2.5) },
       opacity: symmetrical(index, step)

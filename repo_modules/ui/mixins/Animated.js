@@ -1,84 +1,105 @@
-var React = require('react');
 var Invariant = require('react/lib/invariant');
 var UI = require('ui/index');
 var StyleKeys = require('ui/lib/StyleKeys');
+var AnimateStore = require('../stores/AnimateStore');
 
 // This is a somewhat haphazard mixin at the moment that
 // organizes and runs animations on elements.
 
 // This mixin works through props, state or the AnimateStore
-// The AnimateStore can be used by the Animator mixin, which
-// is used by parent components that want to run an animation
-// (until contexts pass through parents at least)
 
-// runAnimations() runs a queue of upcoming animations and
-// uses requestAnimationFrame for some performance
+// Keep having to rewrite this as I refactor... docs coming...
 
-// For now I'm testing avoiding the react render pipeline.
-// I found that with many animations running at once, even
-// with a decent amount of optimization you still are doing
-// too much work for mobile browsers.
-
-// This still works nicely with React though. You can control
-// animations from within a render(), or componentWillUpdate(),
-// or anywhere really.
-
-// Animations are passed through props, but are sideloaded with
-// the theme you define. UI.setAnimations is a good starting point
-
-// Expects props to be set in the form of animations key, value is
-// an array of animation objects.
-
-// An animation object can have the following props:
-//   animation (required) {string} - animation function
-//   source (optional) {string} - for info from parents
-//   name (optional) {string} - can use as an identifier
-
-// other relevant proprties
-
-// - animationProps: for passing in extra info.
-//     Must have a key matching with 'source', inside you can
-//     add any info you may need in your animation function
-// - animationActive: for disabling animations
 
 var defined = variable => (typeof variable !== 'undefined');
-var pick = (a, b) => typeof a !== 'undefined' ? a : b;
 
 module.exports = {
-  contextTypes: {
-    animations: React.PropTypes.object,
-    animationsDisabled: React.PropTypes.bool
-  },
-
   getAnimator(animation) {
     return UI.getAnimations(animation);
   },
 
-  animationsDisabled() {
-    return this.props.animationDisabled || this.context.animationDisabled;
-  },
+  animateStore: AnimateStore,
 
-  isAnimating(opts) {
-    return this.getAnimation(opts).step % 1 !== 0;
-  },
-
-  hasAnimation() {
-    animations = animations || this.getAnimations();
-    return animations.length && !!this.getAnimationProp(animation, animations).length;
-  },
-
+  // used by both animators and animated
   getAnimationState(source) {
+    if (source && source !== 'self') {
+      return Object.assign(
+        this.animateStore(source),
+        this.props[source]
+      );
+    }
 
+    var state = this.stateOrProps(
+      'step',
+      'index',
+      'animationsDisabled'
+    );
+
+    // allow defining animationContext on parents
+    // this lets you pass down aritrary extra props, besides the three above
+    if (this.animationContext)
+      Object.assign(state, typeof this.animationContext === 'function' ?
+        this.animationContext() : this.animationContext);
+
+    return state;
+  },
+
+  stateOrProps(...keys) {
+    return keys.reduce((acc, key) => {
+      acc[key] = this.state && defined(this.state[key]) ? this.state[key] : this.props[key];
+      return acc;
+    }, {});
+  },
+
+  // used just by animators
+  setAnimationState(source) {
+    this.animateStore(source, this.getAnimationState());
+  },
+
+  disableAnimation() {
+    this.setState({ animationDisabled: true });
+  },
+
+  enableAnimation() {
+    this.setState({ animationDisabled: false });
+  },
+
+  animationsDisabled() {
+    return this.props.animationDisabled || this.state && this.state.animationDisabled;
+  },
+
+  isAnimating(source) {
+    return this.getAnimationState(source).step % 1 !== 0;
+  },
+
+  hasAnimations(ref) {
+    return !!this.getAnimations(ref);
+  },
+
+  getAnimations(ref) {
+    return (
+      this.props.animations && this.props.animations[ref] ||
+      this.state && this.state.animations && this.state.animations[ref]
+    );
+  },
+
+  setAnimationSource(ref, source) {
+    this.animationSources = this.animationSources || {};
+    this.animationSources[ref] = source;
+  },
+
+  getAnimationSource(ref) {
+    return this.animationSources && this.animationSources[ref] || 'self';
   },
 
   getAnimationStyle({ ref, source }) {
-    source = source || this._animationSource || 'self';
-    var animations = this.getAnimations(ref);
-    var animationState = this.getAnimationState(ref);
+    source = source || this.getAnimationSource(ref);
+    var animations = [].concat(this.getAnimations(ref));
     var animation, i, len = animations.length;
 
-    if (!len)
-      return;
+    var { index, step, ...state } = this.getAnimationState(source);
+
+    if (!len) return;
 
     var styles, transform;
 
@@ -86,25 +107,16 @@ module.exports = {
     for (i = 0; i < len; i++) {
       animation = animations[i];
 
-      if (!animation || name && name !== animation.name)
-        continue;
-
-      // get index, step and props for animation
-      var { index, step, ...props } = this.getAnimationState(animation.source);
-
-      if (!defined(index) && this.state)
-        index = this.state.index;
-
-      if (!animation.source && this.getTweeningValue)
-        step = this.getTweeningValue('step') || step;
+      if (this.getTweeningValue && this.getTweeningValue('step'))
+        step = this.getTweeningValue('step');
 
       Invariant(defined(step), 'Must define step for animation to run');
       Invariant(defined(index), 'Must define index for animation to run');
 
       // get the animator function set in theme
       transform = null;
-      var animator = this.getAnimator(animation.animation);
-      var { scale, rotate, rotate3d, translate, ...other } = animator(index, step, props);
+      var animator = this.getAnimator(animation);
+      var { scale, rotate, rotate3d, translate, ...other } = animator(index, step, state);
 
       // set styles
       styles = Object.assign(styles || {}, other);
@@ -146,3 +158,11 @@ module.exports = {
     return transformString;
   }
 };
+
+// todo: parent context
+// contextTypes: {
+//   animations: React.PropTypes.object,
+//   animationsDisabled: React.PropTypes.bool
+// },
+// todo: parent context
+// return this.context.animations[source];

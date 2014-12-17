@@ -28,6 +28,7 @@ Component.addDecorator(spec => {
     Identified,
     Styled(spec.name),
     Classed(spec.name),
+    Animated,
     spec.mixins || [],
 
     // This is the meat of a UI component, automatically handles:
@@ -43,7 +44,7 @@ Component.addDecorator(spec => {
           styles: this.getStyles(componentName)
         };
 
-        if (this.props.animations[ref] || this.state.animations[ref])
+        if (this.hasAnimations(ref))
           props.style = this.getAnimationStyle({ ref });
 
         return props;

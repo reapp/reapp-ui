@@ -12,10 +12,13 @@ module.exports = Component({
 
   mixins: [
     ScrollTopable,
-    Animator,
-    Animated,
     AnimatedScrollToTop
   ],
+
+  animationSources: {
+    inner: 'viewList',
+    overlay: 'viewList'
+  },
 
   componentDidMount() {
     this.setScrollTop();
@@ -58,8 +61,7 @@ module.exports = Component({
   },
 
   hasOverlay() {
-    return this.props.animations &&
-      !!this.props.animations.filter(a => a === 'overlay').length;
+    return this.props.animations && this.props.animations.overlay;
   },
 
   render() {
@@ -70,7 +72,6 @@ module.exports = Component({
       index,
       width,
       height,
-      animationProps,
       containerProps,
       titleBarProps,
       overlayProps,
@@ -94,10 +95,9 @@ module.exports = Component({
     return (
       <div {...this.componentProps()} {...containerProps}>
         {title && (
-          <TitleBar {...titleBarProps} animationProps={animationProps}>{title}</TitleBar>
+          <TitleBar {...titleBarProps}>{title}</TitleBar>
         )}
-        <div {...this.componentProps('inner')} {...props}
-          style={this.getAnimationStyle('pane', { source: 'viewList' })}>
+        <div {...this.componentProps('inner')} {...props}>
           <StaticContainer shouldUpdate={!this.props.animations || viewListStep % 1 === 0}>
             {children}
           </StaticContainer>
@@ -106,7 +106,7 @@ module.exports = Component({
           <div
             {...this.componentProps('overlay')}
             top={this.getTitleBarHeight()}
-            style={this.isAnimating('viewList') ? 'block' : 'none'}
+            style={{ display: this.isAnimating('viewList') ? 'block' : 'none'}}
             {...overlayProps} />
         )}
       </div>

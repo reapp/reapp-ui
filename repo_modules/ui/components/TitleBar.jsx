@@ -12,7 +12,6 @@ module.exports = Component({
   name: 'TitleBar',
 
   mixins: [
-    Animated('viewList'),
     MultiTappable
   ],
 
@@ -23,6 +22,10 @@ module.exports = Component({
         self: 'fadeToLeft'
       }
     };
+  },
+
+  animationSources: {
+    self: 'viewList'
   },
 
   componentDidMount() {
@@ -37,7 +40,7 @@ module.exports = Component({
   centerMiddleTitle() {
     if (this.refs.mid) {
       var mid = this.refs.mid.getDOMNode();
-      var winCenter = this.refs.TitleBar.getDOMNode().clientWidth / 2;
+      var winCenter = this.refs.self.getDOMNode().clientWidth / 2;
       var midCenter = mid.offsetLeft + (mid.clientWidth / 2);
       mid.style.left = (winCenter-midCenter) + 'px';
     }
@@ -80,8 +83,6 @@ module.exports = Component({
 
     if (height)
       this.addStyles({ height });
-
-    this.setAnimationSource('self', 'viewList');
 
     return (
       <div

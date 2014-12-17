@@ -1,22 +1,30 @@
 var React = require('react');
-var Axn = require('axn');
+var AnimateStore = require('../stores/AnimateStore');
+// var getAnimationState = require('./getAnimationState');
 
 var pick = (a, b) => typeof a !== 'undefined' ? a : b;
 
 module.exports = function(source) {
-  var childContextTypes = {};
-  childContextTypes[source] = React.PropTypes.object;
+  // todo: parent context
+  // var childContextTypes = {};
+  // childContextTypes[source] = React.PropTypes.object;
 
   return {
-    childContextTypes,
+    // todo: parent context
+    // childContextTypes,
 
-    getChildContext() {
-      var context = this.context;
-      context.animations[source].step = pick(this.state.step, this.props.step);
-      context.animations[source].index = pick(this.state.index, this.props.index);
-      context.animations[source].disabled = pick(this.state.animationDisabled, this.props.animationDisabled);
-      return context;
+    // see getAnimationState.js
+    getAnimationState,
+
+    setAnimationState() {
+      AnimateStore(source, this.getAnimationState());
     },
+
+    // todo: parent context
+    // getChildContext() {
+    //   var c = this.context && this.context.animations || {};
+    //   return Object.assign(c, this.getAnimationState());
+    // },
 
     disableAnimation() {
       this.setState({ animationDisabled: true });
