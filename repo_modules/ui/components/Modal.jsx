@@ -20,11 +20,12 @@ module.exports = Component({
     return {
       type: 'alert',
       animationDuration: 300,
-      animations: [
-        { animation: 'fade', name: 'bg' },
-        { animation: 'scaleDown', name: 'window' },
-        { animation: 'fade', name: 'window' }
-      ]
+      animations: {
+        self: {
+          window: ['fade', 'down'],
+          bg: 'fade'
+        }
+      }
     };
   },
 
@@ -90,10 +91,8 @@ module.exports = Component({
     return (
       <div {...this.componentProps()} {...props}>
         <div {...this.componentProps('bg')}
-          onClick={this.handleClose}
-          style={this.getAnimation('bg')} />
-        <div {...this.componentProps('window')}
-          style={this.getAnimation('window')}>
+          onClick={this.handleClose}/>
+        <div {...this.componentProps('window')}>
           <div {...this.componentProps('inner')}>
             {title && (
               <div {...this.componentProps('title')}>

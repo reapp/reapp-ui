@@ -13,7 +13,7 @@ var Animator = require('ui/mixins/Animator');
 
 module.exports = {
   mixins: [
-    Animator
+    Animator('viewList')
   ],
 
   propTypes: {
@@ -246,7 +246,7 @@ module.exports = {
   },
 
   getFakeTitleBar(props) {
-    return <TitleBar {...props.titleBarProps} animations={[]} />;
+    return <TitleBar {...props.titleBarProps} animations={false} />;
   },
 
   getTouchableAreaProps() {
@@ -277,7 +277,7 @@ module.exports = {
 
   getViewAnimations(view) {
     return view && view.props.animations ?
-      view.props.animations.concat(this.props.viewAnimations) :
+      Object.assign(this.props.viewAnimations, view.props.animations) :
       this.props.viewAnimations;
   },
 

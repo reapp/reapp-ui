@@ -1,40 +1,29 @@
 var React = require('react');
 var Axn = require('axn');
-var AnimateActions = require('ui/actions/AnimateActions');
 
-var i = 0;
-function uniqueId() {
-  if (i > 1000000) i = 0;
-  return i++;
-}
+var pick = (a, b) => typeof a !== 'undefined' ? a : b;
 
-module.exports = {
-  childContextTypes: {
-    animationProps: React.PropTypes.object,
-    animationDisabled: React.PropTypes.bool
-  },
+module.exports = function(source) {
+  var childContextTypes = {};
+  childContextTypes[source] = React.PropTypes.object;
 
-  getChildContext() {
-    return {
-      animationProps: this.props.animationProps,
-      animationDisabled: typeof this._animationsDisabled !== 'undefined' ?
-        !!this._animationsDisabled :
-        this.props.animationDisabled
-    };
-  },
+  return {
+    childContextTypes,
 
-  runAnimation(source, props) {
-    if (this._animationsDisabled)
-      return;
+    getChildContext() {
+      var context = this.context;
+      context.animations[source].step = pick(this.state.step, this.props.step);
+      context.animations[source].index = pick(this.state.index, this.props.index);
+      context.animations[source].disabled = pick(this.state.animationDisabled, this.props.animationDisabled);
+      return context;
+    },
 
-    AnimateActions({ source, props });
-  },
+    disableAnimation() {
+      this.setState({ animationDisabled: true });
+    },
 
-  disableAnimation() {
-    this._animationsDisabled = true;
-  },
-
-  enableAnimation() {
-    this._animationsDisabled = false;
-  }
+    enableAnimation() {
+      this.setState({ animationDisabled: false });
+    }
+  };
 };

@@ -13,7 +13,9 @@ module.exports = Component({
 
   getDefaultProps() {
     return {
-      animations: [{ animation: 'rotate' }]
+      animations: {
+        self: 'rotate'
+      }
     };
   },
 

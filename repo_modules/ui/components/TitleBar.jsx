@@ -12,14 +12,16 @@ module.exports = Component({
   name: 'TitleBar',
 
   mixins: [
-    Animated,
+    Animated('viewList'),
     MultiTappable
   ],
 
   getDefaultProps() {
     return {
       width: window.innerWidth,
-      animations: [{ animation: 'fadeTitle', source: 'viewList' }]
+      animations: {
+        self: 'fadeToLeft'
+      }
     };
   },
 
@@ -79,12 +81,13 @@ module.exports = Component({
     if (height)
       this.addStyles({ height });
 
+    this.setAnimationSource('self', 'viewList');
+
     return (
       <div
         {...this.componentProps()}
         {...this.multiTap(2, this.handleDoubleTap)}
-        {...props}
-        style={this.getAnimation()}>
+        {...props}>
         <div {...this.componentProps('left')}>
           {this.addIconProps(l)}
         </div>

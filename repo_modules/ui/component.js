@@ -29,14 +29,24 @@ Component.addDecorator(spec => {
     Styled(spec.name),
     Classed(spec.name),
     spec.mixins || [],
+
+    // This is the meat of a UI component, automatically handles:
+    // id, ref, className, styles, animations
+    // see mixins for each of those pieces
     {
       componentProps(componentName) {
-        return {
+        var ref = componentName || 'self';
+        var props = {
+          ref,
           id: componentName ? this._uniqueID + componentName : this._uniqueID,
-          ref: componentName || spec.name,
           className: this.getClasses(componentName),
           styles: this.getStyles(componentName)
         };
+
+        if (this.props.animations[ref] || this.state.animations[ref])
+          props.style = this.getAnimationStyle({ ref });
+
+        return props;
       }
     }
   );

@@ -16,7 +16,9 @@ module.exports = Component({
       color: 'currentColor',
       style: {},
       svgProps: {},
-      titleBarAnimations: [{ source: 'viewList', animation: 'moveToRight' }]
+      titleBarAnimations: {
+        self: 'moveToRight'
+      }
     };
   },
 
@@ -30,7 +32,9 @@ module.exports = Component({
 
   setupAnimations(props) {
     if (props.isInTitleBar)
-      props.animations = Union(props.animations || [], this.props.titleBarAnimations);
+      this.setState({
+        animations: Object.assign(this.props.titleBarAnimations, props.animations)
+      });
   },
 
   render() {
@@ -71,8 +75,10 @@ module.exports = Component({
       });
     }
 
+    this.setAnimationSource('self', 'viewList');
+
     return (
-      <span {...this.componentProps()} {...props} style={this.getAnimation()}>
+      <span {...this.componentProps()} {...props}>
         <svg {...svgExtraProps} {...svgProps} {...this.componentProps('svg')}>
           <g dangerouslySetInnerHTML={{__html:
             '<use xlink:href="/assets/icons/svg/'+ name +'.svg#Layer_1"></use>'

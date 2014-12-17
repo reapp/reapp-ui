@@ -59,14 +59,7 @@ module.exports = Component({
 
   hasOverlay() {
     return this.props.animations &&
-      !!this.props.animations.filter(a => a.name === 'overlay').length;
-  },
-
-  getOverlayStyle() {
-    return Object.assign({
-      top: this.getTitleBarHeight(),
-      display: this.isAnimating('viewList') ? 'block' : 'none'
-    }, this.getAnimation('overlay'));
+      !!this.props.animations.filter(a => a === 'overlay').length;
   },
 
   render() {
@@ -80,6 +73,7 @@ module.exports = Component({
       animationProps,
       containerProps,
       titleBarProps,
+      overlayProps,
       ...props
     } = this.props;
 
@@ -89,7 +83,9 @@ module.exports = Component({
     else if (!titleBarProps.onDoubleTap)
       titleBarProps.onDoubleTap = this.handleDoubleTap;
 
-    if (!index || index === this.getAnimationStep('viewList'))
+    var viewListStep = this.getAnimationState('viewList').step;
+
+    if (!index || index === viewListStep)
       this.addStyles('active');
 
     this.addTitleBarOffset();
@@ -100,13 +96,18 @@ module.exports = Component({
         {title && (
           <TitleBar {...titleBarProps} animationProps={animationProps}>{title}</TitleBar>
         )}
-        <div {...this.componentProps('inner')} {...props} style={this.getAnimation('pane')}>
-          <StaticContainer shouldUpdate={!this.props.animations || this.getAnimationStep('viewList') % 1 === 0}>
+        <div {...this.componentProps('inner')} {...props}
+          style={this.getAnimationStyle('pane', { source: 'viewList' })}>
+          <StaticContainer shouldUpdate={!this.props.animations || viewListStep % 1 === 0}>
             {children}
           </StaticContainer>
         </div>
         {this.hasOverlay() && (
-          <div {...this.componentProps('overlay')} style={this.getOverlayStyle()} />
+          <div
+            {...this.componentProps('overlay')}
+            top={this.getTitleBarHeight()}
+            style={this.isAnimating('viewList') ? 'block' : 'none'}
+            {...overlayProps} />
         )}
       </div>
     );
