@@ -114,11 +114,11 @@ module.exports = {
 
     // single animation or array
     if (typeof animations === 'string')
-      styles = this._getAnimationStyle(state, styles, animations);
+      styles = this._getAnimationStyle(styles, state, animations);
     else
       if (animations.length)
         for (var i = 0, len = animations.length; i < len; i++)
-          styles = this._getAnimationStyle(state, styles, animations[i]);
+          styles = this._getAnimationStyle(styles, state, animations[i]);
 
     // ensure translate-z to ensure hardware accel
     styles[StyleKeys.TRANSFORM] = styles[StyleKeys.TRANSFORM] || 'translateZ(0px)';
@@ -127,7 +127,7 @@ module.exports = {
 
   // this takes in step, a styles object, and single animation
   // mutates the style object and returns it
-  _getAnimationStyle(state, styles, animation) {
+  _getAnimationStyle(styles, state, animation) {
     if (this.getTweeningValue && this.getTweeningValue('step'))
       state.step = this.getTweeningValue('step');
 

@@ -23,5 +23,26 @@ var AnimationHelpers = module.exports = {
     return (step <= index) ?
       AnimationHelpers.increaseOnEnter(index, step) :
       AnimationHelpers.decreaseOnExit(index, step);
+  },
+
+  limitRange(step, bottom, top) {
+    return Math.max(bottom, Math.min(top, step));
+  },
+
+  // scales numbers into a range
+  // step is the current index
+  // fromTop and Bot are the min and max of the index
+  // toTop and Bot are the desired min and max
+  // returns step, scaled between toTop and toBot
+  scaleBetween(step, fromTop, fromBot, toTop, toBot) {
+    var pivot = (fromTop - fromBot) / 2; // 1, usually
+
+    if (step === pivot)
+      return step;
+
+    if (step > pivot) // ex: step = 1.5, pivot = 1, fromTop = 2, toTop = 1.2, returns 1.1
+      return pivot + (step - pivot) * (toTop - pivot);
+    else // ex: step = .1, pivot = 1, fromBot = 0, toBot = .8, returns .805
+      return toBot + step * (pivot - toBot);
   }
 };

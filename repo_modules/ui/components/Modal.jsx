@@ -15,17 +15,12 @@ module.exports = Component({
     type: React.PropTypes.string
   },
 
-  animationSources: {
-    bg: 'viewList',
-    modal: 'viewList'
-  },
-
   getDefaultProps() {
     return {
       type: 'alert',
-      animationDuration: 300,
+      animationDuration: 200,
       animations: {
-        modal: ['fade', 'down'],
+        modal: ['fade', 'scaleDown'],
         bg: 'fade'
       }
     };

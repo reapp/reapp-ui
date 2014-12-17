@@ -2,7 +2,8 @@ var {
   symmetrical,
   decreaseOnExit,
   increaseOnEnter,
-  decreaseOnEnter
+  decreaseOnEnter,
+  scaleBetween
 } = require('ui/lib/animate/helpers');
 
 var EasingFunction = require('ui/lib/animate/EasingFunctions');
@@ -68,7 +69,7 @@ var Animations = module.exports = {
 
   scaleDown({ index, step }) {
     return {
-      scale: decreaseOnExit(index, step)
+      scale: scaleBetween(decreaseOnExit(index, step), 2, 0, 1.2, 0.8)
     };
   },
 
