@@ -60,6 +60,11 @@ module.exports = Component({
       fill: 'currentColor'
     });
 
+    if (props.style) {
+      this.addStyles(props.style);
+      delete props.style;
+    }
+
     var svgExtraProps = {
       viewBox: '0 0 64 64',
       fill: color

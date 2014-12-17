@@ -92,6 +92,13 @@ module.exports = Component({
     this.addTitleBarOffset();
     this.hideBoxShadowWhileAnimating();
 
+    if (this.hasOverlay()) {
+      this.addStyles('overlay', {
+        display: this.isAnimating('viewList') ? 'block' : 'none',
+        top: this.getTitleBarHeight()
+      });
+    }
+
     return (
       <div {...this.componentProps()} {...containerProps}>
         {title && (
@@ -103,11 +110,7 @@ module.exports = Component({
           </StaticContainer>
         </div>
         {this.hasOverlay() && (
-          <div
-            {...this.componentProps('overlay')}
-            top={this.getTitleBarHeight()}
-            style={{ display: this.isAnimating('viewList') ? 'block' : 'none'}}
-            {...overlayProps} />
+          <div {...this.componentProps('overlay')} {...overlayProps} />
         )}
       </div>
     );

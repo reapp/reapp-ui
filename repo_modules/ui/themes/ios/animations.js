@@ -35,7 +35,7 @@ var Animations = module.exports = {
     };
   },
 
-  fadeDown(index, step) {
+  down({ index, step }) {
     return {
       opacity: symmetrical(index, step),
       height: symmetrical(index, step) * 100 + '%'
