@@ -1,3 +1,4 @@
+var React = require('react');
 var Component = require('ui/component');
 var TouchableArea = require('../helpers/TouchableArea');
 var AnimatableContainer = require('../helpers/AnimatableContainer');

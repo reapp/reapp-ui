@@ -1,3 +1,4 @@
+var React = require('react');
 var Component = require('ui/component');
 var Icon = require('./Icon');
 

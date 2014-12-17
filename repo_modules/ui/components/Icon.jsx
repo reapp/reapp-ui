@@ -1,3 +1,4 @@
+var React = require('react');
 var Component = require('ui/component');
 var Animated = require('ui/mixins/Animated');
 var Union = require('lodash-node/modern/arrays/union');
