@@ -23,6 +23,7 @@ module.exports = makeStyles(requirer, [
   'Modal',
   'Pad',
   'Popover',
+  'Radio',
   'SearchBar',
   'TabItem',
   'Tabs',

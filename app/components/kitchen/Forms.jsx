@@ -6,7 +6,9 @@ var ButtonRow = require('ui/components/ButtonRow');
 var Title = require('ui/components/Title');
 var List = require('ui/components/List');
 var { Container, Block } = require('ui/components/Grid');
-var { Label, Input, Form } = require('ui/components/Forms');
+var Form = require('ui/components/Form');
+var Label = require('ui/components/Label');
+var Input = require('ui/components/Input');
 
 module.exports = StaticView({
   statics: {
@@ -49,10 +51,10 @@ module.exports = StaticView({
 
             <Title>Radio Group</Title>
             <List>
-              <Input type="radio" label="Generic" />
-              <Input type="radio" label="Radio" />
-              <Input type="radio" label="Select" />
-              <Input type="radio" label="Group" />
+              <Input type="radio" name="food[bacon]" label="Bacon" />
+              <Input type="radio" name="food[ham]" label="Ham" />
+              <Input type="radio" name="food[potatos]" label="Sweet Potatos" />
+              <Input type="radio" name="food[yams]" label="Yams" />
             </List>
           </Form>
         </Container>

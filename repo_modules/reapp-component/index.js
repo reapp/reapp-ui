@@ -47,6 +47,12 @@ function Component() {
       'Must provide an object to statics');
 
     Object.keys(obj).forEach(key => {
+      Invariant(
+        key !== 'addStatics' &&
+        key !== 'addDecorator',
+        'Cannot overwrite addStatics or addDecorator keys'
+      );
+
       this[key] = obj[key];
     });
   };

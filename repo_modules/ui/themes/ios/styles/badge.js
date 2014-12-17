@@ -1,6 +1,6 @@
 module.exports = (c) => ({
   self: {
-    background: c.greyMid,
+    background: c.inactive,
     color: '#fff',
     borderRadius: 100,
     fontWeight: 'bold',

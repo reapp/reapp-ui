@@ -1,5 +1,6 @@
 var blue = '#307cff';
 var textColor = '#000';
+var greyMid = '#8e8e93';
 var barBG = '#f7f7f8';
 var barBorderColor = '#c4c4c4';
 var listBorderColor = '#c8c7cc';
@@ -8,8 +9,9 @@ module.exports = {
   // BASE
   bgLight: '#efeff4',
   dotColor: '0,0,0',
-  greyMid: '#8e8e93',
   toolbarHeight: 44,
+  active: blue,
+  inactive: greyMid,
 
   // Button
   buttonBG: blue,
