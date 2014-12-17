@@ -1,67 +1,19 @@
 {
-  "author": "Nate Wienert",
-  "name": "reactor",
-  "description": "A React Isomorphic App",
-  "version": "0.3.0",
-  "main": "./app/app.jsx",
+  "name": "reapp-ui",
+  "version": "0.8.0",
+  "description": "A set of components for building themeable, adaptive, animated UI's",
+  "main": "index.js",
   "scripts": {
-    "install": "npm install -g node-dev && npm install && bower install && mkdir build",
-    "test": "mocha -R spec tests/**-test.js",
-    "test-watch": "mocha -G -w -R min tests/**-test.js",
-    "dev-server": "node server.js --config config.dev.js --dev --progress --colors",
-    "hot-server": "node server.js --config config.hot.js --dev --hot --progress --colors",
-    "iso-server": "node server.js --debug",
-    "build": "webpack --config webpack/config.production.js --progress --profile --colors --debug --display-error-details --verbose --display-modules",
-    "start": "node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "react": "~0.12",
-    "react-router": "git+https://github.com/rackt/react-router#bd71b9c0ec3b9d92e",
-    "react-style": "git+https://github.com/js-next/react-style#inline-styles",
-    "rest": "git+https://github.com/cujojs/rest#f40242a43a3db826af",
-    "scroller": "^0.0.2",
-    "lodash-node": "^2.4.1",
-    "react-document-title": "^0.1.1",
-    "parseurl": "~1.3.0",
-    "immutable": "^3.3.0",
-    "fynx": "~1.3.2",
-    "react-tween-state": "0.0.4",
-    "react-tap-event-plugin": "~0.1.3",
-    "css-mediaquery": "~0.1.2",
-    "axn": "^1.4",
-    "bluebird": "~2.3.11",
-    "omniscient": "~2.1.0",
-    "superagent": "~0.21.0",
-    "superagent-bluebird-promise": "~0.5.1"
+  "repository": {
+    "type": "git",
+    "url": "github.com/reapp/reapp-ui"
   },
-  "devDependencies": {
-    "transform-loader": "^0.2.1",
-    "react-hot-loader": "~1.0.0-alpha.3",
-    "react-style-webpack-plugin": "git+https://github.com/js-next/react-style-webpack-plugin#c1fce80c1",
-    "webpack": "^1.4.8",
-    "style-loader": "^0.6.4",
-    "stylus-loader": "^0.4.0",
-    "webpack-dev-server": "^1.6.6",
-    "css-loader": "^0.7.0",
-    "html-loader": "^0.2.2",
-    "jsx-loader": "^0.12.2",
-    "null-loader": "^0.1.0",
-    "react-proxy-loader": "^0.2.2",
-    "json-loader": "^0.5.1",
-    "chai": "^1.9.2",
-    "mocha": "^1.21.5",
-    "jsdom": "^1.0.1",
-    "expect.js": "0.1",
-    "yargs": "^1.3.1",
-    "mach": "^1.0.0",
-    "exports-loader": "^0.6.2",
-    "prepend-file": "^0.1.2",
-    "bundle-loader": "^0.5.1",
-    "postcss-loader": "^0.1.0",
-    "autoprefixer-core": "^3.1.2",
-    "qs": "~2.3.3",
-    "cors": "~2.5.2",
-    "express": "~4.10.4",
-    "autoprefixer-loader": "~1.0.0"
-  }
+  "author": "Nate Wienert",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/reapp/reapp-ui/issues"
+  },
+  "homepage": "https://github.com/reapp/reapp-ui"
 }
