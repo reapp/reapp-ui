@@ -45,7 +45,7 @@ Component.addDecorator(spec => {
         };
 
         if (this.hasAnimations(ref))
-          props.style = this.getAnimationStyle({ ref });
+          props.style = this.getAnimationStyle(ref);
 
         return props;
       }

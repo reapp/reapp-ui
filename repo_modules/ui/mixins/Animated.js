@@ -21,6 +21,8 @@ module.exports = {
   animateStore: AnimateStore,
 
   // used by both animators and animated
+  // state requires step and index as integers
+  // but you can attach other stuff here as well
   getAnimationState(source) {
     if (source && source !== 'self') {
       return Object.assign(
@@ -44,6 +46,7 @@ module.exports = {
     return state;
   },
 
+  // grabs state, if not, then props
   stateOrProps(...keys) {
     return keys.reduce((acc, key) => {
       acc[key] = this.state && defined(this.state[key]) ? this.state[key] : this.props[key];
@@ -52,6 +55,7 @@ module.exports = {
   },
 
   // used just by animators
+  // pushes their state to the store for children
   setAnimationState(source) {
     this.animateStore(source, this.getAnimationState());
   },
@@ -76,13 +80,16 @@ module.exports = {
     return !!this.getAnimations(ref);
   },
 
+  // fetches the list of animations from state or props
   getAnimations(ref) {
-    return (
-      this.props.animations && this.props.animations[ref] ||
-      this.state && this.state.animations && this.state.animations[ref]
-    );
+    if (this.state && this.state.animations && defined(this.state.animations[ref]))
+      return this.state.animations[ref];
+    else
+      return this.props.animations && this.props.animations[ref];
   },
 
+  // set a default source for an animation, of you can just
+  // define it on your class with animationSources: {}
   setAnimationSource(ref, source) {
     this.animationSources = this.animationSources || {};
     this.animationSources[ref] = source;
@@ -92,7 +99,10 @@ module.exports = {
     return this.animationSources && this.animationSources[ref] || 'self';
   },
 
-  getAnimationStyle({ ref, source }) {
+  // returns an object of styles
+  // requires ref, source will be fetched from this.animationSources
+  // if not passed in here
+  getAnimationStyle(ref, source) {
     source = source || this.getAnimationSource(ref);
     var animations = [].concat(this.getAnimations(ref));
     var animation, i, len = animations.length;
@@ -164,5 +174,5 @@ module.exports = {
 //   animations: React.PropTypes.object,
 //   animationsDisabled: React.PropTypes.bool
 // },
-// todo: parent context
+
 // return this.context.animations[source];

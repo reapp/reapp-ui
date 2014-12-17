@@ -65,13 +65,12 @@ module.exports = Component({
       fill: color
     };
 
-    if (stroke) {
+    if (stroke)
       Object.assign(svgExtraProps, {
         stroke: color,
         strokeWidth: stroke * 4, // were scaling down from 64 / 2
         strokeLinecap: 'round'
       });
-    }
 
     return (
       <span {...this.componentProps()} {...props}>
