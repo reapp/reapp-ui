@@ -8,8 +8,7 @@ var {
 var EasingFunction = require('ui/lib/animate/EasingFunctions');
 
 var Animations = module.exports = {
-  viewParallax(index, step, props) {
-    var width = props.width;
+  viewParallax({ index, step, width }) {
     var translateX = (index - step) * width;
 
     if (index < step)
@@ -21,8 +20,7 @@ var Animations = module.exports = {
     };
   },
 
-  viewSideBySide(index, step, props) {
-    var width = props.width;
+  viewSideBySide({ index, step, width }) {
     var translateX = (index - step) * width;
 
     return {
@@ -30,9 +28,9 @@ var Animations = module.exports = {
     };
   },
 
-  fadeToLeft(index, step, props) {
+  fadeToLeft({ index, step, width }) {
     return {
-      translate: { x: - (step - index) * (props.width/2.5) },
+      translate: { x: - (step - index) * (width/2.5) },
       opacity: symmetrical(index, step)
     };
   },
@@ -44,37 +42,37 @@ var Animations = module.exports = {
     };
   },
 
-  moveToRight(index, step, props) {
+  moveToRight({ index, step, width }) {
     return {
-      translate: { x: (step - index) * (props.width/2.5) }
+      translate: { x: (step - index) * (width/2.5) }
     };
   },
 
-  card(index, step) {
+  card({ index, step }) {
     return {
       translate: { y: step * index + symmetrical(step) * 10 }
     };
   },
 
-  fade(index, step) {
+  fade({ index, step }) {
     return {
       opacity: symmetrical(index, step)
     };
   },
 
-  fadeOnEnter(index, step) {
+  fadeOnEnter({ index, step }) {
     return {
       opacity: symmetrical(index, step) / 2
     };
   },
 
-  scaleDown(index, step) {
+  scaleDown({ index, step }) {
     return {
       scale: decreaseOnExit(index, step)
     };
   },
 
-  rotate(index, step) {
+  rotate({ index, step }) {
     return {
       rotate: step * 360
     };

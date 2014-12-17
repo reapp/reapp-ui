@@ -104,40 +104,43 @@ module.exports = {
   // if not passed in here
   getAnimationStyle(ref, source) {
     source = source || this.getAnimationSource(ref);
-    var animations = [].concat(this.getAnimations(ref));
-    var animation, i, len = animations.length;
+    var animations = this.getAnimations(ref);
+    var state = this.getAnimationState(source);
+    var styles;
 
-    var { index, step, ...state } = this.getAnimationState(source);
+    // single animation or array
+    if (typeof animations === 'string')
+      styles = this._getAnimationStyle(state, styles, animations);
+    else
+      if (animations.length)
+        for (var i = 0, len = animations.length; i < len; i++)
+          styles = this._getAnimationStyle(state, styles, animations[i]);
 
-    if (!len) return;
-
-    var styles, transform;
-
-    // loop through animations
-    for (i = 0; i < len; i++) {
-      animation = animations[i];
-
-      if (this.getTweeningValue && this.getTweeningValue('step'))
-        step = this.getTweeningValue('step');
-
-      Invariant(defined(step), 'Must define step for animation to run');
-      Invariant(defined(index), 'Must define index for animation to run');
-
-      // get the animator function set in theme
-      transform = null;
-      var animator = this.getAnimator(animation);
-      var { scale, rotate, rotate3d, translate, ...other } = animator(index, step, state);
-
-      // set styles
-      styles = Object.assign(styles || {}, other);
-      transform = this._animationTransformsToString({ scale, rotate, rotate3d, translate });
-
-      if (transform)
-        styles[StyleKeys.TRANSFORM] = transform;
-    }
-
-    // ensure translatez to ensure hardware accel
+    // ensure translate-z to ensure hardware accel
     styles[StyleKeys.TRANSFORM] = styles[StyleKeys.TRANSFORM] || 'translateZ(0px)';
+    return styles;
+  },
+
+  // this takes in step, a styles object, and single animation
+  // mutates the style object and returns it
+  _getAnimationStyle(state, styles, animation) {
+    if (this.getTweeningValue && this.getTweeningValue('step'))
+      state.step = this.getTweeningValue('step');
+
+    Invariant(defined(state.step), 'Must define step for animation to run');
+    Invariant(defined(state.index), 'Must define index for animation to run');
+
+    // get the animator function set in theme
+    var animator = this.getAnimator(animation);
+    var { scale, rotate, rotate3d, translate, ...other } = animator(state);
+
+    // set styles
+    styles = Object.assign(styles || {}, other);
+
+    // todo: additive transforms (possible here)
+    var transform = this._animationTransformsToString({ scale, rotate, rotate3d, translate });
+    if (transform)
+      styles[StyleKeys.TRANSFORM] = transform;
 
     return styles;
   },
