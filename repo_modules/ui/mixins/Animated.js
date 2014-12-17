@@ -25,10 +25,6 @@ module.exports = {
   // but you can attach other stuff here as well
   getAnimationState(source) {
     if (source && source !== 'self') {
-      // console.log('get', this._uniqueID, source, Object.assign(
-      //   this.animateStore(source),
-      //   this.props[source]
-      // ));
       return Object.assign(
         this.animateStore(source),
         this.props[source]
@@ -47,7 +43,6 @@ module.exports = {
       Object.assign(state, typeof this.animationContext === 'function' ?
         this.animationContext() : this.animationContext);
 
-    console.log('get', this._uniqueID, state);
     return state;
   },
 
