@@ -5,6 +5,14 @@ var Icon = require('./Icon');
 module.exports = Component({
   name: 'Button',
 
+  propTypes: {
+    iconProps: React.PropTypes.object,
+    icon: React.PropTypes.element,
+    chromeless: React.PropTypes.bool,
+    rounded: React.PropTypes.bool,
+    active: React.PropTypes.bool
+  },
+
   render() {
     var { iconProps, icon, children, chromeless, rounded, active, ...props } = this.props;
 

@@ -4,14 +4,6 @@ var Component = require('ui/component');
 module.exports = Component({
   name: 'Card',
 
-  childContextTypes: {
-    index: React.PropTypes.number
-  },
-
-  getChildContext() {
-    return { index: this.props.index };
-  },
-
   getDefaultProps() {
     return {
       animation: 'card'
