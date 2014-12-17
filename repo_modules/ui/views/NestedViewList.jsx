@@ -43,12 +43,23 @@ module.exports = Component({
   },
 
   render() {
-    return this.renderViewList(
-      Object.assign(
-        this.componentProps(),
-        this.props,
-        this.state.step > 0 && { touchStartBoundsX: this.props.touchStartBoundsXFirstStep } || {}
-      )
+    var touchableProps = {};
+
+    // only enable right side touching if on first view
+    if (this.state.step === 0)
+      touchableProps.touchStartBoundsX = this.props.touchStartBoundsXFirstStep;
+
+    if (this.state.step > 0)
+      this.addStyles('isNested');
+
+    // disable touch events if only one view
+    if (this.state.children && this.state.children.length === 1)
+      touchableProps.untouchable = true;
+
+    return (
+      <div {...this.componentProps()} {...this.props}>
+        {this.getViewList(touchableProps)}
+      </div>
     );
   }
 });

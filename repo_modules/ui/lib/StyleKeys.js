@@ -1,8 +1,8 @@
 if (typeof document !== 'undefined') {
   var TRANSFORM = typeof document.body.style.MozTransform !== 'undefined' ?
-    '-moz-transform' : '-webkit-transform';
+    'MozTransform' : 'WebkitTransform';
   var FILTER = typeof document.body.style.MozFilter !== 'undefined' ?
-    '-moz-filter' : '-webkit-filter';
+    'MozFilter' : 'WebkitFilter';
 
   module.exports = { TRANSFORM, FILTER };
 }

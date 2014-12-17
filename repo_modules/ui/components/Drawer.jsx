@@ -131,9 +131,9 @@ module.exports = Component({
       <AnimatableContainer {...this.componentProps()} {...props}>
         <TouchableArea {...this.componentProps('dragger')} {...touchableProps}
           scroller={scroller || this.scroller} />
-          <StaticContainer shouldUpdate={shouldUpdate}>
-            {children}
-          </StaticContainer>
+        <StaticContainer shouldUpdate={shouldUpdate}>
+          {children}
+        </StaticContainer>
       </AnimatableContainer>
     );
   }

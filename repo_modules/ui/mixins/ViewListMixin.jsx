@@ -202,8 +202,15 @@ module.exports = {
   },
 
   callProperty(name) {
+    var args = Array.prototype.slice.call(arguments, 1);
+
+    // apply to viewlist first
+    if (this[name])
+      this[name].apply(this, args);
+
+    // then call any external
     if (this.props[name])
-      this.props[name].apply(this, Array.prototype.slice.call(arguments, 1));
+      this.props[name].apply(this, args);
   },
 
   isOnStage(index) {
@@ -235,34 +242,10 @@ module.exports = {
     }
   },
 
-  getFakeTitleBar(props) {
-    return <TitleBar {...props.titleBarProps} animations={false} />;
-  },
-
-  getTouchableAreaProps() {
-    return Object.assign(
-      // default props
-      {
-        ignoreY: true,
-        scroller: this.scroller
-      },
-
-      // parent props
-      this.props,
-
-      // required props
-      {
-        onTouchStart: this.handleTouchStart,
-        onTouchEnd: this.handleTouchEnd,
-        onClick: this.handleClick
-      }
-    );
-  },
-
-  getTitleBarProps(props) {
-    return props.noFakeTitleBar ?
-      props.titleBarProps :
-      Object.assign({ transparent: true }, props.titleBarProps);
+  getTitleBarProps() {
+    return this.props.noFakeTitleBar ?
+      this.props.titleBarProps :
+      Object.assign({ transparent: true }, this.props.titleBarProps);
   },
 
   getViewAnimations(view) {
@@ -282,30 +265,40 @@ module.exports = {
     return { touchStartBoundsX: {} };
   },
 
-  renderViewList(props) {
-    props = props || {};
-
+  getViewList(extraProps) {
     // pushes state to a store for child use
     // in the future this can be done with contexts
     this.setAnimationState('viewList');
 
+    var touchableAreaProps = Object.assign({
+        ignoreY: true,
+        scroller: this.scroller
+      },
+      this.props.touchableAreaProps,
+      {
+        onTouchStart: this.handleTouchStart,
+        onTouchEnd: this.handleTouchEnd,
+        onClick: this.handleClick
+      }
+    );
+
     return (
-      <div {...props}>
-        <TouchableArea {...this.getTouchableAreaProps()}>
-          {!props.noFakeTitleBar && this.getFakeTitleBar(props)}
-          {props.before}
-          {Component.clone(this.state.children, (child, i) => ({
-            key: i,
-            index: i,
-            viewList: { index: i },
-            titleBarProps: this.getTitleBarProps(props),
-            animations: this.getViewAnimations(child),
-            width: this.state.width,
-            height: this.state.height
-          }))}
-          {props.after}
-        </TouchableArea>
-      </div>
+      <TouchableArea {...touchableAreaProps} {...extraProps}>
+        {!this.props.noFakeTitleBar && (
+          <TitleBar {...this.props.titleBarProps} animations={false} />
+        )}
+        {this.props.before}
+        {Component.clone(this.state.children, (child, i) => ({
+          key: i,
+          index: i,
+          viewList: { index: i },
+          titleBarProps: this.getTitleBarProps(),
+          animations: this.getViewAnimations(child),
+          width: this.state.width,
+          height: this.state.height
+        }))}
+        {this.props.after}
+      </TouchableArea>
     );
   }
 };

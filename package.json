@@ -15,8 +15,8 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "react": "git+https://github.com/jsfb/react#89aaf73ae8802af3c83651a1b1db92bd48c2c156",
-    "react-router": "^0.11.4",
+    "react": "git+https://github.com/jsfb/react#89aaf73ae880",
+    "react-router": "git+https://github.com/rackt/react-router#bd71b9c0ec3b9d92e",
     "react-style": "git+https://github.com/js-next/react-style#inline-styles",
     "rest": "git+https://github.com/cujojs/rest#f40242a43a3db826af",
     "scroller": "^0.0.2",
@@ -28,7 +28,7 @@
     "react-tween-state": "0.0.4",
     "react-tap-event-plugin": "~0.1.3",
     "css-mediaquery": "~0.1.2",
-    "axn": "~1.3.1",
+    "axn": "^1.4",
     "bluebird": "~2.3.11",
     "omniscient": "~2.1.0",
     "superagent": "~0.21.0",

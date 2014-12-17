@@ -75,8 +75,7 @@ module.exports = Component({
     var refreshButton = (
       <Button
         onClick={this.handleRefresh}
-        chromeless
-        icon={(
+        chromeless>
           <RotatingComponent rotate={this.state.isRefreshing}>
             <Icon
               name="arrow-refresh"
@@ -84,7 +83,7 @@ module.exports = Component({
               stroke="1"
               isInTitleBar />
           </RotatingComponent>
-        )} />
+      </Button>
     );
 
     var hasArticles = !!articles.count();

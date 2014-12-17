@@ -29,7 +29,7 @@ module.exports = (c) => ({
 
   dragger: {
     position: 'fixed',
-    zIndex: 2,
+    zIndex: 3,
   },
 
   topDragger: {

@@ -46,28 +46,20 @@ module.exports = Component({
     });
   },
 
-  handleViewEntered(index) {
-    if (this.props.onViewEntered)
-      this.props.onViewEntered(index);
-
+  onViewEntered(index) {
     if (this.state.activeViewIndex !== index)
       this.setState({ activeViewIndex: index });
   },
 
   render() {
-    return this.renderViewList(Object.assign(
-      this.componentProps(),
-      this.props,
-      {
-        onViewEntered: this.handleViewEntered,
-        initialStep: this.state.activeViewIndex,
-        after: (
-          <Dots
-            total={this.props.children.length}
-            active={this.state.activeViewIndex}
-            styles={this.getStyles('dots')} />
-        )
-      }
-    ));
+    return (
+      <div {...this.componentProps()} {...this.props}>
+        {this.getViewList()}
+        <Dots
+          total={this.props.children.length}
+          active={this.state.activeViewIndex}
+          styles={this.getStyles('dots')} />
+      </div>
+    );
   }
 });
