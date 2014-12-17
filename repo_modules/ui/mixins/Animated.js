@@ -25,6 +25,10 @@ module.exports = {
   // but you can attach other stuff here as well
   getAnimationState(source) {
     if (source && source !== 'self') {
+      // console.log('get', this._uniqueID, source, Object.assign(
+      //   this.animateStore(source),
+      //   this.props[source]
+      // ));
       return Object.assign(
         this.animateStore(source),
         this.props[source]
@@ -43,6 +47,7 @@ module.exports = {
       Object.assign(state, typeof this.animationContext === 'function' ?
         this.animationContext() : this.animationContext);
 
+    console.log('get', this._uniqueID, state);
     return state;
   },
 
@@ -82,6 +87,7 @@ module.exports = {
 
   // fetches the list of animations from state or props
   getAnimations(ref) {
+    // console.log('GET', this._uniqueID, this.state, this.props);
     if (this.state && this.state.animations && defined(this.state.animations[ref]))
       return this.state.animations[ref];
     else
@@ -107,6 +113,9 @@ module.exports = {
     var animations = this.getAnimations(ref);
     var state = this.getAnimationState(source);
     var styles;
+
+    // if (Number(this._uniqueID.slice(3)) > 400)
+    //   debugger
 
     // single animation or array
     if (typeof animations === 'string')

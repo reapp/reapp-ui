@@ -16,7 +16,7 @@ var Animations = module.exports = {
 
     return {
       translate: { x: translateX },
-      BoxShadow: `0 0 15px rgba(0,0,0,${increaseOnEnter(index, step) / 2})`
+      boxShadow: `0 0 15px rgba(0,0,0,${increaseOnEnter(index, step) / 2})`
     };
   },
 

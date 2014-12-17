@@ -29,7 +29,7 @@ module.exports = Component({
       icon = (
         <Icon
           size={(type === 'icon-text-right') ? 24 : 32}
-          type={icon}
+          name={icon}
           styles={this.styles.icon}
           svgProps={{style: { margin: 'auto' }}} />
         );

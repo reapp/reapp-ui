@@ -52,7 +52,7 @@ module.exports = {
 
   // ensure proper animation/update order
   componentWillReceiveProps(nextProps) {
-    if (this._isAnimating)
+    if (this._isAnimating || nextProps.disable)
       return;
 
     // if new scrollToStep
@@ -142,6 +142,10 @@ module.exports = {
       this.ignoreScroll = !this.ignoreScroll;
       return;
     }
+
+    // disabled
+    if (this.props.disable)
+      return;
 
     // don't scroll if we only have one view
     if (this.state.children.length === 1 && this.state.step === 0)
@@ -254,21 +258,11 @@ module.exports = {
       this.props.viewAnimations;
   },
 
-  getTouchStartBounds() {
-    switch(this.state.viewListIndex) {
-      case 0:
-        return {};
-      case 1:
-        return { touchStartBoundsX: { from: 0, to: 20 } };
-    }
-
-    return { touchStartBoundsX: {} };
-  },
-
   getViewList(extraProps) {
     // pushes state to a store for child use
     // in the future this can be done with contexts
-    this.setAnimationState('viewList');
+    if (!this.props.disable)
+      this.setAnimationState('viewList');
 
     var touchableAreaProps = Object.assign({
         ignoreY: true,
@@ -276,9 +270,15 @@ module.exports = {
       },
       this.props.touchableAreaProps,
       {
+        touchStartBoundsX: this.props.touchStartBoundsX,
+        touchStartBoundsY: this.props.touchStartBoundsY,
         onTouchStart: this.handleTouchStart,
         onTouchEnd: this.handleTouchEnd,
-        onClick: this.handleClick
+        onClick: this.handleClick,
+        untouchable: (
+          this.props.touchableAreaProps && this.props.touchableAreaProps.untouchable ||
+          this.props.disable
+        )
       }
     );
 
@@ -288,15 +288,17 @@ module.exports = {
           <TitleBar {...this.props.titleBarProps} animations={false} />
         )}
         {this.props.before}
-        {Component.clone(this.state.children, (child, i) => ({
-          key: i,
-          index: i,
-          viewList: { index: i },
-          titleBarProps: this.getTitleBarProps(),
-          animations: this.getViewAnimations(child),
-          width: this.state.width,
-          height: this.state.height
-        }))}
+        {Component.clone(this.state.children, (child, i) => {
+          return {
+            key: i,
+            index: i,
+            viewList: { index: i },
+            titleBarProps: this.getTitleBarProps(),
+            animations: this.getViewAnimations(child),
+            width: this.state.width,
+            height: this.state.height
+          };
+        }, true)}
         {this.props.after}
       </TouchableArea>
     );

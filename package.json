@@ -15,7 +15,7 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "react": "git+https://github.com/jsfb/react#89aaf73ae880",
+    "react": "~0.12",
     "react-router": "git+https://github.com/rackt/react-router#bd71b9c0ec3b9d92e",
     "react-style": "git+https://github.com/js-next/react-style#inline-styles",
     "rest": "git+https://github.com/cujojs/rest#f40242a43a3db826af",

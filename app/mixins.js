@@ -1,10 +1,19 @@
 var Component = require('component');
 var Omniscient = require('omniscient');
 var ReactRouter = require('react-router');
+var Animated = require('ui/mixins/Animated');
 
 module.exports = {
   global: [
-    { shouldComponentUpdate: Omniscient.shouldComponentUpdate }
+    Animated,
+    {
+      shouldComponentUpdate(nextProps, nextState) {
+        if (this.isAnimating())
+          return true;
+        else
+          return Omniscient.shouldComponentUpdate(nextProps, nextState);
+      }
+    }
   ],
   shared: {
     'RouteState': ReactRouter.State,
