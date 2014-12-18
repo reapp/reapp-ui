@@ -1,3 +1,4 @@
+var React = require('react');
 var Component = require('../component');
 var View = require('./View');
 var Drawer = require('../components/Drawer');

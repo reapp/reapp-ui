@@ -1,3 +1,4 @@
+var React = require('react');
 var Component = require('../component');
 var TweenState = require('react-tween-state');
 var Icon = require('../components/Icon');

@@ -1,3 +1,4 @@
+var React = require('react');
 var Component = require('../component');
 var ViewListMixin = require('../mixins/ViewListMixin');
 var Dots = require('../components/Dots');
