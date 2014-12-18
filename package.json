@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/reapp/reapp-ui/issues"
   },
-  "homepage": "https://github.com/reapp/reapp-ui"
+  "homepage": "https://github.com/reapp/reapp-ui",
+  "dependencies": {
+    "lodash-node": "~2.4.1",
+    "scroller": "0.0.2"
+  }
 }

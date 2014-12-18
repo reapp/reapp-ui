@@ -10,6 +10,7 @@ module.exports = Component({
     return {
       size: 32,
       color: 'currentColor',
+      path: '/assets/icons',
       style: {},
       svgProps: {},
       titleBarAnimations: {
@@ -38,6 +39,7 @@ module.exports = Component({
   render() {
     var {
       size,
+      path,
       name,
       color,
       stroke,
@@ -60,6 +62,7 @@ module.exports = Component({
       fill: 'currentColor'
     });
 
+    // todo: hacky
     if (props.style) {
       this.addStyles(props.style);
       delete props.style;
@@ -81,7 +84,7 @@ module.exports = Component({
       <span {...this.componentProps()} {...props}>
         <svg {...svgExtraProps} {...svgProps} {...this.componentProps('svg')}>
           <g dangerouslySetInnerHTML={{__html:
-            '<use xlink:href="/assets/icons/svg/'+ name +'.svg#Layer_1"></use>'
+            `<use xlink:href="${path}/${name}.svg#Layer_1"></use>`
           }} />
         </svg>
       </span>
