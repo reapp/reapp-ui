@@ -6,8 +6,6 @@ var MultiTappable = require('../mixins/MultiTappable');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
 var Animated = require('../mixins/Animated');
 
-require('./TitleBar.styl');
-
 module.exports = Component({
   name: 'TitleBar',
 

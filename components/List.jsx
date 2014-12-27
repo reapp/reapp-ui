@@ -3,8 +3,6 @@ var Component = require('../component');
 var ListItem = require('./ListItem');
 // var StickyTitles = require('sticky-titles');
 
-require('./List.styl');
-
 module.exports = Component({
   name: 'List',
 
