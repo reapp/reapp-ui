@@ -10,7 +10,6 @@ var AnimateStore = require('../stores/AnimateStore');
 
 // Keep having to rewrite this as I refactor... docs coming...
 
-
 var defined = variable => (typeof variable !== 'undefined');
 
 module.exports = {

@@ -6,7 +6,7 @@ var Animated = require('./mixins/Animated');
 var Identified = require('./mixins/Identified');
 var merge = require('lodash-node/modern/objects/merge');
 
-// clone
+// clone helper
 Component.addStatics('clone', function(children, props, keepOriginalProps) {
   if (!children) return;
 

@@ -1,8 +1,6 @@
 var ReactStyle = require('react-style');
 var Invariant = require('react/lib/invariant');
 
-// Base for UI
-
 // Stores constants, animations and styles
 //   see themes/ios/all.js for an example usage.
 

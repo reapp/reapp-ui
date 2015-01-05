@@ -27,6 +27,7 @@ module.exports = function(ViewClass) {
 
   return React.createClass({
     displayName: 'StaticView' + index,
+
     render() {
       return (
         <View {...this.props} title={ViewClass.type.title}>

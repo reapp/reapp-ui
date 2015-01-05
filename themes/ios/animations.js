@@ -6,8 +6,6 @@ var {
   scaleBetween
 } = require('../../lib/animate/helpers');
 
-var EasingFunction = require('../../lib/animate/EasingFunctions');
-
 var Animations = module.exports = {
   viewParallax({ index, step, width }) {
     var translateX = (index - step) * width;
@@ -22,10 +20,8 @@ var Animations = module.exports = {
   },
 
   viewSideBySide({ index, step, width }) {
-    var translateX = (index - step) * width;
-
     return {
-      translate: { x: translateX }
+      translate: { x: (index - step) * width }
     };
   },
 

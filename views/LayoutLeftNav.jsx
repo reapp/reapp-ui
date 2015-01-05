@@ -1,9 +1,9 @@
 var React = require('react/addons');
 var Component = require('../component');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
-var LeftNavBehavior = require('./LeftNavBehavior');
+var LeftNavBehavior = require('../behaviors/LeftNavBehavior');
 var Drawer = require('../components/Drawer');
-var DrawerBehavior = require('../components/DrawerBehavior');
+var DrawerBehavior = require('../behaviors/DrawerBehavior');
 var TouchableArea = require('../helpers/TouchableArea');
 var Scrollable = require('../mixins/Scrollable');
 

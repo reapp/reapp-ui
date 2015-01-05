@@ -4,7 +4,7 @@ var Component = require('../component');
 var TouchableArea = require('../helpers/TouchableArea');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
 var StaticContainer = require('../helpers/StaticContainer');
-var DrawerBehavior = require('./DrawerBehavior');
+var DrawerBehavior = require('../behaviors/DrawerBehavior');
 
 // TODO:
 // look at using transition mixin rather than scroller stuff
