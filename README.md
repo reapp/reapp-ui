@@ -13,9 +13,18 @@ reapp-ui is a set of React components for building app UI's. It has a few goals
 It includes quite a few things that may end up in their own repo's, once the code
 has settled out a bit into something more coherent.
 
-For now, I'll write docs based on the code:
+### Goals
 
-### index.js
+Near-term goals are to finish out all the components in the toolkit,
+get and implement feedback from the community,
+fix any glaring performance and visual issues,
+and then create an Android theme.
+
+### Todo
+
+### Structure
+
+#### index.js
 
 Used to set up reapp-ui.
 
@@ -41,8 +50,21 @@ For now it has three relevant methods:
 To see how you'd make a theme, I'd suggest looking at `/themes/ios/theme.js`. You
 can require that file to have the entire iOS theme setup for you automatically.
 
-### component.js
+#### component.js
 
 component is a decorator that is used internally by reapp-ui to make components. It
 was extracted out and is a nice set of mixins that allow the ui components to avoid
 reptitious code.
+
+
+### Credits
+
+Original inspiration was thanks to [Pete Hunt]()'s [React Mobile Demo]().
+The [Framework7]() Kitchen Sink was used as reference when building the kitchen sink.
+
+SVG Icons included in this repo are originally from [flaticon](http://www.flaticon.com/packs/ios7-set-lined-1)
+and are licensed under [Creative Commons 3.0](http://creativecommons.org/licenses/by/3.0/). If you use them with your project, you must
+include attribution "in any reasonable manner, but not in any way that suggests the licensor endorses you or your use".
+
+Help throughout was given in the #reactjs freenode channel, and from various great members
+of the react community including: andreypopp, ryanflorence, smach, and many more (whether they knew it or not).
