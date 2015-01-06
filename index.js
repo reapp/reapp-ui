@@ -35,54 +35,46 @@ module.exports = {
     }
   },
 
-  setup(type, obj) {
-    switch(type) {
-    case 'constants':
-      this.addConstants(obj);
-      break;
-    case 'animations':
-      this.addAnimation(obj);
-      break;
-    case 'styles':
-      this.addStyles(obj);
-      break;
-    }
-  },
-
   // constants are order sensitive and are overwritten on object
-  addConstants(constantObj) {
-    Object.keys(constantObj).forEach(key => {
-      this.constants[key] = constantObj[key];
-    });
+  addConstants(...constants) {
+    constants.forEach(constant => {
+      Object.keys(constant).forEach(key => {
+        this.constants[key] = constant[key];
+      });
 
-    Object.assign(this.constants, this.constantsHelpers);
+      Object.assign(this.constants, this.constantsHelpers);
+    });
   },
 
-  addAnimation(animationObj) {
-    Object.keys(animationObj).forEach(key => {
-      this.animations[key] = animationObj[key];
+  addAnimations(...animations) {
+    animations.forEach(animation => {
+      Object.keys(animation).forEach(key => {
+        this.animations[key] = animation[key];
+      });
     });
   },
 
   // styles are order sensitive and pushed onto array
-  // style: { styles: { key: requireFunc }, (include: [] | exclude: []) }
-  addStyles(style) {
-    var { styles, include, exclude } = style.styles ? style : { styles: style };
-    var requireFunc = styles.__requireFunc;
-    delete styles.__requireFunc;
-    var styleKeys = Object.keys(styles);
+  addStyles(...styles) {
+    styles.forEach(style => {
+      // style: { styles: { key: requireFunc }, (include: [] | exclude: []) }
+      var { styles, include, exclude } = style.styles ? style : { styles: style };
+      var requireFunc = styles.__requireFunc;
+      delete styles.__requireFunc;
+      var styleKeys = Object.keys(styles);
 
-    Invariant(!(include && exclude),
-      'Cannot define include and exclude');
+      Invariant(!(include && exclude),
+        'Cannot define include and exclude');
 
-    // include or exclude certain styles
-    this._addStyles(requireFunc,
-      include && include.length ?
-        styleKeys.filter(x => include.indexOf(x) !== -1) :
-        exclude && exclude.length ?
-          styleKeys.filter(x => exclude.indexOf(x) === -1) :
-          styleKeys
-    );
+      // include or exclude certain styles
+      this._addStyles(requireFunc,
+        include && include.length ?
+          styleKeys.filter(x => include.indexOf(x) !== -1) :
+          exclude && exclude.length ?
+            styleKeys.filter(x => exclude.indexOf(x) === -1) :
+            styleKeys
+      );
+    });
   },
 
   // do the actual adding
