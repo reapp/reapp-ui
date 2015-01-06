@@ -1,6 +1,5 @@
 var React = require('react/addons');
 var { Scroller } = require('scroller');
-var { Promise } = require('bluebird');
 var Component = require('../component');
 var TitleBar = require('../components/TitleBar');
 var TouchableArea = require('../helpers/TouchableArea');
