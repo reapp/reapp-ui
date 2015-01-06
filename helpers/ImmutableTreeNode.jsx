@@ -8,6 +8,8 @@ var React = require('react');
 //    childKey="kids"
 //    cursor={immutableObject} />
 
+// once react natively supports iterables, we can merge this with TreeNode
+
 var ImmutableTreeNode = module.exports = React.createClass({
   render() {
     var { idKey, level, cursor, childKey, renderComponent, ...props } = this.props;

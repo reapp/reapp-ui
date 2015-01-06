@@ -1,8 +1,9 @@
 var UI = require('../../index');
 
-UI.setup('constants', require('./constants'));
-UI.setup('animations', require('./animations'));
-UI.setup('styles', require('./styles'));
-
 // you can override this in your app, and mix and match
-// these with your own
+// these with your own if you'd like, this is just an example
+// of using the default iOS theme.
+
+UI.addConstants(require('./constants'));
+UI.addAnimations(require('./animations'));
+UI.addStyles(require('./styles'));

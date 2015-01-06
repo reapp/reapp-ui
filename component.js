@@ -1,41 +1,34 @@
+// This is a function that decorates React's createClass.
+// It's used only internally in this library.
+// See the mixins for more information on what this does.
+
 var Component = require('reapp-component')();
 var React = require('react');
+var Identified = require('./mixins/Identified');
 var Styled = require('./mixins/Styled');
 var Classed = require('./mixins/Classed');
 var Animated = require('./mixins/Animated');
-var Identified = require('./mixins/Identified');
 var merge = require('lodash-node/modern/objects/merge');
 
 // clone helper
-Component.addStatics('clone', function(children, props, keepOriginalProps) {
-  if (!children) return;
-
-  return React.Children.map(children, (child, i) => {
-    var curProps = (typeof props === 'function') ?
-      props(child, i) :
-      props;
-
-    return React.isValidElement(child) ?
-      React.addons.cloneWithProps(child, keepOriginalProps ?
-        merge(child.props, curProps) :
-        curProps) :
-      child;
-  });
-});
+Component.addStatics('clone', require('./lib/niceClone'));
 
 Component.addDecorator(spec => {
   spec.mixins = [].concat(
+    // global component mixins
     Identified,
     Styled(spec.name),
     Classed(spec.name),
     Animated,
+
+    // any component-defined mixins
     spec.mixins || [],
 
-    // This is the meat of a UI component, automatically handles:
-    // id, ref, className, styles, animations
-    // see mixins for each of those pieces
+    // componentProps is the meat of a UI component
+    // when used, it will handle: id, ref, className, styles, animations
     {
       componentProps(componentName) {
+        // 'self' is used for the top level ref
         var ref = componentName || 'self';
         var props = {
           ref,
@@ -52,9 +45,10 @@ Component.addDecorator(spec => {
     }
   );
 
+  // set UI displayname to help with debugging
   spec.displayName = 'UI-' + spec.name;
 
-  // allow checking for "isName" on all components
+  // allow checking for 'is___' on all components
   spec.statics = spec.statics || {};
   spec.statics[`is${spec.name}`] = true;
 

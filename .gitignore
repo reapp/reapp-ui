@@ -1,7 +1,5 @@
 .DS_Store
-web_modules
 node_modules
 public
 npm-debug.log
 build
-*.sublime-workspace
