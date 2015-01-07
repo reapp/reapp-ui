@@ -21,12 +21,6 @@ module.exports = {
     onViewLeft: React.PropTypes.func,
   },
 
-  animationContext() {
-    return {
-      width: this.state.width
-    };
-  },
-
   getViewListInitialState(state) {
     return Object.assign({
       // We put children in state, so when a parent removes a view
@@ -41,7 +35,7 @@ module.exports = {
   componentDidMount() {
     this.scroller = new Scroller(this.handleScroll, this.props.scrollerProps);
     this.setupViewList(this.props);
-    this.setScrollPosition();
+    this.scrollToStep(this.props.scrollToStep || this.state.step);
     this.runViewCallbacks();
     window.addEventListener('resize', this.resize);
   },
@@ -55,7 +49,7 @@ module.exports = {
     if (this._isAnimating || nextProps.disable)
       return;
 
-    // if new scrollToStep
+    // if new scroll position
     if (nextProps.scrollToStep !== this.props.scrollToStep) {
       // if advancing views or remaining the same
       if (nextProps.scrollToStep >= this.state.step) {
@@ -70,7 +64,7 @@ module.exports = {
         });
       }
     }
-    // else no new scrollToStop
+    // else no new scroll position
     else {
       this.setupViewList(nextProps);
     }
@@ -78,6 +72,12 @@ module.exports = {
 
   setScrollPosition() {
     this.scroller.setPosition(this.state.step * this.state.width, 0);
+  },
+
+  animationContext() {
+    return {
+      width: this.state.width
+    };
   },
 
   getTitleBarHeight() {
@@ -101,6 +101,7 @@ module.exports = {
     this.setState({ children });
   },
 
+  // scrolls the viewList to a given step
   scrollToStep(step) {
     this._isAnimating = true;
     var duration = 0;
@@ -137,6 +138,7 @@ module.exports = {
   // ignore first scroll event because scroller sucks
   ignoreScroll: true,
 
+  // this is called back from Scroller, each time the user scrolls
   handleScroll(left) {
     if (this.ignoreScroll) {
       this.ignoreScroll = !this.ignoreScroll;
