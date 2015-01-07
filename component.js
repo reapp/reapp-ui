@@ -8,7 +8,6 @@ var Identified = require('./mixins/Identified');
 var Styled = require('./mixins/Styled');
 var Classed = require('./mixins/Classed');
 var Animated = require('./mixins/Animated');
-var merge = require('lodash-node/modern/objects/merge');
 
 // clone helper
 Component.addStatics('clone', require('./lib/niceClone'));
