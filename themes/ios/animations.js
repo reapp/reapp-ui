@@ -4,7 +4,7 @@ var {
   increaseOnEnter,
   decreaseOnEnter,
   scaleBetween
-} = require('../../lib/animate/Helpers');
+} = require('../../lib/AnimationHelpers');
 
 var Animations = module.exports = {
   viewParallax({ index, step, width }) {

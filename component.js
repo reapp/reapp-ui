@@ -9,9 +9,6 @@ var Styled = require('./mixins/Styled');
 var Classed = require('./mixins/Classed');
 var Animated = require('./mixins/Animated');
 
-// clone helper
-Component.addStatics('clone', require('./lib/niceClone'));
-
 Component.addDecorator(spec => {
   spec.mixins = [].concat(
     // global component mixins

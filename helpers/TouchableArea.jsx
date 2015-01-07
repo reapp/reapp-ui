@@ -1,5 +1,6 @@
 var React = require('react');
 var Component = require('../component');
+var clone = require('../lib/niceClone');
 
 // todo: separate into mixin and component
 // todo: decouple from scrolling more, it should be usable as a
@@ -142,7 +143,7 @@ var TouchableArea = React.createClass({
     props.onTouchCancel = this.handleTouchEnd;
 
     if (passprops)
-      children = Component.clone(children, props, true);
+      children = clone(children, props, true);
 
     return React.createElement(element, props, children);
   }

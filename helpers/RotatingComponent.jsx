@@ -3,6 +3,7 @@ var Component = require('../component');
 var TweenState = require('react-tween-state');
 var Icon = require('../components/Icon');
 var Animated = require('../mixins/Animated');
+var clone = require('../lib/niceClone');
 
 module.exports = Component({
   name: 'RotatingComponent',
@@ -62,7 +63,7 @@ module.exports = Component({
 
     return (
       <div {...this.componentProps()}>
-        {Component.clone(children, props, true)}
+        {clone(children, props, true)}
       </div>
     );
   }

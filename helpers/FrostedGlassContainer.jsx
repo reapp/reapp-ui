@@ -2,6 +2,7 @@ var React = require('react/addons');
 var FrostedGlassView = require('../views/FrostedGlassView');
 var StyleKeys = require('../lib/StyleKeys');
 var Component = require('component');
+var clone = require('../lib/niceClone');
 
 var GlassContainer = React.createClass({
   displayName: 'GlassContainer',
@@ -31,7 +32,7 @@ var GlassContainer = React.createClass({
       // TODO: this is somewhat of an anti-pattern: CloneChildren() should create the
       // children with the correct props. But I'm too lazy to build the correct deep
       // merger. And this isn't that bad since this component owns the props anyway.
-      var clonedChildren = Component.clone(this.props.children);
+      var clonedChildren = clone(this.props.children);
 
       clonedChildren.props = shallowCopy(clonedChildren.props);
       clonedChildren.props.style = shallowCopy(clonedChildren.props.style || {});

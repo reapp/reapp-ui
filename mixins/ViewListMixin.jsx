@@ -4,6 +4,7 @@ var Component = require('../component');
 var TitleBar = require('../components/TitleBar');
 var TouchableArea = require('../helpers/TouchableArea');
 var Animated = require('../mixins/Animated');
+var clone = require('../lib/niceClone');
 
 // ViewLists are, so far, the most complex piece of the UI kit
 // Their usage is simple, but they manage a lot of state,
@@ -287,7 +288,7 @@ module.exports = {
           <TitleBar {...this.props.titleBarProps} animations={false} />
         )}
         {this.props.before}
-        {Component.clone(this.state.children, (child, i) => {
+        {clone(this.state.children, (child, i) => {
           return {
             key: i,
             index: i,

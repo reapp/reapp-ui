@@ -1,6 +1,7 @@
 var React = require('react');
 var Component = require('../component');
 var Icon = require('./Icon');
+var clone = require('../lib/niceClone');
 
 module.exports = Component({
   name: 'Button',
@@ -20,7 +21,7 @@ module.exports = Component({
       iconProps.color = iconProps.color || this.getStyleVal('color');
 
     if (icon && iconProps)
-      icon = Component.clone(icon, iconProps, true);
+      icon = clone(icon, iconProps, true);
 
     if (chromeless)
       this.addStyles(this.styles.chromeless);

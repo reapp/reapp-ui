@@ -1,5 +1,6 @@
 var React = require('react/addons');
 var Component = require('../component');
+var clone = require('../lib/niceClone');
 var ListItem = require('./ListItem');
 // var StickyTitles = require('sticky-titles');
 
@@ -33,7 +34,7 @@ module.exports = Component({
         )}
         {React.Children.map(children, (li, i) => {
           if (nowrap || li.type && li.type.isListItem)
-            return Component.clone(li, { key: i, index: i, nopad });
+            return clone(li, { key: i, index: i, nopad });
 
           return (
             <ListItem {...liProps}

@@ -6,6 +6,7 @@ var Drawer = require('../components/Drawer');
 var DrawerBehavior = require('../behaviors/DrawerBehavior');
 var TouchableArea = require('../helpers/TouchableArea');
 var Scrollable = require('../mixins/Scrollable');
+var clone = require('../lib/niceClone');
 
 module.exports = Component({
   name: 'LayoutLeftNav',
@@ -100,7 +101,7 @@ module.exports = Component({
           </AnimatableContainer>
         )}
         <Drawer {...this.componentProps('drawer')} {...drawerProps}>
-          {Component.clone(children, { handle: touchableHandle })}
+          {clone(children, { handle: touchableHandle })}
         </Drawer>
       </div>
     );
