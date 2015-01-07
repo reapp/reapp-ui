@@ -3,12 +3,13 @@ var textColor = '#000';
 var greyMid = '#8e8e93';
 var barBG = '#f7f7f8';
 var barBorderColor = '#c4c4c4';
-var listBorderColor = '#c8c7cc';
+var borderColor = '#c8c7cc';
 
 module.exports = {
   bgColor: '#efeff4',
   activeColor: blue,
   inactiveColor: greyMid,
+  borderColor: borderColor,
 
   // Button
   buttonBG: blue,
@@ -21,7 +22,7 @@ module.exports = {
   listTitleColor: '#f7f7f7',
 
   // ListItem
-  listItemBorderColor: listBorderColor,
+  listItemBorderColor: borderColor,
 
   // Popover
   popoverArrowSize: 26,

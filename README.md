@@ -24,6 +24,10 @@ has settled out a bit into something more coherent.
 
 ### Todo
 
+- More fully implement constants, and make more consistant
+- Move iOS theme to it's own repo
+- Automatically handle `-webkit` flex properties in styles
+
 ### Structure
 
 #### index.js

@@ -49,8 +49,6 @@ module.exports = Component({
       ...props
     } = this.props;
 
-    console.log(color, this.getConstant());
-
     if (isInTitleBar && color === 'currentColor')
       color = this.getConstant('activeColor');
 

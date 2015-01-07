@@ -84,7 +84,6 @@ module.exports = Component({
 
   handleScroll(left, top) {
     var offset, transform;
-    console.log(left, top)
 
     switch(this.props.type){
       case 'left':

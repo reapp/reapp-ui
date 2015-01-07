@@ -32,10 +32,15 @@ module.exports = {
     }, state || {});
   },
 
+  componentWillMount() {
+    if (this.props.scrollToStep !== this.state.step)
+      this.setState({ step: this.props.scrollToStep });
+  },
+
   componentDidMount() {
     this.scroller = new Scroller(this.handleScroll, this.props.scrollerProps);
     this.setupViewList(this.props);
-    this.scrollToStep(this.props.scrollToStep || this.state.step);
+    this.scrollToStep(this.state.step);
     this.runViewCallbacks();
     window.addEventListener('resize', this.resize);
   },

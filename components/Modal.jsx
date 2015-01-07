@@ -4,6 +4,12 @@ var Component = require('../component');
 var Animated = require('../mixins/Animated');
 var Button = require('./Button');
 
+var ModalButton = React.createClass({
+  render() {
+    return <Button chromeless {...this.props} />;
+  }
+});
+
 module.exports = Component({
   name: 'Modal',
 
@@ -12,7 +18,10 @@ module.exports = Component({
   ],
 
   propTypes: {
-    type: React.PropTypes.string
+    type: React.PropTypes.string,
+    handleConfirm: React.PropTypes.func,
+    handleCancel: React.PropTypes.func,
+    handleClose: React.PropTypes.func
   },
 
   getDefaultProps() {
@@ -41,6 +50,20 @@ module.exports = Component({
       endValue: 1,
       duration: this.props.animationDuration
     });
+  },
+
+  handleCancel() {
+    if (this.props.handleCancel)
+      this.props.handleCancel();
+
+    this.handleClose();
+  },
+
+  handleConfirm() {
+    if (this.props.handleConfirm)
+      this.props.handleConfirm();
+
+    this.handleClose();
   },
 
   handleClose(e) {
@@ -76,12 +99,21 @@ module.exports = Component({
     switch (type) {
       case 'alert':
         buttons = [
-          <Button chromeless>OK</Button>
+          <ModalButton onClick={this.handleConfirm}>OK</ModalButton>
         ];
         break;
       case 'prompt':
       case 'confirm':
-        buttons = [];
+       var buttonStyle = {
+          self: {
+            borderLeft: `1px solid ${this.getConstant('borderColor')}`
+          }
+        };
+
+        buttons = [
+          <ModalButton onClick={this.handleCancel}>Cancel</ModalButton>,
+          <ModalButton styles={buttonStyle} onClick={this.handleConfirm}>OK</ModalButton>
+        ];
         break;
     }
 
@@ -98,7 +130,9 @@ module.exports = Component({
             )}
             {children}
           </div>
-          {buttons}
+          <div {...this.componentProps('buttons')}>
+            {buttons}
+          </div>
         </div>
       </div>
     );

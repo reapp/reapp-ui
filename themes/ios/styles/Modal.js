@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = (c) => ({
   self: {
     position: 'fixed',
     top: 0,
@@ -33,9 +33,14 @@ module.exports = {
     textAlign: 'center'
   },
 
+  buttons: {
+    flexFlow: 'row',
+    WebkitFlexFlow: 'row'
+  },
+
   inner: {
     padding: 15,
-    borderBottom: '1px solid #b5b5b5'
+    borderBottom: `1px solid ${c.borderColor}`
   },
 
   title: {
@@ -46,4 +51,4 @@ module.exports = {
   text: {
     marginTop: 5
   }
-};
+});

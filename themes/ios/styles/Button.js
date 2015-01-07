@@ -16,7 +16,9 @@ module.exports = (c) => ({
     WebkitUserSelect: 'none',
     outline: 'none',
     flexFlow: 'row',
-    WebkitFlexFlow: 'row'
+    WebkitFlexFlow: 'row',
+    flexGrow: 1,
+    WebkitFlexGrow: 1
   },
 
   chromeless: {
