@@ -17,9 +17,6 @@ module.exports = Component({
   render() {
     var { iconProps, icon, children, chromeless, rounded, active, ...props } = this.props;
 
-    if (iconProps)
-      iconProps.color = iconProps.color || this.getStyleVal('color');
-
     if (icon && iconProps)
       icon = clone(icon, iconProps, true);
 

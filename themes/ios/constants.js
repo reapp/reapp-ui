@@ -6,29 +6,16 @@ var barBorderColor = '#c4c4c4';
 var listBorderColor = '#c8c7cc';
 
 module.exports = {
-  // BASE
-  bgLight: '#efeff4',
-  dotColor: '0,0,0',
-  toolbarHeight: 44,
-  active: blue,
-  inactive: greyMid,
+  bgColor: '#efeff4',
+  activeColor: blue,
+  inactiveColor: greyMid,
 
   // Button
   buttonBG: blue,
   buttonActiveColor: '#fff',
 
-  // Tabs
-  tabsBG: barBG,
-  tabsHeight: '49px',
-  tabsLineHeight: '49px',
-  tabsBorderColor: barBorderColor,
-
-  // TitleBar
-  titleBarBG: barBG,
-  titleBarColor: textColor,
-  titleBarBorderColor: barBorderColor,
-  titleBarHeight: 44,
-  titleBarFontSize: '16px',
+  // Dots
+  dotColor: '0,0,0',
 
   // List
   listTitleColor: '#f7f7f7',
@@ -44,6 +31,19 @@ module.exports = {
 
   // SearchBar
   searchBarHeight: 44,
+
+  // Tabs
+  tabsBG: barBG,
+  tabsHeight: '49px',
+  tabsLineHeight: '49px',
+  tabsBorderColor: barBorderColor,
+
+  // TitleBar
+  titleBarHeight: 44,
+  titleBarBG: barBG,
+  titleBarColor: textColor,
+  titleBarBorderColor: barBorderColor,
+  titleBarFontSize: '16px',
 
   // View
   viewPad: '10px'

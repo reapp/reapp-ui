@@ -43,10 +43,16 @@ module.exports = Component({
       name,
       color,
       stroke,
+      isInTitleBar,
       shapeRendering,
       svgProps,
       ...props
     } = this.props;
+
+    console.log(color, this.getConstant());
+
+    if (isInTitleBar && color === 'currentColor')
+      color = this.getConstant('activeColor');
 
     this.addStyles({
       color,
