@@ -1,5 +1,6 @@
 var React = require('react/addons');
 var Component = require('../component');
+var clone = require('../lib/niceClone');
 
 module.exports = Component({
   name: 'Tabs',
@@ -18,12 +19,7 @@ module.exports = Component({
 
     return (
       <ul {...props} {...this.componentProps()}>
-        {React.Children.map(children, (child, i) => {
-          return React.addons.cloneWithProps(child, {
-            key: i,
-            type: type
-          });
-        })}
+        {clone(children, (child, i) => ({ key: i, type }))}
       </ul>
     );
   }
