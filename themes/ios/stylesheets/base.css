@@ -1,0 +1,62 @@
+body * {
+  display: flex;
+  flex-flow: column;
+  flex-shrink: 0;
+  align-items: stretch;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
+  -webkit-backface-visibility: hidden;
+}
+
+html,
+body {
+  background: white;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #000;
+  font-size: 14px;
+  line-height: 1.4;
+  width: 100%;
+  -webkit-text-size-adjust: 100%;
+  background: #fff;
+}
+
+a,
+input,
+textarea,
+select {
+  outline: 0;
+  color: #307cff;
+}
+
+a:visited, a:active {
+  color: #307cff;
+}
+
+#layout {
+  width: 100%;
+  height: 100%;
+  overflow: none;
+}
+
+#app {
+  overflow: auto;
+}
+
+p {
+  display: block;
+  color: #444;
+}
+
+p * {
+  display: inline;
+}

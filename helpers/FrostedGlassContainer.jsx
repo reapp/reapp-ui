@@ -1,7 +1,6 @@
 var React = require('react/addons');
 var FrostedGlassView = require('../views/FrostedGlassView');
 var StyleKeys = require('../lib/StyleKeys');
-var Component = require('component');
 var clone = require('../lib/niceClone');
 
 var GlassContainer = React.createClass({
