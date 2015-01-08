@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = (c) => ({
   self: {
     flexGrow: 1,
     flexShrink: 0,
@@ -7,6 +7,11 @@ module.exports = {
 
   icon: {
     margin: 'auto'
+  },
+
+  active: {
+    background: c.tabBG,
+    color: c.tabColor,
   },
 
   'tab-icon': {
@@ -32,4 +37,4 @@ module.exports = {
   'icon-text-right-text': {
     fontSize: '12px'
   }
-};
+});

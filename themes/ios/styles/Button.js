@@ -1,7 +1,7 @@
 module.exports = (c) => ({
   self: {
-    border: `1px solid ${c.buttonBG}`, // todo: variables
-    color: c.buttonBG,
+    border: `1px solid ${c.buttonBorderColor}`, // todo: variables
+    color: c.buttonColor,
     fontSize: '16px',
     background: 'none',
     borderRadius: '5px',
@@ -31,7 +31,7 @@ module.exports = (c) => ({
   },
 
   active: {
-    background: c.buttonBG,
+    background: c.buttonActiveBG,
     color: c.buttonActiveColor
   }
 });

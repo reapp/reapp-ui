@@ -6,7 +6,9 @@ module.exports = Component({
   name: 'TabItem',
 
   getDefaultProps() {
-    return { type: 'text' };
+    return {
+      type: 'text'
+    };
   },
 
   makeSection(name, content) {
@@ -18,9 +20,13 @@ module.exports = Component({
   },
 
   render() {
-    var { icon, text, children, type, ...props } = this.props;
+    var { icon, text, children, type, iconProps, active, ...props } = this.props;
 
+    // todo: verify proper types
     this.addStyles(this.styles['tab-' + type]);
+
+    if (active)
+      this.addStyles('active');
 
     if (!text && children)
       text = children;
@@ -31,11 +37,12 @@ module.exports = Component({
           size={(type === 'icon-text-right') ? 24 : 32}
           name={icon}
           styles={this.styles.icon}
-          svgProps={{style: { margin: 'auto' }}} />
-        );
+          svgProps={{style: { margin: 'auto' }}}
+          {...iconProps} />
+      );
 
     return (
-      <li {...props} {...this.componentProps()}>
+      <li {...this.componentProps()} {...props}>
         {this.makeSection('icon', icon)}
         {this.makeSection('text', text)}
       </li>

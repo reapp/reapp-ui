@@ -1,10 +1,12 @@
+var { hexToRGB, hexToRGBA } = require('lib/ConstantsHelpers');
+
 module.exports = (c) => ({
   self: {
     pointerEvents: 'none'
   },
 
   dot: {
-    background: `rgba(${c.dotColor},0.2)`,
+    background: hexToRGBA(c.dotBG, 0.2),
     borderRadius: 10,
     width: 4,
     height: 4,
@@ -12,7 +14,7 @@ module.exports = (c) => ({
   },
 
   dotActive: {
-    background: `rgb(${c.dotColor})`
+    background: hexToRGB(c.dotBG)
   },
 
   inner: {

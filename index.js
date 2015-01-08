@@ -27,25 +27,19 @@ module.exports = {
   animations: {},
   constants: {},
 
-  constantsHelpers: {
-    _toRGB(hex) {
-      var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-      Invariant(result, `Could not convert hex ${hex} to rgb`);
-      return `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}`;
-    }
-  },
-
   // constants are order sensitive and are overwritten on object
   addConstants(...constants) {
     constants.forEach(constant => {
       Object.keys(constant).forEach(key => {
-        this.constants[key] = constant[key];
+        // if we get a function, we pass it the current constants object to use
+        this.constants[key] = (typeof key === 'function') ?
+          constant[key](this.constants) :
+          constant[key];
       });
-
-      Object.assign(this.constants, this.constantsHelpers);
     });
   },
 
+  // simply unions a list of animations objects
   addAnimations(...animations) {
     animations.forEach(animation => {
       Object.keys(animation).forEach(key => {
@@ -106,6 +100,8 @@ module.exports = {
 
     return styles;
   },
+
+  // getters
 
   getStyles(name) {
     return name ? this.styles[name] : this.styles;

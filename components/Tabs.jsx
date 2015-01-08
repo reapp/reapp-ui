@@ -12,14 +12,18 @@ module.exports = Component({
   },
 
   render() {
-    var { children, type, ...props } = this.props;
+    var { children, type, active, ...props } = this.props;
 
     if (type)
       this.addStyles(this.styles[type]);
 
     return (
-      <ul {...props} {...this.componentProps()}>
-        {clone(children, (child, i) => ({ key: i, type }))}
+      <ul {...this.componentProps()} {...props}>
+        {clone(children, (child, i) => ({
+          type,
+          active: i === active,
+          key: i,
+        }))}
       </ul>
     );
   }

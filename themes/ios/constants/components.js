@@ -1,28 +1,20 @@
-var blue = '#307cff';
-var textColor = '#000';
-var greyMid = '#8e8e93';
-var barBG = '#f7f7f8';
-var barBorderColor = '#c4c4c4';
-var borderColor = '#c8c7cc';
+// takes in constants loaded before it
 
-module.exports = {
-  bgColor: '#efeff4',
-  activeColor: blue,
-  inactiveColor: greyMid,
-  borderColor: borderColor,
-
+module.exports = (constants) => ({
   // Button
-  buttonBG: blue,
-  buttonActiveColor: '#fff',
+  buttonBorderColor: constants.activeBG,
+  buttonColor: constants.activeBG,
+  buttonActiveBG: constants.activeBG,
+  buttonActiveColor: constants.activeColor,
 
   // Dots
-  dotColor: '0,0,0',
+  dotBG: '#000',
 
   // List
   listTitleColor: '#f7f7f7',
 
   // ListItem
-  listItemBorderColor: borderColor,
+  listItemBorderColor: constants.borderColor,
 
   // Popover
   popoverArrowSize: 26,
@@ -34,18 +26,18 @@ module.exports = {
   searchBarHeight: 44,
 
   // Tabs
-  tabsBG: barBG,
+  tabsBG: constants.brandBG,
   tabsHeight: '49px',
   tabsLineHeight: '49px',
   tabsBorderColor: barBorderColor,
 
   // TitleBar
   titleBarHeight: 44,
-  titleBarBG: barBG,
-  titleBarColor: textColor,
+  titleBarBG: constants.brandBG,
+  titleBarColor: constants.textColor,
   titleBarBorderColor: barBorderColor,
   titleBarFontSize: '16px',
 
   // View
   viewPad: '10px'
-};
+});
