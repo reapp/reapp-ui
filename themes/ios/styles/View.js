@@ -17,7 +17,7 @@ module.exports = (c) => ({
   },
 
   inner: {
-    background: c.bgColor,
+    background: c.viewBGColor,
     padding: `0 ${c.viewPad}`,
     zIndex: 1,
     position: 'absolute',

@@ -34,10 +34,11 @@ module.exports = (constants) => ({
   // TitleBar
   titleBarHeight: 44,
   titleBarBG: constants.brandBG,
-  titleBarColor: constants.textColor,
+  titleBarColor: constants.brandColor,
   titleBarBorderColor: constants.midGray,
   titleBarFontSize: '16px',
 
   // View
+  viewBGColor: constants.lightGray,
   viewPad: '10px'
 });
