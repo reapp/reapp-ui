@@ -8,11 +8,7 @@ module.exports = Component({
   name: 'List',
 
   componentDidMount() {
-    // todo: expect StickyTItles
-    var titles = this.getDOMNode().querySelectorAll('.List--title');
-    if (titles) {
-      // new StickyTitles(titles);
-    }
+    // todo: StickyTItles
   },
 
   componentWillUnmount() {

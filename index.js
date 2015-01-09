@@ -30,12 +30,11 @@ module.exports = {
   // constants are order sensitive and are overwritten on object
   addConstants(...constants) {
     constants.forEach(constant => {
-      Object.keys(constant).forEach(key => {
-        // if we get a function, we pass it the current constants object to use
-        this.constants[key] = (typeof key === 'function') ?
-          constant[key](this.constants) :
-          constant[key];
-      });
+      // allow functions, we pass in current constants
+      if (typeof constant === 'function')
+        constant = constant(this.constants);
+
+      Object.assign(this.constants, constant);
     });
   },
 

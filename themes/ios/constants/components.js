@@ -29,13 +29,13 @@ module.exports = (constants) => ({
   tabsBG: constants.brandBG,
   tabsHeight: '49px',
   tabsLineHeight: '49px',
-  tabsBorderColor: barBorderColor,
+  tabsBorderColor: constants.midGray,
 
   // TitleBar
   titleBarHeight: 44,
   titleBarBG: constants.brandBG,
   titleBarColor: constants.textColor,
-  titleBarBorderColor: barBorderColor,
+  titleBarBorderColor: constants.midGray,
   titleBarFontSize: '16px',
 
   // View
