@@ -1,4 +1,4 @@
-var { hexToRGB, hexToRGBA } = require('lib/ConstantsHelpers');
+var { hexToRGB, hexToRGBA } = require('reapp-ui/lib/ConstantsHelpers');
 
 module.exports = (c) => ({
   self: {
