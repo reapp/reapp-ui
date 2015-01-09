@@ -14,7 +14,7 @@ module.exports = (constants) => ({
   listTitleColor: '#f7f7f7',
 
   // ListItem
-  listItemBorderColor: constants.borderColor,
+  listItemBorderColor: constants.midGray,
 
   // Popover
   popoverArrowSize: 26,
