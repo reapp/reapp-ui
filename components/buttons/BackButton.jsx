@@ -2,13 +2,9 @@ var React = require('react');
 var Button = require('../Button');
 
 var BackButton = module.exports = React.createClass({
+  // because were shimming a button
   statics: {
     isButton: true
-  },
-
-  goBack() {
-    if (typeof window !== 'undefined')
-      window.history.back();
   },
 
   render() {
@@ -26,10 +22,9 @@ var BackButton = module.exports = React.createClass({
     return (
       <Button
         {...this.props}
-        onClick={this.goBack}
         iconProps={iconProps}
         chromeless>
-        Back
+        {this.props.children || 'Back'}
       </Button>
     );
   }

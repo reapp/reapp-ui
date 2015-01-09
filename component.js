@@ -33,7 +33,7 @@ Component.addDecorator(spec => {
           styles: this.getStyles(componentName)
         };
 
-        if (this.hasAnimations(ref))
+        if (this.hasAnimations(ref) && !this.animationsDisabled())
           props.style = this.getAnimationStyle(ref);
 
         return props;

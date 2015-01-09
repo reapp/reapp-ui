@@ -14,7 +14,7 @@ var clone = require('../lib/niceClone');
 module.exports = {
   propTypes: {
     scrollToStep: React.PropTypes.number,
-    disable: React.PropTypes.bool,
+    disableScroll: React.PropTypes.bool,
     width: React.PropTypes.number,
     height: React.PropTypes.number,
     onTouchStart: React.PropTypes.func,
@@ -50,7 +50,7 @@ module.exports = {
 
   // ensure proper animation/update order
   componentWillReceiveProps(nextProps) {
-    if (this._isAnimating || nextProps.disable)
+    if (this._isAnimating || nextProps.disableScroll)
       return;
 
     // if new scroll position
@@ -153,7 +153,7 @@ module.exports = {
     }
 
     // disabled
-    if (this.props.disable)
+    if (this.props.disableScroll)
       return;
 
     // don't scroll if we only have one view
@@ -270,7 +270,7 @@ module.exports = {
   getViewList(extraProps) {
     // pushes state to a store for child use
     // in the future this can be done with contexts
-    if (!this.props.disable)
+    if (!this.props.disableScroll)
       this.setAnimationState('viewList');
 
     var touchableAreaProps = Object.assign({
@@ -286,7 +286,7 @@ module.exports = {
         onClick: this.handleClick,
         untouchable: (
           this.props.touchableAreaProps && this.props.touchableAreaProps.untouchable ||
-          this.props.disable
+          this.props.disableScroll
         )
       }
     );
@@ -305,7 +305,8 @@ module.exports = {
             titleBarProps: this.getTitleBarProps(),
             animations: this.getViewAnimations(child),
             width: this.state.width,
-            height: this.state.height
+            height: this.state.height,
+            viewListScrollToStep: this.scrollToStep
           };
         }, true)}
         {this.props.after}

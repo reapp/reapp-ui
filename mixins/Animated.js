@@ -108,9 +108,6 @@ module.exports = {
     var state = this.getAnimationState(source);
     var styles;
 
-    // if (Number(this._uniqueID.slice(3)) > 400)
-    //   debugger
-
     // single animation or array
     if (typeof animations === 'string')
       styles = this._getAnimationStyle(styles, state, animations);
