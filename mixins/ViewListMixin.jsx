@@ -13,6 +13,10 @@ var clone = require('../lib/niceClone');
 
 module.exports = {
   propTypes: {
+    scrollToStep: React.PropTypes.number,
+    disable: React.PropTypes.bool,
+    width: React.PropTypes.number,
+    height: React.PropTypes.number,
     onTouchStart: React.PropTypes.func,
     onTouchEnd: React.PropTypes.func,
     onViewEntering: React.PropTypes.func,
@@ -21,26 +25,21 @@ module.exports = {
     onViewLeft: React.PropTypes.func,
   },
 
-  getViewListInitialState(state) {
-    return Object.assign({
+  getViewListInitialState() {
+    return {
       // We put children in state, so when a parent removes a view
       // we can animate backwards, and then remove them from state
       children: this.props.children,
       width: this.props.width,
       height: this.props.height,
-      step: this.props.scrollToStep
-    }, state || {});
-  },
-
-  componentWillMount() {
-    if (this.props.scrollToStep !== this.state.step)
-      this.setState({ step: this.props.scrollToStep });
+      step: this.props.scrollToStep || 0
+    };
   },
 
   componentDidMount() {
     this.scroller = new Scroller(this.handleScroll, this.props.scrollerProps);
+    this.setScrollPosition();
     this.setupViewList(this.props);
-    this.scrollToStep(this.state.step);
     this.runViewCallbacks();
     window.addEventListener('resize', this.resize);
   },
@@ -85,6 +84,7 @@ module.exports = {
     };
   },
 
+  // allow custom title bar heights
   getTitleBarHeight() {
     return this.props.titleBarProps.height || this.getConstant('titleBarHeight');
   },
@@ -140,13 +140,15 @@ module.exports = {
     this.visibleViews[0] = true;
   },
 
-  // ignore first scroll event because scroller sucks
-  ignoreScroll: true,
+  disableInitialScrollEvent: true,
 
   // this is called back from Scroller, each time the user scrolls
   handleScroll(left) {
-    if (this.ignoreScroll) {
-      this.ignoreScroll = !this.ignoreScroll;
+    // this is a hack, but the Scroller lib fires a scroll event that
+    // results in not respecting the props.scrollToStep on mount
+    // need a better Scroller lib
+    if (this.disableInitialScrollEvent) {
+      this.disableInitialScrollEvent = false;
       return;
     }
 

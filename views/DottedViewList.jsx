@@ -42,7 +42,7 @@ module.exports = Component({
   },
 
   getInitialState() {
-    return this.getViewListInitialState({
+    return Object.assign(this.getViewListInitialState(), {
       activeViewIndex: 0
     });
   },
