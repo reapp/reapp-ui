@@ -20,6 +20,7 @@ var index = 0;
 module.exports = function(ViewClass) {
   index++;
 
+  // React.createClass on passed in class if necessary
   if (!React.isValidElement(ViewClass)) {
     ViewClass.displayName = ViewClass.displayName || 'ViewClass' + index;
     ViewClass = React.createClass(ViewClass);

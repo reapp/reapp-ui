@@ -1,7 +1,7 @@
 var React = require('react');
 var Button = require('../Button');
 
-var BackButton = module.exports = React.createClass({
+module.exports = React.createClass({
   // because were shimming a button
   statics: {
     isButton: true
