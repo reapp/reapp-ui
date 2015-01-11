@@ -91,7 +91,8 @@ module.exports = (c) => ({
   },
 
   childrenNoTitle: {
-    fontSize: '17px'
+    fontSize: '17px',
+    paddingRight: 10
   },
 
   after: {

@@ -21,6 +21,10 @@ module.exports = (c) => ({
     WebkitFlexGrow: 1
   },
 
+  isInTitleBar: {
+    color: c.buttonColorTitleBar
+  },
+
   chromeless: {
     border: 'none',
     borderRadius: 0

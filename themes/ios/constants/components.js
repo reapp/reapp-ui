@@ -1,11 +1,15 @@
-// takes in constants loaded before it
+// takes in constants (c) loaded before it
 
-module.exports = (constants) => ({
+// todo: probably want to make this more flexible
+// e.g. people may want to specify buttonColor not based on activeColor
+
+module.exports = (c) => ({
   // Button
-  buttonBorderColor: constants.activeBG,
-  buttonColor: constants.activeBG,
-  buttonActiveBG: constants.activeBG,
-  buttonActiveColor: constants.activeColor,
+  buttonBorderColor: c.activeBG,
+  buttonColor: c.activeBG,
+  buttonColorTitleBar: c.activeBG,
+  buttonActiveBG: c.activeBG,
+  buttonActiveColor: c.activeColor,
 
   // Dots
   dotBG: '#000',
@@ -14,7 +18,7 @@ module.exports = (constants) => ({
   listTitleColor: '#f7f7f7',
 
   // ListItem
-  listItemBorderColor: constants.midGray,
+  listItemBorderColor: c.midGray,
 
   // Popover
   popoverArrowSize: 26,
@@ -26,19 +30,19 @@ module.exports = (constants) => ({
   searchBarHeight: 44,
 
   // Tabs
-  tabsBG: constants.brandBG,
+  tabsBG: c.brandBG,
   tabsHeight: '49px',
   tabsLineHeight: '49px',
-  tabsBorderColor: constants.midGray,
+  tabsBorderColor: c.midGray,
 
   // TitleBar
   titleBarHeight: 44,
-  titleBarBG: constants.brandBG,
-  titleBarColor: constants.brandColor,
-  titleBarBorderColor: constants.midGray,
+  titleBarBG: c.brandBG,
+  titleBarColor: c.brandColor,
+  titleBarBorderColor: c.midGray,
   titleBarFontSize: '16px',
 
   // View
-  viewBGColor: constants.lightGray,
+  viewBGColor: c.lightGray,
   viewPad: '10px'
 });

@@ -44,15 +44,11 @@ module.exports = Component({
     }
   },
 
-  addIconProps(component) {
+  addTitleBarProps(component) {
     if (!component || !React.isValidElement(component))
       return component;
 
-    var newIconProps = { iconProps:
-      Object.assign(component.props.iconProps || {}, { isInTitleBar: true })
-    };
-
-    return React.addons.cloneWithProps(component, newIconProps);
+    return React.addons.cloneWithProps(component, { isInTitleBar: true  });
   },
 
   handleDoubleTap() {
@@ -88,13 +84,13 @@ module.exports = Component({
         {...this.multiTap(2, this.handleDoubleTap)}
         {...props}>
         <div {...this.componentProps('left')}>
-          {this.addIconProps(l)}
+          {this.addTitleBarProps(l)}
         </div>
         <div {...this.componentProps('mid')}>
           {m}
         </div>
         <div {...this.componentProps('right')}>
-          {this.addIconProps(r)}
+          {this.addTitleBarProps(r)}
         </div>
       </div>
     );

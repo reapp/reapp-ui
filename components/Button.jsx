@@ -15,7 +15,14 @@ module.exports = Component({
   },
 
   render() {
-    var { iconProps, icon, children, chromeless, rounded, active, ...props } = this.props;
+    var { iconProps, icon, children, chromeless, rounded, active, isInTitleBar, ...props } = this.props;
+
+    if (isInTitleBar)
+      this.addStyles('isInTitleBar');
+
+    // pass isInTitleBar down to icon
+    if (isInTitleBar && iconProps)
+      iconProps.isInTitleBar = true;
 
     if (icon && iconProps)
       icon = clone(icon, iconProps, true);

@@ -19,7 +19,7 @@ module.exports = Component({
 
   render() {
     var { label, ...props } = this.props;
-    var element;
+    var element, elementProps = {};
 
     switch(this.props.type) {
       case 'checkbox':
@@ -30,9 +30,10 @@ module.exports = Component({
         break;
       default:
         element = 'input';
+        elementProps = this.componentProps('input');
     }
 
-    var input = React.createElement(element, this.props);
+    var input = React.createElement(element, Object.assign(elementProps, this.props));
 
     if (!label)
       return input;

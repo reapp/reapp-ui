@@ -1,5 +1,5 @@
 module.exports = {
-  self: {
+  input: {
     border: 'none',
     padding: '12px',
     fontSize: '16px',
