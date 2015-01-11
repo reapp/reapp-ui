@@ -4,6 +4,12 @@ var Component = require('../component');
 module.exports = Component({
   name: 'Popover',
 
+  propTypes: {
+    open: React.PropTypes.bool,
+    edgePadding: React.PropTypes.number,
+    arrowSize: React.PropTypes.number
+  },
+
   getDefaultProps() {
     return {
       edgePadding: 3,
@@ -40,19 +46,25 @@ module.exports = Component({
     return { popoverTop, popoverLeft, arrowTop, arrowLeft };
   },
 
-  withinEdgePadding(pos, max, extra) {
-    return Math.min(max - this.props.edgePadding - extra,
-      Math.max(this.props.edgePadding, pos));
+  ensureEdgePadding(pos, max, width) {
+    return Math.min(
+      // upper limit
+      max - this.props.edgePadding - width,
+      // lower limit
+      Math.max(this.props.edgePadding, pos)
+    );
   },
 
   getLeft(popover, target) {
+    var borderRadiusSize = 10; // todo: integrate with constants
     var targetLeft = target.left - window.scrollX;
     var targetCenter =  target.left + target.width / 2;
     var popoverCenter = popover.clientWidth / 2;
     var left = targetCenter - popoverCenter;
+
     return {
-      arrowLeft: this.withinEdgePadding(targetCenter, window.innerWidth, this.props.arrowSize * 2),
-      popoverLeft: this.withinEdgePadding(left, window.innerWidth, popover.clientWidth)
+      arrowLeft: this.ensureEdgePadding(targetCenter - this.props.arrowSize / 2, window.innerWidth, this.props.arrowSize + borderRadiusSize),
+      popoverLeft: this.ensureEdgePadding(left, window.innerWidth, popover.clientWidth)
     };
   },
 
@@ -64,9 +76,15 @@ module.exports = Component({
     var top = arrowOnBottom ?
       targetTop - popover.clientHeight - this.props.arrowSize :
       targetTop + target.height + this.props.arrowSize;
+
+    // todo: get it working on the bottom side as well
+    // probably need to use css position from bottom which
+    // may need a little rethink of how this is done
+    var arrowTop = top;
+
     return {
-      arrowTop: this.withinEdgePadding(top, window.innerHeight, this.props.arrowSize),
-      popoverTop: this.withinEdgePadding(top, window.innerHeight, popover.clientHeight)
+      arrowTop: this.ensureEdgePadding(arrowTop, window.innerHeight, this.props.arrowSize),
+      popoverTop: this.ensureEdgePadding(top, window.innerHeight, popover.clientHeight)
     };
   },
 

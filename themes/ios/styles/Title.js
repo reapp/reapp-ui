@@ -4,7 +4,7 @@ module.exports = {
     textTransform: 'uppercase',
     color: '#888',
     padding: '10px 0 2px 0',
-    margin: '15px 0 5px',
+    margin: '10px 0 5px',
     fontWeight: 'normal'
   }
 };
