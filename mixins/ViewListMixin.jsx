@@ -74,8 +74,17 @@ module.exports = {
     }
   },
 
+  // todo: this shouldn't need to do so much here
+  // for now this fixes a bug where if you start with a step > 0
   setScrollPosition() {
-    this.scroller.setPosition(this.state.step * this.state.width, 0);
+    var step = this.state.step;
+
+    setTimeout(() => {
+      this.scroller.setPosition(step * this.state.width, 0);
+      this.scrollToStep(step).then(() => {
+        this.setState({ step  });
+      });
+    });
   },
 
   animationContext() {
