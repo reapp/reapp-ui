@@ -134,16 +134,16 @@ module.exports = function(name) {
       this.mergeStyles(this.addedStyles, ref, styles);
     },
 
-    // merge styles together, return new object
+    // merge styles onto obj for ref
     mergeStyles(obj, ref, styles) {
-      var result = {};
+      var curStyles = obj[ref];
 
       // if we have styles already on the object
-      if (obj && obj.length) {
+      if (curStyles && curStyles.length) {
         if (Array.isArray(styles))
-          obj[ref] = result.concat(styles);
+          obj[ref] = curStyles.concat(styles);
         else
-          obj[ref][result.length] = styles;
+          obj[ref][curStyles.length] = styles;
       }
       else {
         if (Array.isArray(styles))
@@ -164,7 +164,7 @@ module.exports = function(name) {
           prop = { self: prop };
 
         Object.keys(prop).forEach(key => {
-          this.mergeStyles(result, key, prop[key]);
+          this.mergeStyles(result, key, this.makeReactStyle(prop[key]));
         });
       });
 
