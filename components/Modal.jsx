@@ -104,15 +104,14 @@ module.exports = Component({
         break;
       case 'prompt':
       case 'confirm':
-       var buttonStyle = {
-          self: {
-            borderLeft: `1px solid ${this.getConstant('borderColor')}`
-          }
+        var halfButton = { width: '50%' };
+        var borderedButton = {
+          borderLeft: `1px solid ${this.getConstant('midGray')}`
         };
 
         buttons = [
-          <ModalButton onClick={this.handleCancel}>Cancel</ModalButton>,
-          <ModalButton styles={buttonStyle} onClick={this.handleConfirm}>OK</ModalButton>
+          <ModalButton styles={{ self: halfButton }} onClick={this.handleCancel}>Cancel</ModalButton>,
+          <ModalButton styles={{ self: Object.assign({}, halfButton, borderedButton)  }} onClick={this.handleConfirm}>OK</ModalButton>
         ];
         break;
     }
