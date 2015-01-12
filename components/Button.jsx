@@ -36,13 +36,13 @@ module.exports = Component({
       icon = clone(icon, iconProps, true);
 
     if (chromeless)
-      this.addStyles(this.styles.chromeless);
+      this.addStyles('chromeless');
 
     if (rounded)
-      this.addStyles(this.styles.rounded);
+      this.addStyles('rounded');
 
     if (active)
-      this.addStyles(this.styles.active);
+      this.addStyles('active');
 
     return (
       <button {...this.componentProps()} {...props}>

@@ -13,3 +13,6 @@ Good example is animations, right now they can only be loaded through
 `UI.addAnimations`, but in order to make the Animated.js mixin re-usable by
 outside sources, would need to have a "default" way of fetching animations, probably
 just looking on the component itself.
+
+- Get react-document-title working again, View's should be able to set it properly
+if their step === index when inside a ViewList.
