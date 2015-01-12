@@ -25,6 +25,10 @@ module.exports = (c) => ({
     color: c.buttonColorTitleBar
   },
 
+  inner: {
+    margin: 'auto'
+  },
+
   chromeless: {
     border: 'none',
     borderRadius: 0

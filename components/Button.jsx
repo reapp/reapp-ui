@@ -15,9 +15,15 @@ module.exports = Component({
   },
 
   render() {
-    var { iconProps, icon, children, chromeless, rounded, active, isInTitleBar, ...props } = this.props;
-
-    console.log(this.props.styles);
+    var {
+      iconProps,
+      icon,
+      children,
+      chromeless,
+      rounded,
+      active,
+      isInTitleBar,
+      ...props } = this.props;
 
     if (isInTitleBar)
       this.addStyles('isInTitleBar');
@@ -42,7 +48,7 @@ module.exports = Component({
       <button {...this.componentProps()} {...props}>
         {icon || !!iconProps && <Icon {...iconProps} />}
         {children && (
-          <span style={{ margin: 'auto' }}>
+          <span {...this.componentProps('inner')}>
             {children}
           </span>
         )}

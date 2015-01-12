@@ -6,12 +6,12 @@ var ReactStyle = require('react-style');
 // It provides a pure way of adding and mixins styles
 // working with UI loaded styles
 
-// It tracks four types of styles (or it will eventually)
+// It tracks four types of styles
 // and combines the styles in order of precedence:
 //   1. styles: runtime loaded styles
 //   2. addedStyles: styles added in component
-//   3. mediaStyles: @media styles
-//   4. propStyles: styles passed in with props
+//   3. propStyles: styles passed in with props
+//   4. conditionalStyles: firstChild, lastChild, (TODO: @media styles)
 
 module.exports = function(name) {
   return {
@@ -87,6 +87,7 @@ module.exports = function(name) {
     },
 
     // styles for things like 'firstChild', 'lastItem'
+    // todo: mediaStyles
     getConditionalStyles(ref, index) {
       var conditionalStyles = [];
 
@@ -121,7 +122,7 @@ module.exports = function(name) {
 
       // allows using string to lookup styles
       if (typeof styles === 'string')
-        styles = this.styles[styles];
+        styles = this.getStyles(styles);
 
       // return if no styles found
       if (!styles)

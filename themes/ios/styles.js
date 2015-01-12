@@ -5,7 +5,7 @@ module.exports = makeStyles(requirer, [
   'Badge',
   'Block',
   'Button',
-  'ButtonRow',
+  'ButtonGroup',
   'Card',
   'CardList',
   'Checkbox',

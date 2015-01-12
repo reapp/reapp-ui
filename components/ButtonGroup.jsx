@@ -3,7 +3,7 @@ var Component = require('../component');
 var clone = require('../lib/niceClone');
 
 module.exports = Component({
-  name: 'ButtonRow',
+  name: 'ButtonGroup',
 
   propTypes: {
     children: React.PropTypes.node,
@@ -48,10 +48,8 @@ module.exports = Component({
           if (buttonProps.styles)
             styles = this.mergeStylesProps(styles, buttonProps.styles);
 
-          console.log('styles', styles)
-
           // merge extra props and extra styles
-          return { };
+          return Object.assign(buttonProps, { styles });
         }, true)}
       </div>
     );
