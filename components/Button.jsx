@@ -17,6 +17,8 @@ module.exports = Component({
   render() {
     var { iconProps, icon, children, chromeless, rounded, active, isInTitleBar, ...props } = this.props;
 
+    console.log(this.props.styles);
+
     if (isInTitleBar)
       this.addStyles('isInTitleBar');
 

@@ -113,40 +113,62 @@ module.exports = function(name) {
 
     // adds styles onto a ref
     _addStyle(ref, styles) {
-      // if given just an object, add as the styles object for 'self'
-      if (!styles && typeof ref === 'object') {
+      // if given just an object or string, add as the styles object for 'self'
+      if (!styles && (typeof ref === 'object' || typeof ref === 'string')) {
         styles = ref;
         ref = 'self';
       }
 
-      // if given just a string, add as the styles object reference for 'self'
-      if (!styles && typeof ref === 'string') {
-        styles = ref;
-        ref = 'self';
-      }
-
+      // allows using string to lookup styles
       if (typeof styles === 'string')
         styles = this.styles[styles];
 
+      // return if no styles found
       if (!styles)
         return;
 
+      // ensure we have well formatted styles
       styles = this.makeReactStyle(styles);
 
-      var curStyles = this.addedStyles[ref];
+      // merge onto our addedStyles object
+      this.mergeStyles(this.addedStyles, ref, styles);
+    },
 
-      if (curStyles && curStyles.length) {
+    // merge styles together, return new object
+    mergeStyles(obj, ref, styles) {
+      var result = {};
+
+      // if we have styles already on the object
+      if (obj && obj.length) {
         if (Array.isArray(styles))
-          styles.map(style => curStyles.push(style));
+          obj[ref] = result.concat(styles);
         else
-          this.addedStyles[ref][curStyles.length] = styles;
+          obj[ref][result.length] = styles;
       }
       else {
         if (Array.isArray(styles))
-          this.addedStyles[ref] = styles;
+          obj[ref] = styles;
         else
-          this.addedStyles[ref] = [styles];
+          obj[ref] = [styles];
       }
+    },
+
+    // handles checking for shorthand styling, for use with components
+    // that pass down style properties to their children dynamically
+    mergeStylesProps(...stylesProps) {
+      var result = {};
+
+      stylesProps.forEach(prop => {
+        // convert shorthand to proper
+        if (Array.isArray(prop))
+          prop = { self: prop };
+
+        Object.keys(prop).forEach(key => {
+          this.mergeStyles(result, key, prop[key]);
+        });
+      });
+
+      return result;
     },
 
     // get a style value

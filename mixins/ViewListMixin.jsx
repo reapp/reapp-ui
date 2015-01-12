@@ -296,7 +296,9 @@ module.exports = {
         {!this.props.noFakeTitleBar && (
           <TitleBar {...this.props.titleBarProps} animations={false} />
         )}
+
         {this.props.before}
+
         {clone(this.state.children, (child, i) => {
           return {
             key: i,
@@ -309,6 +311,7 @@ module.exports = {
             viewListScrollToStep: this.scrollToStep
           };
         }, true)}
+
         {this.props.after}
       </TouchableArea>
     );
