@@ -7,7 +7,11 @@ var StaticContainer = require('../helpers/StaticContainer');
 var DrawerBehavior = require('../behaviors/DrawerBehavior');
 
 // TODO:
-// look at using transition mixin rather than scroller stuff
+// better handle this whole thing, needs some sort of state thing
+// better than just Behavior, for handling various behaviors
+// just need to sit down and draw this one out a bit more
+
+// look at using animation mixins like viewlists
 
 module.exports = Component({
   name: 'Drawer',
@@ -31,7 +35,9 @@ module.exports = Component({
   },
 
   componentWillMount() {
-    if (this.state.externalScroller) return;
+    if (this.state.externalScroller)
+      return;
+
     this.scroller = new Scroller(this.handleScroll, {
       bouncing: false,
       scrollingX: true,
@@ -42,16 +48,11 @@ module.exports = Component({
 
   componentDidMount() {
     this.measureScroller();
-    window.addEventListener('resize', this.measureAndScrollOpen);
+    window.addEventListener('resize', this.measureAndPosition);
   },
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.measureAndScrollOpen);
-  },
-
-  scrollToOpen() {
-    if (this.scroller)
-      this.scroller.scrollTo(this.getDOMNode().clientWidth, 0);
+    window.removeEventListener('resize', this.measureAndPosition);
   },
 
   measureScroller() {
@@ -77,9 +78,14 @@ module.exports = Component({
     this.scroller.setSnapSize(node.clientWidth, node.clientHeight);
   },
 
-  measureAndScrollOpen() {
+  measureAndPosition() {
     this.measureScroller();
-    this.scrollToOpen();
+    this.setPosition();
+  },
+
+  setPosition() {
+    // if (this.props.closed)
+      // this.scroller.scrollTo()
   },
 
   handleScroll(left, top) {
@@ -90,7 +96,7 @@ module.exports = Component({
         offset = left;
         break;
       case 'right':
-        offset = -left;
+        offset = left;
         break;
       case 'top':
         offset = -top;

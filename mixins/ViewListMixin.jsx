@@ -79,11 +79,11 @@ module.exports = {
   setScrollPosition() {
     var step = this.state.step;
 
+    // setTimeout because we are fighting Scroller
     setTimeout(() => {
       this.scroller.setPosition(step * this.state.width, 0);
-      this.scrollToStep(step).then(() => {
-        this.setState({ step  });
-      });
+      this.scroller.scrollTo(step * this.state.width, 0, false);
+      this.setState({ step  });
     });
   },
 
