@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/reapp/reapp-ui",
   "dependencies": {
-    "react-style": "git+https://github.com/js-next/react-style#inline-styles",
+    "react-style": "git+https://github.com/js-next/react-style#4c971a58a81841",
     "react-tween-state": "0.0.4",
     "css-mediaquery": "~0.1.2",
     "lodash-node": "~2.4.1",
