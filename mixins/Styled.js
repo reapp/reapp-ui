@@ -211,7 +211,7 @@ module.exports = function(name) {
         return null;
 
       var stylesForProp = styles
-        .map(style => style.style[prop])
+        .map(style => style[prop])
         .filter(x => typeof x !== 'undefined');
 
       return stylesForProp[stylesForProp.length - 1];
