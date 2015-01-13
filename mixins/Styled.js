@@ -136,6 +136,7 @@ module.exports = function(name) {
     },
 
     // merge styles onto obj for ref
+    // needs to be reasonably performant (thus the verbosity)
     mergeStyles(obj, ref, styles) {
       var curStyles = obj[ref];
 
@@ -165,7 +166,7 @@ module.exports = function(name) {
           prop = { self: prop };
 
         Object.keys(prop).forEach(key => {
-          this.mergeStyles(result, key, this.makeReactStyle(prop[key]));
+          this.mergeStyles(result, key, prop[key]);
         });
       });
 

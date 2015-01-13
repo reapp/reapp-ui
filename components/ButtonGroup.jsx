@@ -16,23 +16,23 @@ module.exports = Component({
 
     // first button
     if (i === 0 && total > 2)
-      self = this.styles.buttonFirst;
+      self = this.getStyles('buttonFirst');
     // first button, two total buttons
     else if (i === 0 && total === 2)
-      self = this.styles.buttonFirstTwoTotal;
+      self = this.getStyles('buttonFirstTwoTotal');
     // last button
     else if (i === total - 1 && total >= 2)
-      self = this.styles.buttonLast;
+      self = this.getStyles('buttonLast');
     // middle button
     else
-      self = this.styles.buttonMiddle;
+      self = this.getStyles('buttonMiddle');
 
     return { self };
   },
 
   render() {
     var { children, buttonProps, ...props } = this.props;
-    var total = children.length;
+    var total = children && children.length || 0;
 
     return (
       <div {...this.componentProps()} {...props}>
@@ -48,8 +48,10 @@ module.exports = Component({
           if (buttonProps.styles)
             styles = this.mergeStylesProps(styles, buttonProps.styles);
 
+          console.log(styles);
+
           // merge extra props and extra styles
-          return Object.assign(buttonProps, { styles });
+          return Object.assign({}, buttonProps, { styles });
         }, true)}
       </div>
     );
