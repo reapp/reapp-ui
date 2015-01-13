@@ -48,8 +48,6 @@ module.exports = Component({
           if (buttonProps.styles)
             styles = this.mergeStylesProps(styles, buttonProps.styles);
 
-          console.log(styles);
-
           // merge extra props and extra styles
           return Object.assign({}, buttonProps, { styles });
         }, true)}
