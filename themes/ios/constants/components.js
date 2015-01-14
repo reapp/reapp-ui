@@ -16,6 +16,7 @@ module.exports = (c) => ({
 
   // List
   listTitleColor: '#f7f7f7',
+  listBG: '#fff',
 
   // ListItem
   listItemBorderColor: c.midGray,

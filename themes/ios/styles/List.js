@@ -2,7 +2,7 @@ module.exports = (c) => ({
   self: {
     borderTop: `1px solid ${c.listItemBorderColor}`,
     borderBottom: `1px solid ${c.listItemBorderColor}`,
-    background: '#fff',
+    background: c.listBG,
     margin: '0 -10px',
     padding: '0 0 0 10px',
     fontSize: '16px'
