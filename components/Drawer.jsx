@@ -40,14 +40,14 @@ module.exports = Component({
 
     this.scroller = new Scroller(this.handleScroll, {
       bouncing: false,
-      scrollingX: true,
-      scrollingY: false,
+      scrollingX: this.isSideDrawer(),
+      scrollingY: !this.isSideDrawer(),
       snapping: true
     });
   },
 
   componentDidMount() {
-    this.measureScroller();
+    this.measureAndPosition();
     window.addEventListener('resize', this.measureAndPosition);
   },
 
@@ -63,7 +63,7 @@ module.exports = Component({
     var totalWidth = node.clientWidth;
     var totalHeight = node.clientHeight;
 
-    if (['left', 'right'].filter(x => x === this.props.type).length)
+    if (this.isSideDrawer())
       totalWidth = totalWidth * 2;
     else
       totalHeight = totalHeight * 2;
@@ -76,6 +76,7 @@ module.exports = Component({
     );
 
     this.scroller.setSnapSize(node.clientWidth, node.clientHeight);
+    return { width: node.clientWidth, height: node.clientHeight };
   },
 
   measureAndPosition() {
@@ -84,8 +85,16 @@ module.exports = Component({
   },
 
   setPosition() {
-    // if (this.props.closed)
-      // this.scroller.scrollTo()
+    if (this.props.closed) {
+      if (this.isSideDrawer())
+        this.scroller.scrollTo(this.getDOMNode().clientWidth, 0, false);
+      else
+        this.scroller.scrollTo(0, this.getDOMNode().clientHeight, false);
+    }
+  },
+
+  isSideDrawer() {
+    return ['left', 'right'].filter(x => x === this.props.type).length;
   },
 
   handleScroll(left, top) {
@@ -93,14 +102,10 @@ module.exports = Component({
 
     switch(this.props.type){
       case 'left':
-        offset = left;
-        break;
       case 'right':
         offset = left;
         break;
       case 'top':
-        offset = -top;
-        break;
       case 'bottom':
         offset = top;
       break;
@@ -112,12 +117,24 @@ module.exports = Component({
     });
   },
 
-  typeMap(type) {
+  getOppositeType(type) {
     return { left: 'right', right: 'left', top: 'bottom', bottom: 'top' };
   },
 
   render() {
-    var { translate, type, behavior, scroller, touchableProps, children, shouldUpdate, ...props } = this.props;
+    var {
+      translate,
+      type,
+      behavior,
+      scroller,
+      touchableProps,
+      children,
+      shouldUpdate,
+      ...props
+    } = this.props;
+
+    if (type === 'top')
+      window.S = this.scroller
 
     props.translate = (
       translate || behavior[type].translate(this.state.offset)
@@ -127,14 +144,17 @@ module.exports = Component({
     this.addStyles(this.props.type);
     this.addStyles('dragger', `${this.props.type}Dragger`);
 
-    var draggerOffset = {};
-    // todo get const dragger width
-    draggerOffset[this.typeMap(type)] = this.state.closed ? -20 : 0;
+    var draggerOffset = {
+      // todo get const dragger width
+      [this.getOppositeType(type)]: this.state.closed ? -20 : 0
+    };
     this.addStyles('dragger', draggerOffset);
 
     return (
       <AnimatableContainer {...this.componentProps()} {...props}>
-        <TouchableArea {...this.componentProps('dragger')} {...touchableProps}
+        <TouchableArea
+          {...this.componentProps('dragger')}
+          {...touchableProps}
           scroller={scroller || this.scroller} />
         <StaticContainer shouldUpdate={shouldUpdate}>
           {children}
