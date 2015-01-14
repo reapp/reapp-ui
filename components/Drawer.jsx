@@ -46,6 +46,12 @@ module.exports = Component({
     });
   },
 
+  componentWillReceiveProps(nextProps) {
+    // handle changing closed prop
+    if (nextProps.closed !== this.props.closed)
+      this.scrollTo(nextProps.closed ? 0 : 100, true);
+  },
+
   componentDidMount() {
     this.measureAndPosition();
     window.addEventListener('resize', this.measureAndPosition);
@@ -81,16 +87,17 @@ module.exports = Component({
 
   measureAndPosition() {
     this.measureScroller();
-    this.setPosition();
+    this.scrollTo(100, false);
   },
 
-  setPosition() {
-    if (this.props.closed) {
-      if (this.isSideDrawer())
-        this.scroller.scrollTo(this.getDOMNode().clientWidth, 0, false);
-      else
-        this.scroller.scrollTo(0, this.getDOMNode().clientHeight, false);
-    }
+  // handles scrolling to a percent
+  scrollTo(percent, animated) {
+    var dec = percent * .01;
+
+    if (this.isSideDrawer())
+      this.scroller.scrollTo(dec * this.getDOMNode().clientWidth, 0, animated);
+    else
+      this.scroller.scrollTo(0, dec & this.getDOMNode().clientHeight, animated);
   },
 
   isSideDrawer() {

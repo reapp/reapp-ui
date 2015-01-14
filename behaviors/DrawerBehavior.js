@@ -1,14 +1,14 @@
 module.exports = {
   right: {
-    translate: percent => ({ x: -percent })
+    translate: pct => ({ x: -pct })
   },
   left: {
-    translate: percent => ({ x: percent })
+    translate: pct => ({ x: pct })
   },
   bottom: {
-    translate: percent => ({ y: -percent })
+    translate: pct => ({ y: -pct })
   },
   top: {
-    translate: percent => ({ y: -percent })
+    translate: pct => ({ y: pct })
   },
 };
