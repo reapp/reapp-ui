@@ -61,28 +61,30 @@ module.exports = Component({
     window.removeEventListener('resize', this.measureAndPosition);
   },
 
+  getWidth() {
+    return this.getDOMNode().clientWidth;
+  },
+
+  getHeight() {
+    return this.getDOMNode().clientHeight;
+  },
+
   measureScroller() {
     if (this.state.externalScroller)
       return;
 
-    var node = this.getDOMNode();
-    var totalWidth = node.clientWidth;
-    var totalHeight = node.clientHeight;
+    var width = this.getWidth();
+    var height = this.getHeight();
+    var totalWidth = width;
+    var totalHeight = height;
 
     if (this.isSideDrawer())
-      totalWidth = totalWidth * 2;
+      totalWidth = width * 2;
     else
-      totalHeight = totalHeight * 2;
+      totalHeight = height * 2;
 
-    this.scroller.setDimensions(
-      node.clientWidth,
-      node.clientHeight,
-      totalWidth,
-      totalHeight
-    );
-
-    this.scroller.setSnapSize(node.clientWidth, node.clientHeight);
-    return { width: node.clientWidth, height: node.clientHeight };
+    this.scroller.setDimensions(width, height, totalWidth, totalHeight);
+    this.scroller.setSnapSize(width, height);
   },
 
   measureAndPosition() {
@@ -107,6 +109,12 @@ module.exports = Component({
     return ['left', 'right'].filter(x => x === this.props.type).length;
   },
 
+  isClosed() {
+    return this.isSideDrawer() ?
+      this.state.offset === this.getWidth() :
+      this.state.offset === this.getHeight();
+  },
+
   handleScroll(left, top) {
     var offset, transform;
 
@@ -125,6 +133,10 @@ module.exports = Component({
       offset,
       closed: offset === 0
     });
+
+    // onClose callback
+    if (this.isClosed() && this.props.onClose)
+      this.props.onClose();
   },
 
   getOppositeType(type) {
