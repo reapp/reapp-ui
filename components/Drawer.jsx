@@ -87,17 +87,20 @@ module.exports = Component({
 
   measureAndPosition() {
     this.measureScroller();
-    this.scrollTo(100, false);
+    this.scrollTo(this.props.closed ? 100 : 0, false);
   },
 
   // handles scrolling to a percent
   scrollTo(percent, animated) {
-    var dec = percent * .01;
+    if (!this.scroller)
+      return;
+
+    var dec = percent * 0.01;
 
     if (this.isSideDrawer())
       this.scroller.scrollTo(dec * this.getDOMNode().clientWidth, 0, animated);
     else
-      this.scroller.scrollTo(0, dec & this.getDOMNode().clientHeight, animated);
+      this.scroller.scrollTo(0, dec * this.getDOMNode().clientHeight, animated);
   },
 
   isSideDrawer() {
