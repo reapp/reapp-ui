@@ -19,6 +19,8 @@ module.exports = Component({
 
   propTypes: {
     type: React.PropTypes.string,
+    animationDuration: React.PropTypes.number,
+    animations: React.PropTypes.object,
     handleConfirm: React.PropTypes.func,
     handleCancel: React.PropTypes.func,
     handleClose: React.PropTypes.func
@@ -46,6 +48,8 @@ module.exports = Component({
 
   componentDidMount() {
     this.setState({ open: true });
+
+    // animate open
     this.tweenState('step', {
       endValue: 1,
       duration: this.props.animationDuration
@@ -81,7 +85,7 @@ module.exports = Component({
     setTimeout(() => {
       if (this.props.handleClose)
         this.props.handleClose(e);
-    }, 5);
+    });
   },
 
   render() {

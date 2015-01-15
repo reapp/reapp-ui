@@ -6,15 +6,22 @@ module.exports = (c) => ({
     right: 0,
     bottom: 0,
     visibility: 'hidden',
-    background: c.popoverOverlayBG,
-    opacity: 0,
-    transition: 'opacity 300ms ease-in'
+    zIndex: -1
   },
 
   open: {
     opacity: 1,
     visibility: 'visible',
     zIndex: 15000
+  },
+
+  bg: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: c.popoverOverlayBG
   },
 
   popover: {
@@ -36,20 +43,16 @@ module.exports = (c) => ({
   },
 
   arrow: {
-    width: c.popoverArrowSize,
-    height: c.popoverArrowSize,
-    marginTop: -c.popoverArrowSize,
     position: 'absolute',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    top: 0,
+    left: '50%'
   },
 
   arrowInner: {
     background: c.popoverBG,
-    width: c.popoverArrowSize,
-    height: c.popoverArrowSize,
     position: 'absolute',
     left: 0,
-    top: 19,
     borderRadius: 3,
     transform: 'rotate(45deg)'
   },

@@ -1,6 +1,6 @@
-*This is an alpha release: seeking feedback, expect missing pieces, laughable mistakes, big changes*
-
 ## reapp-ui
+
+*This is an alpha release: seeking feedback, expect missing pieces, laughable mistakes, big changes*
 
 reapp-ui is a set of React components for building app UI's. It has a few goals
 

@@ -29,7 +29,7 @@ module.exports = (c) => ({
 
   // Popover
   popoverArrowSize: 26,
-  popoverBG: 'rgba(255,255,255,0.95)',
+  popoverBG: '#fff',
   popoverItemBorder: '1px solid #ccc',
   popoverOverlayBG: 'rgba(0,0,0,0.3)',
 

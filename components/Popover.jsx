@@ -1,25 +1,40 @@
 var React = require('react');
+var TweenState = require('react-tween-state');
 var Component = require('../component');
 
 module.exports = Component({
   name: 'Popover',
 
+  mixins: [
+    TweenState.Mixin
+  ],
+
   propTypes: {
     open: React.PropTypes.bool,
     edgePadding: React.PropTypes.number,
-    arrowSize: React.PropTypes.number
+    arrowSize: React.PropTypes.number,
+    handleClose: React.PropTypes.func,
+    animationDuration: React.PropTypes.number,
+    animations: React.PropTypes.object
   },
 
   getDefaultProps() {
     return {
       edgePadding: 3,
-      arrowSize: 19
+      arrowSize: 26,
+      animationDuration: 200,
+      animations: {
+        popover: ['fade', 'scaleDown'],
+        bg: 'fade'
+      }
     };
   },
 
   getInitialState() {
     return {
-      open: this.props.open || false
+      open: this.props.open || false,
+      step: 0,
+      index: 1
     };
   },
 
@@ -27,6 +42,12 @@ module.exports = Component({
     var popover = this.refs.popover.getDOMNode();
     this.setState(this.getPositionState(popover, this.props.target));
     this.setState({ open: true });
+
+    // animate open
+    this.tweenState('step', {
+      endValue: 1,
+      duration: this.props.animationDuration
+    });
   },
 
   componentWillReceiveProps(nextProps) {
@@ -41,9 +62,9 @@ module.exports = Component({
   },
 
   getPositionState(popover, target) {
-    var { arrowTop, popoverTop } = this.getTop(popover, target);
-    var { arrowLeft, popoverLeft } = this.getLeft(popover, target);
-    return { popoverTop, popoverLeft, arrowTop, arrowLeft };
+    var tops = this.getTop(popover, target);
+    var lefts = this.getLeft(popover, target);
+    return Object.assign({}, tops, lefts);
   },
 
   ensureEdgePadding(pos, max, width) {
@@ -56,44 +77,89 @@ module.exports = Component({
   },
 
   getLeft(popover, target) {
-    var borderRadiusSize = 10; // todo: integrate with constants
-    var targetLeft = target.left - window.scrollX;
-    var targetCenter =  target.left + target.width / 2;
-    var popoverCenter = popover.clientWidth / 2;
-    var left = targetCenter - popoverCenter;
+    var targetCenter = target.left + target.width / 2;
+    var popoverHalfWidth = popover.clientWidth / 2;
+    var popoverLeft = targetCenter - popoverHalfWidth;
 
-    return {
-      arrowLeft: this.ensureEdgePadding(targetCenter - this.props.arrowSize / 2, window.innerWidth, this.props.arrowSize + borderRadiusSize),
-      popoverLeft: this.ensureEdgePadding(left, window.innerWidth, popover.clientWidth)
-    };
+    popoverLeft = this.ensureEdgePadding(popoverLeft, window.innerWidth, popover.clientWidth);
+
+    var arrowLeft = 0;
+    var arrowCenter = window.innerWidth - popoverHalfWidth;
+
+    // adjust arrow when close to edge
+    if (targetCenter < popoverHalfWidth)
+      arrowLeft = - popoverHalfWidth - targetCenter;
+    else if (targetCenter > arrowCenter)
+      arrowLeft = targetCenter - arrowCenter;
+
+    arrowLeft = this.ensureEdgePadding(arrowLeft, window.innerWidth, this.props.arrowSize / 2 + 10);
+
+    return { arrowLeft, popoverLeft };
   },
 
   getTop(popover, target) {
     var targetTop = target.top - window.scrollY;
     var targetCenter = target.top + target.height / 2;
-    var windowCenter = window.innerHeight / 2;
-    var arrowOnBottom = targetCenter > windowCenter;
+    var windowHalfWidth = window.innerHeight / 2;
+    var arrowOnBottom = targetCenter > windowHalfWidth;
     var top = arrowOnBottom ?
       targetTop - popover.clientHeight - this.props.arrowSize :
       targetTop + target.height + this.props.arrowSize;
 
-    // todo: get it working on the bottom side as well
-    // probably need to use css position from bottom which
-    // may need a little rethink of how this is done
-    var arrowTop = top;
+    var arrowTop = arrowOnBottom ?
+      popover.clientHeight :
+      - this.props.arrowSize;
 
-    return {
-      arrowTop: this.ensureEdgePadding(arrowTop, window.innerHeight, this.props.arrowSize),
-      popoverTop: this.ensureEdgePadding(top, window.innerHeight, popover.clientHeight)
-    };
+    // since its rotated 45deg, the real height is less 1/4 of set height
+    var arrowHeight = this.props.arrowSize - this.props.arrowSize / 4;
+    var arrowInnerTop = arrowHeight * (arrowOnBottom ? -1 : 1);
+    var popoverTop = this.ensureEdgePadding(top, window.innerHeight, popover.clientHeight);
+
+    return { arrowInnerTop, arrowTop, popoverTop };
   },
 
   handleClose(e) {
-    this.setState({ open: false });
     e.preventDefault();
+
+    if (!this.state.isClosing) {
+      this.setState({ isClosing: true });
+      this.tweenState('step', {
+        endValue: 2,
+        duration: this.props.animationDuration,
+        onEnd: this.afterClose.bind(this, e)
+      });
+    }
 
     if (this.props.handleClose)
       this.props.handleClose(e);
+  },
+
+  afterClose(e) {
+    setTimeout(() => {
+      if (this.props.handleClose)
+        this.props.handleClose(e);
+    });
+  },
+
+  addPositionStyles() {
+    this.addStyles('popover', {
+      top: this.state.popoverTop,
+      left: this.state.popoverLeft
+    });
+
+    this.addStyles('arrow', {
+      top: this.state.arrowTop,
+      marginLeft: this.state.arrowLeft - this.props.arrowSize / 2,
+      width: this.props.arrowSize,
+      height: this.props.arrowSize,
+      marginLeft: -(this.props.arrowSize / 2)
+    });
+
+    this.addStyles('arrowInner', {
+      top: this.state.arrowInnerTop,
+      width: this.props.arrowSize,
+      height: this.props.arrowSize
+    });
   },
 
   render() {
@@ -104,19 +170,17 @@ module.exports = Component({
       this.addStyles('open');
     }
 
-    this.addStyles('popover',
-      { top: this.state.popoverTop, left: this.state.popoverLeft });
-
-    this.addStyles('arrow',
-      { top: this.state.arrowTop, left: this.state.arrowLeft });
+    this.addPositionStyles();
 
     return (
-      <div {...this.componentProps()} {...props}
-        onClick={this.handleClose}>
-        <div {...this.componentProps('arrow')}>
-          <div {...this.componentProps('arrowInner')} />
-        </div>
+      <div {...this.componentProps()} {...props}>
+        <div {...this.componentProps('bg')}
+          onClick={this.handleClose}/>
+
         <div {...this.componentProps('popover')}>
+          <div {...this.componentProps('arrow')}>
+            <div {...this.componentProps('arrowInner')} />
+          </div>
           <ul {...this.componentProps('list')}>
             {React.Children.map(children, (li, i) => (
               <li key={i} styles={this.getStyles('item', i)}>
