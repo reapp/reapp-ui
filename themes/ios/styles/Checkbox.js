@@ -36,7 +36,7 @@ module.exports = {
     zIndex: 2,
     top: 2,
     left: 2,
-    boxShadow: '0 2px 5px rgba(0,0,0,.35)',
+    boxShadow: '0 2px 5px rgba(0,0,0,0.35)',
     transform: 'translateX(0px)',
     transitionDuration: '300ms'
   },

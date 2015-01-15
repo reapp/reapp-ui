@@ -3,7 +3,7 @@ var Component = require('../component');
 var Icon = require('./Icon');
 
 module.exports = Component({
-  name: 'TabItem',
+  name: 'BarItem',
 
   getDefaultProps() {
     return {

@@ -4,6 +4,12 @@
 // e.g. people may want to specify buttonColor not based on activeColor
 
 module.exports = (c) => ({
+  // Bar
+  barBG: c.brandBG,
+  barHeight: '49px',
+  barLineHeight: '49px',
+  barBorderColor: c.midGray,
+
   // Button
   buttonBorderColor: c.activeBG,
   buttonColor: c.activeBG,
@@ -29,12 +35,6 @@ module.exports = (c) => ({
 
   // SearchBar
   searchBarHeight: 44,
-
-  // Tabs
-  tabsBG: c.brandBG,
-  tabsHeight: '49px',
-  tabsLineHeight: '49px',
-  tabsBorderColor: c.midGray,
 
   // TitleBar
   titleBarHeight: 44,

@@ -3,7 +3,7 @@ var Component = require('../component');
 var clone = require('../lib/niceClone');
 
 module.exports = Component({
-  name: 'Tabs',
+  name: 'Bar',
 
   getDefaultProps() {
     return {
@@ -12,17 +12,25 @@ module.exports = Component({
   },
 
   render() {
-    var { children, type, active, ...props } = this.props;
+    var {
+      children,
+      type,
+      active,
+      position,
+      ...props } = this.props;
+
+    if (position)
+      this.addStyles(`position-${position}`);
 
     if (type)
-      this.addStyles(this.styles[type]);
+      this.addStyles(type);
 
     return (
       <ul {...this.componentProps()} {...props}>
         {clone(children, (child, i) => ({
           type,
           active: i === active,
-          key: i,
+          key: i
         }))}
       </ul>
     );

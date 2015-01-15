@@ -1,28 +1,30 @@
 module.exports = (c) => ({
   self: {
     background: c.bgLight,
+    boxShadow: '0 0 10px rbga(0,0,0,0.5)',
     position: 'fixed',
     width: '100%',
     height: '100%',
-    pointerEvents: 'all'
+    pointerEvents: 'all',
+    zIndex: 3 // todo: this can be better
   },
 
-  right: {
+  'type-right': {
     top: 0,
     left: 0
   },
 
-  left: {
+  'type-left': {
     top: 0,
     right: 0
   },
 
-  top: {
+  'type-top': {
     left: 0,
     bottom: 0
   },
 
-  bottom: {
+  'type-bottom': {
     left: 0,
     top: 0
   },

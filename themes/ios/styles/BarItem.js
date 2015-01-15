@@ -10,15 +10,11 @@ module.exports = (c) => ({
   },
 
   active: {
-    background: c.tabBG,
-    color: c.tabColor,
+    background: c.barBG,
+    color: c.barColor,
   },
 
-  'tab-icon': {
-    margin: 'auto'
-  },
-
-  'tab-icon-text': {},
+  'icon-text': {},
 
   'icon-text-text': {
     fontSize: '11px',
@@ -26,7 +22,7 @@ module.exports = (c) => ({
     height: 22
   },
 
-  'tab-icon-text-right': {
+  'icon-text-right': {
     flexFlow: 'row'
   },
 

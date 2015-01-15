@@ -6,6 +6,8 @@
 module.exports = {
   // components
   Badge: require('./components/Badge'),
+  Bar: require('./components/Bar'),
+  BarItem: require('./components/BarItem'),
   Button: require('./components/Button'),
   ButtonRow: require('./components/ButtonRow'),
   Card: require('./components/Card'),
@@ -27,8 +29,6 @@ module.exports = {
   Radio: require('./components/Radio'),
   SearchBar: require('./components/SearchBar'),
   Slider: require('./components/Slider'),
-  TabItem: require('./components/TabItem'),
-  Tabs: require('./components/Tabs'),
   Title: require('./components/Title'),
   TitleBar: require('./components/TitleBar'),
 

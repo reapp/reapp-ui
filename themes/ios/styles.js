@@ -3,6 +3,8 @@ var requirer = (name) => require('./styles/' + name);
 
 module.exports = makeStyles(requirer, [
   'Badge',
+  'Bar',
+  'BarItem',
   'Block',
   'Button',
   'ButtonGroup',
@@ -26,8 +28,6 @@ module.exports = makeStyles(requirer, [
   'Popover',
   'Radio',
   'SearchBar',
-  'TabItem',
-  'Tabs',
   'Title',
   'TitleBar',
   'View'

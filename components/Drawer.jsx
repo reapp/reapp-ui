@@ -155,22 +155,18 @@ module.exports = Component({
       ...props
     } = this.props;
 
-    if (type === 'top')
-      window.S = this.scroller
-
     props.translate = (
       translate || behavior[type].translate(this.state.offset)
     );
 
     this.addClass('closed', this.state.closed);
-    this.addStyles(this.props.type);
+    this.addStyles(`type-${this.props.type}`);
     this.addStyles('dragger', `${this.props.type}Dragger`);
 
-    var draggerOffset = {
-      // todo get const dragger width
+    // todo: use a constant for dragger width
+    this.addStyles('dragger', {
       [this.getOppositeType(type)]: this.state.closed ? -20 : 0
-    };
-    this.addStyles('dragger', draggerOffset);
+    });
 
     return (
       <AnimatableContainer {...this.componentProps()} {...props}>
