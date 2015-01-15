@@ -102,4 +102,9 @@ and are licensed under [Creative Commons 3.0](http://creativecommons.org/license
 include attribution "in any reasonable manner, but not in any way that suggests the licensor endorses you or your use".
 
 Help throughout was given in the #reactjs freenode channel, and from various great members
-of the react community including: andreypopp, ryanflorence, smach, and many more (whether they knew it or not).
+of the react community including:
+ - [Andrey Popp](https://github.com/andreypopp)
+ - [Ryan Florence](https://github.com/rpflorence)
+ - [Dan Abramov](http://github.com/gaearon)
+
+and many more.
