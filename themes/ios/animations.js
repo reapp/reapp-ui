@@ -19,59 +19,41 @@ var Animations = module.exports = {
     };
   },
 
-  viewSideBySide({ index, step, width }) {
-    return {
-      translate: { x: (index - step) * width }
-    };
-  },
+  viewSideBySide: ({ index, step, width }) => ({
+    translate: { x: (index - step) * width }
+  }),
 
-  fadeToLeft({ index, step, width }) {
-    return {
-      translate: { x: - (step - index) * (width/2.5) },
-      opacity: symmetrical(index, step)
-    };
-  },
+  fadeToLeft: ({ index, step, width }) => ({
+    translate: { x: - (step - index) * (width/2.5) },
+    opacity: symmetrical(index, step)
+  }),
 
-  down({ index, step }) {
-    return {
-      opacity: symmetrical(index, step),
-      height: symmetrical(index, step) * 100 + '%'
-    };
-  },
+  down: ({ index, step }) => ({
+    opacity: symmetrical(index, step),
+    height: symmetrical(index, step) * 100 + '%'
+  }),
 
-  moveToRight({ index, step, width }) {
-    return {
-      translate: { x: (step - index) * (width/2.5) }
-    };
-  },
+  moveToRight: ({ index, step, width }) => ({
+    translate: { x: (step - index) * (width/2.5) }
+  }),
 
-  card({ index, step }) {
-    return {
-      translate: { y: step * index + symmetrical(step) * 10 }
-    };
-  },
+  card: ({ index, step }) => ({
+    translate: { y: step * index + symmetrical(step) * 10 }
+  }),
 
-  fade({ index, step }) {
-    return {
-      opacity: symmetrical(index, step)
-    };
-  },
+  fade: ({ index, step }) => ({
+    opacity: symmetrical(index, step)
+  }),
 
-  fadeOnEnter({ index, step }) {
-    return {
-      opacity: symmetrical(index, step) / 2
-    };
-  },
+  fadeOnEnter: ({ index, step }) => ({
+    opacity: symmetrical(index, step) / 2
+  }),
 
-  scaleDown({ index, step }) {
-    return {
-      scale: scaleBetween(decreaseOnExit(index, step), 2, 0, 1.2, 0.8)
-    };
-  },
+  scaleDown: ({ index, step }) => ({
+    scale: scaleBetween(decreaseOnExit(index, step), 2, 0, 1.2, 0.8)
+  }),
 
-  rotate({ index, step }) {
-    return {
-      rotate: step * 360
-    };
-  }
+  rotate: ({ index, step }) => ({
+    rotate: step * 360
+  })
 };
