@@ -94,7 +94,7 @@ and from there, the Mixins that are used here make the foundation of the UI kit.
 
 ### Credits
 
-Original inspiration was thanks to [Pete Hunt]()'s [React Mobile Demo]().
+Original inspiration was thanks to [Pete Hunt](https://github.com/petehunt)'s [React Mobile Demo](http://petehunt.github.io/react-touch/).
 The [Framework7]() Kitchen Sink was used as reference when building the kitchen sink.
 
 SVG Icons included in this repo are originally from [flaticon](http://www.flaticon.com/packs/ios7-set-lined-1)
