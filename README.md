@@ -19,16 +19,43 @@ has settled out a bit into something more coherent.
 
 ### Principles
 
-- Keep the repo flat. Avoid nested directory structures.
-- Decouple components. Allow optimal selective usage of these components.
+- Aim for performance and consistency.
+- Keep the repo structure as flat as possible.
+- Decouple components. Allow selective usage of these components.
 
 ### Todo
 
 - More fully implement constants, and make more consistant
-- Move iOS theme to it's own repo
+- Move iOS theme to it's own repo, make Android theme
 - Automatically handle `-webkit` flex properties in styles
+- Components:
+  - Pull-to-refresh
+  - Slideable & Sortable ListItem actions
+  - Photo viewer
+  - Notifications & Alerts
 
 ### Structure
+
+```
+  /actions
+    Internal: for components to communicate
+  /assets
+    Icons, etc
+  /behaviors
+    (!) Used within components, can be passed in to override
+  /components
+    The UI components
+  /helpers
+    Components which don't map directly to user-viewable, helper components
+  /lib
+    Internally used functions
+  /mixins
+    All mixins (used internally and externally)
+  /stores
+    Internal: should be removable once parent-based contexts are implemented in React
+  /themes
+    Theme files users can require
+```
 
 #### index.js
 
@@ -62,6 +89,8 @@ component is a decorator that is used internally by reapp-ui to make components.
 was extracted out and is a nice set of mixins that allow the ui components to avoid
 reptitious code.
 
+This is an important file to look at before understanding how this library works,
+and from there, the Mixins that are used here make the foundation of the UI kit.
 
 ### Credits
 
