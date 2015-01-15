@@ -1,20 +1,27 @@
 var React = require('react');
 var Component = require('../component');
 
+/*
+ *  ### Badge
+ *  Small element usually used in lists to call out it's content.
+ *  Also useful for adding numbers for noticiations.
+ *
+ *  Usage:
+ *  ```
+ *    <Badge>1</Badge>
+ *  ```
+ */
+
 module.exports = Component({
   name: 'Badge',
 
-  propTypes: {
-    value: React.PropTypes.string
-  },
-
   render() {
-    var { children, value, ...props } = this.props;
+    var { children, ...props } = this.props;
 
     return (
       <div {...this.componentProps()} {...props}>
         <span {...this.componentProps('text')}>
-          {value || children}
+          {children}
         </span>
       </div>
     );

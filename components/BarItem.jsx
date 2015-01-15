@@ -7,23 +7,30 @@ module.exports = Component({
 
   getDefaultProps() {
     return {
-      type: 'text'
+      display: 'text'
     };
   },
 
   makeSection(name, content) {
     return content && (
-      <span {...this.componentProps(`${this.props.type}-${name}`)}>
+      <span {...this.componentProps(`${this.props.display}-${name}`)}>
         {content}
       </span>
     );
   },
 
   render() {
-    var { icon, text, children, type, iconProps, active, ...props } = this.props;
+    var {
+      icon,
+      text,
+      children,
+      display,
+      iconProps,
+      active,
+      ...props } = this.props;
 
-    // todo: verify proper types
-    this.addStyles(this.styles['tab-' + type]);
+    // todo: verify proper displays
+    this.addStyles(this.styles['tab-' + display]);
 
     if (active)
       this.addStyles('active');
@@ -34,7 +41,7 @@ module.exports = Component({
     if (typeof icon === 'string')
       icon = (
         <Icon
-          size={(type === 'icon-text-right') ? 24 : 32}
+          size={(display === 'icon-text-right') ? 24 : 32}
           name={icon}
           styles={this.styles.icon}
           svgProps={{style: { margin: 'auto' }}}
