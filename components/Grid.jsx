@@ -23,23 +23,6 @@ var Container = Component({
   }
 });
 
-var Break = Component({
-  name: 'Break',
-
-  propTypes: {
-    width: React.PropTypes.string,
-    height: React.PropTypes.string
-  },
-
-  render() {
-    return React.Children.map(this.props.children, child => {
-      return React.addons.cloneWithProps(child, {
-        // todo
-      });
-    });
-  }
-});
-
 var Block = Component({
   name: 'Block',
 
