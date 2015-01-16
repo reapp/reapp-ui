@@ -25,14 +25,22 @@ has settled out a bit into something more coherent.
 
 ### Todo
 
-- More fully implement constants, and make more consistant
+See TODO.md for more high level stuff.
+
+- More fully implement constants use in styles, make more consistant
 - Move iOS theme to it's own repo, make Android theme
-- Automatically handle `-webkit` flex properties in styles
+
 - Components:
+  - Alerts
+  - Form elments: Slider
+  - Map
+  - Popover that slides up from bottom
+  - Photo viewer
+
+- Actions
+  - Notifications
   - Pull-to-refresh
   - Slideable & Sortable ListItem actions
-  - Photo viewer
-  - Notifications & Alerts
 
 ### Structure
 

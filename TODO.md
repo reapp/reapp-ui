@@ -2,18 +2,16 @@ Compilation of things this repo needs, as I run across them.
 
 ### General
 
+- Testing... Until now things have been moving quickly and changing, but this is a must.
+
+- Cordova/Crosswalk API integration
+
 - Constant Overriding. See Buttons example in Kitchen Sink. You may want to
 just override the constants in a certain component. Say, you want a ButtonGroup
 that is green, but the rest of your ButtonGroups stay with your theme. This is
 a case where you'd want to pass in something like
 `{ constants: { activeColor: XXX } }`. Though, because styles are compiled
 with passed in constants once at init time, we'd have to recompute in this case.
-
-- Testing. Need desperately to find a testing strategy and begin testing.
-Until now things have been moving quickly and changing so much I've avoided,
-but for 1.0 this is a must.
-
-- PropTypes. These are still missing in some components.
 
 - Modularity. Need to be sure to avoid requiring the index.js to load everything
 Good example is animations, right now they can only be loaded through
