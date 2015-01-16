@@ -149,7 +149,6 @@ module.exports = Component({
 
     this.addStyles('arrow', {
       top: this.state.arrowTop,
-      marginLeft: this.state.arrowLeft - this.props.arrowSize / 2,
       width: this.props.arrowSize,
       height: this.props.arrowSize,
       marginLeft: -(this.props.arrowSize / 2)
