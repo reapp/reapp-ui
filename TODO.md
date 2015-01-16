@@ -21,3 +21,9 @@ just looking on the component itself.
 
 - Get react-document-title working again, View's should be able to set it properly
 if their step === index when inside a ViewList.
+
+- Dead code elimination via webpack? Closure compiler? Right now it's a bit verbose
+to require lots of ui components, each one you must do require('reapp-ui/component/${name}').
+In `./all.js` I've exported all the components (which is also a bit tedous). A win-win
+would be way for people to just require('reapp-ui') and destructure any component, but have
+the build system automatically remove any non-used components.
