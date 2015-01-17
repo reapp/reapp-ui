@@ -19,7 +19,10 @@ module.exports = Component({
   },
 
   render() {
-    var { children, title, animation, index, step, ...props } = this.props;
+    var {
+      children,
+      title,
+      ...props } = this.props;
 
     return (
       <div {...this.componentProps()} {...props}>

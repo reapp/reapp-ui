@@ -2,7 +2,7 @@ module.exports = (c) => ({
   self: {
     flexGrow: 1,
     flexShrink: 0,
-    color: '#444'
+    color: c.barColor
   },
 
   icon: {
@@ -11,7 +11,7 @@ module.exports = (c) => ({
 
   active: {
     background: c.barBG,
-    color: c.barColor,
+    color: c.barColorActive,
   },
 
   'icon-text': {},

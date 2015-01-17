@@ -6,6 +6,7 @@ module.exports = {
 
   brandBG: '#f7f7f8',
   brandColor: '#c8c7cc',
+  brandColorInactive: '#dcdbe2',
 
   activeBG: '#307cff'
 };

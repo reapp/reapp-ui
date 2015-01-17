@@ -6,6 +6,8 @@
 module.exports = (c) => ({
   // Bar
   barBG: c.brandBG,
+  barColor: c.brandColorInactive,
+  barColorActive: c.brandColor,
   barHeight: '49px',
   barLineHeight: '49px',
   barBorderColor: c.midGray,
