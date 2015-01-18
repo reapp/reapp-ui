@@ -6,6 +6,17 @@ var Animated = require('../mixins/Animated');
 module.exports = Component({
   name: 'Icon',
 
+  propTypes: {
+    size: React.PropTypes.number,
+    path: React.PropTypes.string,
+    name: React.PropTypes.string,
+    color: React.PropTypes.string,
+    stroke: React.PropTypes.number,
+    isInTitleBar: React.PropTypes.bool,
+    shapeRendering: React.PropTypes.string,
+    svgProps: React.PropTypes.object
+  },
+
   getDefaultProps() {
     return {
       size: 32,

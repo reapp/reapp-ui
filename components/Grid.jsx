@@ -4,6 +4,10 @@ var Component = require('../component');
 var Container = Component({
   name: 'Container',
 
+  propTypes: {
+    pad: React.PropTypes.number
+  },
+
   getDefaultProps() {
     return { pad: false };
   },
@@ -26,6 +30,11 @@ var Container = Component({
 var Block = Component({
   name: 'Block',
 
+  propTypes: {
+    width: React.PropTypes.number,
+    pad: React.PropTypes.number
+  },
+
   getDefaultProps() {
     return { pad: false };
   },
@@ -46,7 +55,9 @@ var Block = Component({
   render() {
     var { width, pad, children, ...props } = this.props;
 
-    if (pad) this.addStyles(this.styles.padded);
+    if (pad)
+      this.addStyles('padded');
+
     this.addStyles(this.getWidthStyle(width));
 
     return (
