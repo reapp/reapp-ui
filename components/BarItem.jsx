@@ -5,6 +5,19 @@ var Icon = require('./Icon');
 module.exports = Component({
   name: 'BarItem',
 
+  propTypes: {
+    icon: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.element
+    ]),
+    iconProps: React.PropTypes.object,
+    children: React.PropTypes.string,
+    display: React.PropTypes.oneOf([
+      'text', 'icon', 'icon-text', 'icon-text-right'
+    ]),
+    active: React.PropTypes.bool
+  },
+
   getDefaultProps() {
     return {
       display: 'text'
@@ -22,28 +35,23 @@ module.exports = Component({
   render() {
     var {
       icon,
-      text,
       children,
       display,
       iconProps,
       active,
       ...props } = this.props;
 
-    // todo: verify proper displays
-    this.addStyles(this.styles['tab-' + display]);
+    this.addStyles(`display-${display}`);
 
     if (active)
       this.addStyles('active');
-
-    if (!text && children)
-      text = children;
 
     if (typeof icon === 'string')
       icon = (
         <Icon
           size={(display === 'icon-text-right') ? 24 : 32}
           name={icon}
-          styles={this.styles.icon}
+          styles={this.getStyles('icon')}
           svgProps={{style: { margin: 'auto' }}}
           {...iconProps} />
       );
@@ -51,7 +59,7 @@ module.exports = Component({
     return (
       <li {...this.componentProps()} {...props}>
         {this.makeSection('icon', icon)}
-        {this.makeSection('text', text)}
+        {this.makeSection('text', children)}
       </li>
     );
   }
