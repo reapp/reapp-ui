@@ -2,8 +2,6 @@ var React = require('react');
 var Component = require('../component');
 var TitleBar = require('../components/TitleBar');
 var StaticContainer = require('../helpers/StaticContainer');
-var Animator = require('../mixins/Animator');
-var Animated = require('../mixins/Animated');
 var ScrollTopable = require('../mixins/ScrollTopable');
 var AnimatedScrollToTop = require('../mixins/AnimatedScrollToTop');
 
