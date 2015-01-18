@@ -14,21 +14,23 @@ module.exports = (c) => ({
     color: c.barColorActive,
   },
 
-  'display-text': {
+  'icon-text': {},
+
+  'icon-text__text': {
     fontSize: '11px',
     lineHeight: '11px',
     height: 22
   },
 
-  'display-icon': {
+  'icon-text-right': {
     flexFlow: 'row'
   },
 
-  'display-icon-text': {
+  'icon-text-right__icon': {
     margin: '0 4px 0 0'
   },
 
-  'display-icon-text-right': {
+  'icon-text-right__text': {
     fontSize: '12px'
   }
 });

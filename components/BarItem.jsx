@@ -25,8 +25,9 @@ module.exports = Component({
   },
 
   makeSection(name, content) {
+    console.log(this.props.display);
     return content && (
-      <span {...this.componentProps(`${this.props.display}-${name}`)}>
+      <span {...this.componentProps(`${this.props.display}__${name}`)}>
         {content}
       </span>
     );
@@ -41,7 +42,7 @@ module.exports = Component({
       active,
       ...props } = this.props;
 
-    this.addStyles(`display-${display}`);
+    this.addStyles(display);
 
     if (active)
       this.addStyles('active');
@@ -49,6 +50,7 @@ module.exports = Component({
     if (typeof icon === 'string')
       icon = (
         <Icon
+          color={this.getConstant(active ? 'barColorActive' : 'barColor')}
           size={(display === 'icon-text-right') ? 24 : 32}
           name={icon}
           styles={this.getStyles('icon')}

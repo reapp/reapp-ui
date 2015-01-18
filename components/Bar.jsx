@@ -15,6 +15,7 @@ module.exports = Component({
 
   render() {
     var {
+      display,
       children,
       barItemProps,
       activeIndex,
@@ -28,7 +29,11 @@ module.exports = Component({
     return (
       <ul {...this.componentProps()} {...props}>
         {React.Children.map(children, (child, i) => {
-          var childProps = { active: i === activeIndex, key: i };
+          var childProps = {
+            display,
+            active: i === activeIndex,
+            key: i
+          };
 
           if (nowrap || child.type && child.type.isBarItem)
             return clone(child, childProps);
