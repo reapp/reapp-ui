@@ -25,7 +25,6 @@ module.exports = Component({
   },
 
   makeSection(name, content) {
-    console.log(this.props.display);
     return content && (
       <span {...this.componentProps(`${this.props.display}__${name}`)}>
         {content}
