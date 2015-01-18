@@ -1,13 +1,22 @@
 var React = require('react/addons');
-var Union = require('lodash-node/modern/arrays/union');
-var DocumentTitle = require('react-document-title');
 var Component = require('../component');
+var DocumentTitle = require('react-document-title');
 var MultiTappable = require('../mixins/MultiTappable');
-var AnimatableContainer = require('../helpers/AnimatableContainer');
-var Animated = require('../mixins/Animated');
 
 module.exports = Component({
   name: 'TitleBar',
+
+  propTypes: {
+    width: React.PropTypes.number,
+    height: React.PropTypes.number,
+    animations: React.PropTypes.object,
+
+    // either this, with children node
+    left: React.PropTypes.node,
+    right: React.PropTypes.node,
+
+    transparent: React.PropTypes.bool
+  },
 
   mixins: [
     MultiTappable
@@ -57,7 +66,14 @@ module.exports = Component({
   },
 
   render() {
-    var { left, right, children, height, transparent, ...props } = this.props;
+    var {
+      left,
+      right,
+      children,
+      height,
+      transparent,
+      ...props } = this.props;
+
     var l, m, r;
 
     // allow shorthand array entry
@@ -73,7 +89,7 @@ module.exports = Component({
     }
 
     if (transparent)
-      this.addStyles(this.styles.transparent);
+      this.addStyles('transparent');
 
     if (height)
       this.addStyles({ height });
@@ -87,6 +103,7 @@ module.exports = Component({
           {this.addTitleBarProps(l)}
         </div>
         <div {...this.componentProps('mid')}>
+          <DocumentTitle title={m} />
           {m}
         </div>
         <div {...this.componentProps('right')}>

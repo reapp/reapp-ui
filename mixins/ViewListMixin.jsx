@@ -303,7 +303,7 @@ module.exports = {
     return (
       <TouchableArea {...touchableAreaProps} {...extraProps}>
         {!this.props.noFakeTitleBar && (
-          <TitleBar {...this.props.titleBarProps} animations={false} />
+          <TitleBar {...this.props.titleBarProps} animations={{}} />
         )}
 
         {this.props.before}

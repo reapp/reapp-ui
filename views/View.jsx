@@ -10,6 +10,18 @@ var AnimatedScrollToTop = require('../mixins/AnimatedScrollToTop');
 module.exports = Component({
   name: 'View',
 
+  propTypes: {
+    children: React.PropTypes.node,
+    title: React.PropTypes.node,
+    index: React.PropTypes.number,
+    width: React.PropTypes.number,
+    height: React.PropTypes.number,
+    animations: React.PropTypes.object,
+    containerProps: React.PropTypes.object,
+    titleBarProps: React.PropTypes.object,
+    overlayProps: React.PropTypes.object
+  },
+
   mixins: [
     ScrollTopable,
     AnimatedScrollToTop
