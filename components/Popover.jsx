@@ -135,10 +135,8 @@ module.exports = Component({
   },
 
   afterClose(e) {
-    setTimeout(() => {
-      if (this.props.handleClose)
-        this.props.handleClose(e);
-    });
+    if (this.props.handleClose)
+      this.props.handleClose(e);
   },
 
   addPositionStyles() {
