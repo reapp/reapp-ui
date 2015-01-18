@@ -151,7 +151,7 @@ module.exports = Component({
       top: this.state.arrowTop,
       width: this.props.arrowSize,
       height: this.props.arrowSize,
-      marginLeft: -(this.props.arrowSize / 2)
+      marginLeft: -(this.props.arrowSize / 2) + this.state.arrowLeft
     });
 
     this.addStyles('arrowInner', {
