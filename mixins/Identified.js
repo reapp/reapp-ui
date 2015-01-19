@@ -1,5 +1,5 @@
 var i = 0;
-var uniqueID = () => i++ % 1000000;
+var uniqueID = () => i++ % Number.MAX_VALUE;
 
 module.exports = {
   componentWillMount() {

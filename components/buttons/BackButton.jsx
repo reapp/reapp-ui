@@ -1,11 +1,9 @@
 var React = require('react');
+var Component = require('../../component');
 var Button = require('../Button');
 
-module.exports = React.createClass({
-  // because were shimming a button
-  statics: {
-    isButton: true
-  },
+module.exports = Component({
+  name: 'Button',
 
   render() {
     var iconProps = Object.assign({
@@ -23,6 +21,7 @@ module.exports = React.createClass({
       <Button
         {...this.props}
         iconProps={iconProps}
+        styles={{self: { color: this.getConstant('brandColor') }}}
         chromeless>
         {this.props.children || 'Back'}
       </Button>

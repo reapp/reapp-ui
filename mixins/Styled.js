@@ -1,4 +1,3 @@
-var UI = require('../index');
 var ReactStyle = require('react-style');
 
 // Styled helps components with styling
@@ -13,7 +12,7 @@ var ReactStyle = require('react-style');
 //   3. propStyles: styles passed in with props
 //   4. conditionalStyles: firstChild, lastChild, (TODO: @media styles)
 
-module.exports = function(name) {
+module.exports = function(name, getStyles) {
   return {
     componentWillUpdate(nextProps) {
       this.setupStyles(nextProps);
@@ -21,7 +20,7 @@ module.exports = function(name) {
 
     componentWillMount() {
       this.setupStyles(this.props);
-      this.styles = UI.getStyles(name) || {};
+      this.styles = getStyles(name) || {};
     },
 
     setupStyles(props) {
@@ -32,10 +31,6 @@ module.exports = function(name) {
         this.propStyles = props.styles;
         delete props.styles; // bad, i know
       }
-    },
-
-    getConstant(name) {
-      return UI.getConstants(name);
     },
 
     getPropStyles(ref) {
@@ -189,7 +184,7 @@ module.exports = function(name) {
     getStylesForComponent(componentName, ref) {
       if (!ref) ref = 'self';
 
-      return UI.getStyles(componentName)
+      return getStyles(componentName)
         .map(styles => styles.style[ref])
         .filter(x => typeof x !== 'undefined');
     },

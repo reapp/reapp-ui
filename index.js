@@ -22,7 +22,7 @@ var Invariant = require('react/lib/invariant');
 // functions that take in (index, step, props).
 
 
-module.exports = {
+var UI = module.exports = {
   styles: {},
   animations: {},
   constants: {},
@@ -32,9 +32,9 @@ module.exports = {
     constants.forEach(constant => {
       // allow functions, we pass in current constants
       if (typeof constant === 'function')
-        constant = constant(this.constants);
+        constant = constant(UI.constants);
 
-      Object.assign(this.constants, constant);
+      Object.assign(UI.constants, constant);
     });
   },
 
@@ -42,7 +42,7 @@ module.exports = {
   addAnimations(...animations) {
     animations.forEach(animation => {
       Object.keys(animation).forEach(key => {
-        this.animations[key] = animation[key];
+        UI.animations[key] = animation[key];
       });
     });
   },
@@ -60,7 +60,7 @@ module.exports = {
         'Cannot define include and exclude');
 
       // include or exclude certain styles
-      this._addStyles(requireFunc,
+      UI._addStyles(requireFunc,
         include && include.length ?
           styleKeys.filter(x => include.indexOf(x) !== -1) :
           exclude && exclude.length ?
@@ -76,12 +76,12 @@ module.exports = {
     styles.forEach(key => {
       var style = requireFunc(key);
       if (typeof style === 'function')
-        style = style(this.constants);
+        style = style(UI.constants);
 
       // make into ReactStyle
       Object.keys(style).forEach(styleKey => {
-        this.styles[key] = (this.styles[key] || {});
-        this.styles[key][styleKey] = (this.styles[key][styleKey] || [])
+        UI.styles[key] = (UI.styles[key] || {});
+        UI.styles[key][styleKey] = (UI.styles[key][styleKey] || [])
           .concat(ReactStyle(style[styleKey]));
       });
     });
@@ -103,14 +103,14 @@ module.exports = {
   // getters
 
   getStyles(name) {
-    return name ? this.styles[name] : this.styles;
+    return name ? UI.styles[name] : UI.styles;
   },
 
   getConstants(name) {
-    return name ? this.constants[name] : this.constants;
+    return name ? UI.constants[name] : UI.constants;
   },
 
   getAnimations(name) {
-    return name ? this.animations[name] : this.animations;
+    return name ? UI.animations[name] : UI.animations;
   }
 };
