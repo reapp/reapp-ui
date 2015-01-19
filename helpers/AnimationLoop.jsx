@@ -2,6 +2,10 @@ var React = require('react');
 var Component = require('../component');
 var TweenState = require('react-tween-state');
 
+// Animate your components in repeating loops,
+// you pass in an 'animation' name, and then just set active={true}
+// and it will loop for 'duration'
+
 module.exports = Component({
   name: 'AnimationLoop',
 

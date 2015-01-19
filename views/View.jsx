@@ -9,7 +9,6 @@ module.exports = Component({
   name: 'View',
 
   propTypes: {
-    children: React.PropTypes.node,
     title: React.PropTypes.node,
     index: React.PropTypes.number,
     width: React.PropTypes.number,
