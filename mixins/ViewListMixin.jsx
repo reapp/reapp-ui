@@ -313,7 +313,7 @@ module.exports = {
 
         {clone(this.state.children, (child, i) => {
           if (i === this.state.step)
-            activeTitle = child.props.title;
+            activeTitle = child.props && child.props.title;
 
           return {
             key: i,
