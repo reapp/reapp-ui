@@ -1,6 +1,5 @@
 var React = require('react/addons');
 var Component = require('../component');
-var DocumentTitle = require('react-document-title');
 var MultiTappable = require('../mixins/MultiTappable');
 
 module.exports = Component({
@@ -103,7 +102,6 @@ module.exports = Component({
           {this.addTitleBarProps(l)}
         </div>
         <div {...this.componentProps('mid')}>
-          <DocumentTitle title={m} />
           {m}
         </div>
         <div {...this.componentProps('right')}>

@@ -1,5 +1,6 @@
 var React = require('react/addons');
 var { Scroller } = require('scroller');
+var DocumentTitle = require('react-document-title');
 var Component = require('../component');
 var TitleBar = require('../components/TitleBar');
 var TouchableArea = require('../helpers/TouchableArea');
@@ -300,6 +301,8 @@ module.exports = {
       }
     );
 
+    var activeTitle;
+
     return (
       <TouchableArea {...touchableAreaProps} {...extraProps}>
         {!this.props.noFakeTitleBar && (
@@ -309,6 +312,9 @@ module.exports = {
         {this.props.before}
 
         {clone(this.state.children, (child, i) => {
+          if (i === this.state.step)
+            activeTitle = child.props.title;
+
           return {
             key: i,
             index: i,
@@ -320,6 +326,11 @@ module.exports = {
             viewListScrollToStep: this.scrollToStep
           };
         }, true)}
+
+        {activeTitle &&
+          <DocumentTitle title={Array.isArray(activeTitle) ?
+            activeTitle[1] :
+            activeTitle} />}
 
         {this.props.after}
       </TouchableArea>
