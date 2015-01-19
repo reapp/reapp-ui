@@ -1,7 +1,10 @@
 var React = require('react');
+var Component = require('../../component');
 var Button = require('../Button');
 
-module.exports = React.createClass({
+module.exports = Component({
+  name: 'Button',
+
   goBack() {
     if (typeof window !== 'undefined')
       window.history.back();
