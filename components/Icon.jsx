@@ -42,7 +42,10 @@ module.exports = Component({
     if (props.isInTitleBar) {
       this.animationSources = { self: 'viewList' };
       this.setState({
-        animations: Object.assign(this.props.titleBarAnimations, props.animations)
+        animations: Object.assign(
+          this.props.titleBarAnimations,
+          props.animations
+        )
       });
     }
   },
