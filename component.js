@@ -4,7 +4,7 @@
 
 // See the mixins for more information on what this does.
 
-var UI = require('./index');
+var UI = require('reapp-ui');
 var Component = require('reapp-component')();
 var React = require('react');
 var Identified = require('./mixins/Identified');

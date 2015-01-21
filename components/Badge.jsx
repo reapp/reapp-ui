@@ -1,15 +1,16 @@
 var React = require('react');
 var Component = require('../component');
 
-/*
- *  ### Badge
- *  Small element usually used in lists to call out it's content.
- *  Also useful for adding numbers for noticiations.
- *
- *  Usage:
- *  ```
- *    <Badge>1</Badge>
- *  ```
+/*  @docs
+
+ ## Badge
+ Notification icon with text/numbers. Usually used in lists or bars.
+
+ Usage:
+ ```
+   <Badge>1</Badge>
+ ```
+
  */
 
 module.exports = Component({
