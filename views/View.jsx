@@ -84,14 +84,13 @@ module.exports = Component({
       containerProps,
       titleBarProps,
       overlayProps,
+      viewList,
       ...props
     } = this.props;
 
     // add double tap event
-    if (!titleBarProps)
-      titleBarProps = { onDoubleTap: this.handleDoubleTap };
-    else if (!titleBarProps.onDoubleTap)
-      titleBarProps.onDoubleTap = this.handleDoubleTap;
+    titleBarProps = titleBarProps || {};
+    titleBarProps.onDoubleTap = titleBarProps.onDoubleTap || this.handleDoubleTap;
 
     var viewListStep = this.getAnimationState('viewList').step;
 
@@ -114,7 +113,7 @@ module.exports = Component({
           <TitleBar {...titleBarProps}>{title}</TitleBar>
         )}
         <div {...this.componentProps('inner')} {...props}>
-          <StaticContainer shouldUpdate={!this.props.animations || viewListStep % 1 === 0}>
+          <StaticContainer shouldUpdate={!animations || viewListStep % 1 === 0}>
             {children}
           </StaticContainer>
         </div>

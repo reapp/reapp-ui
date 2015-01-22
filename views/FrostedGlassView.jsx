@@ -1,11 +1,15 @@
 var React = require('react');
 var TouchableArea = require('../helpers/TouchableArea');
 
+// Adapted from the react-touch library
+
 var FrostedGlassView = React.createClass({
   displayName: 'FrostedGlassView',
 
   getDefaultProps: function() {
-    return {glassStyle: {}};
+    return {
+      glassStyle: {}
+    };
   },
 
   render: function() {
@@ -30,8 +34,6 @@ var FrostedGlassView = React.createClass({
 
     var glassStyle = glassStyle || {};
     glassStyle.position = 'absolute';
-    // TODO: this won't animate well. Not sure if compositing will
-    // make things better or worse...
     glassStyle.left = -left;
     glassStyle.top = -top;
 

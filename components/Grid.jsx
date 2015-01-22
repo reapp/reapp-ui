@@ -5,7 +5,7 @@ var Container = Component({
   name: 'Container',
 
   propTypes: {
-    pad: React.PropTypes.number
+    pad: React.PropTypes.bool
   },
 
   getDefaultProps() {
@@ -32,7 +32,7 @@ var Block = Component({
 
   propTypes: {
     width: React.PropTypes.number,
-    pad: React.PropTypes.number
+    pad: React.PropTypes.bool
   },
 
   getDefaultProps() {

@@ -56,7 +56,9 @@ module.exports = Component({
     if (!component || !React.isValidElement(component))
       return component;
 
-    return React.addons.cloneWithProps(component, { isInTitleBar: true  });
+    return React.addons.cloneWithProps(component, {
+      isInTitleBar: true
+    });
   },
 
   handleDoubleTap() {
