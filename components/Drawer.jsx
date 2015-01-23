@@ -6,38 +6,35 @@ var AnimatableContainer = require('../helpers/AnimatableContainer');
 var StaticContainer = require('../helpers/StaticContainer');
 var DrawerBehavior = require('../behaviors/DrawerBehavior');
 
-// TODO:
-// better handle this whole thing, needs some sort of state thing
-// better than just Behavior, for handling various behaviors
-// just need to sit down and draw this one out a bit more
-
-// look at using animation mixins like viewlists
-
 module.exports = Component({
   name: 'Drawer',
+
+  propTypes: {
+    behavior: React.PropTypes.object,
+    from: React.PropTypes.oneOf([
+      'left', 'right', 'top', 'bottom'
+    ]),
+    closed: React.PropTypes.bool,
+    touchableProps: React.PropTypes.object,
+    onClose: React.PropTypes.func
+  },
 
   getDefaultProps() {
     return {
       behavior: DrawerBehavior,
-      type: 'left',
-      parents: null,
-      closed: false,
-      shouldUpdate: true
+      from: 'left',
+      closed: false
     };
   },
 
   getInitialState() {
     return {
-      externalScroller: !!this.props.scroller,
       offset: 0,
       closed: this.props.closed
     };
   },
 
   componentWillMount() {
-    if (this.state.externalScroller)
-      return;
-
     this.scroller = new Scroller(this.handleScroll, {
       bouncing: false,
       scrollingX: this.isSideDrawer(),
@@ -70,9 +67,6 @@ module.exports = Component({
   },
 
   measureScroller() {
-    if (this.state.externalScroller)
-      return;
-
     var width = this.getWidth();
     var height = this.getHeight();
     var totalWidth = width;
@@ -106,7 +100,7 @@ module.exports = Component({
   },
 
   isSideDrawer() {
-    return ['left', 'right'].filter(x => x === this.props.type).length;
+    return ['left', 'right'].filter(x => x === this.props.from).length;
   },
 
   isClosed() {
@@ -118,7 +112,7 @@ module.exports = Component({
   handleScroll(left, top) {
     var offset, transform;
 
-    switch(this.props.type){
+    switch(this.props.from){
       case 'left':
       case 'right':
         offset = left;
@@ -139,42 +133,39 @@ module.exports = Component({
       this.props.onClose();
   },
 
-  getOppositeType(type) {
+  getOppositeSide(from) {
     return { left: 'right', right: 'left', top: 'bottom', bottom: 'top' };
   },
 
   render() {
     var {
-      translate,
-      type,
+      from,
       behavior,
-      scroller,
       touchableProps,
       children,
-      shouldUpdate,
       ...props
     } = this.props;
 
-    props.translate = (
-      translate || behavior[type].translate(this.state.offset)
-    );
+    var animatedProps = {
+      translate: behavior[from].translate(this.state.offset)
+    };
 
     this.addClass('closed', this.state.closed);
-    this.addStyles(`type-${this.props.type}`);
-    this.addStyles('dragger', `${this.props.type}Dragger`);
+    this.addStyles(`from-${this.props.from}`);
+    this.addStyles('dragger', `${this.props.from}Dragger`);
 
     // todo: use a constant for dragger width
     this.addStyles('dragger', {
-      [this.getOppositeType(type)]: this.state.closed ? -20 : 0
+      [this.getOppositeSide(from)]: this.state.closed ? -20 : 0
     });
 
     return (
-      <AnimatableContainer {...this.componentProps()} {...props}>
+      <AnimatableContainer {...this.componentProps()} {...animatedProps}>
         <TouchableArea
           {...this.componentProps('dragger')}
           {...touchableProps}
-          scroller={scroller || this.scroller} />
-        <StaticContainer shouldUpdate={shouldUpdate}>
+          scroller={this.scroller} />
+        <StaticContainer shouldUpdate={this.getAnimationState('step') % 0 === 1}>
           {children}
         </StaticContainer>
       </AnimatableContainer>

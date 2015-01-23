@@ -16,6 +16,10 @@ var Component = require('../component');
 module.exports = Component({
   name: 'Badge',
 
+  propTypes: {
+    children: React.PropTypes.node
+  },
+
   render() {
     var { children, ...props } = this.props;
 

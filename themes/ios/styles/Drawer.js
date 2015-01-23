@@ -9,22 +9,22 @@ module.exports = (c) => ({
     zIndex: 3 // todo: this can be better
   },
 
-  'type-right': {
+  'from-right': {
     top: 0,
     left: 0
   },
 
-  'type-left': {
+  'from-left': {
     top: 0,
     right: 0
   },
 
-  'type-top': {
+  'from-top': {
     left: 0,
     bottom: 0
   },
 
-  'type-bottom': {
+  'from-bottom': {
     left: 0,
     top: 0
   },

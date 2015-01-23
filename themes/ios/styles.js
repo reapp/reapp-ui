@@ -15,7 +15,6 @@ module.exports = makeStyles(requirer, [
   'DottedViewList',
   'Dots',
   'Drawer',
-  'Form',
   'Input',
   'Label',
   'LayoutLeftNav',
