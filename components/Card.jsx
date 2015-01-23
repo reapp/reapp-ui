@@ -4,6 +4,11 @@ var Component = require('../component');
 module.exports = Component({
   name: 'Card',
 
+  propTypes: {
+    title: React.PropTypes.string,
+    children: React.PropTypes.node
+  },
+
   getDefaultProps() {
     return {
       animation: 'card'

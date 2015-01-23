@@ -4,6 +4,11 @@ var Component = require('../component');
 module.exports = Component({
   name: 'Checkbox',
 
+  propTypes: {
+    onChange: React.PropTypes.func,
+    checked: React.PropTypes.bool
+  },
+
   statics: {
     liNoPad: true
   },
