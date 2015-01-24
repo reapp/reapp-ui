@@ -31,11 +31,15 @@ module.exports = Component({
   getInitialState() {
     return {
       offset: 0,
-      closed: this.props.closed
+      closed: this.props.closed,
+      externalScroller: !!this.props.scroller
     };
   },
 
   componentWillMount() {
+    if (this.state.externalScroller)
+      return;
+
     this.scroller = new Scroller(this.handleScroll, {
       bouncing: false,
       scrollingX: this.isSideDrawer(),
@@ -68,6 +72,9 @@ module.exports = Component({
   },
 
   measureScroller() {
+    if (this.state.externalScroller)
+      return;
+
     var width = this.getWidth();
     var height = this.getHeight();
     var totalWidth = width;
@@ -145,6 +152,7 @@ module.exports = Component({
       translate,
       touchableProps,
       children,
+      scroller,
       ...props
     } = this.props;
 
@@ -166,8 +174,8 @@ module.exports = Component({
         <TouchableArea
           {...this.componentProps('dragger')}
           {...touchableProps}
-          scroller={this.scroller} />
-        <StaticContainer shouldUpdate={true}>
+          scroller={scroller || this.scroller} />
+        <StaticContainer shouldUpdate={this.state.offset === 0}>
           {children}
         </StaticContainer>
       </AnimatableContainer>

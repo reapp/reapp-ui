@@ -80,8 +80,7 @@ module.exports = Component({
       layer: 1,
       translate: DrawerBehavior.right.translate(this.state.scrollX),
       scroller: this.scroller,
-      onTouchTap: this._handleContentTouchTap,
-      shouldUpdate: !this._isAnimating()
+      onTouchTap: this._handleContentTouchTap
     };
 
     var touchableHandle = (
