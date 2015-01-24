@@ -11,6 +11,7 @@ module.exports = Component({
 
   propTypes: {
     behavior: React.PropTypes.object,
+    translate: React.PropTypes.object,
     from: React.PropTypes.oneOf([
       'left', 'right', 'top', 'bottom'
     ]),
@@ -141,14 +142,15 @@ module.exports = Component({
     var {
       from,
       behavior,
+      translate,
       touchableProps,
       children,
       ...props
     } = this.props;
 
-    var animatedProps = {
-      translate: behavior[from].translate(this.state.offset)
-    };
+    var animatedProps = Object.assign({}, {
+      translate: translate || behavior[from].translate(this.state.offset)
+    }, this.props.animatedProps);
 
     this.addClass('closed', this.state.closed);
     this.addStyles(`from-${this.props.from}`);
@@ -165,7 +167,7 @@ module.exports = Component({
           {...this.componentProps('dragger')}
           {...touchableProps}
           scroller={this.scroller} />
-        <StaticContainer shouldUpdate={this.getAnimationState('step') % 0 === 1}>
+        <StaticContainer shouldUpdate={true}>
           {children}
         </StaticContainer>
       </AnimatableContainer>
