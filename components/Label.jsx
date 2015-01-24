@@ -4,6 +4,10 @@ var Component = require('../component');
 module.exports = Component({
   name: 'Label',
 
+  propTypes: {
+    title: React.PropTypes.string
+  },
+
   statics: {
     liNoPad: true
   },

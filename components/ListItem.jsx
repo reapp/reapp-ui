@@ -5,6 +5,19 @@ var Icon = require('./Icon');
 module.exports = Component({
   name: 'ListItem',
 
+  propTypes: {
+    title: React.PropTypes.node,
+    titleAfter: React.PropTypes.node,
+    titleSub: React.PropTypes.node,
+    before: React.PropTypes.node,
+    after: React.PropTypes.node,
+    wrapper: React.PropTypes.node,
+    underLeft: React.PropTypes.node,
+    underRight: React.PropTypes.node,
+    noicon: React.PropTypes.bool,
+    nopad: React.PropTypes.bool
+  },
+
   makeSection(name, content) {
     return content && (
       <span {...this.componentProps(name)} key={`${name}-${this.props.key}`}>

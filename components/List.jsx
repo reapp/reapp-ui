@@ -2,10 +2,19 @@ var React = require('react/addons');
 var Component = require('../component');
 var clone = require('../lib/niceClone');
 var ListItem = require('./ListItem');
+var Title = require('./Title');
 // var StickyTitles = require('sticky-titles');
 
 module.exports = Component({
   name: 'List',
+
+  propTypes: {
+    type: React.PropTypes.string,
+    liProps: React.PropTypes.object,
+    title: React.PropTypes.node,
+    nowrap: React.PropTypes.bool,
+    nopad: React.PropTypes.bool
+  },
 
   componentDidMount() {
     // todo: StickyTItles
@@ -18,22 +27,20 @@ module.exports = Component({
   render() {
     var {
       children,
-      type,
       liProps,
       title,
+      type,
       nowrap,
       nopad,
       ...props } = this.props;
 
     if (type)
-      this.addStyles(this.styles[type]);
+      this.addStyles(this.getStyles(`type-${type}`));
 
     return (
       <ul {...this.componentProps()} {...props}>
         {title && (
-          <li {...this.componentProps('title')}>
-            {title}
-          </li>
+          <Title>{title}</Title>
         )}
         {React.Children.map(children, (li, i) => {
           if (nowrap || li.type && li.type.isListItem)

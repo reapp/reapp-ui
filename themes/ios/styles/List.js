@@ -8,7 +8,7 @@ module.exports = (c) => ({
     fontSize: '16px'
   },
 
-  inset: {
+  'type-inset': {
     margin: 20,
     borderRadius: 10,
     border: 'none'
