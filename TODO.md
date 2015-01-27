@@ -1,5 +1,22 @@
 Compilation of things this repo needs, as I run across them.
 
+### Near-term
+
+- More fully implement constants use in styles, make more consistant
+- Move iOS theme to it's own repo, make Android theme
+
+- Components:
+  - Alerts
+  - Form elments: Slider
+  - Map
+  - Popover that slides up from bottom
+  - Photo viewer
+
+- Actions
+  - Notifications
+  - Pull-to-refresh
+  - Slideable & Sortable ListItem actions
+
 ### General
 
 - Testing... Until now things have been moving quickly and changing, but this is a must.

@@ -23,25 +23,6 @@ has settled out a bit into something more coherent.
 - Keep the repo structure as flat as possible.
 - Decouple components. Allow selective usage of these components.
 
-### Todo
-
-See TODO.md for more high level stuff.
-
-- More fully implement constants use in styles, make more consistant
-- Move iOS theme to it's own repo, make Android theme
-
-- Components:
-  - Alerts
-  - Form elments: Slider
-  - Map
-  - Popover that slides up from bottom
-  - Photo viewer
-
-- Actions
-  - Notifications
-  - Pull-to-refresh
-  - Slideable & Sortable ListItem actions
-
 ### Structure
 
 ```
