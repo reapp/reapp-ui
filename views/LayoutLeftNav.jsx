@@ -60,7 +60,15 @@ module.exports = Component({
   },
 
   render() {
-    var { behavior, sideWidth, sideZIndex, handle, side, children, ...props } = this.props;
+    var {
+      behavior,
+      sideWidth,
+      sideZIndex,
+      handle,
+      side,
+      children,
+      ...props } = this.props;
+
     var isSideOpen = this.isSideOpen();
 
     this.addStyles('side', isSideOpen && {
@@ -90,7 +98,7 @@ module.exports = Component({
     );
 
     return (
-      <div {...this.componentProps()}>
+      <div {...this.componentProps()} {...props}>
         {isSideOpen && (
           <AnimatableContainer {...sideProps}>
             <div {...this.componentProps('sideInner')}

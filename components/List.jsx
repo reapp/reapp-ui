@@ -37,6 +37,9 @@ module.exports = Component({
     if (type)
       this.addStyles(this.getStyles(`type-${type}`));
 
+    if (this.props.log)
+      console.log(this.componentProps())
+
     return (
       <ul {...this.componentProps()} {...props}>
         {title && (

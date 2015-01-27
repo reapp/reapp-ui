@@ -1,13 +1,20 @@
+body {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
+  -webkit-backface-visibility: hidden;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
 body * {
   display: flex;
   flex-flow: column;
   flex-shrink: 0;
   align-items: stretch;
   box-sizing: border-box;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  -webkit-touch-callout: none;
-  touch-action: manipulation;
-  -webkit-backface-visibility: hidden;
 }
 
 html,

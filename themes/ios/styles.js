@@ -20,6 +20,7 @@ module.exports = makeStyles(requirer, [
   'LayoutLeftNav',
   'List',
   'ListItem',
+  'Menu',
   'Modal',
   'NestedViewList',
   'Pad',
