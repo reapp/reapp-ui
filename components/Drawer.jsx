@@ -131,8 +131,6 @@ module.exports = Component({
       break;
     }
 
-    console.log('handle scroll', offset)
-
     this.setState({
       offset,
       closed: offset === 0
