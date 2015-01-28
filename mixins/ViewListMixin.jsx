@@ -43,6 +43,7 @@ module.exports = {
     this.setupViewList(this.props);
     this.runViewCallbacks();
     window.addEventListener('resize', this.resize);
+    this.didMount = true;
   },
 
   componentWillUnmount() {
@@ -51,7 +52,7 @@ module.exports = {
 
   // ensure proper animation/update order
   componentWillReceiveProps(nextProps) {
-    if (this._isAnimating || nextProps.disableScroll)
+    if (this._isAnimating || nextProps.disableScroll || !this.didMount)
       return;
 
     // if new scroll position
@@ -277,13 +278,12 @@ module.exports = {
       this.props.viewAnimations;
   },
 
-  getViewList(extraProps) {
-    // pushes state to a store for child use
-    // in the future this can be done with contexts
-    if (!this.props.disableScroll)
-      this.setAnimationState('viewList');
-
-    var touchableAreaProps = Object.assign({
+  getTouchableAreaProps() {
+    return this.props.disableScroll ?
+      {
+        untouchable: true
+      } :
+      Object.assign({
         ignoreY: true,
         scroller: this.scroller
       },
@@ -298,9 +298,16 @@ module.exports = {
           this.props.touchableAreaProps && this.props.touchableAreaProps.untouchable ||
           this.props.disableScroll
         )
-      }
-    );
+      });
+  },
 
+  getViewList(extraProps) {
+    // pushes state to a store for child use
+    // in the future this can be done with contexts
+    if (!this.props.disableScroll)
+      this.setAnimationState('viewList');
+
+    var touchableAreaProps = this.getTouchableAreaProps();
     var activeTitle;
 
     return (

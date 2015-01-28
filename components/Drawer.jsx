@@ -131,6 +131,8 @@ module.exports = Component({
       break;
     }
 
+    console.log('handle scroll', offset)
+
     this.setState({
       offset,
       closed: offset === 0
@@ -170,14 +172,16 @@ module.exports = Component({
     });
 
     return (
-      <AnimatableContainer {...this.componentProps()} {...animatedProps}>
-        <TouchableArea
-          {...this.componentProps('dragger')}
-          {...touchableProps}
-          scroller={scroller || this.scroller} />
-        <StaticContainer shouldUpdate={this.state.offset === 0}>
-          {children}
-        </StaticContainer>
+      <AnimatableContainer {...this.componentProps()} {...animatedProps} {...props}>
+        <div {...this.componentProps('inner')}>
+          <TouchableArea
+            {...this.componentProps('dragger')}
+            {...touchableProps}
+            scroller={scroller || this.scroller} />
+          <StaticContainer shouldUpdate={this.state.offset === 0}>
+            {children}
+          </StaticContainer>
+        </div>
       </AnimatableContainer>
     );
   }

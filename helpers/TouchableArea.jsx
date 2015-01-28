@@ -2,7 +2,6 @@ var React = require('react');
 var Component = require('../component');
 var clone = require('../lib/niceClone');
 
-// todo: separate into mixin and component
 // todo: decouple from scrolling more, it should be usable as a
 // generic wrapper around anything so you can do stuff like:
 //   - touchhold

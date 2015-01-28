@@ -33,8 +33,8 @@ var AnimatableContainer = Component({
   },
 
   componentWillReceiveProps(nextProps) {
-    var prevStyle = this.getStyle(this.props);
-    var style = this.getStyle(nextProps);
+    var prevStyle = this.getAnimationStyles(this.props);
+    var style = this.getAnimationStyles(nextProps);
 
     this.isAnimating = (
       style.opacity !== prevStyle.opacity ||
@@ -63,7 +63,7 @@ var AnimatableContainer = Component({
     }
   },
 
-  getStyle(props) {
+  getAnimationStyles(props) {
     var style = Object.assign({}, props.style);
     var transforms = '';
 
@@ -110,11 +110,10 @@ var AnimatableContainer = Component({
   render() {
     var { component, blockUpdates, children, ...props } = this.props;
 
-    this.addStyles(this.getStyle(props));
-
     return (
       <StaticContainer {...props} {...this.componentProps()}
-        shouldUpdate={!blockUpdates || !this.isAnimating}>
+        shouldUpdate={!blockUpdates || !this.isAnimating}
+        style={this.getAnimationStyles(props)}>
         {children}
       </StaticContainer>
     );
