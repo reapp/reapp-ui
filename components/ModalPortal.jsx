@@ -49,6 +49,7 @@ module.exports = Component({
   handleClose(e) {
     if (!this.state.isClosing) {
       this.setState({ isClosing: true });
+      console.log('closing')
       this.tweenState('step', {
         endValue: 2,
         duration: this.props.animationDuration,
@@ -58,8 +59,11 @@ module.exports = Component({
   },
 
   afterClose(e) {
-    if (this.props.onClose)
-      this.props.onClose(e);
+    setTimeout(() => {
+      console.log('after close')
+      if (this.props.onClose)
+        this.props.onClose(e);
+    });
   },
 
   render() {
