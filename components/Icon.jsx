@@ -1,5 +1,5 @@
 var React = require('react/addons');
-var Union = require('lodash-node/modern/arrays/union');
+var Union = require('lodash-node/modern/array/union');
 var Component = require('../component');
 var Animated = require('../mixins/Animated');
 

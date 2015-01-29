@@ -175,7 +175,8 @@ module.exports = Component({
           <TouchableArea
             {...this.componentProps('dragger')}
             {...touchableProps}
-            scroller={scroller || this.scroller} />
+            scroller={scroller || this.scroller}
+            currentTargetOnly />
           <StaticContainer shouldUpdate={this.state.offset === 0}>
             {children}
           </StaticContainer>

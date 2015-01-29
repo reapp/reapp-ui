@@ -10,6 +10,7 @@ module.exports = Component({
   ],
 
   propTypes: {
+    target: React.PropTypes.object,
     open: React.PropTypes.bool,
     edgePadding: React.PropTypes.number,
     arrowSize: React.PropTypes.number,

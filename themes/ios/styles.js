@@ -21,7 +21,7 @@ module.exports = makeStyles(requirer, [
   'List',
   'ListItem',
   'Menu',
-  'Modal',
+  'ModalPortal',
   'NestedViewList',
   'Pad',
   'Popover',
