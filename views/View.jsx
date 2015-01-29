@@ -20,29 +20,13 @@ module.exports = Component({
   },
 
   mixins: [
-    ScrollTopable,
+    ScrollTopable('inner'),
     AnimatedScrollToTop
   ],
 
   animationSources: {
     inner: 'viewList',
     overlay: 'viewList'
-  },
-
-  componentDidMount() {
-    this.setScrollTop();
-  },
-
-  setScrollTop() {
-    // allow passing in a scrollToTop, or auto adjust for a SearchBar
-    if (this.props.scrollTop)
-      this.refs.inner.getDOMNode().scrollTop = this.props.scrollTop;
-    else if (
-      Array.isArray(this.props.children) &&
-      this.props.children[0] &&
-      this.props.children[0].isSearchBar
-    )
-      this.refs.inner.getDOMNode().scrollTop = this.getConstant('searchBarHeight');
   },
 
   getTitleBarHeight() {
