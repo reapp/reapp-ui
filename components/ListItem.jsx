@@ -1,9 +1,11 @@
-var React = require('react');
+var React = require('react/addons');
 var Component = require('../component');
 var Icon = require('./Icon');
 
 module.exports = Component({
   name: 'ListItem',
+
+  mixins: [React.addons.PureRenderMixin],
 
   propTypes: {
     title: React.PropTypes.node,

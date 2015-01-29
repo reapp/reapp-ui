@@ -6,8 +6,7 @@ var AnimateStore = require('../stores/AnimateStore');
 // organizes and runs animations on elements.
 
 // This mixin works through props, state or the AnimateStore
-
-// Keep having to rewrite this as I refactor... docs coming...
+// should be able to use context rather than store eventually
 
 var defined = variable => (typeof variable !== 'undefined');
 

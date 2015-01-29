@@ -1,10 +1,12 @@
-var React = require('react');
+var React = require('react/addons');
 var Union = require('lodash-node/modern/arrays/union');
 var Component = require('../component');
 var Animated = require('../mixins/Animated');
 
 module.exports = Component({
   name: 'Icon',
+
+  mixins: [React.addons.PureRenderMixin],
 
   propTypes: {
     size: React.PropTypes.number,

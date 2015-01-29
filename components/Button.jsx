@@ -1,10 +1,12 @@
-var React = require('react');
+var React = require('react/addons');
 var Component = require('../component');
 var Icon = require('./Icon');
 var clone = require('../lib/niceClone');
 
 module.exports = Component({
   name: 'Button',
+
+  mixins: [React.addons.PureRenderMixin],
 
   propTypes: {
     iconProps: React.PropTypes.object,
