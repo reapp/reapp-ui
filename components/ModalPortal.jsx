@@ -1,4 +1,5 @@
 var React = require('react');
+var TweenState = require('react-tween-state');
 var Component = require('../component');
 var Button = require('./Button');
 
@@ -11,10 +12,24 @@ var ModalButton = React.createClass({
 module.exports = Component({
   name: 'ModalPortal',
 
+  mixins: [
+    TweenState.Mixin
+  ],
+
   getInitialState() {
     return {
+      step: 0,
+      index: 1,
       isClosing: false
     };
+  },
+
+  componentDidMount() {
+    // animate open
+    this.tweenState('step', {
+      endValue: 1,
+      duration: this.props.animationDuration
+    });
   },
 
   handleCancel() {
@@ -34,19 +49,17 @@ module.exports = Component({
   handleClose(e) {
     if (!this.state.isClosing) {
       this.setState({ isClosing: true });
-      // this.tweenState('step', {
-      //   endValue: 2,
-      //   duration: this.props.animationDuration,
-      //   onEnd: this.afterClose.bind(this, e)
-      // });
+      this.tweenState('step', {
+        endValue: 2,
+        duration: this.props.animationDuration,
+        onEnd: this.afterClose.bind(this, e)
+      });
     }
   },
 
   afterClose(e) {
-    setTimeout(() => {
-      if (this.props.handleClose)
-        this.props.handleClose(e);
-    });
+    if (this.props.onClose)
+      this.props.onClose(e);
   },
 
   render() {

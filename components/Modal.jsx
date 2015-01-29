@@ -1,15 +1,10 @@
 var React = require('react');
-var TweenState = require('react-tween-state');
 var Component = require('../component');
 var Animated = require('../mixins/Animated');
 var ModalPortal = require('./ModalPortal');
 
 module.exports = Component({
   name: 'Modal',
-
-  mixins: [
-    TweenState.Mixin
-  ],
 
   propTypes: {
     type: React.PropTypes.string,
@@ -36,12 +31,6 @@ module.exports = Component({
     this.node.className = 'ModalPortal';
     document.body.appendChild(this.node);
     this.renderModal(this.props);
-
-    // animate open
-    // this.tweenState('step', {
-    //   endValue: 1,
-    //   duration: this.props.animationDuration
-    // });
   },
 
   componentWillReceiveProps(nextProps) {
@@ -53,12 +42,14 @@ module.exports = Component({
     document.body.removeChild(this.node);
   },
 
+  handleClose() {
+    if (this.props.onClose)
+      this.props.onClose();
+  },
+
   renderModal(props) {
     React.render(
-      <ModalPortal
-        {...props}
-        step={1}
-        index={1} />,
+      <ModalPortal {...props} onClose={this.handleClose} />,
       this.node
     );
   },
