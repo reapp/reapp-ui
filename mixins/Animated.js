@@ -1,3 +1,4 @@
+var React = require('react');
 var Invariant = require('react/lib/invariant');
 var StyleKeys = require('../lib/StyleKeys');
 var AnimateStore = require('../stores/AnimateStore');
@@ -12,6 +13,10 @@ var defined = variable => (typeof variable !== 'undefined');
 
 module.exports = function(getAnimations) {
   return {
+    contextTypes: {
+      animations: React.PropTypes.object
+    },
+
     animateStore: AnimateStore,
 
     // used by both animators and animated
@@ -19,10 +24,15 @@ module.exports = function(getAnimations) {
     // but you can attach other stuff here as well
     getAnimationState(source) {
       if (source && source !== 'self') {
-        return Object.assign(
-          this.animateStore(source),
+        var a= Object.assign({},
+          // this.animateStore(source),
+          this.context.animations[source],
           this.props[source]
         );
+
+        // console.log(this.name, a)
+
+        return a;
       }
 
       var state = this.stateOrProps(
@@ -51,7 +61,7 @@ module.exports = function(getAnimations) {
     // used just by animators
     // pushes their state to the store for children
     setAnimationState(source) {
-      this.animateStore(source, this.getAnimationState());
+      // this.animateStore(source, this.getAnimationState());
     },
 
     disableAnimation() {
@@ -103,6 +113,8 @@ module.exports = function(getAnimations) {
       var state = this.getAnimationState(source);
       var styles;
 
+      console.log(this.name, 'GET', state)
+
       // single animation or array
       if (typeof animations === 'string')
         styles = this._getAnimationStyle(styles, state, animations);
@@ -113,6 +125,8 @@ module.exports = function(getAnimations) {
 
       // ensure translate-z to ensure hardware accel
       styles[StyleKeys.TRANSFORM] = styles[StyleKeys.TRANSFORM] || 'translateZ(0px)';
+
+      console.log(this.name, 'RETURN', styles);
       return styles;
     },
 

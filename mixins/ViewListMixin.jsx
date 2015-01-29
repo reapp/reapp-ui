@@ -274,7 +274,7 @@ module.exports = {
 
   getViewAnimations(view) {
     return view && view.props.animations ?
-      Object.assign(this.props.viewAnimations, view.props.animations) :
+      Object.assign({}, this.props.viewAnimations, view.props.animations) :
       this.props.viewAnimations;
   },
 
@@ -304,8 +304,8 @@ module.exports = {
   getViewList(extraProps) {
     // pushes state to a store for child use
     // in the future this can be done with contexts
-    if (!this.props.disableScroll)
-      this.setAnimationState('viewList');
+    // if (!this.props.disableScroll)
+    //   this.setAnimationState('viewList');
 
     var touchableAreaProps = this.getTouchableAreaProps();
     var activeTitle;
