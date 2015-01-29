@@ -8,5 +8,7 @@ module.exports = {
   brandColor: '#c8c7cc',
   brandColorInactive: '#dcdbe2',
 
-  activeBG: '#307cff'
+  activeBG: '#307cff',
+
+  edgeWidth: 30
 };

@@ -166,7 +166,7 @@ module.exports = Component({
 
     // todo: use a constant for dragger width
     this.addStyles('dragger', {
-      [this.getOppositeSide(from)]: this.state.closed ? -20 : 0
+      [this.getOppositeSide(from)]: this.state.closed ? -this.getConstant('edgeWidth') : 0
     });
 
     return (

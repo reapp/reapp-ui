@@ -14,6 +14,9 @@ module.exports = Component({
   },
 
   getDefaultProps() {
+    // var edgeWidth = UI.getConstants('edgeWidth');
+    var edgeWidth = 30;
+
     return {
       width: window.innerWidth,
       height: window.innerHeight,
@@ -32,12 +35,12 @@ module.exports = Component({
       },
       // touchable only on the left and right edges
       touchStartBoundsX: [
-        { from: 0, to: 20 },
-        { from: window.innerWidth - 20, to: window.innerWidth }
+        { from: 0, to: edgeWidth },
+        { from: window.innerWidth - edgeWidth, to: window.innerWidth }
       ],
       // only touchable on right edge at first step
       touchStartBoundsXFirstStep: {
-        from: window.innerWidth - 20,
+        from: window.innerWidth - edgeWidth,
         to: window.innerWidth
       }
     };
