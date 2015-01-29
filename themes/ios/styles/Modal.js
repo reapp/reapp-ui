@@ -25,12 +25,14 @@ module.exports = (c) => ({
 
   modal: {
     minWidth: 270,
-    maxWidth: '100%',
+    maxWidth: '80%',
     margin: 'auto',
     background: 'rgba(255,255,255,0.95)',
     padding: 0,
     borderRadius: 7,
-    textAlign: 'center'
+    textAlign: 'center',
+    flexShrink: 1,
+    WebkitFlexShrink: 1
   },
 
   buttons: {
