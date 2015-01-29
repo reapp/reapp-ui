@@ -31,7 +31,7 @@ module.exports = function(ViewClass) {
 
     render() {
       return (
-        <View {...this.props} title={ViewClass.type.title}>
+        <View {...this.props} title={ViewClass.title}>
           <ViewClass {...this.props} />
         </View>
       );

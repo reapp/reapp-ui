@@ -38,8 +38,8 @@ Component.addDecorator(spec => {
   spec.displayName = `UI-${spec.name}`;
 
   // allow checking for 'isName' on all components
-  spec.statics = spec.statics || {};
-  spec.statics[`is${spec.name}`] = true;
+  // spec.statics = spec.statics || {};
+  // spec[`is${spec.name}`] = true;
 
   return React.createClass(spec);
 });

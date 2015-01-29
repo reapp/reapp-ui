@@ -12,7 +12,7 @@ module.exports = Component({
     type: React.PropTypes.string,
     liProps: React.PropTypes.object,
     title: React.PropTypes.node,
-    nowrap: React.PropTypes.bool,
+    wrap: React.PropTypes.bool,
     nopad: React.PropTypes.bool
   },
 
@@ -30,7 +30,7 @@ module.exports = Component({
       liProps,
       title,
       type,
-      nowrap,
+      wrap,
       nopad,
       ...props } = this.props;
 
@@ -46,17 +46,17 @@ module.exports = Component({
           <Title>{title}</Title>
         )}
         {React.Children.map(children, (li, i) => {
-          if (nowrap || li.type && li.type.isListItem)
-            return clone(li, { key: i, index: i, nopad });
+          if (wrap)
+            return (
+              <ListItem {...liProps}
+                index={i}
+                key={i}
+                nopad={nopad}>
+                {li.content || li}
+              </ListItem>
+            );
 
-          return (
-            <ListItem {...liProps}
-              index={i}
-              key={i}
-              nopad={nopad}>
-              {li.content || li}
-            </ListItem>
-          );
+          return clone(li, { key: i, index: i, nopad });
         })}
       </ul>
     );

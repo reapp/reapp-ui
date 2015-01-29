@@ -40,7 +40,7 @@ module.exports = Component({
     else if (
       Array.isArray(this.props.children) &&
       this.props.children[0] &&
-      this.props.children[0].type.isSearchBar
+      this.props.children[0].isSearchBar
     )
       this.refs.inner.getDOMNode().scrollTop = this.getConstant('searchBarHeight');
   },

@@ -10,7 +10,7 @@ module.exports = Component({
     barItemProps: React.PropTypes.object,
     position: React.PropTypes.string,
     activeIndexIndex: React.PropTypes.number,
-    nowrap: React.PropTypes.bool
+    wrap: React.PropTypes.bool
   },
 
   render() {
@@ -20,7 +20,7 @@ module.exports = Component({
       barItemProps,
       activeIndex,
       position,
-      nowrap,
+      wrap,
       ...props } = this.props;
 
     if (position)
@@ -35,14 +35,14 @@ module.exports = Component({
             key: i
           };
 
-          if (nowrap || child.type && child.type.isBarItem)
-            return clone(child, childProps);
+          if (wrap)
+            return (
+              <BarItem {...barItemProps} {...childProps}>
+                {child}
+              </BarItem>
+            );
 
-          return (
-            <BarItem {...barItemProps} {...childProps}>
-              {child}
-            </BarItem>
-          );
+          return clone(child, childProps);
         })}
       </ul>
     );

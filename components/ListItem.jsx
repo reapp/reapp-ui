@@ -29,7 +29,10 @@ module.exports = Component({
   },
 
   isLink(el) {
-    return el.type && (el.type === 'a' || el.type.displayName === 'Link');
+    return (
+      el.type === 'a' ||
+      el.displayName === 'Link'
+    );
   },
 
   hasLinkAsChild(child) {
