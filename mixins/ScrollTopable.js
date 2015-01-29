@@ -3,7 +3,7 @@ var React = require('react');
 module.exports = function(node) {
   return {
     propTypes: {
-      scrollTop: React.PropTypes.oneOf([
+      scrollTop: React.PropTypes.oneOfType([
         React.PropTypes.number,
         React.PropTypes.string
       ])
