@@ -7,7 +7,6 @@ module.exports = Component({
 
   render() {
     var iconProps = Object.assign({
-      shapeRendering: 'crispEdges',
       size: 18,
       name: 'left',
       stroke: 2,
