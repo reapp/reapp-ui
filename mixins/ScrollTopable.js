@@ -20,7 +20,8 @@ module.exports = function(node) {
     },
 
     componentWillReceiveProps(nextProps) {
-      this.setScrollTop(nextProps);
+      if (nextProps.scrollTop !== this.props.scrollTop)
+        this.setScrollTop(nextProps);
     },
 
     setScrollTop(props) {

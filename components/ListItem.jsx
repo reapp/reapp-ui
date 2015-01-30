@@ -31,7 +31,7 @@ module.exports = Component({
   isLink(el) {
     return (
       el.type === 'a' ||
-      el.displayName === 'Link'
+      el.type.displayName === 'Link'
     );
   },
 
