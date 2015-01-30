@@ -10,7 +10,6 @@ module.exports = (c) => ({
   },
 
   open: {
-    opacity: 1,
     visibility: 'visible',
     zIndex: 15000
   },

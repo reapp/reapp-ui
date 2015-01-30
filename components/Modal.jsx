@@ -1,12 +1,17 @@
 var React = require('react');
 var Component = require('../component');
-var Animated = require('../mixins/Animated');
 var ModalPortal = require('./ModalPortal');
+var PortalMixin = require('../mixins/PortalMixin');
 
 module.exports = Component({
   name: 'Modal',
 
+  mixins: [
+    PortalMixin(ModalPortal)
+  ],
+
   propTypes: {
+    open: React.PropTypes.bool,
     type: React.PropTypes.string,
     animationDuration: React.PropTypes.number,
     animations: React.PropTypes.object,
@@ -17,7 +22,9 @@ module.exports = Component({
 
   getDefaultProps() {
     return {
+      open: true,
       type: 'alert',
+      onClose: this.handleClose,
       animationDuration: 200,
       animations: {
         modal: ['fade', 'scaleDown'],
@@ -26,32 +33,9 @@ module.exports = Component({
     };
   },
 
-  componentDidMount() {
-    this.node = document.createElement('div');
-    this.node.className = 'ModalPortal';
-    document.body.appendChild(this.node);
-    this.renderModal(this.props);
-  },
-
-  componentWillReceiveProps(nextProps) {
-    this.renderModal(nextProps);
-  },
-
-  componentWillUnmount() {
-    React.unmountComponentAtNode(this.node);
-    document.body.removeChild(this.node);
-  },
-
   handleClose() {
     if (this.props.onClose)
       this.props.onClose();
-  },
-
-  renderModal(props) {
-    React.render(
-      <ModalPortal {...props} onClose={this.handleClose} />,
-      this.node
-    );
   },
 
   render: () => null

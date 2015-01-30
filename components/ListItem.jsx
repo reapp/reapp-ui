@@ -17,6 +17,7 @@ module.exports = Component({
     underLeft: React.PropTypes.node,
     underRight: React.PropTypes.node,
     noicon: React.PropTypes.bool,
+    icon: React.PropTypes.bool,
     nopad: React.PropTypes.bool
   },
 
@@ -39,6 +40,17 @@ module.exports = Component({
     return React.isValidElement(child) && this.isLink(child);
   },
 
+  getIcon() {
+    return (
+      <Icon
+        name="right"
+        styles={this.getStyles('arrow')}
+        size={12}
+        stroke={2}
+        color={this.getStyleVal('arrow', 'color')} />
+    );
+  },
+
   render() {
     var {
       children,
@@ -51,6 +63,7 @@ module.exports = Component({
       underLeft,
       underRight,
       noicon,
+      icon,
       nopad,
       ...props } = this.props;
 
@@ -65,16 +78,11 @@ module.exports = Component({
       this.addStyles('children', { color: title ? '#999' : '#000' });
 
     if (wrapper) {
-      var hasLinkIcon = this.isLink(wrapper) && !noicon;
+      var hasLinkIcon = this.isLink(wrapper) && !noicon || icon;
 
       wrapper = React.addons.cloneWithProps(wrapper, {
         children: hasLinkIcon ?
-          <Icon
-            name="right"
-            styles={this.getStyles('arrow')}
-            size={12}
-            stroke={2}
-            color={this.getStyleVal('arrow', 'color')} /> :
+          this.getIcon() :
           null,
         styles: this.getStyles('wrapper')
       });
@@ -82,6 +90,9 @@ module.exports = Component({
       // pad out right side if it has a wrapper
       if (hasLinkIcon)
         this.addStyles({ paddingRight: 20 });
+    }
+    else if (icon) {
+      wrapper = this.getIcon();
     }
 
     var hasTitle = (title || titleAfter);

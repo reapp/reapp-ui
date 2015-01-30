@@ -26,7 +26,7 @@ module.exports = Component({
   getDefaultProps() {
     return {
       sideWidth: 200,
-      behavior: LeftNavBehavior.ALL_PARALLAX_FADE
+      behavior: LeftNavBehavior.NORMAL
     };
   },
 
@@ -107,7 +107,7 @@ module.exports = Component({
             </div>
           </AnimatableContainer>
         )}
-        <Drawer {...this.componentProps('drawer')} {...drawerProps}>
+        <Drawer {...this.componentProps('drawer')} {...drawerProps} dragger={false}>
           {clone(children, { handle: touchableHandle })}
         </Drawer>
       </div>

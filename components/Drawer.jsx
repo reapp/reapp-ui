@@ -15,16 +15,18 @@ module.exports = Component({
     from: React.PropTypes.oneOf([
       'left', 'right', 'top', 'bottom'
     ]),
-    closed: React.PropTypes.bool,
     touchableProps: React.PropTypes.object,
-    onClose: React.PropTypes.func
+    onClose: React.PropTypes.func,
+    closed: React.PropTypes.bool,
+    dragger: React.PropTypes.bool
   },
 
   getDefaultProps() {
     return {
       behavior: DrawerBehavior,
       from: 'left',
-      closed: false
+      closed: false,
+      dragger: true
     };
   },
 
@@ -153,6 +155,7 @@ module.exports = Component({
       touchableProps,
       children,
       scroller,
+      dragger,
       ...props
     } = this.props;
 
@@ -162,21 +165,24 @@ module.exports = Component({
 
     this.addClass('closed', this.state.closed);
     this.addStyles(`from-${this.props.from}`);
-    this.addStyles('dragger', `${this.props.from}Dragger`);
 
-    // todo: use a constant for dragger width
-    this.addStyles('dragger', {
-      [this.getOppositeSide(from)]: this.state.closed ? -this.getConstant('edgeWidth') : 0
-    });
+    if (dragger) {
+      this.addStyles('dragger', `${this.props.from}Dragger`);
+      this.addStyles('dragger', {
+        [this.getOppositeSide(from)]: this.state.closed ? -this.getConstant('edgeWidth') : 0
+      });
+    }
 
     return (
       <AnimatableContainer {...this.componentProps()} {...animatedProps} {...props}>
         <div {...this.componentProps('inner')}>
-          <TouchableArea
-            {...this.componentProps('dragger')}
-            {...touchableProps}
-            scroller={scroller || this.scroller}
-            currentTargetOnly />
+          {dragger && (
+            <TouchableArea
+              {...this.componentProps('dragger')}
+              {...touchableProps}
+              scroller={scroller || this.scroller}
+              currentTargetOnly />
+          )}
           <StaticContainer shouldUpdate={this.state.offset === 0}>
             {children}
           </StaticContainer>

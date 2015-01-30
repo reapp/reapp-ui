@@ -24,7 +24,7 @@ module.exports = makeStyles(requirer, [
   'ModalPortal',
   'NestedViewList',
   'Pad',
-  'Popover',
+  'PopoverPortal',
   'Radio',
   'SearchBar',
   'Title',
