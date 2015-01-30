@@ -67,7 +67,13 @@ module.exports = Component({
   },
 
   render() {
-    var { modalProps, title, type, children, open, ...props } = this.props;
+    var {
+      modalProps,
+      title,
+      type,
+      children,
+      open,
+      ...props } = this.props;
 
     if (open) {
       this.addClass('open');

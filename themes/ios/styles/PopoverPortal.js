@@ -11,7 +11,8 @@ module.exports = (c) => ({
 
   open: {
     visibility: 'visible',
-    zIndex: 15000
+    zIndex: 15000,
+    opacity: 1
   },
 
   bg: {

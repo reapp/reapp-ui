@@ -18,14 +18,16 @@ module.exports = Component({
 
   componentDidMount() {
     var popover = this.refs.popover.getDOMNode();
-    this.setState(this.getPositionState(popover, this.props.target));
-    this.setState({ open: true });
+    var position = this.getPositionState(popover, this.props.target);
+    this.setState(position);
 
     // animate open
-    this.tweenState('step', {
-      endValue: 1,
-      duration: this.props.animationDuration
-    });
+    setTimeout(() =>
+      this.tweenState('step', {
+        endValue: 1,
+        duration: this.props.animationDuration
+      })
+    );
   },
 
   componentWillReceiveProps(nextProps) {
@@ -40,8 +42,9 @@ module.exports = Component({
   },
 
   getPositionState(popover, target) {
-    var tops = this.getTop(popover, target);
-    var lefts = this.getLeft(popover, target);
+    var targetRect = target.getBoundingClientRect();
+    var tops = this.getTop(popover, targetRect);
+    var lefts = this.getLeft(popover, targetRect);
     return Object.assign({}, tops, lefts);
   },
 
@@ -54,8 +57,8 @@ module.exports = Component({
     );
   },
 
-  getLeft(popover, target) {
-    var targetCenter = target.left + target.width / 2;
+  getLeft(popover, targetRect) {
+    var targetCenter = targetRect.left + targetRect.width / 2;
     var popoverHalfWidth = popover.clientWidth / 2;
     var popoverLeft = targetCenter - popoverHalfWidth;
 
@@ -75,14 +78,14 @@ module.exports = Component({
     return { arrowLeft, popoverLeft };
   },
 
-  getTop(popover, target) {
-    var targetTop = target.top - window.scrollY;
-    var targetCenter = target.top + target.height / 2;
+  getTop(popover, targetRect) {
+    var targetTop = targetRect.top - window.scrollY;
+    var targetCenter = targetRect.top + targetRect.height / 2;
     var windowHalfWidth = window.innerHeight / 2;
     var arrowOnBottom = targetCenter > windowHalfWidth;
     var top = arrowOnBottom ?
       targetTop - popover.clientHeight - this.props.arrowSize :
-      targetTop + target.height + this.props.arrowSize;
+      targetTop + targetRect.height + this.props.arrowSize;
 
     var arrowTop = arrowOnBottom ?
       popover.clientHeight :
@@ -138,9 +141,9 @@ module.exports = Component({
   },
 
   render() {
-    var { children, ...props } = this.props;
+    var { children, open, ...props } = this.props;
 
-    if (this.props.open) {
+    if (open) {
       this.addClass('open');
       this.addStyles('open');
     }
