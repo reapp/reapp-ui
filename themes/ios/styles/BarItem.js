@@ -2,6 +2,8 @@ module.exports = (c) => ({
   self: {
     flexGrow: 1,
     flexShrink: 0,
+    WebkitFlexGrow: 1,
+    WekitFlexShrink: 0,
     color: c.barColor
   },
 
@@ -16,6 +18,11 @@ module.exports = (c) => ({
 
   'icon-text': {},
 
+  'icon-icon': {
+    flexGrow: 1,
+    WebkitFlexGrow: 1
+  },
+
   'icon-text__text': {
     fontSize: '11px',
     lineHeight: '11px',
@@ -23,7 +30,8 @@ module.exports = (c) => ({
   },
 
   'icon-text-right': {
-    flexFlow: 'row'
+    flexFlow: 'row',
+    WebkitFlexFlow: 'row'
   },
 
   'icon-text-right__icon': {

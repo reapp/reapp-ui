@@ -6,7 +6,7 @@ module.exports = (c) => ({
     width: '100%',
     height: '100%',
     pointerEvents: 'all',
-    zIndex: 3 // todo: this can be better
+    zIndex: 4 // todo: this can be better
   },
 
   'from-right': {
