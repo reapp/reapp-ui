@@ -2,6 +2,7 @@ var React = require('react/addons');
 var Union = require('lodash-node/modern/array/union');
 var Component = require('../component');
 var Animated = require('../mixins/Animated');
+var requireIcon = require('../assets/icons/requireIcon');
 
 module.exports = Component({
   name: 'Icon',
@@ -100,15 +101,24 @@ module.exports = Component({
         strokeLinecap: 'round'
       });
 
+    var svg = requireIcon(name);
+
     return (
       <span {...this.componentProps()} {...props}>
-        <svg {...svgExtraProps} {...svgProps} {...this.componentProps('svg')}>
-          <g dangerouslySetInnerHTML={{__html:
-            `<use xlink:href="${path}/${name}.svg#Layer_1"></use>`
-          }} />
-        </svg>
+        <object
+          {...svgExtraProps}
+          {...svgProps}
+          {...this.componentProps('svg')}
+          dangerouslySetInnerHTML={{__html: svg}}
+        />
       </span>
     );
   }
 
 });
+
+// <svg {...svgExtraProps} {...svgProps} {...this.componentProps('svg')}>
+        //   <g dangerouslySetInnerHTML={{__html:
+        //     `<use xlink:href="${path}/${name}.svg#Layer_1"></use>`
+        //   }} />
+        // </svg>
