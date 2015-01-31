@@ -5,22 +5,22 @@
 	 width="64px" height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
 <g>
 	<g>
-		<path fill="#231F20" d="M11.721,4.833v54.333h40.558V4.833H11.721z M49.895,56.781h-35.79V7.22h35.79V56.781z"/>
+		<path d="M11.721,4.833v54.333h40.558V4.833H11.721z M49.895,56.781h-35.79V7.22h35.79V56.781z"/>
 	</g>
 	<g>
-		<rect x="17.362" y="21.73" fill="#231F20" width="29.526" height="2.386"/>
+		<rect x="17.362" y="21.73" width="29.526" height="2.386"/>
 	</g>
 	<g>
-		<rect x="17.362" y="41.115" fill="#231F20" width="29.526" height="2.386"/>
+		<rect x="17.362" y="41.115" width="29.526" height="2.386"/>
 	</g>
 	<g>
-		<rect x="27.206" y="12.187" fill="#231F20" width="9.246" height="2.386"/>
+		<rect x="27.206" y="12.187" width="9.246" height="2.386"/>
 	</g>
 	<g>
-		<rect x="27.206" y="28.292" fill="#231F20" width="9.246" height="2.386"/>
+		<rect x="27.206" y="28.292" width="9.246" height="2.386"/>
 	</g>
 	<g>
-		<rect x="27.206" y="47.288" fill="#231F20" width="9.246" height="2.384"/>
+		<rect x="27.206" y="47.288" width="9.246" height="2.384"/>
 	</g>
 </g>
 </svg>
