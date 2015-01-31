@@ -33,7 +33,8 @@ module.exports = Component({
         elementProps = this.componentProps('input');
     }
 
-    var input = React.createElement(element, Object.assign(elementProps, this.props));
+    var input = React.createElement(element,
+      Object.assign({}, elementProps, this.props));
 
     if (!label)
       return input;

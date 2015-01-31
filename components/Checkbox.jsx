@@ -14,7 +14,9 @@ module.exports = Component({
   },
 
   getInitialState() {
-    return { checked: this.props.checked };
+    return {
+      checked: this.props.checked
+    };
   },
 
   handleChange(e) {
@@ -35,7 +37,11 @@ module.exports = Component({
 
     return (
       <span {...this.componentProps()}>
-        <input {...this.componentProps('input')} {...this.props} onChange={this.handleChange} />
+        <input
+          {...this.componentProps('input')}
+          {...this.props}
+          onChange={this.handleChange}
+        />
         <span {...this.componentProps('toggle')}>
           <span {...this.componentProps('toggleSwitch')} />
         </span>
