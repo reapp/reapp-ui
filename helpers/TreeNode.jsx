@@ -5,10 +5,10 @@ var React = require('react');
 
 var TreeNode = React.createClass({
   propTypes: {
-    idKey: React.PropTypes.string.isRequired,
     cursor: React.PropTypes.object.isRequired,
     childKey: React.PropTypes.string.isRequired,
-    Component: React.PropTypes.node.isRequired,
+    Component: React.PropTypes.func.isRequired,
+    idKey: React.PropTypes.string,
     level: React.PropTypes.number
   },
 
