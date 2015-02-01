@@ -42,9 +42,12 @@ module.exports = Component({
   },
 
   getInitialState() {
-    return Object.assign(this.getViewListInitialState(), {
-      activeViewIndex: 0
-    });
+    return Object.assign(
+      this.getViewListInitialState(),
+      {
+        activeViewIndex: 0
+      }
+    );
   },
 
   onViewEntered(index) {
@@ -54,7 +57,7 @@ module.exports = Component({
 
   render() {
     return (
-      <div {...this.componentProps()} {...this.props}>
+      <div>
         {this.getViewList()}
         <Dots
           total={this.props.children.length}

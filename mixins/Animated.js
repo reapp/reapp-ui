@@ -34,8 +34,11 @@ module.exports = function(getAnimations) {
       // allow defining animationContext on parents
       // this lets you pass down aritrary extra props, besides the three above
       if (this.animationContext)
-        Object.assign(state, typeof this.animationContext === 'function' ?
-          this.animationContext() : this.animationContext);
+        Object.assign(state,
+          typeof this.animationContext === 'function' ?
+            this.animationContext() :
+            this.animationContext
+        );
 
       return state;
     },
@@ -51,7 +54,8 @@ module.exports = function(getAnimations) {
     // used just by animators
     // pushes their state to the store for children
     setAnimationState(source) {
-      this.animateStore(source, this.getAnimationState());
+      if (!this.state || !this.state.animationDisabled)
+        this.animateStore(source, this.getAnimationState());
     },
 
     disableAnimation() {
@@ -76,7 +80,6 @@ module.exports = function(getAnimations) {
 
     // fetches the list of animations from state or props
     getAnimations(ref) {
-      // console.log('GET', this._uniqueID, this.state, this.props);
       if (this.state && this.state.animations && defined(this.state.animations[ref]))
         return this.state.animations[ref];
       else

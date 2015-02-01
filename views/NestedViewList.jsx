@@ -53,9 +53,6 @@ module.exports = Component({
     if (this.state.step === 0)
       touchableProps.touchStartBoundsX = this.props.touchStartBoundsXFirstStep;
 
-    if (this.state.step > 0)
-      this.addStyles('isNested');
-
     // disable touch events if only one view
     if (this.state.children && this.state.children.length === 1)
       touchableProps.untouchable = true;
@@ -69,7 +66,7 @@ module.exports = Component({
     };
 
     return (
-      <div {...this.componentProps()} {...this.props}>
+      <div>
         {this.getViewList({ touchableProps, viewProps })}
       </div>
     );
