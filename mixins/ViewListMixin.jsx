@@ -50,11 +50,20 @@ module.exports = {
     window.removeEventListener('resize', this.resize);
   },
 
-  // ensure proper animation/update order
   componentWillReceiveProps(nextProps) {
-    if (this._isAnimating || nextProps.disableScroll || !this.didMount)
+    if (nextProps.disableScroll) {
+      this.disableAnimation();
+      return;
+    }
+    // re-enable animations if disabled
+    else if (this.props.disableScroll) {
+      this.enableAnimation();
+    }
+
+    if (this._isAnimating || !this.didMount)
       return;
 
+    // ensure proper animation/update order
     // if new scroll position
     if (nextProps.scrollToStep !== this.props.scrollToStep) {
       // if advancing views or remaining the same
@@ -211,6 +220,10 @@ module.exports = {
 
       this.callProperty('onViewEntered', step);
 
+      // debating this one, could be useful, calls viewEntering
+      // when a view is fully entered
+      this.callProperty('onViewEntering', step);
+
       var prev = step-1;
       var next = step+1;
 
@@ -301,7 +314,9 @@ module.exports = {
       });
   },
 
-  getViewList(extraProps) {
+  getViewList(opts) {
+    var { touchableProps, viewProps } = opts || {};
+
     // pushes state to a store for child use
     // in the future this can be done with contexts
     if (!this.props.disableScroll)
@@ -311,7 +326,7 @@ module.exports = {
     var activeTitle;
 
     return (
-      <TouchableArea {...touchableAreaProps} {...extraProps}>
+      <TouchableArea {...touchableAreaProps} {...touchableProps}>
         {!this.props.noFakeTitleBar && (
           <TitleBar {...this.props.titleBarProps} animations={{}} />
         )}
@@ -322,7 +337,7 @@ module.exports = {
           if (i === this.state.step)
             activeTitle = child.props && child.props.title;
 
-          return {
+          return Object.assign({
             key: i,
             index: i,
             viewList: { index: i },
@@ -331,7 +346,7 @@ module.exports = {
             width: this.state.width,
             height: this.state.height,
             viewListScrollToStep: this.scrollToStep
-          };
+          }, viewProps);
         }, true)}
 
         {activeTitle &&

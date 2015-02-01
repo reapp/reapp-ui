@@ -69,6 +69,7 @@ module.exports = Component({
       titleBarProps,
       overlayProps,
       viewList,
+      viewListType,
       ...props
     } = this.props;
 

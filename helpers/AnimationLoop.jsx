@@ -80,7 +80,7 @@ module.exports = Component({
       ...props } = this.props;
 
     return (
-      <div {...this.componentProps()}>
+      <div {...this.componentProps()} {...props}>
         {children}
       </div>
     );

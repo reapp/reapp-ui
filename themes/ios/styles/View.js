@@ -27,8 +27,7 @@ module.exports = (c) => ({
     left: 0,
     bottom: 0,
     right: 0,
-    WebkitBackfaceVisibility: 'hidden',
-    boxShadow: '0 0 15px rgba(0,0,0,0.2)'
+    WebkitBackfaceVisibility: 'hidden'
   },
 
   overlay: {

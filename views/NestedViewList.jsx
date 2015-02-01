@@ -47,22 +47,30 @@ module.exports = Component({
   },
 
   render() {
-    var extraProps = {};
+    var touchableProps = {};
 
     // only enable right side touching if on first view
     if (this.state.step === 0)
-      extraProps.touchStartBoundsX = this.props.touchStartBoundsXFirstStep;
+      touchableProps.touchStartBoundsX = this.props.touchStartBoundsXFirstStep;
 
     if (this.state.step > 0)
       this.addStyles('isNested');
 
     // disable touch events if only one view
     if (this.state.children && this.state.children.length === 1)
-      extraProps.untouchable = true;
+      touchableProps.untouchable = true;
+
+    var viewProps = {
+      styles: {
+        inner: {
+          boxShadow: '0 0 15px rgba(0,0,0,0.2)'
+        }
+      }
+    };
 
     return (
       <div {...this.componentProps()} {...this.props}>
-        {this.getViewList(extraProps)}
+        {this.getViewList({ touchableProps, viewProps })}
       </div>
     );
   }
