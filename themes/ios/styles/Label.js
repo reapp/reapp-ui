@@ -4,7 +4,8 @@ module.exports = {
     flexFlow: 'row',
     WebkitFlexFlow: 'row',
     width: '100%',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    WebkitJustifyContent: 'space-between'
   },
 
   title: {

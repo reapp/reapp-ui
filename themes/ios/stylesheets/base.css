@@ -16,6 +16,8 @@ div, a, button, input, form, span, ul, li {
   cursor: pointer;
   -ms-touch-action: manipulation;
   touch-action: manipulation;
+
+  -webkit-font-smoothing: antialiased;
 }
 
 input, textarea {

@@ -16,6 +16,29 @@ module.exports = Component({
     TweenState.Mixin
   ],
 
+  propTypes: {
+    open: React.PropTypes.bool,
+    type: React.PropTypes.string,
+    animationDuration: React.PropTypes.number,
+    animations: React.PropTypes.object,
+    handleConfirm: React.PropTypes.func,
+    handleCancel: React.PropTypes.func,
+    handleClose: React.PropTypes.func
+  },
+
+  getDefaultProps() {
+    return {
+      open: true,
+      type: 'alert',
+      onClose: this.handleClose,
+      animationDuration: 200,
+      animations: {
+        modal: ['fade', 'scaleDown'],
+        bg: 'fade'
+      }
+    };
+  },
+
   getInitialState() {
     return {
       step: 0,
@@ -49,7 +72,6 @@ module.exports = Component({
   handleClose(e) {
     if (!this.state.isClosing) {
       this.setState({ isClosing: true });
-      console.log('closing')
       this.tweenState('step', {
         endValue: 2,
         duration: this.props.animationDuration,
@@ -60,7 +82,6 @@ module.exports = Component({
 
   afterClose(e) {
     setTimeout(() => {
-      console.log('after close')
       if (this.props.onClose)
         this.props.onClose(e);
     });
@@ -74,6 +95,8 @@ module.exports = Component({
       children,
       open,
       ...props } = this.props;
+
+      console.log(this.getTweeningValue('step'))
 
     if (open) {
       this.addClass('open');
@@ -110,11 +133,11 @@ module.exports = Component({
           onClick={this.handleClose}/>
         <div {...this.componentProps('modal')}>
           <div {...this.componentProps('inner')}>
-            {title && (
+            {title &&
               <div {...this.componentProps('title')}>
                 {title}
               </div>
-            )}
+            }
             {children}
           </div>
           <div {...this.componentProps('buttons')}>
