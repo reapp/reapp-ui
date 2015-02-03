@@ -96,8 +96,6 @@ module.exports = Component({
       open,
       ...props } = this.props;
 
-      console.log(this.getTweeningValue('step'))
-
     if (open) {
       this.addClass('open');
       this.addStyles('open');

@@ -5,7 +5,9 @@ var Icon = require('./Icon');
 module.exports = Component({
   name: 'ListItem',
 
-  mixins: [React.addons.PureRenderMixin],
+  mixins: [
+    React.addons.PureRenderMixin
+  ],
 
   propTypes: {
     title: React.PropTypes.node,
@@ -119,7 +121,7 @@ module.exports = Component({
     ];
 
     return (
-      <li {...this.componentProps()} {...props}>
+      <li {...this.tappableProps()} {...this.componentProps()} {...props}>
         {content}
       </li>
     );

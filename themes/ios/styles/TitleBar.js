@@ -30,7 +30,8 @@ module.exports = (c) => ({
   mid: {
     color: c.titleBarColor,
     margin: 'auto 0',
-    position: 'relative'
+    position: 'relative',
+    fontWeight: 500
   },
 
   right: {

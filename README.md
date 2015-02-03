@@ -90,6 +90,9 @@ SVG Icons included in this repo are originally from [flaticon](http://www.flatic
 and are licensed under [Creative Commons 3.0](http://creativecommons.org/licenses/by/3.0/). If you use them with your project, you must
 include attribution "in any reasonable manner, but not in any way that suggests the licensor endorses you or your use".
 
+A big part of [react-tappable](https://github.com/JedWatson/react-tappable) was imported for use as a mixin, and will be sent
+back as a pull request soon!
+
 Help throughout was given in the #reactjs freenode channel, and from various great members
 of the react community including:
  - [Andrey Popp](https://github.com/andreypopp)
