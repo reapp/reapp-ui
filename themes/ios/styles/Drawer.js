@@ -9,6 +9,14 @@ module.exports = (c) => ({
     zIndex: 4 // todo: this can be better
   },
 
+  inner: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0
+  },
+
   'from-right': {
     top: 0,
     left: 0
@@ -19,12 +27,12 @@ module.exports = (c) => ({
     right: 0
   },
 
-  'from-top': {
+  'from-bottom': {
     left: 0,
     bottom: 0
   },
 
-  'from-bottom': {
+  'from-top': {
     left: 0,
     top: 0
   },
@@ -35,6 +43,13 @@ module.exports = (c) => ({
   },
 
   topDragger: {
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: c.edgeWidth
+  },
+
+  bottomDragger: {
     top: 0,
     right: 0,
     left: 0,
@@ -46,13 +61,6 @@ module.exports = (c) => ({
     left: 0,
     bottom: 0,
     width: c.edgeWidth
-  },
-
-  bottomDragger: {
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: c.edgeWidth
   },
 
   leftDragger: {

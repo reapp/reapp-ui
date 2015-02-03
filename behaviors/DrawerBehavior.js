@@ -5,10 +5,10 @@ module.exports = {
   left: {
     translate: pct => ({ x: -pct })
   },
-  bottom: {
+  top: {
     translate: pct => ({ y: -pct })
   },
-  top: {
+  bottom: {
     translate: pct => ({ y: pct })
   },
 };
