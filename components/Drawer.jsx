@@ -18,7 +18,9 @@ module.exports = Component({
     touchableProps: React.PropTypes.object,
     onClose: React.PropTypes.func,
     open: React.PropTypes.bool,
-    dragger: React.PropTypes.bool
+    dragger: React.PropTypes.bool,
+    width: React.PropTypes.number,
+    height: React.PropTypes.number
   },
 
   getDefaultProps() {
@@ -26,7 +28,9 @@ module.exports = Component({
       behavior: DrawerBehavior,
       from: 'left',
       open: true,
-      dragger: true
+      dragger: true,
+      width: window.innerWidth,
+      height: window.innerHeight
     };
   },
 
@@ -61,8 +65,12 @@ module.exports = Component({
   },
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.open !== this.props.open)
-      nextProps.open ? this.scrollOpen(true) : this.scrollClosed(true);
+    if (nextProps.open !== this.props.open) {
+      if (nextProps.open)
+       this.scrollOpen(true)
+      else
+        this.scrollClosed(true);
+    }
   },
 
   componentWillUnmount() {
@@ -73,10 +81,10 @@ module.exports = Component({
     if (this.state.externalScroller)
       return;
 
-    var width = this.getWidth();
-    var height = this.getHeight();
-    var totalWidth = width;
-    var totalHeight = height;
+    var width = this.props.width;
+    var totalWidth = this.props.width;
+    var height = this.props.height;
+    var totalHeight = this.props.height;
 
     if (this.isSideDrawer())
       totalWidth = width * 2;
@@ -85,7 +93,9 @@ module.exports = Component({
 
     this.scroller.setDimensions(width, height, totalWidth, totalHeight);
     this.scroller.setSnapSize(width, height);
-    // this.scrollClosed(0, 0, false);
+
+    if (this.props.from === 'bottom')
+      this.scroller.scrollTo(0, totalHeight, false);
   },
 
   scrollClosed(animated) {
@@ -104,18 +114,9 @@ module.exports = Component({
     var dec = percent * 0.01;
 
     if (this.isSideDrawer())
-      this.scroller.scrollTo(dec * this.getWidth(), 0, animated);
-    else {
-     this.scroller.scrollTo(0, dec * this.getHeight(), animated);
-    }
-  },
-
-  getWidth() {
-    return this.getDOMNode().clientWidth;
-  },
-
-  getHeight() {
-    return this.getDOMNode().clientHeight;
+      this.scroller.scrollTo(dec * this.props.width, 0, animated);
+    else
+     this.scroller.scrollTo(0, dec * this.props.height, animated);
   },
 
   isSideDrawer() {
@@ -124,8 +125,8 @@ module.exports = Component({
 
   isClosed() {
     return this.isSideDrawer() ?
-      this.state.offset === this.getWidth() :
-      this.state.offset === this.getHeight();
+      this.state.offset === this.props.width :
+      this.state.offset === this.props.height;
   },
 
   ignoreScroll: true,
@@ -191,7 +192,7 @@ module.exports = Component({
     if (dragger) {
       this.addStyles('dragger', `${this.props.from}Dragger`);
       this.addStyles('dragger', {
-        [this.draggerSide[from]]: this.props.open ? 0 : -this.getConstant('edgeWidth')
+        [this.draggerSide[from]]: this.isClosed() ? -this.getConstant('edgeWidth') : 0
       });
     }
 

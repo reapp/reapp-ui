@@ -107,7 +107,10 @@ module.exports = Component({
             </div>
           </AnimatableContainer>
         )}
-        <Drawer {...this.componentProps('drawer')} {...drawerProps} dragger={false}>
+        <Drawer
+          {...this.componentProps('drawer')}
+          {...drawerProps}
+          dragger={false}>
           {clone(children, { handle: touchableHandle })}
         </Drawer>
       </div>
