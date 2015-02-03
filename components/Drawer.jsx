@@ -50,8 +50,8 @@ module.exports = Component({
   },
 
   componentDidMount() {
-    this.measureAndPosition();
-    window.addEventListener('resize', this.measureAndPosition);
+    this.measureScroller();
+    window.addEventListener('resize', this.measureScroller);
 
     this.ignoreScroll = false;
     if (this.props.open) {
@@ -62,16 +62,11 @@ module.exports = Component({
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.open !== this.props.open)
-      this.scrollTo(100, true);
-  },
-
-  measureAndPosition() {
-    this.measureScroller();
-
+      nextProps.open ? this.scrollOpen(true) : this.scrollClosed(true);
   },
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.measureAndPosition);
+    window.removeEventListener('resize', this.measureScroller);
   },
 
   getWidth() {
@@ -98,15 +93,20 @@ module.exports = Component({
 
     this.scroller.setDimensions(width, height, totalWidth, totalHeight);
     this.scroller.setSnapSize(width, height);
-    this.scroller.scrollTo(0, 0, false);
+    this.scrollClosed(0, 0, false);
+  },
+
+  reversed() {
+    return this.props.from === 'right' ||
+      this.props.from === 'bottom;'
   },
 
   scrollClosed(animated) {
-    this.scrollTo(100, animated);
+    this.scrollTo(this.reversed() ? 0 : 100, animated);
   },
 
   scrollOpen(animated) {
-    this.scrollTo(0, animated);
+    this.scrollTo(this.reversed() ? 100 : 0, animated);
   },
 
   // handles scrolling to a percent
@@ -157,11 +157,11 @@ module.exports = Component({
       this.props.onClose();
   },
 
-  oppositeSides: {
+  draggerSide: {
     left: 'right',
     right: 'left',
-    top: 'bottom',
-    bottom: 'top'
+    top: 'top',
+    bottom: 'bottom'
   },
 
   render() {
@@ -186,7 +186,7 @@ module.exports = Component({
     if (dragger) {
       this.addStyles('dragger', `${this.props.from}Dragger`);
       this.addStyles('dragger', {
-        [this.oppositeSides[from]]: this.props.open ? 0 : -this.getConstant('edgeWidth')
+        [this.draggerSide[from]]: this.props.open ? 0 : -this.getConstant('edgeWidth')
       });
     }
 

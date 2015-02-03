@@ -31,11 +31,11 @@ module.exports = (c) => ({
 
   dragger: {
     position: 'fixed',
-    zIndex: 3,
+    zIndex: 3
   },
 
   topDragger: {
-    bottom: 0,
+    top: 0,
     right: 0,
     left: 0,
     height: c.edgeWidth
