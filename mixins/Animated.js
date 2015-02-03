@@ -21,7 +21,7 @@ module.exports = function(getAnimations) {
       if (source && source !== 'self') {
         return Object.assign(
           this.animateStore(source),
-          this.props[source]
+          this.props.animationState && this.props.animationState[source]
         );
       }
 

@@ -57,7 +57,8 @@ module.exports = Component({
       return component;
 
     return React.addons.cloneWithProps(component, {
-      isInTitleBar: true
+      isInTitleBar: true,
+      animationState: Object.assign({}, this.props.animationState)
     });
   },
 

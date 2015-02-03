@@ -41,9 +41,10 @@ module.exports = Component({
       this.addStyles('inner', { top: this.getTitleBarHeight() });
   },
 
-  hideBoxShadowWhileAnimating() {
-    // todo
-    this.addStyles('inner', { clip: `rect(0px, ${this.props.width}px, ${Number.MAX_VALUE}px, -10px)` });
+  boxShadowWhileAnimating() {
+    if (this.isAnimating('viewList')) {
+      this.addStyles('inner', { clip: `rect(0px, ${this.props.width}px, ${this.props.height}px, -10px)` });
+    }
   },
 
   handleDoubleTap() {
@@ -58,6 +59,7 @@ module.exports = Component({
   render() {
     var {
       animations,
+      animationState,
       children,
       title,
       index,
@@ -81,7 +83,7 @@ module.exports = Component({
       this.addStyles('active');
 
     this.addTitleBarOffset();
-    this.hideBoxShadowWhileAnimating();
+    this.boxShadowWhileAnimating();
 
     if (this.hasOverlay()) {
       this.addStyles('overlay', {

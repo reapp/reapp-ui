@@ -25,6 +25,7 @@ module.exports = Component({
       rounded,
       active,
       isInTitleBar,
+      animationState,
       ...props } = this.props;
 
     if (isInTitleBar)
@@ -36,6 +37,9 @@ module.exports = Component({
 
     if (icon && iconProps)
       icon = clone(icon, iconProps, true);
+
+    if (iconProps)
+      iconProps = Object.assign({}, iconProps, { animationState })
 
     if (chromeless)
       this.addStyles('chromeless');

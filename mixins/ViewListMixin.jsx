@@ -340,7 +340,12 @@ module.exports = {
           return Object.assign({
             key: i,
             index: i,
-            viewList: { index: i },
+            animationState: {
+              viewList: {
+                index: i,
+                // step: this.state.step // todo: when contexts work
+              }
+            },
             titleBarProps: this.getTitleBarProps(),
             animations: this.getViewAnimations(child),
             width: this.state.width,
