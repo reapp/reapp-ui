@@ -12,6 +12,10 @@ div, a, button, input, form, span, ul, li {
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
+
+  cursor: pointer;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
 }
 
 input, textarea {
