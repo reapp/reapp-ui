@@ -17,7 +17,7 @@ module.exports = Component({
     ]),
     touchableProps: React.PropTypes.object,
     onClose: React.PropTypes.func,
-    closed: React.PropTypes.bool,
+    open: React.PropTypes.bool,
     dragger: React.PropTypes.bool
   },
 
@@ -25,7 +25,7 @@ module.exports = Component({
     return {
       behavior: DrawerBehavior,
       from: 'left',
-      closed: false,
+      open: true,
       dragger: true
     };
   },
@@ -33,7 +33,6 @@ module.exports = Component({
   getInitialState() {
     return {
       offset: 0,
-      closed: this.props.closed,
       externalScroller: !!this.props.scroller
     };
   },
@@ -50,15 +49,25 @@ module.exports = Component({
     });
   },
 
-  componentWillReceiveProps(nextProps) {
-    // handle changing closed prop
-    if (nextProps.closed !== this.props.closed)
-      this.scrollTo(nextProps.closed ? 0 : 100, true);
-  },
-
   componentDidMount() {
     this.measureAndPosition();
     window.addEventListener('resize', this.measureAndPosition);
+
+    this.ignoreScroll = false;
+    if (this.props.open) {
+      this.scrollClosed(false);
+      this.scrollOpen(true);
+    }
+  },
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.open !== this.props.open)
+      this.scrollTo(100, true);
+  },
+
+  measureAndPosition() {
+    this.measureScroller();
+
   },
 
   componentWillUnmount() {
@@ -89,18 +98,23 @@ module.exports = Component({
 
     this.scroller.setDimensions(width, height, totalWidth, totalHeight);
     this.scroller.setSnapSize(width, height);
+    this.scroller.scrollTo(0, 0, false);
   },
 
-  measureAndPosition() {
-    this.measureScroller();
-    this.scrollTo(this.props.closed ? 100 : 0, false);
+  scrollClosed(animated) {
+    this.scrollTo(100, animated);
+  },
+
+  scrollOpen(animated) {
+    this.scrollTo(0, animated);
   },
 
   // handles scrolling to a percent
-  scrollTo(percent, animated) {
+  scrollTo(open, animated) {
     if (!this.scroller)
       return;
 
+    var percent = open ? 100 : 0;
     var dec = percent * 0.01;
 
     if (this.isSideDrawer())
@@ -119,32 +133,35 @@ module.exports = Component({
       this.state.offset === this.getHeight();
   },
 
+  ignoreScroll: true,
+
   handleScroll(left, top) {
+    if (this.ignoreScroll)
+      return;
+
     var offset, transform;
 
-    switch(this.props.from){
-      case 'left':
-      case 'right':
+    switch(this.props.from) {
+      case 'left': case 'right':
         offset = left;
         break;
-      case 'top':
-      case 'bottom':
+      case 'top': case 'bottom':
         offset = top;
       break;
     }
 
-    this.setState({
-      offset,
-      closed: offset === 0
-    });
+    this.setState({ offset });
 
     // onClose callback
     if (this.isClosed() && this.props.onClose)
       this.props.onClose();
   },
 
-  getOppositeSide(from) {
-    return { left: 'right', right: 'left', top: 'bottom', bottom: 'top' };
+  oppositeSides: {
+    left: 'right',
+    right: 'left',
+    top: 'bottom',
+    bottom: 'top'
   },
 
   render() {
@@ -163,13 +180,13 @@ module.exports = Component({
       translate: translate || behavior[from].translate(this.state.offset)
     }, this.props.animatedProps);
 
-    this.addClass('closed', this.state.closed);
+    this.addClass('open', this.props.open);
     this.addStyles(`from-${this.props.from}`);
 
     if (dragger) {
       this.addStyles('dragger', `${this.props.from}Dragger`);
       this.addStyles('dragger', {
-        [this.getOppositeSide(from)]: this.state.closed ? -this.getConstant('edgeWidth') : 0
+        [this.oppositeSides[from]]: this.props.open ? 0 : -this.getConstant('edgeWidth')
       });
     }
 

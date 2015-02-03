@@ -86,7 +86,7 @@ module.exports = Component({
 
     var drawerProps = {
       layer: 1,
-      translate: DrawerBehavior.right.translate(this.state.scrollX),
+      translate: DrawerBehavior.left.translate(this.state.scrollX),
       scroller: this.scroller,
       onTouchTap: this._handleContentTouchTap
     };
