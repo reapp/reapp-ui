@@ -141,7 +141,9 @@ module.exports = Component({
   afterClose(e, cb) {
     setTimeout(() => {
       if (this.props.onClose) {
-        if (cb) cb();
+        if (cb && typeof cb === 'function')
+          cb();
+
         this.props.onClose(e);
       }
     })
