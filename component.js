@@ -12,7 +12,6 @@ var Styled = require('./mixins/Styled');
 var Classed = require('./mixins/Classed');
 var Animated = require('./mixins/Animated');
 var ComponentProps = require('./mixins/ComponentProps');
-var Tappable = require('./mixins/Tappable');
 
 Component.addDecorator(spec => {
   spec.mixins = [].concat(
@@ -29,8 +28,6 @@ Component.addDecorator(spec => {
 
     // any component-defined mixins
     spec.mixins || [],
-
-    Tappable,
 
     // componentProps is the meat of a UI component
     // when used, it will handle: id, ref, className, styles, animations
