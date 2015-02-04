@@ -17,7 +17,7 @@ module.exports = Component({
       resizeWithWindow: true,
       scrollToStep: 0,
       scrollerProps: {
-        animationDuration: 400,
+        animationDuration: 500,
         paging: true,
         bouncing: false,
         scrollingY: false
