@@ -72,8 +72,8 @@ module.exports = Component({
       color = this.getConstant('activeColor');
 
     if (crisp)
-      this.addStyles('svg',
-        { shapeRendering: 'crispEdges' });
+      this.addStyles('g',
+        { 'shape-rendering': 'crispEdges' });
 
     this.addStyles({
       color,
@@ -110,7 +110,7 @@ module.exports = Component({
     return (
       <span {...this.componentProps()} {...props}>
         <svg {...svgExtraProps} {...svgProps} {...this.componentProps('svg')}>
-          <g dangerouslySetInnerHTML={{__html:
+          <g {...this.componentProps('g')} dangerouslySetInnerHTML={{__html:
             `<use xlink:href="${path}/${name}.svg#Layer_1"></use>`
           }} />
         </svg>

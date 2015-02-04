@@ -86,7 +86,7 @@ module.exports = Component({
         children: hasLinkIcon ?
           this.getIcon() :
           null,
-        styles: this.getStyles('wrapper')
+        style: this.getStyles('wrapper')[0]
       });
 
       // pad out right side if it has a wrapper
