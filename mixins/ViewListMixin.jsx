@@ -23,7 +23,7 @@ module.exports = {
     onViewEntering: React.PropTypes.func,
     onViewEntered: React.PropTypes.func,
     onViewLeaving: React.PropTypes.func,
-    onViewLeft: React.PropTypes.func,
+    onViewLeft: React.PropTypes.func
   },
 
   getViewListInitialState() {
