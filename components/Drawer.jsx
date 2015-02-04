@@ -196,6 +196,11 @@ module.exports = Component({
       });
     }
 
+    var updateChildren = this.state.offset === 0;
+
+    if (this.props.shouldUpdate === false)
+      updateChildren = false;
+
     return (
       <AnimatableContainer
         {...this.componentProps()}
@@ -209,7 +214,7 @@ module.exports = Component({
               scroller={scroller || this.scroller}
               currentTargetOnly />
           )}
-          <StaticContainer shouldUpdate={this.state.offset === 0}>
+          <StaticContainer shouldUpdate={updateChildren}>
             {children}
           </StaticContainer>
         </div>

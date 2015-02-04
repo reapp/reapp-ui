@@ -5,6 +5,7 @@ var LeftNavBehavior = require('../behaviors/LeftNavBehavior');
 var Drawer = require('../components/Drawer');
 var DrawerBehavior = require('../behaviors/DrawerBehavior');
 var TouchableArea = require('../helpers/TouchableArea');
+var StaticContainer = require('../helpers/StaticContainer');
 var Scrollable = require('../mixins/Scrollable');
 var clone = require('../lib/niceClone');
 
@@ -110,6 +111,7 @@ module.exports = Component({
         <Drawer
           {...this.componentProps('drawer')}
           {...drawerProps}
+          shouldUpdate={this.state.scrollX === 200}
           dragger={false}>
           {clone(children, { handle: touchableHandle })}
         </Drawer>

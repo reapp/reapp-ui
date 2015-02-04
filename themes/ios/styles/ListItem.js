@@ -69,7 +69,7 @@ module.exports = (c) => ({
   },
 
   title: {
-    fontWeight: '500',
+    fontWeight: 500,
     maxWidth: '100%'
   },
 
@@ -78,7 +78,8 @@ module.exports = (c) => ({
   },
 
   titleSub: {
-    fontSize: '15px'
+    fontSize: '15px',
+    fontWeight: 300
   },
 
   children: {

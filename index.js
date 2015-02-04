@@ -1,8 +1,12 @@
 var ReactStyle = require('react-style');
 var Invariant = require('react/lib/invariant');
 
+// only for desktop touch emulation
 if (location.hash === 'emulateTouch')
-  require('./lib/desktopTouch');
+  require('./lib/desktopTouch')({
+    style: false,
+    startOnLoad: true
+  });
 
 // Stores constants, animations and styles
 //   see themes/ios/all.js for an example usage.
