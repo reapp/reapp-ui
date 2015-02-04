@@ -19,6 +19,7 @@ module.exports = (c) => ({
 
   inner: {
     margin: 'auto',
-    flexFlow: 'row'
+    flexFlow: 'row',
+    WebkitFlexFlow: 'row'
   }
 });
