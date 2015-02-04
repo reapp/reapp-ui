@@ -28,7 +28,7 @@ module.exports = (c) => ({
     minWidth: 270,
     maxWidth: '80%',
     margin: 'auto',
-    background: c.brandBG,
+    background: c.white,
     padding: 0,
     borderRadius: 7,
     textAlign: 'center',
@@ -47,7 +47,7 @@ module.exports = (c) => ({
   },
 
   title: {
-    color: c.brandColor,
+    color: c.black,
     fontSize: '18px',
     fontWeight: 500
   },

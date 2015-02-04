@@ -72,8 +72,8 @@ module.exports = Component({
       color = this.getConstant('activeColor');
 
     if (crisp)
-      this.addStyles('g',
-        { 'shape-rendering': 'crispEdges' });
+      this.addStyles('svg',
+        { 'shapeRendering': 'crispEdges' });
 
     this.addStyles({
       color,

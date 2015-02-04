@@ -102,6 +102,7 @@ module.exports = function(getAnimations) {
     // if not passed in here
     getAnimationStyle(ref, source) {
       source = source || this.getAnimationSource(ref);
+
       var animations = this.getAnimations(ref);
       var state = this.getAnimationState(source);
       var styles;

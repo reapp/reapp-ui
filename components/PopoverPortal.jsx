@@ -62,6 +62,7 @@ module.exports = Component({
           popoverLeft: nextProps.left,
           popoverTop: nextProps.top
         });
+
     if (nextProps.open)
       nextState = Object.assign(nextState,
         { open: nextProps.open });
@@ -127,24 +128,30 @@ module.exports = Component({
     return { arrowInnerTop, arrowTop, popoverTop };
   },
 
-  handlePopoverSelect(e, cb) {
+  handlePopoverSelect(cb) {
     if (!this.state.isClosing) {
       this.setState({ isClosing: true });
-      this.tweenState('step', {
-        endValue: 2,
-        duration: this.props.animationDuration,
-        onEnd: this.afterClose.bind(this, e, cb)
-      });
+      this.close(cb);
     }
   },
 
-  afterClose(e, cb) {
+  close(cb) {
+    this.afterClose(cb);
+    // todo: this broke with portals
+    // this.tweenState('step', {
+    //   endValue: 2,
+    //   duration: this.props.animationDuration,
+    //   onEnd: this.afterClose.bind(this, cb)
+    // });
+  },
+
+  afterClose(cb) {
     setTimeout(() => {
       if (this.props.onClose) {
         if (cb && typeof cb === 'function')
           cb();
 
-        this.props.onClose(e);
+        this.props.onClose();
       }
     })
   },
@@ -195,9 +202,7 @@ module.exports = Component({
                 {clone(li, (item, i) => {
                   return {
                     styles: this.getStyles('link'),
-                    onClick: (e) => {
-                      this.handlePopoverSelect(e, item.props.onClick)
-                    }
+                    onClick: this.handlePopoverSelect.bind(this, item.props.onClick)
                   }
                 })}
               </li>

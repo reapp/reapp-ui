@@ -70,14 +70,16 @@ module.exports = Component({
   },
 
   handleClose(e) {
-    if (!this.state.isClosing) {
-      this.setState({ isClosing: true });
-      this.tweenState('step', {
-        endValue: 2,
-        duration: this.props.animationDuration,
-        onEnd: this.afterClose.bind(this, e)
-      });
-    }
+    this.afterClose(e);
+    // todo: this broke with portals
+    // if (!this.state.isClosing) {
+    //   this.setState({ isClosing: true });
+    //   this.tweenState('step', {
+    //     endValue: 2,
+    //     duration: this.props.animationDuration,
+    //     onEnd: this.afterClose.bind(this, e)
+    //   });
+    // }
   },
 
   afterClose(e) {
