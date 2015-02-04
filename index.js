@@ -1,10 +1,8 @@
 var ReactStyle = require('react-style');
 var Invariant = require('react/lib/invariant');
 
-(function() {
-  var FastClick = require('fastclick');
-  FastClick.attach(document.body);
-})
+if (location.hash === 'emulateTouch')
+  require('./lib/desktopTouch');
 
 // Stores constants, animations and styles
 //   see themes/ios/all.js for an example usage.
