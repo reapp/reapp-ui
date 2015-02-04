@@ -121,7 +121,7 @@ module.exports = Component({
     ];
 
     return (
-      <li {...this.tappableProps()} {...this.componentProps()} {...props}>
+      <li {...this.componentProps()} {...props}>
         {content}
       </li>
     );

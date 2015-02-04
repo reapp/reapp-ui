@@ -25,7 +25,9 @@ SOFTWARE.
 */
 
 var React = require('react');
-React.initializeTouchEvents(true);
+
+// be sure to run this before using this library
+// React.initializeTouchEvents(true);
 
 function getTouchProps(touch) {
   if (!touch) return {};
@@ -79,7 +81,7 @@ module.exports = {
   getDefaultProps: function() {
     return {
       component: 'div',
-      moveThreshold: 100,
+      moveThreshold: 10,
       pressDelay: 1000,
       pressMoveThreshold: 5
     };
@@ -209,7 +211,6 @@ module.exports = {
   },
 
   onMouseDown: function(event) {
-    console.log('down');
     if (window._blockMouseEvents) {
       window._blockMouseEvents = false;
       return;
