@@ -1,11 +1,8 @@
 module.exports = (c) => ({
   self: {
-    background: c.bgLight,
-    boxShadow: '0 0 10px rbga(0,0,0,0.5)',
     position: 'fixed',
     width: '100%',
     height: '100%',
-    pointerEvents: 'all',
     zIndex: 4 // todo: this can be better
   },
 
