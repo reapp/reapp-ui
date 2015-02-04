@@ -1,6 +1,7 @@
 var React = require('react');
 var TweenState = require('react-tween-state');
 var Component = require('../component');
+var clone = require('../lib/niceClone');
 
 module.exports = Component({
   name: 'PopoverPortal',
@@ -8,6 +9,29 @@ module.exports = Component({
   mixins: [
     TweenState.Mixin
   ],
+
+  propTypes: {
+    target: React.PropTypes.object.isRequired,
+    open: React.PropTypes.bool,
+    edgePadding: React.PropTypes.number,
+    arrowSize: React.PropTypes.number,
+    onClose: React.PropTypes.func,
+    animationDuration: React.PropTypes.number,
+    animations: React.PropTypes.object
+  },
+
+  getDefaultProps() {
+    return {
+      open: true,
+      edgePadding: 3,
+      arrowSize: 26,
+      animationDuration: 200,
+      animations: {
+        popover: ['fade', 'scaleDown'],
+        bg: 'fade'
+      }
+    };
+  },
 
   getInitialState() {
     return {
@@ -34,9 +58,13 @@ module.exports = Component({
     var nextState = {};
 
     if (nextProps.left && nextProps.top)
-      nextState = Object.assign(nextState, { popoverLeft: nextProps.left, popoverTop: nextProps.top });
+      nextState = Object.assign(nextState, {
+          popoverLeft: nextProps.left,
+          popoverTop: nextProps.top
+        });
     if (nextProps.open)
-      nextState = Object.assign(nextState, { open: nextProps.open });
+      nextState = Object.assign(nextState,
+        { open: nextProps.open });
 
     this.setState(nextState);
   },
@@ -99,25 +127,24 @@ module.exports = Component({
     return { arrowInnerTop, arrowTop, popoverTop };
   },
 
-  handleClose(e) {
-    e.preventDefault();
-
+  handlePopoverSelect(e, cb) {
     if (!this.state.isClosing) {
       this.setState({ isClosing: true });
       this.tweenState('step', {
         endValue: 2,
         duration: this.props.animationDuration,
-        onEnd: this.afterClose.bind(this, e)
+        onEnd: this.afterClose.bind(this, e, cb)
       });
     }
-
-    if (this.props.handleClose)
-      this.props.handleClose(e);
   },
 
-  afterClose(e) {
-    if (this.props.handleClose)
-      this.props.handleClose(e);
+  afterClose(e, cb) {
+    setTimeout(() => {
+      if (this.props.onClose) {
+        if (cb) cb();
+        this.props.onClose(e);
+      }
+    })
   },
 
   addPositionStyles() {
@@ -152,9 +179,10 @@ module.exports = Component({
 
     return (
       <div {...this.componentProps()} {...props}>
-        <div {...this.componentProps('bg')}
-          onClick={this.handleClose}/>
-
+        <div
+          {...this.componentProps('bg')}
+          onClick={this.handlePopoverSelect}
+        />
         <div {...this.componentProps('popover')}>
           <div {...this.componentProps('arrow')}>
             <div {...this.componentProps('arrowInner')} />
@@ -162,7 +190,14 @@ module.exports = Component({
           <ul {...this.componentProps('list')}>
             {React.Children.map(children, (li, i) => (
               <li key={i} styles={this.getStyles('item', i)}>
-                {React.addons.cloneWithProps(li, { styles: this.getStyles('link') })}
+                {clone(li, (item, i) => {
+                  return {
+                    styles: this.getStyles('link'),
+                    onClick: (e) => {
+                      this.handlePopoverSelect(e, item.props.onClick)
+                    }
+                  }
+                })}
               </li>
             ))}
           </ul>

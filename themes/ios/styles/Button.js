@@ -18,7 +18,8 @@ module.exports = (c) => ({
     flexFlow: 'row',
     WebkitFlexFlow: 'row',
     flexGrow: 1,
-    WebkitFlexGrow: 1
+    WebkitFlexGrow: 1,
+    margin: 0
   },
 
   isInTitleBar: {

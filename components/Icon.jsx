@@ -16,12 +16,14 @@ module.exports = Component({
     stroke: React.PropTypes.number,
     isInTitleBar: React.PropTypes.bool,
     shapeRendering: React.PropTypes.string,
-    svgProps: React.PropTypes.object
+    svgProps: React.PropTypes.object,
+    crisp: React.PropTypes.bool
   },
 
   getDefaultProps() {
     return {
       size: 32,
+      stroke: 1,
       color: 'currentColor',
       path: '/assets/icons',
       style: {},
@@ -62,11 +64,16 @@ module.exports = Component({
       isInTitleBar,
       shapeRendering,
       svgProps,
+      crisp,
       ...props
     } = this.props;
 
     if (isInTitleBar && color === 'currentColor')
       color = this.getConstant('activeColor');
+
+    if (crisp)
+      this.addStyles('svg',
+        { shapeRendering: 'crispEdges' });
 
     this.addStyles({
       color,
@@ -96,7 +103,7 @@ module.exports = Component({
     if (stroke)
       Object.assign(svgExtraProps, {
         stroke: color,
-        strokeWidth: stroke * 4, // were scaling down from 64 / 2
+        strokeWidth: stroke * 2, // were scaling down from 64 / 2
         strokeLinecap: 'round'
       });
 

@@ -15,9 +15,9 @@ module.exports = (c) => ({
   },
 
   title: {
-    background: c.listTitleColor,
+    background: c.midGray,
+    color: c.brandColor,
     padding: '4px 0 4px 10px',
-    margin: '0 0 -1px -10px',
-    color: '#8e8e93'
+    margin: '0 0 -1px -10px'
   }
 });

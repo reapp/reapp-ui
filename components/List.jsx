@@ -43,7 +43,7 @@ module.exports = Component({
     return (
       <ul {...this.componentProps()} {...props}>
         {title && (
-          <Title>{title}</Title>
+          <Title styles={this.getStyles('title')}>{title}</Title>
         )}
         {React.Children.map(children, (li, i) => {
           if (wrap)

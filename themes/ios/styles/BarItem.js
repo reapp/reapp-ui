@@ -4,29 +4,41 @@ module.exports = (c) => ({
     flexShrink: 0,
     WebkitFlexGrow: 1,
     WekitFlexShrink: 0,
-    color: c.barColor
+    color: c.barColor,
+    justifyContent: 'center',
+    WebkitJustifyContent: 'center'
   },
 
   icon: {
-    margin: 'auto'
+    margin: 'auto',
+    flexGrow: 1,
+    WebkitFlexGrow: 1,
+    height: '100%'
   },
 
   active: {
     background: c.barBG,
     color: c.barColorActive,
+    fontWeight: 500
   },
 
-  'icon-text': {},
+  'icon__text': {
+    display: 'none'
+  },
 
-  'icon-icon': {
+  'icon__icon': {
     flexGrow: 1,
     WebkitFlexGrow: 1
+  },
+
+  'icon-text__icon': {
+    margin: '-2px 0 2px 0'
   },
 
   'icon-text__text': {
     fontSize: '11px',
     lineHeight: '11px',
-    height: 22
+    fontWeight: 500
   },
 
   'icon-text-right': {
