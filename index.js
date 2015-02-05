@@ -2,6 +2,8 @@ var ReactStyle = require('react-style');
 var Invariant = require('react/lib/invariant');
 var emulateTouch = require('./lib/desktopTouch');
 
+require('reapp-object-assign');
+
 // Stores constants, animations and styles
 //   see themes/ios/all.js for an example usage.
 
