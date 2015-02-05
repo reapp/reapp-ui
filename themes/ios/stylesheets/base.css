@@ -4,7 +4,7 @@ div, a, button, input, form, span, ul, li {
   flex-shrink: 0;
   align-items: stretch;
   box-sizing: border-box;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.05);
+  -webkit-tap-highlight-color: none;
   -webkit-touch-callout: none;
   touch-action: manipulation;
   -webkit-backface-visibility: hidden;
