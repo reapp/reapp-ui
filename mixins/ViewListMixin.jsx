@@ -112,6 +112,10 @@ module.exports = {
 
   setupViewList(props) {
     var { width, height, children } = props;
+
+    if (!children || !children.length)
+      return;
+
     children = children.filter(child => !!child);
 
     // default to not allowing swipes on the titlebar
