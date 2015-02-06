@@ -21,6 +21,9 @@ var TreeNode = React.createClass({
       Component,
       ...props } = this.props;
 
+    if (!cursor || !cursor.get)
+      return null;
+
     level = level || 0;
     var children = cursor.get(childKey);
     var childNodes;
