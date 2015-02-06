@@ -27,7 +27,18 @@ module.exports = Component({
     else
       self = this.getStyles('buttonMiddle');
 
+    self = Object.assign({}, self, this.getWidthStyle(total))
+
     return { self };
+  },
+
+  getWidthStyle(total) {
+    var width = (100 / total) + '%';
+
+    return {
+      flexBasis: width,
+      maxWidth: width
+    };
   },
 
   render() {

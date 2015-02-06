@@ -1,5 +1,6 @@
 module.exports = {
   self: {
+    width: '100%',
     flexFlow: 'row',
     WebkitFlexFlow: 'row'
   },

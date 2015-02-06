@@ -1,13 +1,8 @@
 var React = require('react');
 var TweenState = require('react-tween-state');
 var Component = require('../component');
-var Button = require('./Button');
-
-var ModalButton = React.createClass({
-  render() {
-    return <Button chromeless {...this.props} />;
-  }
-});
+var ModalButton = require('./ModalButton');
+var ButtonGroup = require('./ButtonGroup');
 
 module.exports = Component({
   name: 'ModalPortal',
@@ -110,19 +105,14 @@ module.exports = Component({
     switch (type) {
       case 'alert':
         buttons = [
-          <ModalButton onClick={this.handleConfirm}>OK</ModalButton>
+          <ModalButton confirm onClick={this.handleConfirm}>OK</ModalButton>
         ];
         break;
       case 'prompt':
       case 'confirm':
-        var halfButton = { width: '50%' };
-        var borderedButton = {
-          borderLeft: `1px solid ${this.getConstant('midGray')}`
-        };
-
         buttons = [
-          <ModalButton styles={{ self: halfButton }} onClick={this.handleCancel}>Cancel</ModalButton>,
-          <ModalButton styles={{ self: Object.assign({}, halfButton, borderedButton)  }} onClick={this.handleConfirm}>OK</ModalButton>
+          <ModalButton onClick={this.handleCancel}>Cancel</ModalButton>,
+          <ModalButton confirm onClick={this.handleConfirm}>OK</ModalButton>
         ];
         break;
     }
@@ -141,7 +131,9 @@ module.exports = Component({
             {children}
           </div>
           <div {...this.componentProps('buttons')}>
-            {buttons}
+            <ButtonGroup>
+              {buttons}
+            </ButtonGroup>
           </div>
         </div>
       </div>
