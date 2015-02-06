@@ -12,24 +12,25 @@ module.exports = Component({
 
   // for handling styles of buttons at begin/end
   getStyleForButtonAtIndex(i, total) {
-    var self;
+    var widthStyle = this.getWidthStyle(total);
+    var positionStyle;
 
     // first button
     if (i === 0 && total > 2)
-      self = this.getStyles('buttonFirst');
+      positionStyle = this.styles.buttonFirst;
     // first button, two total buttons
     else if (i === 0 && total === 2)
-      self = this.getStyles('buttonFirstTwoTotal');
+      positionStyle = this.styles.buttonFirstTwoTotal;
     // last button
     else if (i === total - 1 && total >= 2)
-      self = this.getStyles('buttonLast');
+      positionStyle = this.styles.buttonLast;
     // middle button
     else
-      self = this.getStyles('buttonMiddle');
+      positionStyle = this.styles.buttonMiddle;
 
-    self = Object.assign({}, self, this.getWidthStyle(total))
-
-    return { self };
+    return {
+      self: positionStyle.concat(widthStyle)
+    };
   },
 
   getWidthStyle(total) {
