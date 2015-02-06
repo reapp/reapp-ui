@@ -188,6 +188,10 @@ module.exports = {
     var step = this.state.width ? left / this.state.width : 0;
 
     if (step !== this.state.step) {
+      // run our viewEntering and viewLeaving before actually running
+      this.callProperty('onViewEntering', step);
+      this.callProperty('onViewLeaving', this.state.step);
+
       this.setState({ step });
       this.runViewCallbacks(step);
     }
