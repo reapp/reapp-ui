@@ -13,11 +13,14 @@ div, a, button, input, form, span, ul, li {
   -moz-user-select: none;
   user-select: none;
 
-  cursor: pointer;
   -ms-touch-action: manipulation;
   touch-action: manipulation;
 
   -webkit-font-smoothing: antialiased;
+}
+
+a, button, input {
+  cursor: pointer;
 }
 
 input, textarea {

@@ -1,8 +1,8 @@
 module.exports = {
   black: '#000',
-  white: '#fff',
+  white: '#fbfbfb',
   lightGray: '#efeff4',
-  midGray: '#c4c4c4',
+  midGray: 'rgba(0,0,0,0.2)',
   darkGray: '#8e8e93',
 
   brandBG: '#f7f7f8',

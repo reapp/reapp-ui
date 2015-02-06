@@ -28,7 +28,7 @@ module.exports = (c) => ({
     minWidth: 270,
     maxWidth: '80%',
     margin: 'auto',
-    background: 'rgba(255,255,255,0.9)',
+    background: c.white,
     padding: 0,
     borderRadius: 7,
     textAlign: 'center',

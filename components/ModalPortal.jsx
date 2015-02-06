@@ -16,9 +16,9 @@ module.exports = Component({
     type: React.PropTypes.string,
     animationDuration: React.PropTypes.number,
     animations: React.PropTypes.object,
-    handleConfirm: React.PropTypes.func,
-    handleCancel: React.PropTypes.func,
-    handleClose: React.PropTypes.func
+    onConfirm: React.PropTypes.func,
+    onCancel: React.PropTypes.func,
+    onClose: React.PropTypes.func
   },
 
   getDefaultProps() {
@@ -51,15 +51,15 @@ module.exports = Component({
   },
 
   handleCancel() {
-    if (this.props.handleCancel)
-      this.props.handleCancel();
+    if (this.props.onCancel)
+      this.props.onCancel();
 
     this.handleClose();
   },
 
   handleConfirm() {
-    if (this.props.handleConfirm)
-      this.props.handleConfirm();
+    if (this.props.onConfirm)
+      this.props.onConfirm();
 
     this.handleClose();
   },
@@ -128,7 +128,9 @@ module.exports = Component({
                 {title}
               </div>
             }
-            {children}
+            <div {...this.componentProps('text')}>
+              {children}
+            </div>
           </div>
           <div {...this.componentProps('buttons')}>
             <ButtonGroup>
