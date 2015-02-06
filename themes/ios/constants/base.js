@@ -2,7 +2,7 @@ module.exports = {
   black: '#000',
   white: '#fbfbfb',
   lightGray: '#efeff4',
-  midGray: 'rgba(0,0,0,0.2)',
+  midGray: '#d9d9d9',
   darkGray: '#8e8e93',
 
   brandBG: '#f7f7f8',
