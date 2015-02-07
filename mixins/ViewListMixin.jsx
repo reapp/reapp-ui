@@ -7,10 +7,10 @@ var TouchableArea = require('../helpers/TouchableArea');
 var Animated = require('../mixins/Animated');
 var clone = require('../lib/niceClone');
 
-// ViewLists are, so far, the most complex piece of the UI kit
+// ViewLists are the most complex piece of the UI kit.
 // Their usage is simple, but they manage a lot of state,
 // encompass many animations, and also need to know about multiple
-// children components (see TitleBar, View, Icon)
+// child components (see TitleBar, View, Icon)
 
 module.exports = {
   propTypes: {
@@ -40,6 +40,7 @@ module.exports = {
 
   componentDidMount() {
     this.scroller = new Scroller(this.handleScroll, this.props.scrollerProps);
+    this.setupDimensions();
     this.setScrollPosition();
     this.setupViewList(this.props);
     this.runViewCallbacks();
@@ -116,13 +117,6 @@ module.exports = {
 
     children = children.filter(child => !!child);
 
-    // default to not allowing swipes on the titlebar
-    props.touchStartBoundsY = props.touchStartBoundsY || {
-      from: this.getTitleBarHeight(),
-      to: this.props.height
-    };
-
-    this.setupDimensions();
     this.setupViewEnterStates(children);
     this.scroller.setSnapSize(width, height);
     this.scroller.setDimensions(width, height, width * children.length, height);
@@ -313,7 +307,7 @@ module.exports = {
       this.props.touchableAreaProps,
       {
         touchStartBoundsX: this.props.touchStartBoundsX,
-        touchStartBoundsY: this.props.touchStartBoundsY,
+        touchStartBoundsY: this.getTouchStartBoundsY(),
         onTouchStart: this.handleTouchStart,
         onTouchEnd: this.handleTouchEnd,
         onClick: this.handleClick,
@@ -322,6 +316,13 @@ module.exports = {
           this.props.disableScroll
         )
       });
+  },
+
+  getTouchStartBoundsY() {
+    return this.props.touchStartBoundsY || {
+      from: this.getTitleBarHeight(),
+      to: this.props.height
+    };
   },
 
   getViewList(opts) {
