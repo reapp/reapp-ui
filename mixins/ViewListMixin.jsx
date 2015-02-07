@@ -64,16 +64,14 @@ module.exports = {
     if (this._isAnimating || !this.didMount)
       return;
 
-    // ensure proper animation/update order
-    // if new scroll position
+    // new scrollToStep
     if (nextProps.scrollToStep !== this.props.scrollToStep) {
-      // if advancing views or remaining the same
+      // ADVANCING: render then scroll
       if (nextProps.scrollToStep >= this.state.step) {
         this.setupViewList(nextProps);
-        // setTimeout to push until after next render, hopefully
         setTimeout(() => this.scrollToStep(nextProps.scrollToStep), 5);
       }
-      // if regressing views
+      // REGRESSING: scroll then render
       else {
         this.scrollToStep(nextProps.scrollToStep).then(() => {
           this.setupViewList(nextProps);
@@ -141,10 +139,13 @@ module.exports = {
       duration = this.props.scrollerProps.animationDuration;
     }
 
-    return new Promise(res => setTimeout(() => {
-      this._isAnimating = false;
-      res(); // promise fulfilled
-    }, duration));
+    return new Promise(res =>
+      setTimeout(() => {
+        this._isAnimating = false;
+        res(); // promise fulfilled
+      },
+      duration + 10)
+    )
   },
 
   setupDimensions() {

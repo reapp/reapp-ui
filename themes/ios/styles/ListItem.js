@@ -43,7 +43,7 @@ module.exports = (c) => ({
     WebkitFlexShrink: 0,
     flexWrap: 'nowrap',
     WebkitFlexWrap: 'nowrap',
-    margin: '0 10px 0 0'
+    margin: '0 12px 0 0'
   },
 
   content: {
@@ -52,7 +52,7 @@ module.exports = (c) => ({
     flexGrow: 800,
     WebkitFlexGrow: 800,
     color: '#000',
-    padding: '10px 10px 10px 0',
+    padding: '12px 12px 12px 0',
     position: 'relative'
   },
 
@@ -100,7 +100,7 @@ module.exports = (c) => ({
     color: '#8e8e93',
     flexShrink: 0,
     WebkitFlexShrink: 0,
-    margin: 'auto 10px',
+    margin: 'auto 12px',
     whiteSpace: 'nowrap',
     alignSelf: 'stretch',
     WebkitAlignSelf: 'stretch'

@@ -10,7 +10,7 @@ module.exports = (c) => ({
   barColorActive: c.brandColor,
   barHeight: '49px',
   barLineHeight: '49px',
-  barBorderColor: c.midGray,
+  barBorderColor: c.lightGray,
 
   // Button
   buttonBorderColor: c.activeBG,
@@ -27,7 +27,7 @@ module.exports = (c) => ({
   listBG: '#fff',
 
   // ListItem
-  listItemBorderColor: c.midGray,
+  listItemBorderColor: c.lightGray,
 
   // Popover
   popoverArrowSize: 26,
@@ -42,7 +42,7 @@ module.exports = (c) => ({
   titleBarHeight: 44,
   titleBarBG: c.brandBG,
   titleBarColor: c.brandColor,
-  titleBarBorderColor: c.midGray,
+  titleBarBorderColor: c.lightGray,
   titleBarFontSize: '16px',
 
   // View
