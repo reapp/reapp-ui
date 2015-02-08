@@ -6,7 +6,7 @@ module.exports = function(name) {
     className: name,
 
     componentWillMount() {
-      this.classes = {};
+      this._classSets = {};
       this.setClasses(this.props);
     },
 
@@ -15,15 +15,15 @@ module.exports = function(name) {
     },
 
     setClasses() {
-      this.classes[name] = {};
-      this.classes[name][this.className] = true;
+      this._classSets[name] = {};
+      this._classSets[name][this.className] = true;
 
       if (this.props.className)
-        this.classes[name][this.props.className] = true;
+        this._classSets[name][this.props.className] = true;
     },
 
     getClasses(key) {
-      var classSet = this.classes[key || name];
+      var classSet = this._classSets[key || name];
 
       if (key) {
         classSet = classSet || {};
@@ -35,11 +35,11 @@ module.exports = function(name) {
 
     addClass(name, conditional) {
       if (typeof conditional === 'undefined' || !!conditional)
-        this.classes[name] = true;
+        this._classSets[name] = true;
     },
 
     removeClass(name) {
-      this.classes[name] = false;
+      this._classSets[name] = false;
     },
 
     getClassName(key) {

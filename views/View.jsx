@@ -24,10 +24,7 @@ module.exports = Component({
     AnimatedScrollToTop
   ],
 
-  animationSources: {
-    inner: 'viewList',
-    overlay: 'viewList'
-  },
+  animationSource: 'viewList',
 
   getTitleBarHeight() {
     return (

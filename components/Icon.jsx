@@ -39,14 +39,15 @@ module.exports = Component({
   },
 
   componentWillReceiveProps(nextProps) {
-    this.setupAnimations(nextProps);
+    if (this.props.isInTitleBar !== nextProps.isInTitleBar)
+      this.setupAnimations(nextProps);
   },
 
   setupAnimations(props) {
     if (props.isInTitleBar) {
-      this.animationSources = { self: 'viewList' };
+      this.animationSource = 'viewList';
       this.setState({
-        animations: Object.assign(
+        animations: Object.assign({},
           this.props.titleBarAnimations,
           props.animations
         )

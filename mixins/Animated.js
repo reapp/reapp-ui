@@ -71,7 +71,7 @@ module.exports = function(getAnimations) {
     },
 
     isAnimating(source) {
-      return this.getAnimationState(source).step % 1 !== 0;
+      return this.getAnimationState(source || this.animationSource).step % 1 !== 0;
     },
 
     hasAnimations(ref) {
@@ -86,24 +86,17 @@ module.exports = function(getAnimations) {
         return this.props.animations && this.props.animations[ref];
     },
 
-    // set a default source for an animation, of you can just
-    // define it on your class with animationSources: {}
-    setAnimationSource(ref, source) {
-      this.animationSources = this.animationSources || {};
-      this.animationSources[ref] = source;
-    },
-
-    getAnimationSource(ref) {
-      return this.animationSources && this.animationSources[ref] || 'self';
-    },
-
     // returns an object of styles
-    // requires ref, source will be fetched from this.animationSources
+    // requires ref, source will be fetched from this.animationSource
     // if not passed in here
     getAnimationStyle(ref, source) {
-      source = source || this.getAnimationSource(ref);
+      source = source || this.animationSource;
 
       var animations = this.getAnimations(ref);
+
+      if (!animations)
+        return;
+
       var state = this.getAnimationState(source);
       var styles;
 

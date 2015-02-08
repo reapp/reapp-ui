@@ -30,9 +30,7 @@ module.exports = Component({
     };
   },
 
-  animationSources: {
-    self: 'viewList'
-  },
+  animationSource: 'viewList',
 
   componentDidMount() {
     this.centerMiddleTitle();
