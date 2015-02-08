@@ -26,6 +26,16 @@ module.exports = Component({
 
   animationSource: 'viewList',
 
+  componentWillMount() {
+    this.setClipStyles(this.props);
+  },
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.width !== this.props.width ||
+      nextProps.height !== this.props.height)
+      this.setClipStyles(nextProps);
+  },
+
   getTitleBarHeight() {
     return (
       this.props.titleBarProps && this.props.titleBarProps.height ||
@@ -33,15 +43,21 @@ module.exports = Component({
     );
   },
 
-  addTitleBarOffset() {
+  addTitleBarOffset(top) {
     if (this.props.title)
-      this.addStyles('inner', { top: this.getTitleBarHeight() });
+      this.addStyles('inner', { top });
+  },
+
+  setClipStyles(props) {
+    if (props && props.width && props.height)
+      this.clipStyles = {
+        clip: `rect(0px, ${props.width}px, ${props.height}px, -10px)`
+      };
   },
 
   boxShadowWhileAnimating() {
-    if (this.isAnimating('viewList')) {
-      this.addStyles('inner', { clip: `rect(0px, ${this.props.width}px, ${this.props.height}px, -10px)` });
-    }
+    if (this.isAnimating('viewList'))
+      this.addStyles('inner', this.clipStyles);
   },
 
   handleDoubleTap() {
@@ -75,19 +91,19 @@ module.exports = Component({
     titleBarProps.onDoubleTap = titleBarProps.onDoubleTap || this.handleDoubleTap;
 
     var viewListStep = this.getAnimationState('viewList').step;
+    var titleBarHeight = this.getTitleBarHeight();
 
     if (!index || index === viewListStep)
       this.addStyles('active');
 
-    this.addTitleBarOffset();
     this.boxShadowWhileAnimating();
+    this.addTitleBarOffset(titleBarHeight);
 
-    if (this.hasOverlay()) {
+    if (this.hasOverlay())
       this.addStyles('overlay', {
         display: this.isAnimating('viewList') ? 'block' : 'none',
-        top: this.getTitleBarHeight()
+        top: titleBarHeight
       });
-    }
 
     return (
       <div {...this.componentProps()} {...containerProps}>

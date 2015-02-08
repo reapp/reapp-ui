@@ -183,10 +183,6 @@ module.exports = {
     var step = this.state.width ? left / this.state.width : 0;
 
     if (step !== this.state.step) {
-      // run our viewEntering and viewLeaving before actually running
-      this.callProperty('onViewEntering', step);
-      this.callProperty('onViewLeaving', this.state.step);
-
       this.setState({ step });
       this.runViewCallbacks(step);
     }
@@ -312,8 +308,8 @@ module.exports = {
     };
   },
 
-  getViewList(opts) {
-    var { touchableProps, viewProps } = opts || {};
+  getViewList(props) {
+    var { touchableProps, viewProps } = props || {};
 
     // pushes state to a store for child use
     // in the future this can be done with contexts
@@ -328,8 +324,6 @@ module.exports = {
         {!this.props.noFakeTitleBar && (
           <TitleBar {...this.props.titleBarProps} animations={{}} />
         )}
-
-        {this.props.before}
 
         {clone(this.state.children, (child, i) => {
           if (i === this.state.step)
@@ -356,8 +350,6 @@ module.exports = {
           <DocumentTitle title={Array.isArray(activeTitle) ?
             activeTitle[1] :
             activeTitle} />}
-
-        {this.props.after}
       </TouchableArea>
     );
   }
