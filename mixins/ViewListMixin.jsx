@@ -271,18 +271,6 @@ module.exports = {
       this.props.onTouchEnd(e);
   },
 
-  handleClick(e) {
-    var hash = e.target.hash;
-    if (!hash) return;
-
-    // this logic is for handling button presses that link to #${id}
-    var step = this.props.children.map(v => v.id).indexOf(hash.slice(1));
-    if (step >= 0) {
-      this.scrollToStep(step);
-      e.preventDefault();
-    }
-  },
-
   getTitleBarProps() {
     return this.props.noFakeTitleBar ?
       this.props.titleBarProps :
@@ -310,7 +298,6 @@ module.exports = {
         touchStartBoundsY: this.getTouchStartBoundsY(),
         onTouchStart: this.handleTouchStart,
         onTouchEnd: this.handleTouchEnd,
-        onClick: this.handleClick,
         untouchable: (
           this.props.touchableAreaProps && this.props.touchableAreaProps.untouchable ||
           this.props.disableScroll
