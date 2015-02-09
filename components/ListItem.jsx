@@ -118,7 +118,7 @@ module.exports = Component({
         hasTitle && span('titleTop', [
           span('title', title),
           span('titleAfter', titleAfter)
-        ], this.tappableProps()),
+        ]),
         span('titleSub', titleSub),
         span('children', children)
       ]),
@@ -126,7 +126,7 @@ module.exports = Component({
     ];
 
     return (
-      <li {...this.componentProps()} {...props}>
+      <li {...this.componentProps()} {...this.tappableProps()} {...props}>
         {content}
       </li>
     );
