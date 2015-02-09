@@ -1,9 +1,14 @@
 var React = require('react');
 var Component = require('../component');
 var Icon = require('./Icon');
+var Tappable = require('../mixins/Tappable');
 
 module.exports = Component({
   name: 'BarItem',
+
+  mixins: [
+    Tappable
+  ],
 
   propTypes: {
     icon: React.PropTypes.oneOfType([
@@ -58,7 +63,7 @@ module.exports = Component({
       );
 
     return (
-      <li {...this.componentProps()} {...props}>
+      <li {...this.componentProps()} {...this.tappableProps()} {...props}>
         {this.makeSection('icon', icon)}
         {this.makeSection('text', children)}
       </li>

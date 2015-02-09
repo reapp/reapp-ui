@@ -27,7 +27,7 @@ module.exports = (c) => ({
   listBG: '#fff',
 
   // ListItem
-  listItemBorderColor: c.lightGray,
+  listItemBorderColor: c.midGray,
 
   // Popover
   popoverArrowSize: 26,

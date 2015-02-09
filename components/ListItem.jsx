@@ -1,12 +1,14 @@
 var React = require('react/addons');
 var Component = require('../component');
 var Icon = require('./Icon');
+var Tappable = require('../mixins/Tappable');
 
 module.exports = Component({
   name: 'ListItem',
 
   mixins: [
-    React.addons.PureRenderMixin
+    React.addons.PureRenderMixin,
+    Tappable
   ],
 
   propTypes: {
@@ -23,9 +25,12 @@ module.exports = Component({
     nopad: React.PropTypes.bool
   },
 
-  makeSection(name, content) {
+  makeSection(name, content, props) {
     return content && (
-      <span {...this.componentProps(name)} key={`${name}-${this.props.key}`}>
+      <span
+        {...this.componentProps(name)}
+        key={`${name}-${this.props.key}`}
+        {...props}>
         {content}
       </span>
     );
@@ -113,7 +118,7 @@ module.exports = Component({
         hasTitle && span('titleTop', [
           span('title', title),
           span('titleAfter', titleAfter)
-        ]),
+        ], this.tappableProps()),
         span('titleSub', titleSub),
         span('children', children)
       ]),
