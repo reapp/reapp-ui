@@ -55,7 +55,7 @@ module.exports = Component({
       this.addStyles('active');
 
     return (
-      <button {...this.componentProps()} {...props}>
+      <button {...this.componentProps()} {...this.tappableProps()} {...props}>
         {icon || !!iconProps && <Icon {...iconProps} />}
         {children && (
           <span {...this.componentProps('inner')}>
