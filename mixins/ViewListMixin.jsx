@@ -74,7 +74,7 @@ module.exports = {
       }
       // REGRESSING: scroll then render
       else {
-        this.scrollToStep(nextProps.scrollToStep).then(() => {
+        this.scrollToStep(nextProps.scrollToStep, () => {
           this.setupViewList(nextProps);
         });
       }
@@ -124,7 +124,7 @@ module.exports = {
   },
 
   // scrolls the viewList to a given step
-  scrollToStep(step) {
+  scrollToStep(step, cb) {
     this._isAnimating = true;
     var duration = 0;
 
@@ -133,13 +133,12 @@ module.exports = {
       duration = this.props.scrollerProps.animationDuration;
     }
 
-    return new Promise(res =>
-      setTimeout(() => {
-        this._isAnimating = false;
-        res(); // promise fulfilled
-      },
-      duration + 10)
-    )
+    setTimeout(() => {
+      this._isAnimating = false;
+
+      if (cb)
+        cb();
+    }, duration + 25);
   },
 
   setupDimensions() {
