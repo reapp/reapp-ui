@@ -331,6 +331,7 @@ module.exports = {
           return Object.assign({
             key: i,
             index: i,
+            inactive: i !== this.state.step,
             animationState: {
               viewList: {
                 index: i,

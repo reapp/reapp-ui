@@ -5,15 +5,14 @@ module.exports = (c) => ({
     left: 0,
     bottom: 0,
     right: 0,
-    pointerEvents: 'none',
     WebkitOverflowScrolling: 'touch',
     WebkitBackfaceVisibility: 'hidden',
     WebkitTransform: 'translateZ(0)',
     zIndex: 2
   },
 
-  active: {
-    pointerEvents: 'all'
+  inactive: {
+    pointerEvents: 'none'
   },
 
   inner: {

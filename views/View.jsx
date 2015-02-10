@@ -16,7 +16,8 @@ module.exports = Component({
     animations: React.PropTypes.object,
     containerProps: React.PropTypes.object,
     titleBarProps: React.PropTypes.object,
-    overlayProps: React.PropTypes.object
+    overlayProps: React.PropTypes.object,
+    inactive: React.PropTypes.bool
   },
 
   mixins: [
@@ -83,6 +84,7 @@ module.exports = Component({
       overlayProps,
       viewList,
       viewListType,
+      inactive,
       ...props
     } = this.props;
 
@@ -93,8 +95,8 @@ module.exports = Component({
     var viewListStep = this.getAnimationState('viewList').step;
     var titleBarHeight = this.getTitleBarHeight();
 
-    if (!index || index === viewListStep)
-      this.addStyles('active');
+    if (inactive)
+      this.addStyles('inactive');
 
     this.boxShadowWhileAnimating();
     this.addTitleBarOffset(titleBarHeight);
