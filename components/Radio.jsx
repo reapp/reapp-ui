@@ -5,16 +5,18 @@ var Icon = require('../components/Icon');
 module.exports = Component({
   name: 'Radio',
 
-  statics: {
-    liNoPad: true
+  propTypes: {
+    iconProps: React.PropTypes.object
   },
 
   getInitialState() {
-    return { checked: this.props.checked };
+    return {
+      checked: this.props.checked
+    };
   },
 
-  handleChange() {
-    if (this.refs.input.getDOMNode().checked)
+  handleChange(e) {
+    if (e.currentTarget.checked)
       this.setState({ checked: true });
     else
       this.setState({ checked: false });
@@ -24,11 +26,21 @@ module.exports = Component({
   },
 
   render() {
+    var { iconProps, ...props } = this.props;
+
     return (
       <span {...this.componentProps()}>
-        <input ref="input" {...this.componentProps('input')} {...this.props} onChange={this.handleChange} />
-        <Icon name="check" color={this.state.checked ?
-          this.getConstant('active') : this.getConstant('inactive')} />
+        <input
+          {...this.componentProps('input')}
+          {...props}
+          onChange={this.handleChange}
+        />
+        <Icon
+          name="check"
+          size={24}
+          color={this.getConstant(this.state.checked ? 'active' : 'inactive')}
+          {...iconProps}
+        />
       </span>
     );
   }
