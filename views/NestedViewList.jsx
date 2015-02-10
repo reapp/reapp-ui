@@ -15,7 +15,7 @@ module.exports = Component({
 
   getDefaultProps() {
     // var edgeWidth = UI.getConstants('edgeWidth');
-    var edgeWidth = 30;
+    var edgeWidth = 35;
 
     return {
       width: window.innerWidth,

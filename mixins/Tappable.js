@@ -81,9 +81,9 @@ module.exports = {
   getDefaultProps: function() {
     return {
       component: 'div',
-      moveThreshold: 20,
+      moveThreshold: 50,
       pressDelay: 1000,
-      pressMoveThreshold: 5
+      pressMoveThreshold: 50
     };
   },
 
@@ -101,7 +101,10 @@ module.exports = {
 
   processEvent: function(event) {
     if (this.props.preventDefault) event.preventDefault();
-    if (this.props.stopPropagation) event.stopPropagation();
+    if (this.props.stopPropagation) {
+      event.stopPropagation();
+      event.nativeEvent.stopImmediatePropagation();
+    }
   },
 
   onTouchStart: function(event) {

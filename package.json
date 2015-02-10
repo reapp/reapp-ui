@@ -18,11 +18,11 @@
   "homepage": "https://github.com/reapp/reapp-ui",
   "dependencies": {
     "react-style": "git+https://github.com/reapp/react-style#a6151d5",
+    "react-document-title": "git+https://github.com/reapp/react-document-title#dceaa10",
     "react-tween-state": "0.0.4",
     "css-mediaquery": "~0.1.2",
     "lodash-node": "~3.0.0",
     "scroller": "0.0.2",
-    "react-document-title": "~0.1.3",
     "reapp-component": "1.0.0",
     "reapp-object-assign": "~1.0.0"
   },

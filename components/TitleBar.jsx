@@ -33,7 +33,7 @@ module.exports = Component({
   animationSource: 'viewList',
 
   componentDidMount() {
-    this.centerMiddleTitle();
+    setTimeout(this.centerMiddleTitle);
   },
 
   componentDidUpdate(prevProps) {

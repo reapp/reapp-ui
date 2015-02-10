@@ -70,7 +70,7 @@ module.exports = {
       // ADVANCING: render then scroll
       if (nextProps.scrollToStep >= this.state.step) {
         this.setupViewList(nextProps);
-        setTimeout(() => this.scrollToStep(nextProps.scrollToStep), 5);
+        setTimeout(() => this.scrollToStep(nextProps.scrollToStep));
       }
       // REGRESSING: scroll then render
       else {

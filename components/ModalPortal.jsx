@@ -105,14 +105,14 @@ module.exports = Component({
     switch (type) {
       case 'alert':
         buttons = [
-          <ModalButton confirm onClick={this.handleConfirm}>OK</ModalButton>
+          <ModalButton confirm onTap={this.handleConfirm}>OK</ModalButton>
         ];
         break;
       case 'prompt':
       case 'confirm':
         buttons = [
-          <ModalButton onClick={this.handleCancel}>Cancel</ModalButton>,
-          <ModalButton confirm onClick={this.handleConfirm}>OK</ModalButton>
+          <ModalButton onTap={this.handleCancel}>Cancel</ModalButton>,
+          <ModalButton confirm onTap={this.handleConfirm}>OK</ModalButton>
         ];
         break;
     }
