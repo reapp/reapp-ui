@@ -1,6 +1,7 @@
 var React = require('react');
 var TweenState = require('react-tween-state');
 var Component = require('../component');
+var Tappable = require('../helpers/Tappable');
 var clone = require('../lib/niceClone');
 
 module.exports = Component({
@@ -188,9 +189,9 @@ module.exports = Component({
 
     return (
       <div {...this.componentProps()} {...props}>
-        <div
+        <Tappable
           {...this.componentProps('bg')}
-          onClick={this.handlePopoverSelect}
+          onTap={this.handlePopoverSelect}
         />
         <div {...this.componentProps('popover')}>
           <div {...this.componentProps('arrow')}>
@@ -199,12 +200,11 @@ module.exports = Component({
           <ul {...this.componentProps('list')}>
             {React.Children.map(children, (li, i) => (
               <li key={i} styles={this.getStyles('item', i)}>
-                {clone(li, (item, i) => {
-                  return {
-                    styles: this.getStyles('link'),
-                    onClick: this.handlePopoverSelect.bind(this, item.props.onClick)
-                  }
-                })}
+                <Tappable onTap={this.handlePopoverSelect.bind(this, li.props.onClick)}>
+                  {clone(li, (item, i) => {
+                    return { styles: this.getStyles('link') }
+                  })}
+                </Tappable>
               </li>
             ))}
           </ul>

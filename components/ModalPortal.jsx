@@ -1,5 +1,6 @@
 var React = require('react');
 var TweenState = require('react-tween-state');
+var Tappable = require('../helpers/Tappable');
 var Component = require('../component');
 var ModalButton = require('./ModalButton');
 var ButtonGroup = require('./ButtonGroup');
@@ -119,8 +120,10 @@ module.exports = Component({
 
     return (
       <div {...this.componentProps()} {...props}>
-        <div {...this.componentProps('bg')}
-          onClick={this.handleClose}/>
+        <Tappable
+          {...this.componentProps('bg')}
+          onTap={this.handleClose}
+        />
         <div {...this.componentProps('modal')}>
           <div {...this.componentProps('inner')}>
             {title &&
