@@ -1,11 +1,12 @@
 var brandColor = '#515153';
 var lightGray = '#efeff4';
+var midGray = '#d9d9d9';
 
 module.exports = {
   black: '#000',
   white: '#fbfbfb',
   lightGray: lightGray,
-  midGray: '#d9d9d9',
+  midGray: midGray,
   darkGray: '#8e8e93',
 
   brandBG: '#fefeff',
@@ -13,7 +14,7 @@ module.exports = {
   brandColorInactive: '#dcdbe2',
 
   active: brandColor,
-  inactive: lightGray,
+  inactive: midGray,
 
   activeBG: '#307cff',
 
