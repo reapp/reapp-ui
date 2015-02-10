@@ -67,17 +67,15 @@ module.exports = {
 
     // new scrollToStep
     if (nextProps.scrollToStep !== this.props.scrollToStep) {
-      // ADVANCING: render then scroll
-      if (nextProps.scrollToStep >= this.state.step) {
+      var isAdvancing = nextProps.scrollToStep >= this.state.step;
+      if (isAdvancing) {
         this.setupViewList(nextProps);
         setTimeout(() => this.scrollToStep(nextProps.scrollToStep));
       }
-      // REGRESSING: scroll then render
-      else {
+      else
         this.scrollToStep(nextProps.scrollToStep, () => {
           this.setupViewList(nextProps);
         });
-      }
     }
     // else no new scroll position
     else {
@@ -125,20 +123,16 @@ module.exports = {
 
   // scrolls the viewList to a given step
   scrollToStep(step, cb) {
-    this._isAnimating = true;
-    var duration = 0;
-
     if (step !== this.state.step) {
+      this._isAnimating = true;
       this.scroller.scrollTo(this.state.width * step, 0, true);
-      duration = this.props.scrollerProps.animationDuration;
+
+      this.onViewEntered = () => {
+        this.onViewEntered = null;
+        this._isAnimating = false;
+        if (cb) cb();
+      };
     }
-
-    setTimeout(() => {
-      this._isAnimating = false;
-
-      if (cb)
-        cb();
-    }, duration + 25);
   },
 
   setupDimensions() {
@@ -191,37 +185,32 @@ module.exports = {
     step = step || this.state.step;
 
     if (step % 1 !== 0) {
-      if (this._hasCalledEnteringLeaving)
-        return;
+      if (!this._hasCalledEnteringLeaving) {
+        var entering, leaving;
+        var floor = Math.floor(step);
+        var ceil = Math.ceil(step);
 
-      var entering, leaving;
-      var floor = Math.floor(step);
-      var ceil = Math.ceil(step);
+        // if sliding forwards
+        if (this.visibleViews[floor]) {
+          entering = ceil;
+          leaving = floor;
+        }
+        else {
+          entering = floor;
+          leaving = ceil;
+        }
 
-      // if sliding forwards
-      if (this.visibleViews[floor]) {
-        entering = ceil;
-        leaving = floor;
+        this.visibleViews[entering] = true;
+        this.callProperty('onViewEntering', ceil);
+        this.callProperty('onViewLeaving', floor);
+        this._hasCalledEnteringLeaving = true;
       }
-      else {
-        entering = floor;
-        leaving = ceil;
-      }
-
-      this.visibleViews[entering] = true;
-      this.callProperty('onViewEntering', ceil);
-      this.callProperty('onViewLeaving', floor);
-      this._hasCalledEnteringLeaving = true;
     }
     else {
       // set this to false to reset entering/leaving callbacks for next drag
       this._hasCalledEnteringLeaving = false;
 
       this.callProperty('onViewEntered', step);
-
-      // debating this one, could be useful, calls viewEntering
-      // when a view is fully entered
-      this.callProperty('onViewEntering', step);
 
       var prev = step-1;
       var next = step+1;
@@ -308,6 +297,7 @@ module.exports = {
   },
 
   getViewList(props) {
+    window.t = this;
     var { touchableProps, viewProps } = props || {};
 
     // pushes state to a store for child use
@@ -333,10 +323,7 @@ module.exports = {
             index: i,
             inactive: i !== this.state.step,
             animationState: {
-              viewList: {
-                index: i,
-                // step: this.state.step // todo: when contexts work
-              }
+              viewList: { index: i }
             },
             titleBarProps: this.getTitleBarProps(),
             animations: this.getViewAnimations(child),
