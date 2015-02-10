@@ -192,6 +192,7 @@ module.exports = Component({
         <Tappable
           {...this.componentProps('bg')}
           onTap={this.handlePopoverSelect}
+          stopPropagation
         />
         <div {...this.componentProps('popover')}>
           <div {...this.componentProps('arrow')}>
@@ -200,7 +201,8 @@ module.exports = Component({
           <ul {...this.componentProps('list')}>
             {React.Children.map(children, (li, i) => (
               <li key={i} styles={this.getStyles('item', i)}>
-                <Tappable onTap={this.handlePopoverSelect.bind(this, li.props.onClick)}>
+                <Tappable
+                  onTap={this.handlePopoverSelect.bind(this, li.props.onClick)}>
                   {clone(li, (item, i) => {
                     return { styles: this.getStyles('link') }
                   })}

@@ -95,7 +95,7 @@ module.exports = Component({
 
     var touchableHandle = (
       <TouchableArea scroller={this.scroller} passprops>
-        <Tappable onTap={this._handleTap} passprops>
+        <Tappable onTap={this._handleTap} passprops stopPropagation>
           {handle}
         </Tappable>
       </TouchableArea>
