@@ -7,6 +7,7 @@ var DrawerBehavior = require('../behaviors/DrawerBehavior');
 var TouchableArea = require('../helpers/TouchableArea');
 var StaticContainer = require('../helpers/StaticContainer');
 var Scrollable = require('../mixins/Scrollable');
+var Tappable = require('../helpers/Tappable');
 var clone = require('../lib/niceClone');
 
 module.exports = Component({
@@ -93,8 +94,10 @@ module.exports = Component({
     };
 
     var touchableHandle = (
-      <TouchableArea onClick={this._handleTap} scroller={this.scroller} passprops>
-        {handle}
+      <TouchableArea scroller={this.scroller} passprops>
+        <Tappable onTap={this._handleTap} passprops>
+          {handle}
+        </Tappable>
       </TouchableArea>
     );
 
@@ -102,10 +105,11 @@ module.exports = Component({
       <div {...this.componentProps()} {...props}>
         {isSideOpen && (
           <AnimatableContainer {...sideProps}>
-            <div {...this.componentProps('sideInner')}
-              onClick={this._handleContentTouchTap}>
+            <Tappable
+              {...this.componentProps('sideInner')}
+              onTap={this._handleContentTouchTap}>
               {side}
-            </div>
+            </Tappable>
           </AnimatableContainer>
         )}
         <Drawer
