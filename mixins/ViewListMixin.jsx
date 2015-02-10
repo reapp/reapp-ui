@@ -109,13 +109,13 @@ module.exports = {
 
   setupViewList(props) {
     var { width, height, children } = props;
+    this.setupViewEnterStates(children);
 
     if (!children || !children.length)
       return;
 
     children = children.filter(child => !!child);
 
-    this.setupViewEnterStates(children);
     this.scroller.setSnapSize(width, height);
     this.scroller.setDimensions(width, height, width * children.length, height);
     this.setState({ children });
@@ -149,8 +149,12 @@ module.exports = {
   },
 
   setupViewEnterStates(children) {
-    this.visibleViews = children.map(v => false);
-    this.visibleViews[0] = true;
+    if (!children || !children.length)
+      this.visibleViews = [];
+    else {
+      this.visibleViews = children.map(v => false);
+      this.visibleViews[0] = true;
+    }
   },
 
   disableInitialScrollEvent: true,
