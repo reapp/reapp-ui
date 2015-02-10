@@ -13,7 +13,20 @@ module.exports = {
     paddingLeft: '0.5rem'
   },
 
-  padded: {
+  firstChild: {
+    paddingLeft: 0
+  },
+
+  lastChild: {
+    paddingRight: 0
+  },
+
+  row: {
+    flexDirection: 'row',
+    WebkitFlexDirection: 'row'
+  },
+
+  pad: {
     padding: '15px',
   }
 };

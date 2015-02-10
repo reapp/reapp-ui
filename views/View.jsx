@@ -17,7 +17,12 @@ module.exports = Component({
     containerProps: React.PropTypes.object,
     titleBarProps: React.PropTypes.object,
     overlayProps: React.PropTypes.object,
-    inactive: React.PropTypes.bool
+
+    // disable pointer events
+    inactive: React.PropTypes.bool,
+
+    // make the StaticContainer inside fullscreen
+    fullscreen: React.PropTypes.bool
   },
 
   mixins: [
@@ -85,6 +90,7 @@ module.exports = Component({
       viewList,
       viewListType,
       inactive,
+      fullscreen,
       ...props
     } = this.props;
 
@@ -113,7 +119,9 @@ module.exports = Component({
           <TitleBar {...titleBarProps}>{title}</TitleBar>
         )}
         <div {...this.componentProps('inner')} {...props}>
-          <StaticContainer shouldUpdate={!animations || viewListStep % 1 === 0}>
+          <StaticContainer
+            styles={fullscreen ? this.getStyles('fullScreen') : null}
+            shouldUpdate={!animations || viewListStep % 1 === 0}>
             {children}
           </StaticContainer>
         </div>

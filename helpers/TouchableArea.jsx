@@ -19,7 +19,8 @@ var TouchableArea = React.createClass({
       touchStartBoundsY: false,
       ignoreY: false,
       ignoreX: false,
-      passprops: false
+      passprops: false,
+      allowDefault: false
     };
   },
 
@@ -86,7 +87,9 @@ var TouchableArea = React.createClass({
       return;
 
     this.props.scroller.doTouchMove(e.touches, e.timeStamp, e.scale);
-    e.preventDefault();
+
+    if (!this.props.allowDefault)
+      e.preventDefault();
 
     if (this.props.onTouchMove)
       this.props.onTouchMove(e);

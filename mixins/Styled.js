@@ -81,18 +81,30 @@ module.exports = function(name, getStyles) {
       );
     },
 
+    keys: {
+      firstChild: 'firstChild',
+      lastChild: 'lastChild'
+    },
+
     // styles for things like 'firstChild', 'lastItem'
     // todo: mediaStyles
     getConditionalStyles(ref, index) {
       var conditionalStyles = [];
 
-      if (ref === 'self' && this.props.index === 0 || index === 0) {
-        var firstChildKey = ref === 'self' ?
-          'firstChild' :
-          ref + 'FirstChild';
+      if (this.props.index === 0 || index === 0) {
+        var key = ref === 'self' ?
+          this.keys.firstChild : `${ref}FirstChild`;
 
-        if (this.styles[firstChildKey])
-          conditionalStyles = this.styles[firstChildKey];
+        if (this.styles[key])
+          conditionalStyles = this.styles[key];
+      }
+
+      if (this.props.total && this.props.index === this.props.total - 1) {
+        var key = ref === 'self' ?
+          this.keys.lastChild : `${ref}LastChild`;
+
+        if (this.styles[key])
+          conditionalStyles.push(this.styles[key]);
       }
 
       return conditionalStyles;
@@ -156,6 +168,9 @@ module.exports = function(name, getStyles) {
       var result = {};
 
       stylesProps.forEach(prop => {
+        if (!prop)
+          return;
+
         // convert shorthand to proper
         if (Array.isArray(prop))
           prop = { self: prop };

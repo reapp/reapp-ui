@@ -18,8 +18,8 @@ module.exports = (c) => ({
     outline: 'none',
     flexFlow: 'row',
     WebkitFlexFlow: 'row',
-    flexGrow: 1,
-    WebkitFlexGrow: 1,
+    // flexGrow: 1,
+    // WebkitFlexGrow: 1,
     margin: 0
   },
 

@@ -4,6 +4,7 @@ var Tappable = require('../helpers/Tappable');
 var Component = require('../component');
 var ModalButton = require('./ModalButton');
 var ButtonGroup = require('./ButtonGroup');
+var clone = require('../lib/niceClone');
 
 module.exports = Component({
   name: 'ModalPortal',
@@ -58,11 +59,11 @@ module.exports = Component({
     this.handleClose();
   },
 
-  handleConfirm() {
+  handleConfirm(e) {
     if (this.props.onConfirm)
       this.props.onConfirm();
 
-    this.handleClose();
+    this.handleClose(e);
   },
 
   handleClose(e) {
@@ -106,17 +107,23 @@ module.exports = Component({
     switch (type) {
       case 'alert':
         buttons = [
-          <ModalButton confirm onTap={this.handleConfirm}>OK</ModalButton>
+          <ModalButton confirm onTap={this.handleConfirm} stopPropagation>OK</ModalButton>
         ];
         break;
       case 'prompt':
       case 'confirm':
         buttons = [
-          <ModalButton onTap={this.handleCancel}>Cancel</ModalButton>,
-          <ModalButton confirm onTap={this.handleConfirm}>OK</ModalButton>
+          <ModalButton styles={{ self: { borderLeft: 'none' } }} onTap={this.handleCancel} stopPropagation>Cancel</ModalButton>,
+          <ModalButton confirm onTap={this.handleConfirm} stopPropagation>OK</ModalButton>
         ];
         break;
     }
+
+    var buttonWidth = (100 / buttons.length) + '%';
+    var style = {
+      flexBasis: buttonWidth,
+      maxWidth: buttonWidth
+    };
 
     return (
       <div {...this.componentProps()} {...props}>
@@ -137,9 +144,9 @@ module.exports = Component({
             </div>
           </div>
           <div {...this.componentProps('buttons')}>
-            <ButtonGroup>
-              {buttons}
-            </ButtonGroup>
+            {clone(buttons, (props, index) => {
+              return { index, style };
+            }, true)}
           </div>
         </div>
       </div>

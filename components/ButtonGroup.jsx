@@ -16,7 +16,7 @@ module.exports = Component({
     var positionStyle;
 
     // first button
-    if (i === 0 && total > 2)
+    if (i === 0)
       positionStyle = this.styles.buttonFirst;
     // first button, two total buttons
     else if (i === 0 && total === 2)
