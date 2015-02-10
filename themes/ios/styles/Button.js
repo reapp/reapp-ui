@@ -7,6 +7,7 @@ module.exports = (c) => ({
     borderRadius: '5px',
     textAlign: 'center',
     padding: '8px',
+    minHeight: '40px',
     zoom: 1,
     lineHeight: 'normal',
     whiteSpace: 'nowrap',
