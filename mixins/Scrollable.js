@@ -1,4 +1,4 @@
-var { Scroller } = require('scroller');
+var { Scroller } = require('reapp-scroller');
 
 var Scrollable = function(props) {
   return {

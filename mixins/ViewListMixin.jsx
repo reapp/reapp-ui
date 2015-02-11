@@ -1,5 +1,5 @@
 var React = require('react/addons');
-var { Scroller } = require('scroller');
+var { Scroller } = require('reapp-scroller');
 var DocumentTitle = require('react-document-title');
 var Component = require('../component');
 var TitleBar = require('../components/TitleBar');

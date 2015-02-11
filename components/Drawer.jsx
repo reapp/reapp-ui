@@ -1,5 +1,5 @@
 var React = require('react');
-var { Scroller } = require('scroller');
+var { Scroller } = require('reapp-scroller');
 var Component = require('../component');
 var TouchableArea = require('../helpers/TouchableArea');
 var AnimatableContainer = require('../helpers/AnimatableContainer');

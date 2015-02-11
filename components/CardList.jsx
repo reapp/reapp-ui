@@ -1,7 +1,5 @@
 var React = require('react/addons');
-var { Scroller } = require('scroller');
 var Component = require('../component');
-var TouchableArea = require('../helpers/TouchableArea');
 
 // todo: this is unfinished
 
