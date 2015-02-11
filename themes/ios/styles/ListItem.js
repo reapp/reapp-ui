@@ -84,7 +84,7 @@ module.exports = (c) => ({
 
   titleSub: {
     fontSize: '15px',
-    fontWeight: 300,
+    fontWeight: 400,
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     minWidth: 0,

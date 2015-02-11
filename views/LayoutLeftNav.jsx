@@ -13,6 +13,14 @@ var clone = require('../lib/niceClone');
 module.exports = Component({
   name: 'LayoutLeftNav',
 
+  propTypes: {
+    behavior: React.PropTypes.object,
+    sideWidth: React.PropTypes.number,
+    sizeZIndex: React.PropTypes.number,
+    drawerProps: React.PropTypes.object,
+    handle: React.PropTypes.node
+  },
+
   mixins: [Scrollable({
     scrollBounce: false,
     scrollX: true,
@@ -69,6 +77,7 @@ module.exports = Component({
       handle,
       side,
       children,
+      drawerProps,
       ...props } = this.props;
 
     var isSideOpen = this.isSideOpen();
@@ -86,12 +95,12 @@ module.exports = Component({
       styles: isSideOpen ? this.getStyles('side') : null
     };
 
-    var drawerProps = {
+    var drawerProps = Object.assign({
       layer: 1,
       translate: DrawerBehavior.left.translate(this.state.scrollX),
       scroller: this.scroller,
       onTouchTap: this._handleContentTouchTap
-    };
+    }, drawerProps);
 
     var touchableHandle = (
       <TouchableArea scroller={this.scroller} passprops>
@@ -116,7 +125,7 @@ module.exports = Component({
           {...this.componentProps('drawer')}
           {...drawerProps}
           shouldUpdate={this.state.scrollX === 200}
-          dragger={false}>
+          from="right">
           {clone(children, { handle: touchableHandle })}
         </Drawer>
       </div>
