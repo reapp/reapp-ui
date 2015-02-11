@@ -22,8 +22,8 @@
     "react-tween-state": "0.0.4",
     "css-mediaquery": "~0.1.2",
     "lodash-node": "~3.0.0",
-    "scroller": "0.0.2",
-    "reapp-component": "1.0.0",
+    "reapp-scroller": "^1.0.0",
+    "reapp-component": "^1.0.0",
     "reapp-object-assign": "~1.0.0"
   },
   "peerDependencies": {
