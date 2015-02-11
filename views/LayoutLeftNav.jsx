@@ -102,13 +102,10 @@ module.exports = Component({
       onTouchTap: this._handleContentTouchTap
     }, drawerProps);
 
-    var touchableHandle = (
-      <TouchableArea scroller={this.scroller} passprops>
-        <Tappable onTap={this._handleTap} passprops stopPropagation>
-          {handle}
-        </Tappable>
-      </TouchableArea>
-    );
+    var touchableHandle =
+      <Tappable onTap={this._handleTap} passprops stopPropagation>
+        {handle}
+      </Tappable>
 
     return (
       <div {...this.componentProps()} {...props}>

@@ -201,19 +201,25 @@ module.exports = Component({
     if (this.props.shouldUpdate === false)
       updateChildren = false;
 
+    if (touchableProps.styles) {
+      this.addStyles('dragger', touchableProps.styles);
+    }
+
     return (
       <AnimatableContainer
         {...this.componentProps()}
         {...animatedProps}
         {...props}>
         <div {...this.componentProps('inner')}>
-          {dragger && (
+          {dragger &&
             <TouchableArea
-              {...this.componentProps('dragger')}
               {...touchableProps}
+              {...this.componentProps('dragger')}
               scroller={scroller || this.scroller}
-              currentTargetOnly />
-          )}
+              currentTargetOnly
+              allowDefault
+            />
+          }
           <StaticContainer shouldUpdate={updateChildren}>
             {children}
           </StaticContainer>
