@@ -53,6 +53,10 @@ var Animations = module.exports = {
     opacity: symmetrical(index, step) / 2
   }),
 
+  nestedViewOverlay: ({ index, step }) => ({
+    opacity: symmetrical(index, step) / 4
+  }),
+
   scaleDown: ({ index, step }) => ({
     scale: scaleBetween(decreaseOnExit(index, step), 2, 0, 1.2, 0.8)
   }),

@@ -51,7 +51,7 @@ module.exports = (c) => ({
     WebkitFlexShrink: 1,
     flexGrow: 800,
     WebkitFlexGrow: 800,
-    color: '#000',
+    color: c.listItemContentColor,
     padding: '12px 12px 12px 0',
     position: 'relative'
   },
@@ -78,7 +78,7 @@ module.exports = (c) => ({
   },
 
   titleAfter: {
-    color: '#8e8e93',
+    color: c.listItemTitleAfterColor,
     fontSize: '15px'
   },
 
@@ -109,7 +109,7 @@ module.exports = (c) => ({
   },
 
   after: {
-    color: '#8e8e93',
+    color: c.listItemAfterColor,
     flexShrink: 0,
     WebkitFlexShrink: 0,
     margin: 'auto 12px',

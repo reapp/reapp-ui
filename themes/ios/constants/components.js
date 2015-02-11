@@ -30,8 +30,11 @@ module.exports = (c) => ({
   listBG: '#fff',
 
   // ListItem
-  listItemBorderColor: c.lightGray,
-  listItemArrowColor: c.midGray,
+  listItemBorderColor: c.hairline ? '#bcbbc1' : '#dadbe3',
+  listItemArrowColor: '#b7b8bd',
+  listItemContentColor: '#000',
+  listItemAfterColor: '#7b7b7b',
+  listItemTitleAfterColor: '#7b7b7b',
 
   // Popover
   popoverArrowSize: 26,
@@ -41,6 +44,8 @@ module.exports = (c) => ({
 
   // SearchBar
   searchBarHeight: 44,
+  searchBarBG: '#bdbdc3',
+  searchBarBorderColor: '#a6a6a6',
 
   // TitleBar
   titleBarHeight: 44,

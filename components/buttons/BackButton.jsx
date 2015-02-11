@@ -7,12 +7,12 @@ module.exports = Component({
 
   render() {
     var iconProps = Object.assign({
-      size: 18,
+      size: 20,
       name: 'left',
       stroke: 4,
       style: {
         width: 16,
-        margin: '0 4px 0 -2px'
+        margin: '0 5px 0 -2px'
       }
     }, this.props.iconProps);
 

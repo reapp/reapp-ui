@@ -31,7 +31,7 @@ module.exports = Component({
       },
       viewAnimations: {
         inner: 'viewParallax',
-        overlay: 'fadeOnEnter'
+        overlay: 'nestedViewOverlay'
       },
       // touchable only on the left and right edges
       touchStartBoundsX: [
