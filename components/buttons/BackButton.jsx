@@ -9,10 +9,10 @@ module.exports = Component({
     var iconProps = Object.assign({
       size: 18,
       name: 'left',
-      stroke: 2,
+      stroke: 4,
       style: {
         width: 16,
-        margin: '0 2px 0 -4px'
+        margin: '0 4px 0 -2px'
       }
     }, this.props.iconProps);
 
@@ -20,7 +20,6 @@ module.exports = Component({
       <Button
         {...this.props}
         iconProps={iconProps}
-        styles={{self: { color: this.getConstant('brandColor') }}}
         chromeless>
         {this.props.children || 'Back'}
       </Button>

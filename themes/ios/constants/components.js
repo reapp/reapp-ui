@@ -5,7 +5,7 @@
 
 module.exports = (c) => ({
   // Bar
-  barBG: c.brandBG,
+  barBG: '#f6f6f6',
   barColor: c.brandColorInactive,
   barColorActive: c.brandColor,
   barHeight: '49px',
@@ -15,19 +15,23 @@ module.exports = (c) => ({
   // Button
   buttonBorderColor: c.activeBG,
   buttonColor: c.activeBG,
-  buttonColorTitleBar: c.activeBG,
   buttonActiveBG: c.activeBG,
   buttonActiveColor: c.activeColor,
+  buttonColorTitleBar: c.activeBG,
 
   // Dots
   dotBG: '#000',
+
+  // Icon
+  iconColorTitleBar: c.activeBG,
 
   // List
   listTitleColor: '#f7f7f7',
   listBG: '#fff',
 
   // ListItem
-  listItemBorderColor: c.midGray,
+  listItemBorderColor: c.lightGray,
+  listItemArrowColor: c.midGray,
 
   // Popover
   popoverArrowSize: 26,
@@ -40,12 +44,11 @@ module.exports = (c) => ({
 
   // TitleBar
   titleBarHeight: 44,
-  titleBarBG: c.brandBG,
-  titleBarColor: c.brandColor,
+  titleBarColor: c.black,
   titleBarBorderColor: c.lightGray,
   titleBarFontSize: '16px',
 
   // View
-  viewBGColor: c.lightGray,
+  viewBGColor: c.white,
   viewPad: '10px'
 });

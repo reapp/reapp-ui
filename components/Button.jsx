@@ -32,9 +32,6 @@ module.exports = Component({
       animationState,
       ...props } = this.props;
 
-    if (isInTitleBar)
-      this.addStyles('isInTitleBar');
-
     // pass isInTitleBar down to icon
     if (isInTitleBar && iconProps)
       iconProps.isInTitleBar = true;
@@ -44,6 +41,9 @@ module.exports = Component({
 
     if (iconProps)
       iconProps = Object.assign({}, iconProps, { animationState })
+
+    if (isInTitleBar)
+      this.addStyles('isInTitleBar');
 
     if (chromeless)
       this.addStyles('chromeless');

@@ -70,7 +70,7 @@ module.exports = Component({
     } = this.props;
 
     if (isInTitleBar && color === 'currentColor')
-      color = this.getConstant('activeColor');
+      color = this.getConstant('iconColorTitleBar');
 
     if (crisp)
       shapeRendering = 'crispEdges';

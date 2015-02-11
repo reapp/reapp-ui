@@ -56,6 +56,10 @@ module.exports = (c) => ({
     position: 'relative'
   },
 
+  contentWithTitle: {
+    padding: '8px 12px 8px 0'
+  },
+
   contentNoPad: {
     padding: 0
   },
@@ -74,12 +78,18 @@ module.exports = (c) => ({
   },
 
   titleAfter: {
-    color: '#8e8e93'
+    color: '#8e8e93',
+    fontSize: '15px'
   },
 
   titleSub: {
     fontSize: '15px',
-    fontWeight: 300
+    fontWeight: 300,
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    minWidth: 0,
+    display: 'block',
+    overflow: 'hidden'
   },
 
   children: {
@@ -87,8 +97,10 @@ module.exports = (c) => ({
     fontSize: '15px',
     lineHeight: '21px',
     overflow: 'hidden',
-    WebkitLineLamp: 2,
+    WebkitLineClamp: 2,
     WebkitBoxOrient: 'vertical',
+    textOverflow: 'ellipsis',
+    display: '-webkit-box',
   },
 
   childrenNoTitle: {

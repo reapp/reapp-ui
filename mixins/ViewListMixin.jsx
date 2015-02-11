@@ -130,7 +130,7 @@ module.exports = {
       this.onViewEntered = () => {
         this.onViewEntered = null;
         this._isAnimating = false;
-        if (cb) cb();
+        if (cb) setTimeout(cb);
       };
     }
   },

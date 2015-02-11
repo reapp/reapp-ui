@@ -11,7 +11,10 @@ module.exports = Component({
     animations: React.PropTypes.object,
     left: React.PropTypes.node,
     right: React.PropTypes.node,
-    transparent: React.PropTypes.bool
+    transparent: React.PropTypes.bool,
+
+    // attach to side of screen
+    attach: React.PropTypes.string
   },
 
   mixins: [
@@ -90,6 +93,9 @@ module.exports = Component({
 
     if (height)
       this.addStyles({ height });
+
+    if (attach)
+      this.addStyles(`attach-${attach}`);
 
     return (
       <div

@@ -54,7 +54,7 @@ module.exports = Component({
         styles={this.getStyles('arrow')}
         size={12}
         stroke={2}
-        color={this.getStyleVal('arrow', 'color')} />
+        color={this.getConstant('listItemArrowColor')} />
     );
   },
 
@@ -104,7 +104,9 @@ module.exports = Component({
 
     var hasTitle = (title || titleAfter);
 
-    if (!hasTitle)
+    if (hasTitle)
+      this.addStyles('content', 'contentWithTitle');
+    else
       this.addStyles('children', 'childrenNoTitle');
 
     if (nopad || children && children.type && children.type.liNoPad)
