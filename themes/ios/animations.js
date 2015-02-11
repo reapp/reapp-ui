@@ -33,9 +33,11 @@ var Animations = module.exports = {
     height: symmetrical(index, step) * 100 + '%'
   }),
 
-  moveToRight: ({ index, step, width }) => ({
-    translate: { x: (step - index) * (width/2.5) }
-  }),
+  iconTitleBar: ({ index, step, width }) => {
+    return {
+      translate: { x: (step - index) * (width/2.5) }
+    }
+  },
 
   moveToLeft: ({ index, step, width }) => ({
     translate: { x: - (step - index) * width }

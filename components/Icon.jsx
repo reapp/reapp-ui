@@ -29,7 +29,7 @@ module.exports = Component({
       style: {},
       svgProps: {},
       titleBarAnimations: {
-        self: 'moveToRight'
+        self: 'iconTitleBar'
       }
     };
   },
@@ -44,7 +44,7 @@ module.exports = Component({
   },
 
   setupAnimations(props) {
-    if (props.isInTitleBar) {
+    if (props.isInTitleBar && props.animations !== false) {
       this.animationSource = 'viewList';
       this.setState({
         animations: Object.assign({},
