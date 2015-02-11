@@ -13,10 +13,26 @@ module.exports = Component({
     index: React.PropTypes.number,
     width: React.PropTypes.number,
     height: React.PropTypes.number,
+
+    // offset of inner scroll area from top
+    offsetTop: React.PropTypes.number,
+
+    // offset of inner scroll area from bottom
+    offsetBottom: React.PropTypes.number,
+
     animations: React.PropTypes.object,
-    containerProps: React.PropTypes.object,
+
+    // pass inner div props (scrollable content)
+    innerProps: React.PropTypes.object,
+
+    // pass titlebar props
     titleBarProps: React.PropTypes.object,
+
+    // pass overlay div props
     overlayProps: React.PropTypes.object,
+
+    // place a node outside the inner pane
+    after: React.PropTypes.node,
 
     // disable pointer events
     inactive: React.PropTypes.bool,
@@ -49,11 +65,6 @@ module.exports = Component({
     );
   },
 
-  addTitleBarOffset(top) {
-    if (this.props.title)
-      this.addStyles('inner', { top });
-  },
-
   setClipStyles(props) {
     if (props && props.width && props.height)
       this.clipStyles = {
@@ -84,13 +95,16 @@ module.exports = Component({
       index,
       width,
       height,
-      containerProps,
+      innerProps,
       titleBarProps,
       overlayProps,
       viewList,
       viewListType,
       inactive,
       fullscreen,
+      after,
+      offsetTop,
+      offsetBottom,
       ...props
     } = this.props;
 
@@ -105,7 +119,15 @@ module.exports = Component({
       this.addStyles('inactive');
 
     this.boxShadowWhileAnimating();
-    this.addTitleBarOffset(titleBarHeight);
+
+    if (title)
+      this.addStyles('inner', { top: titleBarHeight });
+
+    if (offsetTop)
+      this.addStyles('inner', { top: offsetBottom });
+
+    if (offsetBottom)
+      this.addStyles('inner', { bottom: offsetBottom });
 
     if (this.hasOverlay())
       this.addStyles('overlay', {
@@ -114,17 +136,21 @@ module.exports = Component({
       });
 
     return (
-      <div {...this.componentProps()} {...containerProps}>
+      <div {...this.componentProps()} {...props}>
         {title && (
           <TitleBar {...titleBarProps}>{title}</TitleBar>
         )}
-        <div {...this.componentProps('inner')} {...props}>
+
+        <div {...this.componentProps('inner')} {...innerProps}>
           <StaticContainer
             fullscreen={fullscreen}
             shouldUpdate={!animations || viewListStep % 1 === 0}>
             {children}
           </StaticContainer>
         </div>
+
+        {after}
+
         {this.hasOverlay() && (
           <div {...this.componentProps('overlay')} {...overlayProps} />
         )}

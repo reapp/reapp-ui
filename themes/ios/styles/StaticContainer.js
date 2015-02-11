@@ -1,6 +1,6 @@
 module.exports = {
   fullScreen: {
-    position: 'absolute',
+    position: 'fixed',
     left: 0,
     right: 0,
     bottom: 0,
