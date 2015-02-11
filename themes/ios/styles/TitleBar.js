@@ -1,7 +1,10 @@
 module.exports = (c) => ({
   self: {
     background: c.barBG,
-    borderBottom: `1px solid ${c.titleBarBorderColor}`,
+    borderColor: c.titleBarBorderColor,
+    borderStyle: 'solid',
+    borderWidth: 0,
+    borderBottomWidth: 1,
     height: c.titleBarHeight,
     fontSize: c.titleBarFontSize,
     textAlign: 'center',
@@ -36,5 +39,12 @@ module.exports = (c) => ({
 
   right: {
     margin: 'auto 0'
+  },
+
+  'attach-bottom': {
+    top: 'auto',
+    bottom: 0,
+    borderBottom: 'none',
+    borderTopWidth: 1
   }
 });

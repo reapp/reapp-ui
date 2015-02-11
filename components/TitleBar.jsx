@@ -72,6 +72,7 @@ module.exports = Component({
       children,
       height,
       transparent,
+      attach,
       ...props } = this.props;
 
     var l, m, r;
