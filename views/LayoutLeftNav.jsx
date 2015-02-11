@@ -18,7 +18,8 @@ module.exports = Component({
     sideWidth: React.PropTypes.number,
     sizeZIndex: React.PropTypes.number,
     drawerProps: React.PropTypes.object,
-    handle: React.PropTypes.node
+    handle: React.PropTypes.node,
+    draggable: React.PropTypes.bool,
   },
 
   mixins: [Scrollable({
@@ -35,6 +36,7 @@ module.exports = Component({
 
   getDefaultProps() {
     return {
+      draggable: true,
       sideWidth: 200,
       behavior: LeftNavBehavior.NORMAL
     };
@@ -78,6 +80,7 @@ module.exports = Component({
       side,
       children,
       drawerProps,
+      draggable,
       ...props } = this.props;
 
     var isSideOpen = this.isSideOpen();
@@ -102,10 +105,20 @@ module.exports = Component({
       onTouchTap: this._handleContentTouchTap
     }, drawerProps);
 
-    var touchableHandle =
+    var movableHandle = (
       <Tappable onTap={this._handleTap} passprops stopPropagation>
         {handle}
       </Tappable>
+    );
+
+    if (draggable)
+      movableHandle = (
+        <TouchableArea scroller={this.scroller} passprops>
+          {movableHandle}
+        </TouchableArea>
+      );
+
+    var childrenWithProps = clone(children, { handle: movableHandle });
 
     return (
       <div {...this.componentProps()} {...props}>
@@ -120,10 +133,11 @@ module.exports = Component({
         )}
         <Drawer
           {...this.componentProps('drawer')}
-          {...drawerProps}
           shouldUpdate={this.state.scrollX === 200}
-          from="right">
-          {clone(children, { handle: touchableHandle })}
+          from="right"
+          dragger={draggable}
+          {...drawerProps}>
+          {childrenWithProps}
         </Drawer>
       </div>
     );

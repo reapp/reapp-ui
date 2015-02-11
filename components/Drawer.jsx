@@ -19,6 +19,7 @@ module.exports = Component({
     onClose: React.PropTypes.func,
     open: React.PropTypes.bool,
     dragger: React.PropTypes.bool,
+    draggerWidth: React.PropTypes.number,
     width: React.PropTypes.number,
     height: React.PropTypes.number
   },
@@ -150,7 +151,6 @@ module.exports = Component({
 
     // onClose callback
     if (this.isClosed() && this.props.onClose) {
-      console.log('calling closed')
       this.props.onClose();
     }
   },
@@ -175,6 +175,7 @@ module.exports = Component({
       children,
       scroller,
       dragger,
+      draggerWidth,
       ...props
     } = this.props;
 
@@ -184,7 +185,7 @@ module.exports = Component({
 
     if (open) {
       this.addClass('open', this.props.open);
-      this.addStyles({ zIndex: 5 }) // move above other drawers
+      this.addStyles({ zIndex: 5 }); // move above other drawers
     }
 
     this.addStyles(`from-${this.props.from}`);
@@ -194,6 +195,9 @@ module.exports = Component({
       this.addStyles('dragger', {
         [this.draggerSide[from]]: this.isClosed() ? -this.getConstant('edgeWidth') : 0
       });
+
+      if (draggerWidth)
+        this.addStyles('dragger', { width: draggerWidth });
     }
 
     var updateChildren = this.state.offset === 0;
@@ -201,9 +205,8 @@ module.exports = Component({
     if (this.props.shouldUpdate === false)
       updateChildren = false;
 
-    if (touchableProps.styles) {
+    if (touchableProps && touchableProps.styles)
       this.addStyles('dragger', touchableProps.styles);
-    }
 
     return (
       <AnimatableContainer
