@@ -4,7 +4,7 @@ module.exports = (c) => ({
     background: '#c9c9ce',
     padding: '0 8px',
     margin: `0 -${c.viewPad}`,
-    borderBottom: '1px solid #b4b4b4',
+    borderBottom: `${c.onePx} solid ${c.midGray}`,
     alignItems: 'center'
   },
 

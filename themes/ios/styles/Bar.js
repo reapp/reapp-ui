@@ -3,7 +3,7 @@ module.exports = (c) => ({
     background: c.barBG,
     height: c.barHeight,
     lineHeight: c.barLineHeight,
-    borderTop: `1px solid ${c.barBorderColor}`,
+    borderTop: `${c.onePx} solid ${c.barBorderColor}`,
     position: 'fixed',
     zIndex: 3,
     bottom: 0,

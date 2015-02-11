@@ -37,6 +37,10 @@ var Animations = module.exports = {
     translate: { x: (step - index) * (width/2.5) }
   }),
 
+  moveToLeft: ({ index, step, width }) => ({
+    translate: { x: - (step - index) * width }
+  }),
+
   card: ({ index, step }) => ({
     translate: { y: step * index + symmetrical(step) * 10 }
   }),

@@ -11,7 +11,7 @@ module.exports = (c) => ({
     justifyContent: 'space-between',
     WebkitJustifyContent: 'space-between',
     minHeight: 44,
-    borderTop: `1px solid ${c.listItemBorderColor}`,
+    borderTop: `${c.onePx} solid ${c.listItemBorderColor}`,
     position: 'relative'
   },
 

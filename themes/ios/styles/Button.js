@@ -1,6 +1,6 @@
 module.exports = (c) => ({
   self: {
-    border: `1px solid ${c.buttonBorderColor}`, // todo: variables
+    border: `${c.onePx} solid ${c.buttonBorderColor}`, // todo: variables
     color: c.buttonColor,
     fontSize: '16px',
     background: 'none',

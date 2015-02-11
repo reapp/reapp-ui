@@ -6,6 +6,10 @@ var UI = require('../../index');
 
 require('./stylesheets');
 
-UI.addConstants(require('./constants/base'), require('./constants/components'));
+UI.addConstants(
+  require('./constants/base'),
+  require('./constants/components')
+);
+
 UI.addAnimations(require('./animations'));
 UI.addStyles(require('./styles'));

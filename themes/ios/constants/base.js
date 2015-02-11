@@ -1,8 +1,12 @@
+var supportsHairline = require('./supportsHairline');
+
 var brandColor = '#307cff';
 var lightGray = '#ddd';
 var midGray = '#bbb';
 
 module.exports = {
+  onePx: supportsHairline() ? '1px' : '0.5px',
+
   black: '#000',
   white: '#fff',
   lightGray: lightGray,

@@ -1,7 +1,7 @@
 module.exports = (c) => ({
   self: {
-    borderTop: `1px solid ${c.listItemBorderColor}`,
-    borderBottom: `1px solid ${c.listItemBorderColor}`,
+    borderTop: `${c.onePx} solid ${c.listItemBorderColor}`,
+    borderBottom: `${c.onePx} solid ${c.listItemBorderColor}`,
     background: c.listBG,
     margin: '0 -10px',
     padding: '0 0 0 10px',

@@ -4,7 +4,7 @@ module.exports = (c) => ({
     borderColor: c.titleBarBorderColor,
     borderStyle: 'solid',
     borderWidth: 0,
-    borderBottomWidth: 1,
+    borderBottomWidth: c.onePx,
     height: c.titleBarHeight,
     fontSize: c.titleBarFontSize,
     textAlign: 'center',
@@ -45,6 +45,6 @@ module.exports = (c) => ({
     top: 'auto',
     bottom: 0,
     borderBottom: 'none',
-    borderTopWidth: 1
+    borderTopWidth: c.onePx
   }
 });
