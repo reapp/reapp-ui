@@ -120,7 +120,7 @@ module.exports = Component({
         )}
         <div {...this.componentProps('inner')} {...props}>
           <StaticContainer
-            styles={fullscreen ? this.getStyles('fullScreen') : null}
+            fullscreen={fullscreen}
             shouldUpdate={!animations || viewListStep % 1 === 0}>
             {children}
           </StaticContainer>
