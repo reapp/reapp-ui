@@ -5,7 +5,7 @@ var lightGray = '#ddd';
 var midGray = '#bbb';
 
 module.exports = {
-  onePx: supportsHairline() ? '1px' : '0.5px',
+  onePx: supportsHairline() ? '0.5px' : '1px',
 
   black: '#000',
   white: '#fff',
