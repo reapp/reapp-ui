@@ -1,7 +1,7 @@
 module.exports = (c) => ({
   self: {
     height: '44px',
-    borderColor: c.midGray,
+    borderColor: c.mid,
     borderBottom: 'none',
     borderTop: 'none',
     borderRight: 'none',

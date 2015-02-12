@@ -1,6 +1,6 @@
 module.exports = (c) => ({
   self: {
-    background: c.barBG,
+    background: c.titleBarBG,
     borderColor: c.titleBarBorderColor,
     borderStyle: 'solid',
     borderWidth: 0,

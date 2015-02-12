@@ -24,7 +24,7 @@ module.exports = Component({
       scrollToStep: 0,
       titleBarProps: {},
       scrollerProps: {
-        animationDuration: 400,
+        animationDuration: 350,
         paging: true,
         bouncing: false,
         scrollingY: false

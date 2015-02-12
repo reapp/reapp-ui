@@ -43,7 +43,7 @@ module.exports = (c) => ({
 
   inner: {
     padding: 15,
-    borderBottom: `1px solid ${c.midGray}`
+    borderBottom: `1px solid ${c.mid}`
   },
 
   title: {

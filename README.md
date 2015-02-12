@@ -10,12 +10,8 @@ reapp-ui is a set of React components for building app UI's. It has a few goals
 - Themeable
 - Adaptable to many platforms
 
-Near-term goals are to finish out all the components in the toolkit,
-get and implement feedback from the community, fix any glaring performance
-and visual issues, and then create an Android theme.
-
-It includes quite a few things that may end up in their own repo's, once the code
-has settled out a bit into something more coherent.
+Near-term goals are to finish out the component set, finish the most
+accurate themes possible for iOS and Andorid, and nail down performance.
 
 ### Principles
 
@@ -26,8 +22,6 @@ has settled out a bit into something more coherent.
 ### Structure
 
 ```
-  /actions
-    Internal: for components to communicate
   /assets
     Icons, etc
   /behaviors
@@ -41,7 +35,7 @@ has settled out a bit into something more coherent.
   /mixins
     All mixins (used internally and externally)
   /stores
-    Internal: should be removable once parent-based contexts are implemented in React
+    Internal: should be removable once parent-based contexts are in React
   /themes
     Theme files users can require
 ```

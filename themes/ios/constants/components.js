@@ -4,13 +4,17 @@
 // e.g. people may want to specify buttonColor not based on activeColor
 
 module.exports = (c) => ({
+  // Badge
+  badgeBG: c.mid,
+  badgeColor: '#fff',
+
   // Bar
   barBG: '#f6f6f6',
   barColor: c.brandColorInactive,
   barColorActive: c.brandColor,
   barHeight: '49px',
   barLineHeight: '49px',
-  barBorderColor: c.lightGray,
+  barBorderColor: c.light,
 
   // Button
   buttonBorderColor: c.activeBG,
@@ -50,10 +54,11 @@ module.exports = (c) => ({
   // TitleBar
   titleBarHeight: 44,
   titleBarColor: c.black,
-  titleBarBorderColor: c.lightGray,
+  titleBarBorderColor: c.light,
   titleBarFontSize: '16px',
+  titleBarBG: '#f6f6f6',
 
   // View
-  viewBGColor: '#f6f6f6',
+  viewBG: '#f6f6f6',
   viewPad: '10px'
 });

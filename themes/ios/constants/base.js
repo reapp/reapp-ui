@@ -1,8 +1,8 @@
 var supportsHairline = require('./supportsHairline')();
 
 var brandColor = '#307cff';
-var lightGray = supportsHairline ? '#d9d9dc' : '#ddd';
-var midGray = '#bbb';
+var light = supportsHairline ? '#d9d9dc' : '#ddd';
+var mid = '#bbb';
 
 module.exports = {
   hairline: supportsHairline,
@@ -10,15 +10,15 @@ module.exports = {
 
   black: '#000',
   white: '#fff',
-  lightGray: lightGray,
-  midGray: midGray,
-  darkGray: '#8e8e93',
+  light: light,
+  mid: mid,
+  dark: '#8e8e93',
 
   brandColor: brandColor,
   brandColorInactive: '#dcdbe2',
 
   active: brandColor,
-  inactive: midGray,
+  inactive: mid,
 
   activeBG: brandColor,
   activeColor: '#fff',
