@@ -45,7 +45,8 @@ module.exports = Component({
           index={i}
           url={url}
           width={width}
-          height={height} />
+          height={height}
+        />
       );
     }, this);
 

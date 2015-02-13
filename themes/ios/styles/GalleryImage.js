@@ -1,6 +1,6 @@
 module.exports = {
   self: {
-    backgroundSize: 'cover',
+    backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
     width: '100%',

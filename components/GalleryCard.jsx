@@ -5,7 +5,7 @@ var EasingFunctions = require('reapp-ui/lib/EasingFunctions');
 var GalleryImage = require('./GalleryImage');
 
 module.exports = Component({
-  name: 'GalleryImage',
+  name: 'GalleryCard',
 
   render() {
     var { left, index, width, ...props } = this.props;
@@ -16,15 +16,14 @@ module.exports = Component({
     var yAxis = left > index * width ? 1 : -1;
     var deg = Math.abs(pct * 69);
 
-    var animatableStyles = Object.assign(this.styles, { width });
+    this.addStyles({ width });
 
     return (
       <AnimatableContainer
-        className="GalleryImageContainer"
-        style={animatableStyles}
+        {...this.componentProps()}
         opacity={EasingFunctions.easeOutCubic(1 - Math.abs(pct))}
-        rotate={{y: yAxis, deg: deg}}
-        translate={{x: x, z: z}}>
+        rotate={{y: yAxis, deg}}
+        translate={{x, z}}>
         <GalleryImage {...props} />
       </AnimatableContainer>
     );
