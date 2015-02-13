@@ -62,8 +62,13 @@ var TouchableArea = React.createClass({
       var withinX = !xBounds || this.oneWithin(xBounds, this.getTouchLeft(e.touches));
       var withinY = !yBounds || this.oneWithin(yBounds, this.getTouchTop(e.touches));
 
-      if (withinX && withinY)
+      if (withinX && withinY) {
+        this._touchStartOutOfBounds = false;
         this.touchStartActions(e);
+      }
+      else {
+        this._touchStartOutOfBounds = true;
+      }
     }
     else
       this.touchStartActions(e);
@@ -79,6 +84,7 @@ var TouchableArea = React.createClass({
 
   handleTouchMove(e) {
     if (
+      this._touchStartOutOfBounds ||
       !this.props.scroller ||
       this.props.untouchable ||
       this.disableDirection ||

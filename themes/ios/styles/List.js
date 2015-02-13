@@ -16,7 +16,8 @@ module.exports = (c) => ({
 
   title: {
     background: c.mid,
-    color: c.brandColor,
+    color: c.white,
+    fontWeight: 500,
     padding: '4px 0 4px 10px',
     margin: '0 0 -1px -10px'
   }
