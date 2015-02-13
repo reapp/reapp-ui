@@ -26,7 +26,8 @@ module.exports = Component({
   },
 
   handleScroll(left, top, zoom) {
-    this.setState({left: left});
+    if (this.isMounted())
+      this.setState({left: left});
   },
 
   render() {

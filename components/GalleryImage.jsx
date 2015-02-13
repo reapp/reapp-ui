@@ -12,8 +12,6 @@ module.exports = Component({
       height,
     });
 
-    this.addStyles('img', { height });
-
     return (
       <div {...this.componentProps()} {...props}>
         <div {...this.componentProps('img')}></div>

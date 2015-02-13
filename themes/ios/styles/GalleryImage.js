@@ -7,10 +7,5 @@ module.exports = {
     position: 'absolute',
     left: 0,
     top: 0
-  },
-
-  img: {
-    position: 'relative',
-    width: '100%'
   }
 };

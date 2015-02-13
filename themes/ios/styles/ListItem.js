@@ -95,7 +95,7 @@ module.exports = (c) => ({
   children: {
     maxHeight: 42,
     fontSize: '15px',
-    lineHeight: '1.6rem',
+    lineHeight: '16px',
     overflow: 'hidden',
     WebkitLineClamp: 2,
     WebkitBoxOrient: 'vertical',
