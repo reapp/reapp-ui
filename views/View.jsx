@@ -111,6 +111,7 @@ module.exports = Component({
     // add double tap event
     titleBarProps = titleBarProps || {};
     titleBarProps.onDoubleTap = titleBarProps.onDoubleTap || this.handleDoubleTap;
+    titleBarProps.animationState = this.props.animationState;
 
     var viewListStep = this.getAnimationState('viewList').step;
     var titleBarHeight = this.getTitleBarHeight();

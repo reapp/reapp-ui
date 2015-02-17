@@ -118,7 +118,9 @@ module.exports = {
 
     this.scroller.setSnapSize(width, height);
     this.scroller.setDimensions(width, height, width * children.length, height);
-    this.setState({ children });
+
+    if (this.isMounted())
+      this.setState({ children });
   },
 
   // scrolls the viewList to a given step
@@ -205,8 +207,8 @@ module.exports = {
         }
 
         this.visibleViews[entering] = true;
-        this.callProperty('onViewEntering', ceil);
-        this.callProperty('onViewLeaving', floor);
+        this.callProperty('onViewEntering', entering);
+        this.callProperty('onViewLeaving', leaving);
         this._hasCalledEnteringLeaving = true;
       }
     }

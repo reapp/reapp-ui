@@ -20,6 +20,7 @@ module.exports = function(getAnimations) {
     getAnimationState(source) {
       if (source && source !== 'self') {
         return Object.assign(
+          {},
           this.animateStore(source),
           this.props.animationState && this.props.animationState[source]
         );
@@ -54,8 +55,10 @@ module.exports = function(getAnimations) {
     // used just by animators
     // pushes their state to the store for children
     setAnimationState(source) {
-      if (!this.state || !this.state.animationDisabled)
-        this.animateStore(source, this.getAnimationState());
+      if (this.state && this.state.animationDisabled)
+        return;
+
+      this.animateStore(source, this.getAnimationState());
     },
 
     disableAnimation() {
@@ -131,6 +134,7 @@ module.exports = function(getAnimations) {
 
       // todo: additive transforms (possible here)
       var transform = this._animationTransformsToString({ scale, rotate, rotate3d, translate });
+
       if (transform)
         styles[StyleKeys.TRANSFORM] = transform;
 

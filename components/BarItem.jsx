@@ -25,7 +25,7 @@ module.exports = Component({
 
   getDefaultProps() {
     return {
-      display: 'text'
+      display: 'icon-text'
     };
   },
 

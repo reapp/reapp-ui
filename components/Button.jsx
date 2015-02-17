@@ -32,15 +32,13 @@ module.exports = Component({
       animationState,
       ...props } = this.props;
 
-    // pass isInTitleBar down to icon
-    if (isInTitleBar && iconProps)
-      iconProps.isInTitleBar = true;
+    var cloneProps = Object.assign({}, iconProps || {}, {
+      isInTitleBar,
+      animationState
+    });
 
-    if (icon && iconProps)
-      icon = clone(icon, iconProps, true);
-
-    if (iconProps)
-      iconProps = Object.assign({}, iconProps, { animationState })
+    if (icon)
+      icon = clone(icon, cloneProps, true);
 
     if (isInTitleBar)
       this.addStyles('isInTitleBar');
@@ -56,7 +54,7 @@ module.exports = Component({
 
     return (
       <button {...this.componentProps()} {...this.tappableProps()} {...props}>
-        {icon || !!iconProps && <Icon {...iconProps} />}
+        {icon || !!iconProps && <Icon {...cloneProps} />}
         {children && (
           <span {...this.componentProps('inner')}>
             {children}

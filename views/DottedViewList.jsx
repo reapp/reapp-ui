@@ -63,6 +63,7 @@ module.exports = Component({
           total={this.props.children.length}
           active={this.state.activeViewIndex}
           styles={this.getStyles('dots')}
+          {...this.props.dotProps}
         />
       </div>
     );
