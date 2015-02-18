@@ -1,12 +1,13 @@
 var React = require('react/addons');
 var Union = require('lodash-node/modern/array/union');
 var Component = require('../component');
-var Animated = require('../mixins/Animated');
 
 module.exports = Component({
   name: 'Icon',
 
-  mixins: [React.addons.PureRenderMixin],
+  mixins: [
+    React.addons.PureRenderMixin
+  ],
 
   propTypes: {
     size: React.PropTypes.number,
@@ -23,9 +24,6 @@ module.exports = Component({
       size: 32,
       stroke: 1,
       color: 'currentColor',
-      path: '/assets/icons',
-      style: {},
-      svgProps: {},
       titleBarAnimations: {
         self: 'iconTitleBar'
       }
@@ -89,9 +87,11 @@ module.exports = Component({
       });
 
     return (
-      <svg {...this.componentProps()} viewBox="0 0 64 64" {...props}
-        dangerouslySetInnerHTML={{__html: file }}>
-      </svg>
+      <div {...this.componentProps()}>
+        <svg viewBox="0 0 64 64" {...props}>
+          <g dangerouslySetInnerHTML={{__html: file }} />
+        </svg>
+      </div>
     );
   }
 
