@@ -19,7 +19,7 @@ module.exports = Component({
     sizeZIndex: React.PropTypes.number,
     drawerProps: React.PropTypes.object,
     handle: React.PropTypes.node,
-    draggable: React.PropTypes.bool,
+    draggable: React.PropTypes.bool
   },
 
   mixins: [Scrollable({
@@ -36,6 +36,7 @@ module.exports = Component({
 
   getDefaultProps() {
     return {
+      draggable: false,
       sideWidth: 200,
       behavior: LeftNavBehavior.NORMAL
     };
