@@ -10,13 +10,11 @@ module.exports = Component({
 
   propTypes: {
     size: React.PropTypes.number,
-    path: React.PropTypes.string,
     name: React.PropTypes.string,
     color: React.PropTypes.string,
     stroke: React.PropTypes.number,
     isInTitleBar: React.PropTypes.bool,
     shapeRendering: React.PropTypes.string,
-    svgProps: React.PropTypes.object,
     crisp: React.PropTypes.bool
   },
 
@@ -58,16 +56,17 @@ module.exports = Component({
   render() {
     var {
       size,
-      path,
-      name,
+      file,
       color,
       stroke,
       isInTitleBar,
       shapeRendering,
-      svgProps,
       crisp,
       ...props
     } = this.props;
+
+    if (!file)
+      return null;
 
     if (isInTitleBar && color === 'currentColor')
       color = this.getConstant('iconColorTitleBar');
@@ -76,17 +75,10 @@ module.exports = Component({
       shapeRendering = 'crispEdges';
 
     this.addStyles({
-      color,
-      width: size,
-      height: size,
-      overflow: 'hidden'
-    });
-
-    this.addStyles('svg', {
       width: size,
       height: size,
       shapeRendering: shapeRendering ? shapeRendering : 'initial',
-      fill: 'currentColor'
+      fill: color
     });
 
     // todo: hacky
@@ -95,26 +87,17 @@ module.exports = Component({
       delete props.style;
     }
 
-    var svgExtraProps = {
-      viewBox: '0 0 64 64',
-      fill: color
-    };
-
     if (stroke)
-      Object.assign(svgExtraProps, {
+      Object.assign(props, {
         stroke: color,
         strokeWidth: stroke * 2, // were scaling down from 64 / 2
         strokeLinecap: 'round'
       });
 
     return (
-      <span {...this.componentProps()} {...props}>
-        <svg {...svgExtraProps} {...svgProps} {...this.componentProps('svg')}
-          dangerouslySetInnerHTML={{__html:
-            require(`../assets/icons/${name}.svg`)
-          }}>
-        </svg>
-      </span>
+      <svg {...this.componentProps()} viewBox="0 0 64 64" {...props}
+        dangerouslySetInnerHTML={{__html: file }}>
+      </svg>
     );
   }
 
