@@ -1,6 +1,7 @@
 var React = require('react');
 var Component = require('../component');
 var TweenState = require('react-tween-state');
+var clone = require('../lib/niceClone');
 
 // Animate your components in repeating loops,
 // you pass in an 'animation' name, and then just set active={true}
@@ -81,7 +82,7 @@ module.exports = Component({
 
     return (
       <div {...this.componentProps()} {...props}>
-        {children}
+        {clone(children, props, true)}
       </div>
     );
   }
