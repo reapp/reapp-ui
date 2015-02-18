@@ -36,7 +36,6 @@ module.exports = Component({
 
   getDefaultProps() {
     return {
-      draggable: true,
       sideWidth: 200,
       behavior: LeftNavBehavior.NORMAL
     };
