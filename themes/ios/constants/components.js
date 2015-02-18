@@ -52,7 +52,9 @@ module.exports = (c) => ({
   searchBarBorderColor: '#a6a6a6',
 
   // TitleBar
-  titleBarHeight: 44,
+  // iOS7 add extra padding for statusbar
+  titleBarHeight: c.ios7 ? 64 : 44,
+  titleBarPaddingTop: c.ios7 ? 20 : 0,
   titleBarColor: c.black,
   titleBarBorderColor: c.light,
   titleBarFontSize: '16px',
