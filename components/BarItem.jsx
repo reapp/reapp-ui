@@ -56,7 +56,7 @@ module.exports = Component({
         <Icon
           color={this.getConstant(active ? 'barColorActive' : 'barColor')}
           size={(display === 'icon-text-right') ? 24 : 32}
-          name={icon}
+          file={icon}
           styles={this.getStyles('icon')}
           svgProps={{style: { margin: 'auto' }}}
           {...iconProps} />

@@ -81,12 +81,6 @@ module.exports = Component({
       fill: color
     });
 
-    // todo: hacky
-    if (props.style) {
-      this.addStyles(props.style);
-      delete props.style;
-    }
-
     if (stroke)
       Object.assign(props, {
         stroke: color,

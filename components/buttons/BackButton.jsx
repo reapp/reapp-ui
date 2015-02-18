@@ -8,11 +8,12 @@ module.exports = Component({
   render() {
     var iconProps = Object.assign({
       size: 20,
-      name: 'left',
+      file: require('../../assets/icons/left.svg'),
       stroke: 4,
-      style: {
-        width: 16,
-        margin: '0 5px 0 -2px'
+      styles: {
+        self: {
+          margin: '0 2px 0 -2px'
+        }
       }
     }, this.props.iconProps);
 

@@ -50,7 +50,7 @@ module.exports = Component({
   getIcon() {
     return (
       <Icon
-        name="right"
+        file={require('../assets/icons/right.svg')}
         styles={this.getStyles('arrow')}
         size={12}
         stroke={2}
