@@ -24,10 +24,10 @@ module.exports = Component({
       scrollToStep: 0,
       titleBarProps: {},
       scrollerProps: {
-        animationDuration: 450,
+        animationDuration: 550,
         paging: true,
         bouncing: false,
-        easing: 'quart'
+        easing: 'cubic'
       },
       viewAnimations: {
         inner: 'viewParallax',
