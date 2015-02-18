@@ -109,10 +109,10 @@ module.exports = Component({
 
     return (
       <span {...this.componentProps()} {...props}>
-        <svg {...svgExtraProps} {...svgProps} {...this.componentProps('svg')}>
-          <g {...this.componentProps('g')} dangerouslySetInnerHTML={{__html:
-            `<use xlink:href="${path}/${name}.svg#Layer_1"></use>`
-          }} />
+        <svg {...svgExtraProps} {...svgProps} {...this.componentProps('svg')}
+          dangerouslySetInnerHTML={{__html:
+            require(`../assets/icons/${name}.svg`)
+          }}>
         </svg>
       </span>
     );
