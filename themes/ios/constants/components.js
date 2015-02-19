@@ -58,9 +58,9 @@ module.exports = (c) => ({
   titleBarColor: c.black,
   titleBarBorderColor: c.light,
   titleBarFontSize: '16px',
-  titleBarBG: '#f6f6f6',
+  titleBarBG: '#f8f8f8',
 
   // View
-  viewBG: '#f6f6f6',
+  viewBG: '#f4f4f4',
   viewPad: '10px'
 });
