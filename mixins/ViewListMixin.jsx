@@ -43,7 +43,7 @@ module.exports = {
     this.setupDimensions();
     this.setScrollPosition();
     this.setupViewList(this.props);
-    this.runViewCallbacks();
+    this.runViewCallbacks(this.state.step);
     window.addEventListener('resize', this.resize);
     this.didMount = true;
   },
@@ -154,7 +154,7 @@ module.exports = {
     if (!children || !children.length)
       this.visibleViews = [];
     else {
-      this.visibleViews = children.map(v => false);
+      this.visibleViews = new Array(children.length - 1);
       this.visibleViews[0] = true;
     }
   },
@@ -174,9 +174,8 @@ module.exports = {
     // disabled
     if (this.props.disableScroll)
       return;
-
     // don't scroll if we only have one view
-    if (this.state.children.length === 1 && this.state.step === 0)
+    else if (this.state.children.length === 1 && this.state.step === 0)
       return;
 
     var step = this.state.width ? left / this.state.width : 0;
@@ -188,8 +187,6 @@ module.exports = {
   },
 
   runViewCallbacks(step) {
-    step = step || this.state.step;
-
     if (step % 1 !== 0) {
       if (!this._hasCalledEnteringLeaving) {
         var entering, leaving;
@@ -232,16 +229,16 @@ module.exports = {
     }
   },
 
-  callProperty(name) {
-    var args = Array.prototype.slice.call(arguments, 1);
+  callProperty(name, ...args) {
+    setTimeout(() => {
+      // apply to viewlist first
+      if (this[name])
+        this[name].apply(this, args);
 
-    // apply to viewlist first
-    if (this[name])
-      this[name].apply(this, args);
-
-    // then call any external
-    if (this.props[name])
-      this.props[name].apply(this, args);
+      // then call any external
+      if (this.props[name])
+        this.props[name].apply(this, args);
+    });
   },
 
   isOnStage(index) {
