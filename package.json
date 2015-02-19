@@ -17,14 +17,17 @@
   },
   "homepage": "https://github.com/reapp/reapp-ui",
   "dependencies": {
-    "react-style": "git+https://github.com/reapp/react-style#a6151d5",
-    "react-document-title": "git+https://github.com/reapp/react-document-title#dceaa10",
-    "react-tween-state": "0.0.4",
     "css-mediaquery": "~0.1.2",
+    "html2canvas": "^0.5.0-alpha2",
     "lodash-node": "~3.0.0",
-    "reapp-scroller": "^1.0.0",
+    "react": "^0.13.0-beta.2",
+    "react-canvas": "0.0.1",
+    "react-document-title": "git+https://github.com/reapp/react-document-title#ac029af",
+    "react-style": "git+https://github.com/reapp/react-style#a6151d5",
+    "react-tween-state": "0.0.4",
     "reapp-component": "^1.0.0",
-    "reapp-object-assign": "~1.0.0"
+    "reapp-object-assign": "~1.0.0",
+    "reapp-scroller": "^1.0.0"
   },
   "peerDependencies": {
     "react": "^0.13.0-beta.1"

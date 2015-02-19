@@ -6,6 +6,7 @@ var TitleBar = require('../components/TitleBar');
 var TouchableArea = require('../helpers/TouchableArea');
 var Animated = require('../mixins/Animated');
 var clone = require('../lib/niceClone');
+var html2canvas = require('html2canvas');
 
 // ViewLists are the most complex piece of the UI kit.
 // Their usage is simple, but they manage a lot of state,
@@ -118,6 +119,24 @@ module.exports = {
 
     this.scroller.setSnapSize(width, height);
     this.scroller.setDimensions(width, height, width * children.length, height);
+
+    this.portalNode = document.createElement('div');
+    this.portalNode.style.left = '-9999px';
+    document.body.appendChild(this.portalNode);
+    React.render(
+      <div>
+        {clone(children, {
+          animationState: {
+            viewList: { index: 0 }
+          }
+        }, true)}
+      </div>,
+      this.portalNode
+    );
+
+    html2canvas(this.portalNode).then(function(canvas) {
+        document.body.appendChild(canvas);
+    });
 
     if (this.isMounted())
       this.setState({ children });
