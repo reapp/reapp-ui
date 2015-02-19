@@ -1,6 +1,7 @@
 var React = require('react');
 var Component = require('../component');
 var Icon = require('../components/Icon');
+var Tappable = require('../helpers/Tappable');
 
 module.exports = Component({
   name: 'Radio',
@@ -16,7 +17,7 @@ module.exports = Component({
   },
 
   handleChange(e) {
-    if (e.currentTarget.checked)
+    if (!this.refs.input.getDOMNode().checked)
       this.setState({ checked: true });
     else
       this.setState({ checked: false });
@@ -29,19 +30,20 @@ module.exports = Component({
     var { iconProps, ...props } = this.props;
 
     return (
-      <span {...this.componentProps()}>
+      <Tappable {...this.componentProps()} onTap={this.handleChange} stopPropagation>
         <input
           {...this.componentProps('input')}
           {...props}
-          onChange={this.handleChange}
+          checked={this.state.checked}
         />
         <Icon
-          name="check"
+          file={require('../assets/icons/check.svg')}
           size={24}
           color={this.getConstant(this.state.checked ? 'active' : 'inactive')}
+          styles={{ self: { margin: 'auto' } }}
           {...iconProps}
         />
-      </span>
+      </Tappable>
     );
   }
 });

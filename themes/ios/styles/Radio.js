@@ -1,6 +1,8 @@
 module.exports = {
   self: {
-    position: 'relative'
+    position: 'relative',
+    minHeight: 44,
+    minWidth: 44
   },
 
   input: {
