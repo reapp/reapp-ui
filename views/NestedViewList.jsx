@@ -22,7 +22,11 @@ module.exports = Component({
       height: window.innerHeight,
       resizeWithWindow: true,
       scrollToStep: 0,
-      titleBarProps: {},
+      titleBarProps: {
+        animations: {
+          self: 'fadeToLeft'
+        }
+      },
       scrollerProps: {
         animationDuration: 550,
         paging: true,

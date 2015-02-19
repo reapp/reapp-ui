@@ -23,10 +23,7 @@ module.exports = Component({
 
   getDefaultProps() {
     return {
-      width: window.innerWidth,
-      animations: {
-        self: 'fadeToLeft'
-      }
+      width: window.innerWidth
     };
   },
 
