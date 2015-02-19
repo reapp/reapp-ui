@@ -74,7 +74,8 @@ module.exports = function(getAnimations) {
     },
 
     isAnimating(source) {
-      return this.getAnimationState(source || this.animationSource).step % 1 !== 0;
+      var state = this.getAnimationState(source || this.animationSource);
+      return state.step && state.step % 1 !== 0;
     },
 
     hasAnimations(ref) {
