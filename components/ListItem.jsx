@@ -53,7 +53,7 @@ module.exports = Component({
         file={require('../assets/icons/right.svg')}
         styles={this.getStyles('arrow')}
         size={12}
-        stroke={2}
+        stroke={3}
         color={this.getConstant('listItemArrowColor')} />
     );
   },
@@ -104,9 +104,7 @@ module.exports = Component({
 
     var hasTitle = (title || titleAfter);
 
-    if (hasTitle)
-      this.addStyles('content', 'contentWithTitle');
-    else
+    if (!hasTitle)
       this.addStyles('children', 'childrenNoTitle');
 
     if (nopad || children && children.type && children.type.liNoPad)

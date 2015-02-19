@@ -21,7 +21,7 @@ module.exports = (c) => ({
 
   arrow: {
     margin: 'auto 8px auto 0',
-    color: c.listItemBorderColor
+    color: '#cfcfcf'
   },
 
   wrapper: {
@@ -52,12 +52,8 @@ module.exports = (c) => ({
     flexGrow: 800,
     WebkitFlexGrow: 800,
     color: c.listItemContentColor,
-    padding: '12px 12px 12px 0',
+    padding: '10px 12px 10px 0',
     position: 'relative'
-  },
-
-  contentWithTitle: {
-    padding: '8px 12px 8px 0'
   },
 
   contentNoPad: {
