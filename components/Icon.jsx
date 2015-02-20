@@ -1,5 +1,4 @@
 var React = require('react/addons');
-var Union = require('lodash-node/modern/array/union');
 var Component = require('../component');
 
 module.exports = Component({
