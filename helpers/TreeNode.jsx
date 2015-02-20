@@ -39,7 +39,7 @@ var TreeNode = React.createClass({
           childKey={childKey}
           cursor={child}
           level={level} />
-      ).toArray();
+      );
     }
 
     return (
