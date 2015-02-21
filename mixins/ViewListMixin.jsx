@@ -4,7 +4,6 @@ var DocumentTitle = require('react-document-title');
 var Component = require('../component');
 var TitleBar = require('../components/TitleBar');
 var TouchableArea = require('../helpers/TouchableArea');
-var Animated = require('../mixins/Animated');
 var clone = require('../lib/niceClone');
 
 // ViewLists are the most complex piece of the UI kit.
@@ -38,6 +37,10 @@ module.exports = {
     };
   },
 
+  componentWillMount() {
+    this.setAnimationState('viewList');
+  },
+
   componentDidMount() {
     this.scroller = new Scroller(this.handleScroll, this.props.scrollerProps);
     this.setupDimensions();
@@ -53,13 +56,11 @@ module.exports = {
   },
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.disableScroll) {
-      this.disableAnimation();
-      return;
-    }
-    // re-enable animations if disabled
-    else if (this.props.disableScroll) {
-      this.enableAnimation();
+    if (this.props.disableScroll !== nextProps.disableScroll) {
+      if (nextProps.disableScroll)
+        return this.disableAnimation();
+      else
+        this.enableAnimation();
     }
 
     if (this._isAnimating || !this.didMount)
@@ -70,7 +71,7 @@ module.exports = {
       var isAdvancing = nextProps.scrollToStep >= this.state.step;
       if (isAdvancing) {
         this.setupViewList(nextProps);
-        setTimeout(() => this.scrollToStep(nextProps.scrollToStep));
+        this.scrollToStep(nextProps.scrollToStep);
       }
       else
         this.scrollToStep(nextProps.scrollToStep, () => {
@@ -79,6 +80,7 @@ module.exports = {
     }
     // else no new scroll position
     else {
+      // todo: this gets called too much
       this.setupViewList(nextProps);
     }
   },
@@ -132,7 +134,7 @@ module.exports = {
       this.onViewEntered = () => {
         this.onViewEntered = null;
         this._isAnimating = false;
-        if (cb) setTimeout(cb);
+        if (cb) cb();
       };
     }
   },
@@ -165,24 +167,29 @@ module.exports = {
   handleScroll(left) {
     // this is a hack, but the Scroller lib fires a scroll event that
     // results in not respecting the props.scrollToStep on mount
-    // need a better Scroller lib
+    // .... we need to improve the Scroller lib
     if (this.disableInitialScrollEvent) {
       this.disableInitialScrollEvent = false;
       return;
     }
 
-    // disabled
-    if (this.props.disableScroll)
-      return;
-    // don't scroll if we only have one view
-    else if (this.state.children.length === 1 && this.state.step === 0)
+    // disabled || only one view
+    if (this.props.disableScroll ||
+        this.state.children.length === 1 && this.state.step === 0)
       return;
 
     var step = this.state.width ? left / this.state.width : 0;
 
     if (step !== this.state.step) {
+      this.setAnimationState('viewList');
       this.setState({ step });
-      this.runViewCallbacks(step);
+    }
+  },
+
+  componentDidUpdate(_, prevState) {
+    if (prevState.step !== this.state.step) {
+      this.runViewCallbacks(this.state.step);
+      this.setAnimationState('viewList');
     }
   },
 
@@ -230,15 +237,13 @@ module.exports = {
   },
 
   callProperty(name, ...args) {
-    setTimeout(() => {
-      // apply to viewlist first
-      if (this[name])
-        this[name].apply(this, args);
+    // apply to viewlist first
+    if (this[name])
+      this[name].apply(this, args);
 
-      // then call any external
-      if (this.props[name])
-        this.props[name].apply(this, args);
-    });
+    // then call any external
+    if (this.props[name])
+      this.props[name].apply(this, args);
   },
 
   isOnStage(index) {
@@ -300,13 +305,7 @@ module.exports = {
   },
 
   getViewList(props) {
-    window.t = this;
     var { touchableProps, viewProps } = props || {};
-
-    // pushes state to a store for child use
-    // in the future this can be done with contexts
-    if (!this.props.disableScroll)
-      this.setAnimationState('viewList');
 
     var touchableAreaProps = this.getTouchableAreaProps();
     var activeTitle;

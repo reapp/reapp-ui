@@ -54,7 +54,7 @@ module.exports = function(getAnimations) {
 
     // used just by animators
     // pushes their state to the store for children
-    setAnimationState(source) {
+    setAnimationState(source, state) {
       if (this.state && this.state.animationDisabled)
         return;
 

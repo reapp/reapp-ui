@@ -19,6 +19,7 @@ var TouchableArea = React.createClass({
       touchStartBoundsY: false,
       ignoreY: false,
       ignoreX: false,
+      minimumDrag: 25,
       passprops: false,
       allowDefault: false
     };
@@ -47,9 +48,6 @@ var TouchableArea = React.createClass({
     // option to only accept touches on currentTarget
     if (this.props.currentTargetOnly && e.currentTarget !== this.getDOMNode())
       return;
-
-    // todo: allow touching again after letting go ("catching")
-    // should be done in the scroller library
 
     // _disableDirection === null, we haven't figured out if ignoring this scroll yet
     this.disableDirection = null;
@@ -101,20 +99,23 @@ var TouchableArea = React.createClass({
       this.props.onTouchMove(e);
   },
 
-  // this will ignore scrolls in a certain direction
-  // for now it's very strict
+  // ignore scrolls in a certain direction
   ignoreDirectionalScroll(e) {
-    // performance optimization: return cached value
-    if (this.disableDirection !== null)
-      return this.disableDirection;
+    // performance: return cached value
+    // if (this.disableDirection !== null)
+    //   return this.disableDirection;
 
-    // only run calculations if we have an ignore set
+    // if we have an ignore set
     if (!this.props.ignoreY && !this.props.ignoreX)
       return false;
 
-    // calculate ignore possibility
+    // calculate distances
     var distanceY = Math.abs(this._initialTouchTop - this.getTouchTop(e.touches));
     var distanceX = Math.abs(this._initialTouchLeft - this.getTouchLeft(e.touches));
+
+    if (this.props.ignoreY && this.props.minimumDrag > distanceY ||
+        this.props.ignoreX && this.props.minimumDrag > distanceX)
+      return false;
 
     this.disableDirection = (
       distanceY > distanceX && this.props.ignoreY ||

@@ -26,14 +26,13 @@ module.exports = Component({
   },
 
   makeSection(name, content, props) {
-    return content && (
+    return content &&
       <span
+        {...props}
         {...this.componentProps(name)}
-        key={`${name}-${this.props.key}`}
-        {...props}>
+        key={`${name}-${this.props.key}`}>
         {content}
       </span>
-    );
   },
 
   isLink(el) {
@@ -48,14 +47,14 @@ module.exports = Component({
   },
 
   getIcon() {
-    return (
+    return
       <Icon
         file={require('../assets/icons/right.svg')}
         styles={this.getStyles('arrow')}
         size={12}
         stroke={3}
-        color={this.getConstant('listItemArrowColor')} />
-    );
+        color={this.getConstant('listItemArrowColor')}
+      />
   },
 
   render() {
@@ -121,12 +120,12 @@ module.exports = Component({
         ]),
         span('titleSub', titleSub),
         span('children', children)
-      ]),
+      ], this.tappableProps()),
       span('after', after),
     ];
 
     return (
-      <li {...this.componentProps()} {...this.tappableProps()} {...props}>
+      <li {...this.componentProps()} {...props}>
         {content}
       </li>
     );
