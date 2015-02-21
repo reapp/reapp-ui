@@ -1,7 +1,6 @@
 var ReactStyle = require('react-style');
 var Invariant = require('react/lib/invariant');
 
-require('./lib/noBounce');
 require('./lib/desktopTouch');
 require('reapp-object-assign');
 
