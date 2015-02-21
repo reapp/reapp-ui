@@ -75,7 +75,21 @@ module.exports = function(getAnimations) {
 
     isAnimating(source) {
       var state = this.getAnimationState(source || this.animationSource);
-      return state.step && state.step % 1 !== 0;
+      var isAnimating = state.step && state.step % 1 !== 0;
+
+      // dirty hack, because were dealing with time.
+      // normally, just return var isAnimating
+      // but, because this will be used in shouldComponentUpdate
+      // it glitches the "last frame", when the step % 1 === 0, but we haven't
+      // finished rendering. This gives us that "extra" frame back
+      if (!isAnimating && this._wasAnimating) {
+        this._wasAnimating = false;
+        return true;
+      }
+      else {
+        this._wasAnimating = isAnimating;
+        return isAnimating;
+      }
     },
 
     hasAnimations(ref) {

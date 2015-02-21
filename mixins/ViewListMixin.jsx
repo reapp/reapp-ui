@@ -181,7 +181,6 @@ module.exports = {
     var step = this.state.width ? left / this.state.width : 0;
 
     if (step !== this.state.step) {
-      this.setAnimationState('viewList');
       this.setState({ step });
     }
   },
@@ -189,7 +188,6 @@ module.exports = {
   componentDidUpdate(_, prevState) {
     if (prevState.step !== this.state.step) {
       this.runViewCallbacks(this.state.step);
-      this.setAnimationState('viewList');
     }
   },
 
@@ -237,13 +235,15 @@ module.exports = {
   },
 
   callProperty(name, ...args) {
-    // apply to viewlist first
-    if (this[name])
-      this[name].apply(this, args);
+    setTimeout(() => {
+      // apply to viewlist first
+      if (this[name])
+        this[name].apply(this, args);
 
-    // then call any external
-    if (this.props[name])
-      this.props[name].apply(this, args);
+      // then call any external
+      if (this.props[name])
+        this.props[name].apply(this, args);
+    }, 10);
   },
 
   isOnStage(index) {
@@ -309,6 +309,8 @@ module.exports = {
 
     var touchableAreaProps = this.getTouchableAreaProps();
     var activeTitle;
+
+    this.setAnimationState('viewList');
 
     return (
       <TouchableArea {...touchableAreaProps} {...touchableProps}>
