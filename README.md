@@ -40,7 +40,7 @@ accurate themes possible for iOS and Andorid, and nail down performance.
     Theme files users can require
 ```
 
-#### index.js
+**index.js**
 
 Used to set up reapp-ui.
 
@@ -66,7 +66,7 @@ For now it has three relevant methods:
 To see how you'd make a theme, I'd suggest looking at `/themes/ios/theme.js`. You
 can require that file to have the entire iOS theme setup for you automatically.
 
-#### component.js
+**component.js**
 
 component is a decorator that is used internally by reapp-ui to make components. It
 was extracted out and is a nice set of mixins that allow the ui components to avoid
