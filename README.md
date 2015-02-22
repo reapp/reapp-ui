@@ -75,6 +75,23 @@ reptitious code.
 This is an important file to look at before understanding how this library works,
 and from there, the Mixins that are used here make the foundation of the UI kit.
 
+### Contributing
+
+Because Reapp has split itself into a number of modules, you'll probably need to do a little
+more work than usual to contribute. For the UI, the best setup is to do the following:
+
+1. Create a `reapp` folder
+2. Clone the [kitchen sink](https://github.com/reapp/kitchen-sink) repository
+3. Clone this repository
+4. Run `sudo npm link` inside this repository
+5. Run `sudo npm link reapp-ui` inside the kitchen sink repository
+
+This will link your reapp-ui module into your kitchen sink repo. Now you can:
+
+6. Run `reapp run -d` inside kitchen sink
+7. Go to [localhost:3010](http://localhost:3010)
+8. Make edits inside reapp-ui and they will automatically compile into the kitchen sink.
+
 ### Credits
 
 Original inspiration was thanks to [Pete Hunt](https://github.com/petehunt)'s [React Mobile Demo](http://petehunt.github.io/react-touch/).
