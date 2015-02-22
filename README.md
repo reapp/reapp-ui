@@ -92,6 +92,15 @@ This will link your reapp-ui module into your kitchen sink repo. Now you can:
 7. Go to [localhost:3010](http://localhost:3010)
 8. Make edits inside reapp-ui and they will automatically compile into the kitchen sink.
 
+**Warning:** When running locally you may run into some unique bugs. Because `npm link`
+runs an `npm install`, it will often install multiple versions of React into your
+modules folders, causing Webpack to bundle multiple versions of it into your app. This
+can cause a variety of errors. If you see stuff that warns about `Mount, Link, Context`,
+it is most likely because of this. Try deleting any sub-module react folders and re-running
+Webpack.
+
+
+
 ### Credits
 
 Original inspiration was thanks to [Pete Hunt](https://github.com/petehunt)'s [React Mobile Demo](http://petehunt.github.io/react-touch/).
