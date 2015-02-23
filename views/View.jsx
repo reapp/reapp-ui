@@ -38,7 +38,13 @@ module.exports = Component({
     inactive: React.PropTypes.bool,
 
     // make the StaticContainer inside fullscreen
-    fullscreen: React.PropTypes.bool
+    fullscreen: React.PropTypes.bool,
+
+    // see scrollTopable
+    scrollTop: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number
+    ])
   },
 
   mixins: [
@@ -72,14 +78,10 @@ module.exports = Component({
       };
   },
 
-  boxShadowWhileAnimating() {
-    if (this.isAnimating('viewList'))
-      this.addStyles('inner', this.clipStyles);
-  },
-
   handleDoubleTap() {
+    console.log(this.getScrollTop())
     if (this.refs.inner)
-      this.animatedScrollToTop(this.refs.inner.getDOMNode(), 300);
+      this.animatedScrollToTop(this.refs.inner.getDOMNode(), 300, this.getScrollTop());
   },
 
   hasOverlay() {
@@ -111,15 +113,16 @@ module.exports = Component({
     // add double tap event
     titleBarProps = titleBarProps || {};
     titleBarProps.onDoubleTap = titleBarProps.onDoubleTap || this.handleDoubleTap;
-    titleBarProps.animationState = this.props.animationState;
+    titleBarProps.animationState = animationState;
 
-    var viewListStep = this.getAnimationState('viewList').step;
+    var isAnimating = this.isAnimating('viewList');
     var titleBarHeight = this.getTitleBarHeight();
 
     if (inactive)
       this.addStyles('inactive');
 
-    this.boxShadowWhileAnimating();
+    if (isAnimating)
+      this.addStyles('inner', this.clipStyles);
 
     if (title)
       this.addStyles('inner', { top: titleBarHeight });
@@ -132,7 +135,7 @@ module.exports = Component({
 
     if (this.hasOverlay())
       this.addStyles('overlay', {
-        display: this.isAnimating('viewList') ? 'block' : 'none',
+        display: isAnimating ? 'block' : 'none',
         top: titleBarHeight
       });
 
@@ -145,7 +148,7 @@ module.exports = Component({
         <div {...this.componentProps('inner')} {...innerProps}>
           <StaticContainer
             fullscreen={fullscreen}
-            shouldUpdate={!animations || viewListStep % 1 === 0}>
+            shouldUpdate={!animations || !isAnimating}>
             {children}
           </StaticContainer>
         </div>

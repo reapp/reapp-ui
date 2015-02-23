@@ -24,15 +24,17 @@ module.exports = function(node) {
         this.setScrollTop(nextProps);
     },
 
+    getScrollTop() {
+      return typeof this.props.scrollTop === 'string' ?
+        this.getConstant(this.props.scrollTop) :
+        this.props.scrollTop || 0;
+    },
+
     setScrollTop(props) {
       if (!props.scrollTop)
         return;
 
-      var scrollTop = props.scrollTop;
-      if (typeof props.scrollTop === 'string')
-        scrollTop = this.getConstant(props.scrollTop);
-
-      this.refs[node].getDOMNode().scrollTop = scrollTop;
+      this.refs[node].getDOMNode().scrollTop = this.getScrollTop();
     }
   }
 };

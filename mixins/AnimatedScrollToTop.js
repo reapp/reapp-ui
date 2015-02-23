@@ -2,7 +2,8 @@
 // no license on original source
 
 module.exports = {
-  animatedScrollToTop(node, scrollDuration) {
+  animatedScrollToTop(node, scrollDuration, offset) {
+    offset = offset || 0;
     var scrollHeight = node.scrollTop;
     var scrollStep = Math.PI / (scrollDuration / 15);
     var cosParameter = scrollHeight / 2;
@@ -12,11 +13,11 @@ module.exports = {
     window.requestAnimationFrame(step);
     function step () {
       setTimeout(function() {
-        if (node.scrollTop !== 0) {
+        if (node.scrollTop > offset) {
           window.requestAnimationFrame(step);
           scrollCount = scrollCount + 1;
           scrollMargin = cosParameter - cosParameter * Math.cos(scrollCount * scrollStep);
-          node.scrollTop = scrollHeight - scrollMargin;
+          node.scrollTop = Math.max(offset, scrollHeight - scrollMargin);
         }
       }, 15);
     }
