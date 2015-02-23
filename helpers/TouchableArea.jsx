@@ -102,8 +102,8 @@ var TouchableArea = React.createClass({
   // ignore scrolls in a certain direction
   ignoreDirectionalScroll(e) {
     // performance: return cached value
-    // if (this.disableDirection !== null)
-    //   return this.disableDirection;
+    if (this.disableDirection !== null)
+      return this.disableDirection;
 
     // if we have an ignore set
     if (!this.props.ignoreY && !this.props.ignoreX)
@@ -121,6 +121,9 @@ var TouchableArea = React.createClass({
       distanceY > distanceX && this.props.ignoreY ||
       distanceX > distanceY && this.props.ignoreX
     );
+
+    if (this.disableDirection)
+      this.handleTouchEnd(e);
 
     return this.disableDirection;
   },
