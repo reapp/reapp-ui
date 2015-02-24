@@ -115,14 +115,12 @@ module.exports = Component({
     titleBarProps.onDoubleTap = titleBarProps.onDoubleTap || this.handleDoubleTap;
     titleBarProps.animationState = animationState;
 
-    var isAnimating = this.isAnimating('viewList');
     var titleBarHeight = this.getTitleBarHeight();
 
-    if (inactive)
-      this.addStyles('inactive');
-
-    if (isAnimating)
+    if (inactive) {
+      this.addStyles('inner', 'innerInactive');
       this.addStyles('inner', this.clipStyles);
+    }
 
     if (title)
       this.addStyles('inner', { top: titleBarHeight });
@@ -135,7 +133,7 @@ module.exports = Component({
 
     if (this.hasOverlay())
       this.addStyles('overlay', {
-        display: isAnimating ? 'block' : 'none',
+        display: inactive ? 'block' : 'none',
         top: titleBarHeight
       });
 
@@ -148,7 +146,7 @@ module.exports = Component({
         <div {...this.componentProps('inner')} {...innerProps}>
           <StaticContainer
             fullscreen={fullscreen}
-            shouldUpdate={!animations || !isAnimating}>
+            shouldUpdate={!animations || !inactive}>
             {children}
           </StaticContainer>
         </div>

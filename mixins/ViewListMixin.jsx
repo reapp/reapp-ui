@@ -182,12 +182,7 @@ module.exports = {
 
     if (step !== this.state.step) {
       this.setState({ step });
-    }
-  },
-
-  componentDidUpdate(_, prevState) {
-    if (prevState.step !== this.state.step) {
-      this.runViewCallbacks(this.state.step);
+      this.runViewCallbacks(step);
     }
   },
 
@@ -253,16 +248,6 @@ module.exports = {
     );
   },
 
-  handleTouchStart(e) {
-    if (this.props.onTouchStart)
-      this.props.onTouchStart(e);
-  },
-
-  handleTouchEnd(e) {
-    if (this.props.onTouchEnd)
-      this.props.onTouchEnd(e);
-  },
-
   getTitleBarProps() {
     return this.props.noFakeTitleBar ?
       this.props.titleBarProps :
@@ -288,8 +273,6 @@ module.exports = {
       {
         touchStartBoundsX: this.props.touchStartBoundsX,
         touchStartBoundsY: this.getTouchStartBoundsY(),
-        onTouchStart: this.handleTouchStart,
-        onTouchEnd: this.handleTouchEnd,
         untouchable: (
           this.props.touchableAreaProps && this.props.touchableAreaProps.untouchable ||
           this.props.disableScroll

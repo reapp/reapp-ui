@@ -5,14 +5,9 @@ module.exports = (c) => ({
     left: 0,
     bottom: 0,
     right: 0,
-    WebkitOverflowScrolling: 'touch',
     WebkitBackfaceVisibility: 'hidden',
     WebkitTransform: 'translateZ(0)',
     zIndex: 2
-  },
-
-  inactive: {
-    pointerEvents: 'none'
   },
 
   inner: {
@@ -28,6 +23,16 @@ module.exports = (c) => ({
     bottom: 0,
     right: 0,
     WebkitBackfaceVisibility: 'hidden'
+  },
+
+  innerInactive: {
+    pointerEvents: 'none',
+    WebkitOverflowScrolling: 'none',
+    overflowY: 'hidden'
+  },
+
+  innerActive: {
+    WebkitOverflowScrolling: 'touch',
   },
 
   overlay: {
