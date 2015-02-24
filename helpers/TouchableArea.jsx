@@ -19,7 +19,7 @@ var TouchableArea = React.createClass({
       touchStartBoundsY: false,
       ignoreY: false,
       ignoreX: false,
-      minimumDrag: 25,
+      minimumDrag: 0,
       passprops: false,
       allowDefault: false
     };
