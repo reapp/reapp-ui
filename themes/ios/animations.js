@@ -6,6 +6,9 @@ var {
   scaleBetween
 } = require('../../lib/AnimationHelpers');
 
+
+var Transform = require('famous/core/Transform');
+
 var Animations = module.exports = {
   viewParallax({ index, step, width }) {
     var translateX = (index - step) * width;
@@ -13,9 +16,11 @@ var Animations = module.exports = {
     if (index < step)
       translateX = translateX / 2;
 
+    console.log(Transform.translate(, , 0);)
+
+
     return {
       translate: { x: translateX }
-      // boxShadow: `0 0 15px rgba(0,0,0,${increaseOnEnter(index, step) / 2})`
     };
   },
 

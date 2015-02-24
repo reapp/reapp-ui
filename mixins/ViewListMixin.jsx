@@ -5,6 +5,17 @@ var Component = require('../component');
 var TitleBar = require('../components/TitleBar');
 var TouchableArea = require('../helpers/TouchableArea');
 var clone = require('../lib/niceClone');
+var ScrollDriver = require('./ScrollDriver');
+
+var Transitionable = require('famous/core/Transitionable');
+var Modifier = require('famous/core/Modifier');
+var GenericSync = require('famous/inputs/GenericSync');
+
+GenericSync.register({
+  "touch": TouchSync,
+  "scroll": ScrollSync,
+  "mouse": MouseSync
+});
 
 // ViewLists are the most complex piece of the UI kit.
 // Their usage is simple, but they manage a lot of state,
@@ -39,6 +50,160 @@ module.exports = {
 
   componentWillMount() {
     this.setAnimationState('viewList');
+
+    this.positionX = new Transitionable(0);
+    this.positionY = new Transitionable(0);
+    this._scrollModifier = new Modifier();
+
+    this._particle = new Particle();
+    this._physicsEngine = new PhysicsEngine();
+    this._physicsEngine.addBody(this._particle);
+    this._scrollHandler = new EventHandler();
+
+    var ScrollDriver = SimpleDriver;
+    this._driver = new ScrollDriver({
+      scrollView: this,
+      physicsEngine: this._physicsEngine,
+      particle: this._particle,
+      direction: this.direction
+    });
+  },
+
+  _bindScrollEvents: function() {
+    var events = ['touchstart', 'touchmove', 'touchend'];
+
+    events.forEach(type => {
+      this.refs.inner.getDOMNode().on(type, (e) => {
+        this._scrollType = type;
+        this._scrollHandler.emit(type, e.originalEvent);
+      });
+    });
+
+    this.sync = new GenericSync({
+      "scroll": {},
+      "touch": {}
+    });
+
+    this.sync.on('start', this._onScrollStart);
+    this.sync.on('update', this._onScrollUpdate);
+    this.sync.on('end', this._onScrollEnd);
+
+    this._scrollHandler.pipe(this.sync);
+  },
+
+  _onScrollStart() {
+
+  },
+
+  _onScrollEnd() {
+
+  },
+
+  _onScrollUpdate: function(data) {
+    // if you were animating a scroll, this will kill it
+    this.clearScrollAnimations();
+
+    var delta = data.delta;
+    this._previousScrollUpdate = data;
+
+    // cache the direction for all future movement until you start again
+    this._setScrollDirection(delta);
+
+    // depending on the direction you are scrolling, this will normalize the data
+    // setting the other direction to 0, stopping any scroll in that direction
+    delta = utils.normalizeVector(delta, this.direction);
+
+    // dampen the delta so it feels right between mobile and desktop
+    delta = this._driver.dampenDelta(data.delta, this._scrollType);
+
+    // run calculations based on variables, spit back needed data
+    var boundsInfo = this.getBoundsInfo(delta);
+
+
+    // stop scrolling if size doesn't warrent it
+    var shouldScroll =  this._shouldScroll(boundsInfo.contentSize, boundsInfo.containerSize);
+    if(!shouldScroll)return;
+
+
+    // we check with the driver to see if it wants to limit the position of the
+    // scroll when we are updating via scroll
+    this.setScrollPosition(boundsInfo.gotoPosX, boundsInfo.gotoPosY, null, this._driver.shouldLimitPastBounds());
+
+    // give the driver an opportunity to take control of the particle
+    // add a bounce for example
+    this._driver.updateParticle(boundsInfo.isPastLimits, boundsInfo.anchorPoint, data.velocity);
+
+
+    // trigger event handler
+    this._updateScrollVelocity();
+  },
+
+
+  getBoundsInfo: function(delta){
+      var gotoPosX = this.positionX.get() + delta[0];
+      var gotoPosY = this.positionY.get() + delta[1];
+      var contentSize = this.getContentSize();
+      var containerSize = this.getSize();
+      var scrollableDistanceX = contentSize[0] - containerSize[0];
+      var scrollableDistanceY = contentSize[1] - containerSize[1];
+
+      var isPastTop = gotoPosY >= 0;
+      var isPastBottom = scrollableDistanceY + gotoPosY <= 0;
+      var isPastLeft = gotoPosX >= 0;
+      var isPastRight = scrollableDistanceX + gotoPosX <= 0;
+
+      var isOutOfBoundsY = isPastTop || isPastBottom;
+      var isOutOfBoundsX = isPastLeft || isPastRight;
+
+      var anchorPoint = [gotoPosX, gotoPosY, 0];
+      var isPastLimits = false;
+
+      var outOfBoundsX = gotoPosX;
+      var outofBoundsY = gotoPosY;
+      if(isOutOfBoundsX && this.direction != DIRECTION_Y){
+          outOfBoundsX = isPastRight ? -scrollableDistanceX : 0;
+          anchorPoint[0] = outOfBoundsX;
+          isPastLimits = true;
+      }
+      if(isOutOfBoundsY && this.direction != DIRECTION_X){
+          outofBoundsY = isPastBottom ? -scrollableDistanceY : 0;
+          anchorPoint[1] = outofBoundsY;
+          isPastLimits = true;
+      }
+
+      return {
+          gotoPosX: gotoPosX,
+          gotoPosY: gotoPosY,
+          isPastLimits: isPastLimits,
+          anchorPoint: anchorPoint,
+          contentSize: contentSize,
+          containerSize: containerSize
+      };
+  },
+
+  _shouldScroll: function(contentSize, containerSize) {
+      if (this.direction == DIRECTION_X) {
+          if (contentSize[0] > containerSize[0]) return true;
+      } else if (this.direction == DIRECTION_Y) {
+          if (contentSize[1] > containerSize[1]) return true;
+      } else {
+          // need more testing around this
+          return true;
+      }
+      return false;
+  },
+
+
+  _updateScrollVelocity: function(){
+
+      currTickTime = new Date().getTime();
+      currTickPos = this.getScrollPosition();
+      if(this._prevTickPos && this._prevTickTime){
+          var tickDiff =  currTickTime - this._prevTickTime;
+          this._currentVelocity = this._getVelocityForPositions(this._prevTickPos, currTickPos, tickDiff);
+      }
+      this._prevTickPos = currTickPos;
+      this._prevTickTime = currTickTime;
   },
 
   componentDidMount() {
