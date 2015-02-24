@@ -30,7 +30,7 @@ module.exports = Component({
   animationSource: 'viewList',
 
   componentDidMount() {
-    setTimeout(this.centerMiddleTitle);
+    this.centerMiddleTitle();
   },
 
   componentDidUpdate(prevProps) {
@@ -43,7 +43,7 @@ module.exports = Component({
       var mid = this.refs.mid.getDOMNode();
       var winCenter = this.refs.self.getDOMNode().clientWidth / 2;
       var midCenter = mid.offsetLeft + (mid.clientWidth / 2);
-      mid.style.left = (winCenter-midCenter) + 'px';
+      mid.style.left = `${winCenter-midCenter}px`;
     }
   },
 

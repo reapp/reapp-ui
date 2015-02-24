@@ -10,16 +10,25 @@ module.exports = {
     var scrollCount = 0;
     var scrollMargin;
 
+    // prevent scrolling and store previous values
+    var prevOverflowScrolling = node.style.WebkitOverflowScrolling;
+    var prevOverflowY = node.style.overflowY;
+    node.style.WebkitOverflowScrolling = 'none';
+    node.style.overflowY = 'none';
+
     window.requestAnimationFrame(step);
     function step () {
-      setTimeout(function() {
-        if (node.scrollTop > offset) {
-          window.requestAnimationFrame(step);
-          scrollCount = scrollCount + 1;
-          scrollMargin = cosParameter - cosParameter * Math.cos(scrollCount * scrollStep);
-          node.scrollTop = Math.max(offset, scrollHeight - scrollMargin);
-        }
-      }, 15);
+      if (node.scrollTop > offset) {
+        window.requestAnimationFrame(step);
+        scrollCount = scrollCount + 1;
+        scrollMargin = cosParameter - cosParameter * Math.cos(scrollCount * scrollStep);
+        node.scrollTop = Math.max(offset, scrollHeight - scrollMargin);
+      }
+      else {
+        // return to previous overflows
+        node.style.WebkitOverflowScrolling = prevOverflowScrolling;
+        node.style.overflowY = prevOverflowY;
+      }
     }
   }
 };

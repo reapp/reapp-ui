@@ -79,7 +79,6 @@ module.exports = Component({
   },
 
   handleDoubleTap() {
-    console.log(this.getScrollTop())
     if (this.refs.inner)
       this.animatedScrollToTop(this.refs.inner.getDOMNode(), 300, this.getScrollTop());
   },
@@ -117,10 +116,11 @@ module.exports = Component({
 
     var titleBarHeight = this.getTitleBarHeight();
 
-    if (inactive) {
-      this.addStyles('inner', 'innerInactive');
+    if (this.isAnimating('viewList'))
       this.addStyles('inner', this.clipStyles);
-    }
+
+    if (inactive)
+      this.addStyles('inner', 'innerInactive');
 
     if (title)
       this.addStyles('inner', { top: titleBarHeight });
