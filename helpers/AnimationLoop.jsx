@@ -2,6 +2,7 @@ var React = require('react');
 var Component = require('../component');
 var TweenState = require('react-tween-state');
 var clone = require('../lib/niceClone');
+var UI = require('../index');
 
 // Animate your components in repeating loops,
 // you pass in an 'animation' name, and then just set active={true}
@@ -14,7 +15,8 @@ module.exports = Component({
     animation: React.PropTypes.string.isRequired,
     duration: React.PropTypes.number,
     easing: React.PropTypes.string,
-    active: React.PropTypes.bool
+    active: React.PropTypes.bool,
+    blockOnAnimation: React.PropTypes.string
   },
 
   mixins: [
@@ -41,6 +43,15 @@ module.exports = Component({
 
   componentWillReceiveProps(nextProps) {
     this.start(nextProps);
+  },
+
+  componentWillUpdate() {
+    if (this.props.blockOnAnimation) {
+      if (this.isAnimating(this.props.blockOnAnimation))
+        this.disableAnimation();
+      else
+        this.enableAnimation();
+    }
   },
 
   start(props) {

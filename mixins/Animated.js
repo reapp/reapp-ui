@@ -62,11 +62,13 @@ module.exports = function(getAnimations) {
     },
 
     disableAnimation() {
-      this.setState({ animationDisabled: true });
+      if (!this.state.animationDisabled)
+        this.setState({ animationDisabled: true });
     },
 
     enableAnimation() {
-      this.setState({ animationDisabled: false });
+      if (this.state.animationDisabled)
+        this.setState({ animationDisabled: false });
     },
 
     animationsDisabled() {
