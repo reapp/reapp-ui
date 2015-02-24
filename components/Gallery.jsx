@@ -5,6 +5,21 @@ var TouchableArea = require('../helpers/TouchableArea');
 var { Scroller } = require('reapp-scroller');
 
 module.exports = Component({
+  name: 'Gallery',
+
+  propTypes: {
+    images: React.PropTypes.array.isRequired,
+    width: React.PropTypes.number,
+    height: React.PropTypes.number
+  },
+
+  getDefaultProps() {
+    return {
+      width: window.innerWidth,
+      height: window.innerHeight
+    };
+  },
+
   componentWillMount() {
     this.scroller = new Scroller(this.handleScroll, {
       snapping: true
@@ -60,7 +75,7 @@ module.exports = Component({
       <TouchableArea
         {...this.componentProps()}
         scroller={this.scroller}
-        {...this.props}>
+        {...props}>
         {images}
       </TouchableArea>
     );
