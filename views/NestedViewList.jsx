@@ -1,8 +1,9 @@
 var React = require('react');
 var Component = require('../component');
 var ViewListMixin = require('../mixins/ViewListMixin');
+var View = require('./View');
 
-module.exports = Component({
+var NestedViewList = Component({
   name: 'NestedViewList',
 
   mixins: [
@@ -50,6 +51,38 @@ module.exports = Component({
     };
   },
 
+  componentDidMount() {
+    if (!this.props.isPortal && this.props.preload) {
+      this.preload();
+      document.addEventListener('resume', this.preload, false);
+    }
+  },
+
+  componentWillUnmount() {
+    document.removeEventListener('resume', this.preload);
+  },
+
+  // runs the view animation in the background to load it into memory
+  preload() {
+    console.log('preloading view animation...');
+    var portal = document.createElement('div');
+    portal.className = 'offscreen';
+    document.body.appendChild(portal);
+    React.render(<NestedViewList {...this.props} isPortal={true} />, portal);
+    setTimeout(() => {
+      React.render(
+        <NestedViewList {...this.props} scrollToStep={1} isPortal={true} dontChangeTitle>
+          {this.props.children[0]}
+          <View title="Preload"></View>
+        </NestedViewList>,
+        portal
+      )
+    });
+    setTimeout(() => {
+      document.body.removeChild(portal);
+    }, this.props.animationDuration + 10);
+  },
+
   render() {
     var touchableProps = {};
 
@@ -71,8 +104,10 @@ module.exports = Component({
 
     return (
       <div>
-        {this.getViewList({ touchableProps, viewProps })}
+        {this.getViewList({ touchableProps, viewProps, ...{ dontChangeTitle: this.props.dontChangeTitle } })}
       </div>
     );
   }
 });
+
+module.exports = NestedViewList;

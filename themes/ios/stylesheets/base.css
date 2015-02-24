@@ -89,3 +89,12 @@ p * {
 p a {
   text-decoration: underline;
 }
+
+.offscreen {
+  position: fixed;
+  top: 0;
+  left: 100%;
+  width: 100%;
+  bottom: 0;
+  overflow: hidden;
+}

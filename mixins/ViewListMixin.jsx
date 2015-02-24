@@ -288,7 +288,7 @@ module.exports = {
   },
 
   getViewList(props) {
-    var { touchableProps, viewProps } = props || {};
+    var { touchableProps, viewProps, dontChangeTitle } = props || {};
 
     var touchableAreaProps = this.getTouchableAreaProps();
     var activeTitle;
@@ -320,7 +320,7 @@ module.exports = {
           }, viewProps);
         }, true)}
 
-        {activeTitle &&
+        {!dontChangeTitle && activeTitle &&
           <DocumentTitle title={Array.isArray(activeTitle) ?
             activeTitle[1] :
             activeTitle} />}
