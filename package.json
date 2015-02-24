@@ -23,7 +23,8 @@
     "react-tween-state": "0.0.4",
     "reapp-component": "^1.0.0",
     "reapp-object-assign": "^1.0.0",
-    "reapp-scroller": "^1.0.1"
+    "reapp-scroller": "^1.0.1",
+    "reapp-raf-batching": "^1.0.0"
   },
   "peerDependencies": {
     "react": "^0.13.0-beta.1"
