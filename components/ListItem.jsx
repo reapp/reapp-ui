@@ -135,7 +135,7 @@ module.exports = Component({
     this.addClass(tapProps.className);
 
     return (
-      <li {...tapProps} {...this.componentProps()} {...props}>
+      <li {...tapProps} {...props} {...this.componentProps()}>
         {content}
       </li>
     );
