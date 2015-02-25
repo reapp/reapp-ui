@@ -58,7 +58,8 @@ module.exports = function(getAnimations) {
       if (this.state && this.state.animationDisabled)
         return;
 
-      this.animateStore(source, this.getAnimationState());
+      var curState = this.getAnimationState();
+      this.animateStore(source, state ? Object.assign(curState, state) : curState);
     },
 
     disableAnimation() {
@@ -77,20 +78,33 @@ module.exports = function(getAnimations) {
 
     isAnimating(source) {
       var state = this.getAnimationState(source || this.animationSource);
-      var isAnimating = state.step && state.step % 1 !== 0;
+      return state.step && state.step % 1 !== 0;
+    },
 
-      // dirty hack, because were dealing with time.
-      // normally, just return var isAnimating
-      // but, because this will be used in shouldComponentUpdate
-      // it glitches the "last frame", when the step % 1 === 0, but we haven't
-      // finished rendering. This gives us that "extra" frame back
-      if (!isAnimating && this._wasAnimating) {
-        this._wasAnimating = false;
+    _wasAnimating: {},
+
+    // Because were dealing with time and render lag
+    // This can be used in a parent shouldComponentUpdate
+    // gives us three extra frames
+    isAnimatingSafe(source) {
+      var isAnimating = this.isAnimating(source);
+      var wasAnimating = this._wasAnimating[source];
+
+      if (!isAnimating) {
+        if (typeof wasAnimating === 'undefined')
+          return false;
+
+        if (wasAnimating > 4) {
+          wasAnimating = false;
+          return false;
+        }
+
+        wasAnimating = wasAnimating++;
         return true;
       }
       else {
-        this._wasAnimating = isAnimating;
-        return isAnimating;
+        wasAnimating = 0;
+        return true;
       }
     },
 
@@ -124,9 +138,8 @@ module.exports = function(getAnimations) {
       if (typeof animations === 'string')
         styles = this._getAnimationStyle(styles, state, animations);
       else
-        if (animations.length)
-          for (var i = 0, len = animations.length; i < len; i++)
-            styles = this._getAnimationStyle(styles, state, animations[i]);
+        for (var i = 0, len = animations.length; i < len; i++)
+          styles = this._getAnimationStyle(styles, state, animations[i]);
 
       // ensure translate-z to ensure hardware accel
       styles[StyleKeys.TRANSFORM] = styles[StyleKeys.TRANSFORM] || 'translateZ(0px)';
