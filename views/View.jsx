@@ -4,9 +4,16 @@ var TitleBar = require('../components/TitleBar');
 var StaticContainer = require('../helpers/StaticContainer');
 var ScrollTopable = require('../mixins/ScrollTopable');
 var AnimatedScrollToTop = require('../mixins/AnimatedScrollToTop');
+var ScrollState = require('../mixins/ScrollState');
 
 module.exports = Component({
   name: 'View',
+
+  mixins: [
+    ScrollState,
+    ScrollTopable('inner'),
+    AnimatedScrollToTop
+  ],
 
   propTypes: {
     title: React.PropTypes.node,
@@ -47,10 +54,11 @@ module.exports = Component({
     ])
   },
 
-  mixins: [
-    ScrollTopable('inner'),
-    AnimatedScrollToTop
-  ],
+  getInitialState() {
+    return {
+      isScrolling: false
+    };
+  },
 
   animationSource: 'viewList',
 
@@ -59,52 +67,7 @@ module.exports = Component({
   },
 
   componentDidMount() {
-    this.scrollListener('inner');
-  },
-
-  getInitialState() {
-    return {
-      isScrolling: false
-    };
-  },
-
-  scrollListener(ref) {
-    var inner = this.refs[ref].getDOMNode();
-    inner.addEventListener('scroll', this.setIsScrolling);
-    this.listenForScrollEnd(inner);
-  },
-
-  setIsScrolling() {
-    if (!this.state.isScrolling)
-      this.setState({ isScrolling: true });
-  },
-
-  listenForScrollEnd(node) {
-    this._lastScrollPositionY = node.scrollTop;
-    this._lastScrollPositionX = node.scrollWidth;
-
-    this.scrollEndInterval = setInterval(() => {
-      console.log(this.state && this.state.isScrolling, 'TOP', node.scrollTop, this._lastScrollPositionY, 'LEFT',
-          node.scrollWidth, this._lastScrollPositionX,
-
-          this.state && this.state.isScrolling &&
-          node.scrollTop === this._lastScrollPositionY &&
-          node.scrollWidth === this._lastScrollPositionX)
-
-      if (
-        this.state && this.state.isScrolling &&
-        node.scrollTop === this._lastScrollPositionY &&
-        node.scrollWidth === this._lastScrollPositionX
-      )
-        this.setState({ isScrolling: false });
-
-      this._lastScrollPositionY = node.scrollTop;
-      this._lastScrollPositionX = node.scrollWidth;
-    }, 100);
-  },
-
-  componentWillUnmount() {
-    clearInterval(this.scrollEndInterval);
+    this.scrollListener(this.refs.inner.getDOMNode());
   },
 
   componentWillReceiveProps(nextProps) {
@@ -165,10 +128,8 @@ module.exports = Component({
 
     var titleBarHeight = this.getTitleBarHeight();
 
-    if (this.state && this.state.isScrolling)
+    if (this.state.isScrolling)
       this.addClass('inner', 'isScrolling');
-    else
-      console.log(this._classSets['inner'])
 
     if (this.isAnimating('viewList'))
       this.addStyles('inner', this.clipStyles);

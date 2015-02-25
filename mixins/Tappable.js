@@ -111,6 +111,7 @@ module.exports = {
 
   onTouchStart: function(event) {
     if (this.props.onTouchStart && this.props.onTouchStart(event) === false) return;
+    if (this.areParentsScrolling()) return;
     this.processEvent(event);
     window._blockMouseEvents = true;
     this._initialTouch = this._lastTouch = getTouchProps(event.touches[0]);
@@ -144,12 +145,11 @@ module.exports = {
   },
 
   areParentsScrolling: function() {
-    var currentScrollPos = { top: 0, left: 0 };
-    for (var i = 0; i < this._scrollParents.length; i++) {
-      currentScrollPos.top += this._scrollParents[i].scrollTop;
-      currentScrollPos.left += this._scrollParents[i].scrollLeft;
-    }
-    return !(currentScrollPos.top === this._scrollPos.top && currentScrollPos.left === this._scrollPos.left);
+    for (var i = 0; i < this._scrollParents.length; i++)
+      if (this._scrollParents[i].className.indexOf('isScrolling') !== -1)
+        return true;
+
+    return false;
   },
 
   cleanupScrollDetection: function() {
