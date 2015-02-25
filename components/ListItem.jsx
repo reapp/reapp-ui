@@ -131,10 +131,11 @@ module.exports = Component({
       span('after', after),
     ];
 
-    var cProps = this.componentProps();
+    var tapProps = this.tappableProps();
+    this.addClass(tapProps.className);
 
     return (
-      <li {...cProps} {...props} {...this.tappableProps({ className: cProps.className })}>
+      <li {...tapProps} {...this.componentProps()} {...props}>
         {content}
       </li>
     );

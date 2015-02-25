@@ -52,8 +52,11 @@ module.exports = Component({
     if (active)
       this.addStyles('active');
 
+    var tapProps = this.tappableProps();
+    this.addClass(tapProps.className);
+
     return (
-      <button {...this.componentProps()} {...this.tappableProps()} {...props}>
+      <button {...tapProps} {...this.componentProps()} {...props}>
         {icon || !!iconProps && <Icon {...cloneProps} />}
         {children && (
           <span {...this.componentProps('inner')}>

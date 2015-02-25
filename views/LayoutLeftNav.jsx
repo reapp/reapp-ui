@@ -105,11 +105,7 @@ module.exports = Component({
       onTouchTap: this._handleContentTouchTap
     }, drawerProps);
 
-    var movableHandle = (
-      <Tappable onTap={this._handleTap} passprops stopPropagation>
-        {handle}
-      </Tappable>
-    );
+    var movableHandle = clone(handle, { onTap: this._handleTap }, true);
 
     if (draggable)
       movableHandle = (

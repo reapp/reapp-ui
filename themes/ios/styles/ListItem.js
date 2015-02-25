@@ -11,7 +11,12 @@ module.exports = (c) => ({
     justifyContent: 'space-between',
     WebkitJustifyContent: 'space-between',
     minHeight: 44,
-    position: 'relative'
+    position: 'relative',
+    transition: 'background linear 50ms'
+  },
+
+  tapActive: {
+    background: 'rgba(0,0,0,0.1)'
   },
 
   borderless: {

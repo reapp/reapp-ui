@@ -55,7 +55,7 @@ module.exports = function(name) {
       if (this._classRefs[ref])
         return this._classRefs[ref];
 
-      this._classRefs[ref] = !ref ? this.className : `${this.className}--${ref}`;
+      this._classRefs[ref] = ref === 'self' ? this.className : `${this.className}--${ref}`;
       return this._classRefs[ref];
     },
 

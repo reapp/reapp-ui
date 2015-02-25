@@ -90,15 +90,10 @@ p a {
   text-decoration: underline;
 }
 
-::-webkit-scrollbar {
-  width: 0;
-}
-
-.tap-inactive {
+.ListItem {
   transition: background linear 50ms;
 }
 
-.tap-active {
-  transition: background linear 50ms;
+.ListItem.tapActive {
   background: rgba(0,0,0,0.1);
 }

@@ -262,10 +262,7 @@ module.exports = {
   },
 
   tappableProps(props) {
-    var className = this.state.isActive ? 'tap-active' : 'tap-inactive';
-
-    if (props && props.className)
-      className += ' ' + this.props.className;
+    var className = this.state.isActive ? 'tapActive' : 'tapInactive';
 
     return {
       className: className,
