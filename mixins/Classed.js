@@ -11,26 +11,26 @@ module.exports = function(name) {
       this.setClasses(this.props);
     },
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate(nextProps) {
       this.setClasses(nextProps);
     },
 
     setClasses() {
-      this._classSets[name] = {};
-      this._classSets[name][this.className] = true;
+      this._classSets = {};
 
       if (this.props.className)
-        this._classSets[name][this.props.className] = true;
+        this.addClass('self', this.props.className);
     },
 
     getClasses(ref) {
-      ref = ref || 'self';
       var refClassSet = this._classSets[ref];
-
       refClassSet = refClassSet || {};
       refClassSet[this.getClassName(ref)] = true;
+      return refClassSet;
+    },
 
-      return cx(refClassSet);
+    getClassSet(ref) {
+      return cx(this.getClasses(ref));
     },
 
     addClass(ref, className, conditional) {

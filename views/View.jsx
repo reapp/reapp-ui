@@ -62,6 +62,12 @@ module.exports = Component({
     this.scrollListener('inner');
   },
 
+  getInitialState() {
+    return {
+      isScrolling: false
+    };
+  },
+
   scrollListener(ref) {
     var inner = this.refs[ref].getDOMNode();
     inner.addEventListener('scroll', this.setIsScrolling);
@@ -78,9 +84,22 @@ module.exports = Component({
     this._lastScrollPositionX = node.scrollWidth;
 
     this.scrollEndInterval = setInterval(() => {
-      if (node.scrollTop === this._lastScrollPositionY &&
+      console.log(this.state && this.state.isScrolling, 'TOP', node.scrollTop, this._lastScrollPositionY, 'LEFT',
+          node.scrollWidth, this._lastScrollPositionX,
+
+          this.state && this.state.isScrolling &&
+          node.scrollTop === this._lastScrollPositionY &&
           node.scrollWidth === this._lastScrollPositionX)
+
+      if (
+        this.state && this.state.isScrolling &&
+        node.scrollTop === this._lastScrollPositionY &&
+        node.scrollWidth === this._lastScrollPositionX
+      )
         this.setState({ isScrolling: false });
+
+      this._lastScrollPositionY = node.scrollTop;
+      this._lastScrollPositionX = node.scrollWidth;
     }, 100);
   },
 
@@ -148,6 +167,8 @@ module.exports = Component({
 
     if (this.state && this.state.isScrolling)
       this.addClass('inner', 'isScrolling');
+    else
+      console.log(this._classSets['inner'])
 
     if (this.isAnimating('viewList'))
       this.addStyles('inner', this.clipStyles);
