@@ -91,7 +91,7 @@ module.exports = function(getAnimations) {
       var wasAnimating = this._wasAnimating[source];
 
       if (!isAnimating) {
-        if (typeof wasAnimating === 'undefined')
+        if (!wasAnimating)
           return false;
 
         if (wasAnimating > 4) {
@@ -103,7 +103,7 @@ module.exports = function(getAnimations) {
         return true;
       }
       else {
-        wasAnimating = 0;
+        wasAnimating = 1;
         return true;
       }
     },

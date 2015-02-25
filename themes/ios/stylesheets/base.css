@@ -89,3 +89,11 @@ p * {
 p a {
   text-decoration: underline;
 }
+
+::-webkit-scrollbar {
+  width: 0;
+}
+
+.tap-active {
+  background: rgba(0,0,0,0.1);
+}

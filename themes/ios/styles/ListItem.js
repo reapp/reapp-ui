@@ -2,7 +2,7 @@ module.exports = (c) => ({
   self: {
     listStyle: 'none',
     margin: 0,
-    padding: 0,
+    padding: '0 0 0 10px',
     overflow: 'hidden',
     flexFlow: 'row',
     WebkitFlexFlow: 'row',
@@ -11,7 +11,6 @@ module.exports = (c) => ({
     justifyContent: 'space-between',
     WebkitJustifyContent: 'space-between',
     minHeight: 44,
-    borderTop: `${c.onePx} solid ${c.listItemBorderColor}`,
     position: 'relative'
   },
 
@@ -27,7 +26,7 @@ module.exports = (c) => ({
   wrapper: {
     position: 'absolute',
     top: 0,
-    left: -10,
+    left: 0,
     right: 0,
     bottom: 0,
     maxWidth: 'none',
@@ -47,6 +46,7 @@ module.exports = (c) => ({
   },
 
   content: {
+    borderTop: `${c.onePx} solid ${c.listItemBorderColor}`,
     flexShrink: 1,
     WebkitFlexShrink: 1,
     flexGrow: 800,
@@ -105,6 +105,7 @@ module.exports = (c) => ({
   },
 
   after: {
+    borderTop: `${c.onePx} solid ${c.listItemBorderColor}`,
     color: c.listItemAfterColor,
     flexShrink: 0,
     WebkitFlexShrink: 0,

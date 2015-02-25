@@ -79,9 +79,11 @@ module.exports = {
   getDefaultProps: function() {
     return {
       component: 'div',
-      moveThreshold: 100,
+      moveThreshold: 10,
       pressDelay: 1000,
-      pressMoveThreshold: 5
+      pressMoveThreshold: 20,
+      tapTimeCeil: 300,
+      delayUntilActive: 80
     };
   },
 
@@ -112,9 +114,13 @@ module.exports = {
     this._initialTouch = this._lastTouch = getTouchProps(event.touches[0]);
     this.initScrollDetection();
     this.initPressDetection(this.endTouch);
-    this.setState({
-      isActive: true
-    });
+    this.touchStartTime = Date.now();
+
+    this.setActiveTimeout = setTimeout(() => {
+      this.setState({
+        isActive: true
+      });
+    }, this.props.delayUntilActive);
   },
 
   initScrollDetection: function() {
@@ -173,32 +179,38 @@ module.exports = {
     this.props.onTouchMove && this.props.onTouchMove(event);
     this._lastTouch = getTouchProps(event.touches[0]);
     var movement = this.calculateMovement(this._lastTouch);
-    if (movement.x > this.props.pressMoveThreshold || movement.y > this.props.pressMoveThreshold) {
+    if (movement.x > this.props.pressMoveThreshold || movement.y > this.props.pressMoveThreshold)
       this.cancelPressDetection();
-    }
-    if (movement.x > this.props.moveThreshold || movement.y > this.props.moveThreshold) {
-      if (this.state.isActive) {
-        this.setState({
-          isActive: false
-        });
-      }
-    } else {
-      if (!this.state.isActive) {
-        this.setState({
-          isActive: true
-        });
-      }
-    }
+
+    if (movement.x > this.props.moveThreshold || movement.y > this.props.moveThreshold)
+      this.setInactive();
+    else
+      if (!this.state.isActive)
+        this.setState({ isActive: true });
+  },
+
+  setInactive() {
+    if (this.setActiveTimeout)
+      clearTimeout(this.setActiveTimeout);
+
+    this.setState({
+      isActive: false
+    });
   },
 
   onTouchEnd: function(event) {
     if (!this._initialTouch) return;
     this.processEvent(event);
     var movement = this.calculateMovement(this._lastTouch);
-    if (movement.x <= this.props.moveThreshold && movement.y <= this.props.moveThreshold) {
+    if (movement.x <= this.props.moveThreshold && movement.y <= this.props.moveThreshold &&
+        this.tapWithinTimeCeil()) {
       this.props.onTap && this.props.onTap(event);
     }
     this.endTouch(event);
+  },
+
+  tapWithinTimeCeil() {
+    return Date.now() - this.touchStartTime <= this.props.tapTimeCeil;
   },
 
   endTouch: function() {
@@ -206,9 +218,7 @@ module.exports = {
     this.props.onTouchEnd && this.props.onTouchEnd(event);
     this._initialTouch = null;
     this._lastTouch = null;
-    this.setState({
-      isActive: false
-    });
+    this.setInactive();
   },
 
   onMouseDown: function(event) {
@@ -220,9 +230,7 @@ module.exports = {
     this.processEvent(event);
     this.initPressDetection(this.endMouseEvent);
     this._mouseDown = true;
-    this.setState({
-      isActive: true
-    });
+    this.setInactive();
   },
 
   onMouseMove: function(event) {
@@ -249,16 +257,14 @@ module.exports = {
   endMouseEvent: function() {
     this.cancelPressDetection();
     this._mouseDown = false;
-    this.setState({
-      isActive: false
-    });
+    this.setInactive();
   },
 
-  tappableProps() {
-    var className = this.props.classBase + (this.state.isActive ? '-active' : '-inactive');
-    if (this.props.className) {
+  tappableProps(props) {
+    var className = this.state.isActive ? 'tap-active' : 'tap--inactive';
+
+    if (props && props.className)
       className += ' ' + this.props.className;
-    }
 
     return {
       className: className,

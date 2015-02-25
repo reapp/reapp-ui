@@ -120,12 +120,14 @@ module.exports = Component({
         ]),
         span('titleSub', titleSub),
         span('children', children)
-      ], this.tappableProps()),
+      ]),
       span('after', after),
     ];
 
+    var cProps = this.componentProps();
+
     return (
-      <li {...this.componentProps()} {...props}>
+      <li {...cProps} {...props} {...this.tappableProps({ className: cProps.className })}>
         {content}
       </li>
     );

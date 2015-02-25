@@ -47,7 +47,7 @@ module.exports = Component({
 
   componentWillUpdate() {
     if (this.props.blockOnAnimation) {
-      if (this.isAnimating(this.props.blockOnAnimation))
+      if (this.isAnimatingSafe(this.props.blockOnAnimation))
         this.disableAnimation();
       else
         this.enableAnimation();

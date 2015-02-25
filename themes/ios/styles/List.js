@@ -4,7 +4,7 @@ module.exports = (c) => ({
     borderBottom: `${c.onePx} solid ${c.listItemBorderColor}`,
     background: c.listBG,
     margin: '0 -10px',
-    padding: '0 0 0 10px',
+    padding: 0,
     fontSize: '16px'
   },
 
