@@ -2,7 +2,7 @@ module.exports = (c) => ({
   self: {
     listStyle: 'none',
     margin: 0,
-    padding: '0 0 0 10px',
+    padding: '0 0 0 20px',
     overflow: 'hidden',
     flexFlow: 'row',
     WebkitFlexFlow: 'row',
@@ -14,7 +14,7 @@ module.exports = (c) => ({
     position: 'relative'
   },
 
-  firstChild: {
+  borderless: {
     borderTop: 'none'
   },
 
@@ -52,7 +52,7 @@ module.exports = (c) => ({
     flexGrow: 800,
     WebkitFlexGrow: 800,
     color: c.listItemContentColor,
-    padding: '10px 12px 10px 0',
+    padding: '11px 12px 11px 0',
     position: 'relative'
   },
 

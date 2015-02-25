@@ -71,7 +71,13 @@ module.exports = Component({
       noicon,
       icon,
       nopad,
+      index,
       ...props } = this.props;
+
+    if (index === 0) {
+      this.addStyles('content', 'borderless');
+      this.addStyles('after', 'borderless');
+    }
 
     // make a top level link into a wrapper so it can take up the whole item
     if (!wrapper && this.hasLinkAsChild(children)) {
