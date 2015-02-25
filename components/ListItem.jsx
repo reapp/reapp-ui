@@ -47,7 +47,7 @@ module.exports = Component({
   },
 
   getIcon() {
-    return
+    return (
       <Icon
         file={require('../assets/icons/right.svg')}
         styles={this.getStyles('arrow')}
@@ -55,6 +55,7 @@ module.exports = Component({
         stroke={3}
         color={this.getConstant('listItemArrowColor')}
       />
+    );
   },
 
   render() {
