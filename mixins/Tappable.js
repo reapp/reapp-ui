@@ -24,9 +24,6 @@ SOFTWARE.
 
 var React = require('react');
 
-// be sure to run this before using this library
-// React.initializeTouchEvents(true);
-
 function getTouchProps(touch) {
   if (!touch) return {};
   return {
@@ -72,7 +69,9 @@ module.exports = {
     onMouseDown: React.PropTypes.func,           // pass-through mouse event
     onMouseUp: React.PropTypes.func,             // pass-through mouse event
     onMouseMove: React.PropTypes.func,           // pass-through mouse event
-    onMouseOut: React.PropTypes.func             // pass-through mouse event
+    onMouseOut: React.PropTypes.func,            // pass-through mouse event,
+
+    maxTapTime: React.PropTypes.number           // disable tap after certain amount of time
 
   },
 
@@ -82,8 +81,7 @@ module.exports = {
       moveThreshold: 10,
       pressDelay: 1000,
       pressMoveThreshold: 20,
-      tapTimeCeil: 300,
-      delayUntilActive: 80
+      delayUntilActive: 20
     };
   },
 
@@ -107,31 +105,32 @@ module.exports = {
     }
   },
 
+  componentDidMount() {
+    this.findScrollableParents();
+  },
+
   onTouchStart: function(event) {
     if (this.props.onTouchStart && this.props.onTouchStart(event) === false) return;
     this.processEvent(event);
     window._blockMouseEvents = true;
     this._initialTouch = this._lastTouch = getTouchProps(event.touches[0]);
-    this.initScrollDetection();
     this.initPressDetection(this.endTouch);
     this.touchStartTime = Date.now();
 
-    this.setActiveTimeout = setTimeout(() => {
+    // this.setActiveTimeout = setTimeout(() => {
       this.setState({
         isActive: true
       });
-    }, this.props.delayUntilActive);
+    // }, this.props.delayUntilActive);
   },
 
-  initScrollDetection: function() {
+  findScrollableParents: function() {
     this._scrollParents = [];
     this._scrollPos = { top: 0, left: 0 };
     var node = this.getDOMNode();
     while (node) {
-      if (node.scrollHeight > node.offsetHeight || node.scrollWidth > node.offsetWidth) {
+      if (node.style && (node.style.overflowY === 'scroll' || node.style.overflowX === 'scroll')) {
         this._scrollParents.push(node);
-        this._scrollPos.top += node.scrollTop;
-        this._scrollPos.left += node.scrollLeft;
       }
       node = node.parentNode;
     }
@@ -144,7 +143,7 @@ module.exports = {
     };
   },
 
-  detectScroll: function() {
+  areParentsScrolling: function() {
     var currentScrollPos = { top: 0, left: 0 };
     for (var i = 0; i < this._scrollParents.length; i++) {
       currentScrollPos.top += this._scrollParents[i].scrollTop;
@@ -173,9 +172,10 @@ module.exports = {
   onTouchMove: function(event) {
     if (!this._initialTouch) return;
     this.processEvent(event);
-    if (this.detectScroll()) {
+
+    if (this.areParentsScrolling())
       return this.endTouch(event);
-    }
+
     this.props.onTouchMove && this.props.onTouchMove(event);
     this._lastTouch = getTouchProps(event.touches[0]);
     var movement = this.calculateMovement(this._lastTouch);
@@ -203,17 +203,18 @@ module.exports = {
     this.processEvent(event);
     var movement = this.calculateMovement(this._lastTouch);
     if (movement.x <= this.props.moveThreshold && movement.y <= this.props.moveThreshold &&
-        this.tapWithinTimeCeil()) {
+        this.tapWithinTime()) {
       this.props.onTap && this.props.onTap(event);
     }
     this.endTouch(event);
   },
 
-  tapWithinTimeCeil() {
-    return Date.now() - this.touchStartTime <= this.props.tapTimeCeil;
+  tapWithinTime() {
+    return !this.props.maxTapTime || Date.now() - this.touchStartTime <= this.props.maxTapTime;
   },
 
   endTouch: function() {
+    if (this.setActiveTimeout) clearTimeout(this.setActiveTimeout);
     this.cancelPressDetection();
     this.props.onTouchEnd && this.props.onTouchEnd(event);
     this._initialTouch = null;
@@ -261,7 +262,7 @@ module.exports = {
   },
 
   tappableProps(props) {
-    var className = this.state.isActive ? 'tap-active' : 'tap--inactive';
+    var className = this.state.isActive ? 'tap-active' : 'tap-inactive';
 
     if (props && props.className)
       className += ' ' + this.props.className;

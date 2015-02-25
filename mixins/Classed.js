@@ -7,6 +7,7 @@ module.exports = function(name) {
 
     componentWillMount() {
       this._classSets = {};
+      this._classRefs = {};
       this.setClasses(this.props);
     },
 
@@ -22,28 +23,40 @@ module.exports = function(name) {
         this._classSets[name][this.props.className] = true;
     },
 
-    getClasses(key) {
-      var classSet = this._classSets[key || name];
+    getClasses(ref) {
+      ref = ref || 'self';
+      var refClassSet = this._classSets[ref];
 
-      if (key) {
-        classSet = classSet || {};
-        classSet[this.getClassName(key)] = true;
+      refClassSet = refClassSet || {};
+      refClassSet[this.getClassName(ref)] = true;
+
+      return cx(refClassSet);
+    },
+
+    addClass(ref, className, conditional) {
+      // shorthands
+      if (typeof className === 'boolean' && !!className)
+        className = ref;
+      else if (!className) {
+        className = ref;
+        ref = 'self';
       }
 
-      return cx(classSet);
+      this._classSets[ref] = this._classSets[ref] || {};
+      this._classSets[ref][className] = true;
     },
 
-    addClass(name, conditional) {
-      if (typeof conditional === 'undefined' || !!conditional)
-        this._classSets[name] = true;
+    removeClass(ref, className) {
+      ref = ref || 'self';
+      this._classSets[ref][className] = false;
     },
 
-    removeClass(name) {
-      this._classSets[name] = false;
-    },
+    getClassName(ref) {
+      if (this._classRefs[ref])
+        return this._classRefs[ref];
 
-    getClassName(key) {
-      return !key ? this.className : `${this.className}--${key}`;
+      this._classRefs[ref] = !ref ? this.className : `${this.className}--${ref}`;
+      return this._classRefs[ref];
     },
 
     getSelector(key) {

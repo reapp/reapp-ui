@@ -94,6 +94,11 @@ p a {
   width: 0;
 }
 
+.tap-inactive {
+  transition: background linear 50ms;
+}
+
 .tap-active {
+  transition: background linear 50ms;
   background: rgba(0,0,0,0.1);
 }

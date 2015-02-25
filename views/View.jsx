@@ -58,6 +58,36 @@ module.exports = Component({
     this.setClipStyles(this.props);
   },
 
+  componentDidMount() {
+    this.scrollListener('inner');
+  },
+
+  scrollListener(ref) {
+    var inner = this.refs[ref].getDOMNode();
+    inner.addEventListener('scroll', this.setIsScrolling);
+    this.listenForScrollEnd(inner);
+  },
+
+  setIsScrolling() {
+    if (!this.state.isScrolling)
+      this.setState({ isScrolling: true });
+  },
+
+  listenForScrollEnd(node) {
+    this._lastScrollPositionY = node.scrollTop;
+    this._lastScrollPositionX = node.scrollWidth;
+
+    this.scrollEndInterval = setInterval(() => {
+      if (node.scrollTop === this._lastScrollPositionY &&
+          node.scrollWidth === this._lastScrollPositionX)
+        this.setState({ isScrolling: false });
+    }, 100);
+  },
+
+  componentWillUnmount() {
+    clearInterval(this.scrollEndInterval);
+  },
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.width !== this.props.width ||
       nextProps.height !== this.props.height)
@@ -115,6 +145,9 @@ module.exports = Component({
     titleBarProps.animationState = animationState;
 
     var titleBarHeight = this.getTitleBarHeight();
+
+    if (this.state && this.state.isScrolling)
+      this.addClass('inner', 'isScrolling');
 
     if (this.isAnimating('viewList'))
       this.addStyles('inner', this.clipStyles);
