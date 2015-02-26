@@ -21,6 +21,7 @@ module.exports = Component({
   },
 
   render() {
+    var focused = this.state.tapActive;
     var {
       iconProps,
       icon,
@@ -30,13 +31,13 @@ module.exports = Component({
       active,
       isInTitleBar,
       animationState,
-      tapActiveStyle,
+      tapFocusStyle,
       ...props } = this.props;
 
     var cloneProps = Object.assign({}, iconProps || {}, {
       isInTitleBar,
       animationState,
-      tapActive: this.state.tapActive
+      focused
     });
 
     if (icon)
@@ -54,8 +55,11 @@ module.exports = Component({
     if (active)
       this.addStyles('active');
 
-    if (this.state.tapActive)
-        this.addStyles(tapActiveStyle || isInTitleBar ? 'focusedTitleBar' : 'focused');
+    if (focused)
+      if (active)
+        this.addStyles('activeFocused');
+      else
+        this.addStyles(tapFocusStyle || isInTitleBar ? 'focusedTitleBar' : 'focused');
 
     var tapProps = this.tappableProps();
     this.addClass(tapProps.className);
