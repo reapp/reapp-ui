@@ -15,8 +15,7 @@ module.exports = Component({
     stroke: React.PropTypes.number,
     isInTitleBar: React.PropTypes.bool,
     shapeRendering: React.PropTypes.string,
-    crisp: React.PropTypes.bool,
-    tapActive: React.PropTypes.bool
+    crisp: React.PropTypes.bool
   },
 
   getDefaultProps() {
@@ -60,7 +59,6 @@ module.exports = Component({
       isInTitleBar,
       shapeRendering,
       crisp,
-      tapActive,
       ...props
     } = this.props;
 
@@ -70,9 +68,6 @@ module.exports = Component({
     if (color === 'currentColor')
       color = this.getConstant(
         isInTitleBar ? 'iconColorTitleBar' : 'iconColor');
-
-    if (tapActive)
-      this.addStyles('focused');
 
     if (crisp)
       shapeRendering = 'crispEdges';
