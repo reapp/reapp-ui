@@ -77,7 +77,6 @@ module.exports = {
 
   getDefaultProps: function() {
     return {
-      component: 'div',
       moveThreshold: 10,
       pressDelay: 1000,
       pressMoveThreshold: 20,

@@ -1,8 +1,11 @@
 var React = require('react');
+var Component = require('../component');
 var Tappable = require('../mixins/Tappable');
 var clone = require('../lib/niceClone');
 
-module.exports = React.createClass({
+module.exports = Component({
+  name: 'Tappable',
+
   mixins: [
     Tappable
   ],
@@ -14,15 +17,31 @@ module.exports = React.createClass({
   },
 
   render() {
-    var { element, children, passprops, ...props } = this.props;
+    var {
+      element,
+      children,
+      tapFocusStyle,
+      passprops,
+      delayUntilActive,
+      moveThreshold,
+      pressDelay,
+      pressMoveThreshold,
+      ...props } = this.props;
 
-    // add tappable props
-    props = Object.assign({}, this.tappableProps(), props);
+    var tapProps = this.tappableProps();
+    this.addClass(tapProps.className);
+
+    if (this.state.tapActive && tapFocusStyle)
+      this.addStyles(tapFocusStyle);
 
     // pass props to children
     if (passprops)
       children = clone(children, props, true);
 
-    return React.createElement(element, props, children);
+    return React.createElement(
+      element,
+      Object.assign({}, tapProps, this.componentProps(), props),
+      children
+    );
   }
 })
