@@ -2,7 +2,7 @@ var React = require('react');
 var Component = require('../component');
 
 module.exports = Component({
-  name: 'Badge',
+  name: 'Alert',
 
   propTypes: {
     children: React.PropTypes.node
@@ -12,10 +12,8 @@ module.exports = Component({
     var { children, ...props } = this.props;
 
     return (
-      <div {...this.componentProps()} {...props}>
-        <span {...this.componentProps('text')}>
-          {children}
-        </span>
+      <div {...props} {...this.componentProps()}>
+        {children}
       </div>
     );
   }

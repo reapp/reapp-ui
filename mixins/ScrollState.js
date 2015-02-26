@@ -11,6 +11,9 @@ module.exports = {
     if (!this.state.isScrolling) {
       this.setState({ isScrolling: true });
       this.listenForScrollEnd(node);
+
+      if (this.props.onScrollStart)
+        this.props.onScrollStart(node);
     }
   },
 
@@ -23,6 +26,9 @@ module.exports = {
       if (this.state.isScrolling && top === this._lastScrollPositionY) {
         clearInterval(this.scrollEndInterval);
         this.setState({ isScrolling: false });
+
+        if (this.props.onScrollEnd)
+          this.props.onScrollEnd(node);
       }
 
       this._lastScrollPositionY = top;

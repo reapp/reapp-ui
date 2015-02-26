@@ -4,6 +4,10 @@
 // e.g. people may want to specify buttonColor not based on activeColor
 
 module.exports = (c) => ({
+  // Alert
+  alertBG: c.brandColor,
+  alertColor: '#fff',
+
   // Badge
   badgeBG: c.mid,
   badgeColor: '#fff',
