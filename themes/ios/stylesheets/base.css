@@ -24,7 +24,7 @@ a, button, input {
   cursor: pointer;
 }
 
-input, textarea {
+input, textarea, p {
   -webkit-touch-callout: default;
   -webkit-user-select: text;
   -moz-user-select: text;
@@ -96,4 +96,16 @@ p a {
 
 .ListItem.tapActive {
   background: rgba(0,0,0,0.1);
+}
+
+.verticalCenter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.verticalCenter > * {
+  margin: auto;
 }
