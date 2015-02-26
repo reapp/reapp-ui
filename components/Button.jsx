@@ -34,7 +34,8 @@ module.exports = Component({
 
     var cloneProps = Object.assign({}, iconProps || {}, {
       isInTitleBar,
-      animationState
+      animationState,
+      tapActive: this.state.tapActive
     });
 
     if (icon)
@@ -52,13 +53,18 @@ module.exports = Component({
     if (active)
       this.addStyles('active');
 
+    if (this.state.tapActive)
+      this.addStyles(isInTitleBar ? 'focusedTitleBar' : 'focused');
+
     var tapProps = this.tappableProps();
     this.addClass(tapProps.className);
 
     return (
       <button {...tapProps} {...this.componentProps()} {...props}>
         {icon || !!iconProps && <Icon {...cloneProps} />}
-        {children}
+        <span {...this.componentProps('inner')}>
+          {children}
+        </span>
       </button>
     );
   }

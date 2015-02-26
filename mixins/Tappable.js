@@ -87,7 +87,7 @@ module.exports = {
 
   getInitialState: function() {
     return {
-      isActive: false,
+      tapActive: false,
       touchActive: false
     };
   },
@@ -120,7 +120,7 @@ module.exports = {
 
     // this.setActiveTimeout = setTimeout(() => {
       this.setState({
-        isActive: true
+        tapActive: true
       });
     // }, this.props.delayUntilActive);
   },
@@ -185,8 +185,8 @@ module.exports = {
     if (movement.x > this.props.moveThreshold || movement.y > this.props.moveThreshold)
       this.setInactive();
     else
-      if (!this.state.isActive)
-        this.setState({ isActive: true });
+      if (!this.state.tapActive)
+        this.setState({ tapActive: true });
   },
 
   setInactive() {
@@ -194,7 +194,7 @@ module.exports = {
       clearTimeout(this.setActiveTimeout);
 
     this.setState({
-      isActive: false
+      tapActive: false
     });
   },
 
@@ -262,7 +262,7 @@ module.exports = {
   },
 
   tappableProps(props) {
-    var className = this.state.isActive ? 'tapActive' : 'tapInactive';
+    var className = this.state.tapActive ? 'tapActive' : 'tapInactive';
 
     return {
       className: className,

@@ -105,7 +105,10 @@ module.exports = Component({
       onTouchTap: this._handleContentTouchTap
     }, drawerProps);
 
-    var movableHandle = clone(handle, { onTap: this._handleTap }, true);
+    var movableHandle = clone(handle, {
+      onTap: this._handleTap,
+      isInTitleBar: true
+    }, true);
 
     if (draggable)
       movableHandle = (

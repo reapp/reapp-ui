@@ -1,3 +1,5 @@
+var Color = require('color');
+
 module.exports = (c) => ({
   self: {
     border: `1px solid ${c.buttonBorderColor}`, // todo: variables
@@ -18,15 +20,19 @@ module.exports = (c) => ({
     outline: 'none',
     flexFlow: 'row',
     WebkitFlexFlow: 'row',
+    flexAlign: 'center',
+    WebkitFlexAlign: 'center',
+    alignItems: 'center',
+    WebkitAlignItems: 'center',
     margin: 0
-  },
-
-  isInTitleBar: {
-    color: c.buttonColorTitleBar
   },
 
   inner: {
     margin: 'auto'
+  },
+
+  isInTitleBar: {
+    color: c.buttonColorTitleBar
   },
 
   chromeless: {
@@ -41,5 +47,13 @@ module.exports = (c) => ({
   active: {
     background: c.buttonActiveBG,
     color: c.buttonActiveColor
+  },
+
+  focused: {
+    background: c.buttonFocusedBG
+  },
+
+  focusedTitleBar: {
+    color: Color(c.buttonColor).lighten(0.2).hexString()
   }
 });

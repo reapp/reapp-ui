@@ -1,5 +1,6 @@
 var React = require('react/addons');
 var Component = require('../component');
+var Color = require('color');
 
 module.exports = Component({
   name: 'Icon',
@@ -15,7 +16,8 @@ module.exports = Component({
     stroke: React.PropTypes.number,
     isInTitleBar: React.PropTypes.bool,
     shapeRendering: React.PropTypes.string,
-    crisp: React.PropTypes.bool
+    crisp: React.PropTypes.bool,
+    tapActive: React.PropTypes.bool
   },
 
   getDefaultProps() {
@@ -59,14 +61,19 @@ module.exports = Component({
       isInTitleBar,
       shapeRendering,
       crisp,
+      tapActive,
       ...props
     } = this.props;
 
     if (!file)
       return null;
 
-    if (isInTitleBar && color === 'currentColor')
-      color = this.getConstant('iconColorTitleBar');
+    if (color === 'currentColor')
+      color = this.getConstant(
+        isInTitleBar ? 'iconColorTitleBar' : 'iconColor');
+
+    if (tapActive)
+      color = Color(color).lighten(0.2).hexString();
 
     if (crisp)
       shapeRendering = 'crispEdges';

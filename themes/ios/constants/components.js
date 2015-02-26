@@ -25,12 +25,14 @@ module.exports = (c) => ({
   buttonColor: c.activeBG,
   buttonActiveBG: c.activeBG,
   buttonActiveColor: c.activeColor,
+  buttonFocusedBG: 'rgba(0,0,0,0.1)',
   buttonColorTitleBar: c.activeBG,
 
   // Dots
   dotBG: '#000',
 
   // Icon
+  iconColor: c.brandColor,
   iconColorTitleBar: c.activeBG,
 
   // List
