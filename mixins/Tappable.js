@@ -71,7 +71,8 @@ module.exports = {
     onMouseMove: React.PropTypes.func,           // pass-through mouse event
     onMouseOut: React.PropTypes.func,            // pass-through mouse event,
 
-    maxTapTime: React.PropTypes.number           // disable tap after certain amount of time
+    maxTapTime: React.PropTypes.number,          // disable tap after certain amount of time
+    delayUntilActive: React.PropTypes.number     // add a delay until a tap is considered a tap
 
   },
 
@@ -94,6 +95,7 @@ module.exports = {
   componentWillUnmount: function() {
     this.cleanupScrollDetection();
     this.cancelPressDetection();
+    clearTimeout(this.delayUntilActiveTimeout)
   },
 
   processEvent: function(event) {
@@ -117,11 +119,25 @@ module.exports = {
     this.initPressDetection(this.endTouch);
     this.touchStartTime = Date.now();
 
-    // this.setActiveTimeout = setTimeout(() => {
+    if (this.props.delayUntilActive)
+      this.delayUntilActiveTimeout = setTimeout(() => {
+        this.setState({
+          tapActive: true
+        });
+      }, this.props.delayUntilActive);
+    else
       this.setState({
         tapActive: true
       });
-    // }, this.props.delayUntilActive);
+
+    // if we have max tap time and no press, lets disable it
+    if (this.props.maxTapTime && !this.props.onPress)
+      this.delayUntilTapInactive = setTimeout(() => {
+        this.setState({
+          tapActive: false
+        })
+      }, this.props.maxTapTime);
+
   },
 
   findScrollableParents: function() {
@@ -189,8 +205,8 @@ module.exports = {
   },
 
   setInactive() {
-    if (this.setActiveTimeout)
-      clearTimeout(this.setActiveTimeout);
+    if (this.delayUntilActiveTimeout)
+      clearTimeout(this.delayUntilActiveTimeout);
 
     this.setState({
       tapActive: false
@@ -213,7 +229,7 @@ module.exports = {
   },
 
   endTouch: function() {
-    if (this.setActiveTimeout) clearTimeout(this.setActiveTimeout);
+    if (this.delayUntilActiveTimeout) clearTimeout(this.delayUntilActiveTimeout);
     this.cancelPressDetection();
     this.props.onTouchEnd && this.props.onTouchEnd(event);
     this._initialTouch = null;
