@@ -41,11 +41,11 @@ module.exports = {
     this.setAnimationState('viewList');
     this.scroller = new Scroller(this.handleScroll, this.props.scrollerProps);
     this.setupViewList(this.props);
+    this.setScrollPosition();
   },
 
   componentDidMount() {
     this.setupDimensions();
-    this.setScrollPosition();
     this.runViewCallbacks(this.state.step);
     this.setTouchableAreaProps(this.props);
     window.addEventListener('resize', this.resize);
@@ -71,10 +71,13 @@ module.exports = {
 
     // new scrollToStep
     if (nextProps.scrollToStep !== this.props.scrollToStep) {
-      var isAdvancing = nextProps.scrollToStep >= this.state.step;
-      if (isAdvancing) {
-        this.setupViewList(nextProps);
-        this.scrollToStep(nextProps.scrollToStep);
+      // if advancing
+      if (nextProps.scrollToStep >= this.state.step) {
+        this._advancingToIndex = nextProps.scrollToStep;
+
+        this.setupViewList(nextProps, () => {
+          this.scrollToStep(nextProps.scrollToStep);
+        });
       }
       else
         this.scrollToStep(nextProps.scrollToStep, () => {
@@ -112,7 +115,7 @@ module.exports = {
     return this.props.titleBarProps.height || this.getConstant('titleBarHeight');
   },
 
-  setupViewList(props) {
+  setupViewList(props, cb) {
     var { width, height, children } = props;
     this.setupViewEnterStates(children);
 
@@ -124,8 +127,19 @@ module.exports = {
     this.scroller.setSnapSize(width, height);
     this.scroller.setDimensions(width, height, width * children.length, height);
 
+    this._afterViewMounted = cb;
+
     if (this.isMounted())
       this.setState({ children });
+  },
+
+  // used by scrollToStep to ensure we animate after mount
+  handleViewMounted() {
+    if (this._afterViewMounted)
+      this._afterViewMounted();
+
+    this._advancingToIndex = null;
+    this._afterViewMounted = null;
   },
 
   // scrolls the viewList to a given step
@@ -298,8 +312,10 @@ module.exports = {
         )}
 
         {clone(this.state.children, (child, i) => {
-          if (i === this.state.step)
+          var active = i === this.state.step;
+          if (active)
             activeTitle = child.props && child.props.title;
+
           return Object.assign({
             key: i,
             index: i,
@@ -312,7 +328,10 @@ module.exports = {
             width: this.state.width,
             height: this.state.height,
             viewListScrollToStep: this.scrollToStep
-          }, this.getViewProps && this.getViewProps());
+          }, i === this._advancingToIndex && {
+            onComponentMounted: this.handleViewMounted
+          },
+          this.getViewProps && this.getViewProps());
         }, true)}
 
         {activeTitle &&

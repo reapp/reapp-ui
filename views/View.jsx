@@ -68,6 +68,9 @@ module.exports = Component({
 
   componentDidMount() {
     this.scrollListener(this.refs.inner.getDOMNode());
+
+    if (this.props.onComponentMounted)
+      this.props.onComponentMounted();
   },
 
   componentWillReceiveProps(nextProps) {
