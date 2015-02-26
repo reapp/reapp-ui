@@ -50,6 +50,16 @@ module.exports = Component({
     };
   },
 
+  getViewProps() {
+    return {
+      styles: {
+        inner: {
+          boxShadow: this.isAnimating() ? '0 0 15px rgba(0,0,0,0.2)' : 'none'
+        }
+      }
+    };
+  },
+
   render() {
     var touchableProps = {};
 
@@ -61,17 +71,9 @@ module.exports = Component({
     if (this.state.children && this.state.children.length === 1)
       touchableProps.untouchable = true;
 
-    var viewProps = {
-      styles: {
-        inner: {
-          boxShadow: this.isAnimating() ? '0 0 15px rgba(0,0,0,0.2)' : 'none'
-        }
-      }
-    };
-
     return (
       <div>
-        {this.getViewList({ touchableProps, viewProps })}
+        {this.getViewList({ touchableProps })}
       </div>
     );
   }
