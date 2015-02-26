@@ -26,8 +26,8 @@ a, button, input {
 
 input, textarea, p {
   -webkit-touch-callout: default;
-  -webkit-user-select: auto !important;
-  user-select: auto !important;
+  -webkit-user-select: auto;
+  user-select: auto;
 }
 
 html,
