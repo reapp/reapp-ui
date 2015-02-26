@@ -1,6 +1,5 @@
 var React = require('react/addons');
 var Component = require('../component');
-var Color = require('color');
 
 module.exports = Component({
   name: 'Icon',
@@ -73,7 +72,7 @@ module.exports = Component({
         isInTitleBar ? 'iconColorTitleBar' : 'iconColor');
 
     if (tapActive)
-      color = Color(color).lighten(0.2).hexString();
+      this.addStyles('focused');
 
     if (crisp)
       shapeRendering = 'crispEdges';

@@ -1,5 +1,3 @@
-var Color = require('color');
-
 module.exports = (c) => ({
   self: {
     border: `1px solid ${c.buttonBorderColor}`, // todo: variables
@@ -54,6 +52,6 @@ module.exports = (c) => ({
   },
 
   focusedTitleBar: {
-    color: Color(c.buttonColor).lighten(0.2).hexString()
+    opacity: 0.2
   }
 });
