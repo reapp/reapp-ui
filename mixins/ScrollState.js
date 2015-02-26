@@ -4,30 +4,29 @@
 
 module.exports = {
   scrollListener(node) {
-    node.addEventListener('scroll', this.setIsScrolling);
-    this.listenForScrollEnd(node);
+    node.addEventListener('scroll', this.startScrollListen.bind(this, node));
   },
 
-  setIsScrolling() {
-    if (!this.state.isScrolling)
+  startScrollListen(node) {
+    if (!this.state.isScrolling) {
       this.setState({ isScrolling: true });
+      this.listenForScrollEnd(node);
+    }
   },
 
   listenForScrollEnd(node) {
     this._lastScrollPositionY = node.scrollTop;
-    this._lastScrollPositionX = node.scrollWidth;
 
     this.scrollEndInterval = setInterval(() => {
-      if (
-        this.state && this.state.isScrolling &&
-        node.scrollTop === this._lastScrollPositionY &&
-        node.scrollWidth === this._lastScrollPositionX
-      )
-        this.setState({ isScrolling: false });
+      var top = node.scrollTop;
 
-      this._lastScrollPositionY = node.scrollTop;
-      this._lastScrollPositionX = node.scrollWidth;
-    }, 100);
+      if (this.state.isScrolling && top === this._lastScrollPositionY) {
+        clearInterval(this.scrollEndInterval);
+        this.setState({ isScrolling: false });
+      }
+
+      this._lastScrollPositionY = top;
+    }, 300);
   },
 
   componentWillUnmount() {

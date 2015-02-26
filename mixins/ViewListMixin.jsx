@@ -230,15 +230,13 @@ module.exports = {
   },
 
   callProperty(name, ...args) {
-    setTimeout(() => {
-      // apply to viewlist first
-      if (this[name])
-        this[name].apply(this, args);
+    // apply to viewlist first
+    if (this[name])
+      this[name].apply(this, args);
 
-      // then call any external
-      if (this.props[name])
-        this.props[name].apply(this, args);
-    }, 10);
+    // then call any external
+    if (this.props[name])
+      this.props[name].apply(this, args);
   },
 
   isOnStage(index) {
