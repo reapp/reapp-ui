@@ -58,11 +58,7 @@ module.exports = Component({
     return (
       <button {...tapProps} {...this.componentProps()} {...props}>
         {icon || !!iconProps && <Icon {...cloneProps} />}
-        {children && (
-          <span {...this.componentProps('inner')}>
-            {children}
-          </span>
-        )}
+        {children}
       </button>
     );
   }

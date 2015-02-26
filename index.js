@@ -4,7 +4,7 @@ var Invariant = require('react/lib/invariant');
 require('./lib/desktopTouch');
 require('reapp-object-assign');
 
-if (window.process && process.env && process.env.NODE_ENV === 'production')
+if (window._FORCE_ENABLE_RAF || window.process && process.env && process.env.NODE_ENV === 'production')
   require('reapp-raf-batching');
 
 // Stores constants, animations and styles
