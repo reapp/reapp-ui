@@ -1,5 +1,5 @@
 var React = require('react/addons');
-var { Scroller } = require('reapp-scroller');
+var { FTScroller } = require('ftscroller');
 var DocumentTitle = require('react-document-title');
 var Component = require('../component');
 var TitleBar = require('../components/TitleBar');
@@ -39,12 +39,22 @@ module.exports = {
 
   componentWillMount() {
     this.setAnimationState('viewList');
-    this.scroller = new Scroller(this.handleScroll, this.props.scrollerProps);
+
     this.setupViewList(this.props);
     this.setScrollPosition();
   },
 
   componentDidMount() {
+    this.scroller = new FTScroller(this.refs.viewList.getDOMNode(), {
+      scrollingY: false,
+      snapping: true,
+      scrollbars: false
+    });
+
+    console.log(this.scroller);
+
+    this.scroller.addEventListener('scroll', this.handleScroll);
+
     this.setupDimensions();
     this.runViewCallbacks(this.state.step);
     this.setTouchableAreaProps(this.props);
@@ -94,14 +104,14 @@ module.exports = {
   // todo: this shouldn't need to do so much here
   // for now this fixes a bug where if you start with a step > 0
   setScrollPosition() {
-    var step = this.state.step;
+    // var step = this.state.step;
 
-    // setTimeout because we are fighting Scroller
-    setTimeout(() => {
-      this.scroller.setPosition(step * this.state.width, 0);
-      this.scroller.scrollTo(step * this.state.width, 0, false);
-      this.setState({ step  });
-    });
+    // // setTimeout because we are fighting Scroller
+    // setTimeout(() => {
+    //   this.scroller.setPosition(step * this.state.width, 0);
+    //   this.scroller.scrollTo(step * this.state.width, 0, false);
+    //   this.setState({ step  });
+    // });
   },
 
   animationContext() {
@@ -124,8 +134,8 @@ module.exports = {
 
     children = children.filter(child => !!child);
 
-    this.scroller.setSnapSize(width, height);
-    this.scroller.setDimensions(width, height, width * children.length, height);
+    // this.scroller.setSnapSize(width, height);
+    // this.scroller.setDimensions(width, height, width * children.length, height);
 
     this._afterViewMounted = cb;
 
@@ -146,7 +156,7 @@ module.exports = {
   scrollToStep(step, cb) {
     if (step !== this.state.step) {
       this._isAnimating = true;
-      this.scroller.scrollTo(this.state.width * step, 0, true);
+      this.scroller.scrollTo(this.state.width * step, 0, this.props.animationDuration);
 
       this.onViewEntered = () => {
         this.onViewEntered = null;
@@ -184,17 +194,19 @@ module.exports = {
   disableInitialScrollEvent: true,
 
   // this is called back from Scroller, each time the user scrolls
-  handleScroll(left) {
+  handleScroll({ scrollLeft }) {
+    console.log(scrollLeft)
+
     if (this.disableInitialScrollEvent || this.props.disableScroll) {
       this.disableInitialScrollEvent = false;
       return;
     }
     else {
-      var step = this.state.width ? left / this.state.width : 0;
+      var step = scrollLeft;
 
       if (step !== this.state.step) {
         this.setState({ step });
-        this.runViewCallbacks(step);
+        // this.runViewCallbacks(step);
       }
     }
   },
@@ -306,11 +318,13 @@ module.exports = {
     this.setAnimationState('viewList');
 
     return (
-      <TouchableArea {...this._touchableAreaProps} {...touchableProps}>
+      <div {...this._touchableAreaProps} {...touchableProps}>
         {!this.props.noFakeTitleBar && (
           <TitleBar {...this.props.titleBarProps} animations={{}} />
         )}
 
+        <div ref="viewList">
+          <div id="sectionWrapper" style={{ width: 1236 }}>
         {clone(this.state.children, (child, i) => {
           var active = i === this.state.step;
           if (active)
@@ -333,12 +347,14 @@ module.exports = {
           },
           this.getViewProps && this.getViewProps());
         }, true)}
+          </div>
+        </div>
 
         {activeTitle &&
           <DocumentTitle title={Array.isArray(activeTitle) ?
             activeTitle[1] :
             activeTitle} />}
-      </TouchableArea>
+      </div>
     );
   }
 };

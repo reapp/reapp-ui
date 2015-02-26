@@ -1,10 +1,6 @@
 module.exports = (c) => ({
   self: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
+    height: 568,
     WebkitBackfaceVisibility: 'hidden',
     WebkitTransform: 'translateZ(0)',
     zIndex: 2
