@@ -81,7 +81,7 @@ module.exports = {
       moveThreshold: 10,
       pressDelay: 1000,
       pressMoveThreshold: 20,
-      delayUntilActive: 20
+      delayUntilActive: 30
     };
   },
 
