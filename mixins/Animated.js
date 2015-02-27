@@ -85,7 +85,6 @@ module.exports = function(getAnimations) {
 
     // Because were dealing with time and render lag
     // This can be used in a parent shouldComponentUpdate
-    // gives us three extra frames
     isAnimatingSafe(source) {
       var isAnimating = this.isAnimating(source);
       var wasAnimating = this._wasAnimating[source];

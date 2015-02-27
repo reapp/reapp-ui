@@ -12,6 +12,9 @@ module.exports = {
   hairline: supportsHairline,
   onePx: supportsHairline ? '0.5px' : '1px',
 
+  // homescreen app
+  standalone: window.navigator.standalone,
+
   // cordova
   device,
   ios7: (
