@@ -58,8 +58,7 @@ module.exports = function(getAnimations) {
       if (this.state && this.state.animationDisabled)
         return;
 
-      var curState = this.getAnimationState();
-      this.animateStore(source, state ? Object.assign(curState, state) : curState);
+      this.animateStore(source, this.getAnimationState());
     },
 
     disableAnimation() {
@@ -93,7 +92,7 @@ module.exports = function(getAnimations) {
         if (!wasAnimating)
           return false;
 
-        if (wasAnimating > 4) {
+        if (wasAnimating > 20) {
           wasAnimating = false;
           return false;
         }

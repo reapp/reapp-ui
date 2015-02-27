@@ -188,11 +188,14 @@ module.exports = {
     else {
       var step = this.state.width ? left / this.state.width : 0;
 
-      if (step !== this.state.step) {
+      if (step !== this.state.step)
         this.setState({ step });
-        this.runViewCallbacks(step);
-      }
     }
+  },
+
+  componentDidUpdate(_, prevState) {
+    if (prevState.step !== this.state.step)
+      this.runViewCallbacks(this.state.step);
   },
 
   runViewCallbacks(step) {
@@ -236,13 +239,15 @@ module.exports = {
   },
 
   callProperty(name, ...args) {
-    // apply to viewlist first
-    if (this[name])
-      this[name].apply(this, args);
+    setTimeout(() => {
+      // apply to viewlist first
+      if (this[name])
+        this[name].apply(this, args);
 
-    // then call any external
-    if (this.props[name])
-      this.props[name].apply(this, args);
+      // then call any external
+      if (this.props[name])
+        this.props[name].apply(this, args);
+    }, 80)
   },
 
   isOnStage(index) {
