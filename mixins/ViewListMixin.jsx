@@ -41,12 +41,11 @@ module.exports = {
     this.setAnimationState('viewList');
     this.scroller = new Scroller(this.handleScroll, this.props.scrollerProps);
     this.setupViewList(this.props);
-    this.setScrollPosition();
   },
 
   componentDidMount() {
+    this.setScrollPosition();
     this.setupDimensions();
-    this.runViewCallbacks(this.state.step);
     this.setTouchableAreaProps(this.props);
     window.addEventListener('resize', this.resize);
     this.didMount = true;
@@ -96,12 +95,9 @@ module.exports = {
   setScrollPosition() {
     var step = this.state.step;
 
-    // setTimeout because we are fighting Scroller
-    setTimeout(() => {
-      this.scroller.setPosition(step * this.state.width, 0);
-      this.scroller.scrollTo(step * this.state.width, 0, false);
-      this.setState({ step  });
-    });
+    this.scroller.setPosition(step * this.state.width, 0);
+    this.scroller.scrollTo(step * this.state.width, 0, false);
+    this.setState({ step  });
   },
 
   animationContext() {

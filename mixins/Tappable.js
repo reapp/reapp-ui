@@ -80,8 +80,8 @@ module.exports = {
     return {
       moveThreshold: 10,
       pressDelay: 1000,
-      pressMoveThreshold: 20,
-      delayUntilActive: 15
+      pressMoveThreshold: 10,
+      delayUntilActive: 30
     };
   },
 
@@ -219,9 +219,17 @@ module.exports = {
     var movement = this.calculateMovement(this._lastTouch);
     if (movement.x <= this.props.moveThreshold && movement.y <= this.props.moveThreshold &&
         this.tapWithinTime()) {
+      this.setActiveIfDelaying();
       this.props.onTap && this.props.onTap(event);
     }
     this.endTouch(event);
+  },
+
+  setActiveIfDelaying() {
+    if (this.delayUntilActiveTimeout) {
+      clearTimeout(this.delayUntilActiveTimeout);
+      this.setState({ active: true });
+    }
   },
 
   tapWithinTime() {
