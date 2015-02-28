@@ -134,11 +134,10 @@ module.exports = Component({
     if (this.state.isScrolling)
       this.addClass('inner', 'isScrolling');
 
-    if (this.isAnimating('viewList'))
+    if (this.isAnimating('viewList')) {
       this.addStyles('inner', this.clipStyles);
-
-    if (inactive)
       this.addStyles('inner', 'innerInactive');
+    }
 
     if (title)
       this.addStyles('inner', { top: titleBarHeight });

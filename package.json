@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/reapp/reapp-ui",
   "dependencies": {
-    "color": "^0.7.3",
     "lodash.merge": "^3.0.1",
     "react-document-title": "^1.0.2",
     "react-style": "git+https://github.com/reapp/react-style#a6151d5",

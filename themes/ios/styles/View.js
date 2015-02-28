@@ -15,17 +15,17 @@ module.exports = (c) => ({
     position: 'absolute',
     overflowX: 'hidden',
     overflowY: 'scroll',
-    WebkitOverflowScrolling: 'touch',
     top: 0,
     left: 0,
     bottom: 0,
-    right: 0
+    right: 0,
+    WebkitOverflowScrolling: 'touch'
   },
 
   innerInactive: {
     pointerEvents: 'none',
-    WebkitOverflowScrolling: 'none',
-    overflowY: 'hidden'
+    WebkitOverflowScrolling: 'none'
+    // overflow: 'hidden' // note, this was causing flickering
   },
 
   innerActive: {
