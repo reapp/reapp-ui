@@ -119,29 +119,27 @@ module.exports = function(getAnimations) {
     },
 
     // returns an object of styles
-    // requires ref, source will be fetched from this.animationSource
-    // if not passed in here
+    // uses ref, source will be fetched from this.animationSource or as given
     getAnimationStyle(ref, source) {
-      source = source || this.animationSource;
-
       var animations = this.getAnimations(ref);
 
-      if (!animations)
-        return;
+      if (animations) {
+        source = source || this.animationSource;
+        var state = this.getAnimationState(source);
+        var styles;
 
-      var state = this.getAnimationState(source);
-      var styles;
+        // single animation or array
+        if (typeof animations === 'string')
+          styles = this._getAnimationStyle(styles, state, animations);
+        else
+          for (var i = 0, len = animations.length; i < len; i++)
+            styles = this._getAnimationStyle(styles, state, animations[i]);
 
-      // single animation or array
-      if (typeof animations === 'string')
-        styles = this._getAnimationStyle(styles, state, animations);
-      else
-        for (var i = 0, len = animations.length; i < len; i++)
-          styles = this._getAnimationStyle(styles, state, animations[i]);
-
-      // ensure translate-z to ensure hardware accel
-      styles[StyleKeys.TRANSFORM] = styles[StyleKeys.TRANSFORM] || 'translateZ(0px)';
-      return styles;
+        // ensure translate-z to ensure hardware accel
+        styles[StyleKeys.TRANSFORM] = styles[StyleKeys.TRANSFORM] || 'translateZ(0px)';
+        styles['WebkitBackfaceVisibility'] = 'hidden';
+        return styles;
+      }
     },
 
     // this takes in step, a styles object, and single animation

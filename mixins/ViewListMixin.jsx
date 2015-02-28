@@ -69,25 +69,26 @@ module.exports = {
       return;
 
     // new scrollToStep
-    if (nextProps.scrollToStep !== this.props.scrollToStep) {
-      // if advancing
-      if (nextProps.scrollToStep >= this.state.step) {
-        this._advancingToIndex = nextProps.scrollToStep;
+    this.handleScrollToStep(nextProps);
+  },
 
-        this.setupViewList(nextProps, () => {
-          this.scrollToStep(nextProps.scrollToStep);
-        });
-      }
-      else
-        this.scrollToStep(nextProps.scrollToStep, () => {
-          this.setupViewList(nextProps);
-        });
+  // animates forward and backward depending
+  handleScrollToStep(nextProps) {
+    if (nextProps.scrollToStep === this.props.scrollToStep)
+      return this.setupViewList(nextProps);;
+
+    // if advancing
+    if (nextProps.scrollToStep >= this.state.step) {
+      this._advancingToIndex = nextProps.scrollToStep;
+
+      this.setupViewList(nextProps, () => {
+        this.scrollToStep(nextProps.scrollToStep);
+      });
     }
-    // else no new scroll position
-    else {
-      // todo: this gets called too much
-      this.setupViewList(nextProps);
-    }
+    else
+      this.scrollToStep(nextProps.scrollToStep, () => {
+        this.setupViewList(nextProps);
+      });
   },
 
   // todo: this shouldn't need to do so much here
@@ -177,17 +178,14 @@ module.exports = {
   // this is a hack, but the Scroller lib fires a scroll event that
   // results in not respecting the props.scrollToStep on mount
   // .... we need to improve the Scroller lib
-  disableInitialScrollEvent: true,
+  initialScrollEvent: true,
 
-  // this is called back from Scroller, each time the user scrolls
+  // Called back from Scroller on each frame of scroll
   handleScroll(left) {
-    if (this.disableInitialScrollEvent || this.props.disableScroll) {
-      this.disableInitialScrollEvent = false;
-      return;
-    }
+    if (this.initialScrollEvent || this.props.disableScroll)
+      this.initialScrollEvent = false;
     else {
-      var step = this.state.width ? left / this.state.width : 0;
-
+      var step = left / this.state.width;
       if (step !== this.state.step)
         this.setState({ step });
     }

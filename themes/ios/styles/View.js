@@ -5,8 +5,6 @@ module.exports = (c) => ({
     left: 0,
     bottom: 0,
     right: 0,
-    WebkitBackfaceVisibility: 'hidden',
-    WebkitTransform: 'translateZ(0)',
     zIndex: 2
   },
 
@@ -21,8 +19,7 @@ module.exports = (c) => ({
     top: 0,
     left: 0,
     bottom: 0,
-    right: 0,
-    WebkitBackfaceVisibility: 'hidden'
+    right: 0
   },
 
   innerInactive: {
