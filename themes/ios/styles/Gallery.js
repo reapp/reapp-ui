@@ -9,5 +9,10 @@ module.exports = {
     overflow: 'hidden',
     perspective: '500px',
     WebkitPerspective: '500px'
+  },
+
+  close: {
+    display: 'inline-block',
+    zIndex: 100
   }
 };
