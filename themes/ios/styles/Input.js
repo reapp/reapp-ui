@@ -4,6 +4,7 @@ module.exports = {
     padding: '12px',
     fontSize: '16px',
     lineHeight: '16px',
-    width: '100%'
+    width: '100%',
+    color: '#000'
   }
 };

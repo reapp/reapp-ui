@@ -94,8 +94,11 @@ p a {
   left: 0;
   right: 0;
   bottom: 0;
+  pointer-events: none;
+  text-align: center;
 }
 
 .verticalCenter > * {
   margin: auto;
+  pointer-events: auto;
 }
