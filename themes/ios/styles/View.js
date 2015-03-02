@@ -27,16 +27,10 @@ module.exports = (c) => ({
   },
 
   innerInactive: {
-    pointerEvents: 'none',
     WebkitOverflowScrolling: 'none'
-
     // note, this was causing flickering on ios
-    // but prevents people from moving the view as they swipe
+    // but prevents people from moving the view as they swipe:
     // overflow: 'hidden'
-  },
-
-  innerActive: {
-    WebkitOverflowScrolling: 'touch',
   },
 
   overlay: {

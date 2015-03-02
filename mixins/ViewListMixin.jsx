@@ -189,12 +189,14 @@ module.exports = {
 
   // Called back from Scroller on each frame of scroll
   handleScroll(left) {
-    if (this.initialScrollEvent || this.props.disableScroll)
-      this.initialScrollEvent = false;
-    else {
-      var step = left / this.state.width;
-      if (step !== this.state.step)
-        this.setState({ step });
+    if (!this.props.disableScroll) {
+      if (this.initialScrollEvent)
+        this.initialScrollEvent = false;
+      else {
+        var step = left / this.state.width;
+        if (step !== this.state.step)
+          this.setState({ step });
+      }
     }
   },
 
@@ -328,7 +330,7 @@ module.exports = {
             index: i,
             inactive: i !== this.state.step,
             animationState: {
-              viewList: { index: i }
+              viewList: { index: i, step: this.state.step }
             },
             titleBarProps: this.getTitleBarProps(),
             animations: this.getViewAnimations(child),
