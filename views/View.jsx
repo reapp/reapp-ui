@@ -70,7 +70,7 @@ module.exports = Component({
     this.scrollListener(this.refs.inner.getDOMNode());
 
     if (this.props.onComponentMounted)
-      this.props.onComponentMounted();
+      this.props.onComponentMounted(this.props.index);
   },
 
   componentWillReceiveProps(nextProps) {
@@ -134,10 +134,13 @@ module.exports = Component({
     if (this.state.isScrolling)
       this.addClass('inner', 'isScrolling');
 
-    if (this.isAnimating('viewList')) {
-      this.addStyles('inner', this.clipStyles);
+    if (inactive) {
+      this.addStyles('inactive');
       this.addStyles('inner', 'innerInactive');
     }
+
+    if (this.isAnimating('viewList'))
+      this.addStyles('inner', this.clipStyles);
 
     if (title)
       this.addStyles('inner', { top: titleBarHeight });

@@ -8,6 +8,10 @@ module.exports = (c) => ({
     zIndex: 2
   },
 
+  inactive: {
+    pointerEvents: 'none'
+  },
+
   inner: {
     background: c.viewBG,
     padding: `0 ${c.viewPad}`,
@@ -25,7 +29,10 @@ module.exports = (c) => ({
   innerInactive: {
     pointerEvents: 'none',
     WebkitOverflowScrolling: 'none'
-    // overflow: 'hidden' // note, this was causing flickering
+
+    // note, this was causing flickering on ios
+    // but prevents people from moving the view as they swipe
+    // overflow: 'hidden'
   },
 
   innerActive: {

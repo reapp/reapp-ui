@@ -75,12 +75,10 @@ module.exports = {
   // animates forward and backward depending
   handleScrollToStep(nextProps) {
     if (nextProps.scrollToStep === this.props.scrollToStep)
-      return this.setupViewList(nextProps);;
+      return this.setupViewList(nextProps);
 
     // if advancing
     if (nextProps.scrollToStep >= this.state.step) {
-      this._advancingToIndex = nextProps.scrollToStep;
-
       this.setupViewList(nextProps, () => {
         this.scrollToStep(nextProps.scrollToStep);
       });
@@ -124,10 +122,18 @@ module.exports = {
     this.scroller.setSnapSize(width, height);
     this.scroller.setDimensions(width, height, width * children.length, height);
 
-    this._afterViewMounted = cb;
-
     if (this.isMounted())
       this.setState({ children });
+
+    // cb
+    if (cb) {
+      var child = this.refs[`child-${props.scrollToStep}`];
+
+      if (child && !child.isMounted())
+        this._afterViewMounted = cb;
+      else
+        cb();
+    }
   },
 
   // used by scrollToStep to ensure we animate after mount
@@ -316,6 +322,7 @@ module.exports = {
             activeTitle = child.props && child.props.title;
 
           return Object.assign({
+            ref: `child-${i}`,
             key: i,
             index: i,
             inactive: i !== this.state.step,
