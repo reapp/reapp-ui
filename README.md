@@ -12,12 +12,14 @@ reapp-ui is a set of React components for building app UI's. It has a few goals
 
 Near-term goals are to finish out the component set, finish the most
 accurate themes possible for iOS and Andorid, and nail down performance.
+[Visit our homepage](http://reapp.io) for an overview of features and a live demo.
 
-### Principles
+### Demo
 
-- Aim for performance and consistency.
-- Keep the repo structure as flat as possible.
-- Decouple components. Allow selective usage of these components.
+You can add these demos to your homescreen or emulate mobile on your browser:
+
+- [kitchen.reapp.io](http://kitchen.reapp.io)
+- [hn.reapp.io](http://hn.reapp.io)
 
 ### Structure
 
@@ -99,7 +101,11 @@ can cause a variety of errors. If you see stuff that warns about `Mount, Link, C
 it is most likely because of this. Try deleting any sub-module react folders and re-running
 Webpack.
 
+### Principles
 
+- Aim for performance and consistency.
+- Keep the repo structure as flat as possible.
+- Decouple components. Allow selective usage of these components.
 
 ### Credits
 
