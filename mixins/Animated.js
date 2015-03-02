@@ -137,7 +137,6 @@ module.exports = function(getAnimations) {
 
         // ensure translate-z to ensure hardware accel
         styles[StyleKeys.TRANSFORM] = styles[StyleKeys.TRANSFORM] || 'translateZ(0px)';
-        styles['WebkitBackfaceVisibility'] = 'hidden';
         return styles;
       }
     },

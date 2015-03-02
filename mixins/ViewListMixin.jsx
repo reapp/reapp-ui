@@ -47,6 +47,7 @@ module.exports = {
     this.setScrollPosition();
     this.setupDimensions();
     this.setTouchableAreaProps(this.props);
+    this.runViewCallbacks(this.props.scrollToStep || this.state.step);
     window.addEventListener('resize', this.resize);
     this.didMount = true;
   },
@@ -125,7 +126,7 @@ module.exports = {
     if (this.isMounted())
       this.setState({ children });
 
-    // cb
+    // for animating forwards
     if (cb) {
       var child = this.refs[`child-${props.scrollToStep}`];
 

@@ -26,6 +26,9 @@ module.exports = Component({
         inner: 'viewSideBySide'
       },
       titleBarProps: {
+        animations: {
+          self: 'fadeToLeft'
+        },
         height: 48,
         styles: {
           mid: {
@@ -35,7 +38,7 @@ module.exports = Component({
         }
       },
       touchStartBoundsX: {
-        from: 20,
+        from: 30,
         to: window.innerWidth
       }
     };
