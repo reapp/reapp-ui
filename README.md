@@ -86,20 +86,21 @@ more work than usual to contribute. For the UI, the best setup is to do the foll
 2. Clone the [kitchen sink](https://github.com/reapp/kitchen-sink) repository
 3. Clone this repository
 4. Run `sudo npm link` inside this repository
-5. Run `sudo npm link reapp-ui` inside the kitchen sink repository
+5. **Important:** Run `npm remove react` in reapp-ui and be sure react isn't in node_modules
+6. Run `sudo npm link reapp-ui` inside the kitchen sink repository
 
 This will link your reapp-ui module into your kitchen sink repo. Now you can:
 
-6. Run `reapp run -d` inside kitchen sink
-7. Go to [localhost:3010](http://localhost:3010)
-8. Make edits inside reapp-ui and they will automatically compile into the kitchen sink.
+7. Run `reapp run -d` inside kitchen sink
+8. Go to [localhost:3010](http://localhost:3010)
+9. Make edits inside reapp-ui and they will automatically compile into the kitchen sink.
 
 **Warning:** When running locally you may run into some unique bugs. Because `npm link`
 runs an `npm install`, it will often install multiple versions of React into your
 modules folders, causing Webpack to bundle multiple versions of it into your app. This
 can cause a variety of errors. If you see stuff that warns about `Mount, Link, Context`,
-it is most likely because of this. Try deleting any sub-module react folders and re-running
-Webpack.
+it is most likely because of this. Delete the react folder inside reapp-ui and any other
+sub-modules and re-run Webpack.
 
 ### Principles
 
