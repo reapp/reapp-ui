@@ -13,7 +13,7 @@ module.exports = Component({
     name: React.PropTypes.string,
     color: React.PropTypes.string,
     stroke: React.PropTypes.number,
-    isInTitleBar: React.PropTypes.bool,
+    isInViewList: React.PropTypes.bool,
     shapeRendering: React.PropTypes.string,
     crisp: React.PropTypes.bool
   },
@@ -23,7 +23,7 @@ module.exports = Component({
       size: 32,
       stroke: 1,
       color: 'currentColor',
-      titleBarAnimations: {
+      viewListAnimations: {
         self: 'iconTitleBar'
       }
     };
@@ -34,16 +34,16 @@ module.exports = Component({
   },
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.isInTitleBar !== nextProps.isInTitleBar)
+    if (this.props.isInViewList !== nextProps.isInViewList)
       this.setupAnimations(nextProps);
   },
 
   setupAnimations(props) {
-    if (props.isInTitleBar && props.animations !== false) {
+    if (props.isInViewList && props.animations !== false) {
       this.animationSource = 'viewList';
       this.setState({
         animations: Object.assign({},
-          this.props.titleBarAnimations,
+          this.props.viewListAnimations,
           props.animations
         )
       });
@@ -56,7 +56,7 @@ module.exports = Component({
       file,
       color,
       stroke,
-      isInTitleBar,
+      isInViewList,
       shapeRendering,
       crisp,
       ...props
@@ -67,7 +67,7 @@ module.exports = Component({
 
     if (color === 'currentColor')
       color = this.getConstant(
-        isInTitleBar ? 'iconColorTitleBar' : 'iconColor');
+        isInViewList ? 'iconColorTitleBar' : 'iconColor');
 
     if (crisp)
       shapeRendering = 'crispEdges';

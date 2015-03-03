@@ -13,6 +13,8 @@ module.exports = Component({
     right: React.PropTypes.node,
     transparent: React.PropTypes.bool,
 
+    isInViewList: React.PropTypes.bool,
+
     // attach to side of screen
     attach: React.PropTypes.string
   },
@@ -53,7 +55,8 @@ module.exports = Component({
 
     return React.addons.cloneWithProps(component, {
       isInTitleBar: true,
-      animationState: Object.assign({}, this.props.animationState)
+      isInViewList: this.props.isInViewList,
+      animationState: this.props.animationState
     });
   },
 

@@ -330,9 +330,13 @@ module.exports = {
             index: i,
             inactive: i !== this.state.step,
             animationState: {
-              viewList: { index: i, step: this.state.step }
+              viewList: {
+                index: i,
+                step: this.state.step
+              }
             },
             titleBarProps: this.getTitleBarProps(),
+            isInViewList: true,
             animations: this.getViewAnimations(child),
             width: this.state.width,
             height: this.state.height,

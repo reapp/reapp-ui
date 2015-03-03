@@ -21,6 +21,9 @@ module.exports = Component({
     width: React.PropTypes.number,
     height: React.PropTypes.number,
 
+    // add animations in view list
+    isInViewList: React.PropTypes.bool,
+
     // offset of inner scroll area from top
     offsetTop: React.PropTypes.number,
 
@@ -121,13 +124,16 @@ module.exports = Component({
       after,
       offsetTop,
       offsetBottom,
+      isInViewList,
       ...props
     } = this.props;
 
     // add double tap event
     titleBarProps = titleBarProps || {};
     titleBarProps.onDoubleTap = titleBarProps.onDoubleTap || this.handleDoubleTap;
-    titleBarProps.animationState = animationState;
+
+    if (isInViewList)
+      Object.assign(titleBarProps, { animationState, isInViewList });
 
     var titleBarHeight = this.getTitleBarHeight();
 

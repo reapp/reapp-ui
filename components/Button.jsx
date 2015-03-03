@@ -17,7 +17,9 @@ module.exports = Component({
     icon: React.PropTypes.element,
     chromeless: React.PropTypes.bool,
     rounded: React.PropTypes.bool,
-    active: React.PropTypes.bool
+    active: React.PropTypes.bool,
+    isInTitleBar: React.PropTypes.bool,
+    isInViewList: React.PropTypes.bool
   },
 
   render() {
@@ -30,12 +32,14 @@ module.exports = Component({
       rounded,
       active,
       isInTitleBar,
+      isInViewList,
       animationState,
       tapFocusStyle,
       ...props } = this.props;
 
     var cloneProps = Object.assign({}, iconProps || {}, {
       isInTitleBar,
+      isInViewList,
       animationState,
       focused
     });
