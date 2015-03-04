@@ -128,12 +128,13 @@ module.exports = Component({
       ...props
     } = this.props;
 
-    // add double tap event
-    titleBarProps = titleBarProps || {};
-    titleBarProps.onDoubleTap = titleBarProps.onDoubleTap || this.handleDoubleTap;
-
-    if (isInViewList)
-      Object.assign(titleBarProps, { animationState, isInViewList });
+    // titlebar props modifications
+    var modifiedTitleBarProps = Object.assign({
+      onDoubleTap: this.handleDoubleTap
+    }, titleBarProps, isInViewList && {
+      animationState,
+      isInViewList
+    });
 
     var titleBarHeight = this.getTitleBarHeight();
 
@@ -166,7 +167,7 @@ module.exports = Component({
     return (
       <div {...this.componentProps()} {...props}>
         {title && (
-          <TitleBar {...titleBarProps}>{title}</TitleBar>
+          <TitleBar {...modifiedTitleBarProps}>{title}</TitleBar>
         )}
 
         <div {...this.componentProps('inner')} {...innerProps}>
