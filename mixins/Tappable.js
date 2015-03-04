@@ -81,8 +81,8 @@ module.exports = {
       moveThreshold: 10,
       pressDelay: 1000,
       pressMoveThreshold: 10,
-      delayUntilActive: 60,
-      delayUntilInactive: 100
+      delayUntilActive: 40,
+      delayUntilInactive: 30
     };
   },
 
@@ -172,19 +172,26 @@ module.exports = {
   },
 
   onTouchMove: function(event) {
-    if (!this._initialTouch) return;
+    if (!this._initialTouch)
+      return;
+
     this.processEvent(event);
 
     if (this.areParentsScrolling())
       return this.endTouch(event);
 
-    this.props.onTouchMove && this.props.onTouchMove(event);
+    if (this.props.onTouchMove)
+      this.props.onTouchMove(event);
+
     this._lastTouch = getTouchProps(event.touches[0]);
     var movement = this.calculateMovement(this._lastTouch);
-    if (movement.x > this.props.pressMoveThreshold || movement.y > this.props.pressMoveThreshold)
+
+    if (movement.x > this.props.pressMoveThreshold ||
+        movement.y > this.props.pressMoveThreshold)
       this.cancelPressDetection();
 
-    if (movement.x > this.props.moveThreshold || movement.y > this.props.moveThreshold)
+    if (movement.x > this.props.moveThreshold ||
+        movement.y > this.props.moveThreshold)
       this.setInactive(true);
   },
 

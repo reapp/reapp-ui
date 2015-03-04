@@ -30,6 +30,7 @@ module.exports = Component({
       scrollerProps: {
         animationDuration: 500,
         paging: true,
+        pagingDeceleration: false,
         bouncing: false,
         easing: 'cubic'
       },
