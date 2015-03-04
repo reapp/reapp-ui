@@ -65,8 +65,11 @@ module.exports = Component({
       else
         this.addStyles(tapFocusStyle || isInTitleBar ? 'focusedTitleBar' : 'focused');
 
-    var tapProps = this.tappableProps();
-    this.addClass(tapProps.className);
+    var tapProps;
+    if (this.props.onTap) {
+      tapProps = this.tappableProps();
+      this.addClass(tapProps.className);
+    }
 
     return (
       <button {...tapProps} {...this.componentProps()} {...props}>
