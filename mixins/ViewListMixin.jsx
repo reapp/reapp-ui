@@ -255,7 +255,7 @@ module.exports = {
       // then call any external
       if (this.props[name])
         this.props[name].apply(this, args);
-    }, 80)
+    }, 80);
   },
 
   isOnStage(index) {
