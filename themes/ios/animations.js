@@ -18,6 +18,21 @@ var Animations = module.exports = {
     };
   },
 
+  viewDrawer({ index, step, height }) {
+    var translate;
+    var strength = index - step;
+
+    // animating out
+    if (index < step)
+      return {
+        scale: scaleBetween(decreaseOnExit(index, step), 2, 0, 1.1, 0.9)
+      };
+    else
+      return {
+        translate: { y: strength * height }
+      };
+  },
+
   viewSideBySide: ({ index, step, width }) => ({
     translate: { x: (index - step) * width }
   }),

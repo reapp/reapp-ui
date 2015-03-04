@@ -102,6 +102,7 @@ module.exports = {
 
   animationContext() {
     return {
+      height: this.state.height,
       width: this.state.width
     };
   },
@@ -121,7 +122,12 @@ module.exports = {
     children = children.filter(child => !!child);
 
     this.scroller.setSnapSize(width, height);
-    this.scroller.setDimensions(width, height, width * children.length, height);
+
+    var isVertical = this.props.vertical;
+    var fullWidth = isVertical ? width : width * children.length;
+    var fullHeight = isVertical ? height * children.length : height;
+
+    this.scroller.setDimensions(width, height, fullWidth, fullHeight);
 
     if (this.isMounted())
       this.setState({ children });
@@ -151,7 +157,14 @@ module.exports = {
   scrollToStep(step, cb) {
     if (step !== this.state.step) {
       this._isAnimating = true;
-      this.scroller.scrollTo(this.state.width * step, 0, true);
+
+      var isVertical = !!this.props.vertical;
+
+      this.scroller.scrollTo(
+        !isVertical ? this.state.width * step : 0,
+        isVertical ? this.state.height * step : 0,
+        true
+      );
 
       this.onViewEntered = () => {
         this.onViewEntered = null;
@@ -189,12 +202,18 @@ module.exports = {
   initialScrollEvent: true,
 
   // Called back from Scroller on each frame of scroll
-  handleScroll(left) {
+  handleScroll(left, top) {
     if (!this.props.disableScroll) {
       if (this.initialScrollEvent)
         this.initialScrollEvent = false;
       else {
-        var step = left / this.state.width;
+        var step;
+
+        if (this.props.vertical)
+          step = top / this.state.height;
+        else
+          step = left / this.state.width;
+
         if (step !== this.state.step)
           this.setState({ step });
       }
@@ -291,9 +310,11 @@ module.exports = {
         scroller: this.scroller
       },
       props.touchableAreaProps,
-      {
+      (props.touchStartBoundsX || props.touchStartBoundsY) && {
         touchStartBoundsX: props.touchStartBoundsX,
-        touchStartBoundsY: this.getTouchStartBoundsY(),
+        touchStartBoundsY: this.getTouchStartBoundsY()
+      },
+      {
         untouchable: (
           props.touchableAreaProps && props.touchableAreaProps.untouchable ||
           props.disableScroll
@@ -345,6 +366,7 @@ module.exports = {
           }, i === this._advancingToIndex && {
             onComponentMounted: this.handleViewMounted
           },
+          this.props.viewProps,
           this.getViewProps && this.getViewProps());
         }, true)}
 

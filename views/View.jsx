@@ -83,10 +83,9 @@ module.exports = Component({
   },
 
   getTitleBarHeight() {
-    return (
-      this.props.titleBarProps && this.props.titleBarProps.height ||
-      this.getConstant('titleBarHeight')
-    );
+    return typeof this.props.titleBarProps === 'undefined' ?
+      this.getConstant('titleBarHeight') :
+      this.props.titleBarProps.height;
   },
 
   setClipStyles(props) {

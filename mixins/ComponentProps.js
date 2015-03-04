@@ -9,7 +9,6 @@ module.exports = {
 
     var props = {
       ref,
-      id: ref ? this._uniqueID + ref : this._uniqueID,
       className: this.getClassSet(ref),
       styles: this.getStyles(ref)
     };
