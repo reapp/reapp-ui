@@ -128,6 +128,7 @@ module.exports = {
 
     // for animating forwards
     if (cb) {
+      // if no child is there, we want to wait for it to mount
       if (!this.state.children[props.scrollToStep]) {
         this._advancingToIndex = props.scrollToStep;
         this._afterViewMounted = cb;
