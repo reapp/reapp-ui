@@ -128,10 +128,10 @@ module.exports = {
 
     // for animating forwards
     if (cb) {
-      var child = this.refs[props.scrollToStep];
-
-      if (child && !child.isMounted())
+      if (!this.state.children[props.scrollToStep]) {
+        this._advancingToIndex = props.scrollToStep;
         this._afterViewMounted = cb;
+      }
       else
         cb();
     }
@@ -142,8 +142,8 @@ module.exports = {
     if (this._afterViewMounted)
       this._afterViewMounted();
 
-    this._advancingToIndex = null;
-    this._afterViewMounted = null;
+    delete this._advancingToIndex;
+    delete this._afterViewMounted;
   },
 
   // scrolls the viewList to a given step
