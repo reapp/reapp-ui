@@ -82,7 +82,7 @@ module.exports = {
       pressDelay: 1000,
       pressMoveThreshold: 10,
       delayUntilActive: 60,
-      delayUntilInactive: 30
+      delayUntilInactive: 40
     };
   },
 
@@ -196,13 +196,16 @@ module.exports = {
   },
 
   setActive(immediate) {
-    if (immediate)
+    if (immediate) {
+      clearTimeout(this.delayUntilActiveTimeout);
       this.setState({ tapActive: true });
-    else if (!this.delayUntilActiveTimeout)
+    }
+    else if (!this.delayUntilActiveTimeout) {
       this.delayUntilActiveTimeout = setTimeout(() => {
         this.setState({ tapActive: true });
         delete this.delayUntilActiveTimeout;
       }, this.props.delayUntilActive);
+    }
   },
 
   setInactive(immediate) {
