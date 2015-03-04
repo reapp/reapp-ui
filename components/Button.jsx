@@ -19,13 +19,15 @@ module.exports = Component({
     rounded: React.PropTypes.bool,
     active: React.PropTypes.bool,
     isInTitleBar: React.PropTypes.bool,
-    isInViewList: React.PropTypes.bool
+    isInViewList: React.PropTypes.bool,
+    color: React.PropTypes.string
   },
 
   render() {
     var focused = this.state.tapActive;
     var {
       iconProps,
+      color,
       icon,
       children,
       chromeless,
@@ -43,6 +45,13 @@ module.exports = Component({
       animationState,
       focused
     });
+
+    if (color)
+      this.addStyles({
+        borderColor: color,
+        background: color,
+        color: '#fff'
+      });
 
     if (icon)
       icon = clone(icon, cloneProps, true);
