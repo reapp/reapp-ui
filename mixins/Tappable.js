@@ -72,8 +72,8 @@ module.exports = {
     onMouseOut: React.PropTypes.func,            // pass-through mouse event,
 
     maxTapTime: React.PropTypes.number,          // disable tap after certain amount of time
-    delayUntilActive: React.PropTypes.number     // add a delay until a tap is considered a tap
-
+    delayUntilActive: React.PropTypes.number,    // add a delay until a tap is considered a tap
+    delayUntilInactive: React.PropTypes.number   // add a delay to stay active after tap
   },
 
   getDefaultProps: function() {
@@ -81,7 +81,8 @@ module.exports = {
       moveThreshold: 10,
       pressDelay: 1000,
       pressMoveThreshold: 10,
-      delayUntilActive: 30
+      delayUntilActive: 60,
+      delayUntilInactive: 100
     };
   },
 
@@ -118,25 +119,11 @@ module.exports = {
     this._initialTouch = this._lastTouch = getTouchProps(event.touches[0]);
     this.initPressDetection(this.endTouch);
     this.touchStartTime = Date.now();
-
-    if (this.props.delayUntilActive)
-      this.delayUntilActiveTimeout = setTimeout(() => {
-        this.setState({
-          tapActive: true
-        });
-      }, this.props.delayUntilActive);
-    else
-      this.setState({
-        tapActive: true
-      });
+    this.setActive();
 
     // if we have max tap time and no press, lets disable it
     if (this.props.maxTapTime && !this.props.onPress)
-      this.delayUntilTapInactive = setTimeout(() => {
-        this.setState({
-          tapActive: false
-        })
-      }, this.props.maxTapTime);
+      this.maxTapTimeTimeout = setTimeout(this.setInactive, this.props.maxTapTime);
 
   },
 
@@ -198,19 +185,28 @@ module.exports = {
       this.cancelPressDetection();
 
     if (movement.x > this.props.moveThreshold || movement.y > this.props.moveThreshold)
-      this.setInactive();
-    else
-      if (!this.state.tapActive)
-        this.setState({ tapActive: true });
+      this.setInactive(true);
   },
 
-  setInactive() {
-    if (this.delayUntilActiveTimeout)
-      clearTimeout(this.delayUntilActiveTimeout);
+  setActive(immediate) {
+    if (immediate)
+      this.setState({ tapActive: true });
+    else if (!this.delayUntilActiveTimeout)
+      this.delayUntilActiveTimeout = setTimeout(() => {
+        this.setState({ tapActive: true });
+        delete this.delayUntilActiveTimeout;
+      }, this.props.delayUntilActive);
+  },
 
-    this.setState({
-      tapActive: false
-    });
+  setInactive(immediate) {
+    clearTimeout(this.maxTapTimeTimeout);
+    clearTimeout(this.delayUntilActiveTimeout);
+    delete this.maxTapTimeTimeout;
+    delete this.delayUntilActiveTimeout;
+
+    setTimeout(() => {
+      this.setState({ tapActive: false });
+    }, immediate ? 0 : this.props.delayUntilInactive);
   },
 
   onTouchEnd: function(event) {
@@ -219,17 +215,11 @@ module.exports = {
     var movement = this.calculateMovement(this._lastTouch);
     if (movement.x <= this.props.moveThreshold && movement.y <= this.props.moveThreshold &&
         this.tapWithinTime()) {
-      this.setActiveIfDelaying();
+      this.setActive(true);
       this.props.onTap && this.props.onTap(event);
     }
-    this.endTouch(event);
-  },
 
-  setActiveIfDelaying() {
-    if (this.delayUntilActiveTimeout) {
-      clearTimeout(this.delayUntilActiveTimeout);
-      this.setState({ active: true });
-    }
+    this.endTouch(event);
   },
 
   tapWithinTime() {
@@ -237,7 +227,6 @@ module.exports = {
   },
 
   endTouch: function() {
-    if (this.delayUntilActiveTimeout) clearTimeout(this.delayUntilActiveTimeout);
     this.cancelPressDetection();
     this.props.onTouchEnd && this.props.onTouchEnd(event);
     this._initialTouch = null;

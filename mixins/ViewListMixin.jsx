@@ -128,7 +128,7 @@ module.exports = {
 
     // for animating forwards
     if (cb) {
-      var child = this.refs[`child-${props.scrollToStep}`];
+      var child = this.refs[props.scrollToStep];
 
       if (child && !child.isMounted())
         this._afterViewMounted = cb;
@@ -325,7 +325,7 @@ module.exports = {
             activeTitle = child.props && child.props.title;
 
           return Object.assign({
-            ref: `child-${i}`,
+            ref: i,
             key: i,
             index: i,
             inactive: i !== this.state.step,
