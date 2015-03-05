@@ -1,10 +1,9 @@
 var React = require('react');
 var Component = require('../component');
 var ViewListMixin = require('../mixins/ViewListMixin');
-var DrawerViewListBehavior = require('../behaviors/DrawerViewListBehavior');
 
 module.exports = Component({
-  name: 'DrawerViewList',
+  name: 'ViewList',
 
   mixins: [
     ViewListMixin
@@ -14,14 +13,10 @@ module.exports = Component({
     return this.getViewListInitialState();
   },
 
-  getDefaultProps() {
-    return DrawerViewListBehavior;
-  },
-
   render() {
     return (
       <div>
-        {this.getViewList()}
+        {this.getViewList(this.props.behavior)}
       </div>
     );
   }

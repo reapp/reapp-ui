@@ -38,16 +38,24 @@ module.exports = {
   },
 
   componentWillMount() {
-    this.setAnimationState('viewList');
-    this.scroller = new Scroller(this.handleScroll, this.props.scrollerProps);
-    this.setupViewList(this.props);
+    this.setupBeforeMount(this.props);
   },
 
   componentDidMount() {
     this.setScrollPosition();
-    this.setupDimensions();
-    this.setTouchableAreaProps(this.props);
-    this.runViewCallbacks(this.props.scrollToStep || this.state.step);
+    this.setupAfterMount(this.props);
+  },
+
+  setupBeforeMount(props, cb) {
+    this.setAnimationState('viewList');
+    this.scroller = new Scroller(this.handleScroll, props.scrollerProps);
+    this.setupViewList(props, cb);
+  },
+
+  setupAfterMount(props) {
+    this.setupDimensions(props);
+    this.setTouchableAreaProps(props);
+    this.runViewCallbacks(props.scrollToStep || this.state.step);
     window.addEventListener('resize', this.resize);
     this.didMount = true;
   },
@@ -57,7 +65,22 @@ module.exports = {
   },
 
   componentWillReceiveProps(nextProps) {
-    this.setTouchableAreaProps(nextProps)
+    console.log("RECEIVE", nextProps.scrollToStep)
+    if (nextProps.name !== this.props.name) {
+      console.log('set up new one', this.props.scrollToStep, nextProps.scrollToStep)
+      var step = this.props.scrollToStep;
+      delete this.scroller;
+      return this.setupBeforeMount(nextProps, () => {
+        console.log('before setupaftermount', this.props.scrollToStep, nextProps.scrollToStep);
+        this.setupAfterMount(nextProps);
+        console.log('after setupaftermount', this.props.scrollToStep, nextProps.scrollToStep);
+        this.setTouchableAreaProps(nextProps);
+        console.log('before handlescrolltostep', this.props.scrollToStep, nextProps.scrollToStep);
+        this.handleScrollToStep(step, nextProps);
+      });
+    }
+
+    this.setTouchableAreaProps(nextProps);
 
     if (this.props.disableScroll !== nextProps.disableScroll) {
       if (nextProps.disableScroll)
@@ -70,12 +93,13 @@ module.exports = {
       return;
 
     // new scrollToStep
-    this.handleScrollToStep(nextProps);
+    this.handleScrollToStep(this.props.scrollToStep, nextProps);
   },
 
   // animates forward and backward depending
-  handleScrollToStep(nextProps) {
-    if (nextProps.scrollToStep === this.props.scrollToStep)
+  handleScrollToStep(step, nextProps) {
+    console.log('scorll to', nextProps.scrollToStep)
+    if (nextProps.scrollToStep === step)
       return this.setupViewList(nextProps);
 
     // if advancing
@@ -93,6 +117,7 @@ module.exports = {
   // todo: this shouldn't need to do so much here
   // for now this fixes a bug where if you start with a step > 0
   setScrollPosition() {
+    console.log('set scroll pos')
     var step = this.state.step;
 
     this.scroller.setPosition(step * this.state.width, 0);
@@ -109,7 +134,10 @@ module.exports = {
 
   // allow custom title bar heights
   getTitleBarHeight() {
-    return this.props.titleBarProps.height || this.getConstant('titleBarHeight');
+    return (
+      this.props.titlebarProps && this.props.titleBarProps.height ||
+      this.getConstant('titleBarHeight')
+    );
   },
 
   setupViewList(props, cb) {
@@ -129,8 +157,12 @@ module.exports = {
 
     this.scroller.setDimensions(width, height, fullWidth, fullHeight);
 
+    console.log('setupviewlist', this.props.scrollToStep, props.scrollToStep)
+
     if (this.isMounted())
       this.setState({ children });
+
+    console.log('after setstate', this.props.scrollToStep, props.scrollToStep)
 
     // for animating forwards
     if (cb) {
@@ -174,8 +206,8 @@ module.exports = {
     }
   },
 
-  setupDimensions() {
-    if (this.props.resizeWithWindow)
+  setupDimensions(props) {
+    if (props.resizeWithWindow)
       this.setState({
         width: window.innerWidth,
         height: window.innerHeight
@@ -183,7 +215,7 @@ module.exports = {
   },
 
   resize() {
-    this.setupDimensions();
+    this.setupDimensions(this.props);
     this.setScrollPosition();
   },
 
@@ -203,6 +235,8 @@ module.exports = {
 
   // Called back from Scroller on each frame of scroll
   handleScroll(left, top) {
+    console.log('handle', left, top);
+
     if (!this.props.disableScroll) {
       if (this.initialScrollEvent)
         this.initialScrollEvent = false;
