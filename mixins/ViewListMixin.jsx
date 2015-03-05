@@ -65,17 +65,17 @@ module.exports = {
   },
 
   componentWillReceiveProps(nextProps) {
-    console.log("RECEIVE", nextProps.scrollToStep)
+    // console.log("RECEIVE", nextProps.scrollToStep)
     if (nextProps.name !== this.props.name) {
-      console.log('set up new one', this.props.scrollToStep, nextProps.scrollToStep)
+      // console.log('set up new one', this.props.scrollToStep, nextProps.scrollToStep)
       var step = this.props.scrollToStep;
       delete this.scroller;
       return this.setupBeforeMount(nextProps, () => {
-        console.log('before setupaftermount', this.props.scrollToStep, nextProps.scrollToStep);
+        // console.log('before setupaftermount', this.props.scrollToStep, nextProps.scrollToStep);
         this.setupAfterMount(nextProps);
-        console.log('after setupaftermount', this.props.scrollToStep, nextProps.scrollToStep);
+        // console.log('after setupaftermount', this.props.scrollToStep, nextProps.scrollToStep);
         this.setTouchableAreaProps(nextProps);
-        console.log('before handlescrolltostep', this.props.scrollToStep, nextProps.scrollToStep);
+        // console.log('before handlescrolltostep', this.props.scrollToStep, nextProps.scrollToStep);
         this.handleScrollToStep(step, nextProps);
       });
     }
@@ -98,7 +98,7 @@ module.exports = {
 
   // animates forward and backward depending
   handleScrollToStep(step, nextProps) {
-    console.log('scorll to', nextProps.scrollToStep)
+    // console.log('scorll to', nextProps.scrollToStep)
     if (nextProps.scrollToStep === step)
       return this.setupViewList(nextProps);
 
@@ -117,7 +117,7 @@ module.exports = {
   // todo: this shouldn't need to do so much here
   // for now this fixes a bug where if you start with a step > 0
   setScrollPosition() {
-    console.log('set scroll pos')
+    // console.log('set scroll pos')
     var step = this.state.step;
 
     this.scroller.setPosition(step * this.state.width, 0);
@@ -158,12 +158,12 @@ module.exports = {
 
     this.scroller.setDimensions(width, height, fullWidth, fullHeight);
 
-    console.log('setupviewlist', this.props.scrollToStep, props.scrollToStep)
+    // console.log('setupviewlist', this.props.scrollToStep, props.scrollToStep)
 
     if (this.isMounted())
       this.setState({ children });
 
-    console.log('after setstate', this.props.scrollToStep, props.scrollToStep)
+    // console.log('after setstate', this.props.scrollToStep, props.scrollToStep)
 
     // for animating forwards
     if (cb) {
@@ -236,7 +236,7 @@ module.exports = {
 
   // Called back from Scroller on each frame of scroll
   handleScroll(left, top) {
-    console.log('handle', left, top);
+    // console.log('handle', left, top);
 
     if (!this.props.disableScroll) {
       if (this.initialScrollEvent)
@@ -370,7 +370,7 @@ module.exports = {
 
     this.setAnimationState('viewList');
 
-    console.log('nofake', this.props.titleBarProps, this.getTitleBarProps())
+    // console.log('nofake', this.props.titleBarProps, this.getTitleBarProps())
 
     return (
       <TouchableArea {...this._touchableAreaProps} {...touchableProps}>
