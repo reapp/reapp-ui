@@ -10,16 +10,20 @@ module.exports = Component({
     ViewListMixin
   ],
 
-  getInitialState: () => this.getViewListInitialState(),
   getDefaultProps: () => NestedViewListBehavior,
+  getInitialState() {
+    return this.getViewListInitialState();
+  },
 
-  getViewProps: () => ({
-    styles: {
-      inner: {
-        boxShadow: this.isAnimating() ? '0 0 15px rgba(0,0,0,0.2)' : 'none'
+  getViewProps() {
+    return {
+      styles: {
+        inner: {
+          boxShadow: this.isAnimating() ? '0 0 15px rgba(0,0,0,0.2)' : 'none'
+        }
       }
     }
-  }),
+  },
 
   render() {
     var touchableProps = {};

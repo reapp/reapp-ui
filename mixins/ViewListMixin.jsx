@@ -135,8 +135,9 @@ module.exports = {
   // allow custom title bar heights
   getTitleBarHeight() {
     return (
-      this.props.titlebarProps && this.props.titleBarProps.height ||
-      this.getConstant('titleBarHeight')
+      this.props.titlebarProps && typeof this.props.titlebarProps.height === 'number' ?
+        this.props.titleBarProps.height :
+        this.getConstant('titleBarHeight')
     );
   },
 
@@ -368,6 +369,8 @@ module.exports = {
     var activeTitle;
 
     this.setAnimationState('viewList');
+
+    console.log('nofake', this.props.titleBarProps, this.getTitleBarProps())
 
     return (
       <TouchableArea {...this._touchableAreaProps} {...touchableProps}>
