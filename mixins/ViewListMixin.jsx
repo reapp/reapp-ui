@@ -202,7 +202,7 @@ module.exports = {
       this.onViewEntered = () => {
         this.onViewEntered = null;
         this._isAnimating = false;
-        if (cb) cb();
+        if (typeof cb === 'function') cb();
       };
     }
   },
