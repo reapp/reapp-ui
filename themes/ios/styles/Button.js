@@ -47,6 +47,12 @@ module.exports = (c) => ({
     color: c.buttonActiveColor
   },
 
+  inactive: {
+    WebkitFilter: 'grayscale(1)',
+    opacity: 0.2,
+    pointerEvents: 'none'
+  },
+
   focused: {
     background: c.buttonFocusedBG
   },

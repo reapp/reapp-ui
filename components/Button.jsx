@@ -20,7 +20,8 @@ module.exports = Component({
     active: React.PropTypes.bool,
     isInTitleBar: React.PropTypes.bool,
     isInViewList: React.PropTypes.bool,
-    color: React.PropTypes.string
+    color: React.PropTypes.string,
+    inactive: React.PropTypes.bool
   },
 
   render() {
@@ -33,6 +34,7 @@ module.exports = Component({
       chromeless,
       rounded,
       active,
+      inactive,
       isInTitleBar,
       isInViewList,
       animationState,
@@ -67,6 +69,9 @@ module.exports = Component({
 
     if (active)
       this.addStyles('active');
+
+    if (inactive)
+      this.addStyles('inactive');
 
     if (focused)
       if (active)

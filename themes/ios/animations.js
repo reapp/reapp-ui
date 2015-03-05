@@ -29,7 +29,7 @@ var Animations = module.exports = {
       };
     else
       return {
-        translate: { y: strength * height }
+        translate: { y: strength * height + (index > 0 ? 44 : 0) }
       };
   },
 
