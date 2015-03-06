@@ -198,11 +198,15 @@ module.exports = {
   setActive(immediate) {
     if (immediate) {
       clearTimeout(this.delayUntilActiveTimeout);
-      this.setState({ tapActive: true });
+
+      if (this.isMounted())
+        this.setState({ tapActive: true });
     }
     else if (!this.delayUntilActiveTimeout) {
       this.delayUntilActiveTimeout = setTimeout(() => {
-        this.setState({ tapActive: true });
+        if (this.isMounted())
+          this.setState({ tapActive: true });
+
         delete this.delayUntilActiveTimeout;
       }, this.props.delayUntilActive);
     }
@@ -215,7 +219,8 @@ module.exports = {
     delete this.delayUntilActiveTimeout;
 
     setTimeout(() => {
-      this.setState({ tapActive: false });
+      if (this.isMounted())
+        this.setState({ tapActive: false });
     }, immediate ? 0 : this.props.delayUntilInactive);
   },
 
