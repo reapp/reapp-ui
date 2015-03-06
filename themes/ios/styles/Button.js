@@ -38,6 +38,12 @@ module.exports = (c) => ({
     borderRadius: 0
   },
 
+  fullscreen: {
+    border: 'none',
+    borderRadius: 0,
+    margin: '0 -20px'
+  },
+
   rounded: {
     borderRadius: '100px'
   },

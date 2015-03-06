@@ -2,6 +2,7 @@ var React = require('react/addons');
 var Component = require('../component');
 var Icon = require('./Icon');
 var Tappable = require('../mixins/Tappable');
+var clone = require('../lib/niceClone');
 
 module.exports = Component({
   name: 'ListItem',
@@ -93,7 +94,7 @@ module.exports = Component({
     if (wrapper) {
       var hasLinkIcon = this.isLink(wrapper) && !noicon || icon;
 
-      wrapper = React.addons.cloneWithProps(wrapper, {
+      wrapper = clone(wrapper, {
         children: hasLinkIcon ?
           this.getIcon() :
           null,

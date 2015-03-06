@@ -379,6 +379,9 @@ module.exports = {
         )}
 
         {clone(this.state.children, (child, i) => {
+          if (!child)
+            return;
+
           var active = i === this.state.step;
           if (active)
             activeTitle = child.props && child.props.title;

@@ -18,7 +18,7 @@ module.exports = Component({
   },
 
   render() {
-    var { label, ...props } = this.props;
+    var { label, labelProps, ...props } = this.props;
     var element, elementProps = {};
 
     switch(this.props.type) {
@@ -34,13 +34,13 @@ module.exports = Component({
     }
 
     var input = React.createElement(element,
-      Object.assign({}, elementProps, this.props));
+      Object.assign({}, elementProps, props));
 
     if (!label)
       return input;
 
     return (
-      <Label title={label} {...props}>
+      <Label title={label} {...labelProps}>
         {input}
       </Label>
     );

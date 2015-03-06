@@ -9,6 +9,9 @@ module.exports = {
   },
 
   title: {
-    margin: 'auto 0'
+    color: '#999',
+    margin: 'auto 0 auto auto',
+    minWidth: '30%',
+    textAlign: 'right'
   }
 };

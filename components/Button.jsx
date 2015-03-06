@@ -7,6 +7,10 @@ var Tappable = require('../mixins/Tappable');
 module.exports = Component({
   name: 'Button',
 
+  statics: {
+    liNoPad: true
+  },
+
   mixins: [
     React.addons.PureRenderMixin,
     Tappable
@@ -16,6 +20,7 @@ module.exports = Component({
     iconProps: React.PropTypes.object,
     icon: React.PropTypes.element,
     chromeless: React.PropTypes.bool,
+    fullscreen: React.PropTypes.bool,
     rounded: React.PropTypes.bool,
     active: React.PropTypes.bool,
     isInTitleBar: React.PropTypes.bool,
@@ -31,6 +36,7 @@ module.exports = Component({
       color,
       icon,
       children,
+      fullscreen,
       chromeless,
       rounded,
       active,
@@ -63,6 +69,9 @@ module.exports = Component({
 
     if (chromeless)
       this.addStyles('chromeless');
+
+    if (fullscreen)
+      this.addStyles('fullscreen');
 
     if (rounded)
       this.addStyles('rounded');
