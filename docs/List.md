@@ -10,7 +10,7 @@ Props:
 ```
 propTypes: {
   type: React.PropTypes.string,
-  liProps: React.PropTypes.object,
+  itemProps: React.PropTypes.object,
   title: React.PropTypes.node,
   nowrap: React.PropTypes.bool,
   nopad: React.PropTypes.bool

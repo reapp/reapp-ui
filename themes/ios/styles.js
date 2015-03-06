@@ -11,6 +11,8 @@ module.exports = makeStyles(requirer, [
   'ButtonGroup',
   'Card',
   'CardList',
+  'Chat',
+  'ChatItem',
   'Checkbox',
   'Container',
   'DottedViewList',
