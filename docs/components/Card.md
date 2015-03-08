@@ -1,6 +1,8 @@
 ### Card
 
-Unfinished, will be used for tinder-style swipe cards.
+**In Progress**
+
+Unfinished, will be used for both regular and tinder-style swipe cards.
 
 Props:
 ```
