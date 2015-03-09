@@ -25,9 +25,9 @@ module.exports = Component({
     right: React.PropTypes.bool,
 
     // What to show above
-    above: React.PropTypes.node,
+    children: React.PropTypes.node,
 
-    // What to show above
+    // What to show below
     below: React.PropTypes.node,
 
     // Where to limit swiping
@@ -89,7 +89,7 @@ module.exports = Component({
       down,
       left,
       right,
-      above,
+      children,
       below,
       noswiping,
       ...props } = this.props;
@@ -106,10 +106,15 @@ module.exports = Component({
     if (left)
       this.addStyles('below', 'left');
 
+    var touchableProps = {
+      ignoreX: (!left && !right),
+      ignoreY: (!up && !down)
+    };
+
     return (
-      <TouchableArea {...props} {...this.componentProps()} scroller={this.scroller}>
+      <TouchableArea {...props} {...touchableProps} {...this.componentProps()} scroller={this.scroller}>
         <div {...this.componentProps('above')} style={{ left: -this.state.x, top: -this.state.y }}>
-          {clone(above, props, true)}
+          {clone(children, props, true)}
         </div>
         <div {...this.componentProps('below')}>
           {below}
