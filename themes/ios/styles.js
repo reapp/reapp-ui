@@ -34,6 +34,7 @@ module.exports = makeStyles(requirer, [
   'Radio',
   'SearchBar',
   'StaticContainer',
+  'Swiper',
   'TextArea',
   'Title',
   'TitleBar',

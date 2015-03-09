@@ -22,12 +22,16 @@ module.exports = Component({
     draggable: React.PropTypes.bool
   },
 
-  mixins: [Scrollable({
+  mixins: [
+    Scrollable
+  ],
+
+  scrollerProps: {
     scrollBounce: false,
     scrollX: true,
     scrollY: false,
     scrollSnap: true
-  })],
+  },
 
   afterMeasureScroll(node) {
     this.scroller.setSnapSize(this.props.sideWidth, node.clientHeight);

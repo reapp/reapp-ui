@@ -19,8 +19,6 @@ module.exports = Component({
     before: React.PropTypes.node,
     after: React.PropTypes.node,
     wrapper: React.PropTypes.node,
-    underLeft: React.PropTypes.node,
-    underRight: React.PropTypes.node,
     noicon: React.PropTypes.bool,
     icon: React.PropTypes.bool,
     nopad: React.PropTypes.bool
@@ -68,8 +66,6 @@ module.exports = Component({
       before,
       after,
       wrapper,
-      underLeft,
-      underRight,
       noicon,
       icon,
       nopad,

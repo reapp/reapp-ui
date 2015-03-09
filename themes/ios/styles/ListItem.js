@@ -1,5 +1,6 @@
 module.exports = (c) => ({
   self: {
+    background: c.listBG,
     listStyle: 'none',
     margin: 0,
     padding: '0 0 0 20px',
