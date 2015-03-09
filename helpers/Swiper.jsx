@@ -67,8 +67,8 @@ module.exports = Component({
 
     this.scroller.setDimensions(
       width, height,
-      width * (horizontal ? limit : 1),
-      height * (vertical ? limit : 1)
+      width + (horizontal ? limit : 0),
+      height + (vertical ? limit : 0)
     );
   },
 
