@@ -15,5 +15,9 @@ module.exports = {
     right: 0,
     bottom: 0,
     zIndex: 1
+  },
+
+  right: {
+    left: 'auto'
   }
 }
