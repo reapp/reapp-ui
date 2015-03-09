@@ -57,13 +57,12 @@ module.exports = Component({
     width = width || this.refs.above.getDOMNode().clientWidth;
     height = height || this.refs.above.getDOMNode().clientHeight;
 
-    if (limit) {
-      this.scroller.setSnapSize(limit, limit);
-      limit = width;
+    if (!limit) {
+      var below = this.refs.below.getDOMNode();
+      limit = below[vertical ? 'clientHeight' : 'clientWidth'];
     }
-    else {
-      limit = width * 2;
-    }
+
+    this.scroller.setSnapSize(limit, limit);
 
     this.scroller.setDimensions(
       width, height,
@@ -80,7 +79,6 @@ module.exports = Component({
         break;
     }
 
-    console.log('set', x, y);
     this.setState({ x, y });
   },
 
@@ -94,7 +92,7 @@ module.exports = Component({
     return (
       <TouchableArea {...props} {...this.componentProps()} scroller={this.scroller}>
         <div {...this.componentProps('above')} style={{ left: -this.state.x, top: -this.state.y }}>
-          {above}
+          {clone(above, props, true)}
         </div>
         <div {...this.componentProps('below')}>
           {below}
