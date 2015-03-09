@@ -9,10 +9,12 @@ module.exports = Component({
 
   scrollerProps() {
     return Object.assign({
-      scrollBounce: true,
-      scrollY: this.props.up || this.props.down || false,
-      scrollX: this.props.left || this.props.right || false,
-      scrollSnap: true
+      bouncing: true,
+      snapping: true,
+      locking: true,
+      paging: false,
+      scrollingY: this.props.up || this.props.down || false,
+      scrollingX: this.props.left || this.props.right || false
     }, this.props.scrollerProps);
   },
 
@@ -54,7 +56,14 @@ module.exports = Component({
 
     width = width || this.refs.above.getDOMNode().clientWidth;
     height = height || this.refs.above.getDOMNode().clientHeight;
-    limit = typeof limit === 'undefined' ? width * 2 : limit;
+
+    if (limit) {
+      this.scroller.setSnapSize(limit, limit);
+      limit = width;
+    }
+    else {
+      limit = width * 2;
+    }
 
     this.scroller.setDimensions(
       width, height,
