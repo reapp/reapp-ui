@@ -75,10 +75,12 @@ module.exports = Component({
   handleScroll(x, y) {
     var updateState = false;
 
-    switch(this.props.edges) {
-      case 'right':
-        break;
-    }
+    if (this.props.noswiping)
+      return;
+
+    // TODO: handle other sides
+    if (!this.props.left)
+      x = Math.max(0, x);
 
     this.setState({ x, y });
   },
@@ -107,8 +109,8 @@ module.exports = Component({
       this.addStyles('below', 'left');
 
     var touchableProps = {
-      ignoreX: (!left && !right),
-      ignoreY: (!up && !down)
+      ignoreX: !left && !right,
+      ignoreY: !up && !down
     };
 
     return (

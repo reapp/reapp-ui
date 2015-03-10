@@ -19,5 +19,9 @@ module.exports = {
 
   right: {
     left: 'auto'
+  },
+
+  left: {
+    right: 'auto'
   }
 }
