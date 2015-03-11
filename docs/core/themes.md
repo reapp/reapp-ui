@@ -7,7 +7,7 @@ load only the pieces you needed.
 
 Here's an example of manually loading the default iOS theme:
 
-```
+```js
 var UI = require('reapp-ui');
 var iOS = require('reapp-ui/themes/ios');
 

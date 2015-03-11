@@ -5,7 +5,7 @@ Animations in Reapp are powered by our [Animated mixin](https://github.com/reapp
 You can load animations into your [Theme](https://reapp.io/themes.html) using the following
 syntax:
 
-```
+```js
 import UI from 'reapp-ui';
 
 UI.addAnimations({
@@ -40,7 +40,7 @@ the Parent class to do a tween.
 In your Parent class import the [react-tween-state](https://github.com/chenglou/react-tween-state),
 and set up a tween from 0 to 2 that lasts a second:
 
-```
+```js
 import Animated from 'reapp-ui/mixins/Animated';
 import tweenState from 'react-tween-state';
 
