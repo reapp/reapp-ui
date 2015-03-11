@@ -15,6 +15,7 @@ module.exports = (c) => ({
 
   own: {
     backgroundColor: c.brandColor,
-    alignSelf: 'flex-end'
+    alignSelf: 'flex-end',
+    WebkitAlignSelf: 'flex-end'
   }
 });
