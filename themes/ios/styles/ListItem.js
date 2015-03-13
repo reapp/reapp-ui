@@ -115,7 +115,8 @@ module.exports = (c) => ({
     color: c.listItemAfterColor,
     flexShrink: 0,
     WebkitFlexShrink: 0,
-    margin: 'auto 12px',
+    padding: '0 12px',
+    justifyContent: 'center',
     whiteSpace: 'nowrap',
     alignSelf: 'stretch',
     WebkitAlignSelf: 'stretch'
