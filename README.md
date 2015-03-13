@@ -1,27 +1,69 @@
-## reapp-ui
+## The Reapp User Interface
 
-*This is an alpha release: seeking feedback, expect missing pieces, laughable mistakes, big changes*
+reapp-ui is a set of React components for building beautiful user interfaces
+for all platforms. It has a few goals:
 
-reapp-ui is a set of React components for building app UI's. It has a few goals
+- Powerful interaction and animations
+- Easy to use what you want, and leave the rest
+- Themeable in every way
+- High performance
 
-- Allow pick-and-choose usage
-- Work well together
-- Lightweight code with few dependencies
-- Themeable
-- Adaptable to many platforms
+### Usage
 
-Near-term goals are to finish out the component set, finish the most
-accurate themes possible for iOS and Andorid, and nail down performance.
-[Visit our homepage](http://reapp.io) for an overview of features and a live demo.
+The most simple way of using reapp-ui is to load one of our themes, and
+then import the components you want to use. Here's an example of this;
 
-### Demo
+```js
+import iOSTheme from 'reapp-ui/themes/ios/theme'
+import Button from 'reapp-ui/components/Button';
+import React from 'react';
+
+export default React.createClass({
+  render() {
+    return <Button color="red" />;
+  }
+});
+```
+
+This will bundle every style for every component in the iOS theme. It's
+simple and easy to get started with. Reapp themes are very powerful though,
+and allow you to customize every piece of them.
+
+Lets see how they work. If you open the `reapp-ui/themes/ios/theme.js` file
+you'll see how we load the iOS theme:
+
+```js
+var UI = require('../../index');
+
+require('./stylesheets');
+
+UI.addConstants(
+  require('./constants/base'),
+  require('./constants/components')
+);
+
+UI.addAnimations(require('./animations'));
+UI.addStyles(require('./styles'));
+```
+
+As you can see, we're basically loading three different pieces: constants,
+styles, and animations. We're also loading the stylesheets file, which
+includes our base.css styles that are used to normalize everything.
+
+You could easily override each of these steps by adding in new constants,
+styles, or animations, or overwriting the ones we use!
+
+
+### Demos
 
 You can add these demos to your homescreen or emulate mobile on your browser:
 
 - [kitchen.reapp.io](http://kitchen.reapp.io)
 - [hn.reapp.io](http://hn.reapp.io)
 
-### Structure
+### Internal Documentation
+
+#### Structure
 
 ```
   /assets
@@ -77,7 +119,7 @@ reptitious code.
 This is an important file to look at before understanding how this library works,
 and from there, the Mixins that are used here make the foundation of the UI kit.
 
-### Contributing
+#### Contributing
 
 Because Reapp has split itself into a number of modules, you'll probably need to do a little
 more work than usual to contribute. For the UI, the best setup is to do the following:
@@ -101,12 +143,6 @@ modules folders, causing Webpack to bundle multiple versions of it into your app
 can cause a variety of errors. If you see stuff that warns about `Mount, Link, Context`,
 it is most likely because of this. Delete the react folder inside reapp-ui and any other
 sub-modules and re-run Webpack.
-
-### Principles
-
-- Aim for performance and consistency.
-- Keep the repo structure as flat as possible.
-- Decouple components. Allow selective usage of these components.
 
 ### Credits
 

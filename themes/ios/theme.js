@@ -11,5 +11,5 @@ UI.addConstants(
   require('./constants/components')
 );
 
-UI.addAnimations(require('./animations'));
 UI.addStyles(require('./styles'));
+UI.addAnimations(require('./animations'));
