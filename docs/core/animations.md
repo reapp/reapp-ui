@@ -4,15 +4,15 @@
 
 Animations in Reapp are powered by our [Animated mixin](https://github.com/reapp/reapp-ui/blob/master/mixins/Animated.js). This mixin provides an API that allows you to easily animate React elements.
 
-### Animation props
-
 Animations are defined in a specific format. When you pass props to a component, you use `animations` as the key. The value is an object that describes the animations you want:
 
 ```
-<Component animations={{
+var animations = {
   self: ['fade', 'moveLeft'],
   button: 'moveRight'
-}}>
+};
+
+<Component animations={animations}>
 ```
 
 In the above example we are definining a more complex animation, where the component is being told to animate it's outermost div (`self`) with two animations: 'fade' and 'moveLeft'. Meanwhile, we assign the 'moveRight' animation to it's button.
@@ -46,9 +46,9 @@ The `ref` attribute is the same as the string we pass to componentProps, but it 
 
 Now, going back to how we defined our animation props we can see how they apply. The `<div ref="self">` gets 'fade' and 'moveLeft', while the `<button ref="button">` gets 'moveRight'.
 
-### API
+## API
 
-#### getAnimationState(source : string) : object
+### getAnimationState(source : string) : object
 
 Animation state consists always of two things: `index` and `step`.
 You can also add extra information to you animation state by defining
@@ -78,41 +78,41 @@ in the following order to find these properties:
 
 The return value is an object with at least index and step, and potentially extra information.
 
-#### setAnimationState(source : string)
+### setAnimationState(source : string)
 
 For components that want to animate down to deeply nested children, they can use this function. It will use `getAnimationState` to get the current state, and the place it into the AnimateStore for children to use when fetching.
 
 You can define a `source` of your animation. This is needed for children that want to get the animation state dynamically from different sources.
 
-#### disableAnimation()
+### disableAnimation()
 
 Call this to disable animations on the current component.
 
-#### enableAnimation()
+### enableAnimation()
 
 Call this to enable animations on the current component.
 
-#### animationsDisabled() : bool
+### animationsDisabled() : bool
 
 Returns if the animations are currently disabled.
 
-#### isAnimating(source : string): bool
+### isAnimating(source : string): bool
 
 Check if an animation is running. This uses `getAnimationState` and then checks if the step isn't a whole number.
 
-#### isAnimatingSafe(source : string) : bool
+### isAnimatingSafe(source : string) : bool
 
 Similar to isAnimating, but will have a slight delay (returns true after animations are completed for a short time).
 
-#### hasAnimations(ref : string) : bool
+### hasAnimations(ref : string) : bool
 
 Checks if a given ref has animations set.
 
-#### getAnimations(ref : string)
+### getAnimations(ref : string)
 
 Because we can either pass in our `animations` object through props, or define it in state, this is a helper function that checks both props and state for active animations.
 
-#### getAnimationStyle(ref : string, source : string) : object
+### getAnimationStyle(ref : string, source : string) : object
 
 Given a ref and optionally a source, returns an object of styles at the current animation state.
 
@@ -205,6 +205,7 @@ Notice we clone the children elements and pass down the index and step to them.
 Let's make our Child elements:
 
 ```
-<Child animations={{ self: 'slideLeft' }}>
+var animations = { self: 'slideLeft' };
+<Child animations={animations}>
 ```
 

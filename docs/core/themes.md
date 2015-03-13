@@ -1,6 +1,8 @@
+*These docs are in progress!*
+
 ## Themes
 
-Loading themes is a core tenant of Reapp. We wanted a system that allowed complete
+Loading themes is easy with Reapp. We wanted a system that allowed complete
 flexibility by allowing users to modify any small piece of a theme, as well as swap
 entire themes out. Finally, we needed to work with build systems so that you could
 load only the pieces you needed.
