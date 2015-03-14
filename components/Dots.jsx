@@ -16,24 +16,31 @@ module.exports = Component({
     );
   },
 
+  componentWillMount() {
+    this.cProps = {
+      dot: this.componentProps('dot'),
+      active: Object.assign({}, this.componentProps('dotActive'))
+    };
+
+    this.cProps.active.styles.unshift(this.getStyles('dot'));
+  },
+
   render() {
     var { total, active, ...props } = this.props;
 
-    // is this really how you make a new empty array in js?
-    var dots = Array.apply(null, new Array(total));
+    var dots = [];
 
-    var dotProps = this.componentProps('dot');
-    var activeDotProps = Object.assign({}, this.componentProps('dotActive'));
-    activeDotProps.styles.unshift(this.getStyles('dot'));
+    for (let i = 0; i < total; i++) {
+      dots.push(i === active ?
+        <div {...this.cProps.active} key={i} /> :
+        <div {...this.cProps.dot} key={i} />
+      );
+    }
 
     return (
       <div {...this.componentProps()} {...props}>
         <div {...this.componentProps('inner')}>
-          {dots.map((dot, i) => (
-            i === active ?
-              <div {...activeDotProps} key={i} /> :
-              <div {...dotProps} key={i} />
-          ))}
+          {dots}
         </div>
       </div>
     );

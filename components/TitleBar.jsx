@@ -103,15 +103,19 @@ module.exports = Component({
         {...this.componentProps()}
         {...this.multiTap(2, this.handleDoubleTap)}
         {...props}>
-        <div {...this.componentProps('left')}>
-          {this.addTitleBarProps(l)}
-        </div>
+        {l &&
+          <div {...this.componentProps('left')}>
+            {this.addTitleBarProps(l)}
+          </div>
+        }
         <div {...this.componentProps('mid')}>
           {m}
         </div>
-        <div {...this.componentProps('right')}>
-          {this.addTitleBarProps(r)}
-        </div>
+        {r &&
+          <div {...this.componentProps('right')}>
+            {this.addTitleBarProps(r)}
+          </div>
+        }
       </div>
     );
   }
