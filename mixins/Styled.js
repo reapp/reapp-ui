@@ -1,4 +1,4 @@
-var ReactStyle = require('react-style');
+var Stylesheet = require('react-style');
 
 // Styled helps components with styling
 
@@ -27,21 +27,13 @@ module.exports = function(name, getStyles) {
       this.addedStyles = {};
 
       if (props.styles) {
-        this.addedStyles = {};
         this.propStyles = props.styles;
         delete props.styles; // bad, i know
       }
     },
 
     getPropStyles(ref) {
-      if (!this.propStyles)
-        return;
-
-      return (ref === 'self' && this.isReactStyle(this.propStyles)) ?
-        this.propStyles :
-        Object.keys(this.propStyles).filter(key => key === ref).map(key => (
-          this.makeReactStyle(this.propStyles[key])
-        ));
+      return ref === 'self' ? this.propStyles : this.propStyles && this.propStyles[ref];
     },
 
     addStyleTo(obj, key, style) {
@@ -58,20 +50,11 @@ module.exports = function(name, getStyles) {
       });
     },
 
-    makeReactStyle(obj) {
-      return this.isReactStyle(obj) ? obj : ReactStyle(obj);
-    },
-
-    // todo: better way to do this
-    isReactStyle(obj) {
-      return Array.isArray(obj) || !!obj.style;
-    },
-
     getStyles(ref, index) {
       ref = ref || 'self';
 
       return (
-        this.styles[ref] || []
+        this.styles[ref] ? [this.styles[ref]] : []
       ).concat(
         this.addedStyles[ref] || []
       ).concat(
@@ -135,9 +118,6 @@ module.exports = function(name, getStyles) {
       if (!styles)
         return;
 
-      // ensure we have well formatted styles
-      styles = this.makeReactStyle(styles);
-
       // merge onto our addedStyles object
       this.mergeStyles(this.addedStyles, ref, styles);
     },
@@ -197,10 +177,10 @@ module.exports = function(name, getStyles) {
 
     // get another components styles
     getStylesForComponent(componentName, ref) {
-      if (!ref) ref = 'self';
+      ref = ref || 'self';
 
       return getStyles(componentName)
-        .map(styles => styles.style[ref])
+        .map(styles => styles[ref])
         .filter(x => typeof x !== 'undefined');
     },
 
