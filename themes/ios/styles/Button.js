@@ -26,7 +26,12 @@ module.exports = (c) => ({
   },
 
   inner: {
-    margin: 'auto'
+    margin: 'auto',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    display: 'block',
+    maxWidth: '100%'
   },
 
   isInTitleBar: {
