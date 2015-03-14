@@ -129,10 +129,11 @@ module.exports = Component({
     ];
 
     var tapProps;
-    if (this.props.onTap) {
+    if (this.props.onTap)
       tapProps = this.tappableProps();
-      this.addClass(tapProps.className);
-    }
+
+    if (this.state.tapActive)
+      this.addStyles('tapActive');
 
     return (
       <li {...tapProps} {...props} {...this.componentProps()}>

@@ -17,7 +17,7 @@ module.exports = (c) => ({
   },
 
   tapActive: {
-    background: 'rgba(0,0,0,0.1)'
+    background: '#f2f2f2'
   },
 
   borderless: {

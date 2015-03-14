@@ -84,10 +84,6 @@ p a {
   transition: background linear 50ms;
 }
 
-.ListItem.tapActive {
-  background: rgba(0,0,0,0.1);
-}
-
 .verticalCenter {
   position: absolute;
   top: 0;
