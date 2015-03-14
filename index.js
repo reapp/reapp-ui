@@ -84,15 +84,12 @@ var UI = module.exports = {
       if (typeof style === 'function')
         style = style(UI.constants);
 
-      // debugger;
-      UI.styles[key] = Stylesheet.create(style);
-
-      // make into ReactStyle
-      // Object.keys(style).forEach(styleKey => {
-      //   UI.styles[key] = (UI.styles[key] || {});
-      //   UI.styles[key][styleKey] = (UI.styles[key][styleKey] || [])
-      //     .concat(ReactStyle(style[styleKey]));
-      // });
+      if (!UI.styles[key])
+        UI.styles[key] = Stylesheet.create(style);
+      else
+        Object.keys(style).forEach(ref => {
+          UI.styles[key][ref] = [].concat(UI.styles[key][ref], style[ref]);
+        });
     });
   },
 
