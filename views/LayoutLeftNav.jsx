@@ -99,7 +99,7 @@ module.exports = Component({
       translate: behavior.parent.translate(sideWidth, this.state.scrollX),
       rotate: behavior.parent.rotate(sideWidth, this.state.scrollX),
       opacity: behavior.parent.opacity(sideWidth, this.state.scrollX),
-      styles: isSideOpen ? this.getStyles('side') : null
+      styles: isSideOpen ? { self: this.getStyles('side') } : null
     };
 
     var drawerProps = Object.assign({

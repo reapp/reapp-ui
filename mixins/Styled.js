@@ -33,7 +33,9 @@ module.exports = function(name, getStyles) {
     },
 
     getPropStyles(ref) {
-      return ref === 'self' ? this.propStyles : this.propStyles && this.propStyles[ref];
+      return ref === 'self' && Array.isArray(this.propStyles) ?
+        this.propStyles :
+        this.propStyles && this.propStyles[ref];
     },
 
     addStyleTo(obj, key, style) {
