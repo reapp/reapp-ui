@@ -5,18 +5,33 @@ var LeftNavBehavior = require('../behaviors/LeftNavBehavior');
 var Drawer = require('../components/Drawer');
 var DrawerBehavior = require('../behaviors/DrawerBehavior');
 var TouchableArea = require('../helpers/TouchableArea');
+var StaticContainer = require('../helpers/StaticContainer');
 var Scrollable = require('../mixins/Scrollable');
+var Tappable = require('../helpers/Tappable');
 var clone = require('../lib/niceClone');
 
 module.exports = Component({
   name: 'LayoutLeftNav',
 
-  mixins: [Scrollable({
+  propTypes: {
+    behavior: React.PropTypes.object,
+    sideWidth: React.PropTypes.number,
+    sizeZIndex: React.PropTypes.number,
+    drawerProps: React.PropTypes.object,
+    handle: React.PropTypes.node,
+    draggable: React.PropTypes.bool
+  },
+
+  mixins: [
+    Scrollable
+  ],
+
+  scrollerProps: {
     scrollBounce: false,
     scrollX: true,
     scrollY: false,
     scrollSnap: true
-  })],
+  },
 
   afterMeasureScroll(node) {
     this.scroller.setSnapSize(this.props.sideWidth, node.clientHeight);
@@ -25,8 +40,9 @@ module.exports = Component({
 
   getDefaultProps() {
     return {
+      draggable: false,
       sideWidth: 200,
-      behavior: LeftNavBehavior.ALL_PARALLAX_FADE
+      behavior: LeftNavBehavior.NORMAL
     };
   },
 
@@ -67,6 +83,8 @@ module.exports = Component({
       handle,
       side,
       children,
+      drawerProps,
+      draggable,
       ...props } = this.props;
 
     var isSideOpen = this.isSideOpen();
@@ -81,34 +99,48 @@ module.exports = Component({
       translate: behavior.parent.translate(sideWidth, this.state.scrollX),
       rotate: behavior.parent.rotate(sideWidth, this.state.scrollX),
       opacity: behavior.parent.opacity(sideWidth, this.state.scrollX),
-      styles: isSideOpen ? this.getStyles('side') : null
+      styles: isSideOpen ? { self: this.getStyles('side') } : null
     };
 
-    var drawerProps = {
+    var drawerProps = Object.assign({
       layer: 1,
-      translate: DrawerBehavior.right.translate(this.state.scrollX),
+      translate: DrawerBehavior.left.translate(this.state.scrollX),
       scroller: this.scroller,
       onTouchTap: this._handleContentTouchTap
-    };
+    }, drawerProps);
 
-    var touchableHandle = (
-      <TouchableArea onClick={this._handleTap} scroller={this.scroller} passprops>
-        {handle}
-      </TouchableArea>
-    );
+    var movableHandle = clone(handle, {
+      onTap: this._handleTap,
+      isInTitleBar: true
+    }, true);
+
+    if (draggable)
+      movableHandle = (
+        <TouchableArea scroller={this.scroller} passprops>
+          {movableHandle}
+        </TouchableArea>
+      );
+
+    var childrenWithProps = clone(children, { handle: movableHandle });
 
     return (
       <div {...this.componentProps()} {...props}>
         {isSideOpen && (
           <AnimatableContainer {...sideProps}>
-            <div {...this.componentProps('sideInner')}
-              onClick={this._handleContentTouchTap}>
+            <Tappable
+              {...this.componentProps('sideInner')}
+              onTap={this._handleContentTouchTap}>
               {side}
-            </div>
+            </Tappable>
           </AnimatableContainer>
         )}
-        <Drawer {...this.componentProps('drawer')} {...drawerProps}>
-          {clone(children, { handle: touchableHandle })}
+        <Drawer
+          {...this.componentProps('drawer')}
+          shouldUpdate={this.state.scrollX === 200}
+          from="right"
+          dragger={draggable}
+          {...drawerProps}>
+          {childrenWithProps}
         </Drawer>
       </div>
     );

@@ -6,44 +6,57 @@ module.exports = function(name) {
     className: name,
 
     componentWillMount() {
-      this.classes = {};
+      this._classSets = {};
+      this._classRefs = {};
       this.setClasses(this.props);
     },
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate(nextProps) {
       this.setClasses(nextProps);
     },
 
     setClasses() {
-      this.classes[name] = {};
-      this.classes[name][this.className] = true;
+      this._classSets = {};
 
       if (this.props.className)
-        this.classes[name][this.props.className] = true;
+        this.addClass('self', this.props.className);
     },
 
-    getClasses(key) {
-      var classSet = this.classes[key || name];
+    getClasses(ref) {
+      var refClassSet = this._classSets[ref];
+      refClassSet = refClassSet || {};
+      refClassSet[this.getClassName(ref)] = true;
+      return refClassSet;
+    },
 
-      if (key) {
-        classSet = classSet || {};
-        classSet[this.getClassName(key)] = true;
+    getClassSet(ref) {
+      return cx(this.getClasses(ref));
+    },
+
+    addClass(ref, className, conditional) {
+      // shorthands
+      if (typeof className === 'boolean' && !!className)
+        className = ref;
+      else if (!className) {
+        className = ref;
+        ref = 'self';
       }
 
-      return cx(classSet);
+      this._classSets[ref] = this._classSets[ref] || {};
+      this._classSets[ref][className] = true;
     },
 
-    addClass(name, conditional) {
-      if (typeof conditional === 'undefined' || !!conditional)
-        this.classes[name] = true;
+    removeClass(ref, className) {
+      ref = ref || 'self';
+      this._classSets[ref][className] = false;
     },
 
-    removeClass(name) {
-      this.classes[name] = false;
-    },
+    getClassName(ref) {
+      if (this._classRefs[ref])
+        return this._classRefs[ref];
 
-    getClassName(key) {
-      return !key ? this.className : `${this.className}--${key}`;
+      this._classRefs[ref] = ref === 'self' ? this.className : `${this.className}--${ref}`;
+      return this._classRefs[ref];
     },
 
     getSelector(key) {

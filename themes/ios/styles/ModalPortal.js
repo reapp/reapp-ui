@@ -11,7 +11,8 @@ module.exports = (c) => ({
 
   open: {
     visibility: 'visible',
-    zIndex: 15000
+    zIndex: 15000,
+    opacity: 1
   },
 
   bg: {
@@ -27,7 +28,7 @@ module.exports = (c) => ({
     minWidth: 270,
     maxWidth: '80%',
     margin: 'auto',
-    background: 'rgba(255,255,255,0.95)',
+    background: c.white,
     padding: 0,
     borderRadius: 7,
     textAlign: 'center',
@@ -42,10 +43,11 @@ module.exports = (c) => ({
 
   inner: {
     padding: 15,
-    borderBottom: `1px solid ${c.midGray}`
+    borderBottom: `1px solid ${c.mid}`
   },
 
   title: {
+    color: c.black,
     fontSize: '18px',
     fontWeight: 500
   },

@@ -5,29 +5,32 @@ module.exports = (c) => ({
     left: 0,
     bottom: 0,
     right: 0,
-    pointerEvents: 'none',
-    WebkitOverflowScrolling: 'touch',
-    WebkitBackfaceVisibility: 'hidden',
-    WebkitTransform: 'translateZ(0)',
     zIndex: 2
   },
 
-  active: {
-    pointerEvents: 'all'
+  inactive: {
+    pointerEvents: 'none'
   },
 
   inner: {
-    background: c.viewBGColor,
+    background: c.viewBG,
     padding: `0 ${c.viewPad}`,
     zIndex: 1,
     position: 'absolute',
-    overflowY: 'scroll',
     overflowX: 'hidden',
+    overflowY: 'scroll',
     top: 0,
     left: 0,
     bottom: 0,
     right: 0,
-    WebkitBackfaceVisibility: 'hidden'
+    WebkitOverflowScrolling: 'touch'
+  },
+
+  innerInactive: {
+    WebkitOverflowScrolling: 'none'
+    // note, this was causing flickering on ios
+    // but prevents people from moving the view as they swipe:
+    // overflow: 'hidden'
   },
 
   overlay: {

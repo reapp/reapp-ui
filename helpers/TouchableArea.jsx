@@ -19,7 +19,9 @@ var TouchableArea = React.createClass({
       touchStartBoundsY: false,
       ignoreY: false,
       ignoreX: false,
-      passprops: false
+      minimumDrag: 0,
+      passprops: false,
+      allowDefault: false
     };
   },
 
@@ -47,9 +49,6 @@ var TouchableArea = React.createClass({
     if (this.props.currentTargetOnly && e.currentTarget !== this.getDOMNode())
       return;
 
-    // todo: allow touching again after letting go ("catching")
-    // should be done in the scroller library
-
     // _disableDirection === null, we haven't figured out if ignoring this scroll yet
     this.disableDirection = null;
     this._initialTouchLeft = this.getTouchLeft(e.touches);
@@ -61,8 +60,13 @@ var TouchableArea = React.createClass({
       var withinX = !xBounds || this.oneWithin(xBounds, this.getTouchLeft(e.touches));
       var withinY = !yBounds || this.oneWithin(yBounds, this.getTouchTop(e.touches));
 
-      if (withinX && withinY)
+      if (withinX && withinY) {
+        this._touchStartOutOfBounds = false;
         this.touchStartActions(e);
+      }
+      else {
+        this._touchStartOutOfBounds = true;
+      }
     }
     else
       this.touchStartActions(e);
@@ -78,6 +82,7 @@ var TouchableArea = React.createClass({
 
   handleTouchMove(e) {
     if (
+      this._touchStartOutOfBounds ||
       !this.props.scroller ||
       this.props.untouchable ||
       this.disableDirection ||
@@ -86,31 +91,39 @@ var TouchableArea = React.createClass({
       return;
 
     this.props.scroller.doTouchMove(e.touches, e.timeStamp, e.scale);
-    e.preventDefault();
+
+    if (!this.props.allowDefault)
+      e.preventDefault();
 
     if (this.props.onTouchMove)
       this.props.onTouchMove(e);
   },
 
-  // this will ignore scrolls in a certain direction
-  // for now it's very strict
+  // ignore scrolls in a certain direction
   ignoreDirectionalScroll(e) {
-    // performance optimization: return cached value
+    // performance: return cached value
     if (this.disableDirection !== null)
       return this.disableDirection;
 
-    // only run calculations if we have an ignore set
+    // if we have an ignore set
     if (!this.props.ignoreY && !this.props.ignoreX)
       return false;
 
-    // calculate ignore possibility
+    // calculate distances
     var distanceY = Math.abs(this._initialTouchTop - this.getTouchTop(e.touches));
     var distanceX = Math.abs(this._initialTouchLeft - this.getTouchLeft(e.touches));
+
+    if (this.props.ignoreY && this.props.minimumDrag > distanceY ||
+        this.props.ignoreX && this.props.minimumDrag > distanceX)
+      return false;
 
     this.disableDirection = (
       distanceY > distanceX && this.props.ignoreY ||
       distanceX > distanceY && this.props.ignoreX
     );
+
+    if (this.disableDirection)
+      this.handleTouchEnd(e);
 
     return this.disableDirection;
   },

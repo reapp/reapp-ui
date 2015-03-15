@@ -6,7 +6,7 @@ module.exports = Component({
   name: 'Menu',
 
   render() {
-    var liProps = {
+    var itemProps = {
       noicon: true,
       styles: {
         self: { border: 'none' },
@@ -15,7 +15,7 @@ module.exports = Component({
     };
 
     return (
-      <List {...this.componentProps()} liProps={liProps} {...this.props}>
+      <List {...this.componentProps()} itemProps={itemProps} {...this.props}>
         {this.props.children}
       </List>
     );

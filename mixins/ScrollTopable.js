@@ -3,7 +3,7 @@ var React = require('react');
 module.exports = function(node) {
   return {
     propTypes: {
-      scrollTop: React.PropTypes.oneOf([
+      scrollTop: React.PropTypes.oneOfType([
         React.PropTypes.number,
         React.PropTypes.string
       ])
@@ -20,18 +20,21 @@ module.exports = function(node) {
     },
 
     componentWillReceiveProps(nextProps) {
-      this.setScrollTop(nextProps);
+      if (nextProps.scrollTop !== this.props.scrollTop)
+        this.setScrollTop(nextProps);
+    },
+
+    getScrollTop() {
+      return typeof this.props.scrollTop === 'string' ?
+        this.getConstant(this.props.scrollTop) :
+        this.props.scrollTop || 0;
     },
 
     setScrollTop(props) {
       if (!props.scrollTop)
         return;
 
-      var scrollTop = props.scrollTop;
-      if (typeof props.scrollTop === 'string')
-        scrollTop = this.getConstant(props.scrollTop);
-
-      this.refs[node].getDOMNode().scrollTop = scrollTop;
+      this.refs[node].getDOMNode().scrollTop = this.getScrollTop();
     }
   }
 };

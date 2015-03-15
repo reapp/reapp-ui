@@ -1,33 +1,30 @@
 var React = require('react/addons');
-var Union = require('lodash-node/modern/array/union');
 var Component = require('../component');
-var Animated = require('../mixins/Animated');
 
 module.exports = Component({
   name: 'Icon',
 
-  mixins: [React.addons.PureRenderMixin],
+  mixins: [
+    React.addons.PureRenderMixin
+  ],
 
   propTypes: {
     size: React.PropTypes.number,
-    path: React.PropTypes.string,
     name: React.PropTypes.string,
     color: React.PropTypes.string,
     stroke: React.PropTypes.number,
-    isInTitleBar: React.PropTypes.bool,
+    isInViewList: React.PropTypes.bool,
     shapeRendering: React.PropTypes.string,
-    svgProps: React.PropTypes.object
+    crisp: React.PropTypes.bool
   },
 
   getDefaultProps() {
     return {
       size: 32,
+      stroke: 1,
       color: 'currentColor',
-      path: '/assets/icons',
-      style: {},
-      svgProps: {},
-      titleBarAnimations: {
-        self: 'moveToRight'
+      viewListAnimations: {
+        self: 'iconTitleBar'
       }
     };
   },
@@ -37,15 +34,16 @@ module.exports = Component({
   },
 
   componentWillReceiveProps(nextProps) {
-    this.setupAnimations(nextProps);
+    if (this.props.isInViewList !== nextProps.isInViewList)
+      this.setupAnimations(nextProps);
   },
 
   setupAnimations(props) {
-    if (props.isInTitleBar) {
-      this.animationSources = { self: 'viewList' };
+    if (props.isInViewList && props.animations !== false) {
+      this.animationSource = 'viewList';
       this.setState({
-        animations: Object.assign(
-          this.props.titleBarAnimations,
+        animations: Object.assign({},
+          this.props.viewListAnimations,
           props.animations
         )
       });
@@ -55,59 +53,45 @@ module.exports = Component({
   render() {
     var {
       size,
-      path,
-      name,
+      file,
       color,
       stroke,
-      isInTitleBar,
+      isInViewList,
       shapeRendering,
-      svgProps,
+      crisp,
       ...props
     } = this.props;
 
-    if (isInTitleBar && color === 'currentColor')
-      color = this.getConstant('activeColor');
+    if (!file)
+      return null;
+
+    if (color === 'currentColor')
+      color = this.getConstant(
+        isInViewList ? 'iconColorTitleBar' : 'iconColor');
+
+    if (crisp)
+      shapeRendering = 'crispEdges';
 
     this.addStyles({
-      color,
-      width: size,
-      height: size,
-      overflow: 'hidden'
-    });
-
-    this.addStyles('svg', {
       width: size,
       height: size,
       shapeRendering: shapeRendering ? shapeRendering : 'initial',
-      fill: 'currentColor'
+      fill: color
     });
 
-    // todo: hacky
-    if (props.style) {
-      this.addStyles(props.style);
-      delete props.style;
-    }
-
-    var svgExtraProps = {
-      viewBox: '0 0 64 64',
-      fill: color
-    };
-
     if (stroke)
-      Object.assign(svgExtraProps, {
+      Object.assign(props, {
         stroke: color,
-        strokeWidth: stroke * 4, // were scaling down from 64 / 2
+        strokeWidth: stroke * 2, // were scaling down from 64 / 2
         strokeLinecap: 'round'
       });
 
     return (
-      <span {...this.componentProps()} {...props}>
-        <svg {...svgExtraProps} {...svgProps} {...this.componentProps('svg')}>
-          <g dangerouslySetInnerHTML={{__html:
-            `<use xlink:href="${path}/${name}.svg#Layer_1"></use>`
-          }} />
+      <div {...this.componentProps()}>
+        <svg viewBox="0 0 64 64" {...props}>
+          <g dangerouslySetInnerHTML={{__html: file }} />
         </svg>
-      </span>
+      </div>
     );
   }
 

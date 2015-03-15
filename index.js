@@ -1,5 +1,11 @@
-var ReactStyle = require('react-style');
+var Stylesheet = require('react-style');
 var Invariant = require('react/lib/invariant');
+
+require('./lib/desktopTouch');
+require('reapp-object-assign');
+
+if (window._FORCE_ENABLE_RAF || window.process && process.env && process.env.NODE_ENV === 'production')
+  require('reapp-raf-batching');
 
 // Stores constants, animations and styles
 //   see themes/ios/all.js for an example usage.
@@ -78,12 +84,12 @@ var UI = module.exports = {
       if (typeof style === 'function')
         style = style(UI.constants);
 
-      // make into ReactStyle
-      Object.keys(style).forEach(styleKey => {
-        UI.styles[key] = (UI.styles[key] || {});
-        UI.styles[key][styleKey] = (UI.styles[key][styleKey] || [])
-          .concat(ReactStyle(style[styleKey]));
-      });
+      if (!UI.styles[key])
+        UI.styles[key] = Stylesheet.create(style);
+      else
+        Object.keys(style).forEach(ref => {
+          UI.styles[key][ref] = [].concat(UI.styles[key][ref], style[ref]);
+        });
     });
   },
 

@@ -18,7 +18,9 @@ module.exports = Component({
     return (
       <label {...this.componentProps()} {...props}>
         {title && (
-          <span {...this.componentProps('title')}>{title}</span>
+          <span {...this.componentProps('title')}>
+            {title}
+          </span>
         )}
         {children}
       </label>

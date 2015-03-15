@@ -7,6 +7,7 @@ module.exports = (c) => ({
     borderRadius: '5px',
     textAlign: 'center',
     padding: '8px',
+    minHeight: '40px',
     zoom: 1,
     lineHeight: 'normal',
     whiteSpace: 'nowrap',
@@ -17,21 +18,35 @@ module.exports = (c) => ({
     outline: 'none',
     flexFlow: 'row',
     WebkitFlexFlow: 'row',
-    flexGrow: 1,
-    WebkitFlexGrow: 1
+    flexAlign: 'center',
+    WebkitFlexAlign: 'center',
+    alignItems: 'center',
+    WebkitAlignItems: 'center',
+    margin: 0
+  },
+
+  inner: {
+    margin: 'auto',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    display: 'block',
+    maxWidth: '100%'
   },
 
   isInTitleBar: {
     color: c.buttonColorTitleBar
   },
 
-  inner: {
-    margin: 'auto'
-  },
-
   chromeless: {
     border: 'none',
     borderRadius: 0
+  },
+
+  fullscreen: {
+    border: 'none',
+    borderRadius: 0,
+    margin: '0 -20px'
   },
 
   rounded: {
@@ -41,5 +56,19 @@ module.exports = (c) => ({
   active: {
     background: c.buttonActiveBG,
     color: c.buttonActiveColor
+  },
+
+  inactive: {
+    WebkitFilter: 'grayscale(1)',
+    opacity: 0.2,
+    pointerEvents: 'none'
+  },
+
+  focused: {
+    background: c.buttonFocusedBG
+  },
+
+  focusedTitleBar: {
+    opacity: 0.2
   }
 });

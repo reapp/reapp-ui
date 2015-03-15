@@ -31,8 +31,8 @@ module.exports = function(ViewClass) {
 
     render() {
       return (
-        <View {...this.props} title={ViewClass.title}>
-          <ViewClass {...this.props} />
+        <View {...this.props} title={ViewClass.title} fullscreen>
+          <ViewClass {...this.props} title={ViewClass.title} />
         </View>
       );
     }

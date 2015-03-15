@@ -7,13 +7,13 @@ module.exports = Component({
 
   render() {
     var iconProps = Object.assign({
-      shapeRendering: 'crispEdges',
-      size: 18,
-      name: 'left',
-      stroke: 2,
-      style: {
-        width: 16,
-        margin: '0 2px 0 -4px'
+      size: 20,
+      file: require('../../assets/icons/left.svg'),
+      stroke: 4,
+      styles: {
+        self: {
+          margin: '0 2px 0 -2px'
+        }
       }
     }, this.props.iconProps);
 
@@ -21,7 +21,6 @@ module.exports = Component({
       <Button
         {...this.props}
         iconProps={iconProps}
-        styles={{self: { color: this.getConstant('brandColor') }}}
         chromeless>
         {this.props.children || 'Back'}
       </Button>

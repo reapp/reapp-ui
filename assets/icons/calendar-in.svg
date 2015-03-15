@@ -1,18 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="64px" height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+
 <g>
 	<g>
-		<path fill="#020202" d="M54.004,9.91V5.344h-1.92V9.91h-6.919V5.344h-1.922V9.91h-7.722V5.344H33.6V9.91h-8.018V5.344h-1.92V9.91
+		<path d="M54.004,9.91V5.344h-1.92V9.91h-6.919V5.344h-1.922V9.91h-7.722V5.344H33.6V9.91h-8.018V5.344h-1.92V9.91
 			h-7.687V5.344h-1.922V9.91H7.805v25.758h1.744V22.496H58.51v34.418H9.549V41.367H7.805v17.289h52.447V9.91H54.004z M58.51,20.753
 			H9.549v-9.102h4.504v4.104h1.922v-4.104h7.687v4.104h1.92v-4.104H33.6v4.104h1.922v-4.104h7.722v4.104h1.922v-4.104h6.919v4.104
 			h1.92v-4.104h4.506V20.753z"/>
 	</g>
 	<g>
-		<polygon fill="#020202" points="20,48.135 21.212,49.352 32.046,38.518 21.212,27.684 20,28.897 28.761,37.66 3.748,37.66 
+		<polygon points="20,48.135 21.212,49.352 32.046,38.518 21.212,27.684 20,28.897 28.761,37.66 3.748,37.66
 			3.748,39.376 28.761,39.376 		"/>
 	</g>
 </g>
-</svg>
+

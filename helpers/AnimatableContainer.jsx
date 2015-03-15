@@ -20,15 +20,15 @@ var AnimatableContainer = Component({
   },
 
   componentWillMount() {
-    this.wasEverOnGPU = false;
-    this.isAnimating = false;
-    this.lastAnimationTime = 0;
-    this.animationInterval = null;
+    this._wasEverOnGPU = false;
+    this._isAnimating = false;
+    this._lastAnimationTime = 0;
+    this._animationInterval = null;
   },
 
   componentWillUnmount() {
-    if (this.animationInterval) {
-      window.clearInterval(this.animationInterval);
+    if (this._animationInterval) {
+      window.clearInterval(this._animationInterval);
     }
   },
 
@@ -36,29 +36,29 @@ var AnimatableContainer = Component({
     var prevStyle = this.getAnimationStyles(this.props);
     var style = this.getAnimationStyles(nextProps);
 
-    this.isAnimating = (
+    this._isAnimating = (
       style.opacity !== prevStyle.opacity ||
       style[StyleKeys.TRANSFORM] !== prevStyle[StyleKeys.TRANSFORM]
     );
 
-    if (this.isAnimating) {
-      this.lastAnimationTime = Date.now();
-      if (this.props.timeout && !this.animationInterval) {
-        this.animationInterval = window.setInterval(
+    if (this._isAnimating) {
+      this._lastAnimationTime = Date.now();
+      if (this.props.timeout && !this._animationInterval) {
+        this._animationInterval = window.setInterval(
           this.checkAnimationEnd,
           this.props.timout * POLL_FACTOR
         );
       }
-      this.getDOMNode().classList.add('isAnimating');
+      this.getDOMNode().classList.add('_isAnimating');
     }
   },
 
   checkAnimationEnd() {
-    if (Date.now() - this.lastAnimationTime > this.props.timeout) {
-      window.clearInterval(this.animationInterval);
-      this.animationInterval = null;
-      this.isAnimating = false;
-      this.getDOMNode().classList.remove('isAnimating');
+    if (Date.now() - this._lastAnimationTime > this.props.timeout) {
+      window.clearInterval(this._animationInterval);
+      this._animationInterval = null;
+      this._isAnimating = false;
+      this.getDOMNode().classList.remove('_isAnimating');
       this.forceUpdate();
     }
   },
@@ -95,10 +95,10 @@ var AnimatableContainer = Component({
 
     if (transforms.length > 0) {
       style[StyleKeys.TRANSFORM] = transforms;
-      this.wasEverOnGPU = true;
+      this._wasEverOnGPU = true;
     }
     else {
-      if (this.wasEverOnGPU) {
+      if (this._wasEverOnGPU) {
         // avoid flickr on iOS when going to translate3d first time
         style[StyleKeys.TRANSFORM] = 'translate3d(0,0,0)';
       }
@@ -111,8 +111,10 @@ var AnimatableContainer = Component({
     var { component, blockUpdates, children, ...props } = this.props;
 
     return (
-      <StaticContainer {...props} {...this.componentProps()}
-        shouldUpdate={!blockUpdates || !this.isAnimating}
+      <StaticContainer
+        {...props}
+        {...this.componentProps()}
+        shouldUpdate={!blockUpdates || !this._isAnimating}
         style={this.getAnimationStyles(props)}>
         {children}
       </StaticContainer>

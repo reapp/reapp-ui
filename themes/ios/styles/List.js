@@ -1,10 +1,10 @@
 module.exports = (c) => ({
   self: {
-    borderTop: `1px solid ${c.listItemBorderColor}`,
-    borderBottom: `1px solid ${c.listItemBorderColor}`,
+    borderTop: `${c.onePx} solid ${c.listItemBorderColor}`,
+    borderBottom: `${c.onePx} solid ${c.listItemBorderColor}`,
     background: c.listBG,
     margin: '0 -10px',
-    padding: '0 0 0 10px',
+    padding: 0,
     fontSize: '16px'
   },
 
@@ -15,9 +15,13 @@ module.exports = (c) => ({
   },
 
   title: {
-    background: c.listTitleColor,
+    position: '-webkit-sticky',
+    top: 0,
+    background: '#f5f5f5',
+    color: '#7b7b80',
+    fontWeight: 500,
     padding: '4px 0 4px 10px',
-    margin: '0 0 -1px -10px',
-    color: '#8e8e93'
+    margin: '0 0 -1px 0',
+    zIndex: 1000
   }
 });

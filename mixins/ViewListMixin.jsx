@@ -1,16 +1,15 @@
 var React = require('react/addons');
-var { Scroller } = require('scroller');
+var { Scroller } = require('reapp-scroller');
 var DocumentTitle = require('react-document-title');
 var Component = require('../component');
 var TitleBar = require('../components/TitleBar');
 var TouchableArea = require('../helpers/TouchableArea');
-var Animated = require('../mixins/Animated');
 var clone = require('../lib/niceClone');
 
-// ViewLists are, so far, the most complex piece of the UI kit
+// ViewLists are the most complex piece of the UI kit.
 // Their usage is simple, but they manage a lot of state,
 // encompass many animations, and also need to know about multiple
-// children components (see TitleBar, View, Icon)
+// child components (see TitleBar, View, Icon)
 
 module.exports = {
   propTypes: {
@@ -24,6 +23,7 @@ module.exports = {
     onViewEntered: React.PropTypes.func,
     onViewLeaving: React.PropTypes.func,
     onViewLeft: React.PropTypes.func,
+    scrollerProps: React.PropTypes.object
   },
 
   getViewListInitialState() {
@@ -37,11 +37,25 @@ module.exports = {
     };
   },
 
+  componentWillMount() {
+    this.setupBeforeMount(this.props);
+  },
+
   componentDidMount() {
-    this.scroller = new Scroller(this.handleScroll, this.props.scrollerProps);
     this.setScrollPosition();
-    this.setupViewList(this.props);
-    this.runViewCallbacks();
+    this.setupAfterMount(this.props);
+  },
+
+  setupBeforeMount(props, cb) {
+    this.setAnimationState('viewList');
+    this.scroller = new Scroller(this.handleScroll, props.scrollerProps);
+    this.setupViewList(props, cb);
+  },
+
+  setupAfterMount(props) {
+    this.setupDimensions(props);
+    this.setTouchableAreaProps(props);
+    this.runViewCallbacks(props.scrollToStep || this.state.step);
     window.addEventListener('resize', this.resize);
     this.didMount = true;
   },
@@ -50,91 +64,144 @@ module.exports = {
     window.removeEventListener('resize', this.resize);
   },
 
-  // ensure proper animation/update order
   componentWillReceiveProps(nextProps) {
-    if (this._isAnimating || nextProps.disableScroll || !this.didMount)
+    // if changing type of viewlist
+    if (nextProps.name !== this.props.name) {
+      var step = this.state.step; //this.props.scrollToStep;
+      delete this.scroller;
+      return this.setupBeforeMount(nextProps, () => {
+        this.setupAfterMount(nextProps);
+        this.setTouchableAreaProps(nextProps);
+        this.handleScrollToStep(step, nextProps);
+      });
+    }
+
+    this.setTouchableAreaProps(nextProps);
+
+    if (this.props.disableScroll !== nextProps.disableScroll) {
+      if (nextProps.disableScroll)
+        return this.disableAnimation();
+      else
+        this.enableAnimation();
+    }
+
+    if (this._isAnimating || !this.didMount)
       return;
 
-    // if new scroll position
-    if (nextProps.scrollToStep !== this.props.scrollToStep) {
-      // if advancing views or remaining the same
-      if (nextProps.scrollToStep >= this.state.step) {
+    // new scrollToStep
+    this.handleScrollToStep(this.props.scrollToStep, nextProps);
+  },
+
+  // animates forward and backward depending
+  handleScrollToStep(step, nextProps) {
+    if (nextProps.scrollToStep === step)
+      return this.setupViewList(nextProps);
+
+    // if advancing
+    if (nextProps.scrollToStep >= this.state.step) {
+      this.setupViewList(nextProps, () => {
+        this.scrollToStep(nextProps.scrollToStep);
+      });
+    }
+    else
+      this.scrollToStep(nextProps.scrollToStep, () => {
         this.setupViewList(nextProps);
-        // setTimeout to push until after next render, hopefully
-        setTimeout(() => this.scrollToStep(nextProps.scrollToStep), 5);
-      }
-      // if regressing views
-      else {
-        this.scrollToStep(nextProps.scrollToStep).then(() => {
-          this.setupViewList(nextProps);
-        });
-      }
-    }
-    // else no new scroll position
-    else {
-      this.setupViewList(nextProps);
-    }
+      });
   },
 
   // todo: this shouldn't need to do so much here
   // for now this fixes a bug where if you start with a step > 0
   setScrollPosition() {
     var step = this.state.step;
+    var isVertical = this.props.vertical;
+    var left = !isVertical ? step * this.state.width : 0;
+    var top = isVertical ? step * this.state.height : 0;
 
-    // setTimeout because we are fighting Scroller
-    setTimeout(() => {
-      this.scroller.setPosition(step * this.state.width, 0);
-      this.scroller.scrollTo(step * this.state.width, 0, false);
-      this.setState({ step  });
-    });
+    this.scroller.setPosition(left, top);
+    this.scroller.scrollTo(left, top, false);
+    this.setState({ step  });
   },
 
   animationContext() {
     return {
+      height: this.state.height,
       width: this.state.width
     };
   },
 
   // allow custom title bar heights
   getTitleBarHeight() {
-    return this.props.titleBarProps.height || this.getConstant('titleBarHeight');
+    return (
+      this.props.titlebarProps && typeof this.props.titlebarProps.height === 'number' ?
+        this.props.titleBarProps.height :
+        this.getConstant('titleBarHeight')
+    );
   },
 
-  setupViewList(props) {
+  setupViewList(props, cb) {
     var { width, height, children } = props;
+    this.setupViewEnterStates(children);
+
+    if (!children || !children.length)
+      return;
+
     children = children.filter(child => !!child);
 
-    // default to not allowing swipes on the titlebar
-    props.touchStartBoundsY = props.touchStartBoundsY || {
-      from: this.getTitleBarHeight(),
-      to: this.props.height
-    };
-
-    this.setupDimensions();
-    this.setupViewEnterStates(children);
     this.scroller.setSnapSize(width, height);
-    this.scroller.setDimensions(width, height, width * children.length, height);
-    this.setState({ children });
+
+    var isVertical = this.props.vertical;
+    var fullWidth = isVertical ? width : width * children.length;
+    var fullHeight = isVertical ? height * children.length : height;
+
+    this.scroller.setDimensions(width, height, fullWidth, fullHeight);
+
+    if (this.isMounted())
+      this.setState({ children });
+
+    // for animating forwards
+    if (cb) {
+      // if no child is there, we want to wait for it to mount
+      if (!this.state.children[props.scrollToStep]) {
+        this._advancingToIndex = props.scrollToStep;
+        this._afterViewMounted = cb;
+      }
+      else
+        cb();
+    }
+  },
+
+  // used by scrollToStep to ensure we animate after mount
+  handleViewMounted() {
+    if (this._afterViewMounted)
+      this._afterViewMounted();
+
+    delete this._advancingToIndex;
+    delete this._afterViewMounted;
   },
 
   // scrolls the viewList to a given step
-  scrollToStep(step) {
-    this._isAnimating = true;
-    var duration = 0;
-
+  scrollToStep(step, cb) {
     if (step !== this.state.step) {
-      this.scroller.scrollTo(this.state.width * step, 0, true);
-      duration = this.props.scrollerProps.animationDuration;
-    }
+      this._isAnimating = true;
 
-    return new Promise(res => setTimeout(() => {
-      this._isAnimating = false;
-      res(); // promise fulfilled
-    }, duration));
+      var isVertical = !!this.props.vertical;
+
+      this.scroller.scrollTo(
+        !isVertical ? this.state.width * step : 0,
+        isVertical ? this.state.height * step : 0,
+        true
+      );
+
+      this.onViewEntered = () => {
+        this.onViewEntered = null;
+        this._isAnimating = false;
+        if (typeof cb === 'function') cb();
+      };
+    }
   },
 
-  setupDimensions() {
-    if (this.props.resizeWithWindow)
+  setupDimensions(props) {
+    if (props.resizeWithWindow)
       this.setState({
         width: window.innerWidth,
         height: window.innerHeight
@@ -142,71 +209,50 @@ module.exports = {
   },
 
   resize() {
-    this.setupDimensions();
+    this.setupDimensions(this.props);
     this.setScrollPosition();
   },
 
   setupViewEnterStates(children) {
-    this.visibleViews = children.map(v => false);
-    this.visibleViews[0] = true;
+    if (!children || !children.length)
+      this.visibleViews = [];
+    else {
+      this.visibleViews = new Array(children.length - 1);
+      this.visibleViews[0] = true;
+    }
   },
 
-  disableInitialScrollEvent: true,
+  // this is a hack, but the Scroller lib fires a scroll event that
+  // results in not respecting the props.scrollToStep on mount
+  // .... we need to improve the Scroller lib
+  ignoreNextScrollEvent: true,
 
-  // this is called back from Scroller, each time the user scrolls
-  handleScroll(left) {
-    // this is a hack, but the Scroller lib fires a scroll event that
-    // results in not respecting the props.scrollToStep on mount
-    // need a better Scroller lib
-    if (this.disableInitialScrollEvent) {
-      this.disableInitialScrollEvent = false;
-      return;
+  // Called back from Scroller on each frame of scroll
+  handleScroll(left, top) {
+    if (!this.props.disableScroll) {
+      if (this.ignoreNextScrollEvent)
+        this.ignoreNextScrollEvent = false;
+      else {
+        var step;
+
+        if (this.props.vertical)
+          step = top / this.state.height;
+        else
+          step = left / this.state.width;
+
+        if (step !== this.state.step)
+          this.setState({ step });
+      }
     }
+  },
 
-    // disabled
-    if (this.props.disableScroll)
-      return;
-
-    // don't scroll if we only have one view
-    if (this.state.children.length === 1 && this.state.step === 0)
-      return;
-
-    var step = this.state.width ? left / this.state.width : 0;
-
-    if (step !== this.state.step) {
-      this.setState({ step });
-      this.runViewCallbacks(step);
-    }
+  componentDidUpdate(_, prevState) {
+    if (prevState.step !== this.state.step)
+      this.runViewCallbacks(this.state.step);
   },
 
   runViewCallbacks(step) {
-    step = step || this.state.step;
-
-    if (step % 1 !== 0) {
-      if (this._hasCalledEnteringLeaving)
-        return;
-
-      var entering, leaving;
-      var floor = Math.floor(step);
-      var ceil = Math.ceil(step);
-
-      // if sliding forwards
-      if (this.visibleViews[floor]) {
-        entering = ceil;
-        leaving = floor;
-      }
-      else {
-        entering = floor;
-        leaving = ceil;
-      }
-
-      this.visibleViews[entering] = true;
-      this.callProperty('onViewEntering', ceil);
-      this.callProperty('onViewLeaving', floor);
-      this._hasCalledEnteringLeaving = true;
-    }
-    else {
-      // set this to false to reset entering/leaving callbacks for next drag
+    if (step % 1 === 0) {
       this._hasCalledEnteringLeaving = false;
 
       this.callProperty('onViewEntered', step);
@@ -223,18 +269,38 @@ module.exports = {
         this.visibleViews[next] = false;
       }
     }
+    else if (!this._hasCalledEnteringLeaving) {
+      var entering, leaving;
+      var floor = Math.floor(step);
+      var ceil = Math.ceil(step);
+
+      // if sliding forwards
+      if (this.visibleViews[floor]) {
+        entering = ceil;
+        leaving = floor;
+      }
+      else {
+        entering = floor;
+        leaving = ceil;
+      }
+
+      this.visibleViews[entering] = true;
+      this.callProperty('onViewEntering', entering);
+      this.callProperty('onViewLeaving', leaving);
+      this._hasCalledEnteringLeaving = true;
+    }
   },
 
-  callProperty(name) {
-    var args = Array.prototype.slice.call(arguments, 1);
+  callProperty(name, ...args) {
+    setTimeout(() => {
+      // apply to viewlist first
+      if (this[name])
+        this[name].apply(this, args);
 
-    // apply to viewlist first
-    if (this[name])
-      this[name].apply(this, args);
-
-    // then call any external
-    if (this.props[name])
-      this.props[name].apply(this, args);
+      // then call any external
+      if (this.props[name])
+        this.props[name].apply(this, args);
+    }, 80);
   },
 
   isOnStage(index) {
@@ -242,28 +308,6 @@ module.exports = {
       (index >= this.state.step - 1) &&
       (index <= this.state.step + 1)
     );
-  },
-
-  handleTouchStart(e) {
-    if (this.props.onTouchStart)
-      this.props.onTouchStart(e);
-  },
-
-  handleTouchEnd(e) {
-    if (this.props.onTouchEnd)
-      this.props.onTouchEnd(e);
-  },
-
-  handleClick(e) {
-    var hash = e.target.hash;
-    if (!hash) return;
-
-    // this logic is for handling button presses that link to #${id}
-    var step = this.props.children.map(v => v.id).indexOf(hash.slice(1));
-    if (step >= 0) {
-      this.scrollToStep(step);
-      e.preventDefault();
-    }
   },
 
   getTitleBarProps() {
@@ -278,8 +322,12 @@ module.exports = {
       this.props.viewAnimations;
   },
 
-  getTouchableAreaProps() {
-    return this.props.disableScroll ?
+  setTouchableAreaProps(props) {
+    this._touchableAreaProps = this.getTouchableAreaProps(props);
+  },
+
+  getTouchableAreaProps(props) {
+    return props.disableScroll ?
       {
         untouchable: true
       } :
@@ -287,59 +335,74 @@ module.exports = {
         ignoreY: true,
         scroller: this.scroller
       },
-      this.props.touchableAreaProps,
+      props.touchableAreaProps,
+      (props.touchStartBoundsX || props.touchStartBoundsY) && {
+        touchStartBoundsX: props.touchStartBoundsX,
+        touchStartBoundsY: this.getTouchStartBoundsY()
+      },
       {
-        touchStartBoundsX: this.props.touchStartBoundsX,
-        touchStartBoundsY: this.props.touchStartBoundsY,
-        onTouchStart: this.handleTouchStart,
-        onTouchEnd: this.handleTouchEnd,
-        onClick: this.handleClick,
         untouchable: (
-          this.props.touchableAreaProps && this.props.touchableAreaProps.untouchable ||
-          this.props.disableScroll
+          props.touchableAreaProps && props.touchableAreaProps.untouchable ||
+          props.disableScroll
         )
       });
+    },
+
+  getTouchStartBoundsY() {
+    return this.props.touchStartBoundsY || {
+      from: this.getTitleBarHeight(),
+      to: this.props.height
+    };
   },
 
-  getViewList(extraProps) {
-    // pushes state to a store for child use
-    // in the future this can be done with contexts
-    // if (!this.props.disableScroll)
-    //   this.setAnimationState('viewList');
-
-    var touchableAreaProps = this.getTouchableAreaProps();
+  getViewList(props) {
+    var { touchableProps } = props || {};
     var activeTitle;
 
+    this.setAnimationState('viewList');
+
     return (
-      <TouchableArea {...touchableAreaProps} {...extraProps}>
+      <TouchableArea {...this._touchableAreaProps} {...touchableProps}>
         {!this.props.noFakeTitleBar && (
           <TitleBar {...this.props.titleBarProps} animations={{}} />
         )}
 
-        {this.props.before}
-
         {clone(this.state.children, (child, i) => {
-          if (i === this.state.step)
+          if (!child)
+            return;
+
+          var active = i === this.state.step;
+          if (active)
             activeTitle = child.props && child.props.title;
 
-          return {
+          return Object.assign({
+            ref: i,
             key: i,
             index: i,
-            viewList: { index: i },
+            inactive: i !== this.state.step,
+            animationState: {
+              viewList: {
+                index: i,
+                step: this.state.step
+              }
+            },
             titleBarProps: this.getTitleBarProps(),
+            isInViewList: true,
             animations: this.getViewAnimations(child),
             width: this.state.width,
             height: this.state.height,
             viewListScrollToStep: this.scrollToStep
-          };
+          }, i === this._advancingToIndex && {
+            onComponentMounted: this.handleViewMounted
+          },
+          this.props.viewProps,
+          this.getViewProps && this.getViewProps());
         }, true)}
 
         {activeTitle &&
           <DocumentTitle title={Array.isArray(activeTitle) ?
             activeTitle[1] :
             activeTitle} />}
-
-        {this.props.after}
       </TouchableArea>
     );
   }

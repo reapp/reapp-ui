@@ -1,5 +1,6 @@
 module.exports = {
   self: {
+    width: '100%',
     flexFlow: 'row',
     WebkitFlexFlow: 'row'
   },
@@ -8,8 +9,7 @@ module.exports = {
     flexGrow: 1,
     WebkitFlexGrow: 1,
     borderTopRightRadius: 0,
-    borderBottomRightRadius: 0,
-    borderRight: 'none'
+    borderBottomRightRadius: 0
   },
 
   buttonFirstTwoTotal: {
@@ -22,7 +22,8 @@ module.exports = {
   buttonMiddle: {
     flexGrow: 1,
     WebkitFlexGrow: 1,
-    borderRadius: 0
+    borderRadius: 0,
+    borderLeft: 'none'
   },
 
   buttonLast: {

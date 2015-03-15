@@ -17,7 +17,7 @@ module.exports = Component({
       resizeWithWindow: true,
       scrollToStep: 0,
       scrollerProps: {
-        animationDuration: 400,
+        animationDuration: 500,
         paging: true,
         bouncing: false,
         scrollingY: false
@@ -26,6 +26,9 @@ module.exports = Component({
         inner: 'viewSideBySide'
       },
       titleBarProps: {
+        animations: {
+          self: 'fadeToLeft'
+        },
         height: 48,
         styles: {
           mid: {
@@ -35,16 +38,19 @@ module.exports = Component({
         }
       },
       touchStartBoundsX: {
-        from: 20,
+        from: 30,
         to: window.innerWidth
       }
     };
   },
 
   getInitialState() {
-    return Object.assign(this.getViewListInitialState(), {
-      activeViewIndex: 0
-    });
+    return Object.assign(
+      this.getViewListInitialState(),
+      {
+        activeViewIndex: 0
+      }
+    );
   },
 
   onViewEntered(index) {
@@ -54,12 +60,14 @@ module.exports = Component({
 
   render() {
     return (
-      <div {...this.componentProps()} {...this.props}>
+      <div>
         {this.getViewList()}
         <Dots
           total={this.props.children.length}
           active={this.state.activeViewIndex}
-          styles={this.getStyles('dots')} />
+          styles={this.getStyles('dots')}
+          {...this.props.dotProps}
+        />
       </div>
     );
   }

@@ -1,5 +1,6 @@
 var React = require('react');
 var Component = require('../component');
+var Tappable = require('../helpers/Tappable');
 
 module.exports = Component({
   name: 'Checkbox',
@@ -14,17 +15,19 @@ module.exports = Component({
   },
 
   getInitialState() {
-    return { checked: this.props.checked };
+    return {
+      checked: this.props.checked
+    };
   },
 
-  handleChange(e) {
-    if (e.currentTarget.checked)
+  handleChange() {
+    if (!this.refs.input.getDOMNode().checked)
       this.setState({ checked: true });
     else
       this.setState({ checked: false });
 
     if (this.props.onChange)
-      this.props.onChange(e);
+      this.props.onChange(this.state.checked);
   },
 
   render() {
@@ -34,12 +37,16 @@ module.exports = Component({
     }
 
     return (
-      <span {...this.componentProps()}>
-        <input {...this.componentProps('input')} {...this.props} onChange={this.handleChange} />
+      <Tappable {...this.componentProps()} onTap={this.handleChange} stopPropagation>
+        <input
+          {...this.componentProps('input')}
+          {...this.props}
+          checked={this.state.checked}
+        />
         <span {...this.componentProps('toggle')}>
           <span {...this.componentProps('toggleSwitch')} />
         </span>
-      </span>
+      </Tappable>
     );
   }
 });

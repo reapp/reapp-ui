@@ -1,4 +1,4 @@
-var ReactStyle = require('react-style');
+var Stylesheet = require('react-style');
 
 // Styled helps components with styling
 
@@ -27,21 +27,15 @@ module.exports = function(name, getStyles) {
       this.addedStyles = {};
 
       if (props.styles) {
-        this.addedStyles = {};
         this.propStyles = props.styles;
         delete props.styles; // bad, i know
       }
     },
 
     getPropStyles(ref) {
-      if (!this.propStyles)
-        return;
-
-      return (ref === 'self' && this.isReactStyle(this.propStyles)) ?
+      return ref === 'self' && Array.isArray(this.propStyles) ?
         this.propStyles :
-        Object.keys(this.propStyles).filter(key => key === ref).map(key => (
-          this.makeReactStyle(this.propStyles[key])
-        ));
+        this.propStyles && this.propStyles[ref];
     },
 
     addStyleTo(obj, key, style) {
@@ -58,20 +52,11 @@ module.exports = function(name, getStyles) {
       });
     },
 
-    makeReactStyle(obj) {
-      return this.isReactStyle(obj) ? obj : ReactStyle(obj);
-    },
-
-    // todo: better way to do this
-    isReactStyle(obj) {
-      return Array.isArray(obj) || !!obj.style;
-    },
-
     getStyles(ref, index) {
       ref = ref || 'self';
 
       return (
-        this.styles[ref] || []
+        this.styles[ref] ? [this.styles[ref]] : []
       ).concat(
         this.addedStyles[ref] || []
       ).concat(
@@ -81,18 +66,30 @@ module.exports = function(name, getStyles) {
       );
     },
 
+    keys: {
+      firstChild: 'firstChild',
+      lastChild: 'lastChild'
+    },
+
     // styles for things like 'firstChild', 'lastItem'
     // todo: mediaStyles
     getConditionalStyles(ref, index) {
       var conditionalStyles = [];
 
-      if (ref === 'self' && this.props.index === 0 || index === 0) {
-        var firstChildKey = ref === 'self' ?
-          'firstChild' :
-          ref + 'FirstChild';
+      if (this.props.index === 0 || index === 0) {
+        var key = ref === 'self' ?
+          this.keys.firstChild : `${ref}FirstChild`;
 
-        if (this.styles[firstChildKey])
-          conditionalStyles = this.styles[firstChildKey];
+        if (this.styles[key])
+          conditionalStyles = this.styles[key];
+      }
+
+      if (this.props.total && this.props.index === this.props.total - 1) {
+        var key = ref === 'self' ?
+          this.keys.lastChild : `${ref}LastChild`;
+
+        if (this.styles[key])
+          conditionalStyles.push(this.styles[key]);
       }
 
       return conditionalStyles;
@@ -122,9 +119,6 @@ module.exports = function(name, getStyles) {
       // return if no styles found
       if (!styles)
         return;
-
-      // ensure we have well formatted styles
-      styles = this.makeReactStyle(styles);
 
       // merge onto our addedStyles object
       this.mergeStyles(this.addedStyles, ref, styles);
@@ -156,6 +150,9 @@ module.exports = function(name, getStyles) {
       var result = {};
 
       stylesProps.forEach(prop => {
+        if (!prop)
+          return;
+
         // convert shorthand to proper
         if (Array.isArray(prop))
           prop = { self: prop };
@@ -182,10 +179,10 @@ module.exports = function(name, getStyles) {
 
     // get another components styles
     getStylesForComponent(componentName, ref) {
-      if (!ref) ref = 'self';
+      ref = ref || 'self';
 
       return getStyles(componentName)
-        .map(styles => styles.style[ref])
+        .map(styles => styles[ref])
         .filter(x => typeof x !== 'undefined');
     },
 

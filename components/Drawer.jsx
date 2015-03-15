@@ -1,5 +1,5 @@
 var React = require('react');
-var { Scroller } = require('scroller');
+var { Scroller } = require('reapp-scroller');
 var Component = require('../component');
 var TouchableArea = require('../helpers/TouchableArea');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
@@ -15,23 +15,29 @@ module.exports = Component({
     from: React.PropTypes.oneOf([
       'left', 'right', 'top', 'bottom'
     ]),
-    closed: React.PropTypes.bool,
     touchableProps: React.PropTypes.object,
-    onClose: React.PropTypes.func
+    onClose: React.PropTypes.func,
+    open: React.PropTypes.bool,
+    dragger: React.PropTypes.bool,
+    draggerWidth: React.PropTypes.number,
+    width: React.PropTypes.number,
+    height: React.PropTypes.number
   },
 
   getDefaultProps() {
     return {
       behavior: DrawerBehavior,
       from: 'left',
-      closed: false
+      open: true,
+      dragger: true,
+      width: window.innerWidth,
+      height: window.innerHeight
     };
   },
 
   getInitialState() {
     return {
       offset: 0,
-      closed: this.props.closed,
       externalScroller: !!this.props.scroller
     };
   },
@@ -41,44 +47,45 @@ module.exports = Component({
       return;
 
     this.scroller = new Scroller(this.handleScroll, {
-      bouncing: false,
       scrollingX: this.isSideDrawer(),
       scrollingY: !this.isSideDrawer(),
       snapping: true
     });
   },
 
-  componentWillReceiveProps(nextProps) {
-    // handle changing closed prop
-    if (nextProps.closed !== this.props.closed)
-      this.scrollTo(nextProps.closed ? 0 : 100, true);
+  componentDidMount() {
+    this.measureScroller();
+    window.addEventListener('resize', this.measureScroller);
+
+    this.ignoreScroll = false;
+
+    this.scrollClosed(false);
+
+    if (this.props.open)
+      this.scrollOpen(true);
   },
 
-  componentDidMount() {
-    this.measureAndPosition();
-    window.addEventListener('resize', this.measureAndPosition);
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.open !== this.props.open) {
+      if (nextProps.open)
+       this.scrollOpen(true)
+      else
+        this.scrollClosed(true);
+    }
   },
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.measureAndPosition);
-  },
-
-  getWidth() {
-    return this.getDOMNode().clientWidth;
-  },
-
-  getHeight() {
-    return this.getDOMNode().clientHeight;
+    window.removeEventListener('resize', this.measureScroller);
   },
 
   measureScroller() {
     if (this.state.externalScroller)
       return;
 
-    var width = this.getWidth();
-    var height = this.getHeight();
-    var totalWidth = width;
-    var totalHeight = height;
+    var width = this.props.width;
+    var totalWidth = this.props.width;
+    var height = this.props.height;
+    var totalHeight = this.props.height;
 
     if (this.isSideDrawer())
       totalWidth = width * 2;
@@ -87,11 +94,17 @@ module.exports = Component({
 
     this.scroller.setDimensions(width, height, totalWidth, totalHeight);
     this.scroller.setSnapSize(width, height);
+
+    if (this.props.from === 'bottom')
+      this.scroller.scrollTo(0, totalHeight, false);
   },
 
-  measureAndPosition() {
-    this.measureScroller();
-    this.scrollTo(this.props.closed ? 100 : 0, false);
+  scrollClosed(animated) {
+    this.scrollTo(100, animated);
+  },
+
+  scrollOpen(animated) {
+    this.scrollTo(0, animated);
   },
 
   // handles scrolling to a percent
@@ -102,9 +115,9 @@ module.exports = Component({
     var dec = percent * 0.01;
 
     if (this.isSideDrawer())
-      this.scroller.scrollTo(dec * this.getDOMNode().clientWidth, 0, animated);
+      this.scroller.scrollTo(dec * this.props.width, 0, animated);
     else
-      this.scroller.scrollTo(0, dec * this.getDOMNode().clientHeight, animated);
+     this.scroller.scrollTo(0, dec * this.props.height, animated);
   },
 
   isSideDrawer() {
@@ -113,46 +126,56 @@ module.exports = Component({
 
   isClosed() {
     return this.isSideDrawer() ?
-      this.state.offset === this.getWidth() :
-      this.state.offset === this.getHeight();
+      this.state.offset === this.props.width :
+      this.state.offset === this.props.height;
   },
 
+  ignoreScroll: true,
+
   handleScroll(left, top) {
+    if (this.ignoreScroll)
+      return;
+
     var offset, transform;
 
-    switch(this.props.from){
-      case 'left':
-      case 'right':
+    switch(this.props.from) {
+      case 'left': case 'right':
         offset = left;
         break;
-      case 'top':
-      case 'bottom':
+      case 'top': case 'bottom':
         offset = top;
       break;
     }
 
-    this.setState({
-      offset,
-      closed: offset === 0
-    });
+    this.setState({ offset });
 
     // onClose callback
-    if (this.isClosed() && this.props.onClose)
+    if (this.isClosed() && this.props.onClose) {
       this.props.onClose();
+    }
   },
 
-  getOppositeSide(from) {
-    return { left: 'right', right: 'left', top: 'bottom', bottom: 'top' };
+  draggerSide: {
+    left: 'right',
+    right: 'left',
+    top: 'bottom',
+    bottom: 'top'
   },
 
   render() {
+    if (this.props.from === 'bottom')
+      window.t = this;
+
     var {
       from,
+      open,
       behavior,
       translate,
       touchableProps,
       children,
       scroller,
+      dragger,
+      draggerWidth,
       ...props
     } = this.props;
 
@@ -160,24 +183,47 @@ module.exports = Component({
       translate: translate || behavior[from].translate(this.state.offset)
     }, this.props.animatedProps);
 
-    this.addClass('closed', this.state.closed);
-    this.addStyles(`from-${this.props.from}`);
-    this.addStyles('dragger', `${this.props.from}Dragger`);
+    if (open) {
+      this.addClass('open', this.props.open);
+      this.addStyles({ zIndex: 5 }); // move above other drawers
+    }
 
-    // todo: use a constant for dragger width
-    this.addStyles('dragger', {
-      [this.getOppositeSide(from)]: this.state.closed ? -20 : 0
-    });
+    this.addStyles(`from-${this.props.from}`);
+
+    if (dragger) {
+      this.addStyles('dragger', `${this.props.from}Dragger`);
+      this.addStyles('dragger', {
+        [this.draggerSide[from]]: this.isClosed() ? -this.getConstant('edgeWidth') : 0
+      });
+
+      if (draggerWidth)
+        this.addStyles('dragger', { width: draggerWidth });
+    }
+
+    var updateChildren = this.state.offset === 0;
+
+    if (this.props.shouldUpdate === false)
+      updateChildren = false;
+
+    if (touchableProps && touchableProps.styles)
+      this.addStyles('dragger', touchableProps.styles);
 
     return (
-      <AnimatableContainer {...this.componentProps()} {...animatedProps} {...props}>
+      <AnimatableContainer
+        {...this.componentProps()}
+        {...animatedProps}
+        {...props}>
         <div {...this.componentProps('inner')}>
-          <TouchableArea
-            {...this.componentProps('dragger')}
-            {...touchableProps}
-            scroller={scroller || this.scroller}
-            currentTargetOnly />
-          <StaticContainer shouldUpdate={this.state.offset === 0}>
+          {dragger &&
+            <TouchableArea
+              {...touchableProps}
+              {...this.componentProps('dragger')}
+              scroller={scroller || this.scroller}
+              currentTargetOnly
+              allowDefault
+            />
+          }
+          <StaticContainer shouldUpdate={updateChildren}>
             {children}
           </StaticContainer>
         </div>

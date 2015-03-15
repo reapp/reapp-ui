@@ -44,8 +44,11 @@ module.exports = function(getAnimations) {
       // allow defining animationContext on parents
       // this lets you pass down aritrary extra props, besides the three above
       if (this.animationContext)
-        Object.assign(state, typeof this.animationContext === 'function' ?
-          this.animationContext() : this.animationContext);
+        Object.assign(state,
+          typeof this.animationContext === 'function' ?
+            this.animationContext() :
+            this.animationContext
+        );
 
       return state;
     },
@@ -61,15 +64,17 @@ module.exports = function(getAnimations) {
     // used just by animators
     // pushes their state to the store for children
     setAnimationState(source) {
-      // this.animateStore(source, this.getAnimationState());
+
     },
 
     disableAnimation() {
-      this.setState({ animationDisabled: true });
+      if (!this.state.animationDisabled)
+        this.setState({ animationDisabled: true });
     },
 
     enableAnimation() {
-      this.setState({ animationDisabled: false });
+      if (this.state.animationDisabled)
+        this.setState({ animationDisabled: false });
     },
 
     animationsDisabled() {
@@ -77,7 +82,34 @@ module.exports = function(getAnimations) {
     },
 
     isAnimating(source) {
-      return this.getAnimationState(source).step % 1 !== 0;
+      var state = this.getAnimationState(source || this.animationSource);
+      return state.step && state.step % 1 !== 0;
+    },
+
+    _wasAnimating: {},
+
+    // Because were dealing with time and render lag
+    // This can be used in a parent shouldComponentUpdate
+    isAnimatingSafe(source) {
+      var isAnimating = this.isAnimating(source);
+      var wasAnimating = this._wasAnimating[source];
+
+      if (!isAnimating) {
+        if (!wasAnimating)
+          return false;
+
+        if (wasAnimating > 20) {
+          wasAnimating = false;
+          return false;
+        }
+
+        wasAnimating = wasAnimating++;
+        return true;
+      }
+      else {
+        wasAnimating = 1;
+        return true;
+      }
     },
 
     hasAnimations(ref) {
@@ -86,47 +118,34 @@ module.exports = function(getAnimations) {
 
     // fetches the list of animations from state or props
     getAnimations(ref) {
-      // console.log('GET', this._uniqueID, this.state, this.props);
       if (this.state && this.state.animations && defined(this.state.animations[ref]))
         return this.state.animations[ref];
       else
         return this.props.animations && this.props.animations[ref];
     },
 
-    // set a default source for an animation, of you can just
-    // define it on your class with animationSources: {}
-    setAnimationSource(ref, source) {
-      this.animationSources = this.animationSources || {};
-      this.animationSources[ref] = source;
-    },
-
-    getAnimationSource(ref) {
-      return this.animationSources && this.animationSources[ref] || 'self';
-    },
-
     // returns an object of styles
-    // requires ref, source will be fetched from this.animationSources
-    // if not passed in here
+    // uses ref, source will be fetched from this.animationSource or as given
     getAnimationStyle(ref, source) {
-      source = source || this.getAnimationSource(ref);
       var animations = this.getAnimations(ref);
-      var state = this.getAnimationState(source);
       var styles;
 
-      console.log(this.name, 'GET', state)
+      if (animations) {
+        source = source || this.animationSource;
+        var state = this.getAnimationState(source);
 
-      // single animation or array
-      if (typeof animations === 'string')
-        styles = this._getAnimationStyle(styles, state, animations);
-      else
-        if (animations.length)
-          for (var i = 0, len = animations.length; i < len; i++)
-            styles = this._getAnimationStyle(styles, state, animations[i]);
+        // single animation or array
+        if (typeof animations === 'string')
+          styles = this._getAnimationStyle(styles, state, animations);
+        else
+          if (animations.length)
+            for (var i = 0, len = animations.length; i < len; i++)
+              styles = this._getAnimationStyle(styles, state, animations[i]);
 
-      // ensure translate-z to ensure hardware accel
-      styles[StyleKeys.TRANSFORM] = styles[StyleKeys.TRANSFORM] || 'translateZ(0px)';
+        // ensure translate-z to ensure hardware accel
+        styles[StyleKeys.TRANSFORM] = styles[StyleKeys.TRANSFORM] || 'translateZ(0px)';
+      }
 
-      console.log(this.name, 'RETURN', styles);
       return styles;
     },
 
@@ -148,6 +167,7 @@ module.exports = function(getAnimations) {
 
       // todo: additive transforms (possible here)
       var transform = this._animationTransformsToString({ scale, rotate, rotate3d, translate });
+
       if (transform)
         styles[StyleKeys.TRANSFORM] = transform;
 

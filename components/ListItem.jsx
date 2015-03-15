@@ -1,11 +1,16 @@
 var React = require('react/addons');
 var Component = require('../component');
 var Icon = require('./Icon');
+var Tappable = require('../mixins/Tappable');
+var clone = require('../lib/niceClone');
 
 module.exports = Component({
   name: 'ListItem',
 
-  mixins: [React.addons.PureRenderMixin],
+  mixins: [
+    React.addons.PureRenderMixin,
+    Tappable
+  ],
 
   propTypes: {
     title: React.PropTypes.node,
@@ -14,29 +19,42 @@ module.exports = Component({
     before: React.PropTypes.node,
     after: React.PropTypes.node,
     wrapper: React.PropTypes.node,
-    underLeft: React.PropTypes.node,
-    underRight: React.PropTypes.node,
     noicon: React.PropTypes.bool,
+    icon: React.PropTypes.bool,
     nopad: React.PropTypes.bool
   },
 
-  makeSection(name, content) {
-    return content && (
-      <span {...this.componentProps(name)} key={`${name}-${this.props.key}`}>
+  makeSection(name, content, props) {
+    return content &&
+      <span
+        {...props}
+        {...this.componentProps(name)}
+        key={`${name}-${this.props.key}`}>
         {content}
       </span>
-    );
   },
 
   isLink(el) {
     return (
       el.type === 'a' ||
-      el.displayName === 'Link'
+      el.type.displayName === 'Link'
     );
   },
 
   hasLinkAsChild(child) {
     return React.isValidElement(child) && this.isLink(child);
+  },
+
+  getIcon() {
+    return (
+      <Icon
+        file={require('../assets/icons/right.svg')}
+        styles={this.getStyles('arrow')}
+        size={12}
+        stroke={3}
+        color={this.getConstant('listItemArrowColor')}
+      />
+    );
   },
 
   render() {
@@ -48,11 +66,16 @@ module.exports = Component({
       before,
       after,
       wrapper,
-      underLeft,
-      underRight,
       noicon,
+      icon,
       nopad,
+      index,
       ...props } = this.props;
+
+    if (index === 0) {
+      this.addStyles('content', 'borderless');
+      this.addStyles('after', 'borderless');
+    }
 
     // make a top level link into a wrapper so it can take up the whole item
     if (!wrapper && this.hasLinkAsChild(children)) {
@@ -65,23 +88,21 @@ module.exports = Component({
       this.addStyles('children', { color: title ? '#999' : '#000' });
 
     if (wrapper) {
-      var hasLinkIcon = this.isLink(wrapper) && !noicon;
+      var hasLinkIcon = this.isLink(wrapper) && !noicon || icon;
 
-      wrapper = React.addons.cloneWithProps(wrapper, {
+      wrapper = clone(wrapper, {
         children: hasLinkIcon ?
-          <Icon
-            name="right"
-            styles={this.getStyles('arrow')}
-            size={12}
-            stroke={2}
-            color={this.getStyleVal('arrow', 'color')} /> :
+          this.getIcon() :
           null,
-        styles: this.getStyles('wrapper')
+        style: this.getStyles('wrapper')[0]
       });
 
       // pad out right side if it has a wrapper
       if (hasLinkIcon)
         this.addStyles({ paddingRight: 20 });
+    }
+    else if (icon) {
+      wrapper = this.getIcon();
     }
 
     var hasTitle = (title || titleAfter);
@@ -107,8 +128,15 @@ module.exports = Component({
       span('after', after),
     ];
 
+    var tapProps;
+    if (this.props.onTap)
+      tapProps = this.tappableProps();
+
+    if (this.state.tapActive)
+      this.addStyles('tapActive');
+
     return (
-      <li {...this.componentProps()} {...props}>
+      <li {...tapProps} {...props} {...this.componentProps()}>
         {content}
       </li>
     );

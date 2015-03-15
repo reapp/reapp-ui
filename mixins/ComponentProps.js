@@ -4,15 +4,13 @@
 // ref, id, className, styles, and any animation styles
 
 module.exports = {
-  componentProps(componentName) {
-    // 'self' is used for the top level ref
-    var ref = componentName || 'self';
+  componentProps(ref) {
+    ref = ref || 'self';
 
     var props = {
       ref,
-      id: componentName ? this._uniqueID + componentName : this._uniqueID,
-      className: this.getClasses(componentName),
-      styles: this.getStyles(componentName)
+      className: this.getClassSet(ref),
+      styles: this.getStyles(ref)
     };
 
     if (this.hasAnimations(ref) && !this.animationsDisabled())

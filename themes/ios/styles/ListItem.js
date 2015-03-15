@@ -1,8 +1,9 @@
 module.exports = (c) => ({
   self: {
+    background: c.listBG,
     listStyle: 'none',
     margin: 0,
-    padding: 0,
+    padding: '0 0 0 20px',
     overflow: 'hidden',
     flexFlow: 'row',
     WebkitFlexFlow: 'row',
@@ -11,23 +12,27 @@ module.exports = (c) => ({
     justifyContent: 'space-between',
     WebkitJustifyContent: 'space-between',
     minHeight: 44,
-    borderTop: `1px solid ${c.listItemBorderColor}`,
-    position: 'relative'
+    position: 'relative',
+    transition: 'background linear 50ms'
   },
 
-  firstChild: {
+  tapActive: {
+    background: '#f2f2f2'
+  },
+
+  borderless: {
     borderTop: 'none'
   },
 
   arrow: {
     margin: 'auto 8px auto 0',
-    color: c.listItemBorderColor
+    color: '#cfcfcf'
   },
 
   wrapper: {
     position: 'absolute',
     top: 0,
-    left: -10,
+    left: 0,
     right: 0,
     bottom: 0,
     maxWidth: 'none',
@@ -43,16 +48,17 @@ module.exports = (c) => ({
     WebkitFlexShrink: 0,
     flexWrap: 'nowrap',
     WebkitFlexWrap: 'nowrap',
-    margin: '0 10px 0 0'
+    margin: '0 12px 0 0'
   },
 
   content: {
+    borderTop: `${c.onePx} solid ${c.listItemBorderColor}`,
     flexShrink: 1,
     WebkitFlexShrink: 1,
     flexGrow: 800,
     WebkitFlexGrow: 800,
-    color: '#000',
-    padding: '10px 10px 10px 0',
+    color: c.listItemContentColor,
+    padding: '11px 12px 11px 0',
     position: 'relative'
   },
 
@@ -69,25 +75,34 @@ module.exports = (c) => ({
   },
 
   title: {
-    fontWeight: '500',
+    fontWeight: 500,
     maxWidth: '100%'
   },
 
   titleAfter: {
-    color: '#8e8e93'
+    color: c.listItemTitleAfterColor,
+    fontSize: '15px'
   },
 
   titleSub: {
-    fontSize: '15px'
+    fontSize: '15px',
+    fontWeight: 400,
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    minWidth: 0,
+    display: 'block',
+    overflow: 'hidden'
   },
 
   children: {
     maxHeight: 42,
     fontSize: '15px',
-    lineHeight: '21px',
+    lineHeight: '22px',
     overflow: 'hidden',
-    WebkitLineLamp: 2,
+    WebkitLineClamp: 2,
     WebkitBoxOrient: 'vertical',
+    textOverflow: 'ellipsis',
+    display: '-webkit-box',
   },
 
   childrenNoTitle: {
@@ -96,10 +111,12 @@ module.exports = (c) => ({
   },
 
   after: {
-    color: '#8e8e93',
+    borderTop: `${c.onePx} solid ${c.listItemBorderColor}`,
+    color: c.listItemAfterColor,
     flexShrink: 0,
     WebkitFlexShrink: 0,
-    margin: 'auto 10px',
+    padding: '0 12px',
+    justifyContent: 'center',
     whiteSpace: 'nowrap',
     alignSelf: 'stretch',
     WebkitAlignSelf: 'stretch'

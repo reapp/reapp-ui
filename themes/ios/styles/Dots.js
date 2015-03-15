@@ -2,7 +2,8 @@ var { hexToRGB, hexToRGBA } = require('reapp-ui/lib/ConstantsHelpers');
 
 module.exports = (c) => ({
   self: {
-    pointerEvents: 'none'
+    pointerEvents: 'none',
+    WebkitAlignItems: 'center'
   },
 
   dot: {
@@ -19,6 +20,7 @@ module.exports = (c) => ({
 
   inner: {
     margin: 'auto',
-    flexFlow: 'row'
+    flexFlow: 'row',
+    WebkitFlexFlow: 'row'
   }
 });

@@ -1,10 +1,10 @@
 module.exports = (c) => ({
   self: {
     height: c.searchBarHeight,
-    background: '#c9c9ce',
+    background: c.searchBarBG,
     padding: '0 8px',
     margin: `0 -${c.viewPad}`,
-    borderBottom: '1px solid #b4b4b4',
+    borderBottom: `${c.onePx} solid ${c.searchBarBorderColor}`,
     alignItems: 'center'
   },
 

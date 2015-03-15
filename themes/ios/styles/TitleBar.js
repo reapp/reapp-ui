@@ -1,15 +1,19 @@
 module.exports = (c) => ({
   self: {
     background: c.titleBarBG,
-    borderBottom: `1px solid ${c.titleBarBorderColor}`,
+    borderColor: c.titleBarBorderColor,
+    borderStyle: 'solid',
+    borderWidth: 0,
+    borderBottomWidth: c.onePx,
     height: c.titleBarHeight,
     fontSize: c.titleBarFontSize,
+    padding: 0,
+    paddingTop: c.titleBarPaddingTop,
     textAlign: 'center',
     position: 'fixed',
     top: 0,
     left: 0,
     width: '100%',
-    padding: 0,
     fontWeight: 500,
     zIndex: 2,
     flexFlow: 'row',
@@ -30,10 +34,18 @@ module.exports = (c) => ({
   mid: {
     color: c.titleBarColor,
     margin: 'auto 0',
-    position: 'relative'
+    position: 'relative',
+    fontWeight: 500
   },
 
   right: {
     margin: 'auto 0'
+  },
+
+  'attach-bottom': {
+    top: 'auto',
+    bottom: 0,
+    borderBottom: 'none',
+    borderTopWidth: c.onePx
   }
 });

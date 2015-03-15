@@ -1,9 +1,14 @@
 var React = require('react');
 var Component = require('../component');
 var Icon = require('./Icon');
+var Tappable = require('../mixins/Tappable');
 
 module.exports = Component({
   name: 'BarItem',
+
+  mixins: [
+    Tappable
+  ],
 
   propTypes: {
     icon: React.PropTypes.oneOfType([
@@ -20,7 +25,7 @@ module.exports = Component({
 
   getDefaultProps() {
     return {
-      display: 'text'
+      display: 'icon-text'
     };
   },
 
@@ -51,14 +56,14 @@ module.exports = Component({
         <Icon
           color={this.getConstant(active ? 'barColorActive' : 'barColor')}
           size={(display === 'icon-text-right') ? 24 : 32}
-          name={icon}
+          file={icon}
           styles={this.getStyles('icon')}
           svgProps={{style: { margin: 'auto' }}}
           {...iconProps} />
       );
 
     return (
-      <li {...this.componentProps()} {...props}>
+      <li {...this.componentProps()} {...this.tappableProps()} {...props}>
         {this.makeSection('icon', icon)}
         {this.makeSection('text', children)}
       </li>

@@ -10,9 +10,9 @@ module.exports = (c) => ({
   },
 
   open: {
-    opacity: 1,
     visibility: 'visible',
-    zIndex: 15000
+    zIndex: 15000,
+    opacity: 1
   },
 
   bg: {
@@ -54,7 +54,8 @@ module.exports = (c) => ({
     position: 'absolute',
     left: 0,
     borderRadius: 3,
-    transform: 'rotate(45deg)'
+    transform: 'rotate(45deg)',
+    WebkitTransform: 'rotate(45deg)'
   },
 
   item: {

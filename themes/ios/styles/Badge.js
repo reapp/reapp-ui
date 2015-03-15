@@ -1,7 +1,7 @@
 module.exports = (c) => ({
   self: {
-    background: c.darkGray,
-    color: '#fff',
+    background: c.badgeBG,
+    color: c.badgeColor,
     borderRadius: 100,
     fontWeight: 'bold',
     minWidth: '20px',

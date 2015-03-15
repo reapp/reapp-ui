@@ -1,32 +1,52 @@
 var React = require('react');
 
-// Build a tree from well structured objects
+// Build a tree from structured objects
 // Wraps each node with a component
-// <TreeNode renderComponent={Comment} childKey="kids" data={object} />
 
 var TreeNode = React.createClass({
+  propTypes: {
+    cursor: React.PropTypes.object.isRequired,
+    childKey: React.PropTypes.string.isRequired,
+    Component: React.PropTypes.func.isRequired,
+    idKey: React.PropTypes.string,
+    level: React.PropTypes.number
+  },
+
   render() {
-    var props = this.props;
-    var level = props.level || 0;
-    var children = props.data[props.childKey];
-    var Component = props.renderComponent;
+    var {
+      idKey,
+      level,
+      cursor,
+      childKey,
+      Component,
+      ...props } = this.props;
+
+    if (!cursor || !cursor.get)
+      return null;
+
+    level = level || 0;
+    var children = cursor.get(childKey);
     var childNodes;
 
     if (children) {
-      childNodes = React.Children.map(children, (child, i) => {
-        return (
-          <TreeNode
-            key={`${level}-${i}`}
-            renderComponent={props.renderComponent}
-            childKey={props.childKey}
-            data={child}
-            level={++level} />
-        );
-      });
+      var i = 0;
+      level++;
+
+      childNodes = children.map(child =>
+        <TreeNode
+          key={`treenode-${level}-${++i}`}
+          Component={Component}
+          childKey={childKey}
+          cursor={child}
+          level={level} />
+      );
     }
 
     return (
-      <Component data={props.data}>
+      <Component {...props}
+        key={cursor.get(idKey)}
+        level={level}
+        cursor={cursor}>
         {childNodes}
       </Component>
     );

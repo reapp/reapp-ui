@@ -9,12 +9,14 @@ module.exports = Component({
     width: React.PropTypes.number,
     height: React.PropTypes.number,
     animations: React.PropTypes.object,
-
-    // either this, with children node
     left: React.PropTypes.node,
     right: React.PropTypes.node,
+    transparent: React.PropTypes.bool,
 
-    transparent: React.PropTypes.bool
+    isInViewList: React.PropTypes.bool,
+
+    // attach to side of screen
+    attach: React.PropTypes.string
   },
 
   mixins: [
@@ -23,16 +25,11 @@ module.exports = Component({
 
   getDefaultProps() {
     return {
-      width: window.innerWidth,
-      animations: {
-        self: 'fadeToLeft'
-      }
+      width: window.innerWidth
     };
   },
 
-  animationSources: {
-    self: 'viewList'
-  },
+  animationSource: 'viewList',
 
   componentDidMount() {
     this.centerMiddleTitle();
@@ -46,9 +43,9 @@ module.exports = Component({
   centerMiddleTitle() {
     if (this.refs.mid) {
       var mid = this.refs.mid.getDOMNode();
-      var winCenter = this.refs.self.getDOMNode().clientWidth / 2;
+      var winCenter = this.props.width / 2;
       var midCenter = mid.offsetLeft + (mid.clientWidth / 2);
-      mid.style.left = (winCenter-midCenter) + 'px';
+      mid.style.left = `${winCenter-midCenter}px`;
     }
   },
 
@@ -57,7 +54,9 @@ module.exports = Component({
       return component;
 
     return React.addons.cloneWithProps(component, {
-      isInTitleBar: true
+      isInTitleBar: true,
+      isInViewList: this.props.isInViewList,
+      animationState: this.props.animationState
     });
   },
 
@@ -73,6 +72,7 @@ module.exports = Component({
       children,
       height,
       transparent,
+      attach,
       ...props } = this.props;
 
     var l, m, r;
@@ -95,20 +95,27 @@ module.exports = Component({
     if (height)
       this.addStyles({ height });
 
+    if (attach)
+      this.addStyles(`attach-${attach}`);
+
     return (
       <div
         {...this.componentProps()}
         {...this.multiTap(2, this.handleDoubleTap)}
         {...props}>
-        <div {...this.componentProps('left')}>
-          {this.addTitleBarProps(l)}
-        </div>
+        {l &&
+          <div {...this.componentProps('left')}>
+            {this.addTitleBarProps(l)}
+          </div>
+        }
         <div {...this.componentProps('mid')}>
           {m}
         </div>
-        <div {...this.componentProps('right')}>
-          {this.addTitleBarProps(r)}
-        </div>
+        {r &&
+          <div {...this.componentProps('right')}>
+            {this.addTitleBarProps(r)}
+          </div>
+        }
       </div>
     );
   }

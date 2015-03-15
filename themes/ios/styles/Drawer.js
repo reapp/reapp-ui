@@ -1,12 +1,17 @@
 module.exports = (c) => ({
   self: {
-    background: c.bgLight,
-    boxShadow: '0 0 10px rbga(0,0,0,0.5)',
     position: 'fixed',
     width: '100%',
     height: '100%',
-    pointerEvents: 'all',
-    zIndex: 3 // todo: this can be better
+    zIndex: 4 // todo: this can be better
+  },
+
+  inner: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0
   },
 
   'from-right': {
@@ -19,46 +24,46 @@ module.exports = (c) => ({
     right: 0
   },
 
-  'from-top': {
+  'from-bottom': {
     left: 0,
     bottom: 0
   },
 
-  'from-bottom': {
+  'from-top': {
     left: 0,
     top: 0
   },
 
   dragger: {
     position: 'fixed',
-    zIndex: 3,
+    zIndex: 3
   },
 
   topDragger: {
-    top: 0,
-    right: 0,
-    left: 0,
-    height: 20
-  },
-
-  rightDragger: {
-    top: c.titleBarHeight,
-    right: 0,
     bottom: 0,
-    width: 20
+    left: 0,
+    right: 0,
+    height: c.edgeWidth
   },
 
   bottomDragger: {
-    bottom: 0,
-    left: 0,
+    top: 0,
     right: 0,
-    height: 20
+    left: 0,
+    height: c.edgeWidth
+  },
+
+  rightDragger: {
+    top: 0,
+    left: 0,
+    bottom: 0,
+    width: c.edgeWidth
   },
 
   leftDragger: {
-    top: c.titleBarHeight,
-    left: 0,
+    top: 0,
+    right: 0,
     bottom: 0,
-    width: 20
+    width: c.edgeWidth
   }
 });

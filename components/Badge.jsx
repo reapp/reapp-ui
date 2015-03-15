@@ -1,18 +1,6 @@
 var React = require('react');
 var Component = require('../component');
 
-/*  @docs
-
- ## Badge
- Notification icon with text/numbers. Usually used in lists or bars.
-
- Usage:
- ```
-   <Badge>1</Badge>
- ```
-
- */
-
 module.exports = Component({
   name: 'Badge',
 

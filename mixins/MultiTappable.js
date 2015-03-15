@@ -4,7 +4,7 @@ module.exports = {
     var tapTimeout;
 
     return {
-      onClick: function(e) {
+      onTouchStart: function(e) {
         clearTimeout(tapTimeout);
         tapCount++;
 
