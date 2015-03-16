@@ -10,8 +10,11 @@ module.exports = Component({
     ViewListMixin
   ],
 
-  getDefaultProps: () => NestedViewListBehavior,
-  getInitialState() {
+  getDefaultProps: function() {
+    return NestedViewListBehavior;
+  },
+
+  getInitialState: function() {
     return this.getViewListInitialState();
   },
 

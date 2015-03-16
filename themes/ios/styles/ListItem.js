@@ -17,7 +17,7 @@ module.exports = (c) => ({
   },
 
   tapActive: {
-    background: 'rgba(0,0,0,0.1)'
+    background: '#f2f2f2'
   },
 
   borderless: {
@@ -115,7 +115,8 @@ module.exports = (c) => ({
     color: c.listItemAfterColor,
     flexShrink: 0,
     WebkitFlexShrink: 0,
-    margin: 'auto 12px',
+    padding: '0 12px',
+    justifyContent: 'center',
     whiteSpace: 'nowrap',
     alignSelf: 'stretch',
     WebkitAlignSelf: 'stretch'

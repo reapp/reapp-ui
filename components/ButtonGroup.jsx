@@ -29,7 +29,7 @@ module.exports = Component({
       positionStyle = this.styles.buttonMiddle;
 
     return {
-      self: positionStyle.concat(widthStyle)
+      self: [positionStyle].concat(widthStyle)
     };
   },
 
