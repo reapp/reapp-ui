@@ -14,6 +14,10 @@ var Animated = require('./mixins/Animated');
 var ComponentProps = require('./mixins/ComponentProps');
 
 Component.addDecorator(spec => {
+  spec.contextTypes = Object.assign({
+    theme: React.PropTypes.object
+  }, spec.contextTypes);
+
   spec.mixins = [].concat(
     // unique ids and classes
     Identified,
@@ -24,7 +28,7 @@ Component.addDecorator(spec => {
 
     // styles and animations
     Styled(spec.name, UI.getStyles),
-    Animated(UI.getAnimations),
+    Animated,
 
     // any component-defined mixins
     spec.mixins || [],

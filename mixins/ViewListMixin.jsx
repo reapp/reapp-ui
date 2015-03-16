@@ -380,12 +380,6 @@ module.exports = {
             key: i,
             index: i,
             inactive: i !== this.state.step,
-            animationState: {
-              viewList: {
-                index: i,
-                step: this.state.step
-              }
-            },
             titleBarProps: this.getTitleBarProps(),
             isInViewList: true,
             animations: this.getViewAnimations(child),

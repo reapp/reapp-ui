@@ -11,11 +11,24 @@ module.exports = Component({
   name: 'View',
 
   mixins: [
-    Animator('viewList'),
     ScrollState,
     ScrollTopable('inner'),
     AnimatedScrollToTop
   ],
+
+  childContextTypes: {
+    animations: React.PropTypes.object
+  },
+
+  getChildContext() {
+    return {
+      animations: {
+        viewList: Object.assign(this.context.animations.viewList, {
+          index: this.props.index || 0
+        })
+      }
+    }
+  },
 
   propTypes: {
     title: React.PropTypes.node,
