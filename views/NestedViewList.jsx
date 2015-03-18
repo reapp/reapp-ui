@@ -9,7 +9,7 @@ module.exports = Component({
 
   mixins: [
     ViewListMixin,
-    Animator('viewList')
+    Animator('viewList', ['width'])
   ],
 
   getDefaultProps: function() {

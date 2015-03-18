@@ -19,8 +19,6 @@ module.exports = {
     if (source && source !== 'self') {
       var state = this.context.animations[source];
 
-      console.log(this.name, this.props, this.context, state)
-
       if (!defined(state.index))
         state.index = this.props.index;
 
@@ -151,10 +149,6 @@ module.exports = {
 
     Invariant(defined(state.step), 'Must define step for animation to run');
     Invariant(defined(state.index), 'Must define index for animation to run');
-
-    // get the animator function set in theme
-    if (!this.context.theme)
-      return {};
 
     var animator = this.context.theme.animations[animation];
     var { scale, rotate, rotate3d, translate, ...other } = animator(state);

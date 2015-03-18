@@ -1,6 +1,6 @@
 var React = require('react');
 
-module.exports = function(name) {
+module.exports = function(name, props) {
   return {
     pickNum: (a, b) => typeof a === 'number' ? a : b,
 
@@ -21,6 +21,9 @@ module.exports = function(name) {
 
       if (typeof index === 'number')
         animations[name].index = index;
+
+      if (props)
+        props.forEach(prop => animations[name][prop] = this.props[prop]);
 
       // debugger
 
