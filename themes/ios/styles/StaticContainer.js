@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-module.exports = {
-=======
 module.exports = (c) => ({
->>>>>>> context-animations
   fullscreen: {
     position: 'fixed',
     left: 0,
