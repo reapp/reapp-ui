@@ -28,6 +28,6 @@
     "reapp-scroller": "^1.0.1"
   },
   "peerDependencies": {
-    "react": "^0.13.0-beta.1"
+    "react": "0.13.x"
   }
 }
