@@ -41,10 +41,6 @@ module.exports = Component({
     if (this.state.children && this.state.children.length === 1)
       touchableProps.untouchable = true;
 
-    return (
-      <div>
-        {this.getViewList({ touchableProps })}
-      </div>
-    );
+    return this.getViewList({ touchableProps });
   }
 });

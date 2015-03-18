@@ -5,7 +5,9 @@ module.exports = Component({
   name: 'StaticContainer',
 
   getDefaultProps() {
-    return { shouldUpdate: false };
+    return {
+      shouldUpdate: false
+    };
   },
 
   shouldComponentUpdate(nextProps) {

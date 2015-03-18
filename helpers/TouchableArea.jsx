@@ -10,7 +10,9 @@ var clone = require('../lib/niceClone');
 //   - pinch
 //   - double/triple touch
 
-var TouchableArea = React.createClass({
+var TouchableArea = Component({
+  name: 'TouchableArea',
+
   getDefaultProps() {
     return {
       element: 'div',
@@ -149,10 +151,12 @@ var TouchableArea = React.createClass({
       passprops,
       ...props } = this.props;
 
-    props.onTouchStart = this.handleTouchStart;
-    props.onTouchMove = this.handleTouchMove;
-    props.onTouchEnd = this.handleTouchEnd;
-    props.onTouchCancel = this.handleTouchEnd;
+    Object.assign(props, this.componentProps(), {
+      onTouchStart: this.handleTouchStart,
+      onTouchMove: this.handleTouchMove,
+      onTouchEnd: this.handleTouchEnd,
+      onTouchCancel: this.handleTouchEnd
+    });
 
     if (passprops)
       children = clone(children, props, true);
