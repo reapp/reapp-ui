@@ -1,5 +1,4 @@
-var React = require('react/addons');
-var cx = React.addons.classSet;
+var classnames = require('classnames');
 
 module.exports = function(name) {
   return {
@@ -30,7 +29,7 @@ module.exports = function(name) {
     },
 
     getClassSet(ref) {
-      return cx(this.getClasses(ref));
+      return classnames(this.getClasses(ref));
     },
 
     addClass(ref, className, conditional) {
