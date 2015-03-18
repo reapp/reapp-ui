@@ -1,6 +1,7 @@
 var React = require('react/addons');
 var Component = require('../component');
 var MultiTappable = require('../mixins/MultiTappable');
+var clone = require('../lib/niceClone');
 
 module.exports = Component({
   name: 'TitleBar',
@@ -53,7 +54,7 @@ module.exports = Component({
     if (!component || !React.isValidElement(component))
       return component;
 
-    return React.addons.cloneWithProps(component, {
+    return clone(component, {
       isInTitleBar: true,
       isInViewList: this.props.isInViewList,
       animationState: this.props.animationState
