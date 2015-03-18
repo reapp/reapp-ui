@@ -15,8 +15,11 @@ function getTouchProps(touch) {
 module.exports = {
   componentWillUnmount() {
     clearInterval(this._scrollEndInterval);
-    this._scrollNode.removeEventListener('touchstart', this._scrollHandleTouchStart);
-    this._scrollNode.removeEventListener('touchmove', this._scrollHandleTouchMove);
+
+    if (this._scrollNode) {
+      this._scrollNode.removeEventListener('touchstart', this._scrollHandleTouchStart);
+      this._scrollNode.removeEventListener('touchmove', this._scrollHandleTouchMove);
+    }
   },
 
   scrollListener(node) {

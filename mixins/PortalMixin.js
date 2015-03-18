@@ -1,4 +1,5 @@
 var React = require('react');
+var Theme = require('../helpers/Theme');
 
 module.exports = function(Portal) {
   return {
@@ -18,7 +19,11 @@ module.exports = function(Portal) {
     },
 
     _render(props, node) {
-      React.render(<Portal {...props} />, node);
+      React.render(
+        <Theme {...this.context.theme}>
+          <Portal {...props} />
+        </Theme>
+      , node);
     }
   }
 };

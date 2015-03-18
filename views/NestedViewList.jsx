@@ -2,12 +2,14 @@ var React = require('react');
 var Component = require('../component');
 var ViewListMixin = require('../mixins/ViewListMixin');
 var NestedViewListBehavior = require('../behaviors/NestedViewListBehavior');
+var Animator = require('../mixins/Animator');
 
 module.exports = Component({
   name: 'NestedViewList',
 
   mixins: [
-    ViewListMixin
+    ViewListMixin,
+    Animator('viewList', ['width'])
   ],
 
   getDefaultProps: function() {
@@ -39,10 +41,6 @@ module.exports = Component({
     if (this.state.children && this.state.children.length === 1)
       touchableProps.untouchable = true;
 
-    return (
-      <div>
-        {this.getViewList({ touchableProps })}
-      </div>
-    );
+    return this.getViewList({ touchableProps });
   }
 });

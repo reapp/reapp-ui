@@ -1,3 +1,5 @@
+require('./lib/contextPatch');
+
 var Stylesheet = require('react-style');
 var Invariant = require('react/lib/invariant');
 
@@ -32,6 +34,14 @@ var UI = module.exports = {
   styles: {},
   animations: {},
   constants: {},
+
+  getTheme() {
+    return {
+      styles: this.styles,
+      animations: this.animations,
+      constants: this.constants
+    };
+  },
 
   // constants are order sensitive and are overwritten on object
   addConstants(...constants) {

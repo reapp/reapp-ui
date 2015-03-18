@@ -122,6 +122,7 @@ module.exports = Component({
     var buttonWidth = (100 / buttons.length) + '%';
     var style = {
       flexBasis: buttonWidth,
+      WebkitFlexBasis: buttonWidth,
       maxWidth: buttonWidth
     };
 

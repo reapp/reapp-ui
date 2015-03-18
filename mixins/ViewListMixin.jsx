@@ -9,7 +9,7 @@ var clone = require('../lib/niceClone');
 // ViewLists are the most complex piece of the UI kit.
 // Their usage is simple, but they manage a lot of state,
 // encompass many animations, and also need to know about multiple
-// child components (see TitleBar, View, Icon)
+// child components (see TitleBar, View, Button, Icon)
 
 module.exports = {
   propTypes: {
@@ -47,7 +47,6 @@ module.exports = {
   },
 
   setupBeforeMount(props, cb) {
-    this.setAnimationState('viewList');
     this.scroller = new Scroller(this.handleScroll, props.scrollerProps);
     this.setupViewList(props, cb);
   },
@@ -318,7 +317,7 @@ module.exports = {
 
   getViewAnimations(view) {
     return view && view.props.animations ?
-      Object.assign(this.props.viewAnimations, view.props.animations) :
+      Object.assign({}, this.props.viewAnimations, view.props.animations) :
       this.props.viewAnimations;
   },
 
@@ -359,8 +358,6 @@ module.exports = {
     var { touchableProps } = props || {};
     var activeTitle;
 
-    this.setAnimationState('viewList');
-
     return (
       <TouchableArea {...this._touchableAreaProps} {...touchableProps}>
         {!this.props.noFakeTitleBar && (
@@ -376,16 +373,9 @@ module.exports = {
             activeTitle = child.props && child.props.title;
 
           return Object.assign({
-            ref: i,
             key: i,
             index: i,
             inactive: i !== this.state.step,
-            animationState: {
-              viewList: {
-                index: i,
-                step: this.state.step
-              }
-            },
             titleBarProps: this.getTitleBarProps(),
             isInViewList: true,
             animations: this.getViewAnimations(child),

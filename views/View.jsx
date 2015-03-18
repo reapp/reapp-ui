@@ -4,6 +4,7 @@ var TitleBar = require('../components/TitleBar');
 var StaticContainer = require('../helpers/StaticContainer');
 var ScrollTopable = require('../mixins/ScrollTopable');
 var AnimatedScrollToTop = require('../mixins/AnimatedScrollToTop');
+var Animator = require('../mixins/Animator');
 var ScrollState = require('../mixins/ScrollState');
 
 module.exports = Component({
@@ -12,7 +13,8 @@ module.exports = Component({
   mixins: [
     ScrollState,
     ScrollTopable('inner'),
-    AnimatedScrollToTop
+    AnimatedScrollToTop,
+    Animator('viewList', ['index'])
   ],
 
   propTypes: {
@@ -162,6 +164,8 @@ module.exports = Component({
         display: inactive ? 'block' : 'none',
         top: titleBarHeight
       });
+
+    // console.log(this.componentProps('inner'))
 
     return (
       <div {...this.componentProps()} {...props}>

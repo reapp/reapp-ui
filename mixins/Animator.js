@@ -1,37 +1,29 @@
 var React = require('react');
-var AnimateStore = require('../stores/AnimateStore');
-// var getAnimationState = require('./getAnimationState');
 
-var pick = (a, b) => typeof a !== 'undefined' ? a : b;
-
-module.exports = function(source) {
-  // todo: parent context
-  // var childContextTypes = {};
-  // childContextTypes[source] = React.PropTypes.object;
-
+module.exports = function(name, props) {
   return {
-    // todo: parent context
-    // childContextTypes,
+    pickNum: (a, b) => typeof a === 'number' ? a : b,
 
-    // see getAnimationState.js
-    getAnimationState,
-
-    setAnimationState() {
-      AnimateStore(source, this.getAnimationState());
+    childContextTypes: {
+      animations: React.PropTypes.object
     },
 
-    // todo: parent context
-    // getChildContext() {
-    //   var c = this.context && this.context.animations || {};
-    //   return Object.assign(c, this.getAnimationState());
-    // },
+    getChildContext() {
+      var animations = this.context.animations || {
+        [name]: {}
+      };
 
-    disableAnimation() {
-      this.setState({ animationDisabled: true });
+      var step = this.pickNum(this.props.step, this.state && this.state.step);
+
+      if (typeof step === 'number')
+        animations[name].step = step;
+
+      if (props)
+        props.forEach(prop => animations[name][prop] = this.props[prop]);
+
+      // debugger
+
+      return { animations: animations };
     },
-
-    enableAnimation() {
-      this.setState({ animationDisabled: false });
-    }
-  };
+  }
 };
