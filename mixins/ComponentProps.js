@@ -1,7 +1,7 @@
 // Uses a combination of all the internal mixins to provide
 // a consistent set of props for each component
 
-// ref, id, className, styles, and any animation styles
+// ref, className, styles, and any animation styles
 
 module.exports = {
   componentProps(ref) {
@@ -9,7 +9,7 @@ module.exports = {
 
     var props = {
       ref,
-      // className: this.getClassSet(ref),
+      className: this.getClassSet(ref),
       styles: this.getStyles(ref)
     };
 

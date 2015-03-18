@@ -47,7 +47,6 @@ module.exports = {
   },
 
   setupBeforeMount(props, cb) {
-    this.setAnimationState('viewList');
     this.scroller = new Scroller(this.handleScroll, props.scrollerProps);
     this.setupViewList(props, cb);
   },
@@ -358,8 +357,6 @@ module.exports = {
   getViewList(props) {
     var { touchableProps } = props || {};
     var activeTitle;
-
-    this.setAnimationState('viewList');
 
     return (
       <TouchableArea {...this._touchableAreaProps} {...touchableProps}>

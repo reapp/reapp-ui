@@ -53,12 +53,6 @@ module.exports = {
     }, {});
   },
 
-  // used just by animators
-  // pushes their state to the store for children
-  setAnimationState(source) {
-
-  },
-
   disableAnimation() {
     if (!this.state.animationDisabled)
       this.setState({ animationDisabled: true });
@@ -75,7 +69,7 @@ module.exports = {
 
   isAnimating(source) {
     var state = this.getAnimationState(source || this.animationSource);
-    return state.step && state.step % 1 !== 0;
+    return state && state.step && state.step % 1 !== 0;
   },
 
   _wasAnimating: {},
