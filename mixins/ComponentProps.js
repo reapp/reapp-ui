@@ -9,7 +9,7 @@ module.exports = {
 
     var props = {
       ref,
-      className: this.getClassSet(ref),
+      // className: this.getClassSet(ref),
       styles: this.getStyles(ref)
     };
 
