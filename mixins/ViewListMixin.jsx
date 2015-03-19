@@ -4,6 +4,7 @@ var DocumentTitle = require('react-document-title');
 var Component = require('../component');
 var TitleBar = require('../components/TitleBar');
 var TouchableArea = require('../helpers/TouchableArea');
+var Animator = require('../lib/Animator');
 var clone = require('../lib/niceClone');
 
 // ViewLists are the most complex piece of the UI kit.
@@ -11,7 +12,7 @@ var clone = require('../lib/niceClone');
 // encompass many animations, and also need to know about multiple
 // child components (see TitleBar, View, Button, Icon)
 
-module.exports = {
+module.exports = Object.assign(Animator('viewList', ['width', 'height']), {
   propTypes: {
     scrollToStep: React.PropTypes.number,
     disableScroll: React.PropTypes.bool,
@@ -396,4 +397,4 @@ module.exports = {
       </TouchableArea>
     );
   }
-};
+});

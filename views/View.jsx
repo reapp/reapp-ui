@@ -4,7 +4,7 @@ var TitleBar = require('../components/TitleBar');
 var StaticContainer = require('../helpers/StaticContainer');
 var ScrollTopable = require('../mixins/ScrollTopable');
 var AnimatedScrollToTop = require('../mixins/AnimatedScrollToTop');
-var Animator = require('../mixins/Animator');
+var Animator = require('../lib/Animator');
 var ScrollState = require('../mixins/ScrollState');
 
 module.exports = Component({

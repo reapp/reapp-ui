@@ -2,14 +2,12 @@ var React = require('react');
 var Component = require('../component');
 var ViewListMixin = require('../mixins/ViewListMixin');
 var NestedViewListBehavior = require('../behaviors/NestedViewListBehavior');
-var Animator = require('../mixins/Animator');
 
 module.exports = Component({
   name: 'NestedViewList',
 
   mixins: [
-    ViewListMixin,
-    Animator('viewList', ['width'])
+    ViewListMixin
   ],
 
   getDefaultProps: function() {

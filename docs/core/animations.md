@@ -2,8 +2,6 @@
 
 ## Animations
 
-### Using Animations
-
 Animations in Reapp are powered by our [Animated mixin](https://github.com/reapp/reapp-ui/blob/master/mixins/Animated.js). This mixin provides an API that allows you to easily animate React elements.
 
 Animations are defined in a specific format. When you pass props to a component, you use `animations` as the key. The value is an object that describes the animations you want:
