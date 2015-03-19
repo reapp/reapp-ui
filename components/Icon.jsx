@@ -79,6 +79,10 @@ module.exports = Component({
       fill: color
     });
 
+    this.addStyles('svg', {
+      margin: 'auto',
+    });
+
     if (stroke)
       Object.assign(props, {
         stroke: color,
@@ -88,7 +92,7 @@ module.exports = Component({
 
     return (
       <div {...this.componentProps()}>
-        <svg viewBox="0 0 64 64" {...props}>
+        <svg viewBox="0 0 64 64" {...props} {...this.componentProps('svg')}>
           <g dangerouslySetInnerHTML={{__html: file }} />
         </svg>
       </div>
