@@ -7,40 +7,36 @@
 var UI = require('reapp-ui');
 var Component = require('reapp-component')();
 var React = require('react');
-var Identified = require('./mixins/Identified');
 var Styled = require('./mixins/Styled');
 var Classed = require('./mixins/Classed');
+var Constanted = require('./mixins/Constanted');
 var Animated = require('./mixins/Animated');
 var ComponentProps = require('./mixins/ComponentProps');
 
 Component.addDecorator(spec => {
+
+  // add context for theme
   spec.contextTypes = Object.assign({
     theme: React.PropTypes.object
   }, spec.contextTypes);
 
+  // mixins
   spec.mixins = [].concat(
-    // unique ids and classes
-    Identified,
-    Classed(spec.name),
-
-    // constants
-    { getConstant: UI.getConstants },
-
-    // styles and animations
-    Styled(spec.name, UI.getStyles),
+    Classed,
+    Constanted,
+    Styled,
     Animated,
-
-    // any component-defined mixins
     spec.mixins || [],
 
     // componentProps is the meat of a UI component
-    // when used, it will handle: id, ref, className, styles, animations
+    // when used, it will handle: ref, className, styles, animations
     ComponentProps
   );
 
-  // set UI displayname to help with debugging
-  spec.displayName = `UI-${spec.name}`;
+  // add UI displayname to help with debugging
+  spec.displayName = spec.name;
 
+  // wrap in createClass
   return React.createClass(spec);
 });
 

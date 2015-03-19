@@ -21,8 +21,6 @@ module.exports = function(name, props) {
       if (props)
         props.forEach(prop => animations[name][prop] = this.props[prop]);
 
-      // debugger
-
       return { animations: animations };
     },
   }
