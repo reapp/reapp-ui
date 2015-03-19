@@ -1,5 +1,6 @@
 var React = require('react');
 var StyleKeys = require('../lib/StyleKeys');
+var invariant = require('react/lib/invariant');
 
 /*
 
@@ -159,8 +160,8 @@ module.exports = {
     if (this.getTweeningValue && this.getTweeningValue('step'))
       state.step = this.getTweeningValue('step');
 
-    Invariant(defined(state.step), 'Must define step for animation to run');
-    Invariant(defined(state.index), 'Must define index for animation to run');
+    invariant(defined(state.step), 'Must define step for animation to run');
+    invariant(defined(state.index), 'Must define index for animation to run');
 
     var animator = this.context.theme.animations[animation];
     var { scale, rotate, rotate3d, translate, ...other } = animator(state);

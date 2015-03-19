@@ -79,10 +79,6 @@ module.exports = Component({
       fill: color
     });
 
-    this.addStyles('svg', {
-      margin: 'auto',
-    });
-
     if (stroke)
       Object.assign(props, {
         stroke: color,
@@ -90,9 +86,14 @@ module.exports = Component({
         strokeLinecap: 'round'
       });
 
+    // center icon
+    props.style = Object.assign({
+      margin: 'auto',
+    }, props.style);
+
     return (
       <div {...this.componentProps()}>
-        <svg viewBox="0 0 64 64" {...props} {...this.componentProps('svg')}>
+        <svg viewBox="0 0 64 64" {...props}>
           <g dangerouslySetInnerHTML={{__html: file }} />
         </svg>
       </div>
