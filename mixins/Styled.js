@@ -2,9 +2,9 @@
 
 // It tracks four types of styles:
 //   1. styles: runtime loaded styles
-//   2. addedStyles: styles added in component
+//   2. addedStyles: imperative styles added in component
 //   3. propStyles: styles passed in with props
-//   4. conditionalStyles: firstChild, lastChild, (TODO: @media styles)
+//   4. conditionalStyles: firstChild, lastChild
 
 module.exports = {
   componentWillUpdate(nextProps) {
@@ -19,8 +19,10 @@ module.exports = {
   setupStyles(props) {
     this.addedStyles = {};
 
-    if (props.styles)
+    if (props.styles) {
       this.propStyles = props.styles;
+      delete props.styles;
+    }
   },
 
   getPropStyles(ref) {
@@ -30,17 +32,7 @@ module.exports = {
   },
 
   addStyleTo(obj, key, style) {
-    if (key.charAt(0) == '@')
-      this.addMediaQueryStyles(key, style);
-    else
-      obj[key] = (obj[key] || []).concat(style);
-  },
-
-  addMediaQueryStyles(mediaQuery, styles) {
-    Object.keys(styles).forEach(key => {
-      this.mediaStyles[mediaQuery] = {};
-      this.addStyleTo(this.mediaStyles[mediaQuery], key, styles[key]);
-    });
+    obj[key] = (obj[key] || []).concat(style);
   },
 
   getStyles(ref, index) {
