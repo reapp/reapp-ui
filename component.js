@@ -1,10 +1,5 @@
-// This is a function that decorates React's createClass.
-// It's used only internally in this library,
-// but could be used externally eventually.
+// Decoration for every component used internally in reapp-ui
 
-// See the mixins for more information on what this does.
-
-var UI = require('reapp-ui');
 var Component = require('reapp-component')();
 var React = require('react');
 var Styled = require('./mixins/Styled');
@@ -16,9 +11,9 @@ var ComponentProps = require('./mixins/ComponentProps');
 Component.addDecorator(spec => {
 
   // add context for theme
-  spec.contextTypes = Object.assign({
+  spec.contextTypes = {
     theme: React.PropTypes.object
-  }, spec.contextTypes);
+  };
 
   // mixins
   spec.mixins = [].concat(
@@ -27,9 +22,7 @@ Component.addDecorator(spec => {
     Styled,
     Animated,
     spec.mixins || [],
-
-    // componentProps is the meat of a UI component
-    // when used, it will handle: ref, className, styles, animations
+    // automates ref, className, styles, animations
     ComponentProps
   );
 
