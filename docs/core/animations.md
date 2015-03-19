@@ -2,6 +2,8 @@
 
 ## Animations
 
+### Using Animations
+
 Animations in Reapp are powered by our [Animated mixin](https://github.com/reapp/reapp-ui/blob/master/mixins/Animated.js). This mixin provides an API that allows you to easily animate React elements.
 
 Animations are defined in a specific format. When you pass props to a component, you use `animations` as the key. The value is an object that describes the animations you want:
@@ -46,7 +48,50 @@ The `ref` attribute is the same as the string we pass to componentProps, but it 
 
 Now, going back to how we defined our animation props we can see how they apply. The `<div ref="self">` gets 'fade' and 'moveLeft', while the `<button ref="button">` gets 'moveRight'.
 
-## API
+### Animated Mixin
+
+A simple mixin to run animations through context or within a component.
+
+#### Core concepts
+
+The Animated mixin uses the `this.context.theme.animations : object`
+to search for animations. Animations are function that take an object,
+like so: `{ index, state, ...extraProps }` and return an object with
+the following options:
+
+```
+  {
+    transform: { x: num, y: num, z: num },
+    rotate: num,
+    rotate3d: { x: num, y: num, z: num },
+    scale: num,
+    (opacity, or any other prop): any
+  }
+```
+
+Extra props can be passed down from a parent Animator by defining
+`this.animationContext (func : object) -> object` on their class.
+The object returned by animationContext is merged into extraProps.
+
+Within an animated component you can get the current animation state
+with `this.getAnimationState() -> object` or the current animation
+styles with `this.getAnimationStyle() -> object`.
+
+#### Context animations (Parent to Children)
+
+In a parent component you define a "step" (props or state), which is
+the current position of the animation. Then on children, you define
+an "index" (property). This mixin then allows you to run
+`this.getAnimationStyle()` on the children, which will use the state
+set in the parents.
+
+Parents pass down context through `this.context.animations : object`.
+This object should contain a key (the name/source of the animation)
+to the value (an object with at least { step }).
+
+To ease setting this context, check out the Animator mixin.
+
+### Animated Mixin API
 
 ### getAnimationState(source : string) : object
 
@@ -72,17 +117,12 @@ animationContext() {
 The getAnimationState function will do a search through your component
 in the following order to find these properties:
 
-1. this.state.index, this.state.step
-2. this.props.index, this.props.step
-3. AnimateStore (Soon to be Context) - This will soon be replaced by contexts in React 0.13, but until then we've built a simple store that allows for passing the state down without having to pass props all the way.
+1. this.state (index or step)
+2. this.props (index or step)
+3. this.context (index or step)
 
-The return value is an object with at least index and step, and potentially extra information.
-
-### setAnimationState(source : string)
-
-For components that want to animate down to deeply nested children, they can use this function. It will use `getAnimationState` to get the current state, and the place it into the AnimateStore for children to use when fetching.
-
-You can define a `source` of your animation. This is needed for children that want to get the animation state dynamically from different sources.
+The return value is an object with at least index and step, and potentially extra
+information as passed down through `this.animationContext`.
 
 ### disableAnimation()
 
@@ -99,10 +139,6 @@ Returns if the animations are currently disabled.
 ### isAnimating(source : string): bool
 
 Check if an animation is running. This uses `getAnimationState` and then checks if the step isn't a whole number.
-
-### isAnimatingSafe(source : string) : bool
-
-Similar to isAnimating, but will have a slight delay (returns true after animations are completed for a short time).
 
 ### hasAnimations(ref : string) : bool
 
