@@ -1,10 +1,52 @@
 var React = require('react');
-var Invariant = require('react/lib/invariant');
 var StyleKeys = require('../lib/StyleKeys');
-var Animator = require('../mixins/Animator');
 
-// This is a somewhat haphazard mixin at the moment that
-// organizes and runs animations on elements.
+/*
+
+  ## Animated
+
+  A simple mixin to run animations through context or within a component.
+
+  ### Core concepts
+
+  The Animated mixin uses the `this.context.theme.animations : object`
+  to search for animations. Animations are function that take an object,
+  like so: `{ index, state, ...extraProps }` and return an object with
+  the following options:
+
+  ```
+    {
+      transform: { x: num, y: num, z: num },
+      rotate: num,
+      rotate3d: { x: num, y: num, z: num },
+      scale: num,
+      (opacity, or any other prop): any
+    }
+  ```
+
+  Extra props can be passed down from a parent Animator by defining
+  `this.animationContext (func : object) -> object` on their class.
+  The object returned by animationContext is merged into extraProps.
+
+  Within an animated component you can get the current animation state
+  with `this.getAnimationState() -> object` or the current animation
+  styles with `this.getAnimationStyle() -> object`.
+
+  ### Context animations (Parent to Children)
+
+  In a parent component you define a "step" (props or state), which is
+  the current position of the animation. Then on children, you define
+  an "index" (property). This mixin then allows you to run
+  `this.getAnimationStyle()` on the children, which will use the state
+  set in the parents.
+
+  Parents pass down context through `this.context.animations : object`.
+  This object should contain a key (the name/source of the animation)
+  to the value (an object with at least { step }).
+
+  To ease setting this context, check out the Animator mixin.
+
+*/
 
 var defined = variable => (typeof variable !== 'undefined');
 
@@ -73,30 +115,6 @@ module.exports = {
   },
 
   _wasAnimating: {},
-
-  // Because were dealing with time and render lag
-  // This can be used in a parent shouldComponentUpdate
-  isAnimatingSafe(source) {
-    var isAnimating = this.isAnimating(source);
-    var wasAnimating = this._wasAnimating[source];
-
-    if (!isAnimating) {
-      if (!wasAnimating)
-        return false;
-
-      if (wasAnimating > 20) {
-        wasAnimating = false;
-        return false;
-      }
-
-      wasAnimating = wasAnimating++;
-      return true;
-    }
-    else {
-      wasAnimating = 1;
-      return true;
-    }
-  },
 
   hasAnimations(ref) {
     return !!this.getAnimations(ref);
