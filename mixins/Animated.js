@@ -60,12 +60,14 @@ module.exports = {
   getAnimationState(source) {
     // if the animations are coming from external sources
     if (source && source !== 'self') {
-      var state = this.context.animations[source];
+      if (this.context && this.context.animations) {
+        var state = this.context.animations[source];
 
-      if (!defined(state.index))
-        state.index = this.props.index;
+        if (!defined(state.index))
+          state.index = this.props.index;
 
-      return state;
+        return state;
+      }
     }
     // else if animations come from within the component
     else {
@@ -114,8 +116,6 @@ module.exports = {
     var state = this.getAnimationState(source || this.animationSource);
     return state && state.step && state.step % 1 !== 0;
   },
-
-  _wasAnimating: {},
 
   hasAnimations(ref) {
     return !!this.getAnimations(ref);

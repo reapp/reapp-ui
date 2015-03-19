@@ -7,6 +7,7 @@ module.exports = Component({
   name: 'Bar',
 
   propTypes: {
+    display: React.PropTypes.string,
     barItemProps: React.PropTypes.object,
     position: React.PropTypes.string,
     activeIndexIndex: React.PropTypes.number,
