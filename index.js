@@ -1,3 +1,4 @@
+// until React 0.14, we emulate the context
 require('./lib/contextPatch');
 
 var Stylesheet = require('react-style');
@@ -114,19 +115,5 @@ var UI = module.exports = {
     });
 
     return styles;
-  },
-
-  // getters
-
-  getStyles(name) {
-    return name ? UI.styles[name] : UI.styles;
-  },
-
-  getConstants(name) {
-    return name ? UI.constants[name] : UI.constants;
-  },
-
-  getAnimations(name) {
-    return name ? UI.animations[name] : UI.animations;
   }
 };
