@@ -83,7 +83,6 @@ module.exports = Component({
       children = wrapper.props.children;
     }
 
-    // todo: implement getConstant
     if (!this.getStyleVal('children', 'color'))
       this.addStyles('children', { color: title ? '#999' : '#000' });
 

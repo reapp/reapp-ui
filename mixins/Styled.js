@@ -39,7 +39,9 @@ module.exports = {
     ref = ref || 'self';
 
     return (
-      this.styles[ref] ? [this.styles[ref]] : []
+      (this.styles[ref] &&
+        Array.isArray(this.styles[ref]) ? this.styles[ref] : [this.styles[ref]]
+      ) || []
     ).concat(
       this.addedStyles[ref] || []
     ).concat(
