@@ -1,5 +1,3 @@
-var Stylesheet = require('react-style');
-
 // Styled - helps with this.context.theme.styles
 
 // It tracks four types of styles:
@@ -21,10 +19,8 @@ module.exports = {
   setupStyles(props) {
     this.addedStyles = {};
 
-    if (props.styles) {
+    if (props.styles)
       this.propStyles = props.styles;
-      delete props.styles; // bad, i know
-    }
   },
 
   getPropStyles(ref) {
