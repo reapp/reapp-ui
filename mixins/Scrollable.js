@@ -15,10 +15,10 @@ var Scrollable = {
         this.scrollerProps() :
         this.scrollerProps :
       {
-        scrollBounce: true,
-        scrollX: false,
-        scrollY: false,
-        scrollSnap: false
+        bouncing: true,
+        scrollingX: false,
+        scrollingY: false,
+        snapping: false
       };
 
     this.scroller = this.props.scroller ||

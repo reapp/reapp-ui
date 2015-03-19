@@ -27,10 +27,10 @@ module.exports = Component({
   ],
 
   scrollerProps: {
-    scrollBounce: false,
-    scrollX: true,
-    scrollY: false,
-    scrollSnap: true
+    bouncing: false,
+    scrollingX: true,
+    scrollingY: false,
+    snapping: true
   },
 
   afterMeasureScroll(node) {
@@ -40,7 +40,6 @@ module.exports = Component({
 
   getDefaultProps() {
     return {
-      draggable: false,
       sideWidth: 200,
       behavior: LeftNavBehavior.NORMAL
     };

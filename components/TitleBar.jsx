@@ -9,7 +9,6 @@ module.exports = Component({
   propTypes: {
     width: React.PropTypes.number,
     height: React.PropTypes.number,
-    animations: React.PropTypes.object,
     left: React.PropTypes.node,
     right: React.PropTypes.node,
     transparent: React.PropTypes.bool,

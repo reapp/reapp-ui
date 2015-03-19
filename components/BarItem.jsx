@@ -16,7 +16,7 @@ module.exports = Component({
       React.PropTypes.element
     ]),
     iconProps: React.PropTypes.object,
-    children: React.PropTypes.string,
+    children: React.PropTypes.node,
     display: React.PropTypes.oneOf([
       'text', 'icon', 'icon-text', 'icon-text-right'
     ]),
