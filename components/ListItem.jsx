@@ -70,12 +70,16 @@ module.exports = Component({
       icon,
       nopad,
       index,
+      fulltext,
       ...props } = this.props;
 
     if (index === 0) {
       this.addStyles('content', 'borderless');
       this.addStyles('after', 'borderless');
     }
+
+    if (fulltext)
+      this.addStyles('children', 'fulltext');
 
     // make a top level link into a wrapper so it can take up the whole item
     if (!wrapper && this.hasLinkAsChild(children)) {

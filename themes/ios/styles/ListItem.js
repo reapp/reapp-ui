@@ -105,6 +105,11 @@ module.exports = (c) => ({
     display: '-webkit-box',
   },
 
+  fulltext: {
+    WebkitLineClamp: 'none',
+    maxHeight: 'none'
+  },
+
   childrenNoTitle: {
     fontSize: '17px',
     paddingRight: 10

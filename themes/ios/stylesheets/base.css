@@ -1,4 +1,8 @@
-div, a, button, input, form, span, ul, li {
+* {
+  box-sizing: border-box;
+}
+
+div, a, button, input, form, ul, li {
   display: flex;
   flex-flow: column;
   flex-shrink: 0;
@@ -12,7 +16,7 @@ div, a, button, input, form, span, ul, li {
   -webkit-font-smoothing: antialiased;
 }
 
-a, button, input {
+a, button, input, textarea {
   cursor: pointer;
 }
 
