@@ -26,19 +26,22 @@ module.exports = (c) => ({
     display: 'none'
   },
 
-  'icon__icon': {
+  'display:icon__icon': {
     flexGrow: 1,
     WebkitFlexGrow: 1
   },
 
-  'icon-text__icon': {
-    margin: '-2px 0 2px 0'
+  'display:icon-text__icon': {
+    margin: '-2px 0 -2px 0',
+    flexGrow: 1,
+    WebkitFlexGrow: 1
   },
 
-  'icon-text__text': {
+  'display:icon-text__text': {
     fontSize: '11px',
     lineHeight: '11px',
-    fontWeight: 500
+    fontWeight: 500,
+    margin: '0 0 2px 0'
   },
 
   'icon-text-right': {
@@ -46,11 +49,11 @@ module.exports = (c) => ({
     WebkitFlexFlow: 'row'
   },
 
-  'icon-text-right__icon': {
+  'display:icon-text-right__icon': {
     margin: '0 4px 0 0'
   },
 
-  'icon-text-right__text': {
+  'display:icon-text-right__text': {
     fontSize: '12px'
   }
 });

@@ -28,7 +28,7 @@ module.exports = Component({
       this.addStyles(`position-${position}`);
 
     return (
-      <ul {...this.componentProps()} {...props}>
+      <div {...this.componentProps()} {...props}>
         {React.Children.map(children, (child, i) => {
           var childProps = {
             display,
@@ -43,9 +43,9 @@ module.exports = Component({
               </BarItem>
             );
 
-          return clone(child, childProps);
+          return clone(child, childProps, true);
         })}
-      </ul>
+      </div>
     );
   }
 });

@@ -31,9 +31,9 @@ module.exports = Component({
 
   makeSection(name, content) {
     return content && (
-      <span {...this.componentProps(`${this.props.display}__${name}`)}>
+      <div {...this.componentProps(`display:${this.props.display}__${name}`)}>
         {content}
-      </span>
+      </div>
     );
   },
 
@@ -63,10 +63,10 @@ module.exports = Component({
       );
 
     return (
-      <li {...this.componentProps()} {...this.tappableProps()} {...props}>
-        {display != 'text' ? this.makeSection('icon', icon) : ''}
-        {display != 'icon' ? this.makeSection('text', children) : ''}
-      </li>
+      <div {...this.componentProps()} {...this.tappableProps()} {...props}>
+        {display != 'text' && this.makeSection('icon', icon)}
+        {display != 'icon' && this.makeSection('text', children)}
+      </div>
     );
   }
 });

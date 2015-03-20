@@ -26,12 +26,12 @@ module.exports = Component({
 
   makeSection(name, content, props) {
     return content &&
-      <span
+      <div
         {...props}
         {...this.componentProps(name)}
         key={`${name}-${this.props.key}`}>
         {content}
-      </span>
+      </div>
   },
 
   isLink(el) {
@@ -116,19 +116,19 @@ module.exports = Component({
     if (nopad || children && children.type && children.type.liNoPad)
       this.addStyles('content', 'contentNoPad');
 
-    var span = this.makeSection;
+    var section = this.makeSection;
     var content = [
-      span('wrapper', wrapper),
-      span('before', before),
-      span('content', [
-        hasTitle && span('titleTop', [
-          span('title', title),
-          span('titleAfter', titleAfter)
+      section('wrapper', wrapper),
+      section('before', before),
+      section('content', [
+        hasTitle && section('titleTop', [
+          section('title', title),
+          section('titleAfter', titleAfter)
         ]),
-        span('titleSub', titleSub),
-        span('children', children)
+        section('titleSub', titleSub),
+        section('children', children)
       ]),
-      span('after', after),
+      section('after', after),
     ];
 
     var tapProps;
