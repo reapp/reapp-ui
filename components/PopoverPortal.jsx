@@ -187,6 +187,8 @@ module.exports = Component({
 
     this.addPositionStyles();
 
+    var linkStyles = this.getStyles('link');
+
     return (
       <div {...this.componentProps()} {...props}>
         <Tappable
@@ -198,18 +200,16 @@ module.exports = Component({
           <div {...this.componentProps('arrow')}>
             <div {...this.componentProps('arrowInner')} />
           </div>
-          <ul {...this.componentProps('list')}>
+          <div {...this.componentProps('list')}>
             {React.Children.map(children, (li, i) => (
-              <li key={i} styles={this.getStyles('item', i)}>
+              <div key={i} styles={this.getStyles('item', i)}>
                 <Tappable
                   onTap={this.handlePopoverSelect.bind(this, li.props.onClick)}>
-                  {clone(li, (item, i) => {
-                    return { styles: this.getStyles('link') }
-                  })}
+                  {clone(li, { styles: linkStyles }, true)}
                 </Tappable>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       </div>
     );
