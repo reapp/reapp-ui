@@ -64,8 +64,8 @@ module.exports = Component({
 
     return (
       <li {...this.componentProps()} {...this.tappableProps()} {...props}>
-        {this.makeSection('icon', icon)}
-        {this.makeSection('text', children)}
+        {display != 'text' ? this.makeSection('icon', icon) : ''}
+        {display != 'icon' ? this.makeSection('text', children) : ''}
       </li>
     );
   }
