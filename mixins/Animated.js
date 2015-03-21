@@ -71,7 +71,7 @@ module.exports = {
     }
     // else if animations come from within the component
     else {
-      var state = this.stateOrProps(
+      var state = this._stateOrProps(
         'step',
         'index',
         'animationsDisabled'
@@ -88,14 +88,6 @@ module.exports = {
 
       return state;
     }
-  },
-
-  // grabs state, if not, then props
-  stateOrProps(...keys) {
-    return keys.reduce((acc, key) => {
-      acc[key] = this.state && defined(this.state[key]) ? this.state[key] : this.props[key];
-      return acc;
-    }, {});
   },
 
   disableAnimation() {
@@ -202,5 +194,13 @@ module.exports = {
       transformString += `translate3d(${t.translate.x || 0}px, ${t.translate.y || 0}px, ${t.translate.z || 0}px)`;
 
     return transformString;
+  },
+
+  // grabs state, if not, then props
+  _stateOrProps(...keys) {
+    return keys.reduce((acc, key) => {
+      acc[key] = this.state && defined(this.state[key]) ? this.state[key] : this.props[key];
+      return acc;
+    }, {});
   }
 };

@@ -1,6 +1,6 @@
 var React = require('react');
 var Component = require('../component');
-var ViewListMixin = require('../mixins/ViewListMixin');
+var ViewListMixin = require('./ViewListMixin');
 
 module.exports = Component({
   name: 'ViewList',

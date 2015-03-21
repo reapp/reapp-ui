@@ -10,20 +10,19 @@ var ComponentProps = require('./mixins/ComponentProps');
 
 Component.addDecorator(spec => {
 
+  Object.assign(spec, ComponentProps, Animated, Constanted);
+
   // add context for theme
   spec.contextTypes = {
-    theme: React.PropTypes.object
+    theme: React.PropTypes.object,
+    animations: React.PropTypes.object
   };
 
   // mixins
   spec.mixins = [].concat(
     Classed,
-    Constanted,
     Styled,
-    Animated,
-    spec.mixins || [],
-    // automates ref, className, styles, animations
-    ComponentProps
+    spec.mixins || []
   );
 
   // add UI displayname to help with debugging
