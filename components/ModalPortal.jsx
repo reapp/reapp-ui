@@ -13,29 +13,6 @@ module.exports = Component({
     TweenState.Mixin
   ],
 
-  propTypes: {
-    open: React.PropTypes.bool,
-    type: React.PropTypes.string,
-    animationDuration: React.PropTypes.number,
-    animations: React.PropTypes.object,
-    onConfirm: React.PropTypes.func,
-    onCancel: React.PropTypes.func,
-    onClose: React.PropTypes.func
-  },
-
-  getDefaultProps() {
-    return {
-      open: true,
-      type: 'alert',
-      onClose: this.handleClose,
-      animationDuration: 200,
-      animations: {
-        modal: ['fade', 'scaleDown'],
-        bg: 'fade'
-      }
-    };
-  },
-
   getInitialState() {
     return {
       step: 0,
@@ -110,7 +87,6 @@ module.exports = Component({
           <ModalButton confirm onTap={this.handleConfirm} stopPropagation>OK</ModalButton>
         ];
         break;
-      case 'prompt':
       case 'confirm':
         buttons = [
           <ModalButton styles={{ self: { borderLeft: 'none' } }} onTap={this.handleCancel} stopPropagation>Cancel</ModalButton>,
