@@ -6,7 +6,7 @@ var {
   scaleBetween
 } = require('../../lib/AnimationHelpers');
 
-var Animations = module.exports = {
+module.exports = {
   viewParallax({ index, step, width }) {
     var translateX = (index - step) * width;
 

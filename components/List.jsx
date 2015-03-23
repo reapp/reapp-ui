@@ -29,7 +29,7 @@ module.exports = Component({
       this.addStyles(this.getStyles(`type-${type}`));
 
     return (
-      <ul {...this.componentProps()} {...props}>
+      <div {...this.componentProps()} {...props}>
         {title && (
           <Title styles={this.getStyles('title')}>{title}</Title>
         )}
@@ -46,7 +46,7 @@ module.exports = Component({
 
           return clone(li, { key: i, index: i, nopad });
         })}
-      </ul>
+      </div>
     );
   }
 });

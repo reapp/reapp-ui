@@ -24,24 +24,20 @@ module.exports = Component({
     left: React.PropTypes.bool,
     right: React.PropTypes.bool,
 
-    // What to show above
+    // pass props to the scroller
+    scrollerProps: React.PropTypes.object,
+
+    // what to show above
     children: React.PropTypes.node,
 
-    // What to show below
+    // what to show below
     below: React.PropTypes.node,
 
-    // Where to limit swiping
+    // where to limit swiping
     limit: React.PropTypes.number,
 
-    // Swiper no swiping!
+    // disable swiping (swiper no swiping!)
     noswiping: React.PropTypes.bool
-  },
-
-  getInitialState() {
-    return {
-      x: 0,
-      y: 0
-    };
   },
 
   componentWillMount() {
@@ -82,7 +78,9 @@ module.exports = Component({
     if (!this.props.left)
       x = Math.max(0, x);
 
-    this.setState({ x, y });
+    var above = this.refs.above.getDOMNode();
+    above.style.left = -x + 'px';
+    // style={{ left: , top: -this.state.y }}
   },
 
   render() {
@@ -115,7 +113,7 @@ module.exports = Component({
 
     return (
       <TouchableArea {...props} {...touchableProps} {...this.componentProps()} scroller={this.scroller}>
-        <div {...this.componentProps('above')} style={{ left: -this.state.x, top: -this.state.y }}>
+        <div {...this.componentProps('above')}>
           {clone(children, props, true)}
         </div>
         <div {...this.componentProps('below')}>

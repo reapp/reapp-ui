@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 
-div, a, button, input, form, ul, li {
+div, a, button, input, form {
   display: flex;
   flex-flow: column;
   flex-shrink: 0;
@@ -74,10 +74,6 @@ a:visited, a:active {
 p {
   display: block;
   color: #444;
-}
-
-p * {
-  display: inline;
 }
 
 p a {

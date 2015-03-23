@@ -74,7 +74,7 @@ module.exports = {
       var state = this._stateOrProps(
         'step',
         'index',
-        'animationsDisabled'
+        'disableAnimation'
       );
 
       // allow defining animationContext on parents
@@ -91,17 +91,17 @@ module.exports = {
   },
 
   disableAnimation() {
-    if (!this.state.animationDisabled)
-      this.setState({ animationDisabled: true });
+    if (!this.state.disableAnimation)
+      this.setState({ disableAnimation: true });
   },
 
   enableAnimation() {
-    if (this.state.animationDisabled)
-      this.setState({ animationDisabled: false });
+    if (this.state.disableAnimation)
+      this.setState({ disableAnimation: false });
   },
 
   animationsDisabled() {
-    return this.props.animationDisabled || this.state && this.state.animationDisabled;
+    return this.props.disableAnimation || this.state && this.state.disableAnimation;
   },
 
   isAnimating(source) {

@@ -139,9 +139,9 @@ module.exports = Component({
       this.addStyles('tapActive');
 
     return (
-      <li {...tapProps} {...props} {...this.componentProps()}>
+      <div {...tapProps} {...props} {...this.componentProps()}>
         {content}
-      </li>
+      </div>
     );
   }
 });
