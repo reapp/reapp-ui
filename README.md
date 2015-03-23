@@ -15,12 +15,17 @@ then import the components you want to use. Here's an example of this;
 
 ```js
 import iOSTheme from 'reapp-ui/themes/ios/theme'
+import Theme from 'reapp-ui/helpers/Theme';
 import Button from 'reapp-ui/components/Button';
 import React from 'react';
 
 export default React.createClass({
   render() {
-    return <Button color="red" />;
+    return (
+      <Theme {...iOSTheme}>
+        <Button color="red" />
+      </Theme>
+    );
   }
 });
 ```
@@ -33,9 +38,7 @@ Lets see how they work. If you open the `reapp-ui/themes/ios/theme.js` file
 you'll see how we load the iOS theme:
 
 ```js
-var UI = require('../../index');
-
-require('./stylesheets');
+import UI from 'reapp-ui';
 
 UI.addConstants(
   require('./constants/base'),
@@ -44,6 +47,8 @@ UI.addConstants(
 
 UI.addAnimations(require('./animations'));
 UI.addStyles(require('./styles'));
+
+export default UI.makeTheme();
 ```
 
 As you can see, we're basically loading three different pieces: constants,
@@ -52,6 +57,17 @@ includes our base.css styles that are used to normalize everything.
 
 You could easily override each of these steps by adding in new constants,
 styles, or animations, or overwriting the ones we use!
+
+### Using Reapp
+
+The rest of the docs here describe the internals of reapp-ui. If you want to learn
+more on how Reapp works, check out:
+
+- [Components](http://reapp.io/components.html) & [Views](http://reapp.io/views.html): The building blocks of reapp-ui
+- [Packages](http://reapp.io/packages.html): Information on the other packages that come with reapp
+- [Animations](http://reapp.io/docs-animations.html): How to make custom animations
+- [Themes](http://reapp.io/docs-themes.html): Themes in depth
+- [Building & Cordova](http://reapp.io/docs-builds.html): How to build your app for the web, ios, or any other platforms
 
 
 ### Demos
