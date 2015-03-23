@@ -18,16 +18,6 @@ module.exports = Component({
     return this.getViewListInitialState();
   },
 
-  getViewProps() {
-    return {
-      styles: {
-        inner: {
-          boxShadow: this.isAnimating() ? '0 0 15px rgba(0,0,0,0.2)' : 'none'
-        }
-      }
-    }
-  },
-
   render() {
     var touchableProps = {};
 

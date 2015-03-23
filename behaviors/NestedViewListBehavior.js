@@ -18,6 +18,7 @@ module.exports = {
   },
   viewAnimations: {
     inner: 'viewParallax',
+    shadow: 'fade',
     overlay: 'nestedViewOverlay'
   },
   // touchable only on the left and right edges

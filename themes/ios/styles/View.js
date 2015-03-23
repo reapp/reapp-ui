@@ -14,11 +14,8 @@ module.exports = (c) => ({
 
   inner: {
     background: c.viewBG,
-    padding: `0 ${c.viewPad}`,
     zIndex: 1,
     position: 'absolute',
-    overflowX: 'hidden',
-    overflowY: 'scroll',
     top: 0,
     left: 0,
     bottom: 0,
@@ -26,11 +23,22 @@ module.exports = (c) => ({
     WebkitOverflowScrolling: 'touch'
   },
 
+  static: {
+    padding: `0 ${c.viewPad}`,
+    overflowX: 'hidden',
+    overflowY: 'scroll',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
+
   innerInactive: {
-    WebkitOverflowScrolling: 'none'
+    WebkitOverflowScrolling: 'none',
     // note, this was causing flickering on ios
     // but prevents people from moving the view as they swipe:
-    // overflow: 'hidden'
+    pointerEvents: 'none'
   },
 
   overlay: {
@@ -40,5 +48,16 @@ module.exports = (c) => ({
     bottom: 0,
     background: '#000',
     pointerEvents: 'none'
+  },
+
+  shadow: {
+    position: 'absolute',
+    top: 0,
+    bottom: -88,
+    left: -16,
+    width: 16,
+    // background: '-webkit-linear-gradient(left,rgba(0,0,0,0) 0,rgba(0,0,0,0) 10%,rgba(0,0,0,.01) 50%,rgba(0,0,0,.2) 100%)',
+    background: 'linear-gradient(to right,rgba(0,0,0,0) 0,rgba(0,0,0,0) 10%,rgba(0,0,0,.01) 50%,rgba(0,0,0,.2) 100%)',
+    zIndex: -1,
   }
 });

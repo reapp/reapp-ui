@@ -12,7 +12,7 @@ module.exports = Component({
 
   mixins: [
     ScrollState,
-    ScrollTopable('inner'),
+    ScrollTopable('static'),
     AnimatedScrollToTop,
     Animator('viewList', ['index'])
   ],
@@ -67,10 +67,6 @@ module.exports = Component({
 
   animationSource: 'viewList',
 
-  componentWillMount() {
-    this.setClipStyles(this.props);
-  },
-
   componentDidMount() {
     this.scrollListener(this.refs.inner.getDOMNode());
 
@@ -78,23 +74,10 @@ module.exports = Component({
       this.props.onComponentMounted(this.props.index);
   },
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.width !== this.props.width ||
-      nextProps.height !== this.props.height)
-      this.setClipStyles(nextProps);
-  },
-
   getTitleBarHeight() {
     return this.props.titleBarProps && typeof this.props.titleBarProps.height === 'number' ?
       this.props.titleBarProps.height :
       this.getConstant('titleBarHeight');
-  },
-
-  setClipStyles(props) {
-    if (props && props.width && props.height)
-      this.clipStyles = {
-        clip: `rect(0px, ${props.width}px, ${props.height}px, -10px)`
-      };
   },
 
   handleDoubleTap() {
@@ -147,14 +130,10 @@ module.exports = Component({
       this.addStyles('inner', 'innerInactive');
     }
 
-    if (this.isAnimating('viewList'))
-      this.addStyles('inner', this.clipStyles);
-
-    if (title)
-      this.addStyles('inner', { top: titleBarHeight });
-
     if (offsetTop)
       this.addStyles('inner', { top: offsetBottom });
+    else if (title)
+      this.addStyles('inner', { top: titleBarHeight });
 
     if (offsetBottom)
       this.addStyles('inner', { bottom: offsetBottom });
@@ -165,8 +144,6 @@ module.exports = Component({
         top: titleBarHeight
       });
 
-    // console.log(this.componentProps('inner'))
-
     return (
       <div {...this.componentProps()} {...props}>
         {title && (
@@ -175,10 +152,14 @@ module.exports = Component({
 
         <div {...this.componentProps('inner')} {...innerProps}>
           <StaticContainer
+            {...this.componentProps('static')}
             fullscreen={fullscreen}
             shouldUpdate={!animations || !inactive}>
-            {children}
+            <div>
+              {children}
+            </div>
           </StaticContainer>
+          <div {...this.componentProps('shadow')} />
         </div>
 
         {after}
