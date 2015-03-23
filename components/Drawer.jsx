@@ -202,7 +202,7 @@ module.exports = Component({
 
     var updateChildren = this.state.offset === 0;
 
-    if (this.props.shouldUpdate === false)
+    if (this.props.update === false)
       updateChildren = false;
 
     if (touchableProps && touchableProps.styles)
@@ -223,7 +223,7 @@ module.exports = Component({
               allowDefault
             />
           }
-          <StaticContainer shouldUpdate={updateChildren}>
+          <StaticContainer update={updateChildren}>
             {children}
           </StaticContainer>
         </div>

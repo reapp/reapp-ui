@@ -92,7 +92,6 @@ module.exports = Component({
   render() {
     var {
       animations,
-      animationState,
       children,
       title,
       index,
@@ -102,7 +101,6 @@ module.exports = Component({
       titleBarProps,
       overlayProps,
       viewList,
-      viewListType,
       inactive,
       fullscreen,
       after,
@@ -114,11 +112,9 @@ module.exports = Component({
 
     // titlebar props modifications
     var modifiedTitleBarProps = Object.assign({
-      onDoubleTap: this.handleDoubleTap
-    }, titleBarProps, isInViewList && {
-      animationState,
+      onDoubleTap: this.handleDoubleTap,
       isInViewList
-    });
+    }, titleBarProps);
 
     var titleBarHeight = this.getTitleBarHeight();
 
@@ -154,7 +150,7 @@ module.exports = Component({
           <StaticContainer
             {...this.componentProps('static')}
             fullscreen={fullscreen}
-            shouldUpdate={!animations || !inactive}>
+            update={!animations || !inactive}>
             <div>
               {children}
             </div>

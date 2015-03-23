@@ -135,7 +135,7 @@ module.exports = Component({
         )}
         <Drawer
           {...this.componentProps('drawer')}
-          shouldUpdate={this.state.scrollX === 200}
+          update={this.state.scrollX === 200}
           from="right"
           dragger={draggable}
           {...drawerProps}>

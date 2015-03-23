@@ -6,12 +6,12 @@ module.exports = Component({
 
   getDefaultProps() {
     return {
-      shouldupdate: false
+      update: false
     };
   },
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.shouldUpdate ||
+    return nextProps.update ||
       (this.props.staticKey !== nextProps.staticKey);
   },
 
