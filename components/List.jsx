@@ -8,7 +8,6 @@ module.exports = Component({
   name: 'List',
 
   propTypes: {
-    type: React.PropTypes.string,
     itemProps: React.PropTypes.object,
     title: React.PropTypes.node,
     wrap: React.PropTypes.bool,
@@ -24,9 +23,6 @@ module.exports = Component({
       wrap,
       nopad,
       ...props } = this.props;
-
-    if (type)
-      this.addStyles(this.getStyles(`type-${type}`));
 
     return (
       <div {...this.componentProps()} {...props}>
