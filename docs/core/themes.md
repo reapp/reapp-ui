@@ -2,7 +2,7 @@
 
 ## Themes
 
-Themes are handles through contexts in the latest Reapp UI (0.11). While it's a small
+Themes are handled through contexts in the latest Reapp UI (0.11). While it's a small
 change in code to support, it's a huge enhancement in flexibility.
 
 A theme consists of constants, styles and animations. It looks like this:
