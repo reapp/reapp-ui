@@ -89,7 +89,9 @@ module.exports = Component({
     }
 
     if (!this.getStyleVal('children', 'color'))
-      this.addStyles('children', { color: title ? '#999' : '#000' });
+      this.addStyles('children', {
+        color: this.getConstant(title ? 'listItemChildrenColor' : 'listItemColor')
+      });
 
     if (wrapper) {
       var hasLinkIcon = this.isLink(wrapper) && !noicon || icon;

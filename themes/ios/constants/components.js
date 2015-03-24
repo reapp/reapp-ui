@@ -40,7 +40,8 @@ module.exports = (c) => ({
   listBG: '#fff',
 
   // ListItem
-  listItemColor: '#f7f7f7',
+  listItemColor: '#000',
+  listItemChildrenColor: '#888',
   listItemBorderColor: c.hairline ? '#bcbbc1' : '#dadbe3',
   listItemArrowColor: '#b7b8bd',
   listItemContentColor: '#000',

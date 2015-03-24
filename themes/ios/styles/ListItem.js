@@ -102,8 +102,7 @@ module.exports = (c) => ({
     WebkitLineClamp: 2,
     WebkitBoxOrient: 'vertical',
     textOverflow: 'ellipsis',
-    display: '-webkit-box',
-    color: c.listItemColor
+    display: '-webkit-box'
   },
 
   fulltext: {
