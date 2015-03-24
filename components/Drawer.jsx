@@ -163,9 +163,6 @@ module.exports = Component({
   },
 
   render() {
-    if (this.props.from === 'bottom')
-      window.t = this;
-
     var {
       from,
       open,

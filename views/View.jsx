@@ -56,7 +56,10 @@ module.exports = Component({
     scrollTop: React.PropTypes.oneOfType([
       React.PropTypes.string,
       React.PropTypes.number
-    ])
+    ]),
+
+    // don't add extra visuals like shadow/overlay
+    plain: React.PropTypes.bool
   },
 
   getInitialState() {
@@ -104,6 +107,7 @@ module.exports = Component({
       inactive,
       fullscreen,
       after,
+      plain,
       offsetTop,
       offsetBottom,
       isInViewList,
@@ -123,7 +127,7 @@ module.exports = Component({
 
     if (inactive) {
       this.addStyles('inactive');
-      this.addStyles('inner', 'innerInactive');
+      this.addStyles('static', 'staticInactive');
     }
 
     if (offsetTop)
@@ -155,12 +159,14 @@ module.exports = Component({
               {children}
             </div>
           </StaticContainer>
-          <div {...this.componentProps('shadow')} />
+          {!plain &&
+            <div {...this.componentProps('shadow')} />
+          }
         </div>
 
         {after}
 
-        {this.hasOverlay() && (
+        {!plain && this.hasOverlay() && (
           <div {...this.componentProps('overlay')} {...overlayProps} />
         )}
       </div>
