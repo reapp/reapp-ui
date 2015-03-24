@@ -35,6 +35,10 @@ module.exports = (c) => ({
     WebkitOverflowScrolling: 'touch'
   },
 
+  plain: {
+    padding: 0
+  },
+
   overlay: {
     position: 'absolute',
     left: 0,

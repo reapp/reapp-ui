@@ -38,9 +38,9 @@ module.exports = Component({
     }
 
     return (
-      <li {...tapProps} {...props} {...this.componentProps()}>
+      <div {...tapProps} {...props} {...this.componentProps()}>
         {children}
-      </li>
+      </div>
     );
   }
 });

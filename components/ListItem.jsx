@@ -3,6 +3,7 @@ var Component = require('../component');
 var Icon = require('./Icon');
 var Tappable = require('../mixins/Tappable');
 var clone = require('../lib/niceClone');
+var linkedIcon = require('../assets/icons/right.svg');
 
 module.exports = Component({
   name: 'ListItem',
@@ -48,7 +49,7 @@ module.exports = Component({
   getIcon() {
     return (
       <Icon
-        file={require('../assets/icons/right.svg')}
+        file={linkedIcon}
         styles={this.getStyles('arrow')}
         size={12}
         stroke={3}

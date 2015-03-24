@@ -19,7 +19,7 @@ module.exports = Component({
       ...props } = this.props;
 
     return (
-      <ul {...this.componentProps()} {...props}>
+      <div {...this.componentProps()} {...props}>
         {React.Children.map(children, (li, i) => {
           if (wrap)
             return (
@@ -32,7 +32,7 @@ module.exports = Component({
 
           return clone(li, { key: i, index: i });
         })}
-      </ul>
+      </div>
     );
   }
 });

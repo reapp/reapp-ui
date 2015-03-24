@@ -125,10 +125,11 @@ module.exports = Component({
     if (this.state.isScrolling)
       this.addClass('inner', 'isScrolling');
 
-    if (inactive) {
+    if (inactive)
       this.addStyles('inactive');
-      this.addStyles('static', 'staticInactive');
-    }
+
+    if (plain)
+      this.addStyles('static', 'plain');
 
     if (offsetTop)
       this.addStyles('inner', { top: offsetBottom });
