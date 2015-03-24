@@ -20,27 +20,20 @@ module.exports = (c) => ({
     left: 0,
     bottom: 0,
     right: 0,
-    WebkitOverflowScrolling: 'touch',
-    // overflow: 'hidden'
   },
 
   static: {
     padding: `0 ${c.viewPad}`,
-    overflow: 'hidden',
+    overflowY: 'scroll',
+    overflowX: 'hidden',
     position: 'absolute',
     top: 0,
     left: 0,
     bottom: 0,
     right: 0,
-    zIndex: 1
+    zIndex: 1,
+    WebkitOverflowScrolling: 'touch'
   },
-
-  // staticInactive: {
-  //   // note, using overflow: 'hidden' was causing flickering on ios
-  //   overflow: 'hidden',
-  //   pointerEvents: 'none',
-  //   WebkitOverflowScrolling: 'none'
-  // },
 
   overlay: {
     position: 'absolute',
