@@ -59,7 +59,8 @@ module.exports = Component({
           file={icon}
           styles={this.getStyles('icon')}
           svgProps={{style: { margin: 'auto' }}}
-          {...iconProps} />
+          {...iconProps}
+        />
       );
 
     return (

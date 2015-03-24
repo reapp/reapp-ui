@@ -40,11 +40,17 @@ module.exports = (c) => ({
   listBG: '#fff',
 
   // ListItem
+  listItemColor: '#f7f7f7',
   listItemBorderColor: c.hairline ? '#bcbbc1' : '#dadbe3',
   listItemArrowColor: '#b7b8bd',
   listItemContentColor: '#000',
   listItemAfterColor: '#7b7b7b',
   listItemTitleAfterColor: '#7b7b7b',
+
+  // Modal
+  modalBorderColor: '#ccc',
+  modalBG: c.white,
+  modalBackgroundBG: 'rgba(0,0,0,0.45)',
 
   // Popover
   popoverArrowSize: 26,

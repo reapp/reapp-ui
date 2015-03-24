@@ -103,6 +103,7 @@ module.exports = (c) => ({
     WebkitBoxOrient: 'vertical',
     textOverflow: 'ellipsis',
     display: '-webkit-box',
+    color: c.listItemColor
   },
 
   fulltext: {

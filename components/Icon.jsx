@@ -13,6 +13,7 @@ module.exports = Component({
     name: React.PropTypes.string,
     color: React.PropTypes.string,
     stroke: React.PropTypes.number,
+    isInTitleBar: React.PropTypes.bool,
     isInViewList: React.PropTypes.bool,
     shapeRendering: React.PropTypes.string,
     crisp: React.PropTypes.bool
@@ -57,6 +58,7 @@ module.exports = Component({
       color,
       stroke,
       isInViewList,
+      isInTitleBar,
       shapeRendering,
       crisp,
       ...props
@@ -67,7 +69,7 @@ module.exports = Component({
 
     if (color === 'currentColor')
       color = this.getConstant(
-        isInViewList ? 'iconColorTitleBar' : 'iconColor');
+        isInTitleBar ? 'iconColorTitleBar' : 'iconColor');
 
     if (crisp)
       shapeRendering = 'crispEdges';
@@ -85,6 +87,9 @@ module.exports = Component({
         strokeWidth: stroke * 2, // were scaling down from 64 / 2
         strokeLinecap: 'round'
       });
+
+    if (isInTitleBar)
+      this.addStyles('isInTitleBar');
 
     // center icon
     props.style = Object.assign({

@@ -21,14 +21,14 @@ module.exports = (c) => ({
     left: 0,
     right: 0,
     bottom: 0,
-    background: 'rgba(0,0,0,0.45)'
+    background: c.modalBackgroundBG
   },
 
   modal: {
     minWidth: 270,
     maxWidth: '80%',
     margin: 'auto',
-    background: c.white,
+    background: c.modalBG,
     padding: 0,
     borderRadius: 7,
     textAlign: 'center',
@@ -43,7 +43,7 @@ module.exports = (c) => ({
 
   inner: {
     padding: 15,
-    borderBottom: `1px solid ${c.mid}`
+    borderBottom: `${c.onePx} solid ${c.modalBorderColor}`
   },
 
   title: {
