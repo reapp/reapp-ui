@@ -2,6 +2,7 @@ var React = require('react');
 var Component = require('../component');
 var ViewListMixin = require('./ViewListMixin');
 var Dots = require('../components/Dots');
+var DottedViewListBehavior = require('../behaviors/DottedViewListBehavior');
 
 module.exports = Component({
   name: 'DottedViewList',
@@ -11,37 +12,7 @@ module.exports = Component({
   ],
 
   getDefaultProps() {
-    return {
-      width: window.innerWidth,
-      height: window.innerHeight,
-      resizeWithWindow: true,
-      scrollToStep: 0,
-      scrollerProps: {
-        animationDuration: 500,
-        paging: true,
-        bouncing: false,
-        scrollingY: false
-      },
-      viewAnimations: {
-        inner: 'viewSideBySide'
-      },
-      titleBarProps: {
-        animations: {
-          self: 'fadeToLeft'
-        },
-        height: 48,
-        styles: {
-          mid: {
-            position: 'relative',
-            top: -4
-          }
-        }
-      },
-      touchStartBoundsX: {
-        from: 30,
-        to: window.innerWidth
-      }
-    };
+    return DottedViewListBehavior;
   },
 
   getInitialState() {

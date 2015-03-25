@@ -33,9 +33,11 @@ module.exports = {
       };
   },
 
-  viewSideBySide: ({ index, step, width }) => ({
-    translate: { x: (index - step) * width }
-  }),
+  viewSideBySide: ({ index, step, width }) => {
+    return {
+      translate: { x: (index - step) * width }
+    };
+  },
 
   fadeToLeft: ({ index, step, width }) => ({
     translate: { x: - (step - index) * (width/2.5) },

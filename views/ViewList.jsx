@@ -14,10 +14,6 @@ module.exports = Component({
   },
 
   render() {
-    return (
-      <div>
-        {this.getViewList(this.props.behavior)}
-      </div>
-    );
+    return this.getViewList(this.props.behavior);
   }
 });

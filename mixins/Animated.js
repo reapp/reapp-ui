@@ -58,16 +58,16 @@ module.exports = {
   },
 
   getAnimationState(source) {
+    var state, animationContext;
+
+    // allow passing more information into the context
+    if (this.animationContext)
+      animationContext = typeof this.animationContext === 'function' ?
+          this.animationContext() : this.animationContext;
+
     // if the animations are coming from external sources
     if (source && source !== 'self') {
-      if (this.context && this.context.animations) {
-        var state = this.context.animations[source];
-
-        if (!defined(state.index))
-          state.index = this.props.index;
-
-        return state;
-      }
+      state = this.context.animations[source];
     }
     // else if animations come from within the component
     else {
@@ -76,18 +76,9 @@ module.exports = {
         'index',
         'disableAnimation'
       );
-
-      // allow defining animationContext on parents
-      // this lets you pass down aritrary extra props, besides the three above
-      if (this.animationContext)
-        Object.assign(state,
-          typeof this.animationContext === 'function' ?
-            this.animationContext() :
-            this.animationContext
-        );
-
-      return state;
     }
+
+    return Object.assign({}, state, animationContext);
   },
 
   disableAnimation() {

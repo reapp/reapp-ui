@@ -70,6 +70,10 @@ module.exports = Component({
 
   animationSource: 'viewList',
 
+  animationContext() {
+    return { index: this.props.index };
+  },
+
   componentDidMount() {
     this.scrollListener(this.refs.inner.getDOMNode());
 
@@ -146,6 +150,11 @@ module.exports = Component({
         display: inactive ? 'block' : 'none',
         top: titleBarHeight
       });
+
+    // if (this.props.testname === 'HELLO')
+    //   console.log("TOP", this.context.animations.viewList)
+    // else if (this.props.testname === 'SUB')
+    //   console.log("SUB", this.context.animations.viewList)
 
     return (
       <div {...this.componentProps()} {...props}>

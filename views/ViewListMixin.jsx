@@ -1,6 +1,5 @@
 var React = require('react/addons');
 var { Scroller } = require('reapp-scroller');
-var DocumentTitle = require('react-document-title');
 var Component = require('../component');
 var TitleBar = require('../components/TitleBar');
 var TouchableArea = require('../helpers/TouchableArea');
@@ -359,28 +358,23 @@ module.exports = Object.assign(
     },
 
     getViewList(props) {
-      var { touchableProps } = props || {};
       var activeTitle;
+      var titleBarProps = this.getTitleBarProps();
 
       return (
-        <TouchableArea {...this._touchableAreaProps} {...touchableProps}>
+        <TouchableArea {...this._touchableAreaProps} {...props}>
           {!this.props.noFakeTitleBar && (
             <TitleBar {...this.props.titleBarProps} animations={{}} />
           )}
 
           {clone(this.state.children, (child, i) => {
-            if (!child)
-              return;
-
-            var active = i === this.state.step;
-            if (active)
-              activeTitle = child.props && child.props.title;
+            if (!child) return;
 
             return Object.assign({
               key: i,
               index: i,
+              titleBarProps,
               inactive: i !== this.state.step,
-              titleBarProps: this.getTitleBarProps(),
               isInViewList: true,
               animations: this.getViewAnimations(child),
               width: this.state.width,
@@ -392,11 +386,6 @@ module.exports = Object.assign(
             this.props.viewProps,
             this.getViewProps && this.getViewProps());
           }, true)}
-
-          {activeTitle &&
-            <DocumentTitle title={Array.isArray(activeTitle) ?
-              activeTitle[1] :
-              activeTitle} />}
         </TouchableArea>
       );
     }
