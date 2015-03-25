@@ -122,6 +122,8 @@ module.exports = Component({
 
     var titleBarHeight = this.getTitleBarHeight();
 
+    var shouldUpdate = !animations || !inactive;
+
     if (this.state.isScrolling)
       this.addClass('inner', 'isScrolling');
 
@@ -155,7 +157,7 @@ module.exports = Component({
           <StaticContainer
             {...this.componentProps('static')}
             fullscreen={fullscreen}
-            update={!animations || !inactive}>
+            update={shouldUpdate}>
             <div>
               {children}
             </div>
@@ -165,7 +167,9 @@ module.exports = Component({
           }
         </div>
 
-        {after}
+        <StaticContainer update={shouldUpdate}>
+          {after}
+        </StaticContainer>
 
         {!plain && this.hasOverlay() && (
           <div {...this.componentProps('overlay')} {...overlayProps} />

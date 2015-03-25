@@ -1,6 +1,7 @@
 module.exports = (c) => ({
   self: {
     height: '44px',
+    borderWidth: c.onePx,
     borderColor: c.modalBorderColor,
     borderBottom: 'none',
     borderTop: 'none',

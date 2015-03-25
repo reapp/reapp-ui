@@ -35,6 +35,10 @@ module.exports = (c) => ({
   iconColor: c.brandColor,
   iconColorTitleBar: c.activeBG,
 
+  // Input
+  inputColor: c.black,
+  inputBG: c.white,
+
   // List
   listTitleColor: '#f7f7f7',
   listBG: '#fff',
@@ -42,14 +46,14 @@ module.exports = (c) => ({
   // ListItem
   listItemColor: '#000',
   listItemChildrenColor: '#888',
-  listItemBorderColor: c.hairline ? '#bcbbc1' : '#dadbe3',
+  listItemBorderColor: c.hairline ? '#bbb' : '#ddd',
   listItemArrowColor: '#b7b8bd',
   listItemContentColor: '#000',
   listItemAfterColor: '#7b7b7b',
   listItemTitleAfterColor: '#7b7b7b',
 
   // Modal
-  modalBorderColor: '#ccc',
+  modalBorderColor: c.hairline ? '#bbb' : '#ddd',
   modalBG: c.white,
   modalBackgroundBG: 'rgba(0,0,0,0.45)',
 
@@ -63,6 +67,10 @@ module.exports = (c) => ({
   searchBarHeight: 44,
   searchBarBG: '#bdbdc3',
   searchBarBorderColor: '#a6a6a6',
+
+  // Textarea
+  textareaColor: c.black,
+  textareaBG: c.white,
 
   // TitleBar
   // iOS7 add extra padding for statusbar

@@ -1,10 +1,11 @@
-module.exports = {
+module.exports = c => ({
   input: {
+    color: c.inputColor,
+    background: c.inputBG,
     border: 'none',
     padding: '12px',
     fontSize: '16px',
     lineHeight: '16px',
-    width: '100%',
-    color: '#000'
+    width: '100%'
   }
-};
+});
