@@ -25,11 +25,10 @@ module.exports = Component({
 
   getDefaultProps() {
     return {
-      width: window.innerWidth
+      width: window.innerWidth,
+      animationSource: 'viewList'
     };
   },
-
-  animationSource: 'viewList',
 
   componentDidMount() {
     this.centerMiddleTitle();

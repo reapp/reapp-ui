@@ -43,14 +43,14 @@ module.exports = Component({
       inactive,
       isInTitleBar,
       isInViewList,
-      animationState,
+      animationSource,
       tapFocusStyle,
       ...props } = this.props;
 
     var cloneProps = Object.assign({}, iconProps || {}, {
       isInTitleBar,
       isInViewList,
-      animationState,
+      animationSource: animationSource || isInTitleBar && 'viewList',
       focused
     });
 

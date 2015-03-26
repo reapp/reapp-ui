@@ -89,7 +89,7 @@ module.exports = {
   },
 
   isAnimating(source) {
-    var state = this.getAnimationState(source || this.animationSource);
+    var state = this.getAnimationState(source || this.props.animationSource);
     return state && state.step && state.step % 1 !== 0;
   },
 
@@ -106,13 +106,13 @@ module.exports = {
   },
 
   // returns an object of styles
-  // uses ref, source will be fetched from this.animationSource or as given
+  // uses ref, source will be fetched from this.props.animationSource or as given
   getAnimationStyle(ref, source) {
     var animations = this.getAnimations(ref);
     var styles;
 
     if (animations) {
-      source = source || this.animationSource;
+      source = source || this.props.animationSource;
       var state = this.getAnimationState(source);
 
       // single animation or array

@@ -313,9 +313,10 @@ module.exports = Object.assign(
     },
 
     getTitleBarProps() {
-      return this.props.noFakeTitleBar ?
-        this.props.titleBarProps :
-        Object.assign({ transparent: true }, this.props.titleBarProps);
+      return Object.assign({
+        transparent: !this.props.noFakeTitleBar,
+        animationSource: 'viewList'
+      }, this.props.titleBarProps);
     },
 
     getViewAnimations(view) {
@@ -379,6 +380,7 @@ module.exports = Object.assign(
               animations: this.getViewAnimations(child),
               width: this.state.width,
               height: this.state.height,
+              animationSource: 'viewList',
               viewListScrollToStep: this.scrollToStep
             }, i === this._advancingToIndex && {
               onComponentMounted: this.handleViewMounted

@@ -15,7 +15,7 @@ module.exports = (c) => ({
     left: 0,
     width: '100%',
     fontWeight: 500,
-    zIndex: 2,
+    zIndex: 1,
     flexFlow: 'row',
     WebkitFlexFlow: 'row',
     justifyContent: 'space-between',

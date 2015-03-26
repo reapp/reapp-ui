@@ -77,6 +77,7 @@ p {
 }
 
 p a {
+  display: inline-block;
   text-decoration: underline;
 }
 

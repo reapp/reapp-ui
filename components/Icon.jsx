@@ -41,7 +41,6 @@ module.exports = Component({
 
   setupAnimations(props) {
     if (props.isInViewList && props.animations !== false) {
-      this.animationSource = 'viewList';
       this.setState({
         animations: Object.assign({},
           this.props.viewListAnimations,

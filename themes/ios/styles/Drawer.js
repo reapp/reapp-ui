@@ -35,7 +35,7 @@ module.exports = (c) => ({
   },
 
   dragger: {
-    position: 'fixed',
+    position: 'absolute',
     zIndex: 3
   },
 

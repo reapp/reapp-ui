@@ -154,11 +154,6 @@ module.exports = Component({
         top: titleBarHeight
       });
 
-    // if (this.props.testname === 'HELLO')
-    //   console.log("TOP", this.context.animations.viewList)
-    // else if (this.props.testname === 'SUB')
-    //   console.log("SUB", this.context.animations.viewList)
-
     return (
       <div {...this.componentProps()} {...props}>
         {title && (
@@ -166,8 +161,7 @@ module.exports = Component({
         )}
 
         <div {...this.componentProps('inner')} {...innerProps}>
-          <StaticContainer
-            {...this.componentProps('static')}
+          <StaticContainer {...this.componentProps('static')}
             fullscreen={fullscreen}
             update={shouldUpdate}>
             <div>
