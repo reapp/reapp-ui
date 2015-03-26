@@ -65,18 +65,11 @@ module.exports = {
       animationContext = typeof this.animationContext === 'function' ?
           this.animationContext() : this.animationContext;
 
-    // if the animations are coming from external sources
-    if (source && source !== 'self') {
-      state = this.context.animations[source];
-    }
-    // else if animations come from within the component
-    else {
-      var state = this._stateOrProps(
-        'step',
-        'index',
-        'disableAnimation'
-      );
-    }
+    // external else internal
+    if (source && source !== 'self')
+      state = this.context.animations && this.context.animations[source];
+    else
+      state = this._stateOrProps('step', 'index', 'disableAnimation');
 
     return Object.assign({}, state, animationContext);
   },

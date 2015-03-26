@@ -70,8 +70,11 @@ module.exports = Component({
 
   animationSource: 'viewList',
 
-  animationContext() {
-    return { index: this.props.index };
+  componentWillMount() {
+    // set animationContext
+    this.animationContext = {
+      index: this.props.index
+    };
   },
 
   componentDidMount() {
