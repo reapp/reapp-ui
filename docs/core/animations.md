@@ -150,7 +150,7 @@ Because we can either pass in our `animations` object through props, or define i
 
 Given a ref and optionally a source, returns an object of styles at the current animation state.
 
-If no source is given, it will check the current components `this.animationSource` value.
+If no source is given, it will check the current components `this.props.animationSource` value.
 
 You can define transforms using our syntax, such that transforms will return a string that handles:
 
