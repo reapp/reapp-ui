@@ -4,7 +4,7 @@ var clone = require('../lib/niceClone');
 var ListItem = require('./ListItem');
 var Title = require('./Title');
 
-module.exports = Component({
+var List = Component({
   name: 'List',
 
   propTypes: {
@@ -46,3 +46,7 @@ module.exports = Component({
     );
   }
 });
+
+List.Item = require('./ListItem');
+
+module.exports = List;

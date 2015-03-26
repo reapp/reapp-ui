@@ -3,7 +3,7 @@ var Component = require('../component');
 var clone = require('../lib/niceClone');
 var ChatItem = require('./ChatItem');
 
-module.exports = Component({
+var Chat = Component({
   name: 'Chat',
 
   propTypes: {
@@ -36,3 +36,7 @@ module.exports = Component({
     );
   }
 });
+
+Chat.Item = ChatItem;
+
+module.exports = Chat;

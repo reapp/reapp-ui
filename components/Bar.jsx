@@ -2,8 +2,9 @@ var React = require('react/addons');
 var Component = require('../component');
 var BarItem = require('./BarItem');
 var clone = require('../lib/niceClone');
+var BarItem = require('./BarItem');
 
-module.exports = Component({
+var Bar = Component({
   name: 'Bar',
 
   propTypes: {
@@ -49,3 +50,7 @@ module.exports = Component({
     );
   }
 });
+
+Bar.Item = BarItem;
+
+module.exports = Bar;

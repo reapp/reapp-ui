@@ -2,8 +2,9 @@ var React = require('react');
 var Component = require('../component');
 var ModalPortal = require('./ModalPortal');
 var PortalMixin = require('../mixins/PortalMixin');
+var ModalButton = require('./ModalButton');
 
-module.exports = Component({
+var Modal = Component({
   name: 'Modal',
 
   // See ModalPortal for implementation
@@ -39,3 +40,7 @@ module.exports = Component({
 
   render: () => null
 });
+
+Modal.Button = ModalButton;
+
+module.exports = Modal;

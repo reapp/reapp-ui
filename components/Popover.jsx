@@ -3,7 +3,7 @@ var Component = require('../component');
 var PortalMixin = require('../mixins/PortalMixin');
 var PopoverPortal = require('./PopoverPortal');
 
-module.exports = Component({
+var Popover = Component({
   name: 'Popover',
 
   // See PopoverPortal for implementation
@@ -36,3 +36,5 @@ module.exports = Component({
 
   render: () => null
 });
+
+module.exports = Popover;
