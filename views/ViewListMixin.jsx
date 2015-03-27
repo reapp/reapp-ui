@@ -378,8 +378,6 @@ module.exports = Object.assign(
               inactive: i !== this.state.step,
               isInViewList: true,
               animations: this.getViewAnimations(child),
-              width: this.state.width,
-              height: this.state.height,
               animationSource: 'viewList',
               viewListScrollToStep: this.scrollToStep
             }, i === this._advancingToIndex && {

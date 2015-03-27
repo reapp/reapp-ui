@@ -20,6 +20,7 @@ module.exports = (c) => ({
     left: 0,
     bottom: 0,
     right: 0,
+    overflow: 'hidden'
   },
 
   static: {
@@ -32,7 +33,9 @@ module.exports = (c) => ({
     bottom: 0,
     right: 0,
     zIndex: 1,
-    WebkitOverflowScrolling: 'touch'
+    WebkitOverflowScrolling: 'touch',
+    // fix nested views overlay each other
+    transform: 'translateZ(0)'
   },
 
   plain: {

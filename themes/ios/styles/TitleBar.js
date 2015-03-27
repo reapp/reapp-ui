@@ -1,4 +1,4 @@
-module.exports = (c) => ({
+module.exports = c => ({
   self: {
     background: c.titleBarBG,
     borderColor: c.titleBarBorderColor,

@@ -20,8 +20,6 @@ module.exports = Component({
   propTypes: {
     title: React.PropTypes.node,
     index: React.PropTypes.number,
-    width: React.PropTypes.number,
-    height: React.PropTypes.number,
 
     // add animations in view list
     isInViewList: React.PropTypes.bool,
@@ -173,9 +171,11 @@ module.exports = Component({
           }
         </div>
 
-        <StaticContainer update={shouldUpdate}>
-          {after}
-        </StaticContainer>
+        {after &&
+          <StaticContainer update={shouldUpdate}>
+            {after}
+          </StaticContainer>
+        }
 
         {!plain && this.hasOverlay() && (
           <div {...this.componentProps('overlay')} {...overlayProps} />

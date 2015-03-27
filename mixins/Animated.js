@@ -148,11 +148,12 @@ module.exports = {
     // todo: additive transforms (possible here)
     var transform = this._animationTransformsToString({ scale, rotate, rotate3d, translate });
 
-    if (transform)
-      styles[StyleKeys.TRANSFORM] = transform;
+    styles[StyleKeys.TRANSFORM] = transform || this.defaultTransform;
 
     return styles;
   },
+
+  defaultTransform: 'translate3d(0,0,0)',
 
   _animationTransformsToString(transform) {
     if (!transform)
