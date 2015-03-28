@@ -3,6 +3,7 @@ module.exports = {
   width: window.innerWidth,
   height: window.innerHeight,
   resizeWithWindow: true,
+  noFakeTitleBar: true,
   scrollToStep: 0,
   scrollerProps: {
     animationDuration: 500,
