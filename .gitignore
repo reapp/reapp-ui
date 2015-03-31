@@ -3,3 +3,14 @@ node_modules
 public
 npm-debug.log
 build
+
+/behaviors
+/components
+/helpers
+/lib
+/mixins
+/themes
+/views
+all.js
+component.js
+index.js

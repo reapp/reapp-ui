@@ -1,14 +1,16 @@
 // Decoration for every component used internally in reapp-ui
 
-var Component = require('reapp-component')();
-var React = require('react');
-var Styled = require('./mixins/Styled');
-var Classed = require('./mixins/Classed');
-var Constanted = require('./mixins/Constanted');
-var Animated = require('./mixins/Animated');
-var ComponentProps = require('./mixins/ComponentProps');
+"use strict";
 
-Component.addDecorator(spec => {
+var Component = require("reapp-component")();
+var React = require("react");
+var Styled = require("./mixins/Styled");
+var Classed = require("./mixins/Classed");
+var Constanted = require("./mixins/Constanted");
+var Animated = require("./mixins/Animated");
+var ComponentProps = require("./mixins/ComponentProps");
+
+Component.addDecorator(function (spec) {
 
   Object.assign(spec, ComponentProps, Animated, Constanted);
 
@@ -19,11 +21,7 @@ Component.addDecorator(spec => {
   };
 
   // mixins
-  spec.mixins = [].concat(
-    Classed,
-    Styled,
-    spec.mixins || []
-  );
+  spec.mixins = [].concat(Classed, Styled, spec.mixins || []);
 
   // add UI displayname to help with debugging
   spec.displayName = spec.name;
