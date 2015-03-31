@@ -1,7 +1,7 @@
 var React = require('react');
 var Component = require('../component');
 var AnimatableContainer = require('../helpers/AnimatableContainer');
-var EasingFunctions = require('reapp-ui/lib/EasingFunctions');
+var EasingFunctions = require('../lib/EasingFunctions');
 var GalleryImage = require('./GalleryImage');
 
 module.exports = Component({
