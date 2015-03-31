@@ -1,1 +1,1 @@
-require('./stylesheets/base.css');
+require('../../styles/ios/base.css');
