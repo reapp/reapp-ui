@@ -14,6 +14,9 @@ module.exports = {
   viewAnimations: {
     inner: 'viewSideBySide'
   },
+  viewProps: {
+    plain: true
+  },
   titleBarProps: {
     animations: {
       self: 'fadeToLeft'

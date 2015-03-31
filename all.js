@@ -27,15 +27,21 @@ module.exports = {
   Title: require('./components/Title'),
   TitleBar: require('./components/TitleBar'),
 
+  // buttons
+  BackButton: require('./components/buttons/BackButton'),
+
   // helpers
   AnimationLoop: require('./helpers/AnimationLoop'),
   Swiper: require('./helpers/Swiper'),
   Tappable: require('./helpers/Tappable'),
   Theme: require('./helpers/Theme'),
+  TouchableArea: require('./helpers/TouchableArea'),
   TreeNode: require('./helpers/TreeNode'),
 
   // views
   ViewList: require('./views/ViewList'),
+  NestedViewList: require('./views/NestedViewList'),
+  DottedViewList: require('./views/DottedViewList'),
   LayoutLeftNav: require('./views/LayoutLeftNav'),
   View: require('./views/View')
 };

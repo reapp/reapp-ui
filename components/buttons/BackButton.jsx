@@ -2,25 +2,25 @@ var React = require('react');
 var Component = require('../../component');
 var Button = require('../Button');
 
-module.exports = Component({
-  name: 'Button',
+var iconProps = {
+  size: 20,
+  file: require('../../assets/icons/left.svg'),
+  stroke: 4,
+  styles: {
+    self: {
+      margin: '0 2px 0 -2px'
+    }
+  }
+};
 
+module.exports = React.createClass({
   render() {
-    var iconProps = Object.assign({
-      size: 20,
-      file: require('../../assets/icons/left.svg'),
-      stroke: 4,
-      styles: {
-        self: {
-          margin: '0 2px 0 -2px'
-        }
-      }
-    }, this.props.iconProps);
+    var instanceIconProps = Object.assign({}, iconProps, this.props.iconProps);
 
     return (
       <Button
         {...this.props}
-        iconProps={iconProps}
+        iconProps={instanceIconProps}
         chromeless>
         {this.props.children || 'Back'}
       </Button>

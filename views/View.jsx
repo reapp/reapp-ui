@@ -19,6 +19,9 @@ module.exports = Component({
 
   propTypes: {
     title: React.PropTypes.node,
+    titleLeft: React.PropTypes.node,
+    titleRight: React.PropTypes.node,
+
     index: React.PropTypes.number,
 
     // add animations in view list
@@ -102,6 +105,8 @@ module.exports = Component({
       animations,
       children,
       title,
+      titleLeft,
+      titleRight,
       index,
       width,
       height,
@@ -155,7 +160,12 @@ module.exports = Component({
     return (
       <div {...this.componentProps()} {...props}>
         {title && (
-          <TitleBar {...modifiedTitleBarProps}>{title}</TitleBar>
+          <TitleBar
+            left={titleLeft}
+            right={titleRight}
+            {...modifiedTitleBarProps}>
+            {title}
+          </TitleBar>
         )}
 
         <div {...this.componentProps('inner')} {...innerProps}>

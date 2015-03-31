@@ -12,6 +12,13 @@ var TreeNode = React.createClass({
     level: React.PropTypes.number
   },
 
+  getDefaultProps() {
+    return {
+      idKey: 'id',
+      childKey: 'kids'
+    };
+  },
+
   render() {
     var {
       idKey,

@@ -8,9 +8,9 @@ module.exports = (c) => ({
     zIndex: 2
   },
 
-  inactive: {
-    pointerEvents: 'none'
-  },
+  // inactive: {
+  //   pointerEvents: 'none'
+  // },
 
   inner: {
     background: c.viewBG,
