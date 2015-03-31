@@ -144,14 +144,16 @@ more work than usual to contribute. For the UI, the best setup is to do the foll
 2. Clone the [kitchen sink](https://github.com/reapp/kitchen-sink) repository
 3. Clone this repository
 4. Run `sudo npm link` inside this repository
-5. **Important:** Run `npm remove react` in reapp-ui and be sure react isn't in node_modules
-6. Run `sudo npm link reapp-ui` inside the kitchen sink repository
+5. **Important:** Run `rm -r node_modules/react` in reapp-ui and be sure react isn't duplicated in Webpack build
+6. Run `npm watch` in this directory to start babel compiler
+7. Be sure to edit in `./src` directory only.
+8. Run `sudo npm link reapp-ui` inside the kitchen sink repository
 
 This will link your reapp-ui module into your kitchen sink repo. Now you can:
 
-7. Run `reapp run -d` inside kitchen sink
-8. Go to [localhost:3010](http://localhost:3010)
-9. Make edits inside reapp-ui and they will automatically compile into the kitchen sink.
+9. Run `reapp run -d` inside kitchen sink
+10. Go to [localhost:3010](http://localhost:3010)
+11. Make edits inside reapp-ui and they will automatically compile into the kitchen sink.
 
 **Warning:** When running locally you may run into some unique bugs. Because `npm link`
 runs an `npm install`, it will often install multiple versions of React into your

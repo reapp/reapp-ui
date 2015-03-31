@@ -4,7 +4,8 @@
   "description": "A set of components for building themeable, adaptive, animated UI's",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel src --out-dir . --experimental",
+    "watch": "babel src --out-dir . --experimental --watch"
   },
   "repository": {
     "type": "git",
@@ -29,5 +30,9 @@
   },
   "peerDependencies": {
     "react": "0.13.x"
+  },
+  "devDependencies": {
+    "babel": "^4.7.16",
+    "babel-core": "^4.7.16"
   }
 }
