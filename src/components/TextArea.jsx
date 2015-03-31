@@ -3,7 +3,7 @@ var Component = require('../component');
 var Label = require('../components/Label');
 
 module.exports = Component({
-  name: 'Textarea',
+  name: 'TextArea',
 
   statics: {
     liNoPad: true
