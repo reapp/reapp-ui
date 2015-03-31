@@ -3,7 +3,8 @@
 
 // good for bootstrapping/demos though
 
-module.exports = {
+module.exports = Object.assign(
+  require('./components/Form'), {
   // components
   Alert: require('./components/Alert'),
   Badge: require('./components/Badge'),
@@ -15,7 +16,6 @@ module.exports = {
   Chat: require('./components/Chat'),
   Dots: require('./components/Dots'),
   Drawer: require('./components/Drawer'),
-  Form: require('./components/Form'),
   Gallery: require('./components/Gallery'),
   Grid: require('./components/Grid'),
   Icon: require('./components/Icon'),
@@ -38,10 +38,14 @@ module.exports = {
   TouchableArea: require('./helpers/TouchableArea'),
   TreeNode: require('./helpers/TreeNode'),
 
+  // behaviors
+  NestedViewListBehavior: require('./behaviors/NestedViewListBehavior'),
+  DottedViewListBehavior: require('./behaviors/DottedViewListBehavior'),
+
   // views
   ViewList: require('./views/ViewList'),
   NestedViewList: require('./views/NestedViewList'),
   DottedViewList: require('./views/DottedViewList'),
   LayoutLeftNav: require('./views/LayoutLeftNav'),
   View: require('./views/View')
-};
+});

@@ -1,9 +1,9 @@
 var Input = require('./Input');
 var Label = require('./Label');
-var Textarea = require('./Textarea');
+var TextArea = require('./TextArea');
 var Checkbox = require('./Checkbox');
 var Radio = require('./Radio');
 
 module.exports = {
-  Input, Label, Textarea, Checkbox, Radio
+  Input, Label, TextArea, Checkbox, Radio
 }
