@@ -1,6 +1,6 @@
 var { hexToRGB, hexToRGBA } = require('../../../lib/ConstantsHelpers');
 
-module.exports = (c) => ({
+module.exports = c => ({
   self: {
     pointerEvents: 'none',
     WebkitAlignItems: 'center'
