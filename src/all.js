@@ -41,6 +41,7 @@ module.exports = Object.assign(
   // behaviors
   NestedViewListBehavior: require('./behaviors/NestedViewListBehavior'),
   DottedViewListBehavior: require('./behaviors/DottedViewListBehavior'),
+  DrawerViewListBehavior: require('./behaviors/DrawerViewListBehavior'),
 
   // views
   ViewList: require('./views/ViewList'),
