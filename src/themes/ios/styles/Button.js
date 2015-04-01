@@ -8,7 +8,6 @@ module.exports = (c) => ({
     textAlign: 'center',
     padding: '8px',
     minHeight: '40px',
-    zoom: 1,
     lineHeight: 'normal',
     whiteSpace: 'nowrap',
     verticalAlign: 'baseline',
@@ -17,11 +16,8 @@ module.exports = (c) => ({
     WebkitUserSelect: 'none',
     outline: 'none',
     flexFlow: 'row',
-    WebkitFlexFlow: 'row',
     flexAlign: 'center',
-    WebkitFlexAlign: 'center',
     alignItems: 'center',
-    WebkitAlignItems: 'center',
     margin: 0
   },
 

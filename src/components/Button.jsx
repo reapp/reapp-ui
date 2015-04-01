@@ -1,8 +1,9 @@
-var React = require('react/addons');
-var Component = require('../component');
-var Icon = require('./Icon');
-var clone = require('../lib/niceClone');
-var Tappable = require('../mixins/Tappable');
+import React from 'react/addons';
+import { Surface, Text } from 'react-canvas';
+import Component from '../component';
+import Icon from './Icon';
+import clone from '../lib/niceClone';
+import Tappable from '../mixins/Tappable';
 
 module.exports = Component({
   name: 'Button',
@@ -12,8 +13,7 @@ module.exports = Component({
   },
 
   mixins: [
-    React.addons.PureRenderMixin,
-    Tappable
+    React.addons.PureRenderMixin
   ],
 
   propTypes: {
@@ -30,7 +30,6 @@ module.exports = Component({
   },
 
   render() {
-    var focused = this.state.tapActive;
     var {
       iconProps,
       color,
@@ -50,8 +49,7 @@ module.exports = Component({
     var cloneProps = Object.assign({}, iconProps || {}, {
       isInTitleBar,
       isInViewList,
-      animationSource: animationSource || isInTitleBar && 'viewList',
-      focused
+      animationSource: animationSource || isInTitleBar && 'viewList'
     });
 
     if (color)
@@ -82,25 +80,12 @@ module.exports = Component({
     if (inactive)
       this.addStyles('inactive');
 
-    if (focused)
-      if (active)
-        this.addStyles('activeFocused');
-      else
-        this.addStyles(tapFocusStyle || isInTitleBar ? 'focusedTitleBar' : 'focused');
-
-    var tapProps;
-    if (this.props.onTap) {
-      tapProps = this.tappableProps();
-      this.addClass(tapProps.className);
-    }
-
     return (
-      <button {...tapProps} {...this.componentProps()} {...props}>
-        {icon || !!iconProps && <Icon {...cloneProps} />}
-        <span {...this.componentProps('inner')}>
+      <Surface top={0} left={0} width={200} height={200}>
+        <Text>
           {children}
-        </span>
-      </button>
+        </Text>
+      </Surface>
     );
   }
 });

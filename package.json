@@ -19,6 +19,7 @@
   "homepage": "https://github.com/reapp/reapp-ui",
   "dependencies": {
     "classnames": "^1.2.0",
+    "css-layout": "0.0.2",
     "lodash.merge": "^3.0.1",
     "react-document-title": "^1.0.2",
     "react-style": "^0.4.0",
@@ -29,7 +30,8 @@
     "reapp-scroller": "^1.0.1"
   },
   "peerDependencies": {
-    "react": "0.13.x"
+    "react": "0.13.x",
+    "react-canvas": "0.0.1"
   },
   "devDependencies": {
     "babel": "^4.7.16",

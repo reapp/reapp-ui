@@ -1,3 +1,5 @@
+import applyStyles from 'react-style/lib/applyStyles';
+
 // Uses a combination of all the internal mixins to provide
 // a consistent set of props for each component
 
@@ -10,11 +12,11 @@ module.exports = {
     var props = {
       ref,
       className: this.getClassSet(ref),
-      styles: this.getStyles(ref)
+      style: this.hasAnimations(ref) && !this.animationsDisabled() ? this.getAnimationStyle(ref) : null
     };
 
-    if (this.hasAnimations(ref) && !this.animationsDisabled())
-      props.style = this.getAnimationStyle(ref);
+    applyStyles(props, this.getStyles(ref), 0);
+    console.log('props', props);
 
     return props;
   }
