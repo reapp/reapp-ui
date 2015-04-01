@@ -1,5 +1,5 @@
 // only for desktop touch emulation
-if (location.hash.match(/emulateTouch/))
+if (window.location.hash && window.location.hash.match(/_desktopTouch/))
   emulateTouch({
     style: false,
     startOnLoad: true
