@@ -26,6 +26,7 @@ module.exports = Object.assign(
       onViewEntered: React.PropTypes.func,
       onViewLeaving: React.PropTypes.func,
       onViewLeft: React.PropTypes.func,
+      onStep: React.PropTypes.func,
       scrollerProps: React.PropTypes.object
     },
 
@@ -242,8 +243,12 @@ module.exports = Object.assign(
           else
             step = left / this.state.width;
 
-          if (step !== this.state.step)
+          if (step !== this.state.step) {
             this.setState({ step });
+
+            if (this.props.onStep)
+              this.props.onStep(step);
+          }
         }
       }
     },

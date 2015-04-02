@@ -1,5 +1,6 @@
 var React = require('react');
 var Component = require('../component');
+var { hexToRGBA } = require('../lib/ConstantsHelpers');
 
 module.exports = Component({
   name: 'Dots',
@@ -9,6 +10,10 @@ module.exports = Component({
     active: React.PropTypes.number.isRequired
   },
 
+  componentWillMount() {
+    this.dotProps = this.componentProps('dot');
+  },
+
   shouldComponentUpdate(nextProps) {
     return (
       nextProps.total !== this.props.total ||
@@ -16,24 +21,19 @@ module.exports = Component({
     );
   },
 
-  componentWillMount() {
-    this.cProps = {
-      dot: this.componentProps('dot'),
-      active: Object.assign({}, this.componentProps('dotActive'))
-    };
-
-    this.cProps.active.styles.unshift(this.getStyles('dot'));
-  },
-
   render() {
-    var { total, active, ...props } = this.props;
+    var { total, active, color, ...props } = this.props;
+
+    if (color) {
+      this.addStyles('dotInactive', { background: hexToRGBA(color, 0.2) });
+      this.addStyles('dotActive', { background: color });
+    }
 
     var dots = [];
 
     for (let i = 0; i < total; i++) {
-      dots.push(i === active ?
-        <div {...this.cProps.active} key={i} /> :
-        <div {...this.cProps.dot} key={i} />
+      dots.push(
+        <div {...this.componentProps(i === active ? 'dotActive' : 'dotInactive')} key={i} />
       );
     }
 
