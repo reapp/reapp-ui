@@ -1,5 +1,5 @@
 var { makeStyles } = require('../../index');
-var requirer = (name) => require('./styles/' + name);
+var requirer = name => require('./styles/' + name);
 
 module.exports = makeStyles(requirer, [
   'Alert',
