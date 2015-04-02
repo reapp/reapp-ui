@@ -23,6 +23,10 @@ module.exports = Component({
     if (this.props.fullscreen)
       this.addStyles('fullscreen');
 
-    return React.Children.only(this.props.children);
+    return (
+      <div {...this.componentProps()}>
+        {this.props.children}
+      </div>
+    );
   }
 });
