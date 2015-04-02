@@ -3,8 +3,9 @@ var Component = require('../component');
 var Icon = require('./Icon');
 var clone = require('../lib/niceClone');
 var Tappable = require('../mixins/Tappable');
+var ButtonGroup = require('./ButtonGroup');
 
-module.exports = Component({
+var Button = Component({
   name: 'Button',
 
   statics: {
@@ -26,7 +27,8 @@ module.exports = Component({
     isInTitleBar: React.PropTypes.bool,
     isInViewList: React.PropTypes.bool,
     color: React.PropTypes.string,
-    inactive: React.PropTypes.bool
+    inactive: React.PropTypes.bool,
+    alignLeft: React.PropTypes.bool
   },
 
   render() {
@@ -45,6 +47,7 @@ module.exports = Component({
       isInViewList,
       animationSource,
       tapFocusStyle,
+      alignLeft,
       ...props } = this.props;
 
     var cloneProps = Object.assign({}, iconProps || {}, {
@@ -82,6 +85,9 @@ module.exports = Component({
     if (inactive)
       this.addStyles('inactive');
 
+    if (alignLeft)
+      this.addStyles('inner', 'alignLeft');
+
     if (focused)
       if (active)
         this.addStyles('activeFocused');
@@ -97,10 +103,14 @@ module.exports = Component({
     return (
       <button {...tapProps} {...this.componentProps()} {...props}>
         {icon || !!iconProps && <Icon {...cloneProps} />}
-        <span {...this.componentProps('inner')}>
+        <div {...this.componentProps('inner')}>
           {children}
-        </span>
+        </div>
       </button>
     );
   }
 });
+
+Button.Group = ButtonGroup;
+
+module.exports = Button;

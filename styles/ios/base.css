@@ -85,6 +85,14 @@ p a {
   transition: background linear 50ms;
 }
 
+.fullscreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
 .verticalCenter {
   position: absolute;
   top: 0;

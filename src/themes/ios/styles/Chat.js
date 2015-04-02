@@ -1,6 +1,10 @@
 module.exports = {
   self: {
-    padding: '10px 0',
-    margin: '0'
+    padding: 10,
+    margin: 0,
+    flex: 1,
+    flexDirection: 'column-reverse',
+    WebkitFlexDirection: 'column-reverse',
+    overflowY: 'scroll'
   }
 };
