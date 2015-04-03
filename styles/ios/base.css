@@ -93,7 +93,7 @@ p a {
   bottom: 0;
 }
 
-.verticalCenter {
+.center {
   position: absolute;
   top: 0;
   left: 0;
@@ -103,7 +103,7 @@ p a {
   text-align: center;
 }
 
-.verticalCenter > * {
+.center > * {
   margin: auto;
   pointer-events: auto;
 }
