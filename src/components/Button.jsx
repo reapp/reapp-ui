@@ -27,6 +27,7 @@ var Button = Component({
     isInTitleBar: React.PropTypes.bool,
     isInViewList: React.PropTypes.bool,
     color: React.PropTypes.string,
+    textColor: React.PropTypes.string,
     inactive: React.PropTypes.bool,
     alignLeft: React.PropTypes.bool
   },
@@ -36,6 +37,7 @@ var Button = Component({
     var {
       iconProps,
       color,
+      textColor,
       icon,
       children,
       fullscreen,
@@ -62,6 +64,11 @@ var Button = Component({
         borderColor: color,
         background: color,
         color: '#fff'
+      });
+
+    if (textColor)
+      this.addStyles({
+        color: textColor
       });
 
     if (icon)

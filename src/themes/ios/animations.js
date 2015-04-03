@@ -59,6 +59,10 @@ module.exports = {
     translate: { x: - (step - index) * width }
   }),
 
+  moveUp: ({ index, step, height }) => ({
+    translate: { y: - (step - index) * height }
+  }),
+
   card: ({ index, step }) => ({
     translate: { y: step * index + symmetrical(step) * 10 }
   }),
