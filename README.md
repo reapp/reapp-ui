@@ -1,5 +1,10 @@
 ## The Reapp User Interface
 
+If you're not using [reapp-kit](https://github.com/reapp/reapp-kit), you can
+use reapp-ui by itself with no extra dependencies. It will require a little
+more work to get running, but we've purposely kept everything modular so you
+can choose how much you want to use.
+
 reapp-ui is a set of React components for building beautiful user interfaces
 for all platforms. It has a few goals:
 
