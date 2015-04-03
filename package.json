@@ -4,8 +4,8 @@
   "description": "A set of components for building themeable, adaptive, animated UI's",
   "main": "index.js",
   "scripts": {
-    "build": "babel src --out-dir . --experimental",
-    "watch": "babel src --out-dir . --experimental --watch"
+    "build": "babel src --out-dir . --stage=0",
+    "watch": "babel src --out-dir . --stage=0 --watch"
   },
   "repository": {
     "type": "git",
