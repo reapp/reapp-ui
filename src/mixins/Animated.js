@@ -1,6 +1,7 @@
 var React = require('react');
 var StyleKeys = require('../lib/StyleKeys');
 var invariant = require('react/lib/invariant');
+var Matrix = require('css-to-matrix');
 
 /*
 
@@ -136,49 +137,41 @@ module.exports = {
     if (this.getTweeningValue && this.getTweeningValue('step'))
       state.step = this.getTweeningValue('step');
 
-    invariant(defined(state.step), 'Must define step for animation to run');
-    invariant(defined(state.index), 'Must define index for animation to run');
+    if (!defined(state.step)) throw new Error('Must define step for animation to run');
+    if (!defined(state.index)) throw new Error('Must define index for animation to run');
 
     var animator = this.context.theme.animations[animation];
     var { scale, rotate, rotate3d, translate, ...other } = animator(state);
 
     // set styles
-    styles = Object.assign(styles || {}, other);
+    if (other)
+      styles = Object.assign(styles || {}, other);
 
-    // todo: additive transforms (possible here)
     var transform = this._animationTransformsToString({ scale, rotate, rotate3d, translate });
 
     styles[StyleKeys.TRANSFORM] = transform || this.defaultTransform;
+    styles['transform-origin'] = '50% 50% 0px';
 
     return styles;
   },
 
-  defaultTransform: 'translate3d(0,0,0)',
+  defaultTransform: 'matrix3d(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)',
 
-  _animationTransformsToString(transform) {
-    if (!transform)
-      return;
+  _animationTransformsToString({ scale, rotate3d, rotate, translate }) {
+    const matrix = new Matrix();
 
-    var transformString = '';
-    var t = transform;
+    if (defined(scale))
+      matrix.scale3d(scale, scale);
 
-    if (defined(t.scale))
-      transformString += `scale(${t.scale}) `;
+    if (defined(rotate3d))
+      matrix.rotate3d(rotate3d.x, rotate3d.y, rotate3d.z);
+    else if (defined(rotate))
+      matrix.rotate(rotate);
 
-    if (defined(t.rotate3d))
-      transformString += (
-        rotate.x ? `rotateX(${t.rotate3d.x || 0}deg)` : '' +
-        rotate.y ? `rotateY(${t.rotate3d.y || 0}deg)` : '' +
-        rotate.z ? `rotateZ(${t.rotate3d.z || 0}deg)` : ''
-      );
+    if (defined(translate))
+      matrix.translate(translate.x, translate.y, translate.z);
 
-    if (defined(t.rotate))
-      transformString += `rotate(${t.rotate}deg)`;
-
-    if (defined(t.translate))
-      transformString += `translate3d(${t.translate.x || 0}px, ${t.translate.y || 0}px, ${t.translate.z || 0}px)`;
-
-    return transformString;
+    return matrix.getMatrixCSS();
   },
 
   // grabs state, if not, then props

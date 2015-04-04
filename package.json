@@ -19,14 +19,15 @@
   "homepage": "https://github.com/reapp/reapp-ui",
   "dependencies": {
     "classnames": "^1.2.0",
+    "css-to-matrix": "^1.0.0",
     "lodash.merge": "^3.0.1",
-    "reapp-react-class-helper": "^0.1.2",
     "react-document-title": "^1.0.2",
     "react-style": "^0.5.2",
     "react-tween-state": "0.0.5",
     "reapp-component": "^1.0.0",
     "reapp-object-assign": "^1.0.0",
     "reapp-raf-batching": "^1.0.0",
+    "reapp-react-class-helper": "^0.1.2",
     "reapp-scroller": "^1.0.1"
   },
   "peerDependencies": {

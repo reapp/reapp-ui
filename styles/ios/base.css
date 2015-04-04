@@ -69,6 +69,8 @@ a:visited, a:active {
   left: 0;
   right: 0;
   bottom: 0;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
 }
 
 p {
