@@ -110,14 +110,16 @@ var AnimatableContainer = Component({
   render() {
     var { component, blockUpdates, children, ...props } = this.props;
 
+    console.log(this.getAnimationStyles(props))
+
     return (
-      <StaticContainer
-        {...props}
-        {...this.componentProps()}
-        update={!blockUpdates || !this._isAnimating}
-        style={this.getAnimationStyles(props)}>
-        {children}
-      </StaticContainer>
+      <div style={this.getAnimationStyles(props)} {...this.componentProps()}>
+        <StaticContainer
+          {...props}
+          update={!blockUpdates || !this._isAnimating}>
+          {children}
+        </StaticContainer>
+      </div>
     );
   }
 });

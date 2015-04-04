@@ -1,4 +1,4 @@
-module.exports = (c) => ({
+module.exports = c => ({
   fullscreen: {
     position: 'fixed',
     left: 0,
