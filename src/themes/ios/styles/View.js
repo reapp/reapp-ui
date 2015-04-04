@@ -1,4 +1,4 @@
-module.exports = (c) => ({
+module.exports = c => ({
   self: {
     position: 'absolute',
     top: 0,
