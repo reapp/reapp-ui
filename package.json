@@ -20,8 +20,7 @@
   "dependencies": {
     "classnames": "^1.2.0",
     "lodash.merge": "^3.0.1",
-    "react": "^0.13.1",
-    "react-class-helper": "^0.1.2",
+    "reapp-react-class-helper": "^0.1.2",
     "react-document-title": "^1.0.2",
     "react-style": "^0.5.2",
     "react-tween-state": "0.0.5",

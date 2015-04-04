@@ -34,7 +34,7 @@ module.exports = Component({
       <div>
         {this.getViewList()}
         <Dots
-          total={this.props.children.length}
+          total={this.props.children.length || 0}
           active={this.state.activeViewIndex}
           styles={this.getStyles('dots')}
           {...this.props.dotProps}
