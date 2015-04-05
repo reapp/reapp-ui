@@ -1,5 +1,5 @@
 import React from 'react/addons';
-import { Surface, Text } from 'react-canvas';
+import { Surface, Text, Group, Image } from 'react-canvas';
 import Component from '../component';
 import Icon from './Icon';
 import clone from '../lib/niceClone';
@@ -92,9 +92,7 @@ var Button = Component({
 
     return (
       <Surface top={0} left={0} width={200} height={200}>
-        <Text>
-          {children}
-        </Text>
+        <Image src='http://lorempixel.com/360/420/cats/1/' />
       </Surface>
     );
   }
