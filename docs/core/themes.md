@@ -32,10 +32,28 @@ let theme = {
 }
 ```
 
+If you're using reapp-kit, loading a custom theme that extends the iOS one
+is as easy as:
+
+```js
+import { theme } from 'reapp-kit';
+import iOS from 'reapp-kit/themes/ios';
+
+theme({
+  constants:  [
+    iOS.constants.base,
+    iOS.constants.components,
+    require('./constants/components')
+  ],
+  styles: [ iOS.styles, require('./styles') ],
+  animations: [ iOS.animations ]
+});
+```
+
 When you import reapp-ui, you are given a helper that lets you construct these objects
 more easily.
 
-Here's an example of manually loading the iOS theme:
+Here's an example of manually loading the iOS theme with reapp-ui:
 
 ```js
 import UI from 'reapp-ui';
@@ -86,9 +104,25 @@ out with. Since themes use context, lets learn how to load them into our app.
 
 ### Loading a theme
 
-Lets imagine we have our theme file that we
-just made using `UI.makeTheme` in a file names `mytheme.js`. Now, in our topmost component
-we load it like so:
+With reapp-kit, you already have your theme loaded. When you build you top-level component,
+you just need to wrap it like so:
+
+```js
+import { React, Reapp } from 'reapp-kit'
+
+class MyComponent extends React.Component {
+  render() {
+    // your stuff
+  }
+}
+
+export default Reapp(MyComponent);
+```
+
+Reapp-kit will take care of loading the theme into context.
+
+Without the kit, you can load a theme using our `Theme` helper. After you've made your theme
+using `UI.makeTheme` from above, you could load it like so:
 
 ```
 import theme from './mytheme';

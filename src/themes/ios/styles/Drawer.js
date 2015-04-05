@@ -1,8 +1,9 @@
-module.exports = (c) => ({
+module.exports = c => ({
   self: {
     position: 'fixed',
     width: '100%',
     height: '100%',
+    background: '#fbfbfb',
     zIndex: 4 // todo: this can be better
   },
 

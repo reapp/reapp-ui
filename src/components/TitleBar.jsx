@@ -41,10 +41,20 @@ module.exports = Component({
 
   centerMiddleTitle() {
     if (this.refs.mid) {
-      var mid = this.refs.mid.getDOMNode();
-      var winCenter = this.props.width / 2;
-      var midCenter = mid.offsetLeft + (mid.clientWidth / 2);
-      mid.style.left = `${winCenter-midCenter}px`;
+      const mid = this.refs.mid.getDOMNode();
+      let midLeft;
+
+      if (!this.props.midWidth) {
+        const midCenter = mid.offsetLeft + (mid.clientWidth / 2);
+        const winCenter = this.props.width / 2;
+        midLeft = winCenter - midCenter;
+      }
+      else {
+        midLeft =
+          this.props.width / 2 - this.props.midWidth / 2;
+      }
+
+      mid.style.left = `${midLeft}px`;
     }
   },
 

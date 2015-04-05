@@ -64,7 +64,7 @@ module.exports = Component({
       );
 
     return (
-      <div {...this.componentProps()} {...this.tappableProps()} {...props}>
+      <div {...this.tappableProps()} {...this.componentProps()} {...props}>
         {display != 'text' && this.makeSection('icon', icon)}
         {display != 'icon' && this.makeSection('text', children)}
       </div>

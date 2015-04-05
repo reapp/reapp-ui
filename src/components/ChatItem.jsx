@@ -28,8 +28,13 @@ module.exports = Component({
       own,
       ...props } = this.props;
 
-    if (own)
+    if (own) {
       this.addStyles('own');
+      this.addClass('own');
+    }
+    else {
+      this.addClass('them');
+    }
 
     var tapProps;
     if (this.props.onTap) {

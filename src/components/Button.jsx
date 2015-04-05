@@ -4,8 +4,9 @@ import Component from '../component';
 import Icon from './Icon';
 import clone from '../lib/niceClone';
 import Tappable from '../mixins/Tappable';
+var ButtonGroup = require('./ButtonGroup');
 
-module.exports = Component({
+var Button = Component({
   name: 'Button',
 
   statics: {
@@ -26,13 +27,16 @@ module.exports = Component({
     isInTitleBar: React.PropTypes.bool,
     isInViewList: React.PropTypes.bool,
     color: React.PropTypes.string,
-    inactive: React.PropTypes.bool
+    textColor: React.PropTypes.string,
+    inactive: React.PropTypes.bool,
+    alignLeft: React.PropTypes.bool
   },
 
   render() {
     var {
       iconProps,
       color,
+      textColor,
       icon,
       children,
       fullscreen,
@@ -44,6 +48,7 @@ module.exports = Component({
       isInViewList,
       animationSource,
       tapFocusStyle,
+      alignLeft,
       ...props } = this.props;
 
     var cloneProps = Object.assign({}, iconProps || {}, {
@@ -57,6 +62,11 @@ module.exports = Component({
         borderColor: color,
         background: color,
         color: '#fff'
+      });
+
+    if (textColor)
+      this.addStyles({
+        color: textColor
       });
 
     if (icon)
@@ -89,3 +99,7 @@ module.exports = Component({
     );
   }
 });
+
+Button.Group = ButtonGroup;
+
+module.exports = Button;

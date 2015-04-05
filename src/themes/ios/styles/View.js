@@ -1,4 +1,4 @@
-module.exports = (c) => ({
+module.exports = c => ({
   self: {
     position: 'absolute',
     top: 0,
@@ -8,9 +8,9 @@ module.exports = (c) => ({
     zIndex: 2
   },
 
-  // inactive: {
-  //   pointerEvents: 'none'
-  // },
+  inactive: {
+    pointerEvents: 'none'
+  },
 
   inner: {
     background: c.viewBG,
@@ -19,8 +19,7 @@ module.exports = (c) => ({
     top: 0,
     left: 0,
     bottom: 0,
-    right: 0,
-    overflow: 'hidden'
+    right: 0
   },
 
   static: {

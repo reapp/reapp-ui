@@ -6,6 +6,7 @@ build
 
 /behaviors
 /components
+/decorators
 /helpers
 /lib
 /mixins

@@ -27,6 +27,9 @@ module.exports = Object.assign(
   Title: require('./components/Title'),
   TitleBar: require('./components/TitleBar'),
 
+  // decorators
+  Tweenable: require('./decorators/Tweenable'),
+
   // buttons
   BackButton: require('./components/buttons/BackButton'),
 

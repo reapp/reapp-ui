@@ -30,6 +30,10 @@ module.exports = (c) => ({
     maxWidth: '100%'
   },
 
+  alignLeft: {
+    marginLeft: 10
+  },
+
   isInTitleBar: {
     color: c.buttonColorTitleBar
   },

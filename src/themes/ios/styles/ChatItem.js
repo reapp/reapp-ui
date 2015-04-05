@@ -10,7 +10,8 @@ module.exports = (c) => ({
     background: '#999',
     color: '#fff',
     borderRadius: '10px',
-    width: '80%'
+    width: '80%',
+    position: 'relative'
   },
 
   own: {

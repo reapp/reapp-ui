@@ -4,6 +4,10 @@ var Component = require('../component');
 module.exports = Component({
   name: 'StaticContainer',
 
+  propTypes: {
+    children: React.PropTypes.element.isRequired
+  },
+
   getDefaultProps() {
     return {
       update: false
@@ -20,7 +24,7 @@ module.exports = Component({
       this.addStyles('fullscreen');
 
     return (
-      <div {...this.props} {...this.componentProps()}>
+      <div {...this.componentProps()}>
         {this.props.children}
       </div>
     );
