@@ -325,9 +325,9 @@ module.exports = Object.assign(
     },
 
     getViewAnimations(view) {
-      return view && view.props.animations ?
-        Object.assign({}, this.props.viewAnimations, view.props.animations) :
-        this.props.viewAnimations;
+      return view && !view.props.animations ?
+        this.props.viewAnimations :
+        view.props.animations;
     },
 
     setTouchableAreaProps(props) {
