@@ -1,5 +1,5 @@
 var React = require('react');
-var TweenState = require('react-tween-state');
+var TweenState = require('reapp-tween-state');
 var Component = require('../component');
 var Tappable = require('../helpers/Tappable');
 var clone = require('../lib/niceClone');

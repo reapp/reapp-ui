@@ -1,6 +1,6 @@
 var React = require('react');
 var Component = require('../component');
-var TweenState = require('react-tween-state');
+var TweenState = require('reapp-tween-state');
 var clone = require('../lib/niceClone');
 var UI = require('../index');
 

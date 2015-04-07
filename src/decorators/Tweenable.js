@@ -1,5 +1,7 @@
 /* Decorator to add react-tween-state to class */
-import { Mixins } from 'reapp-react-class-helper';
-import { Mixin } from 'react-tween-state';
+import { Mixin } from 'reapp-tween-state';
 
-export default SubComponent => Mixins(SubComponent, [Mixin]);
+export default SubComponent => {
+  Object.assign(SubComponent.prototype, Mixin);
+  return SubComponent;
+};
