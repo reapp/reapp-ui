@@ -16,7 +16,8 @@ module.exports = Component({
     name: React.PropTypes.string,
     date: React.PropTypes.object,
     avatar: React.PropTypes.node,
-    own: React.PropTypes.bool
+    own: React.PropTypes.bool,
+    plain: React.PropTypes.bool
   },
 
   render() {
@@ -26,10 +27,12 @@ module.exports = Component({
       date,
       avatar,
       own,
+      plain,
       ...props } = this.props;
 
     if (own) {
       this.addStyles('own');
+      this.addStyles('arrow', 'arrowOwn');
       this.addClass('own');
     }
     else {
@@ -44,7 +47,12 @@ module.exports = Component({
 
     return (
       <div {...tapProps} {...props} {...this.componentProps()}>
-        {children}
+        <div {...this.componentProps('inner')}>
+          {children}
+        </div>
+        {!plain &&
+          <div {...this.componentProps('arrow')} />
+        }
       </div>
     );
   }

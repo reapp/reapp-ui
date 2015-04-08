@@ -28,6 +28,11 @@ module.exports = (c) => ({
   buttonFocusedBG: 'rgba(0,0,0,0.1)',
   buttonColorTitleBar: c.activeBG,
 
+  // Chat
+  chatItemBG: '#999',
+  chatItemColor: '#fff',
+  chatItemOwnBG: c.brandColor,
+
   // Dots
   dotBG: '#000',
 

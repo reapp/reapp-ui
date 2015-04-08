@@ -1,22 +1,40 @@
-module.exports = (c) => ({
+module.exports = c => ({
   self: {
-    listStyle: 'none',
     padding: '10px',
     margin: '0 0 10px 0',
-    overflow: 'hidden',
     flexFlow: 'row',
     WebkitFlexFlow: 'row',
     alignItems: 'center',
-    background: '#999',
-    color: '#fff',
+    background: c.chatItemBG,
+    color: c.chatItemColor,
     borderRadius: '10px',
     width: '80%',
     position: 'relative'
   },
 
+  inner: {
+    overflow: 'hidden'
+  },
+
   own: {
-    backgroundColor: c.brandColor,
+    backgroundColor: c.chatItemOwnBG,
     alignSelf: 'flex-end',
     WebkitAlignSelf: 'flex-end'
+  },
+
+  arrow: {
+    position: 'absolute',
+    zIndex: 1,
+    bottom: '0',
+    left: '-7px',
+    borderRadius: '20px / 10px',
+    border: '8px solid transparent',
+    borderBottomColor: c.chatItemBG,
+  },
+
+  arrowOwn: {
+    left: 'auto',
+    right: '-7px',
+    borderBottomColor: c.chatItemOwnBG
   }
 });
