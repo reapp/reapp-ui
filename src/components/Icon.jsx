@@ -12,6 +12,7 @@ module.exports = Component({
     isInTitleBar: React.PropTypes.bool,
     isInViewList: React.PropTypes.bool,
     shapeRendering: React.PropTypes.string,
+    viewBox: React.PropTypes.string,
     crisp: React.PropTypes.bool
   },
 
@@ -23,6 +24,7 @@ module.exports = Component({
     return {
       size: 32,
       stroke: 1,
+      viewBox: '0 0 64 64',
       color: 'currentColor',
       viewListAnimations: {
         self: 'iconTitleBar'
@@ -59,6 +61,7 @@ module.exports = Component({
       isInViewList,
       isInTitleBar,
       shapeRendering,
+      viewBox,
       crisp,
       ...props
     } = this.props;
@@ -97,7 +100,7 @@ module.exports = Component({
 
     return (
       <div {...this.componentProps()}>
-        <svg viewBox="0 0 64 64" {...props}>
+        <svg viewBox={viewBox} {...props}>
           <g dangerouslySetInnerHTML={{__html: file }} />
         </svg>
       </div>
