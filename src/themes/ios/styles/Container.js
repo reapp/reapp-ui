@@ -11,13 +11,5 @@ module.exports = {
   col: {
     flexDirection: 'column',
     WebkitFlexDirection: 'column'
-  },
-
-  // todo
-  '@media (max-width: 768px)': {
-    children: {
-      flexFlow: 'column',
-      WebkitFlexFlow: 'column',
-    }
   }
 };

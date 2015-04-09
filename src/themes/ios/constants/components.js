@@ -23,9 +23,9 @@ module.exports = (c) => ({
   // Button
   buttonBorderColor: c.activeBG,
   buttonColor: c.activeBG,
-  buttonActiveBG: c.activeBG,
-  buttonActiveColor: c.activeColor,
-  buttonFocusedBG: 'rgba(0,0,0,0.1)',
+  buttonFilledBG: c.activeBG,
+  buttonFilledColor: c.activeColor,
+  buttonTapActiveBG: 'rgba(0,0,0,0.1)',
   buttonColorTitleBar: c.activeBG,
 
   // Chat

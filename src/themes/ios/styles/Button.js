@@ -57,9 +57,9 @@ module.exports = (c) => ({
     borderRadius: '100px'
   },
 
-  active: {
-    background: c.buttonActiveBG,
-    color: c.buttonActiveColor
+  filled: {
+    background: c.buttonFilledBG,
+    color: c.buttonFilledColor
   },
 
   inactive: {
@@ -68,11 +68,11 @@ module.exports = (c) => ({
     pointerEvents: 'none'
   },
 
-  focused: {
+  tapActive: {
     background: c.buttonFocusedBG
   },
 
-  focusedTitleBar: {
+  tapActiveTitleBar: {
     opacity: 0.2
   }
 });

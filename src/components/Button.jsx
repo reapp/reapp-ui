@@ -23,7 +23,7 @@ var Button = Component({
     chromeless: React.PropTypes.bool,
     fullscreen: React.PropTypes.bool,
     rounded: React.PropTypes.bool,
-    active: React.PropTypes.bool,
+    filled: React.PropTypes.bool,
     isInTitleBar: React.PropTypes.bool,
     isInViewList: React.PropTypes.bool,
     color: React.PropTypes.string,
@@ -33,7 +33,7 @@ var Button = Component({
   },
 
   render() {
-    var focused = this.state.tapActive;
+    var tapActive = this.state.tapActive;
     var {
       iconProps,
       color,
@@ -43,12 +43,11 @@ var Button = Component({
       fullscreen,
       chromeless,
       rounded,
-      active,
+      filled,
       inactive,
       isInTitleBar,
       isInViewList,
       animationSource,
-      tapFocusStyle,
       alignLeft,
       ...props } = this.props;
 
@@ -56,7 +55,7 @@ var Button = Component({
       isInTitleBar,
       isInViewList,
       animationSource: animationSource || isInTitleBar && 'viewList',
-      focused
+      tapActive
     });
 
     if (color)
@@ -86,8 +85,8 @@ var Button = Component({
     if (rounded)
       this.addStyles('rounded');
 
-    if (active)
-      this.addStyles('active');
+    if (filled)
+      this.addStyles('filled');
 
     if (inactive)
       this.addStyles('inactive');
@@ -95,11 +94,11 @@ var Button = Component({
     if (alignLeft)
       this.addStyles('inner', 'alignLeft');
 
-    if (focused)
-      if (active)
-        this.addStyles('activeFocused');
+    if (tapActive)
+      if (filled)
+        this.addStyles('tapActiveFilled');
       else
-        this.addStyles(tapFocusStyle || isInTitleBar ? 'focusedTitleBar' : 'focused');
+        this.addStyles(isInTitleBar ? 'tapActiveTitleBar' : 'tapActive');
 
     var tapProps;
     if (this.props.onTap) {

@@ -4,10 +4,6 @@ var Component = require('../component');
 module.exports = Component({
   name: 'Icon',
 
-  mixins: [
-    React.addons.PureRenderMixin
-  ],
-
   propTypes: {
     size: React.PropTypes.number,
     name: React.PropTypes.string,
@@ -18,6 +14,10 @@ module.exports = Component({
     shapeRendering: React.PropTypes.string,
     crisp: React.PropTypes.bool
   },
+
+  mixins: [
+    React.addons.PureRenderMixin
+  ],
 
   getDefaultProps() {
     return {

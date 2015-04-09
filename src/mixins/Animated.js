@@ -123,9 +123,6 @@ module.exports = {
         if (animations.length)
           for (var i = 0, len = animations.length; i < len; i++)
             styles = this._getAnimationStyle(styles, state, animations[i]);
-
-      // ensure translate-z to ensure hardware accel
-      styles[StyleKeys.TRANSFORM] = styles[StyleKeys.TRANSFORM] || 'translateZ(0px)';
     }
 
     return styles;
@@ -147,17 +144,17 @@ module.exports = {
     if (other)
       styles = Object.assign(styles || {}, other);
 
-    var transform = this._animationTransformsToString({ scale, rotate, rotate3d, translate });
+    var transform = this._animationTransformsToString(scale, rotate, rotate3d, translate);
 
     styles[StyleKeys.TRANSFORM] = transform || this.defaultTransform;
-    styles['transform-origin'] = '50% 50% 0px';
+    styles['transformOrigin'] = '50% 50% 0px';
 
     return styles;
   },
 
   defaultTransform: 'matrix3d(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)',
 
-  _animationTransformsToString({ scale, rotate3d, rotate, translate }) {
+  _animationTransformsToString(scale, rotate3d, rotate, translate) {
     const matrix = new Matrix();
 
     if (defined(scale))
