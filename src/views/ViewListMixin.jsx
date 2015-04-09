@@ -122,7 +122,7 @@ module.exports = Object.assign(
 
       this.scroller.setPosition(left, top);
       this.scroller.scrollTo(left, top, false);
-      this.setState({ step  });
+      // this.setState({ step  });
     },
 
     animationContext() {
@@ -243,22 +243,22 @@ module.exports = Object.assign(
           else
             step = left / this.state.width;
 
-          if (step % 1 !== 0) {
-            this.animator.set({ step });
-          }
-          else {
-            this.setState({ step });
-          }
+          if (step !== this.prevStep) {
+            this.prevStep = step;
+            if (step % 1 !== 0) {
+              console.log('set', step)
+              this.animator.set({ step });
+            }
+            else {
+              this.setState({ step });
+            }
 
-          if (this.props.onStep)
-            this.props.onStep(step);
+            this.runViewCallbacks(step);
+            if (this.props.onStep)
+              this.props.onStep(step);
+          }
         }
       }
-    },
-
-    componentDidUpdate(_, prevState) {
-      if (prevState.step !== this.state.step)
-        this.runViewCallbacks(this.state.step);
     },
 
     runViewCallbacks(step) {

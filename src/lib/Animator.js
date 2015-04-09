@@ -26,9 +26,7 @@ export default function(name, props) {
         props.forEach(prop => childState[prop] = this.props[prop]);
 
       // create new animation observable
-      if (this.animator)
-        this.animator.set(childState);
-      else
+      if (!this.animator)
         this.animator = Observable(childState);
 
       // overwrite animations context for this namespace

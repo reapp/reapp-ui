@@ -59,25 +59,23 @@ module.exports = {
   },
 
   componentWillMount() {
-    if (this.props.animations) {
-      const animationObservable = this.context.animations && this.context.animations[this.props.animationSource];
+    if (!this.props.animations)
+      return;
 
-      if (animationObservable) {
-        console.log(this.name, 'subscribing to', animationObservable.get())
-        this.animationObserverUnsubscribe = animationObservable.onChange(state => {
-          console.log('setstate', {
-            animations: {
-              [this.props.animationSource]: state
-            }
-          })
-          this.setState({
-            animations: {
-              [this.props.animationSource]: state
-            }
-          });
-        })
-      }
-    }
+    const animationObservable = this.context.animations && this.context.animations[this.props.animationSource];
+
+    if (!animationObservable)
+      return;
+
+    this.animationObserverUnsubscribe = animationObservable.onChange(state => {
+      console.log('get', state.step)
+      // console.log('setstate', this.props.animationSource, this.name, state);
+      this.setState({
+        animations: {
+          [this.props.animationSource]: state
+        }
+      });
+    });
   },
 
   componentWillUnmount() {
