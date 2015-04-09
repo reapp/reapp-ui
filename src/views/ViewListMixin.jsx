@@ -243,12 +243,15 @@ module.exports = Object.assign(
           else
             step = left / this.state.width;
 
-          if (step !== this.state.step) {
-            this.setState({ step });
-
-            if (this.props.onStep)
-              this.props.onStep(step);
+          if (step % 1 !== 0) {
+            this.animator.set({ step });
           }
+          else {
+            this.setState({ step });
+          }
+
+          if (this.props.onStep)
+            this.props.onStep(step);
         }
       }
     },

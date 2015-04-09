@@ -1,26 +1,43 @@
-var React = require('react');
+import React from 'react';
+import Observable from 'observable-state';
 
 const pickNum = (a, b) => typeof a === 'number' ? a : b;
 
-module.exports = function(name, props) {
+export default function(name, props) {
   return {
     childContextTypes: {
       animations: React.PropTypes.object
     },
 
     getChildContext() {
-      const parentState = this.context.animations && this.context.animations[name];
-      const childState = {
-        [name]: Object.assign({}, parentState)
-      };
+      let parentState;
+
+      // get parent state
+      if (this.context.animations && this.context.animations[name])
+        parentState = this.context.animations[name].get();
+
+      // create updated state
+      const childState = parentState || {};
 
       if (this.state && typeof this.state.step === 'number')
-        childState[name].step = this.state.step;
+        childState.step = this.state.step;
 
       if (props)
-        props.forEach(prop => childState[name][prop] = this.props[prop]);
+        props.forEach(prop => childState[prop] = this.props[prop]);
 
-      return { animations: childState };
+      // create new animation observable
+      if (this.animator)
+        this.animator.set(childState);
+      else
+        this.animator = Observable(childState);
+
+      // overwrite animations context for this namespace
+      return {
+        animations: Object.assign(
+          this.context.animations || {},
+          { [name]: this.animator }
+        )
+      };
     },
   }
 };

@@ -13,8 +13,8 @@ module.exports = {
       styles: this.getStyles(ref)
     };
 
-    if (this.hasAnimations(ref) && !this.animationsDisabled())
-      props.style = this.getAnimationStyle(ref);
+    // if (this.hasAnimations(ref) && !this.animationsDisabled())
+    //   props.style = this.getAnimationStyle(ref);
 
     return props;
   }

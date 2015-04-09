@@ -58,21 +58,35 @@ module.exports = {
     theme: React.PropTypes.object
   },
 
+  componentWillMount() {
+    if (this.props.animations) {
+      const animationObservable = this.context.animations && this.context.animations[this.props.animationSource];
+
+      if (animationObservable) {
+        console.log(this.name, 'subscribing to', animationObservable.get())
+        this.animationObserverUnsubscribe = animationObservable.onChange(state => {
+          console.log('setstate', {
+            animations: {
+              [this.props.animationSource]: state
+            }
+          })
+          this.setState({
+            animations: {
+              [this.props.animationSource]: state
+            }
+          });
+        })
+      }
+    }
+  },
+
+  componentWillUnmount() {
+    if (this.animationObserverUnsubscribe)
+      this.animationObserverUnsubscribe()
+  },
+
   getAnimationState(source) {
-    var state, animationContext;
-
-    // allow passing more information into the context
-    if (this.animationContext)
-      animationContext = typeof this.animationContext === 'function' ?
-          this.animationContext() : this.animationContext;
-
-    // external else internal
-    if (source && source !== 'self')
-      state = this.context.animations && this.context.animations[source];
-    else
-      state = this._stateOrProps('step', 'index', 'disableAnimation');
-
-    return Object.assign({}, state, animationContext);
+    return this.state.animations[source];
   },
 
   disableAnimation() {
