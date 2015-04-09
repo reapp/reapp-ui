@@ -67,24 +67,27 @@ module.exports = {
     if (!animationObservable)
       return;
 
-    this.animationObserverUnsubscribe = animationObservable.onChange(state => {
-      console.log('get', state.step)
-      // console.log('setstate', this.props.animationSource, this.name, state);
-      this.setState({
-        animations: {
-          [this.props.animationSource]: state
-        }
-      });
+    this.animationStreamOff = animationObservable.onChange(this.setAnimationState);
+    this.setAnimationState(animationObservable.get());
+  },
+
+  setAnimationState(state) {
+    console.log('get', state.step)
+    // console.log('setstate', this.props.animationSource, this.name, state);
+    this.setState({
+      animations: {
+        [this.props.animationSource]: state
+      }
     });
   },
 
   componentWillUnmount() {
-    if (this.animationObserverUnsubscribe)
-      this.animationObserverUnsubscribe()
+    if (this.animationStreamOff)
+      this.animationStreamOff()
   },
 
   getAnimationState(source) {
-    return this.state.animations[source];
+    return this.state && this.state.animations && this.state.animations[source];
   },
 
   disableAnimation() {
@@ -127,6 +130,7 @@ module.exports = {
     if (animations) {
       source = source || this.props.animationSource;
       var state = this.getAnimationState(source);
+      console.log(state)
 
       // single animation or array
       if (typeof animations === 'string')
