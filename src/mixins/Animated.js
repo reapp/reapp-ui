@@ -62,28 +62,29 @@ module.exports = {
     if (!this.props.animations)
       return;
 
-    const animationObservable = this.context.animations && this.context.animations[this.props.animationSource];
+    const source = this.props.animationSource;
+    const state = this.context.animations &&
+      this.context.animations[source];
 
-    if (!animationObservable)
+    if (!state || typeof state.step === 'undefined')
       return;
 
-    this.animationStreamOff = animationObservable.onChange(this.setAnimationState);
-    this.setAnimationState(animationObservable.get());
+    this.unlistenAnimations = state.step.onChange(
+      this.updateAnimationStep.bind(this, source)
+    );
+
+    let animations = { [source]: state };
+    this.setState({ animations });
   },
 
-  setAnimationState(state) {
-    console.log('get', state.step)
-    // console.log('setstate', this.props.animationSource, this.name, state);
-    this.setState({
-      animations: {
-        [this.props.animationSource]: state
-      }
-    });
+  updateAnimationStep(source, step) {
+    this.state.animations[source].step = step;
+    this.setState({ _animated: true });
   },
 
   componentWillUnmount() {
-    if (this.animationStreamOff)
-      this.animationStreamOff()
+    if (this.unlistenAnimations)
+      this.unlistenAnimations()
   },
 
   getAnimationState(source) {
@@ -130,7 +131,6 @@ module.exports = {
     if (animations) {
       source = source || this.props.animationSource;
       var state = this.getAnimationState(source);
-      console.log(state)
 
       // single animation or array
       if (typeof animations === 'string')

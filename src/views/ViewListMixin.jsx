@@ -246,8 +246,7 @@ module.exports = Object.assign(
           if (step !== this.prevStep) {
             this.prevStep = step;
             if (step % 1 !== 0) {
-              console.log('set', step)
-              this.animator.set({ step });
+              this.animateStep.set(step);
             }
             else {
               this.setState({ step });

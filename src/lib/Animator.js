@@ -13,27 +13,27 @@ export default function(name, props) {
       let parentState;
 
       // get parent state
-      if (this.context.animations && this.context.animations[name])
-        parentState = this.context.animations[name].get();
+      if (this.context.animations && this.context.animations[name]) {
+        parentState = this.context.animations[name];
+      }
 
       // create updated state
       const childState = parentState || {};
 
-      if (this.state && typeof this.state.step === 'number')
-        childState.step = this.state.step;
+      if (this.state && typeof this.state.step === 'number') {
+        if (!this.animateStep)
+          this.animateStep = Observable(this.state.step);
+
+        childState.step = this.animateStep;
+      }
 
       if (props)
         props.forEach(prop => childState[prop] = this.props[prop]);
 
-      // create new animation observable
-      if (!this.animator)
-        this.animator = Observable(childState);
-
       // overwrite animations context for this namespace
       return {
-        animations: Object.assign(
-          this.context.animations || {},
-          { [name]: this.animator }
+        animations: Object.assign(this.context.animations || {},
+          { [name]: childState }
         )
       };
     },
