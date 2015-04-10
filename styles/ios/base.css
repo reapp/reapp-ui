@@ -108,5 +108,5 @@ p a {
 .center > * {
   margin: auto;
   pointer-events: auto;
-  -webkit-align-self: center;
+  align-self: center;
 }
