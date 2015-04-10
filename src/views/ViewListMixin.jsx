@@ -244,17 +244,17 @@ module.exports = Object.assign(
             step = left / this.state.width;
 
           if (step !== this.prevStep) {
-            this.prevStep = step;
-            if (step % 1 !== 0) {
-              this.animateStep.set(step);
-            }
-            else {
+            this.animateStep.setSync(step);
+
+            if (step % 1 === 0)
               this.setState({ step });
-            }
 
             this.runViewCallbacks(step);
+
             if (this.props.onStep)
               this.props.onStep(step);
+
+            this.prevStep = step;
           }
         }
       }

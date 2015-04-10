@@ -79,7 +79,7 @@ module.exports = {
 
   updateAnimationStep(source, step) {
     this.state.animations[source].step = step;
-    this.setState({ _animated: true });
+    this.setState({ _animated: true }); // re-render
   },
 
   componentWillUnmount() {
