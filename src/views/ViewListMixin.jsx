@@ -51,6 +51,7 @@ module.exports = Object.assign(
     },
 
     setupBeforeMount(props, cb) {
+      delete this.scroller;
       this.scroller = new Scroller(this.handleScroll, props.scrollerProps);
       this.setupViewList(props, cb);
     },
@@ -143,14 +144,16 @@ module.exports = Object.assign(
 
     setupViewList(props, cb) {
       var { width, height, children } = props;
+
       this.setupViewEnterStates(children);
 
-      if (!children || !children.length)
+      if (!children || !children.length) {
+        // bugfix so if we start with no children but add later it works
+        this.scroller.setDimensions(width, height, width, height);
         return;
+      }
 
       children = children.filter(child => !!child);
-
-      this.scroller.setSnapSize(width, height);
 
       var isVertical = this.props.vertical;
       var fullWidth = isVertical ? width : width * children.length;
