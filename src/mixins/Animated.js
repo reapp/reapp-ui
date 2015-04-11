@@ -59,10 +59,15 @@ export default {
   },
 
   componentWillMount() {
-    if (!this.props.animations)
-      return;
+    this.conditionalAnimations = this.getConditionalAnimations(this.props);
 
-    const source = this.props.animationSource;
+    // check if has animations
+    if (!this.conditionalAnimations)
+      if (!this.props.animations ||
+        (!this.props.animations && (!this.state || this.state && !this.state.animations)))
+        return;
+
+    const source = this.props.animationSource || this.state.animationSource;
     const state = this.context.animations &&
       this.context.animations[source];
 
@@ -73,12 +78,33 @@ export default {
       this.updateAnimationStep.bind(this, source)
     );
 
-    let animations = { [source]: state };
-    this.setState({ animations });
+    let _animationState = { [source]: state };
+    this.setState({ _animationState });
+  },
+
+  componentWillReceiveProps(nextProps) {
+    this.conditionalAnimations = this.getConditionalAnimations(nextProps);
+  },
+
+  getConditionalAnimations(props) {
+    if (!props.conditionalAnimations)
+      return;
+
+    let propsForAnimations = {};
+    let hasPropsForAnimations = false;
+
+    Object.keys(props.conditionalAnimations).forEach(key => {
+      if (props[key]) {
+        hasPropsForAnimations = true;
+        Object.assign(propsForAnimations, props.conditionalAnimations[key]);
+      }
+    })
+
+    return hasPropsForAnimations ? propsForAnimations : false;
   },
 
   updateAnimationStep(source, step) {
-    this.state.animations[source].step = step;
+    this.state._animationState[source].step = step;
     this.setState({ _animated: true }); // re-render
   },
 
@@ -88,7 +114,7 @@ export default {
   },
 
   getAnimationState(source) {
-    return this.state && this.state.animations && this.state.animations[source];
+    return this.state && this.state._animationState && this.state._animationState[source];
   },
 
   disableAnimation() {
@@ -119,7 +145,10 @@ export default {
     if (this.state && this.state.animations && defined(this.state.animations[ref]))
       return this.state.animations[ref];
     else
-      return this.props.animations && this.props.animations[ref];
+      return (
+        this.props.animations && this.props.animations[ref] ||
+        this.conditionalAnimations && this.conditionalAnimations[ref]
+      );
   },
 
   // returns an object of styles
@@ -130,6 +159,7 @@ export default {
 
     if (animations) {
       source = source || this.props.animationSource;
+
       var state = this.getAnimationState(source);
 
       // single animation or array
