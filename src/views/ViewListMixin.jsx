@@ -58,7 +58,7 @@ module.exports = Object.assign(
     setupAfterMount(props) {
       this.setupDimensions(props);
       this.setTouchableAreaProps(props);
-      this.runViewCallbacks(props.scrollToStep || this.state.step);
+      this.runViewCallbacks(this.state.step);
       window.addEventListener('resize', this.resize);
       this.didMount = true;
     },
@@ -244,10 +244,12 @@ module.exports = Object.assign(
             step = left / this.state.width;
 
           if (step !== this.prevStep) {
-            this.animateStep.setSync(step);
-
-            if (step % 1 === 0)
+            if (step % 1 === 0) {
+              this.animateStep.setSync(step);
               this.setState({ step });
+            }
+
+            this.animateStep.setSync(step);
 
             this.runViewCallbacks(step);
 
