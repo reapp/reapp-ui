@@ -178,6 +178,7 @@ function emulateTouch(config) {
   // Prevent all mousedown event from doing anything.
   // We'll fire one manually at touchend.
   function phantomTouchStart(e) {
+    if (e.target.tagName.match(/input|textarea|select/i)) return;
     if (e.synthetic) return;
 
     mouseIsDown = true;
