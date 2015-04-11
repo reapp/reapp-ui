@@ -60,14 +60,13 @@ export default {
 
   componentWillMount() {
     this.conditionalAnimations = this.getConditionalAnimations(this.props);
+    const hasAnimationProps = this.conditionalAnimations || this.props.animations;
 
-    // check if has animations
-    if (!this.conditionalAnimations)
-      if (!this.props.animations ||
-        (!this.props.animations && (!this.state || this.state && !this.state.animations)))
+    if (!hasAnimationProps ||
+      (!hasAnimationProps && (!this.state || this.state && !this.state.animations)))
         return;
 
-    const source = this.props.animationSource || this.state.animationSource;
+    const source = this.props.animationSource || this.state && this.state.animationSource;
     const state = this.context.animations &&
       this.context.animations[source];
 
@@ -114,7 +113,10 @@ export default {
   },
 
   getAnimationState(source) {
-    return this.state && this.state._animationState && this.state._animationState[source];
+    if (!source || source === 'self')
+      return this.state;
+    else
+      return this.state && this.state._animationState && this.state._animationState[source];
   },
 
   disableAnimation() {
