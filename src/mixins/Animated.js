@@ -50,9 +50,9 @@ var Matrix = require('css-to-matrix');
 
 */
 
-var defined = variable => (typeof variable !== 'undefined');
+const defined = variable => (typeof variable !== 'undefined');
 
-module.exports = {
+export default {
   contextTypes: {
     animations: React.PropTypes.object,
     theme: React.PropTypes.object
