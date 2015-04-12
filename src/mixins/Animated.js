@@ -2,6 +2,7 @@ var React = require('react');
 var StyleKeys = require('../lib/StyleKeys');
 var invariant = require('react/lib/invariant');
 var Matrix = require('css-to-matrix');
+var shallowEqual = require('react/lib/shallowEqual');
 
 /*
 
@@ -68,18 +69,11 @@ export default {
   },
 
   componentWillReceiveProps(nextProps) {
-    this.conditionalAnimations = this.getConditionalAnimations(nextProps);
+    if (!this.props.animations || this.isAnimating()) return;
 
     // check for new animation state
-    if (nextProps.animationState) {
-      const stateKeys = Object.keys(nextProps.animationState);
-      for (let i = 0; i < stateKeys.length; i++) {
-        if (!defined(this.props[stateKeys[i]])) {
-          this.setAnimationState(nextProps);
-          break;
-        }
-      }
-    }
+    if (!shallowEqual(nextProps.animationState, this.props.animationState))
+      this.setAnimationState(nextProps);
   },
 
   setAnimationState(props) {
