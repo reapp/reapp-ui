@@ -388,6 +388,9 @@ module.exports = Object.assign(
               isInViewList: true,
               animations: this.getViewAnimations(child),
               animationSource: 'viewList',
+              animationState: {
+                index: i
+              },
               viewListScrollToStep: this.scrollToStep
             }, i === this._advancingToIndex && {
               onComponentMounted: this.handleViewMounted

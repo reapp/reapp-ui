@@ -18,7 +18,7 @@ export default function(name, props) {
       }
 
       // create updated state
-      const childState = parentState || {};
+      const childState = Object.assign({}, parentState);
 
       if (this.state && typeof this.state.step === 'number') {
         if (!this.animateStep)
@@ -32,7 +32,9 @@ export default function(name, props) {
 
       // overwrite animations context for this namespace
       return {
-        animations: Object.assign(this.context.animations || {},
+        animations: Object.assign(
+          {},
+          this.context.animations,
           { [name]: childState }
         )
       };

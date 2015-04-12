@@ -59,14 +59,38 @@ export default {
   },
 
   componentWillMount() {
-    this.conditionalAnimations = this.getConditionalAnimations(this.props);
-    const hasAnimationProps = this.conditionalAnimations || this.props.animations;
+    this.setAnimationState(this.props);
+  },
+
+  componentWillUnmount() {
+    if (this.unlistenAnimations)
+      this.unlistenAnimations()
+  },
+
+  componentWillReceiveProps(nextProps) {
+    this.conditionalAnimations = this.getConditionalAnimations(nextProps);
+
+    // check for new animation state
+    if (nextProps.animationState) {
+      const stateKeys = Object.keys(nextProps.animationState);
+      for (let i = 0; i < stateKeys.length; i++) {
+        if (!defined(this.props[stateKeys[i]])) {
+          this.setAnimationState(nextProps);
+          break;
+        }
+      }
+    }
+  },
+
+  setAnimationState(props) {
+    this.conditionalAnimations = this.getConditionalAnimations(props);
+    const hasAnimationProps = this.conditionalAnimations || props.animations;
 
     if (!hasAnimationProps ||
       (!hasAnimationProps && (!this.state || this.state && !this.state.animations)))
         return;
 
-    const source = this.props.animationSource || this.state && this.state.animationSource;
+    const source = props.animationSource || this.state && this.state.animationSource;
     const state = this.context.animations &&
       this.context.animations[source];
 
@@ -77,13 +101,13 @@ export default {
       this.updateAnimationStep.bind(this, source)
     );
 
-    let _animationState = { [source]: state };
-    _animationState[source].step = state.stepper.value;
-    this.setState({ _animationState });
-  },
+    let _animationState = {
+      [source]: Object.assign({}, state,this.props.animationState)
+    };
 
-  componentWillReceiveProps(nextProps) {
-    this.conditionalAnimations = this.getConditionalAnimations(nextProps);
+    _animationState[source].step = state.stepper.value;
+
+    this.setState({ _animationState });
   },
 
   getConditionalAnimations(props) {
@@ -106,11 +130,6 @@ export default {
   updateAnimationStep(source, step) {
     this.state._animationState[source].step = step;
     this.forceUpdate();
-  },
-
-  componentWillUnmount() {
-    if (this.unlistenAnimations)
-      this.unlistenAnimations()
   },
 
   getAnimationState(source) {
