@@ -105,7 +105,7 @@ export default {
 
   updateAnimationStep(source, step) {
     this.state._animationState[source].step = step;
-    this.setState({ _animated: true }); // re-render
+    this.forceUpdate();
   },
 
   componentWillUnmount() {
