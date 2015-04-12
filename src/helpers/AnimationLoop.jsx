@@ -1,6 +1,6 @@
 var React = require('react');
 var Component = require('../component');
-var TweenState = require('reapp-tween-state');
+var Animate = require('react-animate-state');
 var clone = require('../lib/niceClone');
 var UI = require('../index');
 
@@ -20,7 +20,7 @@ module.exports = Component({
   },
 
   mixins: [
-    TweenState.Mixin
+    Animate
   ],
 
   getDefaultProps() {
@@ -68,18 +68,13 @@ module.exports = Component({
   },
 
   run() {
-    this.tweenState('step', {
-      easing: TweenState.easingTypes[this.props.easing],
-      endValue: 1,
-      duration: this.props.duration,
-      onEnd: () => {
-        this.setState({ step: 0 });
+    this.animate({ step: 1 }, this.props.easing, this.props.duration, () => {
+      this.setState({ step: 0 });
 
-        if (this.props.active)
-          this.run();
-        else
-          this.setState({ isActive: false });
-      }
+      if (this.props.active)
+        this.run();
+      else
+        this.setState({ isActive: false });
     });
   },
 

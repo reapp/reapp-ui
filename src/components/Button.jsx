@@ -19,7 +19,7 @@ var Button = Component({
   ],
 
   shouldComponentUpdate() {
-    return this.context.animations.viewList.stepper.value % 1 === 0;
+    return !this.props.isInViewList || this.context.animations.viewList.stepper.value % 1 === 0;
   },
 
   propTypes: {

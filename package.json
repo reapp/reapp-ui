@@ -25,11 +25,11 @@
     "observable-state": "^0.3.4",
     "react-document-title": "^1.0.2",
     "react-style": "^0.5.2",
+    "react-animate-state": "^1.0.0",
     "reapp-component": "^1.0.0",
     "reapp-object-assign": "^1.0.0",
     "reapp-raf-batching": "^1.0.0",
-    "reapp-scroller": "^1.0.1",
-    "reapp-tween-state": "0.0.5"
+    "reapp-scroller": "^1.0.1"
   },
   "peerDependencies": {
     "react": "0.13.x"

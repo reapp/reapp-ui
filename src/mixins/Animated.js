@@ -69,7 +69,8 @@ export default {
   },
 
   componentWillReceiveProps(nextProps) {
-    if (!this.props.animations || this.isAnimating()) return;
+    if (!this.props.animations || this.isAnimating())
+      return;
 
     // check for new animation state
     if (!shallowEqual(nextProps.animationState, this.props.animationState))
@@ -193,9 +194,6 @@ export default {
   // this takes in step, a styles object, and single animation
   // mutates the style object and returns it
   _getAnimationStyle(styles, state, animation) {
-    if (this.getTweeningValue && this.getTweeningValue('step'))
-      state.step = this.getTweeningValue('step');
-
     if (!defined(state.step)) throw new Error('Must define step for animation to run');
     if (!defined(state.index)) throw new Error('Must define index for animation to run');
 

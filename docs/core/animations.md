@@ -202,7 +202,7 @@ You could imagine a list of items like this:
 Now, let's animate through the list of Child elements. First we'll set up
 the Parent class to do a tween.
 
-In your Parent class import the [react-tween-state](https://github.com/chenglou/react-tween-state),
+In your Parent class import [react-animate-state](https://github.com/reapp/react-animate-state),
 and set up a tween from 0 to 2 that lasts a second:
 
 ```js
@@ -217,11 +217,7 @@ var Parent = React.createClass({
   },
 
   componentDidMount() {
-    this.tweenState('step', {
-      easing: tweenState.easingTypes.easeInOutQuad,
-      duration: 1000,
-      endValue: 2
-    });
+    this.animate({ step: 1 }, 1000, 'ease-in-out-quad');
   },
 
   render() {

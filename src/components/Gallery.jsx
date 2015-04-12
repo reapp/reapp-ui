@@ -2,7 +2,7 @@ var React = require('react');
 var Component = require('../component');
 var GalleryCard = require('./GalleryCard');
 var TouchableArea = require('../helpers/TouchableArea');
-var TweenState = require('reapp-tween-state');
+var Animate = require('react-animate-state');
 var Icon = require('./Icon');
 var Button = require('./Button');
 var { Scroller } = require('reapp-scroller');
@@ -11,7 +11,7 @@ module.exports = Component({
   name: 'Gallery',
 
   mixins: [
-    TweenState.Mixin
+    Animate
   ],
 
   propTypes: {
@@ -50,10 +50,7 @@ module.exports = Component({
 
   componentDidMount() {
     if (this.props.animations)
-      this.tweenState('step', {
-        endValue: 1,
-        duration: this.props.animationDuration
-      });
+      this.animate({ step: 1 }, this.props.animationDuration);
 
     this.scroller.setDimensions(
       this.props.width,
@@ -72,12 +69,8 @@ module.exports = Component({
   handleClose() {
     if (this.props.animations && !this._isClosing) {
       this._isClosing = true;
-      this.tweenState('step', {
-        endValue: 2,
-        duration: this.props.animationDuration,
-        onEnd: () => {
-          setTimeout(this.props.onClose);
-        }
+      this.animate({ step: 2 }, this.props.animationDuration, () => {
+        setTimeout(this.props.onClose);
       });
     }
     else {
