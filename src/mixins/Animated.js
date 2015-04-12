@@ -70,14 +70,15 @@ export default {
     const state = this.context.animations &&
       this.context.animations[source];
 
-    if (!state || typeof state.step === 'undefined')
+    if (!state || typeof state.stepper === 'undefined')
       return;
 
-    this.unlistenAnimations = state.step.onChange(
+    this.unlistenAnimations = state.stepper.onChange(
       this.updateAnimationStep.bind(this, source)
     );
 
     let _animationState = { [source]: state };
+    _animationState[source].step = state.stepper.value;
     this.setState({ _animationState });
   },
 

@@ -24,7 +24,7 @@ export default function(name, props) {
         if (!this.animateStep)
           this.animateStep = Observable(this.state.step);
 
-        childState.step = this.animateStep;
+        childState.stepper = this.animateStep;
       }
 
       if (props)

@@ -39,9 +39,9 @@ module.exports = {
     };
   },
 
-  fadeToLeft: ({ index, step, width }) => ({
+  titleBarIOS: ({ index, step, width }) => ({
     translate: { x: - (step - index) * (width/2.5) },
-    opacity: symmetrical(index, step)
+    opacity: symmetrical(index, step, 'easeInCubic')
   }),
 
   down: ({ index, step }) => ({
