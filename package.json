@@ -4,8 +4,9 @@
   "description": "A set of components for building themeable, adaptive, animated UI's",
   "main": "index.js",
   "scripts": {
-    "build": "babel src --out-dir . --stage=0",
-    "watch": "babel src --out-dir . --stage=0 --watch"
+    "build": "babel src --out-dir build --stage=0",
+    "watch": "babel src --out-dir build --stage=0 --watch",
+    "release": "cp -r assets package.json build && (cd build && npm publish)"
   },
   "repository": {
     "type": "git",
