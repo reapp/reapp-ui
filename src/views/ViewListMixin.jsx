@@ -245,11 +245,11 @@ module.exports = Object.assign(
 
           if (step !== this.prevStep) {
             if (step % 1 === 0) {
-              this.animateStep.setSync(step);
+              this.stepper.setSync(step);
               this.setState({ step });
             }
 
-            this.animateStep.setSync(step);
+            this.stepper.setSync(step);
 
             this.runViewCallbacks(step);
 

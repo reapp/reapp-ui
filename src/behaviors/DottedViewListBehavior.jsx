@@ -19,7 +19,7 @@ module.exports = {
   },
   titleBarProps: {
     animations: {
-      self: 'fadeToLeft'
+      self: 'titleBarIOS'
     },
     height: 48,
     styles: {
