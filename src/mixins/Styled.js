@@ -112,8 +112,8 @@ module.exports = {
 
       if (propStyles)
         this.propAddedStyles[ref] = propStyles;
-      else
-        styles = this.getStyles(ref);
+
+      styles = this.getStyles(styles);
     }
 
     // return if no styles found
