@@ -69,7 +69,7 @@ module.exports = (c) => ({
   },
 
   tapActive: {
-    background: c.buttonFocusedBG
+    background: c.buttonTapActiveBG
   },
 
   tapActiveTitleBar: {

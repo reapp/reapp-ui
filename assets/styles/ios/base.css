@@ -108,4 +108,6 @@ p a {
 .center > * {
   margin: auto;
   pointer-events: auto;
+  align-self: center;
+  -webkit-align-self: center;
 }

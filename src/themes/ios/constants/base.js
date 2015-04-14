@@ -11,7 +11,7 @@ const standalone = window.navigator.standalone;
 const ios7 = device.platform === 'iOS' && version >= 7;
 const ios8 = device.platform === 'iOS' && version >= 8;
 
-module.exports = {
+export default {
   hairline: supportsHairline,
   onePx: supportsHairline ? '0.5px' : '1px',
 
@@ -24,7 +24,7 @@ module.exports = {
   ios8,
 
   // statusbar
-  hasStatusBar: true || ios7 || standalone,
+  hasStatusBar: ios7 || standalone,
 
   black: '#000',
   white: '#fff',
