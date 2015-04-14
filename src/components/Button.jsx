@@ -100,8 +100,6 @@ var Button = Component({
       else
         this.addStyles(isInTitleBar ? 'tapActiveTitleBar' : 'tapActive');
 
-      console.log(this.getStyles('self'))
-
     var tapProps;
     if (this.props.onTap) {
       tapProps = this.tappableProps();
