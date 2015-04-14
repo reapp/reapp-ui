@@ -1,4 +1,4 @@
-module.exports = c => ({
+export default c => ({
   self: {
     background: c.titleBarBG,
     borderColor: c.titleBarBorderColor,
@@ -9,7 +9,6 @@ module.exports = c => ({
     fontSize: c.titleBarFontSize,
     padding: 0,
     textAlign: 'center',
-    position: 'fixed',
     top: 0,
     left: 0,
     width: '100%',
@@ -19,11 +18,6 @@ module.exports = c => ({
     WebkitFlexFlow: 'row',
     justifyContent: 'space-between',
     WebkitJustifyContent: 'space-between'
-  },
-
-  withStatusBar: {
-    height: c.titleBarHeight + 20,
-    paddingTop: 20
   },
 
   transparent: {

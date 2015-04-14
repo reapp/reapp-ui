@@ -1,4 +1,4 @@
-module.exports = c => ({
+export default c => ({
   self: {
     position: 'absolute',
     top: 0,
@@ -15,22 +15,17 @@ module.exports = c => ({
   inner: {
     background: c.viewBG,
     zIndex: 1,
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0
+    flex: 1,
+    WebkitFlex: 1,
+    position: 'relative'
   },
 
   static: {
     padding: `0 ${c.viewPad}`,
     overflowY: 'scroll',
     overflowX: 'hidden',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
+    flex: 1,
+    WebkitFlex: 1,
     zIndex: 1,
     WebkitOverflowScrolling: 'touch',
     // fix nested views overlay each other

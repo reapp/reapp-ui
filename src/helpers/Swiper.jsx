@@ -3,6 +3,7 @@ var Component = require('../component');
 var { Scroller } = require('reapp-scroller');
 var TouchableArea = require('../helpers/TouchableArea');
 var clone = require('../lib/niceClone');
+var StyleKeys = require('../lib/StyleKeys');
 
 module.exports = Component({
   name: 'Swiper',
@@ -46,6 +47,8 @@ module.exports = Component({
   },
 
   componentDidMount() {
+    this.above = this.refs.above.getDOMNode();
+
     var { width, height, limit, up, down, left, right } = this.props;
     var vertical = up || down;
     var horizontal = left || right;
@@ -68,6 +71,10 @@ module.exports = Component({
     );
   },
 
+  componentWillReceiveProps() {
+    this.above = this.refs.above.getDOMNode();
+  },
+
   handleScroll(x, y) {
     var updateState = false;
 
@@ -78,9 +85,7 @@ module.exports = Component({
     if (!this.props.left)
       x = Math.max(0, x);
 
-    var above = this.refs.above.getDOMNode();
-    above.style.left = -x + 'px';
-    // style={{ left: , top: -this.state.y }}
+    this.above.style[StyleKeys.TRANSFORM] = `translate3d(${-x}px,0,0)`;
   },
 
   render() {

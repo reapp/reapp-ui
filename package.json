@@ -21,11 +21,11 @@
   "dependencies": {
     "classnames": "^1.2.0",
     "css-to-matrix": "^1.0.0",
-    "lodash.merge": "^3.0.1",
+    "lodash.merge": "^3.1.0",
     "observable-state": "^0.3.4",
     "react-document-title": "^1.0.2",
     "react-style": "^0.5.2",
-    "react-animate-state": "^1.0.0",
+    "react-animate-state": "^1.0.1",
     "reapp-component": "^1.0.0",
     "reapp-object-assign": "^1.0.0",
     "reapp-raf-batching": "^1.0.0",
@@ -35,7 +35,6 @@
     "react": "0.13.x"
   },
   "devDependencies": {
-    "babel": "^5.0.0",
-    "babel-core": "^5.0.0"
+    "babel": "^5.1.9"
   }
 }

@@ -98,14 +98,17 @@ module.exports = Component({
       r = right;
     }
 
-    if (this.getConstant('hasStatusBar'))
-      this.addStyles('withStatusBar')
+    const statusBarHeight = this.getConstant('statusBarHeight');
+    if (statusBarHeight)
+      this.addStyles({
+        height: height + statusBarHeight,
+        paddingTop: statusBarHeight
+      });
+    else if (height)
+      this.addStyles({ height });
 
     if (transparent)
       this.addStyles('transparent');
-
-    if (height)
-      this.addStyles({ height });
 
     if (attach)
       this.addStyles(`attach-${attach}`);

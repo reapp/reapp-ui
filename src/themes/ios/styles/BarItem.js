@@ -17,7 +17,7 @@ module.exports = (c) => ({
   },
 
   active: {
-    background: c.barBG,
+    backgroundColor: c.barBG,
     color: c.barColorActive,
     fontWeight: 500
   },

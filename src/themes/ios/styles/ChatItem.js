@@ -1,7 +1,7 @@
-module.exports = c => ({
+export default c => ({
   self: {
     padding: '10px',
-    margin: '0 0 10px 0',
+    margin: '5px 0',
     flexFlow: 'row',
     WebkitFlexFlow: 'row',
     alignItems: 'center',

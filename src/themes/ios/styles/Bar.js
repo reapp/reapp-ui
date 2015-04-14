@@ -1,10 +1,9 @@
-module.exports = (c) => ({
+export default c => ({
   self: {
     background: c.barBG,
     height: c.barHeight,
     lineHeight: c.barLineHeight,
     borderTop: `${c.onePx} solid ${c.barBorderColor}`,
-    position: 'fixed',
     zIndex: 3,
     bottom: 0,
     left: 0,

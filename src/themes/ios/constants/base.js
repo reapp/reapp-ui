@@ -24,7 +24,7 @@ export default {
   ios8,
 
   // statusbar
-  hasStatusBar: ios7 || standalone,
+  statusBarHeight: (ios7 || standalone) ? 20 : 0,
 
   black: '#000',
   white: '#fff',

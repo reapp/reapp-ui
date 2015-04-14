@@ -27,12 +27,6 @@ module.exports = Component({
     // add animations in view list
     isInViewList: React.PropTypes.bool,
 
-    // offset of inner scroll area from top
-    offsetTop: React.PropTypes.number,
-
-    // offset of inner scroll area from bottom
-    offsetBottom: React.PropTypes.number,
-
     animations: React.PropTypes.object,
 
     // pass inner div props (scrollable content)
@@ -85,14 +79,6 @@ module.exports = Component({
       this.props.onComponentMounted(this.props.index);
   },
 
-  getTitleBarHeight() {
-    const height = this.props.titleBarProps && typeof this.props.titleBarProps.height === 'number' ?
-      this.props.titleBarProps.height :
-      this.getConstant('titleBarHeight');
-
-    return height + (this.getConstant('hasStatusBar') ? 20 : 0)
-  },
-
   handleDoubleTap() {
     if (this.refs.inner)
       this.animatedScrollToTop(this.refs.inner.getDOMNode(), 300, this.getScrollTop());
@@ -120,8 +106,6 @@ module.exports = Component({
       fullscreen,
       after,
       plain,
-      offsetTop,
-      offsetBottom,
       isInViewList,
       ...props
     } = this.props;
@@ -131,8 +115,6 @@ module.exports = Component({
       onDoubleTap: this.handleDoubleTap,
       isInViewList
     }, titleBarProps);
-
-    var titleBarHeight = this.getTitleBarHeight();
 
     var shouldUpdate = !animations || !inactive;
 
@@ -145,20 +127,10 @@ module.exports = Component({
     if (plain)
       this.addStyles('static', 'plain');
 
-    if (offsetTop)
-      this.addStyles('inner', { top: offsetBottom });
-    else if (title)
-      this.addStyles('inner', {
-        top: titleBarHeight
-      });
-
-    if (offsetBottom)
-      this.addStyles('inner', { bottom: offsetBottom });
-
     if (this.hasOverlay())
       this.addStyles('overlay', {
         display: inactive ? 'block' : 'none',
-        top: titleBarHeight
+        top: this.props.titleBarHeight || this.getConstant('titleBarHeight')
       });
 
     return (
