@@ -86,9 +86,11 @@ module.exports = Component({
   },
 
   getTitleBarHeight() {
-    return this.props.titleBarProps && typeof this.props.titleBarProps.height === 'number' ?
+    const height = this.props.titleBarProps && typeof this.props.titleBarProps.height === 'number' ?
       this.props.titleBarProps.height :
       this.getConstant('titleBarHeight');
+
+    return height + (this.getConstant('hasStatusBar') ? 20 : 0)
   },
 
   handleDoubleTap() {
@@ -146,7 +148,9 @@ module.exports = Component({
     if (offsetTop)
       this.addStyles('inner', { top: offsetBottom });
     else if (title)
-      this.addStyles('inner', { top: titleBarHeight });
+      this.addStyles('inner', {
+        top: titleBarHeight
+      });
 
     if (offsetBottom)
       this.addStyles('inner', { bottom: offsetBottom });

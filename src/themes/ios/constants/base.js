@@ -1,30 +1,30 @@
-var supportsHairline = require('./supportsHairline')();
+const supportsHairline = require('./supportsHairline')();
 
-var brandColor = '#307cff';
-var light = supportsHairline ? '#d9d9dc' : '#ddd';
-var mid = '#bbb';
+const brandColor = '#307cff';
+const light = supportsHairline ? '#d9d9dc' : '#ddd';
+const mid = '#bbb';
 
 // cordova
-var device = window.device || {};
-var version = parseInt(device.version || 0,10);
+const device = window.device || {};
+const version = parseInt(device.version || 0,10);
+const standalone = window.navigator.standalone;
+const ios7 = device.platform === 'iOS' && version >= 7;
+const ios8 = device.platform === 'iOS' && version >= 8;
 
 module.exports = {
   hairline: supportsHairline,
   onePx: supportsHairline ? '0.5px' : '1px',
 
   // homescreen app
-  standalone: window.navigator.standalone,
+  standalone,
 
   // cordova
   device,
-  ios7: (
-    device.platform === 'iOS' &&
-    version >= 7
-  ),
-  ios8: (
-    device.platform === 'iOS' &&
-    version >= 8
-  ),
+  ios7,
+  ios8,
+
+  // statusbar
+  hasStatusBar: true || ios7 || standalone,
 
   black: '#000',
   white: '#fff',

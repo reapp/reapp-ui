@@ -78,9 +78,7 @@ module.exports = (c) => ({
   textareaBG: c.white,
 
   // TitleBar
-  // iOS7 add extra padding for statusbar
-  titleBarHeight: (c.ios7 || c.standalone) ? 64 : 44,
-  titleBarPaddingTop: (c.ios7 || c.standalone) ? 20 : 0,
+  titleBarHeight: 44,
   titleBarColor: c.black,
   titleBarBorderColor: c.light,
   titleBarFontSize: '16px',
