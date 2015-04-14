@@ -23,6 +23,7 @@ module.exports = {
 
     if (props.styles) {
       this.propStyles = props.styles;
+      this.propAddedStyles = {};
       delete props.styles;
     }
   },
@@ -31,6 +32,10 @@ module.exports = {
     return ref === 'self' && Array.isArray(this.propStyles) ?
       this.propStyles :
       this.propStyles && this.propStyles[ref];
+  },
+
+  getPropAddedStyles(ref) {
+    return this.propAddedStyles && this.propAddedStyles[ref];
   },
 
   addStyleTo(obj, key, style) {
@@ -50,6 +55,8 @@ module.exports = {
       this.getConditionalStyles(ref, index)
     ).concat(
       this.getPropStyles(ref) || []
+    ).concat(
+      this.getPropAddedStyles(ref) || []
     );
   },
 
@@ -100,8 +107,14 @@ module.exports = {
     }
 
     // allows using string to lookup styles
-    if (typeof styles === 'string')
-      styles = this.getStyles(styles);
+    if (typeof styles === 'string') {
+      let propStyles = this.getPropStyles(styles);
+
+      if (propStyles)
+        this.propAddedStyles[ref] = propStyles;
+      else
+        styles = this.getStyles(ref);
+    }
 
     // return if no styles found
     if (!styles)

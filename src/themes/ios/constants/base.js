@@ -8,7 +8,7 @@ var mid = '#bbb';
 var device = window.device || {};
 var version = parseInt(device.version || 0,10);
 
-module.exports = {
+export default {
   hairline: supportsHairline,
   onePx: supportsHairline ? '0.5px' : '1px',
 

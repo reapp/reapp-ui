@@ -3,7 +3,7 @@
 // todo: probably want to make this more flexible
 // e.g. people may want to specify buttonColor not based on activeColor
 
-module.exports = (c) => ({
+export default c => ({
   // Alert
   alertBG: c.brandColor,
   alertColor: '#fff',
