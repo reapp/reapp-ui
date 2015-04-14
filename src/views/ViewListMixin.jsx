@@ -59,7 +59,7 @@ module.exports = Object.assign(
     setupAfterMount(props) {
       this.setupDimensions(props);
       this.setTouchableAreaProps(props);
-      this.runViewCallbacks(props.scrollToStep || this.state.step);
+      this.runViewCallbacks(this.state.step);
       window.addEventListener('resize', this.resize);
       this.didMount = true;
     },
@@ -123,7 +123,7 @@ module.exports = Object.assign(
 
       this.scroller.setPosition(left, top);
       this.scroller.scrollTo(left, top, false);
-      this.setState({ step  });
+      // this.setState({ step  });
     },
 
     animationContext() {
@@ -246,19 +246,23 @@ module.exports = Object.assign(
           else
             step = left / this.state.width;
 
-          if (step !== this.state.step) {
-            this.setState({ step });
+          if (step !== this.prevStep) {
+            if (step % 1 === 0) {
+              this.stepper.setSync(step);
+              this.setState({ step });
+            }
+
+            this.stepper.setSync(step);
+
+            this.runViewCallbacks(step);
 
             if (this.props.onStep)
               this.props.onStep(step);
+
+            this.prevStep = step;
           }
         }
       }
-    },
-
-    componentDidUpdate(_, prevState) {
-      if (prevState.step !== this.state.step)
-        this.runViewCallbacks(this.state.step);
     },
 
     runViewCallbacks(step) {
@@ -387,6 +391,9 @@ module.exports = Object.assign(
               isInViewList: true,
               animations: this.getViewAnimations(child),
               animationSource: 'viewList',
+              animationState: {
+                index: i
+              },
               viewListScrollToStep: this.scrollToStep
             }, i === this._advancingToIndex && {
               onComponentMounted: this.handleViewMounted

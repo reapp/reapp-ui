@@ -8,7 +8,6 @@ module.exports = c => ({
     height: c.titleBarHeight,
     fontSize: c.titleBarFontSize,
     padding: 0,
-    paddingTop: c.titleBarPaddingTop,
     textAlign: 'center',
     position: 'fixed',
     top: 0,
@@ -20,6 +19,11 @@ module.exports = c => ({
     WebkitFlexFlow: 'row',
     justifyContent: 'space-between',
     WebkitJustifyContent: 'space-between'
+  },
+
+  withStatusBar: {
+    height: c.titleBarHeight + 20,
+    paddingTop: 20
   },
 
   transparent: {

@@ -6,7 +6,7 @@ module.exports = {
   scrollToStep: 0,
   titleBarProps: {
     animations: {
-      self: 'fadeToLeft'
+      self: 'titleBarIOS'
     }
   },
   scrollerProps: {

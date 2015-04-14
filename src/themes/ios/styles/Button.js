@@ -1,6 +1,4 @@
-module.exports = (c) => {
-
-  return {
+module.exports = (c) => ({
   self: {
     border: `1px solid ${c.buttonBorderColor}`, // todo: variables
     color: c.buttonColor,
@@ -77,4 +75,4 @@ module.exports = (c) => {
   tapActiveTitleBar: {
     opacity: 0.2
   }
-}};
+});

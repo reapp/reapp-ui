@@ -26,30 +26,12 @@ module.exports = Component({
       stroke: 1,
       viewBox: '0 0 64 64',
       color: 'currentColor',
-      viewListAnimations: {
-        self: 'iconTitleBar'
+      conditionalAnimations: {
+        isInViewList: {
+          self: 'iconTitleBar'
+        }
       }
     };
-  },
-
-  componentWillMount() {
-    this.setupAnimations(this.props);
-  },
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.isInViewList !== nextProps.isInViewList)
-      this.setupAnimations(nextProps);
-  },
-
-  setupAnimations(props) {
-    if (props.isInViewList && props.animations !== false) {
-      this.setState({
-        animations: Object.assign({},
-          this.props.viewListAnimations,
-          props.animations
-        )
-      });
-    }
   },
 
   render() {

@@ -1,5 +1,5 @@
 var React = require('react');
-var TweenState = require('reapp-tween-state');
+var Animate = require('react-animate-state');
 var Component = require('../component');
 var Tappable = require('../helpers/Tappable');
 var clone = require('../lib/niceClone');
@@ -8,7 +8,7 @@ module.exports = Component({
   name: 'PopoverPortal',
 
   mixins: [
-    TweenState.Mixin
+    Animate
   ],
 
   getInitialState() {
@@ -24,12 +24,7 @@ module.exports = Component({
     this.setState(position);
 
     // animate open
-    setTimeout(() =>
-      this.tweenState('step', {
-        endValue: 1,
-        duration: this.props.animationDuration
-      })
-    );
+    this.animate({ step: 1 }, this.props.animationDuration);
   },
 
   componentWillReceiveProps(nextProps) {

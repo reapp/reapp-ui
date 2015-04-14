@@ -1,7 +1,7 @@
 /* Decorator to add react-tween-state to class */
-import { Mixin } from 'reapp-tween-state';
+import Animate from 'react-animate-state';
 
 export default SubComponent => {
-  Object.assign(SubComponent.prototype, Mixin);
+  Object.assign(SubComponent.prototype, Animate);
   return SubComponent;
 };

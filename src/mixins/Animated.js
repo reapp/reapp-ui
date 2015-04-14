@@ -2,6 +2,7 @@ var React = require('react');
 var StyleKeys = require('../lib/StyleKeys');
 var invariant = require('react/lib/invariant');
 var Matrix = require('css-to-matrix');
+var shallowEqual = require('react/lib/shallowEqual');
 
 /*
 
@@ -50,29 +51,87 @@ var Matrix = require('css-to-matrix');
 
 */
 
-var defined = variable => (typeof variable !== 'undefined');
+const defined = variable => (typeof variable !== 'undefined');
 
-module.exports = {
+export default {
   contextTypes: {
     animations: React.PropTypes.object,
     theme: React.PropTypes.object
   },
 
+  componentWillMount() {
+    this.setAnimationState(this.props);
+  },
+
+  componentWillUnmount() {
+    if (this.unlistenAnimations)
+      this.unlistenAnimations()
+  },
+
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.animations || this.isAnimating())
+      return;
+
+    // check for new animation state
+    if (!shallowEqual(nextProps.animationState, this.props.animationState))
+      this.setAnimationState(nextProps);
+  },
+
+  setAnimationState(props) {
+    this.conditionalAnimations = this.getConditionalAnimations(props);
+    const hasAnimationProps = this.conditionalAnimations || props.animations;
+
+    if (!hasAnimationProps ||
+      (!hasAnimationProps && (!this.state || this.state && !this.state.animations)))
+        return;
+
+    const source = props.animationSource || this.state && this.state.animationSource;
+    const state = this.context.animations &&
+      this.context.animations[source];
+
+    if (!state || typeof state.stepper === 'undefined')
+      return;
+
+    this.unlistenAnimations = state.stepper.onChange(
+      this.updateAnimationStep.bind(this, source)
+    );
+
+    let _animationState = {
+      [source]: Object.assign({}, state,this.props.animationState)
+    };
+
+    _animationState[source].step = state.stepper.value;
+
+    this.setState({ _animationState });
+  },
+
+  getConditionalAnimations(props) {
+    if (!props.conditionalAnimations)
+      return;
+
+    let propsForAnimations = {};
+    let hasPropsForAnimations = false;
+
+    Object.keys(props.conditionalAnimations).forEach(key => {
+      if (props[key]) {
+        hasPropsForAnimations = true;
+        Object.assign(propsForAnimations, props.conditionalAnimations[key]);
+      }
+    })
+
+    return hasPropsForAnimations ? propsForAnimations : false;
+  },
+
+  updateAnimationStep(source, step) {
+    this.state._animationState[source].step = step;
+    this.forceUpdate();
+  },
+
   getAnimationState(source) {
-    var state, animationContext;
-
-    // allow passing more information into the context
-    if (this.animationContext)
-      animationContext = typeof this.animationContext === 'function' ?
-          this.animationContext() : this.animationContext;
-
-    // external else internal
-    if (source && source !== 'self')
-      state = this.context.animations && this.context.animations[source];
+    if (!source || source === 'self')
+      return this.state;
     else
-      state = this._stateOrProps('step', 'index', 'disableAnimation');
-
-    return Object.assign({}, state, animationContext);
+      return this.state && this.state._animationState && this.state._animationState[source];
   },
 
   disableAnimation() {
@@ -103,7 +162,10 @@ module.exports = {
     if (this.state && this.state.animations && defined(this.state.animations[ref]))
       return this.state.animations[ref];
     else
-      return this.props.animations && this.props.animations[ref];
+      return (
+        this.props.animations && this.props.animations[ref] ||
+        this.conditionalAnimations && this.conditionalAnimations[ref]
+      );
   },
 
   // returns an object of styles
@@ -114,6 +176,7 @@ module.exports = {
 
     if (animations) {
       source = source || this.props.animationSource;
+
       var state = this.getAnimationState(source);
 
       // single animation or array
@@ -131,9 +194,6 @@ module.exports = {
   // this takes in step, a styles object, and single animation
   // mutates the style object and returns it
   _getAnimationStyle(styles, state, animation) {
-    if (this.getTweeningValue && this.getTweeningValue('step'))
-      state.step = this.getTweeningValue('step');
-
     if (!defined(state.step)) throw new Error('Must define step for animation to run');
     if (!defined(state.index)) throw new Error('Must define index for animation to run');
 

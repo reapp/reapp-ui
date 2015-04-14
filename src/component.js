@@ -10,7 +10,7 @@ var ComponentProps = require('./mixins/ComponentProps');
 
 Component.addDecorator(spec => {
 
-  Object.assign(spec, ComponentProps, Animated, Constanted);
+  Object.assign(spec, ComponentProps, Constanted);
 
   // add context for theme
   spec.contextTypes = {
@@ -22,6 +22,7 @@ Component.addDecorator(spec => {
   spec.mixins = [].concat(
     Classed,
     Styled,
+    Animated,
     spec.mixins || []
   );
 

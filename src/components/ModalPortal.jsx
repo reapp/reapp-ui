@@ -1,5 +1,5 @@
 var React = require('react');
-var TweenState = require('reapp-tween-state');
+var Animate = require('react-animate-state');
 var Tappable = require('../helpers/Tappable');
 var Component = require('../component');
 var ModalButton = require('./ModalButton');
@@ -10,7 +10,7 @@ module.exports = Component({
   name: 'ModalPortal',
 
   mixins: [
-    TweenState.Mixin
+    Animate
   ],
 
   getInitialState() {
@@ -22,11 +22,7 @@ module.exports = Component({
   },
 
   componentDidMount() {
-    // animate open
-    this.tweenState('step', {
-      endValue: 1,
-      duration: this.props.animationDuration
-    });
+    this.animate({ step: 1 }, this.props.animationDuration);
   },
 
   handleCancel() {

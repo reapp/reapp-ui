@@ -82,6 +82,11 @@ You can add these demos to your homescreen or emulate mobile on your browser:
 - [kitchen.reapp.io](http://kitchen.reapp.io)
 - [hn.reapp.io](http://hn.reapp.io)
 
+A note on speed: Your apps will run significantly faster when they are built. When running in
+dev mode they are not only checking PropTypes and for a variety of warnings, but they also
+aren't running using requestAnimationFrame which means they tax the CPU a lot more (but in exchange
+are easier to debug).
+
 ### Internal Documentation
 
 #### Structure

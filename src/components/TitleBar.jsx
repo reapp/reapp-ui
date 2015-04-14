@@ -98,6 +98,9 @@ module.exports = Component({
       r = right;
     }
 
+    if (this.getConstant('hasStatusBar'))
+      this.addStyles('withStatusBar')
+
     if (transparent)
       this.addStyles('transparent');
 

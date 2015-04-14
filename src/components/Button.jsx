@@ -5,6 +5,8 @@ var clone = require('../lib/niceClone');
 var Tappable = require('../mixins/Tappable');
 var ButtonGroup = require('./ButtonGroup');
 
+var shallowEqual = require('react/lib/shallowEqual');
+
 var Button = Component({
   name: 'Button',
 
@@ -13,9 +15,12 @@ var Button = Component({
   },
 
   mixins: [
-    React.addons.PureRenderMixin,
     Tappable
   ],
+
+  shouldComponentUpdate() {
+    return !this.props.isInViewList || this.context.animations.viewList.stepper.value % 1 === 0;
+  },
 
   propTypes: {
     iconProps: React.PropTypes.object,
