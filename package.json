@@ -7,7 +7,8 @@
     "build": "babel src --out-dir build --stage=0",
     "watch": "babel src --out-dir build --stage=0 --watch",
     "copyAssets": "cp -r assets package.json build",
-    "release": "npm run copyAssets && (cd build && npm publish)"
+    "release": "npm run copyAssets && (cd build && npm publish)",
+    "patch": "npm version patch && npm run release"
   },
   "repository": {
     "type": "git",
