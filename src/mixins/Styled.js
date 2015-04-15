@@ -14,7 +14,7 @@ module.exports = {
   componentWillMount() {
     this.setupStyles(this.props);
 
-    if (this.context.theme)
+    if (this.context.theme && this.context.theme.styles)
       this.styles = this.context.theme.styles[this.name] || {};
   },
 

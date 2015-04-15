@@ -1,5 +1,6 @@
 export default c => ({
   self: {
+    fontSize: '16px',
     padding: '10px',
     margin: '5px 0',
     flexFlow: 'row',
@@ -7,7 +8,7 @@ export default c => ({
     alignItems: 'center',
     background: c.chatItemBG,
     color: c.chatItemColor,
-    borderRadius: '10px',
+    borderRadius: '15px',
     width: '80%',
     position: 'relative'
   },
@@ -25,16 +26,16 @@ export default c => ({
   arrow: {
     position: 'absolute',
     zIndex: 1,
-    bottom: '0',
-    left: '-7px',
-    borderRadius: '20px / 10px',
+    bottom: '1px',
+    left: '-6px',
+    borderRadius: '10px / 5px',
     border: '8px solid transparent',
-    borderBottomColor: c.chatItemBG,
+    borderBottomColor: c.chatItemBG
   },
 
   arrowOwn: {
     left: 'auto',
-    right: '-7px',
+    right: '-6px',
     borderBottomColor: c.chatItemOwnBG
   }
 });
