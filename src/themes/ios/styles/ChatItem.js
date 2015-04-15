@@ -9,12 +9,13 @@ export default c => ({
     background: c.chatItemBG,
     color: c.chatItemColor,
     borderRadius: '15px',
-    width: '80%',
+    maxWidth: '80%',
     position: 'relative'
   },
 
   inner: {
-    overflow: 'hidden'
+    overflow: 'hidden',
+    margin: 0
   },
 
   own: {

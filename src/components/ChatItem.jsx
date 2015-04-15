@@ -47,9 +47,9 @@ module.exports = Component({
 
     return (
       <div {...tapProps} {...props} {...this.componentProps()}>
-        <div {...this.componentProps('inner')}>
+        <p {...this.componentProps('inner')}>
           {children}
-        </div>
+        </p>
         {!plain &&
           <div {...this.componentProps('arrow')} />
         }
