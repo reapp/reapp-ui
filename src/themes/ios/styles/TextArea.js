@@ -5,7 +5,7 @@ module.exports = c => ({
     border: 'none',
     padding: '12px',
     fontSize: '16px',
-    lineHeight: '16px',
+    lineHeight: '24px',
     width: '100%'
   }
 });

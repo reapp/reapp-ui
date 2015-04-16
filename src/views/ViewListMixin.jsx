@@ -123,7 +123,6 @@ module.exports = Object.assign(
 
       this.scroller.setPosition(left, top);
       this.scroller.scrollTo(left, top, false);
-      // this.setState({ step  });
     },
 
     animationContext() {

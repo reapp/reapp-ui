@@ -112,12 +112,12 @@ var Button = Component({
     }
 
     return (
-      <button {...tapProps} {...this.componentProps()} {...props}>
+      <div {...tapProps} {...this.componentProps()} {...props}>
         {icon || !!iconProps && <Icon {...cloneProps} />}
         <div {...this.componentProps('inner')}>
           {children}
         </div>
-      </button>
+      </div>
     );
   }
 });

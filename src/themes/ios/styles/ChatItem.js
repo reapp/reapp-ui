@@ -6,7 +6,7 @@ export default c => ({
     flexFlow: 'row',
     WebkitFlexFlow: 'row',
     alignItems: 'center',
-    background: c.chatItemBG,
+    backgroundColor: c.chatItemBG,
     color: c.chatItemColor,
     borderRadius: '15px',
     maxWidth: '80%',

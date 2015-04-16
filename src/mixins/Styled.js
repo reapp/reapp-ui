@@ -43,6 +43,9 @@ module.exports = {
   },
 
   getStyles(ref, index) {
+    if (!this.styles)
+      return;
+
     ref = ref || 'self';
 
     return (
