@@ -33,7 +33,7 @@ export default {
   dark: '#8e8e93',
 
   brandColor: brandColor,
-  brandColorInactive: '#dcdbe2',
+  brandColorInactive: '#a3a3a3',
 
   active: brandColor,
   inactive: mid,
