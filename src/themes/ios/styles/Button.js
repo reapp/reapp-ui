@@ -1,4 +1,4 @@
-module.exports = (c) => ({
+export default c => ({
   self: {
     border: `1px solid ${c.buttonBorderColor}`, // todo: variables
     color: c.buttonColor,
