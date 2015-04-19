@@ -14,6 +14,7 @@ module.exports = Object.assign(
   ButtonGroup: require('./components/ButtonGroup'),
   Card: require('./components/Card'),
   Chat: require('./components/Chat'),
+  Container: require('./components/Container'),
   Dots: require('./components/Dots'),
   Drawer: require('./components/Drawer'),
   Gallery: require('./components/Gallery'),

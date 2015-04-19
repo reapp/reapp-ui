@@ -7,14 +7,21 @@ module.exports = Component({
   name: 'Icon',
 
   propTypes: {
+    // width x height in pixels
     size: React.PropTypes.number,
-    name: React.PropTypes.string,
+
+    // an SVG file
+    file: React.PropTypes.string,
+
+    // props passed to svg
     stroke: React.PropTypes.number,
-    isInTitleBar: React.PropTypes.bool,
-    isInViewList: React.PropTypes.bool,
     shapeRendering: React.PropTypes.string,
     viewBox: React.PropTypes.string,
-    crisp: React.PropTypes.bool
+    crisp: React.PropTypes.bool,
+
+    // internal props used for special styles
+    isInTitleBar: React.PropTypes.bool,
+    isInViewList: React.PropTypes.bool
   },
 
   getDefaultProps() {

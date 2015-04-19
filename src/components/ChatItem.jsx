@@ -13,10 +13,19 @@ module.exports = Component({
   ],
 
   propTypes: {
+    // Text name for chat bubble
     name: React.PropTypes.string,
-    date: React.PropTypes.object,
-    avatar: React.PropTypes.node,
+
+    // Date on chat bubble
+    date: React.PropTypes.string,
+
+    // Image for chat bubble
+    image: React.PropTypes.node,
+
+    // Belongs to user (shown on right side)
     own: React.PropTypes.bool,
+
+    // No decoration on chat bubble
     plain: React.PropTypes.bool
   },
 
@@ -25,7 +34,7 @@ module.exports = Component({
       children,
       name,
       date,
-      avatar,
+      image,
       own,
       plain,
       ...props } = this.props;
