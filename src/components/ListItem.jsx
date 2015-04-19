@@ -14,14 +14,28 @@ module.exports = Component({
   ],
 
   propTypes: {
+    // displayed in bold at the top
     title: React.PropTypes.node,
+
+    // aligns to the right of title, for badges, time, etc
     titleAfter: React.PropTypes.node,
+
+    // lighter sub title
     titleSub: React.PropTypes.node,
+
+    // place an icon or element before the item
     before: React.PropTypes.node,
+
+    // place an icon or element after the item
     after: React.PropTypes.node,
+
+    // wrap an element around the item, good for links
     wrapper: React.PropTypes.node,
-    noicon: React.PropTypes.bool,
+
+    // show an icon indicating it's linked
     icon: React.PropTypes.bool,
+
+    // don't add padding
     nopad: React.PropTypes.bool
   },
 
@@ -67,7 +81,6 @@ module.exports = Component({
       before,
       after,
       wrapper,
-      noicon,
       icon,
       nopad,
       index,
@@ -94,7 +107,7 @@ module.exports = Component({
       });
 
     if (wrapper) {
-      var hasLinkIcon = this.isLink(wrapper) && !noicon || icon;
+      var hasLinkIcon = this.isLink(wrapper) || icon;
 
       wrapper = clone(wrapper, {
         children: hasLinkIcon ?
