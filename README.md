@@ -175,7 +175,7 @@ sub-modules and re-run Webpack.
 ### Credits
 
 Original inspiration was thanks to [Pete Hunt](https://github.com/petehunt)'s [React Mobile Demo](http://petehunt.github.io/react-touch/).
-The [Framework7]() Kitchen Sink was used as reference when building the kitchen sink.
+The [Framework7](http://www.idangero.us/framework7/) Kitchen Sink was used as reference when building the kitchen sink.
 
 SVG Icons included in this repo are originally from [flaticon](http://www.flaticon.com/packs/ios7-set-lined-1)
 and are licensed under [Creative Commons 3.0](http://creativecommons.org/licenses/by/3.0/). If you use them with your project, you must
