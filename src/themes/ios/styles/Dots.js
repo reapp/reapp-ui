@@ -10,7 +10,6 @@ const dotStyle = {
 module.exports = c => ({
   self: {
     pointerEvents: 'none',
-    WebkitAlignItems: 'center'
   },
 
   dotInactive: Object.assign({
@@ -24,6 +23,5 @@ module.exports = c => ({
   inner: {
     margin: 'auto',
     flexFlow: 'row',
-    WebkitFlexFlow: 'row'
   }
 });

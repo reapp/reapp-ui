@@ -1,8 +1,8 @@
 // until React 0.14, we emulate the context
 require('./lib/contextPatch');
 
-var Stylesheet = require('react-style');
-var Invariant = require('react/lib/invariant');
+import Stylesheet from 'react-style';
+import { normalize, normalizeAll } from './lib/normalizeStyles';
 
 require('./lib/desktopTouch');
 require('reapp-object-assign');
@@ -73,8 +73,8 @@ var UI = module.exports = {
       delete styles.__requireFunc;
       var styleKeys = Object.keys(styles);
 
-      Invariant(!(include && exclude),
-        'Cannot define include and exclude');
+      if (include && exclude)
+        throw new Error('Cannot define include and exclude');
 
       // include or exclude certain styles
       UI._addStyles(requireFunc,
@@ -96,10 +96,10 @@ var UI = module.exports = {
         style = style(UI.constants);
 
       if (!UI.styles[key])
-        UI.styles[key] = Stylesheet.create(style);
+        UI.styles[key] = Stylesheet.create(normalizeAll(style));
       else
         Object.keys(style).forEach(ref => {
-          UI.styles[key][ref] = [].concat(UI.styles[key][ref], style[ref]);
+          UI.styles[key][ref] = [].concat(UI.styles[key][ref], normalize(style[ref]));
         });
     });
   },

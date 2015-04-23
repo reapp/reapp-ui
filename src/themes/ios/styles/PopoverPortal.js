@@ -54,8 +54,7 @@ module.exports = (c) => ({
     position: 'absolute',
     left: 0,
     borderRadius: 3,
-    transform: 'rotate(45deg)',
-    WebkitTransform: 'rotate(45deg)'
+    transform: 'rotate(45deg)'
   },
 
   item: {

@@ -8,7 +8,6 @@ module.exports = {
     position: 'absolute',
     overflow: 'hidden',
     perspective: '500px',
-    WebkitPerspective: '500px'
   },
 
   close: {

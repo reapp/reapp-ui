@@ -13,15 +13,10 @@ export default c => ({
     whiteSpace: 'nowrap',
     verticalAlign: 'baseline',
     cursor: 'pointer',
-    WebkitUserDrag: 'none',
-    WebkitUserSelect: 'none',
     outline: 'none',
     flexFlow: 'row',
-    WebkitFlexFlow: 'row',
     flexAlign: 'center',
-    WebkitFlexAlign: 'center',
     alignItems: 'center',
-    WebkitAlignItems: 'center',
     margin: 0
   },
 
@@ -59,7 +54,6 @@ export default c => ({
   },
 
   inactive: {
-    WebkitFilter: 'grayscale(1)',
     opacity: 0.2,
     pointerEvents: 'none'
   },

@@ -2,17 +2,13 @@ module.exports = (c) => ({
   self: {
     flexGrow: 1,
     flexShrink: 0,
-    WebkitFlexGrow: 1,
-    WekitFlexShrink: 0,
     color: c.barColor,
     justifyContent: 'center',
-    WebkitJustifyContent: 'center'
   },
 
   icon: {
     margin: 'auto',
     flexGrow: 1,
-    WebkitFlexGrow: 1,
     height: '100%'
   },
 
@@ -27,14 +23,12 @@ module.exports = (c) => ({
   },
 
   'display:icon__icon': {
-    flexGrow: 1,
-    WebkitFlexGrow: 1
+    flexGrow: 1
   },
 
   'display:icon-text__icon': {
     margin: '-2px 0 -2px 0',
-    flexGrow: 1,
-    WebkitFlexGrow: 1
+    flexGrow: 1
   },
 
   'display:icon-text__text': {
@@ -45,8 +39,7 @@ module.exports = (c) => ({
   },
 
   'icon-text-right': {
-    flexFlow: 'row',
-    WebkitFlexFlow: 'row'
+    flexFlow: 'row'
   },
 
   'display:icon-text-right__icon': {

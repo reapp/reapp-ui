@@ -4,7 +4,6 @@ export default c => ({
     padding: '10px',
     margin: '5px 0',
     flexFlow: 'row',
-    WebkitFlexFlow: 'row',
     alignItems: 'center',
     backgroundColor: c.chatItemBG,
     color: c.chatItemColor,
@@ -21,7 +20,6 @@ export default c => ({
   own: {
     backgroundColor: c.chatItemOwnBG,
     alignSelf: 'flex-end',
-    WebkitAlignSelf: 'flex-end'
   },
 
   arrow: {

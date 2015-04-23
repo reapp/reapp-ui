@@ -6,11 +6,8 @@ module.exports = (c) => ({
     padding: '0 0 0 20px',
     overflow: 'hidden',
     flexFlow: 'row',
-    WebkitFlexFlow: 'row',
     alignItems: 'center',
-    WebkitAlignItems: 'center',
     justifyContent: 'space-between',
-    WebkitJustifyContent: 'space-between',
     minHeight: 44,
     position: 'relative',
     transition: 'background linear 50ms'
@@ -37,26 +34,20 @@ module.exports = (c) => ({
     bottom: 0,
     maxWidth: 'none',
     flexFlow: 'row',
-    WebkitFlexFlow: 'row',
     justifyContent: 'flex-end',
-    WebkitJustifyContent: 'flex-end',
     zIndex: 1
   },
 
   before: {
     flexShrink: 0,
-    WebkitFlexShrink: 0,
     flexWrap: 'nowrap',
-    WebkitFlexWrap: 'nowrap',
     margin: '0 12px 0 0'
   },
 
   content: {
     borderTop: `${c.onePx} solid ${c.listItemBorderColor}`,
     flexShrink: 1,
-    WebkitFlexShrink: 1,
     flexGrow: 800,
-    WebkitFlexGrow: 800,
     color: c.listItemContentColor,
     padding: '11px 12px 11px 0',
     position: 'relative'
@@ -68,9 +59,7 @@ module.exports = (c) => ({
 
   titleTop: {
     flexFlow: 'row',
-    WebkitFlexFlow: 'row',
     justifyContent: 'space-between',
-    WebkitJustifyContent: 'space-between',
     maxWidth: '100%'
   },
 
@@ -99,14 +88,10 @@ module.exports = (c) => ({
     fontSize: '15px',
     lineHeight: '22px',
     overflow: 'hidden',
-    WebkitLineClamp: 2,
-    WebkitBoxOrient: 'vertical',
     textOverflow: 'ellipsis',
-    display: '-webkit-box'
   },
 
   fulltext: {
-    WebkitLineClamp: 'none',
     maxHeight: 'none'
   },
 
@@ -119,11 +104,9 @@ module.exports = (c) => ({
     borderTop: `${c.onePx} solid ${c.listItemBorderColor}`,
     color: c.listItemAfterColor,
     flexShrink: 0,
-    WebkitFlexShrink: 0,
     padding: '0 12px',
     justifyContent: 'center',
     whiteSpace: 'nowrap',
     alignSelf: 'stretch',
-    WebkitAlignSelf: 'stretch'
   }
 });

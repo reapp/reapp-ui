@@ -42,7 +42,6 @@ module.exports = {
   },
 
   toggleSwitchIsChecked: {
-    transform: 'translateX(22px)',
-    WebkitTransform: 'translateX(22px)'
+    transform: 'translateX(22px)'
   }
 };

@@ -33,12 +33,10 @@ module.exports = (c) => ({
     borderRadius: 7,
     textAlign: 'center',
     flexShrink: 1,
-    WebkitFlexShrink: 1
   },
 
   buttons: {
     flexFlow: 'row',
-    WebkitFlexFlow: 'row'
   },
 
   inner: {

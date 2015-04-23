@@ -9,7 +9,6 @@ export default c => ({
     left: 0,
     right: 0,
     flexFlow: 'row',
-    WebkitFlexFlow: 'row',
     margin: 0,
     padding: 0,
     justifyContent: 'space-between',

@@ -1,3 +1,5 @@
+import { normalize, normalizeAll } from '../lib/normalizeStyles';
+
 // Styled - helps with this.context.theme.styles
 
 // It tracks four types of styles:
@@ -22,7 +24,15 @@ module.exports = {
     this.addedStyles = {};
 
     if (props.styles) {
-      this.propStyles = props.styles;
+      var pStyles;
+
+      // normalize styles
+      if (Array.isArray(props.styles))
+        pStyles = props.styles.map(normalize);
+      else
+        pStyles = normalizeAll(props.styles);
+
+      this.propStyles = pStyles;
       this.propAddedStyles = {};
       delete props.styles;
     }

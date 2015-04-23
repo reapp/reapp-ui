@@ -15,9 +15,7 @@ export default c => ({
     fontWeight: 500,
     zIndex: 1,
     flexFlow: 'row',
-    WebkitFlexFlow: 'row',
     justifyContent: 'space-between',
-    WebkitJustifyContent: 'space-between'
   },
 
   transparent: {
