@@ -7,7 +7,11 @@ import { normalize, normalizeAll } from './lib/normalizeStyles';
 require('./lib/desktopTouch');
 require('reapp-object-assign');
 
-if (window._FORCE_ENABLE_RAF || window.process && process.env && process.env.NODE_ENV === 'production')
+if (
+  window._FORCE_ENABLE_RAF ||
+  window.process && process.env &&
+    // if in production and not disabling raf batching
+    process.env.NODE_ENV === 'production' && !process.env.DISABLE_RAF)
   require('reapp-raf-batching');
 
 // Stores constants, animations and styles
