@@ -38,6 +38,7 @@ module.exports = Component({
 
     return {
       flexBasis: width,
+      WebkitFlexBasis: width,
       maxWidth: width
     };
   },

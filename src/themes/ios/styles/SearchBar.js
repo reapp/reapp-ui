@@ -11,7 +11,7 @@ module.exports = (c) => ({
   inner: {
     width: '100%',
     height: 28,
-    flexShink: 1,
+    flexShrink: 1,
     margin: '7px 0'
   },
 
