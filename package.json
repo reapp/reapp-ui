@@ -21,14 +21,14 @@
   },
   "homepage": "https://github.com/reapp/reapp-ui",
   "dependencies": {
-    "classnames": "^1.2.0",
+    "classnames": "^1.2.2",
     "css-to-matrix": "^1.0.0",
-    "lodash.merge": "^3.1.0",
+    "lodash.merge": "^3.2.1",
     "observable-state": "^0.3.4",
     "react-animate-state": "^1.0.1",
     "react-document-title": "^1.0.2",
-    "react-style": "^0.5.2",
-    "react-style-normalizer": "^1.2.7",
+    "react-style": "^0.5.5",
+    "react-style-normalizer": "^1.2.8",
     "reapp-component": "^1.0.0",
     "reapp-object-assign": "^1.0.0",
     "reapp-raf-batching": "^1.0.0",
@@ -38,6 +38,6 @@
     "react": "0.13.x"
   },
   "devDependencies": {
-    "babel": "^5.1.9"
+    "babel": "^5.2.6"
   }
 }
