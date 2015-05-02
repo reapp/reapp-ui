@@ -16,8 +16,12 @@ div, a, button, input, form {
   -webkit-font-smoothing: antialiased;
 }
 
-a, button, input, textarea {
+a, button {
   cursor: pointer;
+}
+
+input, textarea {
+  cursor: inherit;
 }
 
 input, textarea, p {
