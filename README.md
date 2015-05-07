@@ -155,7 +155,7 @@ more work than usual to contribute. For the UI, the best setup is to do the foll
 3. Clone this repository
 4. Run `sudo npm link` inside this repository
 5. **Important:** Run `rm -r node_modules/react` in reapp-ui and be sure react isn't duplicated in Webpack build
-6. Run `npm watch` in this directory to start babel compiler
+6. Run `npm run watch` in this directory to start babel compiler
 7. Be sure to edit in `./src` directory only.
 8. Run `sudo npm link reapp-ui` inside the kitchen sink repository
 

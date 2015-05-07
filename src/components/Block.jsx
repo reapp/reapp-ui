@@ -18,11 +18,11 @@ module.exports = Component({
     var styles;
 
     if (typeof width === 'number')
-      styles = { flex: width };
+      styles = { flex: width, WebKitFlex: width };
     else if (width)
-      styles = { flexBasis: width, maxWidth: width };
+      styles = { flexBasis: width, WebkitFlexBasis: width, maxWidth: width };
     else
-      styles = { flex: 1 };
+      styles = { flex: 1, WebKitFlex: 1 };
 
     return styles;
   },
