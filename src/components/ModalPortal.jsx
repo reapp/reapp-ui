@@ -39,6 +39,11 @@ module.exports = Component({
     this.handleClose(e);
   },
 
+  handleBgClose() {
+    if (this.props.bgTapClose)
+      this.handleClose()
+  },
+
   handleClose(e) {
     this.afterClose(e);
     // todo: this broke with portals
@@ -89,6 +94,9 @@ module.exports = Component({
           <ModalButton confirm onTap={this.handleConfirm} stopPropagation>OK</ModalButton>
         ];
         break;
+      case 'custom':
+        buttons = [];
+        break;
     }
 
     var buttonWidth = (100 / buttons.length) + '%';
@@ -102,7 +110,7 @@ module.exports = Component({
       <div {...this.componentProps()} {...props}>
         <Tappable
           {...this.componentProps('bg')}
-          onTap={this.handleClose}
+          onTap={this.handleBgClose}
           stopPropagation
         />
         <div {...this.componentProps('modal')}>
