@@ -16,13 +16,15 @@ var Modal = Component({
     open: React.PropTypes.bool,
     type: React.PropTypes.oneOf([
       'alert', // OK
-      'confirm' // Cancel | OK
+      'confirm', // Cancel | OK
+      'custom'
     ]),
     animationDuration: React.PropTypes.number,
     animations: React.PropTypes.object,
     onConfirm: React.PropTypes.func,
     onCancel: React.PropTypes.func,
-    onClose: React.PropTypes.func
+    onClose: React.PropTypes.func,
+    bgTapClose: React.PropTypes.bool
   },
 
   getDefaultProps() {
@@ -30,6 +32,7 @@ var Modal = Component({
       open: true,
       type: 'alert',
       onClose: this.handleClose,
+      bgTapClose: true,
       animationDuration: 200,
       animations: {
         modal: ['fade', 'scaleDown'],
