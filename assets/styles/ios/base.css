@@ -3,14 +3,6 @@
 }
 
 div, a, button, input, form {
-  display: flex;
-  display: -webkit-flex;
-  flex-flow: column;
-  -webkit-flex-flow: column;
-  flex-shrink: 0;
-  -webkit-flex-shrink: 0;
-  align-items: stretch;
-  -webkit-align-items: stretch;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
@@ -85,6 +77,17 @@ p {
 p a {
   display: inline-block;
   text-decoration: underline;
+}
+
+.flex {
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: column;
+  -webkit-flex-flow: column;
+  flex-shrink: 0;
+  -webkit-flex-shrink: 0;
+  align-items: stretch;
+  -webkit-align-items: stretch;
 }
 
 .ListItem {
