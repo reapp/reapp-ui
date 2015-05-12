@@ -27,6 +27,7 @@ module.exports = Object.assign(
   SearchBar: require('./components/SearchBar'),
   Title: require('./components/Title'),
   TitleBar: require('./components/TitleBar'),
+  Typeahead: require('./components/Typeahead'),
 
   // decorators
   Tweenable: require('./decorators/Tweenable'),

@@ -38,5 +38,7 @@ module.exports = makeStyles(requirer, [
   'TextArea',
   'Title',
   'TitleBar',
+  'TypeaheadButton',
+  'TypeaheadList',
   'View'
 ]);
