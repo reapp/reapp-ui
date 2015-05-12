@@ -13,7 +13,6 @@ module.exports = Component({
 
   propTypes: {
     options: React.PropTypes.array,
-    customClasses: React.PropTypes.object,
     customValue: React.PropTypes.string,
     selectionIndex: React.PropTypes.number,
     onOptionSelected: React.PropTypes.func
@@ -22,7 +21,6 @@ module.exports = Component({
   getDefaultProps() {
     return {
       selectionIndex: null,
-      customClasses: {},
       customValue: null,
       onOptionSelected: function(option) { }
     };
@@ -39,7 +37,6 @@ module.exports = Component({
     var classes = {
       "typeahead-selector": true
     };
-    classes[this.props.customClasses.results] = this.props.customClasses.results;
     var classList = classNames(classes);
 
     var results = [];
@@ -49,7 +46,6 @@ module.exports = Component({
       results.push(
         <TypeaheadOption ref={this.props.customValue} key={this.props.customValue}
           hover={this.state.selectionIndex === results.length}
-          customClasses={this.props.customClasses}
           customValue={this.props.customValue}
           onClick={this._onClick.bind(this, this.props.customValue)}>
           { this.props.customValue }
@@ -61,7 +57,6 @@ module.exports = Component({
       results.push (
         <TypeaheadOption ref={result} key={result}
           hover={this.state.selectionIndex === results.length}
-          customClasses={this.props.customClasses}
           onClick={this._onClick.bind(this, result)}>
           { result }
         </TypeaheadOption>
