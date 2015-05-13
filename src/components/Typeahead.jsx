@@ -58,10 +58,13 @@ var Typeahead = Component({
   getOptionsForValue(value, options) {
     var result;
     if (this.props.filterOption) {
-      result = options.filter((function(o) { return this.props.filterOption(value, o); }).bind(this));
+      result = options.display.filter((function(o) { return this.props.filterOption(value, o); }).bind(this));
     } else {
-      result = fuzzy.filter(value, options).map(function(res) {
-        return res.string;
+      var optionSet = {
+        extract: function(el) { return el.display; }
+      };
+      result = fuzzy.filter(value, options, optionSet).map(function(res) {
+        return res.original;
       });
     }
     if (this.props.maxVisible) {
@@ -77,8 +80,7 @@ var Typeahead = Component({
 
   _hasCustomValue() {
     if (this.props.allowCustomValues > 0 &&
-      this.state.entryValue.length >= this.props.allowCustomValues &&
-      this.state.visible.indexOf(this.state.entryValue) < 0) {
+      this.state.entryValue.length >= this.props.allowCustomValues) {
       return true;
     }
     return false;
@@ -136,16 +138,16 @@ var Typeahead = Component({
     var nEntry = this.refs.entry.getDOMNode();
     var entryValue = null;
     nEntry.focus();
-    nEntry.value = option;
+    nEntry.value = option.display;
     if (!!this.props.clearOnOptionSelected) {
       nEntry.value = "";
       entryValue = "";
     } else {
-      nEntry.value = option;
-      entryValue = option;
+      nEntry.value = option.display;
+      entryValue = option.display;
     }
-    this.setState({visible: this.getOptionsForValue(option, this.props.options),
-                   selection: option,
+    this.setState({visible: this.getOptionsForValue(option.display, this.props.options),
+                   selection: option.display,
                    entryValue: entryValue});
     return this.props.onOptionSelected(option, event);
   },

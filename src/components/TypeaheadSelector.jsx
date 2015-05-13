@@ -46,10 +46,10 @@ module.exports = Component({
 
     this.props.options.forEach(function(result, i) {
       results.push (
-        <TypeaheadOption ref={result} key={result}
+        <TypeaheadOption data-test={result.keys} ref={result} key={result.display}
           hover={this.state.selectionIndex === results.length}
           onClick={this._onClick.bind(this, result)}>
-          { result }
+          { result.display }
         </TypeaheadOption>
       );
     }, this);
