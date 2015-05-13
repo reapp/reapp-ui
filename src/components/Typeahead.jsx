@@ -96,7 +96,7 @@ var Typeahead = Component({
 
   _renderIncrementalSearchResults() {
     // Nothing has been entered into the textbox
-    if (!this.state.entryValue) {
+    if (!this.state.entryValue || this.state.entryValue == this.props.defaultValue) {
       return "";
     }
 
