@@ -112,7 +112,6 @@ var Typeahead = Component({
       return "";
     }
 
-<<<<<<< HEAD
     if (this._hasCustomValue()) {
       return (
         <TypeaheadSelector
@@ -130,14 +129,6 @@ var Typeahead = Component({
         listStyles={this.props.listStyles}
         onOptionSelected={ this._onOptionSelected }
         customClasses={this.props.customClasses}/>
-=======
-    return (
-      <TypeaheadSelector
-        ref="sel" options={this.state.visible}
-        customValue={this._getCustomValue()}
-        onOptionSelected={this._onOptionSelected}
-        customClasses={this.props.customClasses} />
->>>>>>> b10586c0965737bb1cae3dd9f7e0b8957e954d84
     );
   },
 
