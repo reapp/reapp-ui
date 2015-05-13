@@ -12,6 +12,7 @@ module.exports = Component({
   name: 'TypeaheadSelector',
 
   propTypes: {
+    listStyles: React.PropTypes.object,
     options: React.PropTypes.array,
     customValue: React.PropTypes.string,
     selectionIndex: React.PropTypes.number,
@@ -20,6 +21,7 @@ module.exports = Component({
 
   getDefaultProps() {
     return {
+      listStyles: {},
       selectionIndex: null,
       customValue: null,
       onOptionSelected: function(option) { }
@@ -28,6 +30,7 @@ module.exports = Component({
 
   getInitialState() {
     return {
+      listStyles: this.props.listStyles,
       selectionIndex: this.props.selectionIndex,
       selection: this.getSelectionForIndex(this.props.selectionIndex)
     };
@@ -64,7 +67,7 @@ module.exports = Component({
     }, this);
 
 
-    return <TypeaheadList className={classList}>{ results }</TypeaheadList>;
+    return <TypeaheadList className={classList} styles={this.props.listStyles}>{ results }</TypeaheadList>;
   },
 
   setSelectionIndex(index) {

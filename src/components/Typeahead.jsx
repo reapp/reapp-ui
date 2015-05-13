@@ -12,6 +12,7 @@ var Typeahead = Component({
     name: React.PropTypes.string,
     customClasses: React.PropTypes.object,
     inputStyles: React.PropTypes.object,
+    listStyles: React.PropTypes.object,
     maxVisible: React.PropTypes.number,
     options: React.PropTypes.array,
     allowCustomValues: React.PropTypes.number,
@@ -30,6 +31,7 @@ var Typeahead = Component({
       options: [],
       customClasses: {},
       inputStyles: {},
+      listStyles: {},
       allowCustomValues: 0,
       staticCustomValue: "",
       defaultValue: "",
@@ -96,7 +98,7 @@ var Typeahead = Component({
 
   _renderIncrementalSearchResults() {
     // Nothing has been entered into the textbox
-    if (!this.state.entryValue) {
+    if (!this.state.entryValue || this.state.entryValue == this.props.defaultValue) {
       return "";
     }
 
@@ -115,6 +117,7 @@ var Typeahead = Component({
         <TypeaheadSelector
           ref="sel" options={this.state.visible}
           customValue={this._getCustomValue()}
+          listStyles={this.props.listStyles}
           onOptionSelected={this._onOptionSelected}
           customClasses={this.props.customClasses} />
       );
@@ -123,6 +126,7 @@ var Typeahead = Component({
     return (
       <TypeaheadSelector
         ref="sel" options={ this.state.visible }
+        listStyles={this.props.listStyles}
         onOptionSelected={ this._onOptionSelected }
         customClasses={this.props.customClasses}/>
     );
