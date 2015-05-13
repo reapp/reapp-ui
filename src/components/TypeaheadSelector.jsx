@@ -43,18 +43,6 @@ module.exports = Component({
     var classList = classNames(classes);
 
     var results = [];
-    // CustomValue should be added to top of results list with different class name
-    if (this.props.customValue !== null) {
-
-      results.push(
-        <TypeaheadOption ref={this.props.customValue} key={this.props.customValue}
-          hover={this.state.selectionIndex === results.length}
-          customValue={this.props.customValue}
-          onClick={this._onClick.bind(this, this.props.customValue)}>
-          { this.props.customValue }
-        </TypeaheadOption>
-      );
-    }
 
     this.props.options.forEach(function(result, i) {
       results.push (
@@ -66,6 +54,18 @@ module.exports = Component({
       );
     }, this);
 
+    // CustomValue should be added to results list with different class name
+    if (this.props.customValue !== null) {
+
+      results.push(
+        <TypeaheadOption ref={this.props.customValue} key={this.props.customValue}
+          hover={this.state.selectionIndex === results.length}
+          customValue={this.props.customValue}
+          onClick={this._onClick.bind(this, this.props.customValue)}>
+          { this.props.customValue }
+        </TypeaheadOption>
+      );
+    }
 
     return <TypeaheadList className={classList} styles={this.props.listStyles}>{ results }</TypeaheadList>;
   },
