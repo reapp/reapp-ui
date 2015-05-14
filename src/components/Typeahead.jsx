@@ -4,6 +4,7 @@ var Form = require('./Form');
 var TypeaheadSelector = require('./TypeaheadSelector');
 var fuzzy = require('fuzzy');
 var classNames = require('classnames');
+var flattenObject = require('flatten-object');
 
 var Typeahead = Component({
   name: 'Typeahead',
@@ -47,23 +48,23 @@ var Typeahead = Component({
   getInitialState() {
     return {
       // The currently visible set of options
-      visible: this.getOptionsForValue(this.props.defaultValue, this.props.options),
-      // This should be called something else, "entryValue"
-      entryValue: this.props.defaultValue,
+      visible: this.getOptionsForDisplay(this.props.defaultValue, this._flattenOptions(this.props.options)),
+      // This should be called something else, "defaultValue"
+      defaultValue: this.props.defaultValue,
       // A valid typeahead value
       selection: null
     };
   },
 
-  getOptionsForValue(value, options) {
+  getOptionsForDisplay(display, options) {
     var result;
     if (this.props.filterOption) {
-      result = options.display.filter((function(o) { return this.props.filterOption(value, o); }).bind(this));
+      result = options.display.filter((function(o) { return this.props.filterOption(display, o); }).bind(this));
     } else {
       var optionSet = {
         extract: function(el) { return el.display; }
       };
-      result = fuzzy.filter(value, options, optionSet).map(function(res) {
+      result = fuzzy.filter(display, options, optionSet).map(function(res) {
         return res.original;
       });
     }
@@ -80,7 +81,7 @@ var Typeahead = Component({
 
   _hasCustomValue() {
     if (this.props.allowCustomValues > 0 &&
-      this.state.entryValue.length >= this.props.allowCustomValues) {
+      this.state.defaultValue.length >= this.props.allowCustomValues) {
       return true;
     }
     return false;
@@ -91,16 +92,66 @@ var Typeahead = Component({
       if (!!this.props.staticCustomValue) {
         return this.props.staticCustomValue;
       } else {
-        return this.state.entryValue;
+        return this.state.defaultValue;
       }
 
     }
     return null
   },
 
+  _flattenOptions(options) {
+    var optionFlat;
+    var optionObj;
+    var count = 0;
+    var optionsArr;
+    var option;
+    var optionsFlatArr = [];
+    var storeValue = null;
+    var optionsClone = JSON.parse(JSON.stringify(options))
+    if (Array.isArray(optionsClone)) {
+      optionsArr = optionsClone;
+    } else {
+      optionsArr = [ optionsClone ];
+    }
+    for (var x=0; x<optionsArr.length; x++) {
+      optionFlat = {};
+      option = optionsArr[x];
+      if (typeof(option) == 'object') {
+        if(Object.keys(option).length > 1)
+          if(!!option.value)
+            storeValue = option['value'];
+            delete option["value"];
+        optionObj = flattenObject(option);
+        for (var prop in optionObj) {
+          if (optionObj.hasOwnProperty(prop)) {
+            if(!!!optionFlat.display) {
+              optionFlat.display = '';
+            }
+            if (count>0)
+              optionFlat.display = optionFlat.display + ' '
+            optionFlat.display = optionFlat.display + optionObj[prop]
+            count++;
+          }
+        }
+      } else {
+        optionFlat.display = option;
+      }
+      //optionsFlatArr[x] = {};
+      optionsFlatArr[x] = optionFlat;
+      if(!!storeValue) {
+        optionsFlatArr[x].value = storeValue;
+      }
+    }
+    return optionsFlatArr;
+  },
+
+  _getValues() {
+
+  },
+
   _renderIncrementalSearchResults() {
     // Nothing has been entered into the textbox
-    if (!this.state.entryValue || this.state.entryValue == this.props.defaultValue) {
+    if (!this.state.defaultValue || this.state.defaultValue == this.props.defaultValue) {
       return "";
     }
 
@@ -136,27 +187,27 @@ var Typeahead = Component({
 
   _onOptionSelected(option, event) {
     var nEntry = this.refs.entry.getDOMNode();
-    var entryValue = null;
+    var defaultValue = null;
     nEntry.focus();
     nEntry.value = option.display;
     if (!!this.props.clearOnOptionSelected) {
       nEntry.value = "";
-      entryValue = "";
+      defaultValue = "";
     } else {
       nEntry.value = option.display;
-      entryValue = option.display;
+      defaultValue = option.display;
     }
-    this.setState({visible: this.getOptionsForValue(option.display, this.props.options),
+    this.setState({visible: this.getOptionsForDisplay(option.display, this._flattenOptions(this.props.options)),
                    selection: option.display,
-                   entryValue: entryValue});
+                   defaultValue: defaultValue});
     return this.props.onOptionSelected(option, event);
   },
 
   _onTextEntryUpdated() {
-    var value = this.refs.entry.getDOMNode().value;
-    this.setState({visible: this.getOptionsForValue(value, this.props.options),
+    var enteredText = this.refs.entry.getDOMNode().value;
+    this.setState({visible: this.getOptionsForDisplay(enteredText, this._flattenOptions(this.props.options)),
                    selection: null,
-                   entryValue: value});
+                   defaultValue: enteredText});
   },
 
   _onEnter(event) {
@@ -225,7 +276,7 @@ var Typeahead = Component({
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      visible: this.getOptionsForValue(this.state.entryValue, nextProps.options)
+      visible: this.getOptionsForDisplay(this.state.defaultValue, this._flattenOptions(nextProps.options))
     });
   },
 
@@ -248,7 +299,7 @@ var Typeahead = Component({
           styles={this.props.inputStyles}
           placeholder={this.props.placeholder}
           className={inputClassList}
-          value={this.state.entryValue}
+          value={this.state.defaultValue}
           defaultValue={this.props.defaultValue}
           onChange={this._onTextEntryUpdated} onKeyDown={this._onKeyDown} />
         { this._renderIncrementalSearchResults() }
