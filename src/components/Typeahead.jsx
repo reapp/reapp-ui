@@ -24,7 +24,8 @@ var Typeahead = Component({
     onOptionSelected: React.PropTypes.func,
     clearOnOptionSelected: React.PropTypes.bool,
     onKeyDown: React.PropTypes.func,
-    filterOption: React.PropTypes.func
+    filterOption: React.PropTypes.func,
+    disabled: React.PropTypes.bool,
   },
 
   getDefaultProps() {
@@ -41,7 +42,8 @@ var Typeahead = Component({
       onOptionSelected: function(option) {},
       clearOnOptionSelected: false,
       onKeyDown: function(event) {},
-      filterOption: null
+      filterOption: null,
+      disabled: false,
     };
   },
 
@@ -203,6 +205,12 @@ var Typeahead = Component({
     return this.props.onOptionSelected(option, event);
   },
 
+  _closeTypeahead() {
+    event.stopPropagation();
+    var nEntry = this.refs.entry.getDOMNode();
+    this.setState({visible: this.state.defaultValue, selection: nEntry.value, defaultValue: this.state.defaultValue});
+  },
+
   _onTextEntryUpdated() {
     var enteredText = this.refs.entry.getDOMNode().value;
     this.setState({visible: this.getOptionsForDisplay(enteredText, this._flattenOptions(this.props.options)),
@@ -296,12 +304,15 @@ var Typeahead = Component({
         { this._renderHiddenInput() }
         <Form.Input ref="entry"
           {...this.props.inputProps}
+          disabled={this.props.disabled}
           styles={this.props.inputStyles}
           placeholder={this.props.placeholder}
           className={inputClassList}
           value={this.state.defaultValue}
           defaultValue={this.props.defaultValue}
-          onChange={this._onTextEntryUpdated} onKeyDown={this._onKeyDown} />
+          onChange={this._onTextEntryUpdated} 
+          onKeyDown={this._onKeyDown} 
+          onBlur={this._closeTypeahead} />
         { this._renderIncrementalSearchResults() }
       </div>
     );

@@ -20,6 +20,7 @@ module.exports = Object.assign(
   Gallery: require('./components/Gallery'),
   Grid: require('./components/Grid'),
   Icon: require('./components/Icon'),
+  InputArray: require('./components/InputArray'),
   List: require('./components/List'),
   Menu: require('./components/Menu'),
   Modal: require('./components/Modal'),

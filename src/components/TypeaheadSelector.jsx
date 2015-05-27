@@ -48,7 +48,7 @@ module.exports = Component({
       results.push (
         <TypeaheadOption data-test={result.keys} ref={result} key={result.display}
           hover={this.state.selectionIndex === results.length}
-          onClick={this._onClick.bind(this, result)}>
+          onMouseDown={this._onMouseDown.bind(this, result)}>
           { result.display }
         </TypeaheadOption>
       );
@@ -61,7 +61,7 @@ module.exports = Component({
         <TypeaheadOption ref={this.props.customValue} key={this.props.customValue}
           hover={this.state.selectionIndex === results.length}
           customValue={this.props.customValue}
-          onClick={this._onClick.bind(this, this.props.customValue)}>
+          onMouseDown={this._onMouseDown.bind(this, this.props.customValue)}>
           { this.props.customValue }
         </TypeaheadOption>
       );
@@ -92,7 +92,7 @@ module.exports = Component({
     return this.props.options[index];
   },
 
-  _onClick(result, event) {
+  _onMouseDown(result, event) {
     return this.props.onOptionSelected(result, event);
   },
 
