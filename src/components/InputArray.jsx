@@ -2,16 +2,21 @@ var React = require('react');
 var Component = require('../component');
 var Form = require('./Form');
 var Button = require('./Button');
+var Icon = require('./Icon');
 
 var InputArray = Component({
   name: 'InputArray',
 
   propTypes: {
     namePrefix: React.PropTypes.string,
+    inputContainerStyles: React.PropTypes.object,
     inputStyles: React.PropTypes.object,
     inputDefaultValue: React.PropTypes.string,
-    addInputStyles: React.PropTypes.object,
+    addInputTextStyles: React.PropTypes.object,
+    addInputIconStyles: React.PropTypes.object,
     addInputText: React.PropTypes.string,
+    addInputIcon: React.PropTypes.string,
+    addInputChromeless: React.PropTypes.bool,
     addInputCb: React.PropTypes.func,
     removeInputStyles: React.PropTypes.object,
     maxVisible: React.PropTypes.number,
@@ -23,10 +28,14 @@ var InputArray = Component({
   getDefaultProps() {
     return {
       namePrefix: "InputArray-",
+      inputContainerStyles: {},
       inputStyles: {},
       inputDefaultValue: "",
-      addInputStyles: {},
-      addInputText: "+ Add",
+      addInputTextStyles: {},
+      addInputIconStyles: {},
+      addInputText: "Add",
+      addInputIcon: "+&nbsp;&nbsp;",
+      addInputChromeless: false,
       addInputCb: function() {},
       removeInputStyles: {},
       maxVisible: 20,
@@ -88,7 +97,7 @@ var InputArray = Component({
   	  }
       return (
         <Form.Input ref={inputName}
-          key={index}
+          key={index} 
           type={inputType} 
       	  name={inputName} 
       	  defaultValue={inputDefaultValue} 
@@ -102,14 +111,18 @@ var InputArray = Component({
   render() {
     return (
       <div>
-        { this._renderInputs() }
-        <Button chromeless
-        		key="addInputArray"
+	    <div styles={this.props.inputContainerStyles}>
+	      { this._renderInputs() }
+	    </div>
+	    <Button key="addInputArray" 
+	    		chromeless={this.props.addInputChromeless} 
                 onTap={this.props.addInputCb}
                 styles={this.props.addInputStyles}>
-          {this.props.addInputText}
+          <div styles={this.props.addInputTextStyles}>
+          	<img src={this.props.addInputIcon} styles={this.props.addInputIconStyles} /> {this.props.addInputText}
+          </div>
         </Button>
-      </div>
+	  </div>
     );
   }
 });
