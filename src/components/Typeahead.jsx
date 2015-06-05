@@ -14,6 +14,7 @@ var Typeahead = Component({
     customClasses: React.PropTypes.object,
     inputStyles: React.PropTypes.object,
     listStyles: React.PropTypes.object,
+    optionStyles: React.PropTypes.object,
     maxVisible: React.PropTypes.number,
     options: React.PropTypes.array,
     allowCustomValues: React.PropTypes.number,
@@ -34,6 +35,7 @@ var Typeahead = Component({
       customClasses: {},
       inputStyles: {},
       listStyles: {},
+      optionStyles: {},
       allowCustomValues: 0,
       staticCustomValue: "",
       defaultValue: "",
@@ -102,13 +104,14 @@ var Typeahead = Component({
   },
 
   _flattenOptions(options) {
-    var optionFlat;
+    /*var optionFlat;
     var optionObj;
     var count = 0;
     var optionsArr;
     var option;
     var optionsFlatArr = [];
     var storeValue = null;
+    var storeDisplayElements = null;
     var optionsClone = JSON.parse(JSON.stringify(options))
     if (Array.isArray(optionsClone)) {
       optionsArr = optionsClone;
@@ -123,6 +126,9 @@ var Typeahead = Component({
           if(!!option.value)
             storeValue = option['value'];
             delete option["value"];
+          if(!!option.displayElements)
+            storeDisplayElements = option['displayElements'];
+            delete option["displayElements"];
         optionObj = flattenObject(option);
         for (var prop in optionObj) {
           if (optionObj.hasOwnProperty(prop)) {
@@ -143,8 +149,12 @@ var Typeahead = Component({
       if(!!storeValue) {
         optionsFlatArr[x].value = storeValue;
       }
-    }
-    return optionsFlatArr;
+      if(!!storeDisplayElements) {
+        optionsFlatArr[x].displayElements = storeDisplayElements;
+      }
+    }*/
+    //return optionsFlatArr;
+    return options;
   },
 
   _getValues() {
@@ -171,6 +181,7 @@ var Typeahead = Component({
       return (
         <TypeaheadSelector
           ref="sel" options={this.state.visible}
+          optionStyles={this.props.optionStyles}
           customValue={this._getCustomValue()}
           listStyles={this.props.listStyles}
           onOptionSelected={this._onOptionSelected}
@@ -181,6 +192,7 @@ var Typeahead = Component({
     return (
       <TypeaheadSelector
         ref="sel" options={ this.state.visible }
+        optionStyles={this.props.optionStyles}
         listStyles={this.props.listStyles}
         onOptionSelected={ this._onOptionSelected }
         customClasses={this.props.customClasses}/>
@@ -300,7 +312,7 @@ var Typeahead = Component({
     var classList = classNames(classes);
 
     return (
-      <div className={classList}>
+      <div {...this.componentProps()} className={classList}>
         { this._renderHiddenInput() }
         <Form.Input ref="entry"
           {...this.props.inputProps}

@@ -34,7 +34,8 @@
     "reapp-component": "^1.0.0",
     "reapp-object-assign": "^1.0.0",
     "reapp-raf-batching": "^1.0.0",
-    "reapp-scroller": "^1.0.1"
+    "reapp-scroller": "^1.0.1",
+    "validator": "^3.40.0"
   },
   "peerDependencies": {
     "react": "0.13.x"

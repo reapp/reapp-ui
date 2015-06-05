@@ -12,14 +12,14 @@ module.exports = Component({
     customValue: React.PropTypes.string,
     onMouseDown: React.PropTypes.func,
     children: React.PropTypes.string,
-    hover: React.PropTypes.bool
+    hover: React.PropTypes.bool,
+    optionStyles: React.PropTypes.object,
   },
 
   getDefaultProps() {
     return {
-      onMouseDown: function(event) {
-        event.preventDefault();
-      }
+      onMouseDown: function(event) { event.preventDefault(); },
+      optionStyles: {},
     };
   },
 
@@ -29,7 +29,7 @@ module.exports = Component({
 
   render() {
     return (
-      <TypeaheadButton onMouseDown={this._onMouseDown}>
+      <TypeaheadButton {...this.componentProps('typeaheadButton')} styles={this.props.optionStyles} onMouseDown={this._onMouseDown}>
         { this.props.children }
       </TypeaheadButton>
     );
