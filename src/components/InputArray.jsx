@@ -134,7 +134,7 @@ var InputArray = Component({
     return (
       <div>
 	      <div styles={this.props.inputContainerStyles}>
-	        <InputArrayInputs ref="inputArrayInputs" inputs={this.state.inputs} handleInputBlur={this.handleInputBlur} inputStyles={this.props.inputStyles} />
+	        <InputArrayInputs ref="inputArrayInputs" disabled={this.props.disabled} inputs={this.state.inputs} handleInputBlur={this.handleInputBlur} inputStyles={this.props.inputStyles} />
 	      </div>
         {!!!this.props.disabled && 
 	      <Button {...this.componentProps('addInput')}

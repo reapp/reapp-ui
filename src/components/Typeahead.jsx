@@ -296,7 +296,8 @@ var Typeahead = Component({
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      visible: this.getOptionsForDisplay(this.state.defaultValue, this._flattenOptions(nextProps.options))
+      visible: this.getOptionsForDisplay(this.state.defaultValue, this._flattenOptions(nextProps.options)),
+      defaultValue: nextProps.defaultValue
     });
   },
 

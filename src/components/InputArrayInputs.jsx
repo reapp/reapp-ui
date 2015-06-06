@@ -11,6 +11,7 @@ var InputArrayInputs = Component({
   propTypes: {
     namePrefix: React.PropTypes.string,
     inputs: React.PropTypes.array,
+    disabled: React.PropTypes.bool,
     handleInputBlur: React.PropTypes.func,
     inputStyles: React.PropTypes.object,
   },
@@ -19,6 +20,7 @@ var InputArrayInputs = Component({
     return {
       namePrefix: "InputArray-",
       inputs: {},
+      disabled: false,
       handleInputBlur: function() {},
       inputStyles: {},
     };
@@ -37,9 +39,13 @@ var InputArrayInputs = Component({
   	  if (!!item.defaultValue) {
   	  	inputDefaultValue = item.defaultValue;
   	  }
-  	  if (!!item.disabled) {
-  	  	inputDisabled = true;
-  	  }
+      if (!this.props.disabled) {
+    	  if (!!item.disabled) {
+    	  	inputDisabled = true;
+    	  }
+      } else {
+        inputDisabled = true;
+      }
   	  if (!!item.placeholder) {
   	  	inputPlaceholder = item.placeholder;
   	  }
