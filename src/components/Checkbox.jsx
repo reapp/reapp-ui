@@ -7,7 +7,8 @@ module.exports = Component({
 
   propTypes: {
     onChange: React.PropTypes.func,
-    checked: React.PropTypes.bool
+    checked: React.PropTypes.bool,
+    disabled: React.PropTypes.bool
   },
 
   statics: {
@@ -16,16 +17,18 @@ module.exports = Component({
 
   getInitialState() {
     return {
-      checked: this.props.checked
+      checked: this.props.checked,
+      disabled: this.props.disabled
     };
   },
 
   handleChange() {
-    if (!this.refs.input.getDOMNode().checked)
-      this.setState({ checked: true });
-    else
-      this.setState({ checked: false });
-
+    if(!!!this.props.disabled) {
+      if (!this.refs.input.getDOMNode().checked)
+        this.setState({ checked: true });
+      else
+        this.setState({ checked: false });
+    }
     if (this.props.onChange)
       this.props.onChange(this.state.checked);
   },
