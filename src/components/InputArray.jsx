@@ -14,6 +14,7 @@ var InputArray = Component({
     inputContainerStyles: React.PropTypes.object,
     inputDefaultValue: React.PropTypes.string,
     defaultValidator: React.PropTypes.string,
+    addInputCb: React.PropTypes.func,
     addInputTextStyles: React.PropTypes.object,
     addInputIconStyles: React.PropTypes.object,
     addInputText: React.PropTypes.string,
@@ -34,6 +35,7 @@ var InputArray = Component({
       inputContainerStyles: {},
       inputDefaultValue: "",
       defaultValidator: "",
+      addInputCb: function() {},
       addInputTextStyles: {},
       addInputIconStyles: {},
       addInputText: "Add",
@@ -50,8 +52,12 @@ var InputArray = Component({
   },
 
   componentWillReceiveProps(nextProps) {
+    var inputs = nextProps.inputs;
+    for(var i=0;i<inputs.length;i++) {
+      inputs[i].inputName = nextProps.namePrefix + i;
+    }
     this.setState({
-      inputs: nextProps.inputs,
+      inputs: inputs,
     });
   },
 
@@ -69,8 +75,12 @@ var InputArray = Component({
   },*/
 
   getInitialState() {
+    var inputs = this.props.inputs;
+    for(var i=0;i<inputs.length;i++) {
+      inputs[i].inputName = this.props.namePrefix + i;
+    }
     return {
-      inputs: this.props.inputs,
+      inputs: inputs,
     };
   },
 
@@ -95,8 +105,10 @@ var InputArray = Component({
           defaultValue: that.props.inputDefaultValue,
           disabled: that.props.disabled,
           validator: that.props.defaultValidator,
+          inputName: that.props.namePrefix + inputsCopy.length,
         });
         that.props.inputsCb(inputsCopy);
+        that.props.addInputCb(inputsCopy);
       }
     }, 500);
   },
