@@ -20,6 +20,7 @@ var InputArray = Component({
     addInputText: React.PropTypes.string,
     addInputIcon: React.PropTypes.string,
     addInputChromeless: React.PropTypes.bool,
+    addInputType: React.PropTypes.string,
     removeInputStyles: React.PropTypes.object,
     maxVisible: React.PropTypes.number,
     inputs: React.PropTypes.array,
@@ -41,6 +42,7 @@ var InputArray = Component({
       addInputText: "Add",
       addInputIcon: "+&nbsp;&nbsp;",
       addInputChromeless: false,
+      addInputType: "text",
       removeInputStyles: {},
       maxVisible: 20,
       inputs: [],
@@ -93,24 +95,23 @@ var InputArray = Component({
   },
 
   addInput() {
-    console.log('addInput hit');
     //Blur all elements before validation.
-    document.activeElement.blur();
-    //Before we add input we validate all inputs are valid.
-    var that = this;
-    setTimeout(function(){
-      if(that.validateInputs(null)) {
-        var inputsCopy = JSON.parse(JSON.stringify(that.state.inputs));
+    //document.activeElement.blur();
+    if(this.validateInputs(null)) {
+        var inputsCopy = JSON.parse(JSON.stringify(this.state.inputs));
         inputsCopy.push({
-          defaultValue: that.props.inputDefaultValue,
-          disabled: that.props.disabled,
-          validator: that.props.defaultValidator,
-          inputName: that.props.namePrefix + inputsCopy.length,
+          defaultValue: this.props.inputDefaultValue,
+          disabled: this.props.disabled,
+          validator: this.props.defaultValidator,
+          inputName: this.props.namePrefix + inputsCopy.length,
+          type: this.props.addInputType,
         });
-        that.props.inputsCb(inputsCopy);
-        that.props.addInputCb(inputsCopy);
+        this.props.inputsCb(inputsCopy);
       }
-    }, 500);
+  },
+
+  addInputMouseUp() {
+    this.props.addInputCb(this.state.inputs);
   },
 
   validateInputs() {
@@ -152,7 +153,8 @@ var InputArray = Component({
 	      <Button {...this.componentProps('addInput')}
                 key="addInputArray" 
 	    	        chromeless={this.props.addInputChromeless} 
-                onTap={this.addInput}>
+                onTap={this.addInput}
+                onMouseUp={this.addInputMouseUp}>
           <div styles={this.props.addInputTextStyles}>
             <img src={this.props.addInputIcon} styles={this.props.addInputIconStyles} /> {this.props.addInputText}
           </div>

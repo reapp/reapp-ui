@@ -325,7 +325,8 @@ var Typeahead = Component({
           defaultValue={this.props.defaultValue}
           onChange={this._onTextEntryUpdated} 
           onKeyDown={this._onKeyDown} 
-          onBlur={this._closeTypeahead} />
+          onBlur={this._closeTypeahead}
+          autocapitalize="words" />
         { this._renderIncrementalSearchResults() }
       </div>
     );
