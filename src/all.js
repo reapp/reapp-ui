@@ -26,6 +26,7 @@ module.exports = Object.assign(
   Modal: require('./components/Modal'),
   Popover: require('./components/Popover'),
   SearchBar: require('./components/SearchBar'),
+  SVG: require('./components/SVG'),
   Title: require('./components/Title'),
   TitleBar: require('./components/TitleBar'),
   Typeahead: require('./components/Typeahead'),
