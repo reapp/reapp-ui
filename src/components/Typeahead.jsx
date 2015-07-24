@@ -94,9 +94,13 @@ var Typeahead = Component({
   _getCustomValue() {
     if (this._hasCustomValue()) {
       if (!!this.props.staticCustomValue) {
-        return this.props.staticCustomValue;
+        var customValue = {};
+        customValue.display = this.props.staticCustomValue;
+        return customValue;
       } else {
-        return this.state.defaultValue;
+        var customValue = {};
+        customValue.display = this.state.defaultValue;
+        return customValue;
       }
 
     }
@@ -326,7 +330,7 @@ var Typeahead = Component({
           onChange={this._onTextEntryUpdated} 
           onKeyDown={this._onKeyDown} 
           onBlur={this._closeTypeahead}
-          autocapitalize="words" />
+          autoCapitalize="words" />
         { this._renderIncrementalSearchResults() }
       </div>
     );
