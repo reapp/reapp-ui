@@ -111,8 +111,7 @@ module.exports = Component({
         <Tappable
           {...this.componentProps('bg')}
           onTap={this.handleBgClose}
-          stopPropagation
-        />
+          stopPropagation/>
         <div {...this.componentProps('modal')}>
           <div {...this.componentProps('inner')}>
             {title &&
