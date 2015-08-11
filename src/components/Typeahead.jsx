@@ -12,6 +12,8 @@ var Typeahead = Component({
     name: React.PropTypes.string,
     customClasses: React.PropTypes.object,
     inputStyles: React.PropTypes.object,
+    listStyles: React.PropTypes.object,
+    optionStyles: React.PropTypes.object,
     maxVisible: React.PropTypes.number,
     options: React.PropTypes.array,
     allowCustomValues: React.PropTypes.number,
@@ -22,7 +24,8 @@ var Typeahead = Component({
     onOptionSelected: React.PropTypes.func,
     clearOnOptionSelected: React.PropTypes.bool,
     onKeyDown: React.PropTypes.func,
-    filterOption: React.PropTypes.func
+    filterOption: React.PropTypes.func,
+    disabled: React.PropTypes.bool,
   },
 
   getDefaultProps() {
@@ -30,6 +33,8 @@ var Typeahead = Component({
       options: [],
       customClasses: {},
       inputStyles: {},
+      listStyles: {},
+      optionStyles: {},
       allowCustomValues: 0,
       staticCustomValue: "",
       defaultValue: "",
@@ -38,28 +43,32 @@ var Typeahead = Component({
       onOptionSelected: function(option) {},
       clearOnOptionSelected: false,
       onKeyDown: function(event) {},
-      filterOption: null
+      filterOption: null,
+      disabled: false,
     };
   },
 
   getInitialState() {
     return {
       // The currently visible set of options
-      visible: this.getOptionsForValue(this.props.defaultValue, this.props.options),
-      // This should be called something else, "entryValue"
-      entryValue: this.props.defaultValue,
+      visible: this.getOptionsForDisplay(this.props.defaultValue, this.props.options),
+      // This should be called something else, "defaultValue"
+      defaultValue: this.props.defaultValue,
       // A valid typeahead value
       selection: null
     };
   },
 
-  getOptionsForValue(value, options) {
+  getOptionsForDisplay(display, options) {
     var result;
     if (this.props.filterOption) {
-      result = options.filter((function(o) { return this.props.filterOption(value, o); }).bind(this));
+      result = options.display.filter((function(o) { return this.props.filterOption(display, o); }).bind(this));
     } else {
-      result = fuzzy.filter(value, options).map(function(res) {
-        return res.string;
+      var optionSet = {
+        extract: function(el) { return el.display; }
+      };
+      result = fuzzy.filter(display, options, optionSet).map(function(res) {
+        return res.original;
       });
     }
     if (this.props.maxVisible) {
@@ -75,8 +84,7 @@ var Typeahead = Component({
 
   _hasCustomValue() {
     if (this.props.allowCustomValues > 0 &&
-      this.state.entryValue.length >= this.props.allowCustomValues &&
-      this.state.visible.indexOf(this.state.entryValue) < 0) {
+      this.state.defaultValue.length >= this.props.allowCustomValues) {
       return true;
     }
     return false;
@@ -85,9 +93,13 @@ var Typeahead = Component({
   _getCustomValue() {
     if (this._hasCustomValue()) {
       if (!!this.props.staticCustomValue) {
-        return this.props.staticCustomValue;
+        var customValue = {};
+        customValue.display = this.props.staticCustomValue;
+        return customValue;
       } else {
-        return this.state.entryValue;
+        var customValue = {};
+        customValue.display = this.state.defaultValue;
+        return customValue;
       }
 
     }
@@ -96,7 +108,7 @@ var Typeahead = Component({
 
   _renderIncrementalSearchResults() {
     // Nothing has been entered into the textbox
-    if (!this.state.entryValue || this.state.entryValue == this.props.defaultValue) {
+    if (!this.state.defaultValue || this.state.defaultValue == this.props.defaultValue) {
       return "";
     }
 
@@ -114,7 +126,9 @@ var Typeahead = Component({
       return (
         <TypeaheadSelector
           ref="sel" options={this.state.visible}
+          optionStyles={this.props.optionStyles}
           customValue={this._getCustomValue()}
+          listStyles={this.props.listStyles}
           onOptionSelected={this._onOptionSelected}
           customClasses={this.props.customClasses} />
       );
@@ -123,6 +137,8 @@ var Typeahead = Component({
     return (
       <TypeaheadSelector
         ref="sel" options={ this.state.visible }
+        optionStyles={this.props.optionStyles}
+        listStyles={this.props.listStyles}
         onOptionSelected={ this._onOptionSelected }
         customClasses={this.props.customClasses}/>
     );
@@ -130,27 +146,33 @@ var Typeahead = Component({
 
   _onOptionSelected(option, event) {
     var nEntry = this.refs.entry.getDOMNode();
-    var entryValue = null;
+    var defaultValue = null;
     nEntry.focus();
-    nEntry.value = option;
+    nEntry.value = option.display;
     if (!!this.props.clearOnOptionSelected) {
       nEntry.value = "";
-      entryValue = "";
+      defaultValue = "";
     } else {
-      nEntry.value = option;
-      entryValue = option;
+      nEntry.value = option.display;
+      defaultValue = option.display;
     }
-    this.setState({visible: this.getOptionsForValue(option, this.props.options),
-                   selection: option,
-                   entryValue: entryValue});
+    this.setState({visible: this.getOptionsForDisplay(option.display, this.props.options),
+                   selection: option.display,
+                   defaultValue: defaultValue});
     return this.props.onOptionSelected(option, event);
   },
 
+  _closeTypeahead() {
+    event.stopPropagation();
+    var nEntry = this.refs.entry.getDOMNode();
+    this.setState({visible: this.state.defaultValue, selection: nEntry.value, defaultValue: this.state.defaultValue});
+  },
+
   _onTextEntryUpdated() {
-    var value = this.refs.entry.getDOMNode().value;
-    this.setState({visible: this.getOptionsForValue(value, this.props.options),
+    var enteredText = this.refs.entry.getDOMNode().value;
+    this.setState({visible: this.getOptionsForDisplay(enteredText, this.props.options),
                    selection: null,
-                   entryValue: value});
+                   defaultValue: enteredText});
   },
 
   _onEnter(event) {
@@ -219,7 +241,8 @@ var Typeahead = Component({
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      visible: this.getOptionsForValue(this.state.entryValue, nextProps.options)
+      visible: this.getOptionsForDisplay(this.state.defaultValue, nextProps.options),
+      defaultValue: nextProps.defaultValue
     });
   },
 
@@ -235,16 +258,20 @@ var Typeahead = Component({
     var classList = classNames(classes);
 
     return (
-      <div className={classList}>
+      <div {...this.componentProps()} className={classList}>
         { this._renderHiddenInput() }
         <Form.Input ref="entry"
           {...this.props.inputProps}
+          disabled={this.props.disabled}
           styles={this.props.inputStyles}
           placeholder={this.props.placeholder}
           className={inputClassList}
-          value={this.state.entryValue}
+          value={this.state.defaultValue}
           defaultValue={this.props.defaultValue}
-          onChange={this._onTextEntryUpdated} onKeyDown={this._onKeyDown} />
+          onChange={this._onTextEntryUpdated}
+          onKeyDown={this._onKeyDown}
+          onBlur={this._closeTypeahead}
+          autoCapitalize="words" />
         { this._renderIncrementalSearchResults() }
       </div>
     );

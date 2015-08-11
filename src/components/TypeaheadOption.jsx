@@ -10,16 +10,16 @@ module.exports = Component({
 
   propTypes: {
     customValue: React.PropTypes.string,
-    onClick: React.PropTypes.func,
+    onMouseDown: React.PropTypes.func,
     children: React.PropTypes.string,
-    hover: React.PropTypes.bool
+    hover: React.PropTypes.bool,
+    optionStyles: React.PropTypes.object,
   },
 
   getDefaultProps() {
     return {
-      onClick: function(event) {
-        event.preventDefault();
-      }
+      onMouseDown: function(event) { event.preventDefault(); },
+      optionStyles: {},
     };
   },
 
@@ -29,14 +29,14 @@ module.exports = Component({
 
   render() {
     return (
-      <TypeaheadButton onClick={this._onClick}>
+      <TypeaheadButton {...this.componentProps('typeaheadButton')} styles={this.props.optionStyles} onMouseDown={this._onMouseDown}>
         { this.props.children }
       </TypeaheadButton>
     );
   },
 
-  _onClick(event) {
+  _onMouseDown(event) {
     event.preventDefault();
-    return this.props.onClick(event);
+    return this.props.onMouseDown(event);
   }
 });

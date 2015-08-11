@@ -12,6 +12,8 @@ module.exports = Component({
   name: 'TypeaheadSelector',
 
   propTypes: {
+    listStyles: React.PropTypes.object,
+    optionStyles: React.PropTypes.object,
     options: React.PropTypes.array,
     customValue: React.PropTypes.string,
     selectionIndex: React.PropTypes.number,
@@ -20,6 +22,8 @@ module.exports = Component({
 
   getDefaultProps() {
     return {
+      listStyles: {},
+      optionStyles: {},
       selectionIndex: null,
       customValue: null,
       onOptionSelected: function(option) { }
@@ -28,6 +32,7 @@ module.exports = Component({
 
   getInitialState() {
     return {
+      listStyles: this.props.listStyles,
       selectionIndex: this.props.selectionIndex,
       selection: this.getSelectionForIndex(this.props.selectionIndex)
     };
@@ -40,31 +45,37 @@ module.exports = Component({
     var classList = classNames(classes);
 
     var results = [];
-    // CustomValue should be added to top of results list with different class name
+
+    this.props.options.forEach(function(result, i) {
+      results.push (
+        <TypeaheadOption 
+          {...this.componentProps('typeaheadOption')}
+          optionStyles={this.props.optionStyles}
+          data-test={result.keys} ref={result} key={result.display}
+          hover={this.state.selectionIndex === results.length}
+          onMouseDown={this._onMouseDown.bind(this, result)}>
+          { result.displayElements }
+        </TypeaheadOption>
+      );
+    }, this);
+
+    // CustomValue should be added to results list with different class name
     if (this.props.customValue !== null) {
 
       results.push(
-        <TypeaheadOption ref={this.props.customValue} key={this.props.customValue}
+        <TypeaheadOption 
+          {...this.componentProps('typeaheadOption')}
+          optionStyles={this.props.optionStyles}
+          ref={this.props.customValue} key={this.props.customValue}
           hover={this.state.selectionIndex === results.length}
           customValue={this.props.customValue}
-          onClick={this._onClick.bind(this, this.props.customValue)}>
+          onMouseDown={this._onMouseDown.bind(this, this.props.customValue)}>
           { this.props.customValue }
         </TypeaheadOption>
       );
     }
 
-    this.props.options.forEach(function(result, i) {
-      results.push (
-        <TypeaheadOption ref={result} key={result}
-          hover={this.state.selectionIndex === results.length}
-          onClick={this._onClick.bind(this, result)}>
-          { result }
-        </TypeaheadOption>
-      );
-    }, this);
-
-
-    return <TypeaheadList className={classList}>{ results }</TypeaheadList>;
+    return <TypeaheadList className={classList} styles={this.props.listStyles}>{ results }</TypeaheadList>;
   },
 
   setSelectionIndex(index) {
@@ -89,7 +100,7 @@ module.exports = Component({
     return this.props.options[index];
   },
 
-  _onClick(result, event) {
+  _onMouseDown(result, event) {
     return this.props.onOptionSelected(result, event);
   },
 

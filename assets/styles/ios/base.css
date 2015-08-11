@@ -78,7 +78,6 @@ p a {
   display: inline-block;
   text-decoration: underline;
 }
-
 .flex {
   display: flex;
   display: -webkit-flex;
