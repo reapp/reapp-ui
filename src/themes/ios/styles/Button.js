@@ -26,7 +26,7 @@ export default c => ({
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     display: 'block',
-    maxWidth: '100%'
+    maxWidth: '100%',
   },
 
   isInTitleBar: {

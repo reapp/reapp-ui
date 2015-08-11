@@ -154,16 +154,18 @@ more work than usual to contribute. For the UI, the best setup is to do the foll
 2. Clone the [kitchen sink](https://github.com/reapp/kitchen-sink) repository
 3. Clone this repository
 4. Run `sudo npm link` inside this repository
-5. **Important:** Run `rm -r node_modules/react` in reapp-ui and be sure react isn't duplicated in Webpack build
-6. Run `npm run watch` in this directory to start babel compiler
-7. Be sure to edit in `./src` directory only.
-8. Run `sudo npm link reapp-ui` inside the kitchen sink repository
+5. **Important:** Run `rm -r node_modules/react` in reapp-ui and be sure react isn't duplicated in Webpack build. Also, be sure to remove any additional react directory's that aren't a part of your project's node_modules. If you have more than one react directory nested in your node_modules for your project, you will run into some problems.
+6. Run `sudo npm run build` in this directory, this will build your reapp-ui for the first time and put it into the ./build folder.
+7. Run `sudo npm run copyAssets` in this directory. This will copy the needed css and images to the build directory.
+8. Run `npm run watch` in this directory to start babel compiler
+9. Be sure to edit in `./src` directory only.
+10. Run `sudo npm link reapp-ui` inside the kitchen sink repository
 
 This will link your reapp-ui module into your kitchen sink repo. Now you can:
 
-9. Run `reapp run -d` inside kitchen sink
-10. Go to [localhost:3010](http://localhost:3010)
-11. Make edits inside reapp-ui and they will automatically compile into the kitchen sink.
+11. Run `sudo reapp run -d` inside kitchen sink
+12. Go to [localhost:3010](http://localhost:3010)
+13. Make edits inside reapp-ui and they will automatically compile into the kitchen sink.
 
 **Warning:** When running locally you may run into some unique bugs. Because `npm link`
 runs an `npm install`, it will often install multiple versions of React into your
