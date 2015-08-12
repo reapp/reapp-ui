@@ -22,23 +22,25 @@ export class chooseColor extends React.Component {
 
   }
 
+  addPhoneArray(phoneArray) {
+    var addedIndex = phoneArray.length - 1;
+    React.findDOMNode(this.refs.phoneInputArray.refs.inputArrayInputs.refs[phoneArray[addedIndex].inputName]).focus();
+  }
+
   render(
-    <Typeahead
-      ref="color"
-      disabled={(this.state.mode == 0)?true:false}
-      name="colorTypeahead"
-      placeholder='Color'
-      className="flex colorTypeahead"
-      inputStyles={this.styles.inputStyles}
-      listStyles={this.styles.colorTypeaheadListStyles}
-      allowCustomValues={1}
-      staticCustomValue={null}
-      defaultValue={this.state.colorActive}
-      customValue=""
-      options={this.colors}
-      maxVisible={0}
-      onOptionSelected={this.colorSelected}
-      clearOnOptionSelected={false}/>
+    <InputArray ref="phoneInputArray"
+                inputs={this.state.phoneArray} 
+                disabled={(this.state.mode == 0)?true:false}
+                inputsCb={this.updatePhoneArray} 
+                inputContainerStyles={this.styles.phoneInputContainerStyles} 
+                inputStyles={this.styles.phoneInputStyles} 
+                defaultValidator="phone" 
+                addInputCb={this.addPhoneArray} 
+                addInputChromeless={true} 
+                addInputIcon={addInputIcon} 
+                addInputTextStyles={this.styles.addPhoneInputTextStyles} 
+                addInputText="Add Number"
+                addInputType="tel" />
   );
 }
 ```
