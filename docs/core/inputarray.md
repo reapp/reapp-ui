@@ -53,7 +53,6 @@ export class chooseColor extends React.Component {
   addPhoneArray(phoneArray) {
     var addedIndex = phoneArray.length - 1;
     React.findDOMNode(this.refs.phoneInputArray.refs.inputArrayInputs.refs[phoneArray[addedIndex].inputName]).focus();
-    //this.refs[phoneArray[addedIndex].inputName].getDOMNode().focus(); 
   }
 
   render(
