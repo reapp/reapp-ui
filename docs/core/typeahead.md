@@ -31,7 +31,7 @@ export class chooseColor extends React.Component {
       className="flex colorTypeahead"
       inputStyles={this.styles.inputStyles}
       listStyles={this.styles.colorTypeaheadListStyles}
-      allowCustomValues={1}
+      allowCustomValues={true}
       staticCustomValue={null}
       defaultValue={this.state.colorActive}
       customValue=""
@@ -58,12 +58,31 @@ Default: []
 Allowed Keys: `displayElements`, `display`, `value`
 
 Pass in html to be shown for each list item into the "displayElements" property, pass in what gets shown in the typeahead input box into the "display" property, and pass in the value that gets sent back into the "value" property of each array element.
+* Note: You can pass arrays or objects into the Value, and it gets stuck into the first parameter of the callback function defined in "onOptionSelected".
 
 #### props.defaultValue
 
 Type: `String`
 
 A default value used when the component has no value. If it matches any options a option list will show.
+
+#### props.customClasses
+
+Type: `Object`
+
+An object of classes to be applied to the typeahead input box.
+
+#### props.inputStyles
+
+Type: `Object`
+
+An object of styles to be applied to the typeahead input box.
+
+#### props.optionStyles
+
+Type: `Object`
+
+An object of styles to be applied to each typeahead option shown.
 
 #### props.maxVisible
 
@@ -127,11 +146,23 @@ A function to filter the provided `options` based on the current input value. Fo
 
 If provided as a string, it will interpret it as a field name and fuzzy filter on that field of each option object.
 
+#### props.allowCustomValues
+
+Type: `Boolean`
+
+Decide whether or not to show a custom value such as a static option at the end of your option list that is always shown.
+
 #### props.staticCustomValue
 
 Type: `String`
 
 Set the default customValue display property.
+
+#### props.inputProps
+
+Type: `Object`
+
+Set any addtional props that will be included on the typeahead input.
 
 ## Developing
 

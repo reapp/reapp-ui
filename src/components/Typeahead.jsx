@@ -16,7 +16,7 @@ var Typeahead = Component({
     optionStyles: React.PropTypes.object,
     maxVisible: React.PropTypes.number,
     options: React.PropTypes.array,
-    allowCustomValues: React.PropTypes.number,
+    allowCustomValues: React.PropTypes.bool,
     staticCustomValue: React.PropTypes.string,
     defaultValue: React.PropTypes.string,
     placeholder: React.PropTypes.string,
@@ -35,7 +35,7 @@ var Typeahead = Component({
       inputStyles: {},
       listStyles: {},
       optionStyles: {},
-      allowCustomValues: 0,
+      allowCustomValues: false,
       staticCustomValue: "",
       defaultValue: "",
       placeholder: "",
@@ -83,8 +83,7 @@ var Typeahead = Component({
   },
 
   _hasCustomValue() {
-    if (this.props.allowCustomValues > 0 &&
-      this.state.defaultValue.length >= this.props.allowCustomValues) {
+    if (this.props.allowCustomValues && this.state.defaultValue.length > 0) {
       return true;
     }
     return false;
@@ -118,7 +117,7 @@ var Typeahead = Component({
     }
 
     // There are no typeahead / autocomplete suggestions
-    if (!this.state.visible.length && !(this.props.allowCustomValues > 0)) {
+    if (!this.state.visible.length && !(this.props.allowCustomValues)) {
       return "";
     }
 
