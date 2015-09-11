@@ -57,16 +57,16 @@ export class chooseColor extends React.Component {
 
   render(
     <InputArray ref="phoneInputArray"
-                inputs={this.state.phoneArray} 
-                disabled={(this.state.mode == 0)?true:false}
-                inputsCb={this.updatePhoneArray} 
-                inputContainerStyles={this.styles.phoneInputContainerStyles} 
-                inputStyles={this.styles.phoneInputStyles} 
-                defaultValidator="phone" 
-                addInputCb={this.addPhoneArray} 
-                addInputChromeless={true} 
-                addInputIcon={addInputIcon} 
-                addInputTextStyles={this.styles.addPhoneInputTextStyles} 
+                inputs={this.state.phoneArray}
+                disabled={false}
+                inputsCb={this.updatePhoneArray}
+                inputContainerStyles={this.styles.phoneInputContainerStyles}
+                inputStyles={this.styles.phoneInputStyles}
+                defaultValidator="phone"
+                addInputCb={this.addPhoneArray}
+                addInputChromeless={true}
+                addInputIcon={addInputIcon}
+                addInputTextStyles={this.styles.addPhoneInputTextStyles}
                 addInputText="Add Number"
                 addInputType="tel" />
   );
@@ -93,7 +93,7 @@ Pass in html to be shown for each input array item into the "defaultValue" prope
 
 Type: `Bool`
 
-Depict if the input array should be disabled or enabled. (for read only / editable)
+Indicates whether the input array should be disabled or enabled (for read only/editable).
 
 #### props.inputsCb
 
@@ -159,15 +159,14 @@ You will need to get a reapp project up and running to use the input array compo
 
 ### Contributing
 
-Basically, fork the repository and send a pull request.  It can be difficult to review these, so
-here are some general rules to follow for getting your PR accepted more quickly:
+Basically, fork the repository and send a pull request.  It can be difficult to review these, so here are some general rules to follow for getting your PR accepted more quickly:
 
 - All new properties and exposed component function should be documented in the README.md
 - Break your changes into smaller, easy to understand commits.
 - Send separate PRs for each commit when possible.
-- Feel free to rebase, merge, and rewrite commits to make them more readible.
+- Feel free to rebase, merge, and rewrite commits to make them more readable.
 - Add comments explaining anything that's not painfully obvious.
-- Add unittests for your change if possible.
+- Add unit tests for your change if possible.
 - The validation is still under development, we would greatly appreciate commits on the validation piece.
 
 [reactecf]: https://facebook.github.io/react/tips/expose-component-functions.html

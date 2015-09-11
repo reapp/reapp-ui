@@ -12,35 +12,33 @@ export class chooseColor extends React.Component {
   constructor(props, context) {
 
     this.colors = [
-      { displayElements: '<div>Apricot</div>', display: 'Apricot', value: [0] },
-      { displayElements: '<div>Beige</div>', display: 'Beige', value: [1] },
-      { displayElements: '<div>Black</div>, display: 'Black', value: [2] },
-      { displayElements: '<div>Blonde</div>', display: 'Blonde', value: [3] },
-      { displayElements: '<div>Blue</div>', display: 'Blue', value: [4] },
-      { displayElements: '<div>Blue Merle</div>', display: 'Blue Merle', value: [5] },
-      { displayElements: '<div>Brindle</div>', display: 'Brindle', value: [6] }
-
-  }
-
-  addPhoneArray(phoneArray) {
-    var addedIndex = phoneArray.length - 1;
-    React.findDOMNode(this.refs.phoneInputArray.refs.inputArrayInputs.refs[phoneArray[addedIndex].inputName]).focus();
+      { displayElements: '<div>Apricot</div>', display: 'Apricot', value: 0 },
+      { displayElements: '<div>Beige</div>', display: 'Beige', value: 1 },
+      { displayElements: '<div>Black</div>', display: 'Black', value: 2 },
+      { displayElements: '<div>Blonde</div>', display: 'Blonde', value: 3 },
+      { displayElements: '<div>Blue</div>', display: 'Blue', value: 4 },
+      { displayElements: '<div>Blue Merle</div>', display: 'Blue Merle', value: 5 },
+      { displayElements: '<div>Brindle</div>', display: 'Brindle', value: 6 }
+    ];
   }
 
   render(
-    <InputArray ref="phoneInputArray"
-                inputs={this.state.phoneArray} 
-                disabled={(this.state.mode == 0)?true:false}
-                inputsCb={this.updatePhoneArray} 
-                inputContainerStyles={this.styles.phoneInputContainerStyles} 
-                inputStyles={this.styles.phoneInputStyles} 
-                defaultValidator="phone" 
-                addInputCb={this.addPhoneArray} 
-                addInputChromeless={true} 
-                addInputIcon={addInputIcon} 
-                addInputTextStyles={this.styles.addPhoneInputTextStyles} 
-                addInputText="Add Number"
-                addInputType="tel" />
+    <Typeahead
+      ref="color"
+      disabled={false}
+      name="colorTypeahead"
+      placeholder='Color'
+      className="flex colorTypeahead"
+      inputStyles={this.styles.inputStyles}
+      listStyles={this.styles.colorTypeaheadListStyles}
+      allowCustomValues={1}
+      staticCustomValue={null}
+      defaultValue={this.state.colorActive}
+      customValue=""
+      options={this.colors}
+      maxVisible={0}
+      onOptionSelected={this.colorSelected}
+      clearOnOptionSelected={false}/>
   );
 }
 ```
@@ -151,8 +149,8 @@ here are some general rules to follow for getting your PR accepted more quickly:
 - All new properties and exposed component function should be documented in the README.md
 - Break your changes into smaller, easy to understand commits.
 - Send separate PRs for each commit when possible.
-- Feel free to rebase, merge, and rewrite commits to make them more readible.
+- Feel free to rebase, merge, and rewrite commits to make them more readable.
 - Add comments explaining anything that's not painfully obvious.
-- Add unittests for your change if possible.
+- Add unit tests for your change if possible.
 
 [reactecf]: https://facebook.github.io/react/tips/expose-component-functions.html
