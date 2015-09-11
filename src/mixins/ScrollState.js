@@ -35,12 +35,12 @@ module.exports = {
     };
   },
 
-  _scrollHandleTouchStart() {
-    this._initialTouch = this._lastTouch = getTouchProps(event.touches[0]);
+  _scrollHandleTouchStart(e) {
+    this._initialTouch = this._lastTouch = getTouchProps(e.touches[0]);
   },
 
-  _scrollHandleTouchMove() {
-    this._lastTouch = getTouchProps(event.touches[0]);
+  _scrollHandleTouchMove(e) {
+    this._lastTouch = getTouchProps(e.touches[0]);
     var movement = this.calculateMovement(this._lastTouch);
 
     if (movement.x > 20 || movement.y > 20)
