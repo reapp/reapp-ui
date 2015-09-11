@@ -16,18 +16,16 @@ module.exports = Component({
 
   getInitialState() {
     return {
-      checked: this.props.checked
+      checked: this.props.checked || this.props.defaultChecked
     };
   },
 
   handleChange() {
-    if (!this.refs.input.getDOMNode().checked)
-      this.setState({ checked: true });
-    else
-      this.setState({ checked: false });
+    let checked = !this.state.checked;
+    this.setState({ checked: checked });
 
     if (this.props.onChange)
-      this.props.onChange(this.state.checked);
+      this.props.onChange(checked);
   },
 
   render() {
@@ -36,12 +34,14 @@ module.exports = Component({
       this.addStyles('toggleSwitch', 'toggleSwitchIsChecked');
     }
 
+    var { onChange, defaultChecked, checked, ...props } = this.props;
+
     return (
       <Tappable {...this.componentProps()} onTap={this.handleChange} stopPropagation>
         <input
           {...this.componentProps('input')}
-          {...this.props}
-          checked={this.state.checked}
+          {...props}
+          defaultChecked={this.state.checked}
         />
         <span {...this.componentProps('toggle')}>
           <span {...this.componentProps('toggleSwitch')} />

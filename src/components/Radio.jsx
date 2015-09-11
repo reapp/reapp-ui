@@ -12,7 +12,7 @@ module.exports = Component({
 
   getInitialState() {
     return {
-      checked: this.props.checked
+      checked: this.props.checked || this.props.defaultChecked
     };
   },
 
@@ -27,7 +27,7 @@ module.exports = Component({
   },
 
   render() {
-    var { iconProps, ...props } = this.props;
+    var { iconProps, defaultChecked, checked, onChange, ...props } = this.props;
 
     return (
       <Tappable {...this.componentProps()} onTap={this.handleChange} stopPropagation>
