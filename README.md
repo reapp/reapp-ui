@@ -157,8 +157,7 @@ more work than usual to contribute. For the UI, the best setup is to do the foll
 5. **Important:** Run `rm -r node_modules/react` in reapp-ui and be sure react isn't duplicated in Webpack build
 6. Run `npm run build` in this directory, this will build your reapp-ui for the first time and put it into the ./build folder.
 7. Run `npm run copyAssets` in this directory to copy assets to the babel output directory.
-8. Run `npm run watch` in this directory to start babel compiler
-   Note: Be sure to edit in `./src` directory only.
+8. Run `npm run watch` in this directory to start babel compiler. **Note**: Be sure to edit in `./src` directory only.
 9. Run `ln -s $PREFIX/lib/node_modules/reapp-ui/build node_modules/reapp-ui`
 inside the kitchen sink repository. The placeholder `$PREFIX` is the
 [prefix](https://docs.npmjs.com/files/folders#prefix-configuration)
