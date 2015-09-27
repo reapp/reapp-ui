@@ -12,13 +12,13 @@ export class chooseColor extends React.Component {
   constructor(props, context) {
 
     this.colors = [
-      { displayElements: '<div>Apricot</div>', display: 'Apricot', value: 0 },
-      { displayElements: '<div>Beige</div>', display: 'Beige', value: 1 },
-      { displayElements: '<div>Black</div>', display: 'Black', value: 2 },
-      { displayElements: '<div>Blonde</div>', display: 'Blonde', value: 3 },
-      { displayElements: '<div>Blue</div>', display: 'Blue', value: 4 },
-      { displayElements: '<div>Blue Merle</div>', display: 'Blue Merle', value: 5 },
-      { displayElements: '<div>Brindle</div>', display: 'Brindle', value: 6 }
+      { inListElement: '<div>Apricot</div>', inputDisplayText: 'Apricot', value: 0 },
+      { inListElement: '<div>Beige</div>', inputDisplayText: 'Beige', value: 1 },
+      { inListElement: '<div>Black</div>', inputDisplayText: 'Black', value: 2 },
+      { inListElement: '<div>Blonde</div>', inputDisplayText: 'Blonde', value: 3 },
+      { inListElement: '<div>Blue</div>', inputDisplayText: 'Blue', value: 4 },
+      { inListElement: '<div>Blue Merle</div>', inputDisplayText: 'Blue Merle', value: 5 },
+      { inListElement: '<div>Brindle</div>', inputDisplayText: 'Brindle', value: 6 }
     ];
   }
 
@@ -55,10 +55,10 @@ Basic typeahead input and results list.
 
 Type: `Array of Objects`
 Default: []
-Allowed Keys: `displayElements`, `display`, `value`
+Allowed Keys: `inListElement`, `inputDisplayText`, `value`
 
-Pass in html to be shown for each list item into the "displayElements" property, pass in what gets shown in the typeahead input box into the "display" property, and pass in the value that gets sent back into the "value" property of each array element.
-* Note: You can pass arrays or objects into the Value, and it gets stuck into the first parameter of the callback function defined in "onOptionSelected".
+Pass in html/jsx to be shown for each list item into the "inListElement" property, pass in what should be shown in the typeahead input box into the "inputDisplayText" property, and pass in the value that gets sent back into the "value" property of each array element.
+* Note: You can pass a single value, an array or an object into the "value" property, and it gets sent as the first parameter of the callback function defined in "onOptionSelected".
 
 #### props.defaultValue
 
@@ -150,7 +150,7 @@ If provided as a string, it will interpret it as a field name and fuzzy filter o
 
 Type: `Boolean`
 
-Decide whether or not to show a custom value such as a static option at the end of your option list that is always shown.
+Determines whether to show a custom value such as a static option at the end of the list of options that is always shown.
 
 #### props.staticCustomValue
 
@@ -162,7 +162,7 @@ Set the default customValue display property.
 
 Type: `Object`
 
-Set any addtional props that will be included on the typeahead input.
+Set any additional props that will be included on the typeahead input.
 
 ## Developing
 

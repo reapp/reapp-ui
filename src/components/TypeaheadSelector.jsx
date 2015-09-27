@@ -48,13 +48,13 @@ module.exports = Component({
 
     this.props.options.forEach(function(result, i) {
       results.push (
-        <TypeaheadOption 
+        <TypeaheadOption
           {...this.componentProps('typeaheadOption')}
           optionStyles={this.props.optionStyles}
-          data-test={result.keys} ref={result} key={result.display}
+          data-test={result.keys} ref={result} key={result.inputDisplayText}
           hover={this.state.selectionIndex === results.length}
           onMouseDown={this._onMouseDown.bind(this, result)}>
-          { result.displayElements }
+          { result.inListElement }
         </TypeaheadOption>
       );
     }, this);
@@ -63,7 +63,7 @@ module.exports = Component({
     if (this.props.customValue !== null) {
 
       results.push(
-        <TypeaheadOption 
+        <TypeaheadOption
           {...this.componentProps('typeaheadOption')}
           optionStyles={this.props.optionStyles}
           ref={this.props.customValue} key={this.props.customValue}

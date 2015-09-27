@@ -59,15 +59,15 @@ var Typeahead = Component({
     };
   },
 
-  getOptionsForDisplay(display, options) {
+  getOptionsForDisplay(inputDisplayText, options) {
     var result;
     if (this.props.filterOption) {
-      result = options.display.filter((function(o) { return this.props.filterOption(display, o); }).bind(this));
+      result = options.inputDisplayText.filter((function(o) { return this.props.filterOption(inputDisplayText, o); }).bind(this));
     } else {
       var optionSet = {
-        extract: function(el) { return el.display; }
+        extract: function(el) { return el.inputDisplayText; }
       };
-      result = fuzzy.filter(display, options, optionSet).map(function(res) {
+      result = fuzzy.filter(inputDisplayText, options, optionSet).map(function(res) {
         return res.original;
       });
     }
@@ -93,11 +93,11 @@ var Typeahead = Component({
     if (this._hasCustomValue()) {
       if (!!this.props.staticCustomValue) {
         var customValue = {};
-        customValue.display = this.props.staticCustomValue;
+        customValue.inputDisplayText = this.props.staticCustomValue;
         return customValue;
       } else {
         var customValue = {};
-        customValue.display = this.state.defaultValue;
+        customValue.inputDisplayText = this.state.defaultValue;
         return customValue;
       }
 
@@ -147,16 +147,16 @@ var Typeahead = Component({
     var nEntry = this.refs.entry.getDOMNode();
     var defaultValue = null;
     nEntry.focus();
-    nEntry.value = option.display;
+    nEntry.value = option.inputDisplayText;
     if (!!this.props.clearOnOptionSelected) {
       nEntry.value = "";
       defaultValue = "";
     } else {
-      nEntry.value = option.display;
-      defaultValue = option.display;
+      nEntry.value = option.inputDisplayText;
+      defaultValue = option.inputDisplayText;
     }
-    this.setState({visible: this.getOptionsForDisplay(option.display, this.props.options),
-                   selection: option.display,
+    this.setState({visible: this.getOptionsForDisplay(option.inputDisplayText, this.props.options),
+                   selection: option.inputDisplayText,
                    defaultValue: defaultValue});
     return this.props.onOptionSelected(option, event);
   },
