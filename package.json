@@ -23,7 +23,6 @@
   "dependencies": {
     "classnames": "^1.2.0",
     "css-to-matrix": "^1.0.0",
-    "fbjs": "^0.4.0",
     "fuzzy": "^0.1.0",
     "lodash.merge": "^3.1.0",
     "observable-state": "^0.3.4",
@@ -40,6 +39,7 @@
     "validator": "^3.40.0"
   },
   "peerDependencies": {
+    "fbjs": "^0.4.0",
     "react": "^0.14.0"
   },
   "devDependencies": {
