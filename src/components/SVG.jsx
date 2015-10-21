@@ -1,4 +1,5 @@
-var React = require('react/addons');
+var React = require('react');
+var PureRenderMixin = require('react-addons-pure-render-mixin');
 var Component = require('../component');
 
 module.exports = Component({
@@ -15,7 +16,7 @@ module.exports = Component({
   },
 
   mixins: [
-    React.addons.PureRenderMixin
+    PureRenderMixin
   ],
 
   getDefaultProps() {

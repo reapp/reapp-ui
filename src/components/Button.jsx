@@ -5,8 +5,6 @@ var clone = require('../lib/niceClone');
 var Tappable = require('../mixins/Tappable');
 var ButtonGroup = require('./ButtonGroup');
 
-var shallowEqual = require('react/lib/shallowEqual');
-
 var Button = Component({
   name: 'Button',
 

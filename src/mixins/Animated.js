@@ -1,8 +1,8 @@
 var React = require('react');
 var StyleKeys = require('../lib/StyleKeys');
-var invariant = require('react/lib/invariant');
+var invariant = require('fbjs/lib/invariant');
 var Matrix = require('css-to-matrix');
-var shallowEqual = require('react/lib/shallowEqual');
+var shallowCompare = require('react-addons-shallow-compare');
 
 /*
 
@@ -73,7 +73,7 @@ export default {
       return;
 
     // check for new animation state
-    if (!shallowEqual(nextProps.animationState, this.props.animationState))
+    if (!shallowCompare(nextProps.animationState, this.props.animationState))
       this.setAnimationState(nextProps);
   },
 

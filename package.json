@@ -1,6 +1,6 @@
 {
   "name": "reapp-ui",
-  "version": "0.12.49",
+  "version": "0.14.0",
   "description": "A set of components for building themeable, adaptive, animated UI's",
   "main": "index.js",
   "scripts": {
@@ -23,12 +23,15 @@
   "dependencies": {
     "classnames": "^1.2.0",
     "css-to-matrix": "^1.0.0",
+    "fbjs": "^0.4.0",
     "fuzzy": "^0.1.0",
     "lodash.merge": "^3.1.0",
     "observable-state": "^0.3.4",
+    "react-addons-pure-render-mixin": "^0.14.0",
+    "react-addons-shallow-compare": "^0.14.0",
     "react-animate-state": "^1.0.1",
     "react-document-title": "^1.0.2",
-    "react-style": "^0.5.2",
+    "react-style": "^0.5.5",
     "react-style-normalizer": "^1.2.7",
     "reapp-component": "^1.0.0",
     "reapp-object-assign": "^1.0.0",
@@ -37,9 +40,9 @@
     "validator": "^3.40.0"
   },
   "peerDependencies": {
-    "react": "0.13.x"
+    "react": "^0.14.0"
   },
   "devDependencies": {
-    "babel": "^5.1.9"
+    "babel": "^5.8.23"
   }
 }

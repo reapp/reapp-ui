@@ -1,6 +1,3 @@
-// until React 0.14, we emulate the context
-require('./lib/contextPatch');
-
 import Stylesheet from 'react-style';
 import { normalize, normalizeAll } from './lib/normalizeStyles';
 
