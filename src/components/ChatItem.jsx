@@ -1,4 +1,5 @@
-var React = require('react/addons');
+var React = require('react');
+var PureRenderMixin = require('react-addons-pure-render-mixin');
 var Component = require('../component');
 var Icon = require('./Icon');
 var Tappable = require('../mixins/Tappable');
@@ -8,7 +9,7 @@ module.exports = Component({
   name: 'ChatItem',
 
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
     Tappable
   ],
 

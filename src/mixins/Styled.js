@@ -34,7 +34,6 @@ module.exports = {
 
       this.propStyles = pStyles;
       this.propAddedStyles = {};
-      delete props.styles;
     }
   },
 

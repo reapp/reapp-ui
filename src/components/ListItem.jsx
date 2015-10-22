@@ -1,15 +1,17 @@
-var React = require('react/addons');
+var React = require('react');
+var PureRenderMixin = require('react-addons-pure-render-mixin');
 var Component = require('../component');
 var Icon = require('./Icon');
 var Tappable = require('../mixins/Tappable');
 var clone = require('../lib/niceClone');
 var linkedIcon = require('../assets/icons/right.svg');
 
+
 module.exports = Component({
   name: 'ListItem',
 
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
     Tappable
   ],
 

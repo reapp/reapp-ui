@@ -1,4 +1,4 @@
-var invariant = require('react/lib/invariant');
+var invariant = require('fbjs/lib/invariant');
 
 // todo:
 // here should be a variety of stuff that would normally be supplied by Less/SASS
