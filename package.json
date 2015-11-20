@@ -31,7 +31,6 @@
     "react-style-normalizer": "^1.2.8",
     "reapp-component": "^1.0.0",
     "reapp-object-assign": "^1.0.0",
-    "reapp-raf-batching": "^1.0.0",
     "reapp-scroller": "^1.0.1",
     "shallow-equals": "0.0.0",
     "validator": "^3.40.0"
