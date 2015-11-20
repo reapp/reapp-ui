@@ -37,7 +37,7 @@
     "validator": "^3.40.0"
   },
   "peerDependencies": {
-    "react": "0.13.x"
+    "react": "0.14.x"
   },
   "devDependencies": {
     "babel": "^5.2.6"

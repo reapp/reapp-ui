@@ -73,8 +73,6 @@ var UI = module.exports = {
     styles.forEach(style => {
       // style: { styles: { key: requireFunc }, (include: [] | exclude: []) }
       var { styles, include, exclude } = style.styles ? style : { styles: style };
-      var requireFunc = styles.__requireFunc;
-      delete styles.__requireFunc;
       var styleKeys = Object.keys(styles);
 
       if (include && exclude)
@@ -95,7 +93,7 @@ var UI = module.exports = {
   // styles: { name: requireFunc }
   _addStyles(requireFunc, styles) {
     styles.forEach(key => {
-      var style = requireFunc(key);
+      var style = styles[key];
       if (typeof style === 'function')
         style = style(UI.constants);
 
