@@ -11,7 +11,7 @@ UI.addConstants(
   require('./constants/components')
 );
 
-UI.addStyles(require('./styles'));
+UI.addStyles(require('./allStyles'));
 UI.addAnimations(require('./animations'));
 
 module.exports = UI.getTheme();
