@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var Component = require('../component');
 
 module.exports = Component({
@@ -13,10 +13,6 @@ module.exports = Component({
     viewBox: React.PropTypes.string,
     crisp: React.PropTypes.bool
   },
-
-  mixins: [
-    React.addons.PureRenderMixin
-  ],
 
   getDefaultProps() {
     return {

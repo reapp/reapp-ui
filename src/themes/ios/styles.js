@@ -22,6 +22,7 @@ module.exports = makeStyles(requirer, [
   'GalleryCard',
   'GalleryImage',
   'Input',
+  'InputArray',
   'Label',
   'LayoutLeftNav',
   'List',
@@ -38,5 +39,8 @@ module.exports = makeStyles(requirer, [
   'TextArea',
   'Title',
   'TitleBar',
+  'Typeahead',
+  'TypeaheadButton',
+  'TypeaheadList',
   'View'
 ]);
