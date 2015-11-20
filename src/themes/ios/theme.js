@@ -1,4 +1,4 @@
-require('./stylesheets');
+// require('./stylesheets');
 
 var UI = require('../../index');
 
