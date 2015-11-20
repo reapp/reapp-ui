@@ -23,8 +23,8 @@
   "dependencies": {
     "classnames": "^1.2.2",
     "css-to-matrix": "^1.0.0",
-    "lodash.merge": "^3.1.0",
     "fuzzy": "^0.1.0",
+    "lodash.merge": "^3.1.0",
     "observable-state": "^0.3.4",
     "react-animate-state": "^1.0.1",
     "react-style": "js-next/react-style#0.14",
@@ -33,6 +33,7 @@
     "reapp-object-assign": "^1.0.0",
     "reapp-raf-batching": "^1.0.0",
     "reapp-scroller": "^1.0.1",
+    "shallow-equals": "0.0.0",
     "validator": "^3.40.0"
   },
   "peerDependencies": {
