@@ -1,8 +1,7 @@
 var React = require('react');
 var StyleKeys = require('../lib/StyleKeys');
-var invariant = require('react/lib/invariant');
 var Matrix = require('css-to-matrix');
-var shallowEqual = require('react/lib/shallowEqual');
+var shallowEqual = require('shallow-equals');
 
 /*
 

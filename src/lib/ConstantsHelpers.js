@@ -1,4 +1,3 @@
-var invariant = require('react/lib/invariant');
 
 // todo:
 // here should be a variety of stuff that would normally be supplied by Less/SASS
@@ -11,7 +10,6 @@ var ConstantsHelpers = module.exports = {
       hex = hex + hex.charAt(1) + hex.charAt(1) + hex.charAt(1);
 
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    invariant(result, `Could not convert hex ${hex} to rgb`);
 
     return {
       r: parseInt(result[1], 16),
