@@ -1,6 +1,5 @@
 // until React 0.14, we emulate the context
 
-import Stylesheet from 'react-style';
 import { normalize, normalizeAll } from './lib/normalizeStyles';
 
 require('./lib/desktopTouch');
