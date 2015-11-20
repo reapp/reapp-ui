@@ -90,7 +90,7 @@ var UI = module.exports = {
         style = style(UI.constants);
 
       if (!UI.styles[key])
-        UI.styles[key] = Stylesheet.create(normalizeAll(style));
+        UI.styles[key] = normalizeAll(style)
       else
         Object.keys(style).forEach(ref => {
           UI.styles[key][ref] = [].concat(UI.styles[key][ref], normalize(style[ref]));

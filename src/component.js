@@ -4,6 +4,7 @@
 
 var Component = require('reapp-component')();
 var React = require('react');
+var Radium = require('radium');
 var Styled = require('./mixins/Styled');
 var Classed = require('./mixins/Classed');
 var Constanted = require('./mixins/Constanted');
@@ -27,7 +28,7 @@ Component.addDecorator(function (spec) {
   spec.displayName = spec.name;
 
   // wrap in createClass
-  return React.createClass(spec);
+  return Radium(React.createClass(spec));
 });
 
 module.exports = Component;
