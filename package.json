@@ -1,6 +1,6 @@
 {
   "name": "reapp-ui",
-  "version": "0.12.54",
+  "version": "0.12.55",
   "description": "A set of components for building themeable, adaptive, animated UI's",
   "main": "index.js",
   "scripts": {
@@ -23,9 +23,8 @@
   "dependencies": {
     "classnames": "^1.2.2",
     "css-to-matrix": "^1.0.0",
-    "lodash.merge": "^3.2.1",
-    "fuzzy": "^0.1.0",
     "lodash.merge": "^3.1.0",
+    "fuzzy": "^0.1.0",
     "observable-state": "^0.3.4",
     "react-animate-state": "^1.0.1",
     "react-document-title": "^1.0.2",
