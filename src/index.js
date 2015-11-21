@@ -70,7 +70,7 @@ var UI = module.exports = {
         throw new Error('Cannot define include and exclude');
 
       // include or exclude certain styles
-      UI._addStyles(
+      UI._addStyles(styles,
         include && include.length ?
           styleKeys.filter(x => include.indexOf(x) !== -1) :
           exclude && exclude.length ?
@@ -82,8 +82,8 @@ var UI = module.exports = {
 
   // do the actual adding
   // styles: { name: requireFunc }
-  _addStyles(styles) {
-    styles.forEach(key => {
+  _addStyles(styles, keys) {
+    keys.forEach(key => {
       var style = styles[key];
       if (typeof style === 'function')
         style = style(UI.constants);
