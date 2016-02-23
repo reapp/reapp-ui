@@ -41,7 +41,7 @@ module.exports = Component({
 
   centerMiddleTitle() {
     if (this.refs.mid) {
-      const mid = this.refs.mid.getDOMNode();
+      const mid = this.refs.mid;
       let midLeft;
 
       if (!this.props.midWidth) {

@@ -34,7 +34,7 @@ module.exports = function(node) {
       if (!props.scrollTop)
         return;
 
-      this.refs[node].getDOMNode().scrollTop = this.getScrollTop();
+      this.refs[node].scrollTop = this.getScrollTop();
     }
   }
 };

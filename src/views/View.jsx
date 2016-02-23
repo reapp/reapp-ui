@@ -73,7 +73,7 @@ module.exports = Component({
   },
 
   componentDidMount() {
-    this.scrollListener(this.refs.inner.getDOMNode());
+    this.scrollListener(this.refs.inner);
 
     if (this.props.onComponentMounted)
       this.props.onComponentMounted(this.props.index);
@@ -81,7 +81,7 @@ module.exports = Component({
 
   handleDoubleTap() {
     if (this.refs.inner)
-      this.animatedScrollToTop(this.refs.inner.getDOMNode(), 300, this.getScrollTop());
+      this.animatedScrollToTop(this.refs.inner, 300, this.getScrollTop());
   },
 
   hasOverlay() {

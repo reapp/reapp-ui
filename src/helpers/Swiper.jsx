@@ -47,18 +47,18 @@ module.exports = Component({
   },
 
   componentDidMount() {
-    this.above = this.refs.above.getDOMNode();
+    this.above = this.refs.above;
 
     var { width, height, limit, up, down, left, right } = this.props;
     var vertical = up || down;
     var horizontal = left || right;
 
-    var aboveNode = this.refs.above.getDOMNode().children[0];
+    var aboveNode = this.refs.above.children[0];
     width = width || aboveNode.clientWidth;
     height = height || aboveNode.clientHeight;
 
     if (!limit) {
-      var belowNode = this.refs.below.getDOMNode().children[0];
+      var belowNode = this.refs.below.children[0];
       limit = belowNode[vertical ? 'clientHeight' : 'clientWidth'];
     }
 
@@ -72,7 +72,7 @@ module.exports = Component({
   },
 
   componentWillReceiveProps() {
-    this.above = this.refs.above.getDOMNode();
+    this.above = this.refs.above
   },
 
   handleScroll(x, y) {
