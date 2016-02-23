@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var { Scroller } = require('reapp-scroller');
 var Component = require('../component');
 var TitleBar = require('../components/TitleBar');
