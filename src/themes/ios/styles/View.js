@@ -16,7 +16,6 @@ export default c => ({
     background: c.viewBG,
     zIndex: 1,
     flex: 1,
-    height: '100%',
     position: 'relative'
   },
 
