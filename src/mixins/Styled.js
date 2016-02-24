@@ -34,7 +34,12 @@ module.exports = {
 
       this.propStyles = pStyles;
       this.propAddedStyles = {};
-      delete props.styles;
+
+      // props = Object.defineProperty(props, 'styles', { writeable: true });
+      if (!Object.isFrozen(props)) {
+        delete props.styles;
+      }
+
     }
   },
 
