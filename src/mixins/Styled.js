@@ -8,6 +8,23 @@ import { normalize, normalizeAll } from '../lib/normalizeStyles';
 //   3. propStyles: styles passed in with props
 //   4. conditionalStyles: firstChild, lastChild
 
+Object.unfreeze=function(o){
+       var oo=undefined;
+        if( o instanceof Array){
+                oo=[];var clone=function(v){oo.push(v)};
+                o.forEach(clone);
+        }else if(o instanceof String){
+           oo=new String(o).toString();
+      }else  if(typeof o =='object'){
+
+         oo={};
+        for (var property in o){oo[property] = o[property];}
+
+
+        }
+        return oo;
+ }
+
 module.exports = {
   componentWillUpdate(nextProps) {
     this.setupStyles(nextProps);
@@ -36,9 +53,10 @@ module.exports = {
       this.propAddedStyles = {};
 
       // props = Object.defineProperty(props, 'styles', { writeable: true });
-      if (!Object.isFrozen(props)) {
-        delete props.styles;
+      if (Object.isFrozen(props)) {
+        props = Object.unfreeze(props);
       }
+      delete props.styles;
 
     }
   },
