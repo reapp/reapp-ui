@@ -30,9 +30,9 @@
     "react": "0.14.x",
     "react-animate-state": "^1.0.1",
     "react-style-normalizer": "^1.2.8",
-    "reapp-component": "^1.0.0",
+    "reapp-component": "^1.0.2",
     "reapp-object-assign": "^1.0.0",
-    "reapp-scroller": "^1.0.1",
+    "reapp-scroller": "^1.0.8",
     "shallow-equals": "0.0.0",
     "validator": "^3.40.0"
   },
