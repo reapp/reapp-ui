@@ -1,6 +1,6 @@
 {
   "name": "reapp-ui",
-  "version": "0.12.66",
+  "version": "0.12.71",
   "description": "A set of components for building themeable, adaptive, animated UI's",
   "main": "index.js",
   "scripts": {
@@ -9,6 +9,9 @@
     "copyAssets": "cp -r assets package.json build",
     "release": "npm run copyAssets && (cd build && npm publish)",
     "patch": "npm version patch && npm run release"
+  },
+  "browserify": {
+    "transform": ["svg-browserify"]
   },
   "repository": {
     "type": "git",

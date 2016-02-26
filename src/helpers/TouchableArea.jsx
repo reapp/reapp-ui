@@ -48,7 +48,7 @@ var TouchableArea = Component({
       return;
 
     // option to only accept touches on currentTarget
-    if (this.props.currentTargetOnly && e.currentTarget !== this.getDOMNode())
+    if (this.props.currentTargetOnly && e.currentTarget !== this)
       return;
 
     // _disableDirection === null, we haven't figured out if ignoring this scroll yet
