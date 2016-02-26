@@ -10,6 +10,9 @@
     "release": "npm run copyAssets && (cd build && npm publish)",
     "patch": "npm version patch && npm run release"
   },
+  "browserify": {
+    "transform": ["svg-browserify"]
+  },
   "repository": {
     "type": "git",
     "url": "github.com/reapp/reapp-ui"
