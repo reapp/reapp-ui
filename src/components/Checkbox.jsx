@@ -30,6 +30,12 @@ module.exports = Component({
       this.props.onChange(checked);
   },
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.checked !== this.state.checked) {
+      this.handleChange();
+    }
+  },
+
   render() {
     if (this.state.checked) {
       this.addStyles('toggle', 'toggleIsChecked');
