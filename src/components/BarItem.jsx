@@ -55,6 +55,7 @@ module.exports = Component({
       icon = (
         <Icon
           color={this.getConstant(active ? 'barColorActive' : 'barColor')}
+          fill={this.getConstant(active ? 'barColorActive' : 'barColor')}
           size={(display === 'icon-text-right') ? 24 : 32}
           file={icon}
           styles={this.getStyles('icon')}
