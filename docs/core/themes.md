@@ -79,7 +79,7 @@ export default UI.makeTheme();
 ```
 
 One thing to note is that when using the reapp-ui helpers, your styles will have access
-to constants, if you export a function for each one. So you can use them like so:
+to constants if you export a function for each one. So you can use them like so:
 
 ```
 UI.addConstants({ baseColor: '#fff' });
@@ -94,13 +94,13 @@ UI.addStyles({
 
 In general:
 
-- Constants: Used to store fundametal properties of your theme. Passed into Styles that are
+- Constants: Used to store fundamental properties of your theme. Passed into Styles that are
 defined as functions.
 - Styles: One big object that maps Component => ref => styles.
 - Animations: Flat object with key => function, where functions return objects describing animations.
 
 A final note, notice the `UI.makeTheme()`. This exports a plain JS object like the one we started
-out with. Since themes use context, lets learn how to load them into our app.
+out with. Since themes use context, let's learn how to load them into our app.
 
 ### Loading a theme
 

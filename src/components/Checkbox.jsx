@@ -16,7 +16,7 @@ module.exports = Component({
   },
 
   getInitialState() {
-    this.enableAnimations = true;
+    this.enableAnimations = false;
     return {
       checked: this.props.checked || this.props.defaultChecked,
       disabled: this.props.disabled
@@ -24,6 +24,7 @@ module.exports = Component({
   },
 
   handleChange() {
+    this.enableAnimations = true;
     let checked = !this.state.checked;
     if(!!!this.props.disabled)
       this.setState({ checked: checked });
@@ -35,20 +36,21 @@ module.exports = Component({
     if (nextProps.checked !== this.state.checked) {
       let checked = !this.state.checked;
       if(!!!this.props.disabled) {
-        this.enableAnimations = false;
         this.setState({ checked: checked });
       }
     }
   },
 
   render() {
-    if (this.state.checked && this.enableAnimations) {
+    if (this.state.checked) {
       this.addStyles('toggle', 'toggleIsChecked');
       this.addStyles('toggleSwitch', 'toggleSwitchIsChecked');
-    } else {
-      this.enableAnimations = true;
     }
 
+    if (this.enableAnimations) {
+      this.addStyles('toggle', 'animate');
+      this.addStyles('toggleSwitch', 'animate');
+    }
 
     var { onChange, defaultChecked, checked, ...props } = this.props;
 
