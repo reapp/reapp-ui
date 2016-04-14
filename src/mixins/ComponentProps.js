@@ -10,7 +10,9 @@ module.exports = {
     var props = {
       ref,
       className: this.getClassSet(ref),
-      styles: this.getStyles(ref)
+      style: this.getStyles(ref).filter(function (x) {
+        return !!x;
+      })
     };
 
     //this.isAnimating() &&

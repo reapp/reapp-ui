@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var merge = require('lodash.merge');
 
 module.exports = function(children, props, keepOriginalProps) {

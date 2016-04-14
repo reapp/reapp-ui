@@ -65,7 +65,6 @@ var UI = module.exports = {
       // style: { styles: { key: requireFunc }, (include: [] | exclude: []) }
       var { styles, include, exclude } = style.styles ? style : { styles: style };
       var styleKeys = Object.keys(styles);
-
       if (include && exclude)
         throw new Error('Cannot define include and exclude');
 
@@ -85,15 +84,17 @@ var UI = module.exports = {
   _addStyles(styles, keys) {
     keys.forEach(key => {
       var style = styles[key];
-      if (typeof style === 'function')
+      if (typeof style === 'function'){
         style = style(UI.constants);
-
-      if (!UI.styles[key])
+      }
+      if (!UI.styles[key]) {
         UI.styles[key] = normalizeAll(style)
-      else
+      }
+      else {
         Object.keys(style).forEach(ref => {
           UI.styles[key][ref] = [].concat(UI.styles[key][ref], normalize(style[ref]));
         });
+      }
     });
   },
 

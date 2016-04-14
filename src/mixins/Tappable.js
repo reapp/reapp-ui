@@ -130,7 +130,7 @@ module.exports = {
   findScrollableParents: function() {
     this._scrollParents = [];
     this._scrollPos = { top: 0, left: 0 };
-    var node = this.getDOMNode();
+    var node = this;
     while (node) {
       if (node.style && (node.style.overflowY === 'scroll' || node.style.overflowX === 'scroll')) {
         this._scrollParents.push(node);

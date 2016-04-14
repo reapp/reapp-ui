@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var Component = require('../component');
 var MultiTappable = require('../mixins/MultiTappable');
 var clone = require('../lib/niceClone');
@@ -41,7 +41,7 @@ module.exports = Component({
 
   centerMiddleTitle() {
     if (this.refs.mid) {
-      const mid = this.refs.mid.getDOMNode();
+      const mid = this.refs.mid;
       let midLeft;
 
       if (!this.props.midWidth) {

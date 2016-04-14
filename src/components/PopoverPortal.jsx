@@ -19,7 +19,7 @@ module.exports = Component({
   },
 
   componentDidMount() {
-    var popover = this.refs.popover.getDOMNode();
+    var popover = this.refs.popover;
     var position = this.getPositionState(popover, this.props.target);
     this.setState(position);
 

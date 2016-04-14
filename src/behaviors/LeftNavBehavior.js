@@ -3,14 +3,14 @@ var LeftNavBehavior = {
     parent: {
       translate: function(parentWidth, scrollLeft) {
         return {
-          x: parentWidth - .5 * scrollLeft
+          x: parentWidth - 0.5 * scrollLeft
         };
       },
       rotate: function() {
         return null;
       },
       opacity: function(parentWidth, scrollLeft) {
-        return .5 + .5 * (1 - scrollLeft / parentWidth);
+        return 0.5 + 0.5 * (1 - scrollLeft / parentWidth);
       }
     },
     child: {

@@ -17,7 +17,7 @@ module.exports = Component({
   },
 
   handleChange(e) {
-    if (!this.refs.input.getDOMNode().checked)
+    if (!this.refs.input.checked)
       this.setState({ checked: true });
     else
       this.setState({ checked: false });

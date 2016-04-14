@@ -49,7 +49,7 @@ var AnimatableContainer = Component({
           this.props.timout * POLL_FACTOR
         );
       }
-      this.getDOMNode().classList.add('_isAnimating');
+      this.classList.add('_isAnimating');
     }
   },
 
@@ -58,7 +58,7 @@ var AnimatableContainer = Component({
       window.clearInterval(this._animationInterval);
       this._animationInterval = null;
       this._isAnimating = false;
-      this.getDOMNode().classList.remove('_isAnimating');
+      this.classList.remove('_isAnimating');
       this.forceUpdate();
     }
   },

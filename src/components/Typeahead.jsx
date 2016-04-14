@@ -78,7 +78,7 @@ var Typeahead = Component({
   },
 
   setEntryText(value) {
-    this.refs.entry.getDOMNode().value = value;
+    this.refs.entry.value = value;
     this._onTextEntryUpdated();
   },
 
@@ -144,7 +144,7 @@ var Typeahead = Component({
   },
 
   _onOptionSelected(option, event) {
-    var nEntry = this.refs.entry.getDOMNode();
+    var nEntry = this.refs.entry;
     var defaultValue = null;
     nEntry.focus();
     nEntry.value = option.inputDisplayText;
@@ -163,12 +163,12 @@ var Typeahead = Component({
 
   _closeTypeahead() {
     event.stopPropagation();
-    var nEntry = this.refs.entry.getDOMNode();
+    var nEntry = this.refs.entry;
     this.setState({visible: this.state.defaultValue, selection: nEntry.value, defaultValue: this.state.defaultValue});
   },
 
   _onTextEntryUpdated() {
-    var enteredText = this.refs.entry.getDOMNode().value;
+    var enteredText = this.refs.entry.value;
     this.setState({visible: this.getOptionsForDisplay(enteredText, this.props.options),
                    selection: null,
                    defaultValue: enteredText});

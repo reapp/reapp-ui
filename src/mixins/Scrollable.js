@@ -35,12 +35,11 @@ var Scrollable = {
   },
 
   _measureScroll() {
-    var node = this.getDOMNode();
+    var node = this;
     var content = this.refs.content;
     var contentWidth, contentHeight;
 
     if (content) {
-      content = content.getDOMNode();
       contentWidth = content.clientWidth;
       contentHeight = content.clientHeight;
     }

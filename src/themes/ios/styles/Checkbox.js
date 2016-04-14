@@ -16,7 +16,6 @@ module.exports = {
     appearance: 'none',
     border: 'none',
     cursor: 'pointer',
-    transitionDuration: '300ms',
     zIndex: 0,
     margin: 0,
     padding: 0
@@ -38,10 +37,13 @@ module.exports = {
     left: 2,
     boxShadow: '0 2px 5px rgba(0,0,0,0.35)',
     transform: 'translateX(0px)',
-    transitionDuration: '300ms'
   },
 
   toggleSwitchIsChecked: {
     transform: 'translateX(22px)'
+  },
+
+  animate: {
+    transitionDuration: '300ms'
   }
 };

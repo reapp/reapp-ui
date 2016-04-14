@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var Component = require('../component');
 var BarItem = require('./BarItem');
 var clone = require('../lib/niceClone');
