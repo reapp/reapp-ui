@@ -11,7 +11,7 @@ module.exports = function(children, props, keepOriginalProps) {
 
     return React.isValidElement(child) ?
       React.cloneElement(child, keepOriginalProps ?
-        merge(child.props, curProps) :
+        Object.assign({}, child.props, curProps) :
         curProps) :
       child;
   });
