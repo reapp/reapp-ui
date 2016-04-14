@@ -11,6 +11,21 @@ var Constanted = require('./mixins/Constanted');
 var Animated = require('./mixins/Animated');
 var ComponentProps = require('./mixins/ComponentProps');
 
+function ConfiguredRadium(component) {
+  return Radium({
+    plugins: [
+      Radium.Plugins.mergeStyleArray,
+      // Radium.Plugins.checkProps,
+      Radium.Plugins.resolveMediaQueries,
+      Radium.Plugins.resolveInteractionStyles,
+      Radium.Plugins.keyframes,
+      Radium.Plugins.visited,
+      Radium.Plugins.prefix,
+      // Radium.Plugins.checkProps
+    ]
+  })(component);
+}
+
 Component.addDecorator(function (spec) {
 
   Object.assign(spec, ComponentProps, Constanted);
@@ -28,7 +43,7 @@ Component.addDecorator(function (spec) {
   spec.displayName = spec.name;
 
   // wrap in createClass
-  return Radium(React.createClass(spec));
+  return ConfiguredRadium(React.createClass(spec));
 });
 
 module.exports = Component;
