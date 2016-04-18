@@ -29,6 +29,7 @@
     "classnames": "^2.2.3",
     "css-to-matrix": "^1.0.0",
     "fuzzy": "^0.1.1",
+    "lodash": "^4.11.1",
     "lodash.merge": "^4.0.1",
     "observable-state": "^0.3.4",
     "radium": "^0.16.4",
