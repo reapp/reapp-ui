@@ -111,7 +111,7 @@ module.exports = Component({
     } = this.props;
 
     // titlebar props modifications
-    var modifiedTitleBarProps = Object.assign({
+    var modifiedTitleBarProps = Object.assign({}, {
       onDoubleTap: this.handleDoubleTap,
       isInViewList
     }, titleBarProps);

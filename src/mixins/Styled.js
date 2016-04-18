@@ -1,4 +1,5 @@
 import { normalize, normalizeAll } from '../lib/normalizeStyles';
+var _ = require('lodash');
 
 // Styled - helps with this.context.theme.styles
 
@@ -51,12 +52,7 @@ module.exports = {
 
       this.propStyles = pStyles;
       this.propAddedStyles = {};
-
-      // props = Object.defineProperty(props, 'styles', { writeable: true });
-      if (Object.isFrozen(props)) {
-        props = Object.unfreeze(props);
-      }
-      delete props.styles;
+      props =  _.omit(props,'styles');
 
     }
   },
