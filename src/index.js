@@ -82,8 +82,26 @@ var UI = module.exports = {
   // do the actual adding
   // styles: { name: requireFunc }
   _addStyles(styles, keys) {
+    var requireFunc = styles.__requireFunc;
+
+    // Load the requireFunc for our custom styles
+    if(requireFunc) {
+      // Remove function and keys
+      delete styles.__requireFunc;
+      var ind = keys.indexOf("__requireFunc");
+      keys.splice(ind, 1);
+    }
+
     keys.forEach(key => {
-      var style = styles[key];
+      var style;
+
+      // If there are external styles to require, load them
+      // else load the styles from the theme
+      if(requireFunc)
+        style = requireFunc(key);
+      else
+        style = styles[key];
+      
       if (typeof style === 'function'){
         style = style(UI.constants);
       }
