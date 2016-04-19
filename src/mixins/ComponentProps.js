@@ -17,7 +17,7 @@ module.exports = {
 
     //this.isAnimating() &&
     if (this.hasAnimations(ref) && !this.animationsDisabled())
-      props.style = this.getAnimationStyle(ref);
+      props.style.push(this.getAnimationStyle(ref));
 
     return props;
   }
