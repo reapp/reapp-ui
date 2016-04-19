@@ -24,7 +24,7 @@ module.exports = Component({
       this.addStyles('fullscreen');
 
     return (
-      <div {...this.componentProps()} {...props}>
+      <div {...this.componentProps()} {...this.props}>
         {this.props.children}
       </div>
     );
