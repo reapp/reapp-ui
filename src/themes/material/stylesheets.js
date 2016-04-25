@@ -1,0 +1,1 @@
+require('../../assets/styles/material/base.css');

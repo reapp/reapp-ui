@@ -4,6 +4,8 @@ var Icon = require('./Icon');
 var clone = require('../lib/niceClone');
 var Tappable = require('../mixins/Tappable');
 var ButtonGroup = require('./ButtonGroup');
+var TouchRipple = require('../helpers/ripple/TouchRipple');
+import ReactTransitionGroup from 'react-addons-transition-group';
 
 var Button = Component({
   name: 'Button',
@@ -77,13 +79,17 @@ var Button = Component({
       animationSource: animationSource || isInTitleBar && 'viewList',
       tapActive
     });
+    
+    var rippleStyle = 'rippleDark';
 
-    if (color)
+    if (color) {
       this.addStyles({
         borderColor: color,
         background: color,
         color: '#fff'
       });
+      var rippleStyle = 'rippleLight';
+    }
 
     if (textColor)
       this.addStyles({
@@ -105,31 +111,48 @@ var Button = Component({
     if (rounded)
       this.addStyles('rounded');
 
-    if (filled)
+    if (filled) {
       this.addStyles('filled');
+      var rippleStyle = 'rippleLight';
+    }
 
     if (inactive)
       this.addStyles('inactive');
 
     if (tapActive)
-      if (filled)
+      if (filled && !chromeless)
         this.addStyles('tapActiveFilled');
       else
         this.addStyles(isInTitleBar ? 'tapActiveTitleBar' : 'tapActive');
 
     var tapProps;
-    if (this.props.onTap) {
-      tapProps = this.tappableProps();
-      this.addClass(tapProps.className);
+    tapProps = this.tappableProps();
+    this.addClass(tapProps.className);
+
+
+    if (chromeless)
+      this.addStyles('chromeless');
+
+    if (this.state.tapActive) {
+      this.addClass('tapActive');
+    } else {
+      this.addClass('tapInactive');
     }
 
+    this.addStyles('ripple', rippleStyle);
+
     return (
-      <div {...tapProps} {...this.componentProps()} {...props}>
-        {icon || !!iconProps && <Icon {...cloneProps} />}
-        <div {...this.componentProps('inner')}>
-          {children}
-        </div>
-      </div>
+      <button {...this.componentProps()} {...props}>
+        <TouchRipple
+          {...this.componentProps('ripple')}
+          centerRipple={false}
+        >
+          {icon || !!iconProps && <Icon {...cloneProps} />}
+          <div {...tapProps} {...this.componentProps('inner')}>
+            {children}
+          </div>
+        </TouchRipple>
+      </button>
     );
   }
 });

@@ -1,6 +1,7 @@
 // until React 0.14, we emulate the context
 
 import { normalize, normalizeAll } from './lib/normalizeStyles';
+import _ from 'lodash';
 
 require('./lib/desktopTouch');
 require('reapp-object-assign');
@@ -111,6 +112,9 @@ var UI = module.exports = {
       else {
         Object.keys(style).forEach(ref => {
           UI.styles[key][ref] = [].concat(UI.styles[key][ref], normalize(style[ref]));
+          if (Array.isArray(UI.styles[key][ref])) {
+            UI.styles[key][ref] = Object.assign(...UI.styles[key][ref]);
+          }
         });
       }
     });

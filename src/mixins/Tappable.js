@@ -66,6 +66,7 @@ module.exports = {
     onTouchStart: React.PropTypes.func,          // pass-through touch event
     onTouchMove: React.PropTypes.func,           // pass-through touch event
     onTouchEnd: React.PropTypes.func,            // pass-through touch event
+    onMouseEnter: React.PropTypes.func,          // pass-through mouse event
     onMouseDown: React.PropTypes.func,           // pass-through mouse event
     onMouseUp: React.PropTypes.func,             // pass-through mouse event
     onMouseMove: React.PropTypes.func,           // pass-through mouse event
@@ -249,7 +250,12 @@ module.exports = {
     this.setInactive();
   },
 
+  onMouseEnter: function() {
+
+  },
+
   onMouseDown: function(event) {
+    this.setActive(true);
     if (window._blockMouseEvents) {
       window._blockMouseEvents = false;
       return;
@@ -297,6 +303,7 @@ module.exports = {
       onTouchStart: this.onTouchStart,
       onTouchMove: this.onTouchMove,
       onTouchEnd: this.onTouchEnd,
+      onMouseEnter: this.onMouseEnter,
       onMouseDown: this.onMouseDown,
       onMouseMove: this.onMouseMove,
       onMouseUp: this.onMouseUp,
