@@ -78,11 +78,11 @@ export default c => ({
   textareaBG: c.white,
 
   // TitleBar
-  titleBarHeight: 44,
-  titleBarColor: c.black,
+  titleBarHeight: 64,
+  titleBarColor: c.white,
   titleBarBorderColor: c.light,
-  titleBarFontSize: '16px',
-  titleBarBG: '#f8f8f8',
+  titleBarFontSize: '24px',
+  titleBarBG: '#00bcd4',
 
   // View
   viewBG: '#f4f4f4',
