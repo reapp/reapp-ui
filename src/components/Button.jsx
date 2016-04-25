@@ -147,7 +147,8 @@ var Button = Component({
     return (
       <div {...this.componentProps()} {...props}>
         <TouchRipple
-          {...this.componentProps('ripple')}
+          rippleStyle={this.componentProps('ripple').style}
+          style={this.componentProps('rippleGroup').style}
           centerRipple={false}
         >
           {icon || !!iconProps && <Icon {...cloneProps} />}

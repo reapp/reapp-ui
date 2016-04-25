@@ -54,7 +54,7 @@ class TouchRipple extends React.Component {
 
     // Add a ripple to the ripples array
     ripples = push(ripples, (
-      <CircleRipple key={this.state.nextKey} style={!this.props.centerRipple ? this.getRippleStyle(event) : this.props.style} touchGenerated={isRippleTouchGenerated} />
+      <CircleRipple key={this.state.nextKey} style={!this.props.centerRipple ? this.getRippleStyle(event) : this.props.rippleStyle} touchGenerated={isRippleTouchGenerated} />
     ));
 
     this.ignoreNextMouseDown = isRippleTouchGenerated;
@@ -148,7 +148,7 @@ class TouchRipple extends React.Component {
   }
 
   getRippleStyle(event) {
-    const style = this.props.style;
+    const style = this.props.rippleStyle;
     const el = ReactDOM.findDOMNode(this);
     const elHeight = el.offsetHeight;
     const elWidth = el.offsetWidth;
@@ -199,7 +199,7 @@ class TouchRipple extends React.Component {
         top: 0,
         left: 0,
         overflow: 'hidden',
-      }, divStyles);
+      }, divStyles, ...style);
 
       rippleGroup = (
         <ReactTransitionGroup style={mergedStyles}>

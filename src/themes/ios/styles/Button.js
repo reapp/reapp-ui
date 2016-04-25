@@ -20,6 +20,11 @@ export default c => ({
     margin: 0
   },
 
+  rippleGroup: {
+    display: 'none',
+    opacity: '0'
+  },
+
   ripple: {
     display: 'none',
     opacity: '0'

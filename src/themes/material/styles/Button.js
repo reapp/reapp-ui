@@ -28,6 +28,10 @@ export default c => ({
     transform: 'translate3d(0, 0, 0)',
   },
 
+  rippleGroup: {
+
+  },
+
   ripple: {
     opacity: '0.16'
   },
