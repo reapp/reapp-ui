@@ -120,39 +120,42 @@ var Button = Component({
       this.addStyles('inactive');
 
     if (tapActive)
-      if (filled && !chromeless)
+      if (filled && !chromeless) {
         this.addStyles('tapActiveFilled');
-      else
+        console.log('add tapActiveFilled')
+      } else {
+        console.log('add tapActive or tapActiveTitleBar')
         this.addStyles(isInTitleBar ? 'tapActiveTitleBar' : 'tapActive');
+      }
 
     var tapProps;
     tapProps = this.tappableProps();
     this.addClass(tapProps.className);
 
 
-    if (chromeless)
-      this.addStyles('chromeless');
+    //if (chromeless)
+    //  this.addStyles('chromeless');
 
-    if (this.state.tapActive) {
-      this.addClass('tapActive');
-    } else {
-      this.addClass('tapInactive');
-    }
+    //if (this.state.tapActive) {
+    //  this.addClass('tapActive');
+    //} else {
+    //  this.addClass('tapInactive');
+    //}
 
     this.addStyles('ripple', rippleStyle);
 
     return (
-      <button {...this.componentProps()} {...props}>
+      <div {...this.componentProps()} {...props}>
         <TouchRipple
           {...this.componentProps('ripple')}
           centerRipple={false}
         >
           {icon || !!iconProps && <Icon {...cloneProps} />}
           <div {...tapProps} {...this.componentProps('inner')}>
-            {children}
+            <div {...this.componentProps('text')}>{children}</div>
           </div>
         </TouchRipple>
-      </button>
+      </div>
     );
   }
 });

@@ -6,7 +6,7 @@ export default c => ({
     background: 'none',
     borderRadius: '5px',
     textAlign: 'center',
-    padding: '8px',
+    height: '40px',
     minHeight: '40px',
     zoom: 1,
     lineHeight: 'normal',
@@ -20,13 +20,31 @@ export default c => ({
     margin: 0
   },
 
+  ripple: {
+    display: 'none',
+    opacity: '0'
+  },
+
+  rippleLight: {
+    backgroundColor: '#FFF'
+  },
+
+  rippleDark: {
+    backgroundColor: '#FFF'
+  },
+
   inner: {
+    position: 'relative',
     margin: 'auto',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
-    display: 'block',
-    maxWidth: '100%',
+    width: '100%',
+    height: '100%'
+  },
+
+  text: {
+    margin: 'auto auto'
   },
 
   isInTitleBar: {
@@ -59,6 +77,10 @@ export default c => ({
   },
 
   tapActive: {
+    background: c.buttonTapActiveBG
+  },
+
+  tapActiveFilled: {
     background: c.buttonTapActiveBG
   },
 

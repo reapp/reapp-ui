@@ -250,12 +250,7 @@ module.exports = {
     this.setInactive();
   },
 
-  onMouseEnter: function() {
-
-  },
-
   onMouseDown: function(event) {
-    this.setActive(true);
     if (window._blockMouseEvents) {
       window._blockMouseEvents = false;
       return;
@@ -303,7 +298,6 @@ module.exports = {
       onTouchStart: this.onTouchStart,
       onTouchMove: this.onTouchMove,
       onTouchEnd: this.onTouchEnd,
-      onMouseEnter: this.onMouseEnter,
       onMouseDown: this.onMouseDown,
       onMouseMove: this.onMouseMove,
       onMouseUp: this.onMouseUp,

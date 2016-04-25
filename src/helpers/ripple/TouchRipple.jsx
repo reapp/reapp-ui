@@ -199,7 +199,7 @@ class TouchRipple extends React.Component {
         top: 0,
         left: 0,
         overflow: 'hidden',
-      }, divStyles, style);
+      }, divStyles);
 
       rippleGroup = (
         <ReactTransitionGroup style={mergedStyles}>

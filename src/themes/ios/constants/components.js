@@ -22,7 +22,7 @@ export default c => ({
 
   // Button
   buttonBorderColor: c.activeBG,
-  buttonColor: c.white,
+  buttonColor: c.activeBG,
   buttonFilledBG: c.activeBG,
   buttonFilledColor: c.activeColor,
   buttonTapActiveBG: 'rgba(0,0,0,0.1)',
