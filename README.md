@@ -15,7 +15,7 @@ for all platforms. It has a few goals:
 
 ### Usage
 
-The most simple way of using reapp-ui is to load one of our themes, and
+The simplest way of using reapp-ui is to load one of our themes, and
 then import the components you want to use. Here's an example of this;
 
 ```js
@@ -36,10 +36,10 @@ export default React.createClass({
 ```
 
 This will bundle every style for every component in the iOS theme. It's
-simple and easy to get started with. Reapp themes are very powerful though,
-and allow you to customize every piece of them.
+simple and easy to get started with. Reapp themes are very powerful, though,
+and they allow you to customize every aspect of them.
 
-Lets see how they work. If you open the `reapp-ui/themes/ios/theme.js` file
+Let's see how they work. If you open the `reapp-ui/themes/ios/theme.js` file
 you'll see how we load the iOS theme:
 
 ```js
@@ -57,7 +57,7 @@ export default UI.makeTheme();
 ```
 
 As you can see, we're basically loading three different pieces: constants,
-styles, and animations. We're also loading the stylesheets file, which
+styles, and animations. We're also loading the stylesheets file which
 includes our base.css styles that are used to normalize everything.
 
 You could easily override each of these steps by adding in new constants,
@@ -77,7 +77,7 @@ more on how Reapp works, check out:
 
 ### Demos
 
-You can add these demos to your homescreen or emulate mobile on your browser:
+You can add these demos to your home screen or emulate mobile on your browser:
 
 - [kitchen.reapp.io](http://kitchen.reapp.io)
 - [hn.reapp.io](http://hn.reapp.io)
@@ -114,8 +114,8 @@ are easier to debug).
 
 Used to set up reapp-ui.
 
-reapp-ui uses three different things that must be imported at init. These
-things are imported so they can be mixed and matched for use with adapating
+reapp-ui uses three different things that must be imported at initialization. These
+things are imported so they can be mixed and matched for use with adapting
 theme or behavior.
 
 For now it has three relevant methods:
@@ -133,21 +133,21 @@ For now it has three relevant methods:
   take an object with `index`, `step` as keys, an optionally extra keys with more info.
   **See /themes/ios/animations.js for examples.**
 
-To see how you'd make a theme, I'd suggest looking at `/themes/ios/theme.js`. You
+To see how you'd make a theme, we suggest looking at `/themes/ios/theme.js`. You
 can require that file to have the entire iOS theme setup for you automatically.
 
 **component.js**
 
 component is a decorator that is used internally by reapp-ui to make components. It
 was extracted out and is a nice set of mixins that allow the ui components to avoid
-reptitious code.
+repetitious code.
 
-This is an important file to look at before understanding how this library works,
+This is an important file to inspect before understanding how this library works,
 and from there, the Mixins that are used here make the foundation of the UI kit.
 
 #### Contributing
 
-Because Reapp has split itself into a number of modules, you'll probably need to do a little
+Because Reapp is split into a number of modules, you'll probably need to do a little
 more work than usual to contribute. For the UI, the best setup is to do the following:
 
 1. Create a `reapp` folder

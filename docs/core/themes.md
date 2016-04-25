@@ -2,7 +2,7 @@
 
 ## Themes
 
-Themes are handled through contexts in the latest Reapp UI (0.11). While it's a small
+Themes are handled through contexts in the latest Reapp UI. While it's a small
 change in code to support, it's a huge enhancement in flexibility.
 
 A theme consists of constants, styles and animations. It looks like this:
@@ -99,12 +99,12 @@ defined as functions.
 - Styles: One big object that maps Component => ref => styles.
 - Animations: Flat object with key => function, where functions return objects describing animations.
 
-A final note, notice the `UI.makeTheme()`. This exports a plain JS object like the one we started
+A final note: notice the `UI.makeTheme()`. This exports a plain JS object like the one we started
 out with. Since themes use context, let's learn how to load them into our app.
 
 ### Loading a theme
 
-With reapp-kit, you already have your theme loaded. When you build you top-level component,
+With reapp-kit, you already have your theme loaded. When you build your top-level component,
 you just need to wrap it like so:
 
 ```js
