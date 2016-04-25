@@ -15,7 +15,7 @@ var animations = {
 <Component animations={animations}>
 ```
 
-In the above example we are definining a more complex animation, where the component is being told to animate it's outermost div (`self`) with two animations: 'fade' and 'moveLeft'. Meanwhile, we assign the 'moveRight' animation to it's button.
+In the above example we are defining a more complex animation, where the component is being told to animate its outermost div (`self`) with two animations: 'fade' and 'moveLeft'. Meanwhile, we assign the 'moveRight' animation to its button.
 
 In reapp-ui, we have a helper that automatically handles these props. The keys in the animation object merely map to DOM nodes within the component. We expose a function `componentProps()` that returns props for our components in a structured way. For example, within our above Component we would write:
 
@@ -34,7 +34,7 @@ Component({
 })
 ```
 
-The componentProps would end up apply attributes on those nodes like this:
+The componentProps would end up applying attributes on those nodes like this:
 
 ```
 <div ref="self" className="MyButton">
@@ -53,7 +53,7 @@ A simple mixin to run animations through context or within a component.
 #### Core concepts
 
 The Animated mixin uses the `this.context.theme.animations : object`
-to search for animations. Animations are function that take an object,
+to search for animations. Animations are functions that take an object,
 like so: `{ index, state, ...extraProps }` and return an object with
 the following options:
 
@@ -94,8 +94,8 @@ To ease setting this context, check out the Animator mixin.
 ### getAnimationState(source : string) : object
 
 Animation state consists always of two things: `index` and `step`.
-You can also add extra information to you animation state by defining
-`animationContext` on your class, which can be an object, or function:
+You can also add extra information to your animation state by defining
+`animationContext` on your class, which can be an object or function:
 
 ```
 animationContext: {
@@ -238,4 +238,3 @@ Let's make our Child elements:
 var animations = { self: 'slideLeft' };
 <Child animations={animations}>
 ```
-
