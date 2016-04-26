@@ -17,7 +17,7 @@ export default c => ({
     flexFlow: 'row',
     flexAlign: 'center',
     alignItems: 'center',
-    margin: 0
+    margin: '0 0'
   },
 
   rippleGroup: {
@@ -40,6 +40,7 @@ export default c => ({
 
   inner: {
     position: 'relative',
+    flexFlow: 'row',
     margin: 'auto',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -53,6 +54,7 @@ export default c => ({
   },
 
   isInTitleBar: {
+    margin: 'auto 8px',
     color: c.buttonColorTitleBar
   },
 

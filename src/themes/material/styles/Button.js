@@ -51,13 +51,24 @@ export default c => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
-    display: 'block',
+    flexFlow: 'row',
+    flexDirection: 'row',
     width: '100%',
     height: '100%'
   },
 
+  text: {
+    width: '100%',
+    height: '100%',
+    textAlign: 'center'
+  },
+
   isInTitleBar: {
     color: c.buttonColorTitleBar
+  },
+
+  titleBarText: {
+    textAlign: 'left'
   },
 
   chromeless: {

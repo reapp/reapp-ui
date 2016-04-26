@@ -8,7 +8,7 @@ var iconProps = {
   stroke: 4,
   styles: {
     self: {
-      margin: '0 2px 0 -2px'
+      margin: 'auto 2px auto -2px'
     }
   }
 };

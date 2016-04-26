@@ -99,8 +99,10 @@ var Button = Component({
     if (icon)
       icon = clone(icon, cloneProps, true);
 
-    if (isInTitleBar)
+    if (isInTitleBar) {
       this.addStyles('isInTitleBar');
+      this.addStyles('text', 'titleBarText');
+    }
 
     if (chromeless)
       this.addStyles('chromeless');
@@ -126,6 +128,9 @@ var Button = Component({
       } else {
         console.log('add tapActive or tapActiveTitleBar')
         this.addStyles(isInTitleBar ? 'tapActiveTitleBar' : 'tapActive');
+        if (chromeless) {
+          this.addStyles('tapActiveChromeless');
+        }
       }
 
     var tapProps;
@@ -151,8 +156,8 @@ var Button = Component({
           style={this.componentProps('rippleGroup').style}
           centerRipple={false}
         >
-          {icon || !!iconProps && <Icon {...cloneProps} />}
-          <div {...tapProps} {...this.componentProps('inner')}>
+          <div {...this.componentProps('inner')} {...tapProps}>
+            {icon || !!iconProps && <Icon {...cloneProps} />}
             <div {...this.componentProps('text')}>{children}</div>
           </div>
         </TouchRipple>

@@ -1,6 +1,7 @@
 const supportsHairline = require('./supportsHairline')();
 
-const brandColor = '#307cff';
+const primary = '#ffffff';
+const secondary = '#307cff';
 const light = supportsHairline ? '#d9d9dc' : '#ddd';
 const mid = '#bbb';
 
@@ -32,16 +33,16 @@ export default {
   mid: mid,
   dark: '#8e8e93',
 
-  brandColor: brandColor,
+  brandColor: primary,
   brandColorInactive: '#a3a3a3',
 
-  active: brandColor,
+  active: primary,
   inactive: mid,
 
   inactiveBG: '#e5e5e5',
   inactiveColor: '#a1a1a1',
 
-  activeBG: brandColor,
+  activeBG: secondary,
   activeColor: '#fff',
 
   edgeWidth: 30

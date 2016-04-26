@@ -26,7 +26,7 @@ export default c => ({
   buttonFilledBG: c.activeBG,
   buttonFilledColor: c.activeColor,
   buttonTapActiveBG: 'rgba(0,0,0,0.1)',
-  buttonColorTitleBar: c.activeBG,
+  buttonColorTitleBar: c.brandColor,
 
   // Chat
   chatItemBG: '#999',
@@ -37,8 +37,8 @@ export default c => ({
   dotBG: '#000',
 
   // Icon
-  iconColor: c.brandColor,
-  iconColorTitleBar: c.activeBG,
+  iconColor: c.activeBG,
+  iconColorTitleBar: c.brandColor,
 
   // Input
   inputColor: c.black,
