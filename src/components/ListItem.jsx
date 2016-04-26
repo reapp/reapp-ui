@@ -4,6 +4,7 @@ var Icon = require('./Icon');
 var Tappable = require('../mixins/Tappable');
 var clone = require('../lib/niceClone');
 var linkedIcon = require('../assets/icons/right.svg');
+var TouchRipple = require('../helpers/ripple/TouchRipple');
 
 module.exports = Component({
   name: 'ListItem',
@@ -108,16 +109,19 @@ module.exports = Component({
     if (wrapper) {
       var hasLinkIcon = this.isLink(wrapper) || icon;
 
+      var padStyles = {};
+      if (hasLinkIcon)
+        padStyles = this.getStyles('wrapperPadRight');
+
       wrapper = clone(wrapper, {
         children: hasLinkIcon ?
           this.getIcon() :
           null,
-        style: this.getStyles('wrapper')[0]
+        style: Object.assign({}, this.getStyles('wrapper')[0], padStyles[0])
       });
 
       // pad out right side if it has a wrapper
-      if (hasLinkIcon)
-        this.addStyles({ paddingRight: 20 });
+      
     }
     else if (icon) {
       wrapper = this.getIcon();
@@ -130,6 +134,12 @@ module.exports = Component({
 
     if (nopad || children && children.type && children.type.liNoPad)
       this.addStyles('content', 'contentNoPad');
+
+    if (!before)
+      this.addStyles('touchRipple', 'selfNoPadLeft');
+
+    if (!after)
+      this.addStyles('touchRipple', 'selfNoPadRight');
 
     var section = this.makeSection;
     var content = [
@@ -147,15 +157,23 @@ module.exports = Component({
     ];
 
     var tapProps;
-    if (this.props.onTap)
-      tapProps = this.tappableProps();
+    tapProps = this.tappableProps();
 
     if (this.state.tapActive)
       this.addStyles('tapActive');
 
+    var touchRippleStyles = {
+      self: this.componentProps('touchRipple').style
+    }
+
     return (
       <div {...tapProps} {...props} {...this.componentProps()}>
-        {content}
+        <TouchRipple
+          styles={touchRippleStyles}
+          centerRipple={false}
+        >
+          {content}
+        </TouchRipple>
       </div>
     );
   }

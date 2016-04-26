@@ -45,6 +45,7 @@ export default c => ({
   inputBG: c.white,
 
   // List
+  listBorder: 'solid 1px #d9d9d9',
   listTitleColor: '#f7f7f7',
   listBG: '#fff',
 

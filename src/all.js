@@ -44,6 +44,8 @@ module.exports = Object.assign(
   Theme: require('./helpers/Theme'),
   TouchableArea: require('./helpers/TouchableArea'),
   TreeNode: require('./helpers/TreeNode'),
+  TouchRipple: require('./helpers/ripple/TouchRipple'),
+  CircleRipple: require('./helpers/ripple/CircleRipple'),
 
   // behaviors
   NestedViewListBehavior: require('./behaviors/NestedViewListBehavior'),

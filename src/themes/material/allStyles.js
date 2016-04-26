@@ -36,6 +36,7 @@ export default {
   TextArea: require('./styles/TextArea'),
   Title: require('./styles/Title'),
   TitleBar: require('./styles/TitleBar'),
+  TouchRipple: require('./styles/TouchRipple'),
   Typeahead: require('./styles/Typeahead'),
   TypeaheadButton: require('./styles/TypeaheadButton'),
   TypeaheadList: require('./styles/TypeaheadList'),

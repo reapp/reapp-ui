@@ -4,6 +4,7 @@ import ReactTransitionGroup from 'react-addons-transition-group';
 import Dom from '../../utils/dom';
 import CircleRipple from './CircleRipple';
 import update from 'react-addons-update';
+var Component = require('../../component');
 
 function push(array, obj) {
   const newObj = Array.isArray(obj) ? obj : [obj];
@@ -15,33 +16,31 @@ function shift(array) {
   return update(array, {$splice: [[0, 1]]});
 }
 
-class TouchRipple extends React.Component {
-  static propTypes = {
+module.exports = Component({
+  name: 'TouchRipple',
+
+  propTypes: {
     abortOnScroll: React.PropTypes.bool,
     centerRipple: React.PropTypes.bool,
-    children: React.PropTypes.node
-  };
+    children: React.PropTypes.node,
+    secondaryRipple: React.PropTypes.bool
+  },
 
-  static defaultProps = {
-    abortOnScroll: true,
-  };
+  getDefaultProps() {
+    return {
+      abortOnScroll: true,
+      secondaryRipple: false
+    };
+  },
 
-  constructor(props, context) {
-    super(props, context);
-    // Touch start produces a mouse down event for compat reasons. To avoid
-    // showing ripples twice we skip showing a ripple for the first mouse down
-    // after a touch start. Note we don't store ignoreNextMouseDown in this.state
-    // to avoid re-rendering when we change it.
+  getInitialState() {
     this.ignoreNextMouseDown = false;
-
-    this.state = {
-      // This prop allows us to only render the ReactTransitionGroup
-      // on the first click of the component, making the inital render faster.
+    return {
       hasRipples: false,
       nextKey: 0,
       ripples: [],
-    };
-  }
+    }
+  },
 
   start(event, isRippleTouchGenerated) {
 
@@ -54,7 +53,7 @@ class TouchRipple extends React.Component {
 
     // Add a ripple to the ripples array
     ripples = push(ripples, (
-      <CircleRipple key={this.state.nextKey} style={!this.props.centerRipple ? this.getRippleStyle(event) : this.props.rippleStyle} touchGenerated={isRippleTouchGenerated} />
+      <CircleRipple key={this.state.nextKey} style={!this.props.centerRipple ? this.getRippleStyle(event) : this.componentProps('ripple').style} touchGenerated={isRippleTouchGenerated} />
     ));
 
     this.ignoreNextMouseDown = isRippleTouchGenerated;
@@ -63,7 +62,7 @@ class TouchRipple extends React.Component {
       nextKey: this.state.nextKey + 1,
       ripples: ripples,
     });
-  }
+  },
 
   end() {
     const currentRipples = this.state.ripples;
@@ -73,24 +72,24 @@ class TouchRipple extends React.Component {
     if (this.props.abortOnScroll) {
       this.stopListeningForScrollAbort();
     }
-  }
+  },
 
-  handleMouseDown = (event) => {    
+  handleMouseDown(event) {    
     if (event.button === 0) {
       this.start(event, false);
     }
-  };
+  },
 
-  handleMouseUp = () => {
+  handleMouseUp() {
     this.end();
-  };
+  },
 
-  handleMouseLeave = () => {
+  handleMouseLeave() {
     this.end();
-  };
+  },
 
-  handleTouchStart = (event) => {
-    event.stopPropagation();
+  handleTouchStart(event) {
+    //event.stopPropagation();
     // If the user is swiping (not just tapping), save the position so we can
     // abort ripples if the user appears to be scrolling.
     if (this.props.abortOnScroll && event.touches) {
@@ -98,14 +97,14 @@ class TouchRipple extends React.Component {
       this.startTime = Date.now();
     }
     this.start(event, true);
-  };
+  },
 
-  handleTouchEnd = () => {
+  handleTouchEnd() {
     this.end();
-  };
+  },
 
   // Check if the user seems to be scrolling and abort the animation if so
-  handleTouchMove = (event) => {
+  handleTouchMove(event) {
     // Stop trying to abort if we're already 300ms into the animation
     const timeSinceStart = Math.abs(Date.now() - this.startTime);
     if (timeSinceStart > 300) {
@@ -132,7 +131,7 @@ class TouchRipple extends React.Component {
         this.end();
       });
     }
-  };
+  },
 
   startListeningForScrollAbort(event) {
     this.firstTouchY = event.touches[0].clientY;
@@ -141,14 +140,19 @@ class TouchRipple extends React.Component {
     // Also note we don't listen for scroll events directly as there's no general
     // way to cover cases like scrolling within containers on the page
     document.body.addEventListener('touchmove', this.handleTouchMove);
-  }
+  },
 
   stopListeningForScrollAbort() {
     document.body.removeEventListener('touchmove', this.handleTouchMove);
-  }
+  },
 
   getRippleStyle(event) {
-    const style = this.props.rippleStyle;
+    var style;
+    if (!this.props.secondaryRipple) {
+      style = Object.assign({}, ...this.componentProps('ripple').style, ...this.componentProps('primaryRipple').style);
+    } else {
+      style = Object.assign({}, ...this.componentProps('ripple').style, ...this.componentProps('secondaryRipple').style);
+    }
     const el = ReactDOM.findDOMNode(this);
     const elHeight = el.offsetHeight;
     const elWidth = el.offsetWidth;
@@ -168,14 +172,14 @@ class TouchRipple extends React.Component {
     const rippleSize = rippleRadius * 2;
     const left = pointerX - rippleRadius;
     const top = pointerY - rippleRadius;
-    var mergedStyles = Object.assign({height: `${rippleSize}px`, width: `${rippleSize}px`, top: `${top}px`, left: `${left}px`}, ...style);
+    var mergedStyles = Object.assign({height: `${rippleSize}px`, width: `${rippleSize}px`, top: `${top}px`, left: `${left}px`}, style);
 
     return mergedStyles;
-  }
+  },
 
   calcDiag(a, b) {
     return Math.sqrt((a * a) + (b * b));
-  }
+  },
 
   render() {
     const {children, style} = this.props;
@@ -183,26 +187,9 @@ class TouchRipple extends React.Component {
 
     let rippleGroup;
 
-    const divStyles = {
-      height: '100%',
-      width: '100%',
-      flexFow: 'row',
-      WebkitFlexFlow: 'row',
-      flexFlow: 'row',
-      alignItems: 'center',
-      WebkitAlignItems: 'center'
-    };
-
     if (hasRipples) {
-      const mergedStyles = Object.assign({
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        overflow: 'hidden',
-      }, divStyles, ...style);
-
       rippleGroup = (
-        <ReactTransitionGroup style={mergedStyles}>
+        <ReactTransitionGroup {...this.componentProps('rippleGroup')}>
           {ripples}
         </ReactTransitionGroup>
       );
@@ -215,13 +202,11 @@ class TouchRipple extends React.Component {
         onMouseLeave={this.handleMouseLeave}
         onTouchStart={this.handleTouchStart}
         onTouchEnd={this.handleTouchEnd}
-        style={divStyles}
+        {...this.componentProps()}
       >
         {rippleGroup}
         {children}
       </div>
     );
   }
-}
-
-export default TouchRipple;
+});

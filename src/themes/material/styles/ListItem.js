@@ -1,16 +1,37 @@
 module.exports = (c) => ({
   self: {
+    position: 'relative',
     background: c.listBG,
     listStyle: 'none',
     margin: 0,
-    padding: '0 0 0 20px',
     overflow: 'hidden',
     flexFlow: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     minHeight: 44,
-    position: 'relative',
     transition: 'background linear 50ms'
+  },
+
+  touchRipple: {
+    position: 'relative',
+    padding: '16px 56px 16px 72px',
+    background: c.listBG,
+    listStyle: 'none',
+    margin: 0,
+    overflow: 'hidden',
+    flexFlow: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    minHeight: 44,
+    transition: 'background linear 50ms'
+  },
+
+  selfNoPadLeft: {
+    paddingLeft: 0
+  },
+
+  selfNoPadRight: {
+    paddingRight: 0
   },
 
   tapActive: {
@@ -38,18 +59,27 @@ module.exports = (c) => ({
     zIndex: 1
   },
 
+  wrapperPadRight: {
+    paddingRight: '20px'
+  },
+
   before: {
+    position: 'absolute',
+    left: '4px',
+    top: '8px',
+    flexFlow: 'row',
+    justifyContent: 'center',
     flexShrink: 0,
     flexWrap: 'nowrap',
-    margin: '0 12px 0 0'
+    padding: '0 0 0 12px',
+    margin: '0 0 0 0'
   },
 
   content: {
-    borderTop: `${c.onePx} solid ${c.listItemBorderColor}`,
+    padding: '0 16px 0 16px',
     flexShrink: 1,
     flexGrow: 800,
     color: c.listItemContentColor,
-    padding: '11px 12px 11px 0',
     position: 'relative'
   },
 
@@ -64,16 +94,20 @@ module.exports = (c) => ({
   },
 
   title: {
+    lineHeight: '16px',
     fontWeight: 500,
     maxWidth: '100%'
   },
 
   titleAfter: {
     color: c.listItemTitleAfterColor,
-    fontSize: '15px'
+    fontSize: '15px',
+    padding: 0
   },
 
   titleSub: {
+    lineHeight: '16px',
+    margin: '4px 0 0 0',
     fontSize: '15px',
     fontWeight: 400,
     whiteSpace: 'nowrap',
@@ -101,12 +135,14 @@ module.exports = (c) => ({
   },
 
   after: {
-    borderTop: `${c.onePx} solid ${c.listItemBorderColor}`,
+    position: 'absolute',
+    right: '16px',
+    top: '8px',
     color: c.listItemAfterColor,
     flexShrink: 0,
-    padding: '0 12px',
     justifyContent: 'center',
     whiteSpace: 'nowrap',
     alignSelf: 'stretch',
   }
+
 });

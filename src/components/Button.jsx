@@ -53,6 +53,7 @@ var Button = Component({
     // Props used for special display
     isInTitleBar: React.PropTypes.bool,
     isInViewList: React.PropTypes.bool,
+    secondaryRipple: React.PropTypes.bool
   },
 
   render() {
@@ -70,6 +71,7 @@ var Button = Component({
       inactive,
       isInTitleBar,
       isInViewList,
+      secondaryRipple,
       animationSource,
       ...props } = this.props;
 
@@ -152,8 +154,7 @@ var Button = Component({
     return (
       <div {...this.componentProps()} {...props}>
         <TouchRipple
-          rippleStyle={this.componentProps('ripple').style}
-          style={this.componentProps('rippleGroup').style}
+          secondaryRipple={secondaryRipple}
           centerRipple={false}
         >
           <div {...this.componentProps('inner')} {...tapProps}>

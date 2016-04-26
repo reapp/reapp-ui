@@ -38,6 +38,10 @@ module.exports = (c) => ({
     zIndex: 1
   },
 
+  wrapperPadRight: {
+    paddingRight: '20px'
+  },
+
   before: {
     flexShrink: 0,
     flexWrap: 'nowrap',
