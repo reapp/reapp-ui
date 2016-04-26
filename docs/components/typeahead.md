@@ -1,10 +1,10 @@
-# typeahead
+## Typeahead
 
-> A typeahead/autocomplete component for reapp-ui
+A type-ahead/autocomplete component for reapp-ui
 
-## Usage
+### Usage
 
-For a typeahead input:
+For a Typeahead input:
 
 ```javascript
 import { React, Reapp, Typeahead } from 'reapp-kit';
@@ -43,102 +43,102 @@ export class chooseColor extends React.Component {
 }
 ```
 
-## API
+### API
 
-### Typeahead(props)
+#### Typeahead(props)
 
 Type: React Component
 
-Basic typeahead input and results list.
+Basic Typeahead input and results list.
 
-#### props.options
+##### props.options
 
 Type: `Array of Objects`
 Default: []
 Allowed Keys: `inListElement`, `inputDisplayText`, `value`
 
-Pass in html/jsx to be shown for each list item into the "inListElement" property, pass in what should be shown in the typeahead input box into the "inputDisplayText" property, and pass in the value that gets sent back into the "value" property of each array element.
+Pass in html/jsx to be shown for each list item into the "inListElement" property, pass in what should be shown in the Typeahead input box into the "inputDisplayText" property, and pass in the value that gets sent back into the "value" property of each array element.
 * Note: You can pass a single value, an array or an object into the "value" property, and it gets sent as the first parameter of the callback function defined in "onOptionSelected".
 
-#### props.defaultValue
+##### props.defaultValue
 
 Type: `String`
 
 A default value used when the component has no value. If it matches any options a option list will show.
 
-#### props.customClasses
+##### props.customClasses
 
 Type: `Object`
 
-An object of classes to be applied to the typeahead input box.
+An object of classes to be applied to the Typeahead input box.
 
-#### props.inputStyles
-
-Type: `Object`
-
-An object of styles to be applied to the typeahead input box.
-
-#### props.optionStyles
+##### props.inputStyles
 
 Type: `Object`
 
-An object of styles to be applied to each typeahead option shown.
+An object of styles to be applied to the Typeahead input box.
 
-#### props.maxVisible
+##### props.optionStyles
+
+Type: `Object`
+
+An object of styles to be applied to each Typeahead option shown.
+
+##### props.maxVisible
 
 Type: `Number`
 
 Limit the number of options rendered in the results list.
 
-#### props.listStyles
+##### props.listStyles
 
 Type: `Object`
 
-An object containing custom styles for the list of elements that is shown in the typeahead.
+An object containing custom styles for the list of elements that is shown in the Typeahead.
 
-#### props.placeholder
+##### props.placeholder
 
 Type: `String`
 
-Placeholder text for the typeahead input.
+Placeholder text for the Typeahead input.
 
-#### props.onKeyDown
-
-Type: `Function`
-
-Event handler for the `keyDown` event on the typeahead input.
-
-#### props.onBlur
+##### props.onKeyDown
 
 Type: `Function`
 
-Event handler for the `blur` event on the typeahead input.
+Event handler for the `keyDown` event on the Typeahead input.
 
-#### props.onFocus
+##### props.onBlur
 
 Type: `Function`
 
-Event handler for the `focus` event on the typeahead input.
+Event handler for the `blur` event on the Typeahead input.
 
-#### props.onOptionSelected
+##### props.onFocus
+
+Type: `Function`
+
+Event handler for the `focus` event on the Typeahead input.
+
+##### props.onOptionSelected
 
 Type: `Function`
 
 Event handler triggered whenever a user picks an option.
 
-#### props.clearOnOptionSelected
+##### props.clearOnOptionSelected
 
 Type: `bool`
 
-Depict if the typeahead input box should be cleared when an option is selected.
+Depict if the Typeahead input box should be cleared when an option is selected.
 
-#### props.disabled
+##### props.disabled
 
 Type: `bool`
 
-Depict if the typeahead input box should be disabled, and only show default value.
+Depict if the Typeahead input box should be disabled, and only show default value.
 
-#### props.filterOption
+##### props.filterOption
 
 Type: `String` or `Function`
 
@@ -146,42 +146,20 @@ A function to filter the provided `options` based on the current input value. Fo
 
 If provided as a string, it will interpret it as a field name and fuzzy filter on that field of each option object.
 
-#### props.allowCustomValues
+##### props.allowCustomValues
 
 Type: `Boolean`
 
 Determines whether to show a custom value such as a static option at the end of the list of options that is always shown.
 
-#### props.staticCustomValue
+##### props.staticCustomValue
 
 Type: `String`
 
 Set the default customValue display property.
 
-#### props.inputProps
+##### props.inputProps
 
 Type: `Object`
 
-Set any additional props that will be included on the typeahead input.
-
-## Developing
-
-### Setting Up
-
-You will need to get a reapp project up and running to use the typeahead component.
-
-```
-
-### Contributing
-
-Basically, fork the repository and send a pull request.  It can be difficult to review these, so
-here are some general rules to follow for getting your PR accepted more quickly:
-
-- All new properties and exposed component function should be documented in the README.md
-- Break your changes into smaller, easy to understand commits.
-- Send separate PRs for each commit when possible.
-- Feel free to rebase, merge, and rewrite commits to make them more readable.
-- Add comments explaining anything that's not painfully obvious.
-- Add unit tests for your change if possible.
-
-[reactecf]: https://facebook.github.io/react/tips/expose-component-functions.html
+Set any additional props that will be included on the Typeahead input.
