@@ -9,7 +9,8 @@ module.exports = (c) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     minHeight: 44,
-    transition: 'background linear 50ms'
+    transition: 'background linear 50ms',
+    cursor: 'pointer'
   },
 
   touchRipple: {
@@ -61,6 +62,10 @@ module.exports = (c) => ({
 
   wrapperPadRight: {
     paddingRight: '20px'
+  },
+
+  wrappedPad: {
+    padding: '0 0 0 16px'
   },
 
   before: {

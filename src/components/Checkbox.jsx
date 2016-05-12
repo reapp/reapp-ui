@@ -33,7 +33,7 @@ module.exports = Component({
   },
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.checked !== this.state.checked) {
+    if ((typeof nextProps.checked !== 'undefined') && (nextProps.checked !== this.state.checked)) {
       let checked = !this.state.checked;
       if(!!!this.props.disabled) {
         this.setState({ checked: checked });

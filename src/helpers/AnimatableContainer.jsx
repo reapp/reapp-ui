@@ -41,6 +41,8 @@ var AnimatableContainer = Component({
       style[StyleKeys.TRANSFORM] !== prevStyle[StyleKeys.TRANSFORM]
     );
 
+    console.log('this._isAnimating: ' + this._isAnimating);
+
     if (this._isAnimating) {
       this._lastAnimationTime = Date.now();
       if (this.props.timeout && !this._animationInterval) {
@@ -49,7 +51,7 @@ var AnimatableContainer = Component({
           this.props.timout * POLL_FACTOR
         );
       }
-      this.classList.add('_isAnimating');
+      this.getDOMNode().classList.add('_isAnimating');
     }
   },
 
@@ -58,7 +60,7 @@ var AnimatableContainer = Component({
       window.clearInterval(this._animationInterval);
       this._animationInterval = null;
       this._isAnimating = false;
-      this.classList.remove('_isAnimating');
+      this.getDOMNode().remove('_isAnimating');
       this.forceUpdate();
     }
   },

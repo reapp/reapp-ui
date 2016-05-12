@@ -4,6 +4,54 @@ var Form = require('./Form');
 var TypeaheadSelector = require('./TypeaheadSelector');
 var fuzzy = require('fuzzy');
 var classNames = require('classnames');
+var searchIcon = require('../../assets/icons/search.svg');
+var micIcon = require('../../assets/icons/mic3.svg');
+var closeIcon = require('../../assets/icons/material-close.svg');
+var leftIcon = require('../../assets/icons/material-left.svg');
+
+var searchIconProps = {
+  size: 24,
+  file: searchIcon,
+  viewBox: '16 12 24 24',
+  stroke: 0,
+  styles: {
+    self: {
+    }
+  }
+};
+
+var micIconProps = {
+  size: 24,
+  file: micIcon,
+  viewBox: '304 12 24 24',
+  stroke: 0,
+  styles: {
+    self: {
+    }
+  }
+};
+
+var backIconProps = {
+  size: 24,
+  file: leftIcon,
+  viewBox: '52 99 24 24',
+  stroke: 0,
+  styles: {
+    self: {
+    }
+  }
+};
+
+var closeIconProps = {
+  size: 24,
+  file: closeIcon,
+  viewBox: '416 99 24 24',
+  stroke: 0,
+  styles: {
+    self: {
+    }
+  }
+};
 
 var Typeahead = Component({
   name: 'Typeahead',
@@ -23,6 +71,7 @@ var Typeahead = Component({
     inputProps: React.PropTypes.object,
     onOptionSelected: React.PropTypes.func,
     clearOnOptionSelected: React.PropTypes.bool,
+    closeOnBlur: React.PropTypes.bool,
     onKeyDown: React.PropTypes.func,
     filterOption: React.PropTypes.func,
     disabled: React.PropTypes.bool,
@@ -42,6 +91,7 @@ var Typeahead = Component({
       inputProps: {},
       onOptionSelected: function(option) {},
       clearOnOptionSelected: false,
+      closeOnBlur: false,
       onKeyDown: function(event) {},
       filterOption: null,
       disabled: false,
@@ -60,16 +110,18 @@ var Typeahead = Component({
   },
 
   getOptionsForDisplay(inputDisplayText, options) {
-    var result;
+    var result = [];
     if (this.props.filterOption) {
       result = options.inputDisplayText.filter((function(o) { return this.props.filterOption(inputDisplayText, o); }).bind(this));
     } else {
       var optionSet = {
-        extract: function(el) { return el.inputDisplayText; }
+        extract: function(el) { return el.display; }
       };
-      result = fuzzy.filter(inputDisplayText, options, optionSet).map(function(res) {
-        return res.original;
-      });
+      if (!!inputDisplayText) {
+        result = fuzzy.filter(inputDisplayText, options, optionSet).map(function(res) {
+          return res.original;
+        });
+      }
     }
     if (this.props.maxVisible) {
       result = result.slice(0, this.props.maxVisible);
@@ -80,6 +132,14 @@ var Typeahead = Component({
   setEntryText(value) {
     this.refs.entry.value = value;
     this._onTextEntryUpdated();
+  },
+
+  _enableVoice() {
+    alert('Enable voice to text.');
+  },
+
+  _focusEntry() {
+    this.refs.entry.refs.input.getDOMNode().focus();
   },
 
   _hasCustomValue() {
@@ -122,6 +182,7 @@ var Typeahead = Component({
     }
 
     if (this._hasCustomValue()) {
+      console.log('customValue - this.state.visible: ' + this.state.visible);
       return (
         <TypeaheadSelector
           ref="sel" options={this.state.visible}
@@ -133,6 +194,7 @@ var Typeahead = Component({
       );
     }
 
+    console.log('return - this.state.visible: ' + this.state.visible);
     return (
       <TypeaheadSelector
         ref="sel" options={ this.state.visible }
@@ -144,31 +206,39 @@ var Typeahead = Component({
   },
 
   _onOptionSelected(option, event) {
-    var nEntry = this.refs.entry;
+    console.log('onOptionSelected!');
+    var nEntry = this.refs.entry.refs.input;
     var defaultValue = null;
     nEntry.focus();
-    nEntry.value = option.inputDisplayText;
+    nEntry.value = option.display;
     if (!!this.props.clearOnOptionSelected) {
       nEntry.value = "";
       defaultValue = "";
     } else {
-      nEntry.value = option.inputDisplayText;
-      defaultValue = option.inputDisplayText;
+      nEntry.value = option.value;
+      defaultValue = option.display;
     }
-    this.setState({visible: this.getOptionsForDisplay(option.inputDisplayText, this.props.options),
-                   selection: option.inputDisplayText,
+    console.log('this.getOptionsForDisplay(option.display, this.props.options): ' + this.getOptionsForDisplay(option.display, this.props.options));
+    this.setState({visible: this.getOptionsForDisplay(option.display, this.props.options),
+                   selection: option.display,
                    defaultValue: defaultValue});
     return this.props.onOptionSelected(option, event);
   },
 
+  _onBlur() {
+    if (this.props.closeOnBlur) {
+      this._closeTypeahead();
+    }
+  },
+
   _closeTypeahead() {
     event.stopPropagation();
-    var nEntry = this.refs.entry;
-    this.setState({visible: this.state.defaultValue, selection: nEntry.value, defaultValue: this.state.defaultValue});
+    var nEntry = this.refs.entry.refs.input;
+    this.setState({visible: [], selection: nEntry.value, defaultValue: ''});
   },
 
   _onTextEntryUpdated() {
-    var enteredText = this.refs.entry.value;
+    var enteredText = this.refs.entry.refs.input.value;
     this.setState({visible: this.getOptionsForDisplay(enteredText, this.props.options),
                    selection: null,
                    defaultValue: enteredText});
@@ -256,20 +326,33 @@ var Typeahead = Component({
     classes[this.props.className] = !!this.props.className;
     var classList = classNames(classes);
 
+    var leftIconProps = searchIconProps;
+    var leftIconFunc = this._focusEntry;
+    var rightIconProps = micIconProps;
+    var rightIconFunc = this._enableVoice;
+    if (!!this.state.defaultValue && this.state.defaultValue != '') {
+      leftIconProps = backIconProps;
+      rightIconProps = closeIconProps;
+      var rightIconFunc = this._closeTypeahead;
+    }
+
     return (
       <div {...this.componentProps()} className={classList}>
         { this._renderHiddenInput() }
         <Form.Input ref="entry"
           {...this.props.inputProps}
+          leftIconProps={leftIconProps}
+          leftIconFunc={leftIconFunc}
+          rightIconProps={rightIconProps}
+          rightIconFunc={rightIconFunc}
           disabled={this.props.disabled}
-          styles={this.props.inputStyles}
           placeholder={this.props.placeholder}
           className={inputClassList}
           value={this.state.defaultValue}
           defaultValue={this.props.defaultValue}
           onChange={this._onTextEntryUpdated}
           onKeyDown={this._onKeyDown}
-          onBlur={this._closeTypeahead}
+          onBlur={this._onBlur}
           autoCapitalize="words" />
         { this._renderIncrementalSearchResults() }
       </div>

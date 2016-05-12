@@ -9,7 +9,7 @@ module.exports = Component({
   name: 'TypeaheadOption',
 
   propTypes: {
-    customValue: React.PropTypes.string,
+    customValue: React.PropTypes.object,
     onMouseDown: React.PropTypes.func,
     children: React.PropTypes.string,
     hover: React.PropTypes.bool,

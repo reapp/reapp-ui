@@ -3,6 +3,8 @@ var Component = require('../component');
 var TypeaheadList = require('./TypeaheadList');
 var TypeaheadOption = require('./TypeaheadOption');
 var classNames = require('classnames');
+var List = require('./List');
+var ListItem = require('./ListItem');
 
 /**
  * Container for the options rendered as part of the autocompletion process
@@ -15,7 +17,7 @@ module.exports = Component({
     listStyles: React.PropTypes.object,
     optionStyles: React.PropTypes.object,
     options: React.PropTypes.array,
-    customValue: React.PropTypes.string,
+    customValue: React.PropTypes.object,
     selectionIndex: React.PropTypes.number,
     onOptionSelected: React.PropTypes.func
   },
@@ -46,16 +48,17 @@ module.exports = Component({
 
     var results = [];
 
+    console.log('this.props.options: ' + this.props.options);
     this.props.options.forEach(function(result, i) {
       results.push (
-        <TypeaheadOption
+        <ListItem
           {...this.componentProps('typeaheadOption')}
-          optionStyles={this.props.optionStyles}
+          styles={this.props.optionStyles}
           data-test={result.keys} ref={result} key={result.inputDisplayText}
           hover={this.state.selectionIndex === results.length}
           onMouseDown={this._onMouseDown.bind(this, result)}>
-          { result.inListElement }
-        </TypeaheadOption>
+          { result.displayElements }
+        </ListItem>
       );
     }, this);
 
@@ -63,19 +66,19 @@ module.exports = Component({
     if (this.props.customValue !== null) {
 
       results.push(
-        <TypeaheadOption
+        <ListItem
           {...this.componentProps('typeaheadOption')}
-          optionStyles={this.props.optionStyles}
+          styles={this.props.optionStyles}
           ref={this.props.customValue} key={this.props.customValue}
           hover={this.state.selectionIndex === results.length}
           customValue={this.props.customValue}
           onMouseDown={this._onMouseDown.bind(this, this.props.customValue)}>
-          { this.props.customValue }
-        </TypeaheadOption>
+          { this.props.customValue.inputDisplayText }
+        </ListItem>
       );
     }
 
-    return <TypeaheadList className={classList} styles={this.props.listStyles}>{ results }</TypeaheadList>;
+    return <List className={classList} styles={{self: this.getStyles('self')}}>{ results }</List>;
   },
 
   setSelectionIndex(index) {

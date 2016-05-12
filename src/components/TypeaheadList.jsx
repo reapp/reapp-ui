@@ -8,6 +8,6 @@ module.exports = Component({
   render() {
     var {...props } = this.props;
 
-    return <List {...this.componentProps()} {...props} />;
+    return <List {...this.componentProps()} {...props} wrap />;
   }
 });

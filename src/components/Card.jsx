@@ -15,10 +15,15 @@ module.exports = Component({
     };
   },
 
-  makeSection(title, content) {
+  makeSection(title, content, subTitle, subContent) {
     return content && (
       <span {...this.componentProps(title)}>
-        {content}
+        <div>{content}</div>
+        {(typeof subTitle !== 'undefined') && 
+          <div {...this.componentProps(subTitle)}>
+            {subContent}
+          </div>
+        }
       </span>
     );
   },
@@ -27,11 +32,12 @@ module.exports = Component({
     var {
       children,
       title,
+      subTitle,
       ...props } = this.props;
 
     return (
       <div {...this.componentProps()} {...props}>
-        {this.makeSection('title', title)}
+        {this.makeSection('title', title, 'subTitle', subTitle)}
         {this.makeSection('content', children)}
       </div>
     );

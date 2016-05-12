@@ -93,6 +93,7 @@ var UI = module.exports = {
       keys.splice(ind, 1);
     }
 
+    var hereCount = 0;
     keys.forEach(key => {
       var style;
 
@@ -113,7 +114,17 @@ var UI = module.exports = {
         Object.keys(style).forEach(ref => {
           UI.styles[key][ref] = [].concat(UI.styles[key][ref], normalize(style[ref]));
           if (Array.isArray(UI.styles[key][ref])) {
-            UI.styles[key][ref] = Object.assign(...UI.styles[key][ref]);
+            if (!!UI && !!UI.styles && !!UI.styles[key] && !!UI.styles[key][ref]) {
+              hereCount = hereCount + 1;
+              console.log('here:' +hereCount);
+              console.log('UI: ');
+              console.log(UI);
+              console.log('key: ' + key);
+              console.log('ref: ' + ref);
+              UI.styles[key][ref] = Object.assign(...UI.styles[key][ref]);
+            } else {
+              console.log('UI is undefined');
+            }
           }
         });
       }

@@ -70,7 +70,7 @@ module.exports = {
     onMouseDown: React.PropTypes.func,           // pass-through mouse event
     onMouseUp: React.PropTypes.func,             // pass-through mouse event
     onMouseMove: React.PropTypes.func,           // pass-through mouse event
-    onMouseOut: React.PropTypes.func,            // pass-through mouse event,
+    onMouseLeave: React.PropTypes.func,            // pass-through mouse event,
 
     maxTapTime: React.PropTypes.number,          // disable tap after certain amount of time
     delayUntilActive: React.PropTypes.number,    // add a delay until a tap is considered a tap
@@ -276,10 +276,10 @@ module.exports = {
     this.endMouseEvent();
   },
 
-  onMouseOut: function(event) {
+  onMouseLeave: function(event) {
     if (window._blockMouseEvents || !this._mouseDown) return;
     this.processEvent(event);
-    this.props.onMouseOut && this.props.onMouseOut(event);
+    this.props.onMouseLeave && this.props.onMouseLeave(event);
     this.endMouseEvent();
   },
 
@@ -301,7 +301,7 @@ module.exports = {
       onMouseDown: this.onMouseDown,
       onMouseMove: this.onMouseMove,
       onMouseUp: this.onMouseUp,
-      onMouseOut: this.onMouseOut
+      onMouseLeave: this.onMouseLeave
     };
   }
 

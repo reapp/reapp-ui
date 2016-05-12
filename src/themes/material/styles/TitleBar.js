@@ -23,7 +23,6 @@ export default c => ({
   },
 
   transparent: {
-    background: 'none',
     borderBottom: 'none'
   },
 

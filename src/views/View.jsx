@@ -21,6 +21,7 @@ module.exports = Component({
     title: React.PropTypes.node,
     titleLeft: React.PropTypes.node,
     titleRight: React.PropTypes.node,
+    centerMiddleTitle: React.PropTypes.bool,
 
     index: React.PropTypes.number,
 
@@ -55,6 +56,12 @@ module.exports = Component({
 
     // don't add extra visuals like shadow/overlay
     plain: React.PropTypes.bool
+  },
+
+  getDefaultProps() {
+    return {
+      centerMiddleTitle: true
+    };
   },
 
   getInitialState() {
@@ -113,7 +120,8 @@ module.exports = Component({
     // titlebar props modifications
     var modifiedTitleBarProps = Object.assign({
       onDoubleTap: this.handleDoubleTap,
-      isInViewList
+      isInViewList,
+      centerMiddleTitle: this.props.centerMiddleTitle
     }, titleBarProps);
 
     var shouldUpdate = !animations || !inactive;
@@ -148,9 +156,7 @@ module.exports = Component({
           <StaticContainer {...this.componentProps('static')}
             fullscreen={fullscreen}
             update={shouldUpdate}>
-            <div>
-              {children}
-            </div>
+            {children}
           </StaticContainer>
           {!plain &&
             <div {...this.componentProps('shadow')} />

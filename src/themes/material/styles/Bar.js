@@ -3,7 +3,7 @@ export default c => ({
     background: c.barBG,
     height: c.barHeight,
     lineHeight: c.barLineHeight,
-    borderTop: `${c.onePx} solid ${c.barBorderColor}`,
+    boxShadow: '0 0 2px rgba(0,0,0,0.12), 2px 0 2px rgba(0,0,0,0.24)',
     zIndex: 3,
     bottom: 0,
     left: 0,
@@ -19,5 +19,11 @@ export default c => ({
   'position-top': {
     top: 0,
     bottom: 'auto'
+  },
+
+  'position-bottom': {
+    bottom: 0,
+    top: 'auto',
+    position: 'fixed'
   }
 });

@@ -19,5 +19,11 @@ export default c => ({
   'position-top': {
     top: 0,
     bottom: 'auto'
+  },
+  
+  'position-bottom': {
+    bottom: 0,
+    top: 'auto',
+    position: 'fixed'
   }
 });

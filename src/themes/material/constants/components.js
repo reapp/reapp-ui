@@ -15,9 +15,9 @@ export default c => ({
   // Bar
   barBG: '#f6f6f6',
   barColor: c.brandColorInactive,
-  barColorActive: c.brandColor,
-  barHeight: '49px',
-  barLineHeight: '49px',
+  barColorActive: '#003B71',
+  barHeight: '56px',
+  barLineHeight: '56px',
   barBorderColor: c.light,
 
   // Button
@@ -86,6 +86,6 @@ export default c => ({
   titleBarBG: '#00bcd4',
 
   // View
-  viewBG: '#f4f4f4',
+  viewBG: '#FFFFFF',
   viewPad: '10px'
 });

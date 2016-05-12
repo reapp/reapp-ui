@@ -46,11 +46,11 @@ module.exports = Component({
     if (this.state.externalScroller)
       return;
 
-    this.scroller = new Scroller(this.handleScroll, {
+    /*this.scroller = new Scroller(this.handleScroll, {
       scrollingX: this.isSideDrawer(),
       scrollingY: !this.isSideDrawer(),
       snapping: true
-    });
+    });*/
   },
 
   componentDidMount() {
@@ -92,11 +92,11 @@ module.exports = Component({
     else
       totalHeight = height * 2;
 
-    this.scroller.setDimensions(width, height, totalWidth, totalHeight);
-    this.scroller.setSnapSize(width, height);
+    //this.scroller.setDimensions(width, height, totalWidth, totalHeight);
+    //this.scroller.setSnapSize(width, height);
 
-    if (this.props.from === 'bottom')
-      this.scroller.scrollTo(0, totalHeight, false);
+    //if (this.props.from === 'bottom')
+      //this.scroller.scrollTo(0, totalHeight, false);
   },
 
   scrollClosed(animated) {
@@ -114,10 +114,10 @@ module.exports = Component({
 
     var dec = percent * 0.01;
 
-    if (this.isSideDrawer())
-      this.scroller.scrollTo(dec * this.props.width, 0, animated);
-    else
-     this.scroller.scrollTo(0, dec * this.props.height, animated);
+    //if (this.isSideDrawer())
+      //this.scroller.scrollTo(dec * this.props.width, 0, animated);
+    //else
+     //this.scroller.scrollTo(0, dec * this.props.height, animated);
   },
 
   isSideDrawer() {
@@ -215,7 +215,6 @@ module.exports = Component({
             <TouchableArea
               {...touchableProps}
               {...this.componentProps('dragger')}
-              scroller={scroller || this.scroller}
               currentTargetOnly
               allowDefault
             />

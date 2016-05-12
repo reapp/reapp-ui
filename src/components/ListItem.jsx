@@ -32,6 +32,9 @@ module.exports = Component({
     // wrap an element around the item, good for links
     wrapper: React.PropTypes.node,
 
+    // was the list item wrapped in the list component?
+    wrapped: React.PropTypes.bool,
+
     // show an icon indicating it's linked
     icon: React.PropTypes.bool,
 
@@ -81,6 +84,7 @@ module.exports = Component({
       before,
       after,
       wrapper,
+      wrapped,
       icon,
       nopad,
       index,
@@ -134,6 +138,9 @@ module.exports = Component({
 
     if (nopad || children && children.type && children.type.liNoPad)
       this.addStyles('content', 'contentNoPad');
+
+    if (wrapped)
+      this.addStyles('content', 'wrappedPad');
 
     if (!before)
       this.addStyles('touchRipple', 'selfNoPadLeft');

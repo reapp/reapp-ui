@@ -38,6 +38,7 @@ export default {
   TitleBar: require('./styles/TitleBar'),
   TouchRipple: require('./styles/TouchRipple'),
   Typeahead: require('./styles/Typeahead'),
+  TypeaheadSelector: require('./styles/TypeaheadSelector'),
   TypeaheadButton: require('./styles/TypeaheadButton'),
   TypeaheadList: require('./styles/TypeaheadList'),
   View: require('./styles/View')

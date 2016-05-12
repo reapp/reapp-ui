@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/reapp/reapp-ui",
   "dependencies": {
+    "browserify-css": "^0.9.1",
     "classnames": "^2.2.3",
     "css-to-matrix": "^1.0.0",
     "fuzzy": "^0.1.1",
@@ -44,9 +45,11 @@
     "reapp-scroller": "^1.0.8",
     "recompose": "^0.17.0",
     "shallow-equals": "0.0.0",
+    "svg-browserify": "0.0.2",
     "validator": "^3.40.0"
   },
   "devDependencies": {
-    "babel": "^5.2.6"
+    "babel": "^5.2.6",
+    "browserify-css": "^0.9.1"
   }
 }

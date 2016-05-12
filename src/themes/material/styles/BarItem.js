@@ -35,7 +35,7 @@ module.exports = (c) => ({
     fontSize: '11px',
     lineHeight: '11px',
     fontWeight: 500,
-    margin: '0 0 2px 0'
+    margin: '0 0 7px 0'
   },
 
   'icon-text-right': {

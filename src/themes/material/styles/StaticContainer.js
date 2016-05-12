@@ -1,4 +1,9 @@
 module.exports = c => ({
+  self: {
+    flex: 1,
+    height: '100%'
+  },
+  
   fullscreen: {
     position: 'fixed',
     left: 0,

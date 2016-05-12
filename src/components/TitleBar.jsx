@@ -12,6 +12,7 @@ module.exports = Component({
     left: React.PropTypes.node,
     right: React.PropTypes.node,
     transparent: React.PropTypes.bool,
+    centerMiddleTitle: React.PropTypes.bool,
 
     isInViewList: React.PropTypes.bool,
 
@@ -26,17 +27,23 @@ module.exports = Component({
   getDefaultProps() {
     return {
       width: window.innerWidth,
-      animationSource: 'viewList'
+      animationSource: 'viewList',
+      centerMiddleTitle: true
     };
   },
 
   componentDidMount() {
-    this.centerMiddleTitle();
+    console.log('this.props.centerMiddleTitle: ' + this.props.centerMiddleTitle);
+    if (this.props.centerMiddleTitle) {
+      this.centerMiddleTitle();
+    }
   },
 
   componentDidUpdate(prevProps) {
     if (prevProps.title !== this.props.title)
-      this.centerMiddleTitle();
+      if (this.props.centerMiddleTitle) {
+        this.centerMiddleTitle();
+      }
   },
 
   centerMiddleTitle() {

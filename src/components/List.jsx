@@ -42,7 +42,7 @@ var List = Component({
               <ListItem {...itemProps}
                 index={i}
                 key={i}
-                nopad={nopad}>
+                wrapped={wrap}>
                 {li.content || li}
               </ListItem>
             );

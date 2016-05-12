@@ -13,10 +13,8 @@ export default c => ({
     boxShadow: 'rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px',
     textAlign: 'center',
     padding: '0px 0px',
-    height: '36px',
     minWidth: '88px',
     zoom: 1,
-    lineHeight: '36px',
     whiteSpace: 'nowrap',
     verticalAlign: 'baseline',
     cursor: 'pointer',
@@ -60,7 +58,9 @@ export default c => ({
   text: {
     width: '100%',
     height: '100%',
-    textAlign: 'center'
+    textAlign: 'center',
+    padding: '10px 14px',
+    flex: '1 1 auto'
   },
 
   isInTitleBar: {
