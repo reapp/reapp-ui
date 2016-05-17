@@ -6,7 +6,7 @@
  * @param {array} color.values - [n,n,n] or [n,n,n,n]
  */
 export function convertColorToString(color) {
-  const {type, values} = color;
+  var {type, values} = color;
 
   if (type.indexOf('rgb') > -1) {
     // Only convert the first 3 values to int (i.e. not alpha)
@@ -46,7 +46,7 @@ export function convertHexToRGB(color) {
     color = extendedColor;
   }
 
-  const values = {
+  var values = {
     r:	parseInt(color.substr(1, 2), 16),
     g:	parseInt(color.substr(3, 2), 16),
     b:	parseInt(color.substr(5, 2), 16),
@@ -67,8 +67,8 @@ export function decomposeColor(color) {
     return decomposeColor(convertHexToRGB(color));
   }
 
-  const marker = color.indexOf('(');
-  const type = color.substring(0, marker);
+  var marker = color.indexOf('(');
+  var type = color.substring(0, marker);
   let values = color.substring(marker + 1, color.length - 1).split(',');
   values = values.map((value) => parseFloat(value));
 
@@ -84,9 +84,9 @@ export function decomposeColor(color) {
  * @param {string} background - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
  */
 export function getContrastRatio(foreground, background) {
-  const lumA = getLuminance(foreground);
-  const lumB = getLuminance(background);
-  const contrastRatio = (Math.max(lumA, lumB) + 0.05) / (Math.min(lumA, lumB) + 0.05);
+  var lumA = getLuminance(foreground);
+  var lumB = getLuminance(background);
+  var contrastRatio = (Math.max(lumA, lumB) + 0.05) / (Math.min(lumA, lumB) + 0.05);
 
   return Number(contrastRatio.toFixed(2)); // Truncate at two digits
 }
@@ -103,7 +103,7 @@ export function getLuminance(color) {
   color = decomposeColor(color);
 
   if (color.type.indexOf('rgb') > -1) {
-    const rgb = color.values.map((val) => {
+    var rgb = color.values.map((val) => {
       val /= 255; // normalized
       return val <= 0.03928 ? val / 12.92 : Math.pow((val + 0.055) / 1.055, 2.4);
     });

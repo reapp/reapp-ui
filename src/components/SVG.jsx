@@ -59,7 +59,7 @@ module.exports = Component({
     }, props.style);
 
     return (
-      <svg viewBox={viewBox} {...this.componentProps()} {...props}>
+      <svg viewBox={viewBox} {...props} {...this.componentProps()}>
         <g dangerouslySetInnerHTML={{__html: file }} />
       </svg>
     );

@@ -22,7 +22,6 @@ module.exports = Component({
       leftIconProps: null,
       rightIconProps: null,
       type: 'text',
-      rightIconFunc: null,
       rightIconFunc: null
     };
   },

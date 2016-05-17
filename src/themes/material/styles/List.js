@@ -2,7 +2,6 @@ module.exports = (c) => ({
   self: {
     border: c.listBorder,
     background: c.listBG,
-    padding: 0,
     float: 'left',
     marginBottom: '24px',
     marginRight: '24px',
