@@ -33,6 +33,8 @@ export default {
   SearchBar: require('./styles/SearchBar'),
   StaticContainer: require('./styles/StaticContainer'),
   Swiper: require('./styles/Swiper'),
+  TabItem: require('./styles/TabItem'),
+  Tabs: require('./styles/Tabs'),
   TextArea: require('./styles/TextArea'),
   Title: require('./styles/Title'),
   TitleBar: require('./styles/TitleBar'),

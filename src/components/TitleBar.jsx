@@ -2,6 +2,7 @@ var React = require('react');
 var Component = require('../component');
 var MultiTappable = require('../mixins/MultiTappable');
 var clone = require('../lib/niceClone');
+var Tabs = require('./Tabs');
 
 module.exports = Component({
   name: 'TitleBar',
@@ -13,6 +14,7 @@ module.exports = Component({
     right: React.PropTypes.node,
     transparent: React.PropTypes.bool,
     centerMiddleTitle: React.PropTypes.bool,
+    tabs: React.PropTypes.node,
 
     isInViewList: React.PropTypes.bool,
 
@@ -89,6 +91,7 @@ module.exports = Component({
       height,
       transparent,
       attach,
+      tabs,
       ...props } = this.props;
 
     var l, m, r;
@@ -125,18 +128,25 @@ module.exports = Component({
         {...this.componentProps()}
         {...this.multiTap(2, this.handleDoubleTap)}
         {...props}>
-        {l &&
-          <div {...this.componentProps('left')}>
-            {this.addTitleBarProps(l)}
+        <div {...this.componentProps('inner')}>
+          {l &&
+            <div {...this.componentProps('left')}>
+              {this.addTitleBarProps(l)}
+            </div>
+          }
+          <div {...this.componentProps('mid')}>
+            {m}
           </div>
-        }
-        <div {...this.componentProps('mid')}>
-          {m}
+          {r &&
+            <div {...this.componentProps('right')}>
+              {this.addTitleBarProps(r)}
+            </div>
+          }
         </div>
-        {r &&
-          <div {...this.componentProps('right')}>
-            {this.addTitleBarProps(r)}
-          </div>
+        {tabs &&
+          <Tabs wrap>
+            {tabs}
+          </Tabs>
         }
       </div>
     );
