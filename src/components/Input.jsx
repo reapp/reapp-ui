@@ -67,13 +67,13 @@ module.exports = Component({
       return (
         <div {...this.componentProps('inputWrapper')}>
           {props.leftIconProps &&
-            <div {...this.componentProps('leftIconWrapper')} onClick={this._leftIconTap.bind(this)}>
+            <div {...this.componentProps('leftIconWrapper')} onClick={this._leftIconTap}>
               <Icon {...props.leftIconProps} />
             </div>
           }
           {input}
           {props.rightIconProps &&
-            <div {...this.componentProps('rightIconWrapper')} onClick={this._rightIconTap.bind(this)}>
+            <div {...this.componentProps('rightIconWrapper')} onClick={this._rightIconTap}>
               <Icon {...props.rightIconProps} />
             </div>
           }

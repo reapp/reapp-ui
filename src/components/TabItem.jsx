@@ -29,6 +29,10 @@ module.exports = Component({
     nopad: React.PropTypes.bool
   },
 
+  handleOnTap(index) {
+    this.props.onTap(index);
+  },
+
   render() {
     var {
       children,
@@ -57,7 +61,7 @@ module.exports = Component({
     }
 
     return (
-      <Button {...props} onTap={this.props.onTap.bind(this, this.props.index)} styles={{self: buttonStyles}} chromeless secondaryRipple>
+      <Button {...props} onTap={this.handleOnTap.bind(this, this.props.index)} styles={{self: buttonStyles}} chromeless secondaryRipple>
         <div {...this.componentProps()}>
           {children}
         </div>

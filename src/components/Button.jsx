@@ -126,9 +126,7 @@ var Button = Component({
     if (tapActive)
       if (filled && !chromeless) {
         this.addStyles('tapActiveFilled');
-        console.log('add tapActiveFilled')
       } else {
-        console.log('add tapActive or tapActiveTitleBar')
         this.addStyles(isInTitleBar ? 'tapActiveTitleBar' : 'tapActive');
         if (chromeless) {
           this.addStyles('tapActiveChromeless');

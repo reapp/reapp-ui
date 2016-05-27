@@ -92,6 +92,7 @@ module.exports = Component({
       transparent,
       attach,
       tabs,
+      tabsProps,
       ...props } = this.props;
 
     var l, m, r;
@@ -144,7 +145,7 @@ module.exports = Component({
           }
         </div>
         {tabs &&
-          <Tabs wrap>
+          <Tabs {...tabsProps} wrap>
             {tabs}
           </Tabs>
         }
