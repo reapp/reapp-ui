@@ -48,12 +48,14 @@ module.exports = Component({
 
     var results = [];
 
+    var listItemStyles = Object.assign({}, this.componentProps('typeaheadOption').styles, this.props.optionStyles);
+    listItemStyles = { self: listItemStyles };
+
     console.log('this.props.options: ' + this.props.options);
     this.props.options.forEach(function(result, i) {
       results.push (
         <ListItem
-          {...this.componentProps('typeaheadOption')}
-          styles={this.props.optionStyles}
+          styles={listItemStyles}
           data-test={result.keys} ref={result} key={result.inputDisplayText}
           hover={this.state.selectionIndex === results.length}
           onMouseDown={this._onMouseDown.bind(this, result)}>
@@ -67,8 +69,7 @@ module.exports = Component({
 
       results.push(
         <ListItem
-          {...this.componentProps('typeaheadOption')}
-          styles={this.props.optionStyles}
+          styles={listItemStyles}
           ref={this.props.customValue} key={this.props.customValue}
           hover={this.state.selectionIndex === results.length}
           customValue={this.props.customValue}

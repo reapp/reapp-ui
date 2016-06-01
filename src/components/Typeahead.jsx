@@ -32,23 +32,25 @@ var micIconProps = {
 };
 
 var backIconProps = {
-  size: 24,
+  size: 48,
   file: leftIcon,
-  viewBox: '52 99 24 24',
+  viewBox: '46 91 40 40',
   stroke: 0,
   styles: {
     self: {
+      margin: '0 0 0 -8px'
     }
   }
 };
 
 var closeIconProps = {
-  size: 24,
+  size: 48,
   file: closeIcon,
-  viewBox: '416 99 24 24',
+  viewBox: '408 92 40 40',
   stroke: 0,
   styles: {
     self: {
+      margin: '0 -8px 0 0'
     }
   }
 };
@@ -66,6 +68,7 @@ var Typeahead = Component({
     options: React.PropTypes.array,
     allowCustomValues: React.PropTypes.bool,
     staticCustomValue: React.PropTypes.string,
+    value: React.PropTypes.string,
     defaultValue: React.PropTypes.string,
     placeholder: React.PropTypes.string,
     inputProps: React.PropTypes.object,
@@ -75,6 +78,10 @@ var Typeahead = Component({
     onKeyDown: React.PropTypes.func,
     filterOption: React.PropTypes.func,
     disabled: React.PropTypes.bool,
+    handleMicIconTap: React.PropTypes.func,
+    handleSearchIconTap: React.PropTypes.func,
+    handleCloseIconTap: React.PropTypes.func,
+    handleBackIconTap: React.PropTypes.func
   },
 
   getDefaultProps() {
@@ -86,26 +93,35 @@ var Typeahead = Component({
       optionStyles: {},
       allowCustomValues: false,
       staticCustomValue: "",
+      value: "",
       defaultValue: "",
       placeholder: "",
       inputProps: {},
       onOptionSelected: function(option) {},
       clearOnOptionSelected: false,
-      closeOnBlur: false,
+      closeOnBlur: true,
       onKeyDown: function(event) {},
       filterOption: null,
       disabled: false,
+      handleMicIconTap: function() {},
+      handleSearchIconTap: function() {},
+      handleCloseIconTap: function() {},
+      handleBackIconTap: function() {}
     };
   },
 
   getInitialState() {
     return {
       // The currently visible set of options
-      visible: this.getOptionsForDisplay(this.props.defaultValue, this.props.options),
-      // This should be called something else, "defaultValue"
+      visible: this.getOptionsForDisplay(this.props.value, this.props.options),
+      // Value not to be confused with Default Value.
+      value: this.props.value,
+      // default value is the starting value
       defaultValue: this.props.defaultValue,
       // A valid typeahead value
-      selection: null
+      selection: null,
+      // Used for showing proper icons
+      focused: false
     };
   },
 
@@ -134,16 +150,12 @@ var Typeahead = Component({
     this._onTextEntryUpdated();
   },
 
-  _enableVoice() {
-    alert('Enable voice to text.');
-  },
-
   _focusEntry() {
     this.refs.entry.refs.input.getDOMNode().focus();
   },
 
   _hasCustomValue() {
-    if (this.props.allowCustomValues && this.state.defaultValue.length > 0) {
+    if (this.props.allowCustomValues && this.state.value.length > 0) {
       return true;
     }
     return false;
@@ -157,7 +169,7 @@ var Typeahead = Component({
         return customValue;
       } else {
         var customValue = {};
-        customValue.inputDisplayText = this.state.defaultValue;
+        customValue.inputDisplayText = this.state.value;
         return customValue;
       }
 
@@ -167,7 +179,7 @@ var Typeahead = Component({
 
   _renderIncrementalSearchResults() {
     // Nothing has been entered into the textbox
-    if (!this.state.defaultValue || this.state.defaultValue == this.props.defaultValue) {
+    if (!this.state.value || this.state.value == this.props.defaultValue) {
       return "";
     }
 
@@ -208,24 +220,28 @@ var Typeahead = Component({
   _onOptionSelected(option, event) {
     console.log('onOptionSelected!');
     var nEntry = this.refs.entry.refs.input;
-    var defaultValue = null;
+    var value = null;
     nEntry.focus();
     nEntry.value = option.display;
     if (!!this.props.clearOnOptionSelected) {
       nEntry.value = "";
-      defaultValue = "";
+      value = "";
     } else {
       nEntry.value = option.value;
-      defaultValue = option.display;
+      value = option.display;
     }
     console.log('this.getOptionsForDisplay(option.display, this.props.options): ' + this.getOptionsForDisplay(option.display, this.props.options));
     this.setState({visible: this.getOptionsForDisplay(option.display, this.props.options),
                    selection: option.display,
-                   defaultValue: defaultValue});
+                   value: value});
     return this.props.onOptionSelected(option, event);
   },
 
-  _onBlur() {
+  _onFocus() {
+    this.setState({ focused: true });
+  },
+
+  _onBlur(e) {
     if (this.props.closeOnBlur) {
       this._closeTypeahead();
     }
@@ -234,14 +250,17 @@ var Typeahead = Component({
   _closeTypeahead() {
     event.stopPropagation();
     var nEntry = this.refs.entry.refs.input;
-    this.setState({visible: [], selection: nEntry.value, defaultValue: ''});
+    this.setState({ focused: false, visible: [], selection: nEntry.value, value: '' });
   },
 
   _onTextEntryUpdated() {
     var enteredText = this.refs.entry.refs.input.value;
     this.setState({visible: this.getOptionsForDisplay(enteredText, this.props.options),
                    selection: null,
-                   defaultValue: enteredText});
+                   value: enteredText});
+    if (typeof this.props.onChange !== 'undefined') {
+      this.props.onChange(enteredText);
+    }
   },
 
   _onEnter(event) {
@@ -293,9 +312,7 @@ var Typeahead = Component({
   _onKeyDown(event) {
     // If there are no visible elements, don't perform selector navigation.
     // Just pass this up to the upstream onKeydown handler
-    if (!this.refs.sel) {
-      return this.props.onKeyDown(event);
-    }
+    return this.props.onKeyDown(event);
 
     var handler = this.eventMap()[event.keyCode];
 
@@ -306,13 +323,37 @@ var Typeahead = Component({
     }
     // Don't propagate the keystroke back to the DOM/browser
     event.preventDefault();
+
   },
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      visible: this.getOptionsForDisplay(this.state.defaultValue, nextProps.options),
-      defaultValue: nextProps.defaultValue
+      visible: this.getOptionsForDisplay(this.state.value, nextProps.options),
+      value: nextProps.value
     });
+  },
+
+  handleMicTap() {
+    this.props.handleMicTap(this);
+  },
+
+  handleSearchIconTap() {
+    this.props.handleSearchIconTap(this);
+  },
+
+  handleCloseIconTap(e) {
+    console.log(e);
+    e.endMouseEvent();
+    e.endTouch();
+    this.props.handleCloseIconTap(this);
+    var that = this;
+    setTimeout(function() {
+      that._focusEntry();
+    }, 2);
+  },
+
+  handleBackIconTap() {
+    this.props.handleBackIconTap(this);
   },
 
   render() {
@@ -325,15 +366,17 @@ var Typeahead = Component({
     }
     classes[this.props.className] = !!this.props.className;
     var classList = classNames(classes);
-
-    var leftIconProps = searchIconProps;
-    var leftIconFunc = this._focusEntry;
     var rightIconProps = micIconProps;
-    var rightIconFunc = this._enableVoice;
-    if (!!this.state.defaultValue && this.state.defaultValue != '') {
+    var leftIconProps = searchIconProps;
+    var rightIconFunc = this.handleMicTap;
+    var leftIconFunc = this.handleSearchIconTap;
+    if (this.state.focused) {
       leftIconProps = backIconProps;
-      rightIconProps = closeIconProps;
-      var rightIconFunc = this._closeTypeahead;
+      leftIconFunc = this.handleBackIconTap;
+      if (this.state.value !== null && this.state.value.trim() !== '') {
+        rightIconProps = closeIconProps;
+        rightIconFunc = this.handleCloseIconTap;
+      }
     }
 
     return (
@@ -348,12 +391,14 @@ var Typeahead = Component({
           disabled={this.props.disabled}
           placeholder={this.props.placeholder}
           className={inputClassList}
-          value={this.state.defaultValue}
+          value={this.state.value}
           defaultValue={this.props.defaultValue}
           onChange={this._onTextEntryUpdated}
           onKeyDown={this._onKeyDown}
+          onFocus={this._onFocus}
           onBlur={this._onBlur}
-          autoCapitalize="words" />
+          autoCapitalize="words"
+          styles={{ margin: '0 0 0 0' }} />
         { this._renderIncrementalSearchResults() }
       </div>
     );

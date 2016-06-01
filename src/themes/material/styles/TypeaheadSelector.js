@@ -6,5 +6,8 @@ module.exports = (c) => ({
     borderLeft: 'none',
     borderRight: 'none',
     borderBottom: 'none'
+  },
+  typeaheadOption: {
+    fontSize: '10px'
   }
 });

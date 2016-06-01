@@ -22,7 +22,9 @@ module.exports = Component({
       leftIconProps: null,
       rightIconProps: null,
       type: 'text',
-      rightIconFunc: null
+      rightIconFunc: function() {},
+      leftIconFunc: function() {},
+      onBlur: function() {}
     };
   },
 
@@ -38,19 +40,25 @@ module.exports = Component({
     }
   },
 
+  _onBlur() {
+    if (!!this.props.onBlur) {
+      this.props.onBlur(this);
+    }
+  },
+
   render() {
-    var { label, labelProps, ...props } = this.props;
+    var { label, labelProps, onBlur, ...props } = this.props;
     var element, elementProps = {};
 
+    var input = null;
     switch(this.props.type) {
       case 'checkbox':
-        element = Checkbox;
+        input = <Checkbox {...Object.assign({}, elementProps, props)} />;
         break;
       case 'radio':
-        element = Radio;
+        input = <Radio {...Oject.assign({}, elementProps, props)} />;
         break;
       default:
-        element = 'input';
         if (this.props.leftIconProps) {
           this.addStyles('input', 'leftPad');
         }
@@ -58,22 +66,20 @@ module.exports = Component({
           this.addStyles('input', 'rightPad');
         }
         elementProps = this.componentProps('input');
+        input = <input {...Object.assign({}, elementProps, props)} onBlur={this._onBlur} />;
     }
-
-    var input = React.createElement(element,
-      Object.assign({}, elementProps, props));
 
     if (!label) {
       return (
         <div {...this.componentProps('inputWrapper')}>
           {props.leftIconProps &&
-            <div {...this.componentProps('leftIconWrapper')} onClick={this._leftIconTap}>
+            <div {...this.componentProps('leftIconWrapper')} onMouseDown={this._leftIconTap}>
               <Icon {...props.leftIconProps} />
             </div>
           }
           {input}
           {props.rightIconProps &&
-            <div {...this.componentProps('rightIconWrapper')} onClick={this._rightIconTap}>
+            <div {...this.componentProps('rightIconWrapper')} onMouseDown={this._rightIconTap}>
               <Icon {...props.rightIconProps} />
             </div>
           }
