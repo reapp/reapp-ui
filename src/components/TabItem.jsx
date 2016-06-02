@@ -54,14 +54,14 @@ module.exports = Component({
     if (this.state.tapActive)
       this.addStyles('tapActive');
 
-    var buttonStyles = this.componentProps('button').style;
+    var buttonStyles = { self: this.getStyles('button--self'), text: this.getStyles('button--text') };
 
     if (this.props.active) {
       this.addStyles('active');
     }
 
     return (
-      <Button {...props} onTap={this.handleOnTap.bind(this, this.props.index)} styles={{self: buttonStyles}} chromeless secondaryRipple>
+      <Button {...props} onTap={this.handleOnTap.bind(this, this.props.index)} styles={buttonStyles} chromeless secondaryRipple>
         <div {...this.componentProps()}>
           {children}
         </div>
