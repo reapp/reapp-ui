@@ -34,6 +34,24 @@ var Tabs = Component({
     }
   },
 
+  componentDidMount() {
+    var stri = this.refs[`Tab_${this.state.activeIndex}`].refs.self.getDOMNode().offsetWidth;
+    var padd = this.refs[`Tab_${this.state.activeIndex}`].refs.self.getDOMNode().offsetLeft;
+    if (this.state.inkBarWidth !== (stri + padd)) {
+      this.setState({inkBarWidth: stri + padd});
+    }
+  },
+
+  componentDidUpdate() {
+    console.log('updated');
+    var stri = this.refs[`Tab_${this.state.activeIndex}`].refs.self.getDOMNode().offsetWidth;
+    var padd = this.refs[`Tab_${this.state.activeIndex}`].refs.self.getDOMNode().offsetLeft;
+
+    if (this.state.inkBarWidth !== (stri+ padd)) {
+      this.setState({inkBarWidth: stri + padd});
+    }
+  },
+
   setActiveIndex(index) {
     if (this.state.activeIndex !== index) {
       this.setState({activeIndex: index});
@@ -52,7 +70,7 @@ var Tabs = Component({
     if (children.constructor === Array && children.length > 0) {
       inkBarStyle = this.componentProps('inkBar').style;
       inkBarStyle.push({
-        width: `${(100 / children.length).toPrecision(4)}%`,
+        width: this.state.inkBarWidth,
         left: `${((this.state.activeIndex) * ((100 / children.length).toPrecision(4)))}%`
       });
     }
@@ -68,6 +86,7 @@ var Tabs = Component({
             index={i}
             onTap={this.setActiveIndex}
             key={i}
+            ref={`Tab_${i}`}
             active={active}
             wrapped={wrap}>
             {tab.content || tab}
