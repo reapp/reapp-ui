@@ -1,6 +1,6 @@
 module.exports = (c) => ({
   self: {
-    flex: '1 1 100%',
+    flex: '1 1 auto',
     background: 'rgb(0, 188, 212)'
   },
   inner: {

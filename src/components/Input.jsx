@@ -46,6 +46,18 @@ module.exports = Component({
     }
   },
 
+  _onKeyDown() {
+    if (!!this.props.onKeyDown) {
+      this.props.onKeyDown(this);
+    }
+  },
+
+  _onKeyUp() {
+    if (!!this.props.onKeyUp) {
+      this.props.onKeyUp(this);
+    }
+  },
+
   render() {
     var { label, labelProps, onBlur, ...props } = this.props;
     var element, elementProps = {};
@@ -66,20 +78,20 @@ module.exports = Component({
           this.addStyles('input', 'rightPad');
         }
         elementProps = this.componentProps('input');
-        input = <input {...Object.assign({}, elementProps, props)} onBlur={this._onBlur} />;
+        input = <input {...Object.assign({}, elementProps, props)} onBlur={this._onBlur} onKeyDown={this._onKeyDown} onKeyUp={this._onKeyUp} />;
     }
 
     if (!label) {
       return (
         <div {...this.componentProps('inputWrapper')}>
           {props.leftIconProps &&
-            <div {...this.componentProps('leftIconWrapper')} onMouseDown={this._leftIconTap}>
+            <div {...this.componentProps('leftIconWrapper')} onTouchStart={this._leftIconTap} onMouseDown={this._leftIconTap}>
               <Icon {...props.leftIconProps} />
             </div>
           }
           {input}
           {props.rightIconProps &&
-            <div {...this.componentProps('rightIconWrapper')} onMouseDown={this._rightIconTap}>
+            <div {...this.componentProps('rightIconWrapper')} onTouchStart={this._rightIconTap} onMouseDown={this._rightIconTap}>
               <Icon {...props.rightIconProps} />
             </div>
           }

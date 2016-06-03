@@ -76,6 +76,8 @@ var Typeahead = Component({
     clearOnOptionSelected: React.PropTypes.bool,
     closeOnBlur: React.PropTypes.bool,
     onKeyDown: React.PropTypes.func,
+    onKeyUp: React.PropTypes.func,
+    onBlur: React.PropTypes.func,
     filterOption: React.PropTypes.func,
     disabled: React.PropTypes.bool,
     handleMicIconTap: React.PropTypes.func,
@@ -101,6 +103,8 @@ var Typeahead = Component({
       clearOnOptionSelected: false,
       closeOnBlur: true,
       onKeyDown: function(event) {},
+      onKeyUp: function(event) {},
+      onBlur: function(event) {},
       filterOption: null,
       disabled: false,
       handleMicIconTap: function() {},
@@ -154,6 +158,10 @@ var Typeahead = Component({
     this.refs.entry.refs.input.getDOMNode().focus();
   },
 
+  _blurEntry() {
+    document.activeElement.blur();
+  }
+
   _hasCustomValue() {
     if (this.props.allowCustomValues && this.state.value.length > 0) {
       return true;
@@ -197,23 +205,27 @@ var Typeahead = Component({
       console.log('customValue - this.state.visible: ' + this.state.visible);
       return (
         <TypeaheadSelector
-          ref="sel" options={this.state.visible}
+          ref="sel"
+          options={this.state.visible}
           optionStyles={this.props.optionStyles}
           customValue={this._getCustomValue()}
           listStyles={this.props.listStyles}
           onOptionSelected={this._onOptionSelected}
-          customClasses={this.props.customClasses} />
+          customClasses={this.props.customClasses}
+        />
       );
     }
 
     console.log('return - this.state.visible: ' + this.state.visible);
     return (
       <TypeaheadSelector
-        ref="sel" options={ this.state.visible }
+        ref="sel"
+        options={ this.state.visible }
         optionStyles={this.props.optionStyles}
         listStyles={this.props.listStyles}
         onOptionSelected={ this._onOptionSelected }
-        customClasses={this.props.customClasses}/>
+        customClasses={this.props.customClasses}
+      />
     );
   },
 
@@ -245,12 +257,14 @@ var Typeahead = Component({
     if (this.props.closeOnBlur) {
       this._closeTypeahead();
     }
+    this.props.onBlur(this);
   },
 
   _closeTypeahead() {
     event.stopPropagation();
     var nEntry = this.refs.entry.refs.input;
     this.setState({ focused: false, visible: [], selection: nEntry.value, value: '' });
+    this._blurEntry();
   },
 
   _onTextEntryUpdated() {
@@ -312,7 +326,10 @@ var Typeahead = Component({
   _onKeyDown(event) {
     // If there are no visible elements, don't perform selector navigation.
     // Just pass this up to the upstream onKeydown handler
-    return this.props.onKeyDown(event);
+    if (!this.refs.sel) {
+      return this.props.onKeyDown(event);
+    }
+
 
     var handler = this.eventMap()[event.keyCode];
 
@@ -324,6 +341,10 @@ var Typeahead = Component({
     // Don't propagate the keystroke back to the DOM/browser
     event.preventDefault();
 
+  },
+
+  _onKeyUp(event) {
+    return this.props.onKeyUp(event);
   },
 
   componentWillReceiveProps(nextProps) {
@@ -354,6 +375,7 @@ var Typeahead = Component({
 
   handleBackIconTap() {
     this.props.handleBackIconTap(this);
+    this._closeTypeahead();
   },
 
   render() {
@@ -395,6 +417,7 @@ var Typeahead = Component({
           defaultValue={this.props.defaultValue}
           onChange={this._onTextEntryUpdated}
           onKeyDown={this._onKeyDown}
+          onKeyUp={this._onKeyUp}
           onFocus={this._onFocus}
           onBlur={this._onBlur}
           autoCapitalize="words"
