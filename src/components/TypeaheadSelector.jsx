@@ -48,19 +48,17 @@ module.exports = Component({
 
     var results = [];
 
-    var listItemStyles = Object.assign({}, this.componentProps('typeaheadOption').styles, this.props.optionStyles);
-    listItemStyles = { self: listItemStyles };
-
-    console.log('this.props.options: ' + this.props.options);
     this.props.options.forEach(function(result, i) {
       results.push (
-        <ListItem
-          styles={listItemStyles}
-          data-test={result.keys} ref={result} key={result.inputDisplayText}
+        <TypeaheadOption
+          styles={this.props.optionStyles}
+          data-test={result.keys}
+          ref={result}
+          key={result.inputDisplayText}
           hover={this.state.selectionIndex === results.length}
           onMouseDown={this._onMouseDown.bind(this, result)}>
           { result.displayElements }
-        </ListItem>
+        </TypeaheadOption>
       );
     }, this);
 
@@ -68,18 +66,19 @@ module.exports = Component({
     if (this.props.customValue !== null) {
 
       results.push(
-        <ListItem
-          styles={listItemStyles}
-          ref={this.props.customValue} key={this.props.customValue}
+        <TypeaheadOption
+          styles={this.props.optionStyles}
+          ref={this.props.customValue}
+          key={this.props.customValue}
           hover={this.state.selectionIndex === results.length}
           customValue={this.props.customValue}
           onMouseDown={this._onMouseDown.bind(this, this.props.customValue)}>
           { this.props.customValue.inputDisplayText }
-        </ListItem>
+        </TypeaheadOption>
       );
     }
 
-    return <List className={classList} styles={{self: this.getStyles('self')}}>{ results }</List>;
+    return <TypeaheadList className={classList}>{ results }</TypeaheadList>;
   },
 
   setSelectionIndex(index) {

@@ -2,7 +2,8 @@ export default c => ({
 
   self: {
     minHeight: c.titleBarHeight,
-    boxShadow: '0 1px 6px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.12)'
+    boxShadow: '0 1px 6px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.12)',
+    flex: '0 0 auto'
   },
 
   inner: {

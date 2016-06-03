@@ -1,7 +1,6 @@
 var React = require('react');
 var Component = require('../component');
-var TypeaheadButton = require('./TypeaheadButton');
-
+var ListItem = require('./ListItem');
 /**
  * A single option within the TypeaheadOption
  */
@@ -10,7 +9,6 @@ module.exports = Component({
 
   propTypes: {
     customValue: React.PropTypes.object,
-    onMouseDown: React.PropTypes.func,
     children: React.PropTypes.string,
     hover: React.PropTypes.bool,
     optionStyles: React.PropTypes.object,
@@ -18,8 +16,7 @@ module.exports = Component({
 
   getDefaultProps() {
     return {
-      onMouseDown: function(event) { event.preventDefault(); },
-      optionStyles: {},
+      optionStyles: {}
     };
   },
 
@@ -28,10 +25,14 @@ module.exports = Component({
   },
 
   render() {
+
+    var { styles, ...props } = this.props;
+    var listItemStyles = { self: this.getStyles('listItem'), touchRipple: this.getStyles('listItem--touchRipple'), children: this.getStyles('listItem--children') };
+
     return (
-      <TypeaheadButton {...this.componentProps('typeaheadButton')} styles={this.props.optionStyles} onMouseDown={this._onMouseDown}>
+      <ListItem styles={ listItemStyles } { ...this.componentProps() } { ...props }>
         { this.props.children }
-      </TypeaheadButton>
+      </ListItem>
     );
   },
 

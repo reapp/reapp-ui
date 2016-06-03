@@ -6,17 +6,18 @@ module.exports = (c) => ({
     width: '100%',
     height: 'auto',
     position: 'relative',
-    padding: '5px',
     flex: '1 1 auto'
   },
   active: {
     opacity: 1
   },
   'button--self': {
+    minWidth: '0',
     flex: '1 1 auto'
   },
   'button--text': {
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    padding: '0 0'
   }
 });

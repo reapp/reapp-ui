@@ -1,10 +1,15 @@
 module.exports = (c) => ({
   self: {
-    position: 'absolute',
+    boxShadow: '0 1px 6px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.12)',
     zIndex: 10,
-    margin: '1px 0 0 50px',
     minWidth: 300,
     overflowY: 'scroll',
   	WebkitOverflowScrolling: 'touch',
+    marginRight: '0px',
+    marginBottom: '0px',
+    padding: '0 0 0 0',
+    borderLeft: 'none',
+    borderRight: 'none',
+    borderBottom: 'none'
   }
 });

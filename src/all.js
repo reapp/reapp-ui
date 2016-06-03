@@ -33,6 +33,8 @@ module.exports = Object.assign(
   TitleBar: require('./components/TitleBar'),
   Typeahead: require('./components/Typeahead'),
   TypeaheadSelector: require('./components/TypeaheadSelector'),
+  TypeaheadList: require('./components/TypeaheadList'),
+  TypeaheadOption: require('./components/TypeaheadOption'),
 
   // decorators
   Tweenable: require('./decorators/Tweenable'),
