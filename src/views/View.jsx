@@ -80,8 +80,6 @@ module.exports = Component({
   },
 
   componentDidMount() {
-    this.scrollListener(this.refs.inner);
-
     if (this.props.onComponentMounted)
       this.props.onComponentMounted(this.props.index);
   },
