@@ -160,7 +160,7 @@ var Typeahead = Component({
 
   _blurEntry() {
     document.activeElement.blur();
-  }
+  },
 
   _hasCustomValue() {
     if (this.props.allowCustomValues && this.state.value.length > 0) {

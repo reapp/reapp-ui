@@ -139,6 +139,8 @@ module.exports = Component({
         top: this.props.titleBarHeight || this.getConstant('titleBarHeight')
       });
 
+    var staticStyles = { self: this.getStyles('static') };
+
     return (
       <div {...this.componentProps()} {...props}>
         {title && (
@@ -151,7 +153,8 @@ module.exports = Component({
         )}
 
         <div {...this.componentProps('inner')} {...innerProps}>
-          <StaticContainer {...this.componentProps('static')}
+          <StaticContainer
+            styles={staticStyles}
             fullscreen={fullscreen}
             update={shouldUpdate}>
             {children}

@@ -5,7 +5,9 @@ export default c => ({
     left: 0,
     bottom: 0,
     right: 0,
-    zIndex: 2
+    zIndex: 2,
+    transform: 'translateZ(0)',
+    WebkitOverflowScrolling: 'touch'
   },
 
   inactive: {
@@ -21,9 +23,9 @@ export default c => ({
   },
 
   static: {
-    padding: `0 ${c.viewPad}`,
     overflowY: 'scroll',
     overflowX: 'hidden',
+    padding: '0px 8px',
     flex: 1,
     zIndex: 1,
     WebkitOverflowScrolling: 'touch',
