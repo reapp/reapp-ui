@@ -57,12 +57,6 @@ module.exports = Component({
     plain: React.PropTypes.bool
   },
 
-  getInitialState() {
-    return {
-      isScrolling: false
-    };
-  },
-
   animationSource: 'viewList',
 
   componentWillMount() {
@@ -73,8 +67,6 @@ module.exports = Component({
   },
 
   componentDidMount() {
-    this.scrollListener(this.refs.inner);
-
     if (this.props.onComponentMounted)
       this.props.onComponentMounted(this.props.index);
   },
@@ -117,9 +109,6 @@ module.exports = Component({
     }, titleBarProps);
 
     var shouldUpdate = !animations || !inactive;
-
-    if (this.state.isScrolling)
-      this.addClass('inner', 'isScrolling');
 
     if (inactive)
       this.addStyles('inactive');
