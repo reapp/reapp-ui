@@ -24,7 +24,9 @@ var Tabs = Component({
 
   getInitialState() {
     return {
-      activeIndex: 0
+      activeIndex: 0,
+      inkBarWidth: null,
+      inkBarLeft: null
     };
   },
 
@@ -83,16 +85,21 @@ var Tabs = Component({
       });
     }
 
+    var onTapProp = [];
     let tabItems = React.Children.map(children, (tab, i) => {
       var active = false;
-      if (i == this.state.activeIndex) {
+      onTapProp[i] = function() { return null; };
+      if (i === this.state.activeIndex) {
         active = true;
+      }
+      if (this.state.inkBarWidth !== null && this.state.inkBarLeft !== null) {
+        onTapProp[i] = this.setActiveIndex;
       }
       if (wrap)
         return (
           <TabItem {...itemProps}
             index={i}
-            onTap={this.setActiveIndex}
+            onTap={onTapProp[i]}
             key={i}
             ref={`Tab_${i}`}
             active={active}
