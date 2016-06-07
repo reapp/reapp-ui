@@ -35,20 +35,28 @@ var Tabs = Component({
   },
 
   componentDidMount() {
-    var stri = this.refs[`Tab_${this.state.activeIndex}`].refs.self.getDOMNode().offsetWidth;
-    var padd = this.refs[`Tab_${this.state.activeIndex}`].refs.self.getDOMNode().offsetLeft;
-    if (this.state.inkBarWidth !== (stri + padd)) {
-      this.setState({inkBarWidth: stri + padd});
+    var inkBarLeft = 0;
+    for (var t = 0; t < this.state.activeIndex; t++) {
+      inkBarLeft = this.refs[`Tab_${t}`].refs.self.getDOMNode().offsetWidth + inkBarLeft;
+    }
+    
+    var inkBarWidth = this.refs[`Tab_${this.state.activeIndex}`].refs.self.getDOMNode().offsetWidth;
+
+    if (this.state.inkBarWidth !== inkBarWidth || this.state.inkBarLeft !== inkBarLeft) {
+      this.setState({ inkBarWidth: inkBarWidth, inkBarLeft: inkBarLeft });
     }
   },
 
   componentDidUpdate() {
-    console.log('updated');
-    var stri = this.refs[`Tab_${this.state.activeIndex}`].refs.self.getDOMNode().offsetWidth;
-    var padd = this.refs[`Tab_${this.state.activeIndex}`].refs.self.getDOMNode().offsetLeft;
+    var inkBarLeft = 0;
+    for (var t = 0; t < this.state.activeIndex; t++) {
+      inkBarLeft = this.refs[`Tab_${t}`].refs.self.getDOMNode().offsetWidth + inkBarLeft;
+    }
 
-    if (this.state.inkBarWidth !== (stri+ padd)) {
-      this.setState({inkBarWidth: stri + padd});
+    var inkBarWidth = this.refs[`Tab_${this.state.activeIndex}`].refs.self.getDOMNode().offsetWidth;
+
+    if (this.state.inkBarWidth !== inkBarWidth || this.state.inkBarLeft !== inkBarLeft) {
+      this.setState({ inkBarWidth: inkBarWidth, inkBarLeft: inkBarLeft });
     }
   },
 
@@ -70,8 +78,8 @@ var Tabs = Component({
     if (children.constructor === Array && children.length > 0) {
       inkBarStyle = this.componentProps('inkBar').style;
       inkBarStyle.push({
-        width: this.state.inkBarWidth,
-        left: `${((this.state.activeIndex) * ((100 / children.length).toPrecision(4)))}%`
+        width: `${this.state.inkBarWidth}px`,
+        left: `${this.state.inkBarLeft}px`
       });
     }
 
