@@ -72,7 +72,7 @@ more on how Reapp works, check out:
 - [Packages](http://reapp.io/packages.html): Information on the other packages that come with reapp
 - [Animations](http://reapp.io/docs-animations.html): How to make custom animations
 - [Themes](http://reapp.io/docs-themes.html): Themes in depth
-- [Building & Cordova](http://reapp.io/docs-builds.html): How to build your app for the web, ios, or any other platforms
+- [Building](http://reapp.io/start.html#running-&amp;-building) & [Cordova](http://reapp.io/start.html#cordova): How to build your app for the web, iOS and other platforms
 
 
 ### Demos

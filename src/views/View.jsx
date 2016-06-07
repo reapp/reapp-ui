@@ -64,12 +64,6 @@ module.exports = Component({
     };
   },
 
-  getInitialState() {
-    return {
-      isScrolling: false
-    };
-  },
-
   animationSource: 'viewList',
 
   componentWillMount() {
@@ -123,9 +117,6 @@ module.exports = Component({
     }, titleBarProps);
 
     var shouldUpdate = !animations || !inactive;
-
-    if (this.state.isScrolling)
-      this.addClass('inner', 'isScrolling');
 
     if (inactive)
       this.addStyles('inactive');
