@@ -33,7 +33,7 @@
     "lodash.merge": "^4.0.1",
     "observable-state": "^0.3.4",
     "radium": "^0.16.4",
-    "react": "0.14.x",
+    "react": "^15.1.0",
     "react-animate-state": "^1.0.1",
     "react-style-normalizer": "^1.2.8",
     "reapp-component": "^1.0.2",
