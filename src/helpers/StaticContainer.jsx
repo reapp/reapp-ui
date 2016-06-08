@@ -26,6 +26,7 @@ module.exports = Component({
     return (
       <div {...this.componentProps()} >
         {this.props.children}
+        <div {...this.componentProps('after')} />
       </div>
     );
   }

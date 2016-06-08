@@ -11,5 +11,12 @@ module.exports = c => ({
     bottom: 0,
     top: 0,
     padding: `0 ${c.viewPad}`
+  },
+
+  after: {
+    position: 'absolute',
+    width: '100%',
+    top: '0px',
+    height: 'calc(100% + 1px)'
   }
 });
