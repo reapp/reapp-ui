@@ -28,15 +28,15 @@ module.exports = Component({
     };
   },
 
-  _leftIconTap() {
+  _leftIconTap(e) {
     if (!!this.props.leftIconFunc) {
-      this.props.leftIconFunc(this);
+      this.props.leftIconFunc(e);
     }
   },
 
-  _rightIconTap() {
+  _rightIconTap(e) {
     if (!!this.props.rightIconFunc) {
-      this.props.rightIconFunc(this);
+      this.props.rightIconFunc(e);
     }
   },
 

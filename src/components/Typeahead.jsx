@@ -155,7 +155,7 @@ var Typeahead = Component({
   },
 
   _focusEntry() {
-    this.refs.entry.refs.input.getDOMNode().focus();
+    this.refs.entry.refs.input.focus();
   },
 
   _blurEntry() {
@@ -202,7 +202,6 @@ var Typeahead = Component({
     }
 
     if (this._hasCustomValue()) {
-      console.log('customValue - this.state.visible: ' + this.state.visible);
       return (
         <TypeaheadSelector
           ref="sel"
@@ -216,7 +215,6 @@ var Typeahead = Component({
       );
     }
 
-    console.log('return - this.state.visible: ' + this.state.visible);
     return (
       <TypeaheadSelector
         ref="sel"
@@ -230,7 +228,6 @@ var Typeahead = Component({
   },
 
   _onOptionSelected(option, event) {
-    console.log('onOptionSelected!');
     var nEntry = this.refs.entry.refs.input;
     var value = null;
     nEntry.focus();
@@ -242,7 +239,6 @@ var Typeahead = Component({
       nEntry.value = option.value;
       value = option.display;
     }
-    console.log('this.getOptionsForDisplay(option.display, this.props.options): ' + this.getOptionsForDisplay(option.display, this.props.options));
     this.setState({visible: this.getOptionsForDisplay(option.display, this.props.options),
                    selection: option.display,
                    value: value});
@@ -251,6 +247,7 @@ var Typeahead = Component({
 
   _onFocus() {
     this.setState({ focused: true });
+    this.props.onFocus(this);
   },
 
   _onBlur(e) {
@@ -354,27 +351,25 @@ var Typeahead = Component({
     });
   },
 
-  handleMicTap() {
-    this.props.handleMicTap(this);
+  handleMicTap(e) {
+    this.props.handleMicTap(e);
   },
 
-  handleSearchIconTap() {
-    this.props.handleSearchIconTap(this);
+  handleSearchIconTap(e) {
+    this.props.handleSearchIconTap(e);
   },
 
   handleCloseIconTap(e) {
-    console.log(e);
-    e.endMouseEvent();
-    e.endTouch();
-    this.props.handleCloseIconTap(this);
+    e.stopPropagation();
+    this.props.handleCloseIconTap(e);
     var that = this;
     setTimeout(function() {
       that._focusEntry();
-    }, 2);
+    }, 100);
   },
 
-  handleBackIconTap() {
-    this.props.handleBackIconTap(this);
+  handleBackIconTap(e) {
+    this.props.handleBackIconTap(e);
     this._closeTypeahead();
   },
 

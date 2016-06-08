@@ -35,7 +35,6 @@ module.exports = Component({
   },
 
   componentDidMount() {
-    console.log('this.props.centerMiddleTitle: ' + this.props.centerMiddleTitle);
     if (this.props.centerMiddleTitle) {
       this.centerMiddleTitle();
     }

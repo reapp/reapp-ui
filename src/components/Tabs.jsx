@@ -8,6 +8,8 @@ var Tabs = Component({
 
   propTypes: {
 
+    activeIndex: React.PropTypes.number,
+
     // pass props to List.Item
     itemProps: React.PropTypes.object,
 
@@ -22,9 +24,15 @@ var Tabs = Component({
 
   },
 
+  getDefaultProps() {
+    return {
+      activeIndex: 0
+    };
+  },
+
   getInitialState() {
     return {
-      activeIndex: 0,
+      activeIndex: this.props.activeIndex,
       inkBarWidth: null,
       inkBarLeft: null
     };
@@ -39,10 +47,10 @@ var Tabs = Component({
   componentDidMount() {
     var inkBarLeft = 0;
     for (var t = 0; t < this.state.activeIndex; t++) {
-      inkBarLeft = this.refs[`Tab_${t}`].refs.self.getDOMNode().offsetWidth + inkBarLeft;
+      inkBarLeft = this.refs[`Tab_${t}`].refs.self.offsetWidth + inkBarLeft;
     }
     
-    var inkBarWidth = this.refs[`Tab_${this.state.activeIndex}`].refs.self.getDOMNode().offsetWidth;
+    var inkBarWidth = this.refs[`Tab_${this.state.activeIndex}`].refs.self.offsetWidth;
 
     if (this.state.inkBarWidth !== inkBarWidth || this.state.inkBarLeft !== inkBarLeft) {
       this.setState({ inkBarWidth: inkBarWidth, inkBarLeft: inkBarLeft });
@@ -52,10 +60,10 @@ var Tabs = Component({
   componentDidUpdate() {
     var inkBarLeft = 0;
     for (var t = 0; t < this.state.activeIndex; t++) {
-      inkBarLeft = this.refs[`Tab_${t}`].refs.self.getDOMNode().offsetWidth + inkBarLeft;
+      inkBarLeft = this.refs[`Tab_${t}`].refs.self.offsetWidth + inkBarLeft;
     }
 
-    var inkBarWidth = this.refs[`Tab_${this.state.activeIndex}`].refs.self.getDOMNode().offsetWidth;
+    var inkBarWidth = this.refs[`Tab_${this.state.activeIndex}`].refs.self.offsetWidth;
 
     if (this.state.inkBarWidth !== inkBarWidth || this.state.inkBarLeft !== inkBarLeft) {
       this.setState({ inkBarWidth: inkBarWidth, inkBarLeft: inkBarLeft });
@@ -88,7 +96,9 @@ var Tabs = Component({
     var onTapProp = [];
     let tabItems = React.Children.map(children, (tab, i) => {
       var active = false;
-      onTapProp[i] = function() { return null; };
+      onTapProp[i] = function() {
+        return null;
+      };
       if (i === this.state.activeIndex) {
         active = true;
       }

@@ -5,7 +5,6 @@ var clone = require('../lib/niceClone');
 var Tappable = require('../mixins/Tappable');
 var ButtonGroup = require('./ButtonGroup');
 var TouchRipple = require('../helpers/ripple/TouchRipple');
-import ReactTransitionGroup from 'react-addons-transition-group';
 
 var Button = Component({
   name: 'Button',

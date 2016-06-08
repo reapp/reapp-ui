@@ -87,7 +87,6 @@ var InputArray = Component({
   },
 
   _addInputDefault() {
-  	console.log('_addInputDefault hit');
   	//this.props.inputs.push({
   	//  defaultValue: "",
     //  disabled: false,
@@ -131,7 +130,6 @@ var InputArray = Component({
   },
 
   handleInputBlur(that,inputElement) {
-    console.log('test');
     var inputKey = inputElement.target.name.replace(this.props.namePrefix,"");
     var inputsCopy = JSON.parse(JSON.stringify(this.state.inputs));
     inputsCopy[inputKey].defaultValue = inputElement.target.value;

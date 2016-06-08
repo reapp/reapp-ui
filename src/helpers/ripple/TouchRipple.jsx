@@ -74,7 +74,7 @@ module.exports = Component({
     }
   },
 
-  handleMouseDown(event) {    
+  handleMouseDown(event) {
     if (event.button === 0) {
       this.start(event, false);
     }
