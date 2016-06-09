@@ -1,7 +1,8 @@
 module.exports = c => ({
   self: {
     flex: 1,
-    height: '100%'
+    height: '100%',
+    zIndex: 1
   },
   
   fullscreen: {
@@ -17,6 +18,16 @@ module.exports = c => ({
     position: 'absolute',
     width: '100%',
     top: '0px',
-    height: 'calc(100% + 1px)'
+    height: 'calc(100% + 1px)',
+    zIndex: -1
+  },
+
+  scrollingEnabled: {
+    zIndex: 1,
+    WebkitOverflowScrolling: 'touch',
+    overflowY: 'scroll',
+    overflowX: 'hidden',
+    // fix nested views overlay each other
+    transform: 'translateZ(0)'
   }
 });

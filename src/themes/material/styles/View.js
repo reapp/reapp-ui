@@ -23,14 +23,8 @@ export default c => ({
   },
 
   static: {
-    overflowY: 'scroll',
-    overflowX: 'hidden',
     padding: '0px 8px',
-    flex: 1,
-    zIndex: 1,
-    WebkitOverflowScrolling: 'touch',
-    // fix nested views overlay each other
-    transform: 'translateZ(0)'
+    flex: 1
   },
 
   plain: {

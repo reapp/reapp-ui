@@ -48,6 +48,9 @@ module.exports = Component({
     // make the StaticContainer inside fullscreen
     fullscreen: React.PropTypes.bool,
 
+    // set the scrolling ability of static container
+    scrollingEnabled: React.PropTypes.bool,
+
     // see scrollTopable
     scrollTop: React.PropTypes.oneOfType([
       React.PropTypes.string,

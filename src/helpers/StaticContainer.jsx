@@ -5,12 +5,14 @@ module.exports = Component({
   name: 'StaticContainer',
 
   propTypes: {
-    children: React.PropTypes.element.isRequired
+    children: React.PropTypes.element.isRequired,
+    scrollingEnabled: React.PropTypes.bool
   },
 
   getDefaultProps() {
     return {
-      update: false
+      update: false,
+      scrollingEnabled: true
     };
   },
 
@@ -23,10 +25,15 @@ module.exports = Component({
     if (this.props.fullscreen)
       this.addStyles('fullscreen');
 
+    if (this.props.scrollingEnabled)
+      this.addStyles('scrollingEnabled');
+
     return (
       <div {...this.componentProps()} >
         {this.props.children}
-        <div {...this.componentProps('after')} />
+        {this.props.scrollingEnabled &&
+          <div {...this.componentProps('after')} />
+        }
       </div>
     );
   }
