@@ -12,8 +12,8 @@ module.exports = {
   scrollerProps: {
     animationDuration: 500,
     paging: true,
-    pagingDeceleration: false,
-    bouncing: false,
+    pagingDeceleration: true,
+    bouncing: true,
     easing: 'cubic'
   },
   viewAnimations: {

@@ -13,7 +13,7 @@ module.exports = Component({
       bouncing: true,
       snapping: true,
       locking: true,
-      paging: false,
+      paging: true,
       scrollingY: this.props.up || this.props.down || false,
       scrollingX: this.props.left || this.props.right || false
     }, this.props.scrollerProps);
