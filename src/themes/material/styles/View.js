@@ -17,14 +17,14 @@ export default c => ({
   inner: {
     background: c.viewBG,
     zIndex: 1,
-    flex: 1,
+    flex: '1 1 100%',
     height: '100%',
     position: 'relative'
   },
 
   static: {
     padding: '0px 8px',
-    flex: 1
+    flex: '1 1 100%'
   },
 
   plain: {
