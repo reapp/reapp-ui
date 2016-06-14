@@ -20,7 +20,7 @@ export default c => ({
     cursor: 'pointer',
     outline: 'none',
     overflow: 'hidden',
-    flexFlow: 'row',
+    flexFlow: 'column',
     flexAlign: 'center',
     alignItems: 'center',
     margin: 0,
@@ -49,10 +49,11 @@ export default c => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
+    justifyContent: 'center',
     flexFlow: 'row',
     flexDirection: 'row',
-    width: '100%',
-    height: '100%'
+    flex: '1',
+    width: '100%'
   },
 
   text: {

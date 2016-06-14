@@ -1,11 +1,11 @@
 module.exports = (c) => ({
 
   self: {
-    height: '100%',
     width: '100%',
-    flexFow: 'row',
-    WebkitFlexFlow: 'row',
-    flexFlow: 'row',
+    flexFow: 'column',
+    WebkitFlexFlow: 'column',
+    flexFlow: 'column',
+    flex: '1',
     alignItems: 'center',
     WebkitAlignItems: 'center'
   },

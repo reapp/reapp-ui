@@ -15,6 +15,11 @@ module.exports = (c) => ({
     minWidth: '0',
     flex: '1 1 auto'
   },
+  'button--inner': {
+    flexDirection: 'column',
+    flexFlow: 'column',
+    flex: '1'
+  },
   'button--text': {
     flexDirection: 'row',
     justifyContent: 'center',

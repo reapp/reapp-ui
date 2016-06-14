@@ -54,7 +54,7 @@ module.exports = Component({
     if (this.state.tapActive)
       this.addStyles('tapActive');
 
-    var buttonStyles = { self: this.getStyles('button--self'), text: this.getStyles('button--text') };
+    var buttonStyles = { self: this.getStyles('button--self'), text: this.getStyles('button--text'), inner: this.getStyles('button--inner') };
 
     if (this.props.active) {
       this.addStyles('active');
