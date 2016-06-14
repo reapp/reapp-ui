@@ -63,7 +63,8 @@ module.exports = Component({
 
   getDefaultProps() {
     return {
-      centerMiddleTitle: true
+      centerMiddleTitle: true,
+      scrollingEnabled: true
     };
   },
 
@@ -106,6 +107,7 @@ module.exports = Component({
       viewList,
       inactive,
       fullscreen,
+      scrollingEnabled,
       after,
       plain,
       isInViewList,
@@ -135,6 +137,8 @@ module.exports = Component({
 
     var staticStyles = { self: this.getStyles('static') };
 
+    console.log('View.jsx this.props.scrollingEnabled: ' + this.props.scrollingEnabled);
+
     return (
       <div {...this.componentProps()} {...props}>
         {title && (
@@ -150,7 +154,8 @@ module.exports = Component({
           <StaticContainer
             styles={staticStyles}
             fullscreen={fullscreen}
-            update={shouldUpdate}>
+            update={shouldUpdate}
+            scrollingEnabled={scrollingEnabled}>
             {children}
           </StaticContainer>
           {!plain &&
