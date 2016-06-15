@@ -18,6 +18,7 @@ export default {
   Gallery: require('./styles/Gallery'),
   GalleryCard: require('./styles/GalleryCard'),
   GalleryImage: require('./styles/GalleryImage'),
+  Icon: require('./styles/Icon'),
   Input: require('./styles/Input'),
   InputArray: require('./styles/InputArray'),
   Label: require('./styles/Label'),
