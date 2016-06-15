@@ -23,6 +23,43 @@ module.exports = Component({
     };
   },
 
+  getInitialState() {
+    return {
+      svgId: this.get2863key()
+    };
+  },
+
+  componentDidMount() {
+    var svgDoc = new DOMParser().parseFromString(this.props.file, "text/xml");
+    var svgElement = document.getElementById(this.state.svgId);
+    svgElement.appendChild(svgElement.ownerDocument.importNode(svgDoc.documentElement, true));
+  },
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.file !== this.props.file) {
+      var svgDoc = new DOMParser().parseFromString(this.props.file);
+      var svgElement = document.getElementById(this.state.svgId);
+      svgElement.appendChild(svgElement.ownerDocument.importNode(svgDoc.documentElement, true));
+    }
+  },
+
+  get2863key() {
+      var nextProps = this.props;
+      var nextState = this.state;
+      var lastProps = this._lastProps2863;
+      var lastState = this._lastState2863;
+
+      if (!_.isEqual(lastProps, nextProps)
+      || !_.isEqual(lastState, nextState)) {
+
+          this._cached2863Key = Date.now();
+      }
+
+      this._lastProps2863 = nextProps;
+      this._lastState2863 = nextState;
+      return this._cached2863Key;
+  },
+
   render() {
     var {
       size,
@@ -60,7 +97,7 @@ module.exports = Component({
 
     return (
       <svg viewBox={viewBox} {...props} {...this.componentProps()}>
-        <g dangerouslySetInnerHTML={{__html: file }} />
+        <g id={this.state.svgId} key={this.state.svgId} />
       </svg>
     );
   }
