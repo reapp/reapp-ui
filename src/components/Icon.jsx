@@ -57,8 +57,6 @@ module.exports = Component({
     if (isInTitleBar)
       this.addStyles('isInTitleBar');
 
-    console.log('static styles: ');
-    console.log(this.getStyles('static'));
     return (
       <div {...this.componentProps()}>
         <StaticContainer update={shouldUpdate} styles={this.getStyles('static')}>
