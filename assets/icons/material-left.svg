@@ -1,4 +1,7 @@
-<g id="back" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(52.000000, 99.000000)">
-  <rect id="bounds" x="0" y="0" width="24" height="24"></rect>
-  <polygon id="Shape" fill="#000000" opacity="0.539999962" points="20 11 7.8 11 13.4 5.4 12 4 4 12 12 20 13.4 18.6 7.8 13 20 13"></polygon>
-</g>
+
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="back" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="bounds" x="0" y="0" width="24" height="24"></rect>
+        <polygon id="Shape" fill-opacity="0.87" fill="#000000" points="20 11 7.8 11 13.4 5.4 12 4 4 12 12 20 13.4 18.6 7.8 13 20 13"></polygon>
+    </g>
+</svg>

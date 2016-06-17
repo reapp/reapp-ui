@@ -12,7 +12,7 @@ var leftIcon = require('../../assets/icons/material-left.svg');
 var searchIconProps = {
   size: 24,
   file: searchIcon,
-  viewBox: '16 12 24 24',
+  viewBox: '0 0 100 100',
   stroke: 0,
   styles: {
     self: {
@@ -23,7 +23,7 @@ var searchIconProps = {
 var micIconProps = {
   size: 24,
   file: micIcon,
-  viewBox: '304 12 24 24',
+  viewBox: '0 0 24 24',
   stroke: 0,
   styles: {
     self: {
@@ -32,25 +32,25 @@ var micIconProps = {
 };
 
 var backIconProps = {
-  size: 48,
+  size: 24,
   file: leftIcon,
-  viewBox: '46 91 40 40',
+  viewBox: '0 0 24 24',
   stroke: 0,
   styles: {
     self: {
-      margin: '0 0 0 -8px'
+      margin: '0 0 0 0'
     }
   }
 };
 
 var closeIconProps = {
-  size: 48,
+  size: 24,
   file: closeIcon,
-  viewBox: '408 92 40 40',
+  viewBox: '0 0 24 24',
   stroke: 0,
   styles: {
     self: {
-      margin: '0 -8px 0 0'
+      margin: '0 0 0 0'
     }
   }
 };

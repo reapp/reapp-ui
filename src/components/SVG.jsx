@@ -37,8 +37,11 @@ module.exports = Component({
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.file !== this.props.file) {
-      var svgDoc = new DOMParser().parseFromString(this.props.file);
+      var svgDoc = new DOMParser().parseFromString(this.props.file, "text/xml");
       var svgElement = document.getElementById(this.state.svgId);
+      while(svgElement.firstChild) {
+        svgElement.removeChild(svgElement.firstChild);
+      }
       svgElement.appendChild(svgElement.ownerDocument.importNode(svgDoc.documentElement, true));
     }
   },
