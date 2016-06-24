@@ -78,6 +78,7 @@ var Typeahead = Component({
     onKeyDown: React.PropTypes.func,
     onKeyUp: React.PropTypes.func,
     onBlur: React.PropTypes.func,
+    onFocus: React.PropTypes.func,
     filterOption: React.PropTypes.func,
     disabled: React.PropTypes.bool,
     handleMicIconTap: React.PropTypes.func,
@@ -105,6 +106,7 @@ var Typeahead = Component({
       onKeyDown: function(event) {},
       onKeyUp: function(event) {},
       onBlur: function(event) {},
+      onFocus: function(event) {},
       filterOption: null,
       disabled: false,
       handleMicIconTap: function() {},
@@ -247,7 +249,9 @@ var Typeahead = Component({
 
   _onFocus() {
     this.setState({ focused: true });
-    this.props.onFocus(this);
+    if (typeof this.props.onFocus !== 'undefined') {
+      this.props.onFocus(this);
+    }
   },
 
   _onBlur(e) {
