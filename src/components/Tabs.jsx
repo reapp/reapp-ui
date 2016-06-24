@@ -40,7 +40,10 @@ var Tabs = Component({
 
   componentWillReceiveProps(newProps) {
     if (newProps.initialActiveIndex) {
-      this.stateState({activeIndex: newProps.initialActiveIndex});
+      this.setState({activeIndex: newProps.initialActiveIndex});
+    }
+    if (newProps.activeIndex) {
+      this.setState({activeIndex: newProps.activeIndex});
     }
   },
 
