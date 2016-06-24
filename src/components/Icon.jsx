@@ -59,7 +59,7 @@ module.exports = Component({
 
     return (
       <div {...this.componentProps()}>
-        <StaticContainer update={shouldUpdate} styles={this.getStyles('static')}>
+        <StaticContainer update={shouldUpdate} styles={this.getStyles('static')} scrollingEnabled={false}>
           <SVG {...props} color={color} />
         </StaticContainer>
       </div>
